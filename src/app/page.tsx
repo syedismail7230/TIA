@@ -14,12 +14,12 @@ export default function HomePage() {
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '48px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gap: '32px',
           alignItems: 'center',
-        }}>
+        }} className="hero-grid-layout">
           {/* Left Column: Hero Copy & Actions */}
-          <div style={{ maxWidth: '640px' }}>
+          <div style={{ maxWidth: '600px' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -110,12 +110,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual - High Impact Large Presentation */}
-          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {/* Right Column: Hero Visual - Ultra Large Presentation */}
+          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '760px',
+              maxWidth: '880px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -126,10 +126,10 @@ export default function HomePage() {
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '640px',
+                  maxHeight: '780px',
                   objectFit: 'contain',
                   display: 'block',
-                  filter: 'drop-shadow(0 20px 40px rgba(0, 82, 255, 0.15))',
+                  filter: 'drop-shadow(0 25px 50px rgba(0, 82, 255, 0.18))',
                 }}
               />
             </div>
