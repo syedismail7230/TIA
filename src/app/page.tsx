@@ -1,95 +1,110 @@
 import React from 'react';
 import Link from 'next/link';
+import {
+  SearchIcon,
+  CreditCardIcon,
+  BarChartIcon,
+  ScaleIcon,
+  SparklesIcon,
+  ArrowRightIcon,
+  ShieldCheckIcon,
+} from '@/components/ui/Icons';
 
 export default function HomePage() {
   return (
     <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
-      {/* Hero Section with Soft Atmospheric Background */}
-      <section style={{
+      {/* Hero Section with Responsive Atmospheric Background */}
+      <section className="hero-section" style={{
         position: 'relative',
-        padding: '56px 24px 72px 24px',
         maxWidth: '1440px',
         margin: '0 auto',
         backgroundImage: 'radial-gradient(circle at 85% 35%, rgba(0, 82, 255, 0.08) 0%, rgba(255, 255, 255, 0) 65%), radial-gradient(circle at 10% 60%, rgba(59, 130, 246, 0.05) 0%, rgba(255, 255, 255, 0) 50%)',
       }}>
-        <div style={{
+        <div className="hero-container" style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '40px',
           flexWrap: 'wrap',
         }}>
           {/* Left Column: Hero Copy & Actions */}
-          <div style={{ flex: '1 1 420px', maxWidth: '580px' }}>
-            <h1 style={{
-              fontSize: 'clamp(36px, 5.5vw, 56px)',
-              lineHeight: 1.15,
+          <div className="hero-copy-column" style={{ flex: '1 1 400px', maxWidth: '580px' }}>
+            <h1 className="hero-headline" style={{
               letterSpacing: '-0.02em',
-              marginBottom: '24px',
+              marginBottom: '20px',
             }}>
               <span style={{ color: '#0052FF', fontWeight: 600 }}>Effortless Creator Campaigns</span><br />
               <span style={{ color: '#0F172A', fontWeight: 400 }}>for brands and talent defying all odds</span>
             </h1>
 
-            <div style={{
-              fontSize: '14px',
+            {/* Feature Sub-pills */}
+            <div className="hero-feature-tags" style={{
+              fontSize: '13px',
               fontWeight: 600,
               color: '#64748B',
-              marginBottom: '36px',
+              marginBottom: '28px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
               flexWrap: 'wrap',
+              gap: '8px 12px',
             }}>
               <span>Audience Authenticity</span>
-              <span style={{ color: '#CBD5E1' }}>|</span>
+              <span className="tag-separator" style={{ color: '#CBD5E1' }}>•</span>
               <span>Deterministic 5% Escrow</span>
-              <span style={{ color: '#CBD5E1' }}>|</span>
+              <span className="tag-separator" style={{ color: '#CBD5E1' }}>•</span>
               <span>Instant Settlements</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            {/* Action Buttons */}
+            <div className="hero-cta-group" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <Link
                 href="/register?role=BRAND_ADMIN"
-                className="tia-btn-primary"
+                className="tia-btn-primary hero-btn"
                 style={{
-                  padding: '16px 32px',
-                  fontSize: '15px',
+                  padding: '14px 28px',
+                  fontSize: '14px',
                   fontWeight: 700,
                   backgroundColor: '#0052FF',
                   borderColor: '#0052FF',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
                 }}
               >
-                Sign Up Now →
+                <span>Sign Up Now</span>
+                <ArrowRightIcon size={15} color="#FFFFFF" />
               </Link>
               <Link
                 href="/brand/creators"
-                className="tia-btn-secondary"
+                className="tia-btn-secondary hero-btn"
                 style={{
-                  padding: '16px 28px',
-                  fontSize: '15px',
+                  padding: '14px 24px',
+                  fontSize: '14px',
                   fontWeight: 600,
                   color: '#0052FF',
                   borderColor: '#BFDBFE',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                Explore Creators ↗
+                Explore Creators
               </Link>
             </div>
           </div>
 
-          {/* Right Column: Hero Visual - Giant Cinematic Centerpiece */}
-          <div style={{
-            flex: '2.2 1 620px',
+          {/* Right Column: Hero Visual Artwork */}
+          <div className="hero-image-column" style={{
+            flex: '2 1 480px',
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
             alignItems: 'center',
-            minWidth: '340px',
+            minWidth: '280px',
             position: 'relative',
           }}>
-            <div style={{
+            <div className="hero-image-wrapper" style={{
               width: '100%',
-              maxWidth: '1000px',
+              maxWidth: '960px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -97,27 +112,25 @@ export default function HomePage() {
               <img
                 src="/hero.png"
                 alt="The Influencer's Agency Hero Graphic"
+                className="hero-graphic-img"
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '920px',
                   objectFit: 'contain',
                   display: 'block',
-                  filter: 'drop-shadow(0 30px 60px rgba(0, 82, 255, 0.22))',
-                  transform: 'scale(1.22)',
-                  transformOrigin: 'center center',
+                  filter: 'drop-shadow(0 20px 40px rgba(0, 82, 255, 0.18))',
                 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Razorpay-Style Interactive Action Bar */}
-        <div style={{
-          marginTop: '56px',
+        {/* Razorpay-Style Interactive Quick Navigation */}
+        <div className="hero-nav-bar" style={{
+          marginTop: '48px',
           border: '1px solid #E2E8F0',
           backgroundColor: '#FFFFFF',
-          padding: '14px 20px',
+          padding: '12px 18px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -126,16 +139,17 @@ export default function HomePage() {
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>
-            <span style={{ color: '#0052FF' }}>✦</span> Quick Navigation:
+            <SparklesIcon size={14} color="#0052FF" />
+            <span>Quick Navigation:</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <div className="hero-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <Link
               href="/brand/creators"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 padding: '6px 14px',
                 backgroundColor: '#EFF6FF',
                 border: '1px solid #BFDBFE',
@@ -144,7 +158,8 @@ export default function HomePage() {
                 fontWeight: 600,
               }}
             >
-              🔍 Discover Creators
+              <SearchIcon size={14} color="#0052FF" />
+              <span>Discover Creators</span>
             </Link>
 
             <Link
@@ -152,7 +167,7 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 padding: '6px 14px',
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
@@ -161,7 +176,8 @@ export default function HomePage() {
                 fontWeight: 600,
               }}
             >
-              💳 Escrow Payments
+              <CreditCardIcon size={14} color="#334155" />
+              <span>Escrow Payments</span>
             </Link>
 
             <Link
@@ -169,7 +185,7 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 padding: '6px 14px',
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
@@ -178,7 +194,8 @@ export default function HomePage() {
                 fontWeight: 600,
               }}
             >
-              📊 Creator Intelligence Score
+              <BarChartIcon size={14} color="#334155" />
+              <span>Creator Intelligence Score</span>
             </Link>
 
             <Link
@@ -186,7 +203,7 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '8px',
                 padding: '6px 14px',
                 backgroundColor: '#F8FAFC',
                 border: '1px solid #E2E8F0',
@@ -195,7 +212,8 @@ export default function HomePage() {
                 fontWeight: 600,
               }}
             >
-              ⚖️ Platform Governance
+              <ScaleIcon size={14} color="#334155" />
+              <span>Platform Governance</span>
             </Link>
           </div>
         </div>
@@ -206,7 +224,7 @@ export default function HomePage() {
         borderTop: '1px solid #E2E8F0',
         borderBottom: '1px solid #E2E8F0',
         backgroundColor: '#F8FAFC',
-        padding: '32px 24px',
+        padding: '28px 16px',
       }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto', textAlign: 'center' }}>
           <div style={{
@@ -215,7 +233,7 @@ export default function HomePage() {
             color: '#64748B',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            marginBottom: '20px',
+            marginBottom: '16px',
           }}>
             Trusted by 5,000+ Fast-Growing Brands & Tier-1 Creators
           </div>
@@ -224,11 +242,11 @@ export default function HomePage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '40px',
+            gap: '24px 36px',
             flexWrap: 'wrap',
             color: '#475569',
             fontWeight: 800,
-            fontSize: '18px',
+            fontSize: '16px',
             letterSpacing: '-0.02em',
             opacity: 0.75,
           }}>
@@ -244,9 +262,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Core Architectural Pillars (Razorpay-style Feature Cards) */}
-      <section style={{ padding: '64px 24px', maxWidth: '1440px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 48px auto' }}>
+      {/* Core Architectural Pillars */}
+      <section style={{ padding: '48px 16px', maxWidth: '1440px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 36px auto' }}>
           <div style={{
             fontSize: '11px',
             fontWeight: 700,
@@ -257,21 +275,21 @@ export default function HomePage() {
           }}>
             Complete Ecosystem
           </div>
-          <h2 style={{ fontSize: '32px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0F172A' }}>
+          <h2 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0F172A' }}>
             Built for High-Growth Brands & Top Tier Talent
           </h2>
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '24px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '20px',
         }}>
           {/* Card 1 */}
           <div style={{
             border: '1px solid #E2E8F0',
             backgroundColor: '#FFFFFF',
-            padding: '32px',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -279,14 +297,14 @@ export default function HomePage() {
           }}>
             <div>
               <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', marginBottom: '8px' }}>01 / DECISION LAYER</div>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#0F172A' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px', color: '#0F172A' }}>
                 TIA Creator Intelligence Score™
               </h3>
-              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '20px' }}>
+              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '18px' }}>
                 Multi-dimensional composite scoring analyzing measured audience authenticity, engagement consistency, reputation history, and brand safety signals.
               </p>
             </div>
-            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span className="tia-badge tia-badge-blue font-tabular">SCORE: 0–100 GAUGES</span>
               <Link href="/brand/creators" style={{ fontSize: '12px', fontWeight: 700, color: '#0052FF' }}>Inspect Models →</Link>
             </div>
@@ -296,7 +314,7 @@ export default function HomePage() {
           <div style={{
             border: '1px solid #E2E8F0',
             backgroundColor: '#FFFFFF',
-            padding: '32px',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -304,14 +322,14 @@ export default function HomePage() {
           }}>
             <div>
               <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', marginBottom: '8px' }}>02 / TRANSACTION LAYER</div>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#0F172A' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px', color: '#0F172A' }}>
                 Closed-Loop Campaign Execution
               </h3>
-              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '20px' }}>
+              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '18px' }}>
                 In-platform counter-offer negotiations, versioned digital agreements, milestone content approvals, and anti-circumvention protected messaging.
               </p>
             </div>
-            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <span className="tia-badge tia-badge-success">ANTI-CIRCUMVENTION</span>
               <Link href="/brand" style={{ fontSize: '12px', fontWeight: 700, color: '#0052FF' }}>View Workspaces →</Link>
             </div>
@@ -321,7 +339,7 @@ export default function HomePage() {
           <div style={{
             border: '1px solid #E2E8F0',
             backgroundColor: '#FFFFFF',
-            padding: '32px',
+            padding: '24px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -329,16 +347,16 @@ export default function HomePage() {
           }}>
             <div>
               <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', marginBottom: '8px' }}>03 / FINANCIAL LAYER</div>
-              <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '12px', color: '#0F172A' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '10px', color: '#0F172A' }}>
                 5% Platform Commission & Escrow
               </h3>
-              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '20px' }}>
+              <p style={{ fontSize: '13px', color: '#475569', lineHeight: 1.6, marginBottom: '18px' }}>
                 Integer-precision accounting, immutable transaction ledger, escrow funding protection, automated VAT/GST invoices, and scheduled net payouts.
               </p>
             </div>
-            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img src="/logo (2).png" alt="Seal" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+                <ShieldCheckIcon size={16} color="#0052FF" />
                 <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF' }}>ESCROW GUARANTEE</span>
               </div>
               <Link href="/admin" style={{ fontSize: '12px', fontWeight: 700, color: '#0052FF' }}>Audit Ledger →</Link>
@@ -348,13 +366,13 @@ export default function HomePage() {
       </section>
 
       {/* Closed Loop Marketplace Workflow Table */}
-      <section style={{ borderTop: '1px solid #E2E8F0', padding: '64px 24px', backgroundColor: '#F8FAFC' }}>
+      <section style={{ borderTop: '1px solid #E2E8F0', padding: '48px 16px', backgroundColor: '#F8FAFC' }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748B', marginBottom: '8px' }}>
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748B', marginBottom: '6px' }}>
               Execution Lifecycle Machine
             </div>
-            <h2 style={{ fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', color: '#0F172A' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, letterSpacing: '-0.02em', color: '#0F172A' }}>
               From Discovery to Automated Escrow Settlement
             </h2>
           </div>
@@ -404,6 +422,76 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Embedded Mobile CSS Adjustments */}
+      <style jsx>{`
+        .hero-section {
+          padding: 56px 24px 72px 24px;
+        }
+        .hero-container {
+          gap: 40px;
+        }
+        .hero-headline {
+          font-size: clamp(34px, 5.5vw, 56px);
+          line-height: 1.15;
+        }
+        .hero-graphic-img {
+          max-height: 880px;
+          transform: scale(1.18);
+          transform-origin: center center;
+        }
+
+        @media (max-width: 900px) {
+          .hero-section {
+            padding: 32px 16px 40px 16px !important;
+          }
+          .hero-container {
+            gap: 28px !important;
+          }
+          .hero-headline {
+            font-size: clamp(26px, 7vw, 38px) !important;
+            line-height: 1.18 !important;
+          }
+          .hero-cta-group {
+            width: 100% !important;
+          }
+          .hero-btn {
+            flex: 1 1 100% !important;
+            width: 100% !important;
+            padding: 14px 16px !important;
+          }
+          .hero-image-column {
+            margin-top: 16px !important;
+            width: 100% !important;
+          }
+          .hero-graphic-img {
+            max-height: 480px !important;
+            transform: none !important;
+          }
+          .hero-nav-bar {
+            margin-top: 32px !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+          .hero-nav-links {
+            width: 100% !important;
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 8px !important;
+          }
+          .hero-nav-links a {
+            justify-content: center !important;
+            text-align: center !important;
+            padding: 10px 8px !important;
+          }
+        }
+
+        @media (max-width: 500px) {
+          .hero-nav-links {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

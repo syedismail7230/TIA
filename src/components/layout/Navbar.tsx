@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { GlobeIcon, ArrowRightIcon } from '@/components/ui/Icons';
 
 interface NavbarProps {
   user?: {
@@ -27,27 +28,27 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
 
   return (
     <>
-      {/* Razorpay-style Top Announcement Ribbon */}
+      {/* Top Announcement Ribbon - Ultra Responsive */}
       <div style={{
         backgroundColor: '#EFF6FF',
         borderBottom: '1px solid #DBEAFE',
-        padding: '8px 16px',
+        padding: '7px 16px',
         fontSize: '12px',
         color: '#1E40AF',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '12px',
+        gap: '10px',
         fontWeight: 500,
         textAlign: 'center',
         flexWrap: 'wrap',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span style={{ fontSize: '14px' }}>🇮🇳</span>
-          <span>Zero Information Asymmetry</span>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+          <GlobeIcon size={13} color="#1E40AF" />
+          <span style={{ fontWeight: 600 }}>Zero Information Asymmetry</span>
         </div>
-        <span style={{ color: '#93C5FD' }}>•</span>
-        <span>Deterministic 5% Escrow Commission • Instant Creator Settlements</span>
+        <span className="ribbon-divider" style={{ color: '#93C5FD' }}>•</span>
+        <span className="ribbon-subtext">Deterministic 5% Escrow Commission • Instant Settlements</span>
         <Link
           href="/register"
           style={{
@@ -62,7 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             gap: '4px',
           }}
         >
-          Explore TIA ↗
+          <span>Explore TIA</span>
+          <ArrowRightIcon size={11} color="#FFFFFF" />
         </Link>
       </div>
 
@@ -78,8 +80,8 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
         <div style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 24px',
-          height: '72px',
+          padding: '0 16px',
+          height: '68px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -91,9 +93,9 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 style={{
-                  height: '46px',
+                  height: '42px',
                   width: 'auto',
-                  maxWidth: '220px',
+                  maxWidth: '180px',
                   objectFit: 'contain',
                   display: 'block',
                 }}
@@ -120,7 +122,8 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
           {/* Right Desktop Actions */}
           <div className="desktop-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', fontWeight: 600, borderRight: '1px solid #E2E8F0', paddingRight: '16px' }}>
-              <span>🇮🇳 INR</span>
+              <GlobeIcon size={14} color="#64748B" />
+              <span>INR</span>
             </div>
 
             {user ? (
@@ -167,13 +170,14 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                     gap: '6px',
                   }}
                 >
-                  Sign Up →
+                  <span>Sign Up</span>
+                  <ArrowRightIcon size={14} color="#FFFFFF" />
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Hamburger Toggle Button */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -181,18 +185,19 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             aria-label="Toggle navigation menu"
             style={{
               display: 'none',
-              padding: '8px 12px',
+              padding: '6px 12px',
               border: '1px solid var(--border-medium)',
               backgroundColor: '#FFFFFF',
-              fontSize: '14px',
+              fontSize: '12px',
               fontWeight: 700,
+              letterSpacing: '0.04em',
             }}
           >
-            {mobileMenuOpen ? '✕ CLOSE' : '☰ MENU'}
+            {mobileMenuOpen ? 'CLOSE' : 'MENU'}
           </button>
         </div>
 
-        {/* Mobile Drawer */}
+        {/* Mobile Slide-down Drawer */}
         {mobileMenuOpen && (
           <div style={{
             borderTop: '1px solid #E2E8F0',
@@ -220,18 +225,18 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 <button
                   onClick={handleLogout}
                   className="tia-btn-danger"
-                  style={{ marginTop: '8px', padding: '10px' }}
+                  style={{ marginTop: '8px', padding: '10px', width: '100%' }}
                 >
                   Sign Out
                 </button>
               </>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <Link href="/login" onClick={closeMenu} className="tia-btn-secondary" style={{ textAlign: 'center', padding: '10px' }}>
+                <Link href="/login" onClick={closeMenu} className="tia-btn-secondary" style={{ textAlign: 'center', padding: '12px' }}>
                   Sign In
                 </Link>
-                <Link href="/register" onClick={closeMenu} className="tia-btn-primary" style={{ textAlign: 'center', padding: '10px' }}>
-                  Sign Up →
+                <Link href="/register" onClick={closeMenu} className="tia-btn-primary" style={{ textAlign: 'center', padding: '12px' }}>
+                  Sign Up
                 </Link>
               </div>
             )}
@@ -246,6 +251,14 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             }
             .mobile-hamburger-btn {
               display: block !important;
+            }
+          }
+          @media (max-width: 600px) {
+            .ribbon-subtext {
+              display: none !important;
+            }
+            .ribbon-divider {
+              display: none !important;
             }
           }
         `}</style>
