@@ -20,46 +20,24 @@ export default function HomePage() {
           flexWrap: 'wrap',
         }}>
           {/* Left Column: Hero Copy & Actions */}
-          <div style={{ flex: '1 1 420px', maxWidth: '560px' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 14px',
-              backgroundColor: '#EFF6FF',
-              border: '1px solid #BFDBFE',
-              color: '#0052FF',
-              fontSize: '11px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              marginBottom: '24px',
-            }}>
-              <img
-                src="/main-logo-cropped.png"
-                alt="TIA"
-                style={{ width: '15px', height: '15px', objectFit: 'contain' }}
-              />
-              The Creator Intelligence & Escrow Platform
-            </div>
-
+          <div style={{ flex: '1 1 420px', maxWidth: '580px' }}>
             <h1 style={{
-              fontSize: 'clamp(34px, 5.5vw, 56px)',
+              fontSize: 'clamp(36px, 5.8vw, 60px)',
               fontWeight: 800,
-              lineHeight: 1.12,
+              lineHeight: 1.1,
               letterSpacing: '-0.03em',
               color: '#0F172A',
-              marginBottom: '20px',
+              marginBottom: '24px',
             }}>
               <span style={{ color: '#0052FF' }}>Effortless Creator Campaigns</span><br />
               for brands and talent defying all odds
             </h1>
 
             <div style={{
-              fontSize: '13px',
+              fontSize: '14px',
               fontWeight: 600,
               color: '#64748B',
-              marginBottom: '20px',
+              marginBottom: '36px',
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
@@ -72,22 +50,13 @@ export default function HomePage() {
               <span>Instant Settlements</span>
             </div>
 
-            <p style={{
-              fontSize: 'clamp(14px, 2.5vw, 17px)',
-              color: '#475569',
-              lineHeight: 1.6,
-              marginBottom: '36px',
-            }}>
-              TIA eliminates information asymmetry in influencer marketing. Discover authentic creators, analyze real audience demographics, negotiate in-platform, and secure payouts with zero outside communication risk.
-            </p>
-
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
               <Link
                 href="/register?role=BRAND_ADMIN"
                 className="tia-btn-primary"
                 style={{
-                  padding: '14px 28px',
-                  fontSize: '14px',
+                  padding: '16px 32px',
+                  fontSize: '15px',
                   fontWeight: 700,
                   backgroundColor: '#0052FF',
                   borderColor: '#0052FF',
@@ -99,8 +68,8 @@ export default function HomePage() {
                 href="/brand/creators"
                 className="tia-btn-secondary"
                 style={{
-                  padding: '14px 26px',
-                  fontSize: '14px',
+                  padding: '16px 28px',
+                  fontSize: '15px',
                   fontWeight: 600,
                   color: '#0052FF',
                   borderColor: '#BFDBFE',
