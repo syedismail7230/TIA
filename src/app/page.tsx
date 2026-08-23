@@ -13,13 +13,14 @@ export default function HomePage() {
         backgroundImage: 'radial-gradient(circle at 85% 35%, rgba(0, 82, 255, 0.08) 0%, rgba(255, 255, 255, 0) 65%), radial-gradient(circle at 10% 60%, rgba(59, 130, 246, 0.05) 0%, rgba(255, 255, 255, 0) 50%)',
       }}>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '32px',
+          display: 'flex',
           alignItems: 'center',
-        }} className="hero-grid-layout">
+          justifyContent: 'space-between',
+          gap: '40px',
+          flexWrap: 'wrap',
+        }}>
           {/* Left Column: Hero Copy & Actions */}
-          <div style={{ maxWidth: '600px' }}>
+          <div style={{ flex: '1 1 420px', maxWidth: '560px' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -110,12 +111,17 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual - Ultra Large Presentation */}
-          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+          {/* Right Column: Hero Visual - Ultra Expansive Centerpiece */}
+          <div style={{
+            flex: '1.5 1 540px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minWidth: '320px',
+          }}>
             <div style={{
-              position: 'relative',
               width: '100%',
-              maxWidth: '880px',
+              maxWidth: '850px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -126,10 +132,12 @@ export default function HomePage() {
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '780px',
+                  maxHeight: '820px',
                   objectFit: 'contain',
                   display: 'block',
                   filter: 'drop-shadow(0 25px 50px rgba(0, 82, 255, 0.18))',
+                  transform: 'scale(1.08)',
+                  transformOrigin: 'center center',
                 }}
               />
             </div>
