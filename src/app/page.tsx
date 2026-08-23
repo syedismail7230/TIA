@@ -22,15 +22,13 @@ export default function HomePage() {
           {/* Left Column: Hero Copy & Actions */}
           <div style={{ flex: '1 1 420px', maxWidth: '580px' }}>
             <h1 style={{
-              fontSize: 'clamp(36px, 5.8vw, 60px)',
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: '-0.03em',
-              color: '#0F172A',
+              fontSize: 'clamp(36px, 5.5vw, 56px)',
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
               marginBottom: '24px',
             }}>
-              <span style={{ color: '#0052FF' }}>Effortless Creator Campaigns</span><br />
-              for brands and talent defying all odds
+              <span style={{ color: '#0052FF', fontWeight: 600 }}>Effortless Creator Campaigns</span><br />
+              <span style={{ color: '#0F172A', fontWeight: 400 }}>for brands and talent defying all odds</span>
             </h1>
 
             <div style={{
