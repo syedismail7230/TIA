@@ -80,8 +80,8 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
         <div style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 16px',
-          height: '64px',
+          padding: '0 clamp(24px, 5vw, 72px)',
+          height: '68px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',

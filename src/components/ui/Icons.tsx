@@ -100,3 +100,16 @@ export const CloseIcon: React.FC<IconProps> = ({ size = 20, color = 'currentColo
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 );
+
+export const ChevronLeftIcon: React.FC<IconProps> = ({ size = 16, color = 'currentColor', ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" {...props}>
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+);
+
+export const ChevronRightIcon: React.FC<IconProps> = ({ size = 16, color = 'currentColor', ...props }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter" {...props}>
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+);
+

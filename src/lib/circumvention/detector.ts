@@ -9,7 +9,7 @@ const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi;
 const PHONE_REGEX = /(\+?[0-9]{1,4}[-.\s]?)?(\(?\d{2,4}\)?[-.\s]?)?\d{3,4}[-.\s]?\d{3,4}/g;
 const UPI_REGEX = /[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}/gi;
 const WHATSAPP_KEYWORDS = /\b(whatsapp|wa\.me|tg|telegram|instagram\s+dm|dm\s+me|signal|skype|gpay|paytm|crypto|usdt)\b/gi;
-const EXTERNAL_URL_REGEX = /https?:\/\/(?!(?:www\.)?theinfluencersagency\.com)[^\s]+/gi;
+const EXTERNAL_URL_REGEX = /https?:\/\/(?!(?:www\.)?(?:theinfluencers\.agency|theinfluencersagency\.com))[^\s]+/gi;
 
 /**
  * Scans a message payload for prohibited external communication solicitation.

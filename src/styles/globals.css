@@ -335,66 +335,84 @@ table {
   }
 
   .hero-section {
-    padding: 24px 16px 32px 16px !important;
+    padding: 20px 16px 24px 16px !important;
+    min-height: auto !important;
   }
 
   .hero-container {
     display: flex !important;
     flex-direction: column !important;
-    gap: 16px !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    gap: 8px !important;
   }
 
   .hero-copy-column {
-    width: 100% !important;
-    max-width: 100% !important;
+    display: contents !important;
   }
 
   .hero-headline {
+    order: 1 !important;
     font-size: clamp(24px, 6.5vw, 36px) !important;
     line-height: 1.2 !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero-feature-tags {
-    font-size: 12px !important;
-    gap: 6px 10px !important;
-    margin-bottom: 16px !important;
-  }
-
-  .hero-cta-group {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 10px !important;
-    width: 100% !important;
     margin-bottom: 8px !important;
   }
 
-  .hero-btn {
-    padding: 12px 18px !important;
-    font-size: 13px !important;
-    display: inline-flex !important;
+  .hero-feature-tags {
+    order: 2 !important;
+    font-size: 12px !important;
+    gap: 6px 10px !important;
+    margin-bottom: 10px !important;
   }
 
   .hero-image-column {
+    order: 3 !important;
     width: 100% !important;
-    margin-top: -16px !important;
+    margin: 4px 0 16px 0 !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: flex-start !important;
+    align-items: center !important;
+  }
+
+  .hero-image-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    height: 420px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important;
   }
 
   .hero-graphic-img {
     width: 100% !important;
-    max-width: 480px !important;
-    height: auto !important;
-    max-height: 480px !important;
-    transform: none !important;
-    margin: 0 auto !important;
+    height: 420px !important;
+    object-fit: cover !important;
+    object-position: 78% 85% !important;
     display: block !important;
+    transform: none !important;
+  }
+
+  .hero-cta-group {
+    order: 4 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-btn {
+    flex: 1 1 50% !important;
+    padding: 13px 14px !important;
+    font-size: 13px !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: inline-flex !important;
   }
 
   .hero-nav-bar {
-    margin-top: 24px !important;
+    margin-top: 16px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
   }
@@ -441,3 +459,208 @@ table {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* Feature Cards Swiper Styles */
+.feature-cards-swiper::-webkit-scrollbar {
+  display: none;
+}
+
+.feature-swiper-card:hover {
+  transform: translateY(-3px);
+  border-color: #0052FF !important;
+  box-shadow: 0 8px 24px rgba(0, 82, 255, 0.12) !important;
+}
+
+@media (max-width: 768px) {
+  .feature-swiper-card {
+    flex: 0 0 280px !important;
+    max-width: 280px !important;
+  }
+}
+
+/* Razorpay-Style 6-Card Product Grid Styles */
+.razorpay-product-card {
+  border-radius: 0px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease !important;
+}
+
+.razorpay-product-card:hover {
+  transform: translateY(-5px);
+  border-color: #0052FF !important;
+  box-shadow: 0 16px 36px rgba(0, 82, 255, 0.12) !important;
+}
+
+/* Real Vector Brand Logo Hover Styles */
+.brand-logo-item {
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-logo-item:hover {
+  filter: grayscale(0%);
+  opacity: 1 !important;
+  transform: translateY(-2px) scale(1.04);
+  color: #0052FF !important;
+}
+
+/* Infinite Brand Marquee Ticker */
+.brand-marquee-container {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.brand-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-scroll 42s linear infinite;
+}
+
+.brand-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.brand-marquee-item {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 10px 44px;
+  position: relative;
+  opacity: 0.92;
+  cursor: pointer;
+  filter: none !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.brand-marquee-item:hover {
+  opacity: 1 !important;
+  transform: translateY(-2px) scale(1.08);
+}
+
+.brand-item-separator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 32px;
+  width: 1px;
+  background-color: #E2E8F0;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Business Bento Grid Hover Styles */
+.bento-card {
+  border-radius: 0px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Mobile Responsive Adjustments for Bento Cards */
+@media (max-width: 768px) {
+  .bento-discovery-card {
+    padding: 28px 20px 0 20px !important;
+    min-height: auto !important;
+  }
+
+  .bento-discovery-text {
+    max-width: 100% !important;
+  }
+
+  .bento-discovery-bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 20px !important;
+    width: 100% !important;
+  }
+
+  .bento-discovery-img {
+    order: 1 !important;
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    max-height: 260px !important;
+    margin: 0 auto 16px auto !important;
+    display: block !important;
+  }
+
+  .bento-verification-badge {
+    order: 2 !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 24px 0 !important;
+    z-index: 2 !important;
+  }
+}
+
+/* Footer Link Hover */
+.footer-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: #FFFFFF !important;
+  transform: translateX(4px);
+}
+
+.blue-footer-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.blue-footer-link:hover {
+  color: #FFFFFF !important;
+  transform: translateX(4px);
+}
+
+.social-icon-btn:hover {
+  background-color: #FFFFFF !important;
+  color: #0052FF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Legal Cards Hover */
+.legal-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.legal-card-hover:hover {
+  transform: translateY(-3px);
+  border-color: #0052FF !important;
+  box-shadow: 0 12px 28px rgba(0, 82, 255, 0.08) !important;
+}
+
+
+
+
+
+
+
+
+
+
+
