@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { GlobeIcon, ArrowRightIcon } from '@/components/ui/Icons';
+import { GlobeIcon, ArrowRightIcon, MenuIcon, CloseIcon } from '@/components/ui/Icons';
 
 interface NavbarProps {
   user?: {
@@ -28,43 +28,43 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
 
   return (
     <>
-      {/* Top Announcement Ribbon - Ultra Responsive */}
+      {/* Top Announcement Ribbon - Ultra Sleek */}
       <div style={{
         backgroundColor: '#EFF6FF',
         borderBottom: '1px solid #DBEAFE',
-        padding: '7px 16px',
+        padding: '6px 16px',
         fontSize: '12px',
         color: '#1E40AF',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '10px',
+        gap: '8px',
         fontWeight: 500,
         textAlign: 'center',
-        flexWrap: 'wrap',
       }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
           <GlobeIcon size={13} color="#1E40AF" />
           <span style={{ fontWeight: 600 }}>Zero Information Asymmetry</span>
         </div>
         <span className="ribbon-divider" style={{ color: '#93C5FD' }}>•</span>
-        <span className="ribbon-subtext">Deterministic 5% Escrow Commission • Instant Settlements</span>
+        <span className="ribbon-subtext">5% Escrow Commission • Instant Settlements</span>
         <Link
           href="/register"
           style={{
             backgroundColor: '#1E3A8A',
             color: '#FFFFFF',
-            padding: '3px 10px',
+            padding: '2px 8px',
             fontSize: '11px',
             fontWeight: 700,
             letterSpacing: '0.02em',
             display: 'inline-flex',
             alignItems: 'center',
             gap: '4px',
+            marginLeft: '4px',
           }}
         >
           <span>Explore TIA</span>
-          <ArrowRightIcon size={11} color="#FFFFFF" />
+          <ArrowRightIcon size={10} color="#FFFFFF" />
         </Link>
       </div>
 
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
           maxWidth: '1440px',
           margin: '0 auto',
           padding: '0 16px',
-          height: '68px',
+          height: '64px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -93,9 +93,9 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 style={{
-                  height: '42px',
+                  height: '38px',
                   width: 'auto',
-                  maxWidth: '180px',
+                  maxWidth: '160px',
                   objectFit: 'contain',
                   display: 'block',
                 }}
@@ -119,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             </nav>
           </div>
 
-          {/* Right Desktop Actions */}
+          {/* Desktop Actions */}
           <div className="desktop-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', fontWeight: 600, borderRight: '1px solid #E2E8F0', paddingRight: '16px' }}>
               <GlobeIcon size={14} color="#64748B" />
@@ -177,24 +177,43 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             )}
           </div>
 
-          {/* Mobile Hamburger Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-hamburger-btn"
-            aria-label="Toggle navigation menu"
-            style={{
-              display: 'none',
-              padding: '6px 12px',
-              border: '1px solid var(--border-medium)',
-              backgroundColor: '#FFFFFF',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-            }}
-          >
-            {mobileMenuOpen ? 'CLOSE' : 'MENU'}
-          </button>
+          {/* Razorpay-Style Mobile Right Actions: Login Button + Hamburger */}
+          <div className="mobile-nav-header-actions" style={{ display: 'none', alignItems: 'center', gap: '10px' }}>
+            {!user && (
+              <Link
+                href="/login"
+                style={{
+                  padding: '6px 14px',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  color: '#0052FF',
+                  border: '1px solid #0052FF',
+                  backgroundColor: '#FFFFFF',
+                }}
+              >
+                Login
+              </Link>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="mobile-hamburger-btn"
+              aria-label="Toggle navigation menu"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '6px',
+                border: '1px solid #CBD5E1',
+                backgroundColor: '#FFFFFF',
+                color: '#334155',
+                cursor: 'pointer',
+              }}
+            >
+              {mobileMenuOpen ? <CloseIcon size={20} color="#0F172A" /> : <MenuIcon size={20} color="#0F172A" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Slide-down Drawer */}

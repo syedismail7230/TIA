@@ -8,17 +8,18 @@ import {
   SparklesIcon,
   ArrowRightIcon,
   ShieldCheckIcon,
+  CheckIcon,
 } from '@/components/ui/Icons';
 
 export default function HomePage() {
   return (
-    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
       {/* Hero Section with Responsive Atmospheric Background */}
       <section className="hero-section" style={{
         position: 'relative',
         maxWidth: '1440px',
         margin: '0 auto',
-        backgroundImage: 'radial-gradient(circle at 85% 35%, rgba(0, 82, 255, 0.08) 0%, rgba(255, 255, 255, 0) 65%), radial-gradient(circle at 10% 60%, rgba(59, 130, 246, 0.05) 0%, rgba(255, 255, 255, 0) 50%)',
+        backgroundImage: 'radial-gradient(circle at 85% 35%, rgba(0, 82, 255, 0.09) 0%, rgba(255, 255, 255, 0) 65%), radial-gradient(circle at 10% 60%, rgba(59, 130, 246, 0.06) 0%, rgba(255, 255, 255, 0) 50%)',
       }}>
         <div className="hero-container" style={{
           display: 'flex',
@@ -27,10 +28,10 @@ export default function HomePage() {
           flexWrap: 'wrap',
         }}>
           {/* Left Column: Hero Copy & Actions */}
-          <div className="hero-copy-column" style={{ flex: '1 1 400px', maxWidth: '580px' }}>
+          <div className="hero-copy-column" style={{ flex: '1 1 420px', maxWidth: '580px' }}>
             <h1 className="hero-headline" style={{
               letterSpacing: '-0.02em',
-              marginBottom: '20px',
+              marginBottom: '16px',
             }}>
               <span style={{ color: '#0052FF', fontWeight: 600 }}>Effortless Creator Campaigns</span><br />
               <span style={{ color: '#0F172A', fontWeight: 400 }}>for brands and talent defying all odds</span>
@@ -41,7 +42,7 @@ export default function HomePage() {
               fontSize: '13px',
               fontWeight: 600,
               color: '#64748B',
-              marginBottom: '28px',
+              marginBottom: '24px',
               display: 'flex',
               alignItems: 'center',
               flexWrap: 'wrap',
@@ -108,6 +109,7 @@ export default function HomePage() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              position: 'relative',
             }}>
               <img
                 src="/hero.png"
@@ -121,13 +123,56 @@ export default function HomePage() {
                   filter: 'drop-shadow(0 20px 40px rgba(0, 82, 255, 0.18))',
                 }}
               />
+
+              {/* Floating Mobile Feature Badges (Razorpay style) */}
+              <div className="hero-floating-pills" style={{
+                position: 'absolute',
+                left: '4%',
+                bottom: '12%',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}>
+                <div style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid #E2E8F0',
+                  padding: '6px 12px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                }}>
+                  <CheckIcon size={12} color="#059669" />
+                  <span>95% Creator Payout</span>
+                </div>
+                <div style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid #E2E8F0',
+                  padding: '6px 12px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+                }}>
+                  <CheckIcon size={12} color="#0052FF" />
+                  <span>5% Escrow Backed</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Razorpay-Style Interactive Quick Navigation */}
         <div className="hero-nav-bar" style={{
-          marginTop: '48px',
+          marginTop: '40px',
           border: '1px solid #E2E8F0',
           backgroundColor: '#FFFFFF',
           padding: '12px 18px',
@@ -422,6 +467,40 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Razorpay-Style Sticky Mobile Bottom Bar */}
+      <div className="mobile-sticky-bottom-bar" style={{
+        display: 'none',
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#FFFFFF',
+        borderTop: '1px solid #E2E8F0',
+        padding: '10px 16px',
+        zIndex: 99,
+        boxShadow: '0 -4px 16px rgba(0, 0, 0, 0.08)',
+      }}>
+        <Link
+          href="/register?role=BRAND_ADMIN"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            backgroundColor: '#0052FF',
+            color: '#FFFFFF',
+            padding: '14px',
+            fontSize: '14px',
+            fontWeight: 700,
+            width: '100%',
+            textAlign: 'center',
+          }}
+        >
+          <span>Get Started Now</span>
+          <ArrowRightIcon size={16} color="#FFFFFF" />
+        </Link>
+      </div>
     </div>
   );
 }

@@ -308,8 +308,12 @@ table {
     display: none !important;
   }
 
+  .mobile-nav-header-actions {
+    display: flex !important;
+  }
+
   .mobile-hamburger-btn {
-    display: block !important;
+    display: flex !important;
   }
 
   .responsive-stack-mobile {
@@ -354,22 +358,21 @@ table {
   .hero-feature-tags {
     font-size: 12px !important;
     gap: 6px 10px !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 16px !important;
   }
 
   .hero-cta-group {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     gap: 10px !important;
     width: 100% !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 12px !important;
   }
 
   .hero-btn {
-    width: 100% !important;
-    padding: 13px 16px !important;
-    text-align: center !important;
-    justify-content: center !important;
+    padding: 12px 20px !important;
+    font-size: 13px !important;
+    display: inline-flex !important;
   }
 
   .hero-image-column {
@@ -382,9 +385,9 @@ table {
 
   .hero-graphic-img {
     width: 100% !important;
-    max-width: 400px !important;
+    max-width: 440px !important;
     height: auto !important;
-    max-height: 400px !important;
+    max-height: 440px !important;
     transform: none !important;
     margin: 0 auto !important;
   }
@@ -410,11 +413,25 @@ table {
 }
 
 @media (max-width: 600px) {
+  body {
+    padding-bottom: 64px;
+  }
+
   .ribbon-subtext {
     display: none !important;
   }
+
   .ribbon-divider {
     display: none !important;
+  }
+
+  .mobile-sticky-bottom-bar {
+    display: block !important;
+  }
+
+  .hero-floating-pills {
+    left: 2% !important;
+    bottom: 8% !important;
   }
 }
 
