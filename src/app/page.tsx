@@ -3,59 +3,87 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '40px 16px' }}>
-      {/* Hero Section */}
-      <section style={{ maxWidth: '960px', marginBottom: '60px' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '10px',
-          padding: '6px 12px',
-          backgroundColor: 'var(--brand-primary-subtle)',
-          border: '1px solid var(--brand-primary-border)',
-          color: 'var(--brand-primary)',
-          fontSize: '11px',
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: '0.06em',
-          marginBottom: '20px',
-        }}>
-          <img
-            src="/main-logo-cropped.png"
-            alt="TIA Icon"
-            style={{ width: '16px', height: '16px', objectFit: 'contain' }}
-          />
-          Global Creator Intelligence & Campaign Marketplace
+    <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '40px 20px' }}>
+      {/* Hero Section with 2-Column Responsive Grid */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '48px',
+        alignItems: 'center',
+        marginBottom: '64px',
+      }}>
+        {/* Left Column: Copy & Actions */}
+        <div>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '6px 12px',
+            backgroundColor: 'var(--brand-primary-subtle)',
+            border: '1px solid var(--brand-primary-border)',
+            color: 'var(--brand-primary)',
+            fontSize: '11px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            marginBottom: '20px',
+          }}>
+            <img
+              src="/main-logo-cropped.png"
+              alt="TIA Icon"
+              style={{ width: '16px', height: '16px', objectFit: 'contain' }}
+            />
+            Global Creator Intelligence & Campaign Marketplace
+          </div>
+
+          <h1 style={{
+            fontSize: 'clamp(28px, 5vw, 44px)',
+            fontWeight: 800,
+            lineHeight: 1.15,
+            letterSpacing: '-0.03em',
+            color: 'var(--text-primary)',
+            marginBottom: '20px',
+          }}>
+            ELIMINATE INFORMATION ASYMMETRY IN INFLUENCER MARKETING.
+          </h1>
+
+          <p style={{
+            fontSize: 'clamp(14px, 2.5vw, 17px)',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.6,
+            marginBottom: '32px',
+          }}>
+            TIA is the end-to-end technology platform enabling enterprise brands to discover authentic creators, analyze real audience demographics, negotiate in-platform, secure escrow payments, and track verified campaign outcomes.
+          </p>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <Link href="/register?role=BRAND_ADMIN" className="tia-btn-primary" style={{ padding: '12px 22px', fontSize: '13px', fontWeight: 600 }}>
+              Launch Campaign as Brand
+            </Link>
+            <Link href="/register?role=CREATOR" className="tia-btn-secondary" style={{ padding: '12px 22px', fontSize: '13px', fontWeight: 600 }}>
+              Join as Creator
+            </Link>
+          </div>
         </div>
 
-        <h1 style={{
-          fontSize: 'clamp(28px, 6vw, 48px)',
-          fontWeight: 800,
-          lineHeight: 1.15,
-          letterSpacing: '-0.03em',
-          color: 'var(--text-primary)',
-          marginBottom: '20px',
+        {/* Right Column: Hero Graphic */}
+        <div style={{
+          border: '1px solid var(--border-subtle)',
+          backgroundColor: 'var(--bg-secondary)',
+          padding: '8px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
         }}>
-          ELIMINATE INFORMATION ASYMMETRY IN INFLUENCER MARKETING.
-        </h1>
-
-        <p style={{
-          fontSize: 'clamp(14px, 3vw, 18px)',
-          color: 'var(--text-secondary)',
-          lineHeight: 1.6,
-          maxWidth: '780px',
-          marginBottom: '32px',
-        }}>
-          TIA is the end-to-end technology platform enabling enterprise brands to discover authentic creators, analyze real audience demographics, negotiate in-platform, secure escrow payments, and track verified campaign outcomes.
-        </p>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-          <Link href="/register?role=BRAND_ADMIN" className="tia-btn-primary" style={{ padding: '12px 20px', fontSize: '13px', fontWeight: 600 }}>
-            Launch Campaign as Brand
-          </Link>
-          <Link href="/register?role=CREATOR" className="tia-btn-secondary" style={{ padding: '12px 20px', fontSize: '13px', fontWeight: 600 }}>
-            Join as Creator
-          </Link>
+          <img
+            src="/hero.png"
+            alt="The Influencer's Agency Platform Hero"
+            style={{
+              width: '100%',
+              height: 'auto',
+              maxHeight: '460px',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
         </div>
       </section>
 
