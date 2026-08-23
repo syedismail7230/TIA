@@ -26,188 +26,230 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header style={{
-      borderBottom: '1px solid var(--border-subtle)',
-      backgroundColor: 'var(--bg-primary)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-    }}>
+    <>
+      {/* Razorpay-style Top Announcement Ribbon */}
       <div style={{
-        maxWidth: '1440px',
-        margin: '0 auto',
-        padding: '0 20px',
-        height: '76px',
+        backgroundColor: '#EFF6FF',
+        borderBottom: '1px solid #DBEAFE',
+        padding: '8px 16px',
+        fontSize: '12px',
+        color: '#1E40AF',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        gap: '12px',
+        fontWeight: 500,
+        textAlign: 'center',
+        flexWrap: 'wrap',
       }}>
-        {/* Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-          <Link href="/" onClick={closeMenu} style={{ display: 'flex', alignItems: 'center' }}>
-            <img
-              src="/logo-cropped.png"
-              alt="The Influencer's Agency"
-              style={{
-                height: '48px',
-                width: 'auto',
-                maxWidth: '240px',
-                objectFit: 'contain',
-                display: 'block',
-              }}
-            />
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          {user && (
-            <nav className="desktop-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-              {user.role === 'CREATOR' && (
-                <>
-                  <Link href="/creator" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Dashboard</Link>
-                  <Link href="/creator" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Discover Campaigns</Link>
-                  <Link href="/creator" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Intelligence Profile</Link>
-                </>
-              )}
-
-              {(user.role === 'BRAND_ADMIN' || user.role === 'BRAND_USER') && (
-                <>
-                  <Link href="/brand" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Dashboard</Link>
-                  <Link href="/brand/creators" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Creator Discovery</Link>
-                  <Link href="/brand" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Campaigns</Link>
-                </>
-              )}
-
-              {user.role.startsWith('TIA_') && (
-                <>
-                  <Link href="/admin" style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-secondary)' }}>Admin Center</Link>
-                </>
-              )}
-            </nav>
-          )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span style={{ fontSize: '14px' }}>🇮🇳</span>
+          <span>Zero Information Asymmetry</span>
         </div>
-
-        {/* Right Desktop Actions */}
-        <div className="desktop-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-primary)' }}>{user.name}</div>
-                <div style={{ fontSize: '10px', color: 'var(--brand-primary)', fontWeight: 600, textTransform: 'uppercase' }}>{user.role.replace(/_/g, ' ')}</div>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="tia-btn-secondary"
-                style={{ padding: '6px 12px', fontSize: '12px' }}
-              >
-                Sign Out
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Link href="/login" className="tia-btn-secondary" style={{ padding: '6px 12px', fontSize: '12px' }}>
-                Sign In
-              </Link>
-              <Link href="/register" className="tia-btn-primary" style={{ padding: '6px 12px', fontSize: '12px' }}>
-                Get Started
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          type="button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="mobile-hamburger-btn"
-          aria-label="Toggle navigation menu"
+        <span style={{ color: '#93C5FD' }}>•</span>
+        <span>Deterministic 5% Escrow Commission • Instant Creator Settlements</span>
+        <Link
+          href="/register"
           style={{
-            display: 'none',
-            padding: '8px 12px',
-            border: '1px solid var(--border-medium)',
-            backgroundColor: 'var(--bg-primary)',
-            fontSize: '14px',
+            backgroundColor: '#1E3A8A',
+            color: '#FFFFFF',
+            padding: '3px 10px',
+            fontSize: '11px',
             fontWeight: 700,
+            letterSpacing: '0.02em',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '4px',
           }}
         >
-          {mobileMenuOpen ? '✕ CLOSE' : '☰ MENU'}
-        </button>
+          Explore TIA ↗
+        </Link>
       </div>
 
-      {/* Mobile Drawer / Dropdown */}
-      {mobileMenuOpen && (
+      {/* Main Navbar */}
+      <header style={{
+        borderBottom: '1px solid #E2E8F0',
+        backgroundColor: '#FFFFFF',
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.02)',
+      }}>
         <div style={{
-          borderTop: '1px solid var(--border-subtle)',
-          backgroundColor: 'var(--bg-primary)',
-          padding: '20px 16px',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          padding: '0 24px',
+          height: '72px',
           display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}>
-          {user ? (
-            <>
-              <div style={{ paddingBottom: '12px', borderBottom: '1px solid var(--border-subtle)' }}>
-                <div style={{ fontSize: '14px', fontWeight: 700 }}>{user.name}</div>
-                <div style={{ fontSize: '11px', color: 'var(--brand-primary)', fontWeight: 600 }}>{user.role.replace(/_/g, ' ')}</div>
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{user.email}</div>
-              </div>
+          {/* Brand Logo & Navigation Links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            <Link href="/" onClick={closeMenu} style={{ display: 'flex', alignItems: 'center' }}>
+              <img
+                src="/logo-cropped.png"
+                alt="The Influencer's Agency"
+                style={{
+                  height: '46px',
+                  width: 'auto',
+                  maxWidth: '220px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
+            </Link>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {user.role === 'CREATOR' && (
-                  <>
-                    <Link href="/creator" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Dashboard</Link>
-                    <Link href="/creator" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Discover Campaigns</Link>
-                    <Link href="/creator" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Intelligence Profile</Link>
-                  </>
-                )}
-
-                {(user.role === 'BRAND_ADMIN' || user.role === 'BRAND_USER') && (
-                  <>
-                    <Link href="/brand" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Dashboard</Link>
-                    <Link href="/brand/creators" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Creator Discovery</Link>
-                    <Link href="/brand" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Campaigns</Link>
-                    <Link href="/brand/campaigns/new" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, color: 'var(--brand-primary)', padding: '6px 0' }}>+ Create Campaign</Link>
-                  </>
-                )}
-
-                {user.role.startsWith('TIA_') && (
-                  <>
-                    <Link href="/admin" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Admin Governance</Link>
-                  </>
-                )}
-              </div>
-
-              <button
-                onClick={handleLogout}
-                className="tia-btn-danger"
-                style={{ marginTop: '8px', padding: '10px' }}
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Link href="/login" onClick={closeMenu} className="tia-btn-secondary">
-                Sign In
+            {/* Desktop Navigation Links */}
+            <nav className="desktop-nav-links" style={{ display: 'flex', alignItems: 'center', gap: '22px' }}>
+              <Link href="/brand/creators" style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                Creator Intelligence
               </Link>
-              <Link href="/register" onClick={closeMenu} className="tia-btn-primary">
-                Get Started
+              <Link href="/brand" style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                Campaign Marketplace
               </Link>
+              <Link href="/creator" style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                Creator Suite
+              </Link>
+              <Link href="/admin" style={{ fontSize: '13px', fontWeight: 600, color: '#334155' }}>
+                5% Escrow & Ledger
+              </Link>
+            </nav>
+          </div>
+
+          {/* Right Desktop Actions */}
+          <div className="desktop-nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', fontWeight: 600, borderRight: '1px solid #E2E8F0', paddingRight: '16px' }}>
+              <span>🇮🇳 INR</span>
             </div>
-          )}
-        </div>
-      )}
 
-      <style jsx>{`
-        @media (max-width: 900px) {
-          .desktop-nav-links,
-          .desktop-nav-actions {
-            display: none !important;
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>{user.name}</div>
+                  <div style={{ fontSize: '10px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase' }}>
+                    {user.role.replace(/_/g, ' ')}
+                  </div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="tia-btn-secondary"
+                  style={{ padding: '8px 14px', fontSize: '12px' }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <Link
+                  href="/login"
+                  style={{
+                    padding: '8px 16px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: '#0052FF',
+                    border: '1px solid #BFDBFE',
+                    backgroundColor: '#FFFFFF',
+                  }}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  style={{
+                    padding: '8px 18px',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    color: '#FFFFFF',
+                    backgroundColor: '#0052FF',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  Sign Up →
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="mobile-hamburger-btn"
+            aria-label="Toggle navigation menu"
+            style={{
+              display: 'none',
+              padding: '8px 12px',
+              border: '1px solid var(--border-medium)',
+              backgroundColor: '#FFFFFF',
+              fontSize: '14px',
+              fontWeight: 700,
+            }}
+          >
+            {mobileMenuOpen ? '✕ CLOSE' : '☰ MENU'}
+          </button>
+        </div>
+
+        {/* Mobile Drawer */}
+        {mobileMenuOpen && (
+          <div style={{
+            borderTop: '1px solid #E2E8F0',
+            backgroundColor: '#FFFFFF',
+            padding: '20px 16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}>
+            {user ? (
+              <>
+                <div style={{ paddingBottom: '12px', borderBottom: '1px solid #E2E8F0' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 700 }}>{user.name}</div>
+                  <div style={{ fontSize: '11px', color: '#0052FF', fontWeight: 600 }}>{user.role.replace(/_/g, ' ')}</div>
+                  <div style={{ fontSize: '12px', color: '#64748B' }}>{user.email}</div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <Link href="/brand/creators" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Creator Intelligence</Link>
+                  <Link href="/brand" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Campaign Marketplace</Link>
+                  <Link href="/creator" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>Creator Suite</Link>
+                  <Link href="/admin" onClick={closeMenu} style={{ fontSize: '14px', fontWeight: 600, padding: '6px 0' }}>5% Escrow & Ledger</Link>
+                </div>
+
+                <button
+                  onClick={handleLogout}
+                  className="tia-btn-danger"
+                  style={{ marginTop: '8px', padding: '10px' }}
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <Link href="/login" onClick={closeMenu} className="tia-btn-secondary" style={{ textAlign: 'center', padding: '10px' }}>
+                  Sign In
+                </Link>
+                <Link href="/register" onClick={closeMenu} className="tia-btn-primary" style={{ textAlign: 'center', padding: '10px' }}>
+                  Sign Up →
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
+
+        <style jsx>{`
+          @media (max-width: 900px) {
+            .desktop-nav-links,
+            .desktop-nav-actions {
+              display: none !important;
+            }
+            .mobile-hamburger-btn {
+              display: block !important;
+            }
           }
-          .mobile-hamburger-btn {
-            display: block !important;
-          }
-        }
-      `}</style>
-    </header>
+        `}</style>
+      </header>
+    </>
   );
 };
