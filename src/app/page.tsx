@@ -111,17 +111,18 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual - Ultra Expansive Centerpiece */}
+          {/* Right Column: Hero Visual - Giant Cinematic Centerpiece */}
           <div style={{
-            flex: '1.5 1 540px',
+            flex: '2.2 1 620px',
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'flex-end',
             alignItems: 'center',
-            minWidth: '320px',
+            minWidth: '340px',
+            position: 'relative',
           }}>
             <div style={{
               width: '100%',
-              maxWidth: '850px',
+              maxWidth: '1000px',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
@@ -132,11 +133,11 @@ export default function HomePage() {
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '820px',
+                  maxHeight: '920px',
                   objectFit: 'contain',
                   display: 'block',
-                  filter: 'drop-shadow(0 25px 50px rgba(0, 82, 255, 0.18))',
-                  transform: 'scale(1.08)',
+                  filter: 'drop-shadow(0 30px 60px rgba(0, 82, 255, 0.22))',
+                  transform: 'scale(1.22)',
                   transformOrigin: 'center center',
                 }}
               />
