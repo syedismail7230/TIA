@@ -69,7 +69,7 @@ export const CreatorSpotlightSection: React.FC = () => {
             fontWeight: 400,
             marginBottom: '32px',
           }}>
-            TIA gives you complete control over your brand collaborations. Upfront escrow guarantees your payment before you begin, with standard 24-hour direct bank settlements upon delivery.
+            TIA gives you complete control over your brand collaborations. Upfront milestone budget lock guarantees your payment before you begin, with standard 24-hour direct bank settlements upon delivery.
           </p>
 
           {/* Minimal 3-Point Checklist */}
@@ -88,7 +88,7 @@ export const CreatorSpotlightSection: React.FC = () => {
                 <CheckIcon size={11} color="#0052FF" />
               </div>
               <span style={{ fontSize: '14.5px', color: '#334155', fontWeight: 500 }}>
-                100% upfront escrow funding on every campaign
+                100% upfront milestone budget lock on every campaign
               </span>
             </div>
 

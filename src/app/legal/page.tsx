@@ -27,11 +27,11 @@ const LEGAL_MODULES = [
     desc: 'Data collection practices, creator social analytics processing, cookie disclosures, and cybersecurity disclaimers.',
   },
   {
-    title: 'Escrow & Settlement Policy',
+    title: 'Milestone & Settlement Policy',
     href: '/escrow-policy',
     icon: LockIcon,
     badge: 'Financial Ledger',
-    desc: 'Upfront budget lock, the deterministic 5.00% commission, 72-hour review window, and milestone release irrevocability.',
+    desc: 'Upfront milestone budget lock, the deterministic 5.00% platform fee, 72-hour review window, and payout release irrevocability.',
   },
   {
     title: 'Influencer & ASCI Advertising Compliance',

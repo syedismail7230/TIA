@@ -211,14 +211,14 @@ export const BusinessBentoSection: React.FC = () => {
                 letterSpacing: '-0.02em',
                 marginBottom: '8px',
               }}>
-                Guaranteed Escrow Engine
+                Guaranteed Milestone Protection
               </h3>
               <p style={{
                 fontSize: '14px',
                 color: '#93C5FD',
                 lineHeight: 1.5,
               }}>
-                Zero financial risk. Budgets locked in secure escrow and released only upon verified milestone delivery.
+                Zero financial risk. Budgets locked in secure milestone vault and released only upon verified milestone delivery.
               </p>
             </div>
 
@@ -242,7 +242,7 @@ export const BusinessBentoSection: React.FC = () => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <LockIcon size={13} color="#60A5FA" />
                   <span style={{ fontSize: '12px', fontWeight: 800, color: '#FFFFFF' }}>
-                    Escrow Vault #TIA-8491
+                    Milestone Vault #TIA-8491
                   </span>
                 </div>
                 <span style={{
@@ -528,7 +528,7 @@ export const BusinessBentoSection: React.FC = () => {
                   GST INVOICE #TIA-9941
                 </span>
                 <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 6px' }}>
-                  ✓ ITC ELIGIBLE
+                  ✓ COMPLIANT B2B
                 </span>
               </div>
 

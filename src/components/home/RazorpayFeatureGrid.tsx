@@ -97,9 +97,9 @@ const PRODUCT_CARDS: ProductCard[] = [
     ),
   },
   {
-    id: 'escrow-protection',
-    title: 'Escrow Protection',
-    description: 'Deterministic 5% commission escrow management on autopilot',
+    id: 'milestone-protection',
+    title: 'Milestone Protection',
+    description: 'Deterministic 5% platform fee with milestone budget locks',
     href: '/brand',
     bgGradient: 'linear-gradient(135deg, #ECFDF5 0%, #A7F3D0 100%)',
     graphic: (
@@ -114,7 +114,7 @@ const PRODUCT_CARDS: ProductCard[] = [
           maxWidth: '220px',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#065F46' }}>Escrow Vault</span>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#065F46' }}>Milestone Vault</span>
             <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', backgroundColor: '#D1FAE5', padding: '2px 6px' }}>LOCKED</span>
           </div>
           <div style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', marginBottom: '6px' }}>

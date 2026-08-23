@@ -6,45 +6,45 @@ import { LegalLayout } from '@/components/legal/LegalLayout';
 export default function EscrowPolicyPage() {
   return (
     <LegalLayout
-      title="Escrow Guarantee & Milestone Settlement Policy"
-      subtitle="Definitive commercial rules governing upfront fund lock, the deterministic 5% platform ledger, 72-hour review windows, and milestone release protocols."
+      title="Milestone Protection & Settlement Policy"
+      subtitle="Definitive commercial rules governing upfront milestone budget lock, the deterministic 5% platform fee ledger, 72-hour review windows, and release protocols."
       lastUpdated="August 23, 2026"
       version="2.4.0"
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
         <p style={{ fontSize: '15px', color: '#475569', lineHeight: 1.7 }}>
-          TIA Escrow guarantees that Creators never produce content without verified upfront budget lock, and Brands never lose capital on unfulfilled campaign milestones. All funds are governed by deterministic immutable ledger logic.
+          TIA Milestone Protection guarantees that Creators never produce content without verified upfront budget lock, and Brands never lose capital on unfulfilled campaign deliverables. All transactions are governed by deterministic immutable ledger logic.
         </p>
 
         {/* Section 1 */}
         <section>
           <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '14px', letterSpacing: '-0.01em' }}>
-            1. Escrow Funding & Account Structuring
+            1. Milestone Budget Lock & Facilitation Structure
           </h2>
           <p style={{ marginBottom: '12px' }}>
-            <strong>1.1 Upfront Deposit:</strong> Prior to any campaign execution or creator production, the Brand must deposit 100% of the agreed campaign milestone budget into the dedicated campaign escrow account.
+            <strong>1.1 Upfront Lock:</strong> Prior to any campaign execution or creator production, the Brand locks 100% of the agreed campaign milestone budget into the dedicated milestone vault.
           </p>
           <p style={{ marginBottom: '12px' }}>
-            <strong>1.2 Status of Funds:</strong> Escrowed funds remain the property of the depositing Brand subject to the conditional milestone release covenants of the campaign agreement. TIA acts solely as an escrow technology facilitator and custodian.
+            <strong>1.2 Status of Funds & Banking Rails:</strong> Locked funds remain the property of the depositing Brand subject to the conditional milestone release covenants of the campaign agreement. TIA operates strictly as a marketplace technology facilitator. All fund custody and settlements are executed via RBI-authorized payment aggregators and scheduled commercial banking nodal accounts.
           </p>
           <p>
-            <strong>1.3 Zero Interest:</strong> Escrow balances do not accrue interest for either party.
+            <strong>1.3 Zero Interest:</strong> Milestone balances do not accrue interest for either party.
           </p>
         </section>
 
         {/* Section 2 */}
         <section>
           <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '14px', letterSpacing: '-0.01em' }}>
-            2. The Deterministic 5.00% Platform Commission
+            2. The Deterministic 5.00% Platform Fee
           </h2>
           <p style={{ marginBottom: '12px' }}>
-            <strong>2.1 Commission Fee:</strong> TIA deducts an exact platform commission of <strong>5.00%</strong> from the gross campaign contract value. This commission is automatically deducted upon successful milestone payout release.
+            <strong>2.1 Platform Service Fee:</strong> TIA deducts an exact platform fee of <strong>5.00%</strong> from the gross campaign contract value. This fee is automatically deducted upon successful milestone payout release.
           </p>
           <p style={{ marginBottom: '12px' }}>
-            <strong>2.2 No Hidden Markups:</strong> Unlike traditional influencer talent agencies that inflate creator rates by 20%–40%, TIA enforces transparent, open-ledger pricing with zero undisclosed markups.
+            <strong>2.2 No Hidden Markups:</strong> Unlike traditional influencer talent agencies that secretly inflate creator rates by 20%–40%, TIA enforces transparent, open-ledger pricing with zero undisclosed markups.
           </p>
           <p>
-            <strong>2.3 GST Tax Compliance:</strong> A separate GST tax invoice (18% GST on the 5% platform service fee) is automatically generated and downloadable by the Brand for Input Tax Credit (ITC) claiming.
+            <strong>2.3 GST Tax Compliance:</strong> A separate GST tax invoice (18% GST on the 5% platform service fee) is automatically generated and downloadable by the Brand for standard accounting and records.
           </p>
         </section>
 
@@ -72,7 +72,7 @@ export default function EscrowPolicyPage() {
             </div>
             <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', padding: '16px', borderRadius: '6px' }}>
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#0052FF', marginBottom: '6px' }}>STEP 3: AUTO-SETTLE</div>
-              <div style={{ fontSize: '12.5px', color: '#64748B' }}>If no response is logged within 72 hours, the escrow engine automatically releases payment.</div>
+              <div style={{ fontSize: '12.5px', color: '#64748B' }}>If no response is logged within 72 hours, the platform engine automatically releases payment.</div>
             </div>
           </div>
           <p>
@@ -80,20 +80,15 @@ export default function EscrowPolicyPage() {
           </p>
         </section>
 
-        {/* Section 4: Non-Liability for Banking Rails */}
-        <section style={{
-          backgroundColor: '#FFFBEB',
-          border: '1px solid #FDE68A',
-          padding: '24px',
-          borderRadius: '8px',
-        }}>
-          <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#92400E', marginBottom: '14px', letterSpacing: '-0.01em' }}>
+        {/* Section 4 */}
+        <section>
+          <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '14px', letterSpacing: '-0.01em' }}>
             4. Payment Gateway & Banking Rail Disclaimer
           </h2>
-          <p style={{ marginBottom: '12px', fontSize: '14.5px', color: '#78350F' }}>
+          <p style={{ marginBottom: '12px' }}>
             TIA utilizes authorized payment aggregators (Razorpay / Stripe) and RBI-regulated scheduled commercial banks for payment processing.
           </p>
-          <p style={{ fontSize: '14.5px', color: '#78350F' }}>
+          <p>
             TIA shall not be held liable for payout delays caused by banking holidays, NEFT/RTGS/IMPS network downtime, incorrect bank IFSC/account details provided by creators, or regulatory compliance holds imposed by intermediary banking institutions.
           </p>
         </section>
@@ -101,13 +96,13 @@ export default function EscrowPolicyPage() {
         {/* Section 5 */}
         <section>
           <h2 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', marginBottom: '14px', letterSpacing: '-0.01em' }}>
-            5. Escrow Release Irrevocability
+            5. Milestone Release Irrevocability
           </h2>
           <p style={{ marginBottom: '12px' }}>
             Once a milestone payment has been authorized by a Brand (manually or via 72-hour auto-approval) and disbursed to the Creator, the transaction is <strong>final, non-reversible, and non-refundable</strong>.
           </p>
           <p>
-            Any post-payout disputes regarding organic engagement performance, algorithm shifts, or audience reactions are strictly commercial risks assumed by the Brand and do not warrant an escrow clawback.
+            Any post-payout disputes regarding organic engagement performance, algorithm shifts, or audience reactions are strictly commercial risks assumed by the Brand and do not warrant a payout clawback.
           </p>
         </section>
       </div>

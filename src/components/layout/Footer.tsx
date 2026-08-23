@@ -351,7 +351,7 @@ export const Footer: React.FC = () => {
               <li><Link href="/creator" className="blue-footer-link">Creator Pricing Calculator</Link></li>
               <li><Link href="/brand/creators" className="blue-footer-link">Engagement Rate Checker</Link></li>
               <li><Link href="/creator/rate-card" className="blue-footer-link">Deliverable Rate Lock</Link></li>
-              <li><Link href="/admin" className="blue-footer-link">5% Escrow Fee Estimator</Link></li>
+              <li><Link href="/pricing" className="blue-footer-link">5% Platform Fee Estimator</Link></li>
               <li><Link href="/brand/creators" className="blue-footer-link">Free Influencer Search Tool</Link></li>
               <li><Link href="/brand" className="blue-footer-link">More Tools</Link></li>
             </ul>
@@ -409,7 +409,7 @@ export const Footer: React.FC = () => {
             <span>•</span>
             <span>Zero Floating Point Math</span>
             <span>•</span>
-            <span>Escrow Protected</span>
+            <span>Milestone Protected</span>
           </div>
         </div>
       </div>

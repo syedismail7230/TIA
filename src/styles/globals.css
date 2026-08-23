@@ -661,6 +661,40 @@ table {
   box-shadow: 0 16px 32px rgba(0, 82, 255, 0.08) !important;
 }
 
+/* Nav Dropdown Items */
+.nav-dropdown-item:hover {
+  background-color: #EFF6FF !important;
+}
+
+.nav-dropdown-item:hover div:first-child span {
+  color: #0052FF !important;
+}
+
+/* Mega Menu Cards Hover */
+.mega-menu-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.mega-menu-card:hover {
+  background-color: #F8FAFC !important;
+  transform: translateY(-2px);
+}
+
+.mega-menu-card:hover h3 {
+  color: #0052FF !important;
+}
+
+.mega-link-hover {
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.mega-link-hover:hover {
+  color: #0052FF !important;
+  transform: translateX(3px);
+}
+
+
+
 
 
 

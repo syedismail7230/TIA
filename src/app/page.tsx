@@ -59,7 +59,7 @@ export default function HomePage() {
             }}>
               <span>Audience Authenticity</span>
               <span className="tag-separator" style={{ color: '#CBD5E1' }}>•</span>
-              <span>Deterministic 5% Escrow</span>
+              <span>Deterministic 5% Milestone Vault</span>
               <span className="tag-separator" style={{ color: '#CBD5E1' }}>•</span>
               <span>Instant Settlements</span>
             </div>

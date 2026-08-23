@@ -16,7 +16,7 @@ interface LegalLayoutProps {
 const LEGAL_DOCUMENTS = [
   { href: '/terms', title: 'Terms of Service', icon: DocumentIcon },
   { href: '/privacy', title: 'Privacy Policy', icon: ShieldCheckIcon },
-  { href: '/escrow-policy', title: 'Escrow & Settlement Policy', icon: LockIcon },
+  { href: '/escrow-policy', title: 'Milestone & Settlement Policy', icon: LockIcon },
   { href: '/influencer-compliance', title: 'Influencer & Advertising Guidelines', icon: ScaleIcon },
   { href: '/ip-licensing', title: 'Content Licensing & IP Rights', icon: DocumentIcon },
   { href: '/dispute-policy', title: 'Dispute & Cancellation Policy', icon: ScaleIcon },
