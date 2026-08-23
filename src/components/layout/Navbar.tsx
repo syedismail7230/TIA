@@ -242,26 +242,6 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
             )}
           </div>
         )}
-
-        <style jsx>{`
-          @media (max-width: 900px) {
-            .desktop-nav-links,
-            .desktop-nav-actions {
-              display: none !important;
-            }
-            .mobile-hamburger-btn {
-              display: block !important;
-            }
-          }
-          @media (max-width: 600px) {
-            .ribbon-subtext {
-              display: none !important;
-            }
-            .ribbon-divider {
-              display: none !important;
-            }
-          }
-        `}</style>
       </header>
     </>
   );
