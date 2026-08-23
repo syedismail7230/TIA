@@ -110,35 +110,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual & Floating Seamless Badges */}
+          {/* Right Column: Hero Visual - High Impact Large Presentation */}
           <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            {/* Top Right Floating Badge */}
-            <div style={{
-              position: 'absolute',
-              top: '10%',
-              right: '-10px',
-              zIndex: 10,
-              background: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-              color: '#FFFFFF',
-              padding: '12px 18px',
-              boxShadow: '0 12px 28px rgba(0, 82, 255, 0.25)',
-              border: '1px solid #60A5FA',
-            }}>
-              <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em', opacity: 0.9 }}>
-                POWERED BY TIA ESCROW
-              </div>
-              <div style={{ fontSize: '14px', fontWeight: 800, marginTop: '2px' }}>
-                5.00% COMMISSION
-              </div>
-            </div>
-
-            {/* Seamless Hero Image without card box */}
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '560px',
+              maxWidth: '760px',
               display: 'flex',
               justifyContent: 'center',
+              alignItems: 'center',
             }}>
               <img
                 src="/hero.png"
@@ -146,53 +126,12 @@ export default function HomePage() {
                 style={{
                   width: '100%',
                   height: 'auto',
-                  maxHeight: '480px',
+                  maxHeight: '640px',
                   objectFit: 'contain',
                   display: 'block',
-                  filter: 'drop-shadow(0 15px 30px rgba(0, 82, 255, 0.12))',
+                  filter: 'drop-shadow(0 20px 40px rgba(0, 82, 255, 0.15))',
                 }}
               />
-
-              {/* Floating Verified Badge */}
-              <div style={{
-                position: 'absolute',
-                bottom: '8%',
-                right: '0px',
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid #E2E8F0',
-                padding: '10px 14px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 700, color: '#059669' }}>
-                  <span>✓</span> <span>95% Creator Allocation</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#475569' }}>
-                  <span>✓</span> <span>98.4% Authenticity Score</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#475569' }}>
-                  <span>✓</span> <span>Dual Digital Agreement</span>
-                </div>
-              </div>
-
-              {/* Bottom Left Testimonial Pill */}
-              <div style={{
-                position: 'absolute',
-                bottom: '10%',
-                left: '-10px',
-                backgroundColor: '#0052FF',
-                color: '#FFFFFF',
-                padding: '8px 14px',
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.02em',
-                boxShadow: '0 8px 20px rgba(0, 82, 255, 0.3)',
-              }}>
-                Top 1% Creator Verified ⭐
-              </div>
             </div>
           </div>
         </div>
