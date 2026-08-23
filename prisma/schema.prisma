@@ -1,0 +1,707 @@
+// ===================================================
+// THE INFLUENCER'S AGENCY (TIA) - MASTER PRISMA SCHEMA
+// Authoritative relational schema supporting 30+ domain models,
+// strict foreign keys, integer minor-currency units, and audit logs.
+// ===================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------
+// 1. AUTHENTICATION, USERS & ORGANIZATIONS
+// ---------------------------------------------------
+
+model User {
+  id               String               @id @default(uuid())
+  email            String               @unique
+  passwordHash     String
+  name             String
+  role             String               @default("CREATOR") // CREATOR, BRAND_USER, BRAND_ADMIN, TIA_SUPPORT, TIA_MODERATOR, TIA_FINANCE, TIA_SUPER_ADMIN
+  emailVerified    Boolean              @default(false)
+  avatarUrl        String?
+  country          String?
+  timezone         String?              @default("UTC")
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  creatorProfile   Creator?
+  orgMemberships   OrganizationMember[]
+  authoredReviews  Review[]             @relation("ReviewAuthor")
+  receivedReviews  Review[]             @relation("ReviewTarget")
+  messages         Message[]
+  notifications    Notification[]
+  auditLogs        AuditLog[]
+  openedDisputes   Dispute[]            @relation("DisputeInitiator")
+  decidedDisputes  Dispute[]            @relation("DisputeDecider")
+}
+
+model Organization {
+  id                       String               @id @default(uuid())
+  name                     String
+  legalName                String?
+  country                  String?
+  website                  String?
+  businessCategory         String?
+  verificationStatus       String               @default("UNVERIFIED") // UNVERIFIED, PENDING, VERIFIED, REJECTED
+  reputationScore          Int                  @default(100)
+  paymentReliabilityScore  Int                  @default(100)
+  logoUrl                  String?
+  createdAt                DateTime             @default(now())
+  updatedAt                DateTime             @updatedAt
+
+  members                  OrganizationMember[]
+  brandProfile             BrandProfile?
+  campaigns                Campaign[]
+  contracts                CampaignContract[]
+  transactions             Transaction[]
+  messageThreads           MessageThread[]
+  invoices                 Invoice[]
+}
+
+model OrganizationMember {
+  id             String       @id @default(uuid())
+  organizationId String
+  userId         String
+  role           String       @default("MEMBER") // OWNER, ADMIN, CAMPAIGN_MANAGER, FINANCE, VIEWER
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+}
+
+model BrandProfile {
+  id                 String       @id @default(uuid())
+  organizationId     String       @unique
+  companyName        String
+  industry           String
+  description        String?
+  website            String?
+  location           String?
+  verificationStatus String       @default("UNVERIFIED")
+  reputationScore    Int          @default(100)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 2. CREATORS, SOCIAL ACCOUNTS & INTELLIGENCE
+// ---------------------------------------------------
+
+model Creator {
+  id                 String                @id @default(uuid())
+  userId             String                @unique
+  displayName        String
+  username           String                @unique
+  bio                String?
+  country            String?
+  region             String?
+  city               String?
+  timezone           String?               @default("UTC")
+  languages          String?               // JSON array of strings e.g. ["English", "Hindi"]
+  categories         String?               // JSON array of strings e.g. ["Tech", "Lifestyle"]
+  verificationStatus String                @default("UNVERIFIED") // UNVERIFIED, EMAIL_VERIFIED, IDENTITY_VERIFIED, SOCIAL_CONNECTED, VERIFIED_CREATOR
+  intelligenceScore  Int                   @default(0) // 0 - 100
+  reputationScore    Int                   @default(100) // 0 - 100
+  brandSafetyScore   Int                   @default(100) // 0 - 100
+  availabilityStatus String                @default("AVAILABLE") // AVAILABLE, BUSY, UNAVAILABLE
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+
+  user               User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  socialAccounts     SocialAccount[]
+  scores             CreatorScore[]
+  riskSignals        CreatorRiskSignal[]
+  rateCard           CreatorRateCard?
+  availability       CreatorAvailability?
+  applications       CampaignApplication[]
+  bids               CampaignBid[]
+  negotiations       CampaignNegotiation[]
+  contracts          CampaignContract[]
+  deliverables       CampaignDeliverable[]
+  transactions       Transaction[]
+  payoutRecords      PayoutRecord[]
+  messageThreads     MessageThread[]
+  campaignMetrics    CampaignMetric[]
+}
+
+model SocialAccount {
+  id                 String            @id @default(uuid())
+  creatorId          String
+  platform           String            // INSTAGRAM, YOUTUBE, FACEBOOK, X, LINKEDIN
+  platformAccountId  String
+  username           String
+  profileUrl         String?
+  profileImageUrl    String?
+  accountMetadata    String?           // JSON
+  connectionStatus   String            @default("CONNECTED") // CONNECTED, DISCONNECTED, EXPIRED, REVOKED
+  permissionStatus   String            @default("AUTHORIZED") // AUTHORIZED, LIMITED, EXPIRED
+  audienceSize       Int               @default(0) // Internal normalized field (e.g. Followers / Subscribers)
+  engagementRate     Float             @default(0.0)
+  averageViews       Int               @default(0)
+  contentCount       Int               @default(0)
+  lastSyncedAt       DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  creator            Creator           @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  token              SocialToken?
+  audienceMetrics    AudienceMetric[]
+  contentMetrics     ContentMetric[]
+
+  @@unique([platform, platformAccountId])
+}
+
+model SocialToken {
+  id              String        @id @default(uuid())
+  socialAccountId String        @unique
+  accessToken     String
+  refreshToken    String?
+  tokenType       String?       @default("Bearer")
+  scope           String?
+  expiresAt       DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  socialAccount   SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+}
+
+model AudienceMetric {
+  id              String         @id @default(uuid())
+  creatorId       String
+  socialAccountId String?
+  countryCode     String?        // ISO 3166-1 alpha-2
+  countryName     String?
+  percentage      Float          @default(0.0)
+  region          String?
+  city            String?
+  age13_17        Float          @default(0.0)
+  age18_24        Float          @default(0.0)
+  age25_34        Float          @default(0.0)
+  age35_44        Float          @default(0.0)
+  age45_54        Float          @default(0.0)
+  age55_plus      Float          @default(0.0)
+  genderMale      Float          @default(0.0)
+  genderFemale    Float          @default(0.0)
+  genderOther     Float          @default(0.0)
+  interests       String?        // JSON array e.g. ["Tech", "Gaming"]
+  confidence      String         @default("MEASURED") // MEASURED, ESTIMATED, MODELLED, UNAVAILABLE
+  measuredAt      DateTime       @default(now())
+
+  socialAccount   SocialAccount? @relation(fields: [socialAccountId], references: [id], onDelete: SetNull)
+}
+
+model ContentMetric {
+  id                String        @id @default(uuid())
+  socialAccountId   String
+  externalContentId String
+  title             String?
+  contentType       String?       // POST, REEL, VIDEO, STORY, SHORT, ARTICLE
+  url               String?
+  publishedAt       DateTime?
+  views             Int           @default(0)
+  likes             Int           @default(0)
+  comments          Int           @default(0)
+  shares            Int           @default(0)
+  saves             Int           @default(0)
+  engagementRate    Float         @default(0.0)
+  estimatedReach    Int           @default(0)
+
+  socialAccount     SocialAccount @relation(fields: [socialAccountId], references: [id], onDelete: Cascade)
+}
+
+model CreatorScore {
+  id                     String   @id @default(uuid())
+  creatorId              String
+  overallScore           Int      @default(0) // 0 - 100
+  audienceQualityScore   Int      @default(0)
+  authenticityScore      Int      @default(0)
+  engagementQualityScore Int      @default(0)
+  reputationScore        Int      @default(0)
+  brandSafetyScore       Int      @default(0)
+  dataConfidenceScore    Int      @default(0)
+  calculatedAt           DateTime @default(now())
+
+  creator                Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+model CreatorRiskSignal {
+  id              String   @id @default(uuid())
+  creatorId       String
+  signalType      String   // UNUSUAL_FOLLOWER_GROWTH, ABNORMAL_ENGAGEMENT, SUSPICIOUS_AUDIENCE, GEOGRAPHIC_ANOMALY
+  severity        String   @default("LOW") // LOW, MEDIUM, HIGH, CRITICAL
+  confidence      Float    @default(0.0) // 0.0 - 1.0
+  evidenceSummary String
+  status          String   @default("DETECTED") // DETECTED, UNDER_REVIEW, CONFIRMED, RESOLVED, DISMISSED
+  detectedAt      DateTime @default(now())
+
+  creator         Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+model CreatorRateCard {
+  id                 String   @id @default(uuid())
+  creatorId          String   @unique
+  startingPrice      Int      @default(0) // Minor units (e.g. paise / cents)
+  currency           String   @default("INR") // ISO 4217 (INR, USD, EUR, GBP)
+  platformRates      String?  // JSON: e.g. {"INSTAGRAM_REEL": 5000000, "YOUTUBE_VIDEO": 12000000}
+  deliverableRates   String?  // JSON
+  allowNegotiation   Boolean  @default(true)
+  minBudgetAccepted  Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  creator            Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+model CreatorAvailability {
+  id                        String   @id @default(uuid())
+  creatorId                 String   @unique
+  availableDates            String?  // JSON array
+  bookedDates               String?  // JSON array
+  tentativeDates            String?  // JSON array
+  leadTimeDays              Int      @default(7)
+  maxSimultaneousCampaigns  Int      @default(3)
+  status                    String   @default("AVAILABLE")
+  updatedAt                 DateTime @updatedAt
+
+  creator                   Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 3. CAMPAIGNS, MARKETPLACE & LIFECYCLE
+// ---------------------------------------------------
+
+model Campaign {
+  id                  String                @id @default(uuid())
+  brandId             String?               // Optional BrandProfile reference
+  organizationId      String
+  title               String
+  description         String
+  objective           String                // AWARENESS, ENGAGEMENT, TRAFFIC, LEAD_GEN, SALES, PRODUCT_LAUNCH, APP_PROMO, CONTENT_GEN
+  category            String
+  status              String                @default("DRAFT") // DRAFT, PUBLISHED, ACCEPTING_APPLICATIONS, SHORTLISTING, NEGOTIATION, CONTRACTED, FUNDED, IN_PROGRESS, CONTENT_REVIEW, APPROVED, PUBLISHED_LIVE, MEASURING, COMPLETED, CANCELLED, DISPUTED, SUSPENDED, FAILED
+  budget              Int                   // Minor units (paise/cents)
+  currency            String                @default("INR")
+  applicationDeadline DateTime?
+  campaignStart       DateTime?
+  campaignEnd         DateTime?
+  targetGeographies   String?               // JSON array
+  targetDemographics  String?               // JSON
+  targetInterests     String?               // JSON array
+  requiredPlatforms   String?               // JSON array e.g. ["INSTAGRAM", "YOUTUBE"]
+  deliverables        String?               // JSON array of deliverable specs
+  visibility          String                @default("PUBLIC") // PUBLIC, INVITE_ONLY
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  organization        Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  applications        CampaignApplication[]
+  bids                CampaignBid[]
+  negotiations        CampaignNegotiation[]
+  contracts           CampaignContract[]
+  deliverableItems    CampaignDeliverable[]
+  transactions        Transaction[]
+  messageThreads      MessageThread[]
+  metrics             CampaignMetric[]
+  reviews             Review[]
+  disputes            Dispute[]
+}
+
+model CampaignApplication {
+  id             String    @id @default(uuid())
+  campaignId     String
+  creatorId      String
+  proposedPrice  Int       // Minor units
+  currency       String    @default("INR")
+  pitch          String
+  conceptNote    String?
+  deliveryDays   Int       @default(7)
+  portfolioLinks String?   // JSON array
+  status         String    @default("SUBMITTED") // SUBMITTED, UNDER_REVIEW, SHORTLISTED, NEGOTIATING, ACCEPTED, REJECTED, WITHDRAWN, EXPIRED
+  appliedAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  campaign       Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator        Creator   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, creatorId])
+}
+
+model CampaignBid {
+  id         String   @id @default(uuid())
+  campaignId String
+  creatorId  String
+  bidAmount  Int      // Minor units
+  currency   String   @default("INR")
+  terms      String?
+  status     String   @default("SUBMITTED") // SUBMITTED, ACCEPTED, REJECTED, SUPERSEDED
+  createdAt  DateTime @default(now())
+
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator    Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+model CampaignNegotiation {
+  id            String   @id @default(uuid())
+  campaignId    String
+  creatorId     String
+  initiatorRole String   // BRAND, CREATOR
+  offerAmount   Int      // Minor units
+  currency      String   @default("INR")
+  deliverables  String?  // JSON
+  timelineDays  Int      @default(7)
+  notes         String?
+  status        String   @default("OFFERED") // OFFERED, COUNTERED, ACCEPTED, DECLINED
+  createdAt     DateTime @default(now())
+
+  campaign      Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator       Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 4. CONTRACTS & DIGITAL AGREEMENTS
+// ---------------------------------------------------
+
+model CampaignContract {
+  id                      String                @id @default(uuid())
+  campaignId              String
+  organizationId          String
+  creatorId               String
+  version                 Int                   @default(1)
+  agreedAmount            Int                   // Minor units
+  currency                String                @default("INR")
+  commissionRate          Float                 @default(5.00) // Stored at creation time
+  commissionAmount        Int                   // Minor units (5%)
+  creatorAllocationAmount Int                   // Minor units (95%)
+  deliverables            String                // JSON array
+  revisionLimit           Int                   @default(2)
+  usageRights             String?
+  licensingTerms          String?
+  exclusivity             String?
+  cancellationTerms       String?
+  disputeClauses          String?
+  brandSignedAt           DateTime?
+  creatorSignedAt         DateTime?
+  status                  String                @default("PENDING_SIGNATURES") // DRAFT, PENDING_SIGNATURES, SIGNED, AMENDED, TERMINATED
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+
+  campaign                Campaign              @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  organization            Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  creator                 Creator               @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  deliverableItems        CampaignDeliverable[]
+  transactions            Transaction[]
+  disputes                Dispute[]
+}
+
+// ---------------------------------------------------
+// 5. CONTENT DELIVERABLES & APPROVAL WORKFLOW
+// ---------------------------------------------------
+
+model CampaignDeliverable {
+  id           String              @id @default(uuid())
+  campaignId   String
+  contractId   String
+  creatorId    String
+  title        String
+  type         String              // REEL, STORY, POST, VIDEO, SHORT, ARTICLE
+  platform     String              // INSTAGRAM, YOUTUBE, FACEBOOK, X, LINKEDIN
+  requirements String?
+  status       String              @default("PENDING") // PENDING, DRAFT_SUBMITTED, REVISION_REQUESTED, APPROVED, PUBLISHED
+  deadline     DateTime?
+  approvedAt   DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  campaign     Campaign            @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  contract     CampaignContract    @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  creator      Creator             @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  submissions  ContentSubmission[]
+  metrics      CampaignMetric[]
+}
+
+model ContentSubmission {
+  id            String            @id @default(uuid())
+  deliverableId String
+  version       Int               @default(1)
+  fileUrl       String
+  fileKey       String?
+  fileName      String?
+  fileSizeBytes Int               @default(0)
+  mimeType      String?
+  caption       String?
+  tags          String?
+  status        String            @default("SUBMITTED") // SUBMITTED, REVISION_REQUESTED, APPROVED, PUBLISHED
+  notes         String?
+  submittedAt   DateTime          @default(now())
+
+  deliverable   CampaignDeliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
+  revisions     ContentRevision[]
+}
+
+model ContentRevision {
+  id                     String            @id @default(uuid())
+  submissionId           String
+  requestedByUserId      String
+  comment                String
+  structuredRequirements String?           // JSON
+  requestedAt            DateTime          @default(now())
+
+  submission             ContentSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 6. MESSAGING & ANTI-CIRCUMVENTION
+// ---------------------------------------------------
+
+model MessageThread {
+  id             String       @id @default(uuid())
+  campaignId     String
+  organizationId String
+  creatorId      String
+  subject        String?
+  status         String       @default("ACTIVE") // ACTIVE, ARCHIVED, MUTED
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  campaign       Campaign     @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  creator        Creator      @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  messages       Message[]
+
+  @@unique([campaignId, creatorId])
+}
+
+model Message {
+  id                         String        @id @default(uuid())
+  threadId                   String
+  senderUserId               String
+  senderRole                 String        // BRAND, CREATOR, SYSTEM, MODERATOR
+  content                    String
+  attachmentUrls             String?       // JSON array
+  containsFlaggedContactInfo Boolean       @default(false)
+  flaggedReason              String?
+  isSystemMessage            Boolean       @default(false)
+  readByCreator              Boolean       @default(false)
+  readByBrand                Boolean       @default(false)
+  createdAt                  DateTime      @default(now())
+
+  thread                     MessageThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  sender                     User          @relation(fields: [senderUserId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 7. FINANCIAL LEDGER, COMMISSION & PAYOUTS
+// ---------------------------------------------------
+
+model Transaction {
+  id                      String            @id @default(uuid())
+  organizationId          String
+  creatorId               String
+  campaignId              String
+  contractId              String?
+  transactionType         String            // ESCROW_DEPOSIT, ESCROW_RELEASE, COMMISSION_FEE, REFUND, PAYOUT_DISPATCH
+  grossAmount             Int               // Minor units
+  commissionRate          Float             @default(5.00)
+  commissionAmount        Int               // Minor units
+  creatorAllocationAmount Int               // Minor units
+  paymentProcessingFee    Int               @default(0)
+  taxAmount               Int               @default(0)
+  netAmount               Int               // Minor units
+  currency                String            @default("INR")
+  paymentProvider         String            @default("INTERNAL_LEDGER") // STRIPE, RAZORPAY, INTERNAL_LEDGER
+  providerTransactionId   String?
+  status                  String            @default("PENDING") // PENDING, HELD_IN_ESCROW, SETTLED, REFUNDED, FAILED
+  createdAt               DateTime          @default(now())
+
+  organization            Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  creator                 Creator           @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  campaign                Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  contract                CampaignContract? @relation(fields: [contractId], references: [id], onDelete: SetNull)
+  payoutRecord            PayoutRecord?
+  invoice                 Invoice?
+}
+
+model CommissionConfig {
+  id                String   @id @default(uuid())
+  name              String
+  defaultRate       Float    @default(5.00)
+  minTransactionFee Int      @default(0)
+  maxCommissionCap  Int?
+  isDefault         Boolean  @default(false)
+  active            Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model PayoutRecord {
+  id                 String      @id @default(uuid())
+  creatorId          String
+  transactionId      String      @unique
+  amount             Int         // Minor units
+  currency           String      @default("INR")
+  payoutMethod       String      @default("BANK_TRANSFER") // BANK_TRANSFER, UPI, STRIPE_CONNECT, PAYPAL
+  destinationDetails String?     // Masked JSON: e.g. {"accountLast4": "4242", "bank": "HDFC"}
+  status             String      @default("SCHEDULED") // SCHEDULED, PROCESSING, DISBURSED, FAILED
+  referenceNumber    String?
+  disbursedAt        DateTime?
+  createdAt          DateTime    @default(now())
+
+  creator            Creator     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  transaction        Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model Invoice {
+  id                String       @id @default(uuid())
+  transactionId     String       @unique
+  invoiceNumber     String       @unique
+  issuedToOrgId     String
+  issuedToCreatorId String?
+  totalAmount       Int          // Minor units
+  commissionAmount  Int          // Minor units
+  netAmount         Int          // Minor units
+  currency          String       @default("INR")
+  pdfUrl            String?
+  status            String       @default("ISSUED") // ISSUED, PAID, CANCELLED
+  issuedAt          DateTime     @default(now())
+
+  transaction       Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  organization      Organization @relation(fields: [issuedToOrgId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 8. PERFORMANCE ATTRIBUTION & REVIEWS
+// ---------------------------------------------------
+
+model CampaignMetric {
+  id                  String               @id @default(uuid())
+  campaignId          String
+  creatorId           String
+  deliverableId       String?
+  reach               Int                  @default(0)
+  impressions         Int                  @default(0)
+  views               Int                  @default(0)
+  likes               Int                  @default(0)
+  comments            Int                  @default(0)
+  shares              Int                  @default(0)
+  saves               Int                  @default(0)
+  clicks              Int                  @default(0)
+  conversions         Int                  @default(0)
+  roas                Float                @default(0.0)
+  revenue             Int                  @default(0)
+  costPerEngagement   Float                @default(0.0)
+  costPerClick        Float                @default(0.0)
+  attributionData     String?              // JSON tracking links, promo codes, UTMs
+  reportedByPlatform  Boolean              @default(false)
+  calculatedByTia     Boolean              @default(true)
+  measuredAt          DateTime             @default(now())
+
+  campaign            Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creator             Creator              @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  deliverable         CampaignDeliverable? @relation(fields: [deliverableId], references: [id], onDelete: SetNull)
+}
+
+model Review {
+  id                  String   @id @default(uuid())
+  campaignId          String
+  authorUserId        String
+  targetUserId        String
+  authorRole          String   // BRAND, CREATOR
+  targetRole          String   // BRAND, CREATOR
+  rating              Int      @default(5) // 1 - 5
+  timelinessRating    Int      @default(5)
+  communicationRating Int      @default(5)
+  qualityRating       Int      @default(5)
+  feedback            String?
+  isPublic            Boolean  @default(true)
+  createdAt           DateTime @default(now())
+
+  campaign            Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  author              User     @relation("ReviewAuthor", fields: [authorUserId], references: [id], onDelete: Cascade)
+  target              User     @relation("ReviewTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 9. DISPUTES, MODERATION & GOVERNANCE
+// ---------------------------------------------------
+
+model Dispute {
+  id                     String            @id @default(uuid())
+  campaignId             String
+  contractId             String?
+  initiatorUserId        String
+  initiatorRole          String            // BRAND, CREATOR
+  reason                 String            // PAYMENT, DELIVERABLES, QUALITY, DEADLINES, CONTRACT_TERMS, CANCELLATION, MISREPRESENTATION
+  description            String
+  claimedAmount          Int               @default(0) // Minor units
+  currency               String            @default("INR")
+  status                 String            @default("OPENED") // OPENED, EVIDENCE_SUBMITTED, UNDER_REVIEW, DECIDED, RESOLVED, CLOSED
+  decisionSummary        String?
+  financialResolutionType String?          // FULL_RELEASE, PARTIAL_RELEASE_AND_REFUND, FULL_REFUND, NO_MONETARY_CHANGE
+  refundAmount           Int               @default(0)
+  releaseAmount          Int               @default(0)
+  decidedByUserId        String?
+  decidedAt              DateTime?
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+
+  campaign               Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  contract               CampaignContract? @relation(fields: [contractId], references: [id], onDelete: SetNull)
+  initiator              User              @relation("DisputeInitiator", fields: [initiatorUserId], references: [id], onDelete: Cascade)
+  decider                User?             @relation("DisputeDecider", fields: [decidedByUserId], references: [id], onDelete: SetNull)
+  evidence               DisputeEvidence[]
+}
+
+model DisputeEvidence {
+  id               String   @id @default(uuid())
+  disputeId        String
+  submittedByUserId String
+  description      String
+  fileUrl          String?
+  mimeType         String?
+  submittedAt      DateTime @default(now())
+
+  dispute          Dispute  @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------
+// 10. NOTIFICATIONS & AUDIT TRAILS
+// ---------------------------------------------------
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  actionUrl String?
+  type      String   @default("INFO") // CAMPAIGN_INVITE, APPLICATION_RECEIVED, BID_ACCEPTED, CONTRACT_READY, PAYMENT_HELD, CONTENT_SUBMITTED, REVISION_REQUESTED, APPROVED, COMPLETED, DISPUTE
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  userRole   String?
+  action     String   // LOGIN, SOCIAL_CONNECT, CAMPAIGN_CREATE, BID_SUBMIT, CONTRACT_SIGN, PAYMENT_CAPTURED, CONTENT_APPROVE, DISPUTE_DECISION, COMMISSION_UPDATE
+  entityType String   // USER, CAMPAIGN, CONTRACT, TRANSACTION, DISPUTE
+  entityId   String
+  ipAddress  String?
+  userAgent  String?
+  metadata   String?  // JSON
+  createdAt  DateTime @default(now())
+
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
