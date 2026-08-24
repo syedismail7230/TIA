@@ -89,8 +89,8 @@ function RegisterContent() {
   const [phoneTouched, setPhoneTouched] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [agreedTerms, setAgreedTerms] = useState(true);
-  const [optInPromo, setOptInPromo] = useState(true);
+  const [agreedTerms, setAgreedTerms] = useState(false);
+  const [optInPromo, setOptInPromo] = useState(false);
 
   // Step 3 Form State (Name & Demographics)
   const [name, setName] = useState('');
