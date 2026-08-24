@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { getCurrentUser } from '@/lib/auth/session';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { AppShell } from '@/components/layout/AppShell';
 
 export const metadata: Metadata = {
   title: "The Influencer's Agency (TIA) — Global Creator Intelligence & Marketplace",
@@ -31,10 +30,10 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body suppressHydrationWarning style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Navbar user={user} />
-        <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
+      <body suppressHydrationWarning style={{ minHeight: '100vh', margin: 0, padding: 0 }}>
+        <AppShell user={user}>
+          {children}
+        </AppShell>
       </body>
     </html>
   );
