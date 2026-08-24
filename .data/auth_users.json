@@ -1,0 +1,38 @@
+[
+  {
+    "id": "demo-brand-user-id",
+    "email": "brand@tia.agency",
+    "passwordHash": "$2a$10$7ybhBdnu1keDahT725bMouX6/Y20.P/SUKDUyV1uDK0EbEys1VEgO",
+    "name": "Nexus Brand Manager",
+    "role": "BRAND_ADMIN",
+    "country": "India",
+    "createdAt": "2026-08-24T21:57:47.601Z"
+  },
+  {
+    "id": "demo-creator-user-id",
+    "email": "creator@tia.agency",
+    "passwordHash": "$2a$10$8GxCwPH8jsTNfMKRwHegYeoyrg4uyuYCL00oHtUPpSFSEINtES3oS",
+    "name": "Aarav Sharma",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-24T21:57:47.740Z"
+  },
+  {
+    "id": "demo-admin-user-id",
+    "email": "admin@tia.agency",
+    "passwordHash": "$2a$10$oZq3wb9JNpI3gnQZPH70WuC.5Xp3sOD4JmkDWsbsdEsn8DX3Oft9y",
+    "name": "TIA Super Admin",
+    "role": "TIA_SUPER_ADMIN",
+    "country": "India",
+    "createdAt": "2026-08-24T21:57:47.829Z"
+  },
+  {
+    "id": "user_creators_alliance",
+    "email": "creatorsalliance.media@gmail.com",
+    "passwordHash": "$2a$10$tB9h7DNw/K7CjIqJpL93z.wsMoCJLbnR3tDRA4x8zNjUDdzwfyokm",
+    "name": "Creators Alliance",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-24T21:57:47.918Z"
+  }
+]

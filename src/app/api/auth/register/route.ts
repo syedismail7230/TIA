@@ -3,6 +3,7 @@ import prisma from '@/lib/db/prisma';
 import { hashPassword } from '@/lib/auth/password';
 import { setSessionCookie } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
+import { saveStoredUser } from '@/lib/auth/local-auth-store';
 
 export async function POST(request: Request) {
   try {
@@ -17,9 +18,24 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    const passwordHash = await hashPassword(password);
+
+    // Save in local auth store for immediate and reliable login persistence
+    saveStoredUser({
+      id: `user_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      email: normalizedEmail,
+      passwordHash,
+      name,
+      role,
+      phone,
+      gender,
+      age: age ? Number(age) : undefined,
+      country: country || 'India',
+      createdAt: new Date().toISOString(),
+    });
 
     try {
-      // Check if user already exists
+      // Check if user already exists in DB
       const existing = await prisma.user.findUnique({
         where: { email: normalizedEmail },
       });
@@ -30,8 +46,6 @@ export async function POST(request: Request) {
           { status: 409 }
         );
       }
-
-      const passwordHash = await hashPassword(password);
 
       // Transactional registration for atomic data creation
       const user = await prisma.$transaction(async (tx) => {

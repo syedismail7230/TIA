@@ -811,20 +811,50 @@ table {
 .auth-avatar-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
+  box-shadow: none;
 }
 
 .auth-avatar-logo-img {
-  width: 22px;
-  height: 22px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
+}
+
+.auth-password-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.auth-password-toggle-btn,
+.auth-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  color: #94A3B8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.15s ease;
+  z-index: 2;
+}
+
+.auth-password-toggle-btn:hover,
+.auth-password-toggle:hover {
+  color: #0F172A;
 }
 
 .auth-title {
