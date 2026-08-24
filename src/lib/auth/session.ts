@@ -54,6 +54,7 @@ export function clearSessionCookie() {
 
 export async function getCurrentUser(): Promise<{
   id: string;
+  userId: string;
   email: string;
   name: string;
   role: string;
@@ -94,6 +95,7 @@ export async function getCurrentUser(): Promise<{
 
     return {
       id: user.id,
+      userId: user.id,
       email: user.email,
       name: user.name,
       role: user.role,
@@ -104,3 +106,5 @@ export async function getCurrentUser(): Promise<{
     return null;
   }
 }
+
+export const getSession = getCurrentUser;
