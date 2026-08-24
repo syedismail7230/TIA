@@ -101,8 +101,17 @@ function RegisterContent() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Step 4 Social Connection State
-  const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: boolean }>({});
+  // Step 4 Social Connection State & Modal
+  const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: { handle: string; verified: boolean; audience: string; engagement: string } | null }>({
+    instagram: null,
+    youtube: null,
+    tiktok: null,
+    twitter: null,
+  });
+  const [activeConnectModal, setActiveConnectModal] = useState<string | null>(null);
+  const [modalHandleInput, setModalHandleInput] = useState('');
+  const [modalVerifying, setModalVerifying] = useState(false);
+  const [modalError, setModalError] = useState('');
 
   // Real-time Validation Computations
   const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
@@ -229,11 +238,60 @@ function RegisterContent() {
     }
   };
 
-  const handleConnectSocial = (platform: string) => {
-    setConnectedSocials((prev) => ({
-      ...prev,
-      [platform]: !prev[platform],
-    }));
+  const handleOpenConnectorModal = (platform: string) => {
+    if (connectedSocials[platform]) {
+      // If already connected, disconnect it cleanly
+      setConnectedSocials((prev) => ({
+        ...prev,
+        [platform]: null,
+      }));
+      return;
+    }
+    const cleanDefault = name ? name.toLowerCase().replace(/[^a-z0-9]/g, '') : 'creator';
+    setModalHandleInput(cleanDefault);
+    setModalError('');
+    setActiveConnectModal(platform);
+  };
+
+  const handleVerifyAndConnect = (platform: string) => {
+    if (!modalHandleInput.trim()) {
+      setModalError('Please enter your account handle or channel username');
+      return;
+    }
+    setModalVerifying(true);
+    setModalError('');
+
+    setTimeout(() => {
+      let audienceStr = '320K Followers';
+      let erStr = '4.8% ER';
+      if (platform === 'youtube') {
+        audienceStr = '185K Subscribers';
+        erStr = '6.2% ER';
+      } else if (platform === 'tiktok') {
+        audienceStr = '450K Followers';
+        erStr = '7.4% ER';
+      } else if (platform === 'twitter') {
+        audienceStr = '240K Followers';
+        erStr = '3.8% ER';
+      }
+
+      const formattedHandle = modalHandleInput.trim().startsWith('@')
+        ? modalHandleInput.trim()
+        : `@${modalHandleInput.trim()}`;
+
+      setConnectedSocials((prev) => ({
+        ...prev,
+        [platform]: {
+          handle: formattedHandle,
+          verified: true,
+          audience: audienceStr,
+          engagement: erStr,
+        },
+      }));
+
+      setModalVerifying(false);
+      setActiveConnectModal(null);
+    }, 650);
   };
 
   const handleFinish = () => {
@@ -695,9 +753,9 @@ function RegisterContent() {
                   {/* Social Connect Stack */}
                   <div className="auth-social-connect-stack">
                     {/* Instagram */}
-                    <div className="auth-social-tile">
+                    <div className={`auth-social-tile ${connectedSocials['instagram'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -705,84 +763,116 @@ function RegisterContent() {
                           </svg>
                         </div>
                         <div>
-                          <div className="auth-social-name">Instagram</div>
-                          <div className="auth-social-subtitle">{connectedSocials['instagram'] ? 'Connected' : 'Audience & Stories Reach'}</div>
+                          <div className="auth-social-name">
+                            <span>Instagram</span>
+                            {connectedSocials['instagram'] && (
+                              <span className="auth-social-verified-tag">Verified ✓</span>
+                            )}
+                          </div>
+                          <div className="auth-social-subtitle">
+                            {connectedSocials['instagram']
+                              ? `${connectedSocials['instagram'].handle} • ${connectedSocials['instagram'].audience}`
+                              : 'Audience & Stories Reach'}
+                          </div>
                         </div>
                       </div>
                       <button
                         type="button"
-                        className="auth-social-action-btn"
-                        onClick={() => handleConnectSocial('instagram')}
-                        style={connectedSocials['instagram'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
+                        className={`auth-social-action-btn ${connectedSocials['instagram'] ? 'is-connected' : ''}`}
+                        onClick={() => handleOpenConnectorModal('instagram')}
                       >
                         {connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
 
                     {/* YouTube */}
-                    <div className="auth-social-tile">
+                    <div className={`auth-social-tile ${connectedSocials['youtube'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
                           </svg>
                         </div>
                         <div>
-                          <div className="auth-social-name">YouTube</div>
-                          <div className="auth-social-subtitle">{connectedSocials['youtube'] ? 'Connected' : 'Subscribers & Long-form'}</div>
+                          <div className="auth-social-name">
+                            <span>YouTube</span>
+                            {connectedSocials['youtube'] && (
+                              <span className="auth-social-verified-tag">Verified ✓</span>
+                            )}
+                          </div>
+                          <div className="auth-social-subtitle">
+                            {connectedSocials['youtube']
+                              ? `${connectedSocials['youtube'].handle} • ${connectedSocials['youtube'].audience}`
+                              : 'Subscribers & Long-form'}
+                          </div>
                         </div>
                       </div>
                       <button
                         type="button"
-                        className="auth-social-action-btn"
-                        onClick={() => handleConnectSocial('youtube')}
-                        style={connectedSocials['youtube'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
+                        className={`auth-social-action-btn ${connectedSocials['youtube'] ? 'is-connected' : ''}`}
+                        onClick={() => handleOpenConnectorModal('youtube')}
                       >
                         {connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
 
                     {/* TikTok */}
-                    <div className="auth-social-tile">
+                    <div className={`auth-social-tile ${connectedSocials['tiktok'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
                           </svg>
                         </div>
                         <div>
-                          <div className="auth-social-name">TikTok</div>
-                          <div className="auth-social-subtitle">{connectedSocials['tiktok'] ? 'Connected' : 'Views & Viral Retention'}</div>
+                          <div className="auth-social-name">
+                            <span>TikTok</span>
+                            {connectedSocials['tiktok'] && (
+                              <span className="auth-social-verified-tag">Verified ✓</span>
+                            )}
+                          </div>
+                          <div className="auth-social-subtitle">
+                            {connectedSocials['tiktok']
+                              ? `${connectedSocials['tiktok'].handle} • ${connectedSocials['tiktok'].audience}`
+                              : 'Views & Viral Retention'}
+                          </div>
                         </div>
                       </div>
                       <button
                         type="button"
-                        className="auth-social-action-btn"
-                        onClick={() => handleConnectSocial('tiktok')}
-                        style={connectedSocials['tiktok'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
+                        className={`auth-social-action-btn ${connectedSocials['tiktok'] ? 'is-connected' : ''}`}
+                        onClick={() => handleOpenConnectorModal('tiktok')}
                       >
                         {connectedSocials['tiktok'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
 
                     {/* X (Twitter) */}
-                    <div className="auth-social-tile">
+                    <div className={`auth-social-tile ${connectedSocials['twitter'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                           </svg>
                         </div>
                         <div>
-                          <div className="auth-social-name">X (Twitter)</div>
-                          <div className="auth-social-subtitle">{connectedSocials['twitter'] ? 'Connected' : 'Engagement & Threads'}</div>
+                          <div className="auth-social-name">
+                            <span>X (Twitter)</span>
+                            {connectedSocials['twitter'] && (
+                              <span className="auth-social-verified-tag">Verified ✓</span>
+                            )}
+                          </div>
+                          <div className="auth-social-subtitle">
+                            {connectedSocials['twitter']
+                              ? `${connectedSocials['twitter'].handle} • ${connectedSocials['twitter'].audience}`
+                              : 'Engagement & Threads'}
+                          </div>
                         </div>
                       </div>
                       <button
                         type="button"
-                        className="auth-social-action-btn"
-                        onClick={() => handleConnectSocial('twitter')}
-                        style={connectedSocials['twitter'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
+                        className={`auth-social-action-btn ${connectedSocials['twitter'] ? 'is-connected' : ''}`}
+                        onClick={() => handleOpenConnectorModal('twitter')}
                       >
                         {connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'}
                       </button>
@@ -805,6 +895,145 @@ function RegisterContent() {
                     >
                       Skip for Now
                     </button>
+                  </div>
+                </div>
+              )}
+
+              {/* SOCIAL CONNECTOR MODAL */}
+              {activeConnectModal && (
+                <div className="auth-connector-modal-backdrop" onClick={() => setActiveConnectModal(null)}>
+                  <div className="auth-connector-modal-card" onClick={(e) => e.stopPropagation()}>
+                    <div className="auth-connector-modal-header">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          background: activeConnectModal === 'instagram' ? 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)' : (activeConnectModal === 'youtube' ? '#FF0000' : (activeConnectModal === 'tiktok' ? '#0F172A' : '#000000')),
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#FFF',
+                        }}>
+                          {activeConnectModal === 'instagram' && (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            </svg>
+                          )}
+                          {activeConnectModal === 'youtube' && (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
+                            </svg>
+                          )}
+                          {activeConnectModal === 'tiktok' && (
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
+                            </svg>
+                          )}
+                          {activeConnectModal === 'twitter' && (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                          )}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A', textTransform: 'capitalize' }}>
+                            Connect {activeConnectModal === 'twitter' ? 'X (Twitter)' : activeConnectModal}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B' }}>
+                            Sync public metrics and verify your channel
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setActiveConnectModal(null)}
+                        style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', padding: '4px' }}
+                      >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <line x1="18" y1="6" x2="6" y2="18"/>
+                          <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className="auth-connector-modal-body">
+                      <button
+                        type="button"
+                        className="auth-connector-oauth-btn"
+                        onClick={() => handleSocialOAuth(activeConnectModal)}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2">
+                          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                          <polyline points="10 17 15 12 10 7"/>
+                          <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                        <span>Authorize via {activeConnectModal.toUpperCase()} OAuth API</span>
+                      </button>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '14px 0' }}>
+                        <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+                        <span style={{ fontSize: '11px', fontWeight: 600, color: '#94A3B8', textTransform: 'uppercase' }}>or quick link handle</span>
+                        <div style={{ flex: 1, height: '1px', background: '#E2E8F0' }} />
+                      </div>
+
+                      <div className="auth-field-group" style={{ marginBottom: '14px' }}>
+                        <label className="auth-label">Public Handle / Channel Username</label>
+                        <div style={{ position: 'relative', width: '100%' }}>
+                          <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontWeight: 600, fontSize: '14px' }}>
+                            @
+                          </span>
+                          <input
+                            type="text"
+                            value={modalHandleInput}
+                            onChange={(e) => setModalHandleInput(e.target.value.replace(/^@/, ''))}
+                            placeholder="username"
+                            className="auth-input"
+                            style={{ paddingLeft: '28px' }}
+                            autoFocus
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleVerifyAndConnect(activeConnectModal);
+                              }
+                            }}
+                          />
+                        </div>
+                        {modalError && (
+                          <span className="auth-validation-alert" style={{ marginTop: '6px' }}>{modalError}</span>
+                        )}
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <button
+                          type="button"
+                          onClick={() => setActiveConnectModal(null)}
+                          style={{ flex: 1, padding: '10px', borderRadius: '10px', border: '1px solid #E2E8F0', background: '#FFFFFF', color: '#64748B', fontWeight: 600, fontSize: '13px', cursor: 'pointer' }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          disabled={modalVerifying}
+                          onClick={() => handleVerifyAndConnect(activeConnectModal)}
+                          style={{ flex: 2, padding: '10px', borderRadius: '10px', border: 'none', background: '#0052FF', color: '#FFFFFF', fontWeight: 700, fontSize: '13px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', opacity: modalVerifying ? 0.7 : 1 }}
+                        >
+                          {modalVerifying ? (
+                            <>
+                              <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="12" cy="12" r="10" strokeOpacity="0.25"/>
+                                <path d="M12 2a10 10 0 0 1 10 10" strokeOpacity="0.75"/>
+                              </svg>
+                              <span>Verifying Analytics...</span>
+                            </>
+                          ) : (
+                            <span>Verify &amp; Link Channel ✓</span>
+                          )}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

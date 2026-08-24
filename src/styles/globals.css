@@ -1334,6 +1334,11 @@ table {
   background: #F8FAFC;
 }
 
+.auth-social-tile.connected {
+  background: #F8FAFF;
+  border-color: #BFDBFE;
+}
+
 .auth-social-info {
   display: flex;
   align-items: center;
@@ -1344,11 +1349,28 @@ table {
   font-size: 13.5px;
   font-weight: 700;
   color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .auth-social-subtitle {
   font-size: 11px;
   color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.auth-social-verified-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0052FF;
+  background: #EFF6FF;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  border: 1px solid #DBEAFE;
 }
 
 .auth-social-action-btn {
@@ -1367,6 +1389,79 @@ table {
   background: #0052FF;
   border-color: #0052FF;
   color: #FFFFFF;
+}
+
+.auth-social-action-btn.is-connected {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #0052FF;
+  font-weight: 700;
+}
+
+.auth-social-action-btn.is-connected:hover {
+  background: #FEE2E2;
+  border-color: #FCA5A5;
+  color: #DC2626;
+}
+
+/* Social Connector Modal */
+.auth-connector-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.auth-connector-modal-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-connector-modal-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.auth-connector-modal-body {
+  padding: 20px;
+}
+
+.auth-connector-oauth-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  margin-bottom: 16px;
+}
+
+.auth-connector-oauth-btn:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
 }
 
 .auth-skip-btn {
