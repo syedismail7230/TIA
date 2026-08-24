@@ -9,11 +9,10 @@ function RegisterContent() {
   const searchParams = useSearchParams();
   const initialRole = searchParams.get('role') === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
 
-  // 3-Step State
-  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [role, setRole] = useState<'CREATOR' | 'BRAND_ADMIN'>(initialRole);
+  const [step, setStep] = useState<'FORM' | 'SOCIAL_CONNECT'>('FORM');
   
-  // Step 2 Form State
+  // Registration Form State
   const [name, setName] = useState('');
   const [gender, setGender] = useState<string>('Male');
   const [age, setAge] = useState<string>('24');
@@ -25,26 +24,21 @@ function RegisterContent() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Step 3 Social Connection State
+  // Social Connections State
   const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: boolean }>({});
 
-  const handleStep1Continue = () => {
-    setError('');
-    setStep(2);
-  };
-
-  const handleStep2Submit = async (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     const ageNum = parseInt(age, 10);
     if (isNaN(ageNum) || ageNum < 18) {
-      setError('You must be at least 18 years old to enter commercial advertising agreements.');
+      setError('You must be at least 18 years old to register on TIA.');
       return;
     }
 
     if (!agreedTerms) {
-      setError('You must agree to the Terms of Service and Privacy Policy.');
+      setError('Please agree to the Terms of Service and Privacy Policy.');
       return;
     }
 
@@ -70,8 +64,8 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      // Successfully registered -> move to Step 3 (Social Connect)
-      setStep(3);
+      // Seamlessly advance to social onboarding step
+      setStep('SOCIAL_CONNECT');
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -80,7 +74,6 @@ function RegisterContent() {
   };
 
   const handleConnectSocial = (platform: string) => {
-    // Simulate / Trigger Connector Auth
     setConnectedSocials((prev) => ({
       ...prev,
       [platform]: !prev[platform],
@@ -103,7 +96,7 @@ function RegisterContent() {
   return (
     <div className="auth-viewport">
       <div className="auth-card">
-        {/* LEFT COLUMN: 3-STEP REGISTER FLOW */}
+        {/* LEFT COLUMN: REGISTRATION FLOW */}
         <div className="auth-form-pane">
           {/* Header */}
           <div className="auth-header">
@@ -122,25 +115,7 @@ function RegisterContent() {
           </div>
 
           <div className="auth-body">
-            {/* 3-Step Progress Header */}
-            <div className="auth-steps-progress">
-              <div className={`auth-step-item ${step === 1 ? 'active' : step > 1 ? 'completed' : ''}`}>
-                <div className="auth-step-badge">{step > 1 ? '✓' : '1'}</div>
-                <span>Role</span>
-              </div>
-              <div className={`auth-step-line ${step >= 2 ? 'active' : ''}`} />
-              <div className={`auth-step-item ${step === 2 ? 'active' : step > 2 ? 'completed' : ''}`}>
-                <div className="auth-step-badge">{step > 2 ? '✓' : '2'}</div>
-                <span>Details</span>
-              </div>
-              <div className={`auth-step-line ${step >= 3 ? 'active' : ''}`} />
-              <div className={`auth-step-item ${step === 3 ? 'active' : ''}`}>
-                <div className="auth-step-badge">3</div>
-                <span>Socials</span>
-              </div>
-            </div>
-
-            {/* Avatar Icon */}
+            {/* Logo Mark Icon */}
             <div className="auth-avatar-icon">
               <img
                 src="/main-logo-cropped.png"
@@ -149,91 +124,36 @@ function RegisterContent() {
               />
             </div>
 
-            {/* STEP 1: ROLE SELECTION */}
-            {step === 1 && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.25s ease' }}>
-                <h1 className="auth-title">Select your account type</h1>
-                <p className="auth-subtitle">Choose how you intend to collaborate and execute deals on TIA.</p>
+            {/* VIEW 1: REGISTRATION FORM */}
+            {step === 'FORM' && (
+              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                <h1 className="auth-title">Create your TIA account</h1>
+                <p className="auth-subtitle">Join India&apos;s leading platform for direct brand deals &amp; creator growth.</p>
 
-                <div className="auth-role-card-stack">
-                  <div
-                    className={`auth-role-card ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
-                    onClick={() => setRole('BRAND_ADMIN')}
-                  >
-                    <div className="auth-role-card-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                      </svg>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div className="auth-role-card-title">
-                        <span>Brand / Agency</span>
-                        {role === 'BRAND_ADMIN' && (
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="3">
-                            <polyline points="20 6 9 17 4 12"/>
-                          </svg>
-                        )}
-                      </div>
-                      <div className="auth-role-card-desc">
-                        Hire verified creators, manage brand safety audits, and execute milestone campaigns with a flat 5% platform fee.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`auth-role-card ${role === 'CREATOR' ? 'active' : ''}`}
-                    onClick={() => setRole('CREATOR')}
-                  >
-                    <div className="auth-role-card-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77L5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                      </svg>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div className="auth-role-card-title">
-                        <span>Creator / Talent</span>
-                        {role === 'CREATOR' && (
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="3">
-                            <polyline points="20 6 9 17 4 12"/>
-                          </svg>
-                        )}
-                      </div>
-                      <div className="auth-role-card-desc">
-                        Monetize your verified audience, land high-paying brand deals, and receive guaranteed milestone payouts.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleStep1Continue}
-                  className="auth-submit-btn"
-                >
-                  Continue to Account Details →
-                </button>
-              </div>
-            )}
-
-            {/* STEP 2: DETAILS & DEMOGRAPHICS */}
-            {step === 2 && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.25s ease' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                {/* Role Switcher Pill */}
+                <div className="auth-role-tabs">
                   <button
                     type="button"
-                    onClick={() => setStep(1)}
-                    style={{ background: 'none', border: 'none', color: '#64748B', fontSize: '12px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                    className={`auth-role-tab ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
+                    onClick={() => setRole('BRAND_ADMIN')}
                   >
-                    ← Back to Role
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                    <span>Brand / Agency</span>
                   </button>
-                  <span style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                    {role === 'CREATOR' ? 'Creator Profile' : 'Brand Profile'}
-                  </span>
+                  <button
+                    type="button"
+                    className={`auth-role-tab ${role === 'CREATOR' ? 'active' : ''}`}
+                    onClick={() => setRole('CREATOR')}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77L5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <span>Creator / Talent</span>
+                  </button>
                 </div>
-
-                <h1 className="auth-title">Create your TIA account</h1>
-                <p className="auth-subtitle">Enter your name, demographics, and credentials to set up your profile.</p>
 
                 {/* Social OAuth Buttons */}
                 <div className="auth-social-stack">
@@ -277,7 +197,7 @@ function RegisterContent() {
                   </div>
                 )}
 
-                <form onSubmit={handleStep2Submit} className="auth-form">
+                <form onSubmit={handleRegisterSubmit} className="auth-form">
                   {/* Name */}
                   <div className="auth-input-group">
                     <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
@@ -291,9 +211,9 @@ function RegisterContent() {
                     />
                   </div>
 
-                  {/* Gender & Age Row */}
-                  <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
-                    <div style={{ flex: 2 }}>
+                  {/* Demographics Row (Gender & Age) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '12px', width: '100%' }}>
+                    <div>
                       <label className="auth-label">Gender</label>
                       <select
                         value={gender}
@@ -308,7 +228,7 @@ function RegisterContent() {
                       </select>
                     </div>
 
-                    <div style={{ flex: 1 }}>
+                    <div>
                       <label className="auth-label">Age (18+)</label>
                       <input
                         type="number"
@@ -349,7 +269,7 @@ function RegisterContent() {
                     />
                   </div>
 
-                  {/* Legal & Age Checkbox */}
+                  {/* Terms Checkbox */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '4px' }}>
                     <input
                       type="checkbox"
@@ -359,7 +279,7 @@ function RegisterContent() {
                       style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
                     />
                     <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
-                      I confirm I am at least 18 years old and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link>, <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>, and Age Requirements.
+                      I confirm I am at least 18 years old and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> &amp; <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
                     </label>
                   </div>
 
@@ -368,17 +288,17 @@ function RegisterContent() {
                     disabled={loading}
                     className="auth-submit-btn"
                   >
-                    {loading ? 'Creating Account...' : 'Continue to Social Link →'}
+                    {loading ? 'Creating Account...' : `Register as ${role === 'BRAND_ADMIN' ? 'Brand / Agency' : 'Verified Creator'}`}
                   </button>
                 </form>
               </div>
             )}
 
-            {/* STEP 3: CONNECT SOCIAL ACCOUNTS (SKIPPABLE) */}
-            {step === 3 && (
+            {/* VIEW 2: CONNECT SOCIAL ACCOUNTS (SKIPPABLE) */}
+            {step === 'SOCIAL_CONNECT' && (
               <div style={{ width: '100%', animation: 'fadeIn 0.25s ease' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 10px', borderRadius: '9999px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
+                  <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 12px', borderRadius: '9999px' }}>
                     Account Created Successfully
                   </span>
                 </div>
@@ -386,7 +306,7 @@ function RegisterContent() {
                 <h1 className="auth-title">Connect your social channels</h1>
                 <p className="auth-subtitle">
                   {role === 'CREATOR'
-                    ? 'Connect your accounts to verify real audience metrics and unlock premium brand sponsorships.'
+                    ? 'Connect your accounts to verify audience metrics and get matched with top brands.'
                     : 'Connect your brand social profiles for campaign tracking and audience alignment.'}
                 </p>
 

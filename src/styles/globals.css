@@ -915,178 +915,51 @@ table {
   box-sizing: border-box;
 }
 
-/* 3-Step Sign Up Progress Bar & Indicators */
-.auth-steps-progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+/* Clean Role Tabs Switcher */
+.auth-role-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #F1F5F9;
+  padding: 4px;
+  border-radius: 12px;
   margin-bottom: 20px;
   width: 100%;
 }
 
-.auth-step-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: #94A3B8;
-  transition: all 0.2s ease;
-}
-
-.auth-step-item.active {
-  color: #0052FF;
-}
-
-.auth-step-item.completed {
-  color: #10B981;
-}
-
-.auth-step-badge {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #E2E8F0;
-  color: #64748B;
+.auth-role-tab {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10.5px;
-  font-weight: 700;
-}
-
-.auth-step-item.active .auth-step-badge {
-  background: #0052FF;
-  color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(0, 82, 255, 0.3);
-}
-
-.auth-step-item.completed .auth-step-badge {
-  background: #10B981;
-  color: #FFFFFF;
-}
-
-.auth-step-line {
-  width: 24px;
-  height: 2px;
-  background: #E2E8F0;
-  border-radius: 1px;
-}
-
-.auth-step-line.active {
-  background: #0052FF;
-}
-
-/* Step 1: Big Role Selection Cards */
-.auth-role-card-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin: 16px 0 24px 0;
-}
-
-.auth-role-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 16px 18px;
-  border-radius: 14px;
-  background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: left;
-}
-
-.auth-role-card:hover {
-  border-color: #93C5FD;
-  background: #F8FAFC;
-  transform: translateY(-1px);
-}
-
-.auth-role-card.active {
-  border-color: #0052FF;
-  background: #EFF6FF;
-  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.08);
-}
-
-.auth-role-card-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: #F1F5F9;
-  color: #0F172A;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.auth-role-card.active .auth-role-card-icon {
-  background: #0052FF;
-  color: #FFFFFF;
-}
-
-.auth-role-card-title {
-  font-size: 14.5px;
-  font-weight: 700;
-  color: #0F172A;
-  margin-bottom: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.auth-role-card-desc {
-  font-size: 12px;
-  color: #64748B;
-  line-height: 1.45;
-}
-
-/* Step 2: Gender & Demographics Selectors */
-.auth-gender-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  width: 100%;
-  margin-top: 4px;
-}
-
-.auth-gender-pill {
-  padding: 8px 6px;
-  font-size: 12px;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 13px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid #E2E8F0;
-  background: #F8FAFC;
-  color: #475569;
+  color: #64748B;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  transition: all 0.15s ease;
-  text-align: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.auth-gender-pill:hover {
-  background: #EFF6FF;
-  border-color: #BFDBFE;
+.auth-role-tab:hover {
+  color: #0F172A;
+}
+
+.auth-role-tab.active {
+  background: #FFFFFF;
   color: #0052FF;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.auth-gender-pill.active {
-  background: #0052FF;
-  border-color: #0052FF;
-  color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(0, 82, 255, 0.25);
-}
-
-/* Step 3: Social Account Connect Tiles */
+/* Social Connect View Styles */
 .auth-social-connect-stack {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  margin: 16px 0 24px 0;
+  margin: 16px 0 20px 0;
 }
 
 .auth-social-tile {
@@ -1097,7 +970,7 @@ table {
   border-radius: 12px;
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .auth-social-tile:hover {
@@ -1155,16 +1028,6 @@ table {
 .auth-skip-btn:hover {
   color: #0052FF;
   text-decoration: underline;
-}
-
-.auth-role-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #F1F5F9;
-  padding: 4px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  width: 100%;
 }
 
 .auth-role-tab {
