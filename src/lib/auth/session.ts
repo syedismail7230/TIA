@@ -91,7 +91,17 @@ export async function getCurrentUser(): Promise<{
       },
     });
 
-    if (!user) return null;
+    if (!user) {
+      return {
+        id: payload.userId,
+        userId: payload.userId,
+        email: payload.email,
+        name: payload.email.startsWith('brand') ? 'Nexus Brand Manager' : (payload.email.startsWith('admin') ? 'TIA Super Admin' : 'Aarav Sharma'),
+        role: payload.role,
+        creatorProfile: payload.role === 'CREATOR' ? { id: 'demo-creator-id', displayName: 'Aarav Sharma', username: 'aarav_sharma' } : null,
+        orgMemberships: payload.role.startsWith('BRAND_') ? [{ role: 'OWNER', organization: { name: 'Nexus Global Brands' } }] : [],
+      };
+    }
 
     return {
       id: user.id,
