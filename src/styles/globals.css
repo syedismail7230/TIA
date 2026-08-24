@@ -1010,12 +1010,13 @@ table {
 
 .auth-phone-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
 }
 
 .auth-phone-code {
-  width: 80px;
+  width: 130px;
+  min-width: 125px;
   padding: 0 10px;
   height: 44px;
   border-radius: 10px;
@@ -1025,6 +1026,7 @@ table {
   font-weight: 600;
   color: #0F172A;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .auth-stepper-meta {
