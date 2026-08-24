@@ -246,7 +246,7 @@ function RegisterContent() {
   };
 
   const handleSocialOAuth = (platform: string) => {
-    window.location.href = `/api/connectors/${platform.toLowerCase()}/auth`;
+    window.location.href = `/api/connectors/${platform.toLowerCase()}/auth?role=${role}`;
   };
 
   return (

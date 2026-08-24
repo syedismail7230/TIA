@@ -11,9 +11,13 @@ export async function GET(
     const platform = params.platform.toUpperCase();
     const connector = getSocialConnector(platform);
 
+    const url = new URL(request.url);
+    const roleParam = url.searchParams.get('role');
+
     const state = Buffer.from(
       JSON.stringify({
         platform,
+        role: roleParam || 'CREATOR',
         timestamp: Date.now(),
         nonce: Math.random().toString(36).substring(7),
       })
