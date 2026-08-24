@@ -73,9 +73,11 @@ export default function LoginPage() {
           {/* Body Content */}
           <div className="auth-body">
             <div className="auth-avatar-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9" />
+                <line x1="4" y1="15" x2="20" y2="15" />
+                <line x1="10" y1="3" x2="8" y2="21" />
+                <line x1="16" y1="3" x2="14" y2="21" />
               </svg>
             </div>
 
@@ -186,72 +188,22 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: CLEAN MINIMALIST SHOWCASE PANE */}
+        {/* RIGHT COLUMN: ANIMATED ATMOSPHERIC SHOWCASE PANE */}
         <div className="auth-showcase-pane">
+          {/* Animated Atmospheric Background Layers */}
+          <div className="auth-ambient-grid" />
+          <div className="auth-glow-orb orb-1" />
+          <div className="auth-glow-orb orb-2" />
+          <div className="auth-glow-orb orb-3" />
+
           <div className="auth-showcase-content">
             <h2 className="auth-showcase-title">
-              Empowering Brands &amp; Creators to Scale Together.
+              <span>Discover Top Creators.</span><br />
+              <span style={{ color: '#0052FF', fontWeight: 500 }}>Execute Protected Deals.</span>
             </h2>
             <p className="auth-showcase-desc">
-              India&apos;s transparent marketplace for direct creator partnerships, verified audience analytics, and automated campaign contracts with a flat 5% platform fee.
+              Direct brand collaborations, audited audience insights, and smart milestone contracts with a flat 5% platform fee.
             </p>
-
-            {/* Feature Benefits List */}
-            <div className="tia-showcase-features">
-              <div className="tia-showcase-feature-item">
-                <div className="tia-feature-icon-wrap">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="tia-feature-text-title">Direct Brand-to-Creator Deals</div>
-                  <div className="tia-feature-text-desc">Connect directly with vetted talent and fast-growing brands with zero intermediaries.</div>
-                </div>
-              </div>
-
-              <div className="tia-showcase-feature-item">
-                <div className="tia-feature-icon-wrap">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="tia-feature-text-title">Bilateral Commercial Contracts</div>
-                  <div className="tia-feature-text-desc">Automated legal licensing, usage rights, and structured milestone deliverable tracking.</div>
-                </div>
-              </div>
-
-              <div className="tia-showcase-feature-item">
-                <div className="tia-feature-icon-wrap">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="tia-feature-text-title">Audited Audience Authenticity</div>
-                  <div className="tia-feature-text-desc">Real-time fraud audits, audience engagement metrics, and verified performance benchmarks.</div>
-                </div>
-              </div>
-
-              <div className="tia-showcase-feature-item">
-                <div className="tia-feature-icon-wrap">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="tia-feature-text-title">Flat 5% Transparent Fee</div>
-                  <div className="tia-feature-text-desc">Zero hidden commissions or unexpected deductions on any campaign milestone.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Showcase Trust Footer */}
-          <div className="auth-showcase-footer">
-            <span>Trusted by <strong>5,000+</strong> verified creators &amp; leading brands</span>
-            <span>256-Bit SSL Encrypted</span>
           </div>
         </div>
       </div>
