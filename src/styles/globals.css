@@ -1029,6 +1029,131 @@ table {
   cursor: pointer;
 }
 
+/* Password Input & Animated Strength Meter */
+.auth-password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.auth-password-toggle:hover {
+  color: #0052FF;
+}
+
+.auth-pwd-strength-box {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-pwd-meter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.auth-pwd-meter-label {
+  color: #64748B;
+}
+
+.auth-pwd-meter-score {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.auth-pwd-meter-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.auth-pwd-bar-segment {
+  height: 3.5px;
+  border-radius: 9999px;
+  background: #E2E8F0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-pwd-bar-segment.filled-weak {
+  background: #F59E0B;
+}
+
+.auth-pwd-bar-segment.filled-good {
+  background: #3B82F6;
+}
+
+.auth-pwd-bar-segment.filled-strong {
+  background: #0052FF;
+  box-shadow: 0 0 8px rgba(0, 82, 255, 0.4);
+}
+
+.auth-pwd-rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.auth-pwd-rule-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.auth-pwd-rule-item.valid {
+  color: #0052FF;
+  font-weight: 600;
+}
+
+.auth-pwd-rule-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: transparent;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-pwd-rule-item.valid .auth-pwd-rule-dot {
+  background: #0052FF;
+  border-color: #0052FF;
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+
 .auth-stepper-meta {
   display: flex;
   align-items: center;

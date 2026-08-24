@@ -86,6 +86,7 @@ function RegisterContent() {
   const [phoneCode, setPhoneCode] = useState('+91');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(true);
 
   // Step 3 Form State (Name & Demographics)
@@ -100,6 +101,41 @@ function RegisterContent() {
   // Step 4 Social Connection State
   const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: boolean }>({});
 
+  // Real-time Validation Computations
+  const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+
+  const isValidPhone = (val: string, code: string) => {
+    const digitsOnly = val.replace(/\D/g, '');
+    if (code === '+91') {
+      // Indian 10-digit mobile number starting with 6-9
+      return /^[6-9]\d{9}$/.test(digitsOnly);
+    }
+    if (code === '+1') {
+      // US / Canada 10-digit number
+      return /^\d{10}$/.test(digitsOnly);
+    }
+    // International standard (7 to 15 digits)
+    return digitsOnly.length >= 7 && digitsOnly.length <= 15;
+  };
+
+  // Password Rules
+  const hasMinLength = password.length >= 8;
+  const hasUpperLower = /[a-z]/.test(password) && /[A-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[^a-zA-Z0-9]/.test(password);
+
+  const passwordScore = [hasMinLength, hasUpperLower, hasNumber, hasSpecial].filter(Boolean).length;
+
+  const getPasswordStrengthMeta = () => {
+    if (!password) return { label: 'Empty', color: '#94A3B8', levelClass: '' };
+    if (passwordScore === 1) return { label: 'Weak', color: '#F59E0B', levelClass: 'filled-weak' };
+    if (passwordScore === 2) return { label: 'Fair', color: '#3B82F6', levelClass: 'filled-good' };
+    if (passwordScore === 3) return { label: 'Good', color: '#0052FF', levelClass: 'filled-good' };
+    return { label: 'Strong & Secure ✓', color: '#0052FF', levelClass: 'filled-strong' };
+  };
+
+  const strengthMeta = getPasswordStrengthMeta();
+
   const handleStep1Continue = () => {
     setError('');
     setStep(2);
@@ -109,18 +145,30 @@ function RegisterContent() {
     if (e) e.preventDefault();
     setError('');
 
-    if (!email || !password) {
-      setError('Please enter your email and a secure password.');
+    // Email validation
+    if (!email || !isValidEmail(email)) {
+      setError('Please enter a valid email address (e.g. name@company.com).');
       return;
     }
 
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+    // Phone validation
+    if (!phone || !isValidPhone(phone, phoneCode)) {
+      if (phoneCode === '+91') {
+        setError('Please enter a valid 10-digit Indian mobile number (e.g. 9876543210).');
+      } else {
+        setError(`Please enter a valid phone number for ${phoneCode}.`);
+      }
       return;
     }
 
-    if (!phone || phone.trim().length < 7) {
-      setError('Please enter a valid mobile phone number.');
+    // Password validation
+    if (!password) {
+      setError('Please create a secure password.');
+      return;
+    }
+
+    if (passwordScore < 2 || !hasMinLength) {
+      setError('Password must be at least 8 characters and meet password security criteria.');
       return;
     }
 
@@ -261,7 +309,7 @@ function RegisterContent() {
                 </button>
               )}
 
-              {/* Modern 4-Step Stepper Progress Bar (No green, pure TIA Blue) */}
+              {/* Modern 4-Step Stepper Progress Bar (Pure TIA Blue) */}
               <div className="auth-stepper-container">
                 <div className="auth-stepper-bars">
                   <div className={`auth-stepper-segment ${step >= 1 ? (step === 1 ? 'active' : 'completed') : ''}`} />
@@ -337,7 +385,7 @@ function RegisterContent() {
                 </div>
               )}
 
-              {/* STEP 2: CREDENTIALS & PHONE NUMBER */}
+              {/* STEP 2: CREDENTIALS, VALIDATED PHONE & STRONG ANIMATED PASSWORD */}
               {step === 2 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
                   <h1 className="auth-title">Create your credentials</h1>
@@ -372,7 +420,7 @@ function RegisterContent() {
                   </div>
 
                   <div className="auth-divider">
-                    <span className="auth-divider-text">Or register with email</span>
+                    <span className="auth-divider-text">Or register with credentials</span>
                   </div>
 
                   {error && (
@@ -387,9 +435,16 @@ function RegisterContent() {
                   )}
 
                   <form onSubmit={handleStep2Continue} className="auth-form">
-                    {/* Email */}
+                    {/* Email Input with Validation Icon */}
                     <div className="auth-input-group">
-                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Email Address'}</label>
+                        {email && (
+                          <span style={{ fontSize: '11px', fontWeight: 600, color: isValidEmail(email) ? '#0052FF' : '#EF4444' }}>
+                            {isValidEmail(email) ? 'Valid email ✓' : 'Invalid email format'}
+                          </span>
+                        )}
+                      </div>
                       <input
                         type="email"
                         required
@@ -397,12 +452,20 @@ function RegisterContent() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="auth-input"
+                        style={email && !isValidEmail(email) ? { borderColor: '#FCA5A5' } : {}}
                       />
                     </div>
 
-                    {/* Phone Number */}
+                    {/* Phone Number Input with Real-time Format Validation */}
                     <div className="auth-input-group">
-                      <label className="auth-label">Mobile Phone Number (for WhatsApp/SMS updates)</label>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <label className="auth-label">Mobile Phone (WhatsApp/SMS Deals)</label>
+                        {phone && (
+                          <span style={{ fontSize: '11px', fontWeight: 600, color: isValidPhone(phone, phoneCode) ? '#0052FF' : '#EF4444' }}>
+                            {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' ? 'Enter 10-digits (6-9...)' : 'Invalid number')}
+                          </span>
+                        )}
+                      </div>
                       <div className="auth-phone-row">
                         <select
                           className="auth-phone-code"
@@ -418,30 +481,89 @@ function RegisterContent() {
                         <input
                           type="tel"
                           required
-                          placeholder="98765 43210"
+                          placeholder={phoneCode === '+91' ? '98765 43210' : 'Mobile number'}
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           className="auth-input"
-                          style={{ flex: 1 }}
+                          style={{ flex: 1, ...(phone && !isValidPhone(phone, phoneCode) ? { borderColor: '#FCA5A5' } : {}) }}
                         />
                       </div>
                     </div>
 
-                    {/* Password */}
+                    {/* Password Input with Animated Strength Bar & Instructions */}
                     <div className="auth-input-group">
-                      <label className="auth-label">Create Secure Password</label>
-                      <input
-                        type="password"
-                        required
-                        placeholder="At least 8 characters"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="auth-input"
-                      />
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <label className="auth-label">Create Secure Password</label>
+                        {password && (
+                          <span className="auth-pwd-meter-score" style={{ color: strengthMeta.color, fontSize: '11px' }}>
+                            {strengthMeta.label}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="auth-password-wrapper">
+                        <input
+                          type={showPassword ? 'text' : 'password'}
+                          required
+                          placeholder="At least 8 characters"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="auth-input"
+                          style={{ paddingRight: '42px' }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="auth-password-toggle"
+                          aria-label={showPassword ? 'Hide password' : 'Show password'}
+                        >
+                          {showPassword ? (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                              <line x1="1" y1="1" x2="23" y2="23" />
+                            </svg>
+                          ) : (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Animated Password Strength Bar */}
+                      <div className="auth-pwd-strength-box">
+                        <div className="auth-pwd-meter-bars">
+                          <div className={`auth-pwd-bar-segment ${passwordScore >= 1 ? strengthMeta.levelClass : ''}`} />
+                          <div className={`auth-pwd-bar-segment ${passwordScore >= 2 ? strengthMeta.levelClass : ''}`} />
+                          <div className={`auth-pwd-bar-segment ${passwordScore >= 3 ? strengthMeta.levelClass : ''}`} />
+                          <div className={`auth-pwd-bar-segment ${passwordScore >= 4 ? strengthMeta.levelClass : ''}`} />
+                        </div>
+
+                        {/* Animated Password Criteria Checklist */}
+                        <div className="auth-pwd-rules-grid">
+                          <div className={`auth-pwd-rule-item ${hasMinLength ? 'valid' : ''}`}>
+                            <div className="auth-pwd-rule-dot">✓</div>
+                            <span>8+ Characters</span>
+                          </div>
+                          <div className={`auth-pwd-rule-item ${hasUpperLower ? 'valid' : ''}`}>
+                            <div className="auth-pwd-rule-dot">✓</div>
+                            <span>Upper &amp; Lowercase</span>
+                          </div>
+                          <div className={`auth-pwd-rule-item ${hasNumber ? 'valid' : ''}`}>
+                            <div className="auth-pwd-rule-dot">✓</div>
+                            <span>Number (0-9)</span>
+                          </div>
+                          <div className={`auth-pwd-rule-item ${hasSpecial ? 'valid' : ''}`}>
+                            <div className="auth-pwd-rule-dot">✓</div>
+                            <span>Special Symbol (!@#$)</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Legal Checkbox */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '4px' }}>
                       <input
                         type="checkbox"
                         id="terms-check"
