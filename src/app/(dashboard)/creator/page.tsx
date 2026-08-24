@@ -5,6 +5,7 @@ import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
 import { ScoreDisplay } from '@/components/ui/ScoreDisplay';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 import { calculateCampaignMatchScore } from '@/lib/intelligence/scoring';
 
 export default async function CreatorDashboardPage() {
@@ -176,11 +177,14 @@ export default async function CreatorDashboardPage() {
     <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '24px 16px' }}>
       {/* Header */}
       <div style={{ marginBottom: '24px' }}>
-        <h1 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '6px' }}>
-          Good morning, {creator.displayName}.
-        </h1>
-        <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-          TIA Creator Command Center • Verified Status: <strong style={{ color: 'var(--brand-primary)' }}>{creator.verificationStatus}</strong>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+          <h1 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 800, letterSpacing: '-0.02em', margin: 0 }}>
+            Good morning, {creator.displayName}
+          </h1>
+          <BlueCheckBadge size={22} title="Verified Creator Profile" />
+        </div>
+        <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: 0 }}>
+          TIA Creator Command Center • Verified Creator Profile
         </p>
       </div>
 

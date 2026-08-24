@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ScoreDisplay } from '@/components/ui/ScoreDisplay';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 import {
   CheckIcon,
   SearchIcon,
@@ -195,9 +196,7 @@ export default function CreatorDiscoveryPage() {
                           <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                             {creator.displayName}
                           </h3>
-                          <div style={{ display: 'inline-flex', alignItems: 'center' }} title="TIA Verified Creator">
-                            <CheckIcon size={13} color="#0052FF" />
-                          </div>
+                          <BlueCheckBadge size={16} title="TIA Verified Creator" />
                         </div>
                         <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
                           @{creator.username} • {creator.country || 'Global'}
@@ -380,9 +379,12 @@ export default function CreatorDiscoveryPage() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
               <div>
-                <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
-                  {selectedCreator.displayName}
-                </h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    {selectedCreator.displayName}
+                  </h2>
+                  <BlueCheckBadge size={20} title="TIA Verified Creator" />
+                </div>
                 <div style={{ fontSize: '13px', color: '#64748B' }}>
                   @{selectedCreator.username} • {selectedCreator.country || 'Global'}
                 </div>

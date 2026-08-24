@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 
 export default async function BrandDashboardPage() {
   const user = await getCurrentUser();
@@ -146,11 +147,14 @@ export default async function BrandDashboardPage() {
       {/* Header with Campaign Creation Button */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <h1 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '6px' }}>
-            Good morning, {org.name}.
-          </h1>
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-            Enterprise Command Center • Verification: <strong style={{ color: 'var(--brand-primary)' }}>{org.verificationStatus}</strong>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <h1 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 800, letterSpacing: '-0.02em', margin: 0 }}>
+              Good morning, {org.name}
+            </h1>
+            <BlueCheckBadge size={22} title="Verified Enterprise Organization" />
+          </div>
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', margin: 0 }}>
+            Enterprise Command Center • Verified Enterprise
           </p>
         </div>
         <Link href="/brand/campaigns/new" className="tia-btn-primary" style={{ padding: '8px 16px', fontSize: '13px', fontWeight: 600 }}>
