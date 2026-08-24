@@ -9,36 +9,42 @@ function RegisterContent() {
   const searchParams = useSearchParams();
   const initialRole = searchParams.get('role') === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
 
+  // 3-Step State
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [role, setRole] = useState<'CREATOR' | 'BRAND_ADMIN'>(initialRole);
-  const [step, setStep] = useState<'FORM' | 'SOCIAL_CONNECT'>('FORM');
-  
-  // Registration Form State
+
+  // Step 2 Form State
   const [name, setName] = useState('');
   const [gender, setGender] = useState<string>('Male');
   const [age, setAge] = useState<string>('24');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [agreedTerms, setAgreedTerms] = useState(true);
-  
+
   // Status State
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Social Connections State
+  // Step 3 Social Connection State
   const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: boolean }>({});
 
-  const handleRegisterSubmit = async (e: React.FormEvent) => {
+  const handleStep1Continue = () => {
+    setError('');
+    setStep(2);
+  };
+
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     const ageNum = parseInt(age, 10);
     if (isNaN(ageNum) || ageNum < 18) {
-      setError('You must be at least 18 years old to register on TIA.');
+      setError('You must be at least 18 years old to enter commercial advertising agreements.');
       return;
     }
 
     if (!agreedTerms) {
-      setError('Please agree to the Terms of Service and Privacy Policy.');
+      setError('You must agree to the Terms of Service and Privacy Policy.');
       return;
     }
 
@@ -64,8 +70,8 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      // Seamlessly advance to social onboarding step
-      setStep('SOCIAL_CONNECT');
+      // Successfully registered -> move to Step 3 (Social Connect)
+      setStep(3);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -96,7 +102,7 @@ function RegisterContent() {
   return (
     <div className="auth-viewport">
       <div className="auth-card">
-        {/* LEFT COLUMN: REGISTRATION FLOW */}
+        {/* LEFT COLUMN: 3-STEP REGISTER FLOW */}
         <div className="auth-form-pane">
           {/* Header */}
           <div className="auth-header">
@@ -109,51 +115,116 @@ function RegisterContent() {
             </Link>
 
             <div className="auth-switch-prompt">
-              <span>Already registered?</span>
+              <span>Already a member?</span>
               <Link href="/login" className="auth-switch-btn">Sign in</Link>
             </div>
           </div>
 
           <div className="auth-body">
-            {/* Logo Mark Icon */}
-            <div className="auth-avatar-icon">
-              <img
-                src="/main-logo-cropped.png"
-                alt="The Influencer's Agency"
-                className="auth-avatar-logo-img"
-              />
+            {/* Modern Stepper Progress Header */}
+            <div className="auth-stepper-container">
+              <div className="auth-stepper-bars">
+                <div className={`auth-stepper-segment ${step === 1 ? 'active' : 'completed'}`} />
+                <div className={`auth-stepper-segment ${step === 2 ? 'active' : step > 2 ? 'completed' : ''}`} />
+                <div className={`auth-stepper-segment ${step === 3 ? 'active' : ''}`} />
+              </div>
+              <div className="auth-stepper-meta">
+                <span className="auth-step-pill-tag">
+                  {step === 1 && 'Step 1 of 3'}
+                  {step === 2 && 'Step 2 of 3'}
+                  {step === 3 && 'Step 3 of 3'}
+                </span>
+                <span className="auth-step-title-hint">
+                  {step === 1 && 'Account Type'}
+                  {step === 2 && 'Profile & Demographics'}
+                  {step === 3 && 'Social Connect (Optional)'}
+                </span>
+              </div>
             </div>
 
-            {/* VIEW 1: REGISTRATION FORM */}
-            {step === 'FORM' && (
+            {/* STEP 1: LUXURY ROLE SELECTION */}
+            {step === 1 && (
               <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                <h1 className="auth-title">Create your TIA account</h1>
-                <p className="auth-subtitle">Join India&apos;s leading platform for direct brand deals &amp; creator growth.</p>
+                <h1 className="auth-title">How do you want to use TIA?</h1>
+                <p className="auth-subtitle">Select your account type to personalize your experience and workflow.</p>
 
-                {/* Role Switcher Pill */}
-                <div className="auth-role-tabs">
-                  <button
-                    type="button"
-                    className={`auth-role-tab ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
+                <div className="auth-role-card-stack">
+                  {/* Brand / Agency Card */}
+                  <div
+                    className={`auth-role-card ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
                     onClick={() => setRole('BRAND_ADMIN')}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                    </svg>
-                    <span>Brand / Agency</span>
-                  </button>
-                  <button
-                    type="button"
-                    className={`auth-role-tab ${role === 'CREATOR' ? 'active' : ''}`}
+                    <div className="auth-role-card-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                      </svg>
+                    </div>
+                    <div className="auth-role-card-content">
+                      <div className="auth-role-card-header">
+                        <span className="auth-role-card-title">Brand / Agency</span>
+                        {role === 'BRAND_ADMIN' ? (
+                          <span className="auth-role-card-badge">Selected ✓</span>
+                        ) : null}
+                      </div>
+                      <p className="auth-role-card-desc">
+                        Discover top talent, verify audience authenticity, manage contracts, and track milestones with a flat 5% fee.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Creator / Talent Card */}
+                  <div
+                    className={`auth-role-card ${role === 'CREATOR' ? 'active' : ''}`}
                     onClick={() => setRole('CREATOR')}
                   >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77L5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                    <span>Creator / Talent</span>
-                  </button>
+                    <div className="auth-role-card-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77L5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                    </div>
+                    <div className="auth-role-card-content">
+                      <div className="auth-role-card-header">
+                        <span className="auth-role-card-title">Creator / Talent</span>
+                        {role === 'CREATOR' ? (
+                          <span className="auth-role-card-badge">Selected ✓</span>
+                        ) : null}
+                      </div>
+                      <p className="auth-role-card-desc">
+                        Monetize your influence, receive direct brand offers, automated commercial contracts, and guaranteed milestone payouts.
+                      </p>
+                    </div>
+                  </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={handleStep1Continue}
+                  className="auth-submit-btn"
+                >
+                  Continue to Profile Details →
+                </button>
+              </div>
+            )}
+
+            {/* STEP 2: CREDENTIALS & DEMOGRAPHICS */}
+            {step === 2 && (
+              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    style={{ background: 'none', border: 'none', color: '#64748B', fontSize: '12px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                  >
+                    ← Change Account Type
+                  </button>
+                  <span style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    {role === 'CREATOR' ? 'Creator Profile' : 'Brand Profile'}
+                  </span>
+                </div>
+
+                <h1 className="auth-title">Complete your profile</h1>
+                <p className="auth-subtitle">Enter your legal details to verify eligibility and set up your workspace.</p>
 
                 {/* Social OAuth Buttons */}
                 <div className="auth-social-stack">
@@ -170,6 +241,7 @@ function RegisterContent() {
                     </svg>
                     <span>Continue with Google</span>
                   </button>
+
                   <button
                     type="button"
                     onClick={() => handleSocialOAuth('apple')}
@@ -197,7 +269,7 @@ function RegisterContent() {
                   </div>
                 )}
 
-                <form onSubmit={handleRegisterSubmit} className="auth-form">
+                <form onSubmit={handleStep2Submit} className="auth-form">
                   {/* Name */}
                   <div className="auth-input-group">
                     <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
@@ -211,24 +283,26 @@ function RegisterContent() {
                     />
                   </div>
 
-                  {/* Demographics Row (Gender & Age) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '12px', width: '100%' }}>
-                    <div>
-                      <label className="auth-label">Gender</label>
-                      <select
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                        className="auth-input"
-                        style={{ height: '42px', padding: '0 12px', background: '#F8FAFC' }}
-                      >
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Non-Binary">Non-Binary</option>
-                        <option value="Prefer not to say">Prefer not to say</option>
-                      </select>
+                  {/* Gender Selector */}
+                  <div className="auth-input-group">
+                    <label className="auth-label">Gender</label>
+                    <div className="auth-gender-segmented">
+                      {['Male', 'Female', 'Non-Binary', 'Other'].map((g) => (
+                        <button
+                          key={g}
+                          type="button"
+                          className={`auth-gender-btn ${gender === g ? 'active' : ''}`}
+                          onClick={() => setGender(g)}
+                        >
+                          {g}
+                        </button>
+                      ))}
                     </div>
+                  </div>
 
-                    <div>
+                  {/* Age & Email Row */}
+                  <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
+                    <div style={{ flex: 1 }}>
                       <label className="auth-label">Age (18+)</label>
                       <input
                         type="number"
@@ -241,19 +315,18 @@ function RegisterContent() {
                         className="auth-input"
                       />
                     </div>
-                  </div>
 
-                  {/* Email */}
-                  <div className="auth-input-group">
-                    <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal / Management Email'}</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="name@company.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="auth-input"
-                    />
+                    <div style={{ flex: 2.2 }}>
+                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="name@company.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
                   </div>
 
                   {/* Password */}
@@ -269,8 +342,8 @@ function RegisterContent() {
                     />
                   </div>
 
-                  {/* Terms Checkbox */}
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '4px' }}>
+                  {/* Legal Checkbox */}
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
                     <input
                       type="checkbox"
                       id="terms-check"
@@ -279,7 +352,7 @@ function RegisterContent() {
                       style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
                     />
                     <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
-                      I confirm I am at least 18 years old and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> &amp; <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
+                      I confirm I am 18+ and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
                     </label>
                   </div>
 
@@ -288,26 +361,26 @@ function RegisterContent() {
                     disabled={loading}
                     className="auth-submit-btn"
                   >
-                    {loading ? 'Creating Account...' : `Register as ${role === 'BRAND_ADMIN' ? 'Brand / Agency' : 'Verified Creator'}`}
+                    {loading ? 'Creating Account...' : 'Continue to Social Link →'}
                   </button>
                 </form>
               </div>
             )}
 
-            {/* VIEW 2: CONNECT SOCIAL ACCOUNTS (SKIPPABLE) */}
-            {step === 'SOCIAL_CONNECT' && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.25s ease' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
-                  <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 12px', borderRadius: '9999px' }}>
-                    Account Created Successfully
+            {/* STEP 3: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
+            {step === 3 && (
+              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 10px', borderRadius: '9999px' }}>
+                    Account Registered Successfully ✓
                   </span>
                 </div>
 
-                <h1 className="auth-title">Connect your social channels</h1>
+                <h1 className="auth-title">Link your social channels</h1>
                 <p className="auth-subtitle">
                   {role === 'CREATOR'
-                    ? 'Connect your accounts to verify audience metrics and get matched with top brands.'
-                    : 'Connect your brand social profiles for campaign tracking and audience alignment.'}
+                    ? 'Connect your public profiles to verify engagement, sync analytics, and land higher-paying campaigns.'
+                    : 'Connect brand accounts for social campaign monitoring and audience demographic alignment.'}
                 </p>
 
                 {/* Social Connect Stack */}
@@ -315,7 +388,7 @@ function RegisterContent() {
                   {/* Instagram */}
                   <div className="auth-social-tile">
                     <div className="auth-social-info">
-                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -324,7 +397,7 @@ function RegisterContent() {
                       </div>
                       <div>
                         <div className="auth-social-name">Instagram</div>
-                        <div className="auth-social-subtitle">{connectedSocials['instagram'] ? 'Connected' : 'Audience & Engagement'}</div>
+                        <div className="auth-social-subtitle">{connectedSocials['instagram'] ? 'Connected' : 'Audience & Stories Reach'}</div>
                       </div>
                     </div>
                     <button
@@ -340,14 +413,14 @@ function RegisterContent() {
                   {/* YouTube */}
                   <div className="auth-social-tile">
                     <div className="auth-social-info">
-                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
                         </svg>
                       </div>
                       <div>
                         <div className="auth-social-name">YouTube</div>
-                        <div className="auth-social-subtitle">{connectedSocials['youtube'] ? 'Connected' : 'Subscriber & Watch Time'}</div>
+                        <div className="auth-social-subtitle">{connectedSocials['youtube'] ? 'Connected' : 'Subscribers & Long-form'}</div>
                       </div>
                     </div>
                     <button
@@ -363,14 +436,14 @@ function RegisterContent() {
                   {/* TikTok */}
                   <div className="auth-social-tile">
                     <div className="auth-social-info">
-                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
                         </svg>
                       </div>
                       <div>
                         <div className="auth-social-name">TikTok</div>
-                        <div className="auth-social-subtitle">{connectedSocials['tiktok'] ? 'Connected' : 'Video Reach & Views'}</div>
+                        <div className="auth-social-subtitle">{connectedSocials['tiktok'] ? 'Connected' : 'Views & Viral Retention'}</div>
                       </div>
                     </div>
                     <button
@@ -386,14 +459,14 @@ function RegisterContent() {
                   {/* X (Twitter) */}
                   <div className="auth-social-tile">
                     <div className="auth-social-info">
-                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                       </div>
                       <div>
                         <div className="auth-social-name">X (Twitter)</div>
-                        <div className="auth-social-subtitle">{connectedSocials['twitter'] ? 'Connected' : 'Impressions & Reposts'}</div>
+                        <div className="auth-social-subtitle">{connectedSocials['twitter'] ? 'Connected' : 'Engagement & Threads'}</div>
                       </div>
                     </div>
                     <button
