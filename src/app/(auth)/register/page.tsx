@@ -9,23 +9,27 @@ function RegisterContent() {
   const searchParams = useSearchParams();
   const initialRole = searchParams.get('role') === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
 
-  // 3-Step State
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  // 4-Step State
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [role, setRole] = useState<'CREATOR' | 'BRAND_ADMIN'>(initialRole);
 
-  // Step 2 Form State
+  // Step 2 Form State (Credentials & Phone)
+  const [email, setEmail] = useState('');
+  const [phoneCode, setPhoneCode] = useState('+91');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [agreedTerms, setAgreedTerms] = useState(true);
+
+  // Step 3 Form State (Name & Demographics)
   const [name, setName] = useState('');
   const [gender, setGender] = useState<string>('Male');
   const [age, setAge] = useState<string>('24');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [agreedTerms, setAgreedTerms] = useState(true);
 
   // Status State
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Step 3 Social Connection State
+  // Step 4 Social Connection State
   const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: boolean }>({});
 
   const handleStep1Continue = () => {
@@ -33,13 +37,22 @@ function RegisterContent() {
     setStep(2);
   };
 
-  const handleStep2Submit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleStep2Continue = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setError('');
 
-    const ageNum = parseInt(age, 10);
-    if (isNaN(ageNum) || ageNum < 18) {
-      setError('You must be at least 18 years old to enter commercial advertising agreements.');
+    if (!email || !password) {
+      setError('Please enter your email and a secure password.');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long.');
+      return;
+    }
+
+    if (!phone || phone.trim().length < 7) {
+      setError('Please enter a valid mobile phone number.');
       return;
     }
 
@@ -48,14 +61,35 @@ function RegisterContent() {
       return;
     }
 
+    // Move to Step 3 (Demographics: Name, Gender, Age)
+    setStep(3);
+  };
+
+  const handleStep3Submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (!name || name.trim().length < 2) {
+      setError('Please enter your legal name or organization name.');
+      return;
+    }
+
+    const ageNum = parseInt(age, 10);
+    if (isNaN(ageNum) || ageNum < 18) {
+      setError('You must be at least 18 years old to enter commercial advertising agreements.');
+      return;
+    }
+
     setLoading(true);
 
     try {
+      const fullPhone = `${phoneCode} ${phone.trim()}`;
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
+          phone: fullPhone,
           password,
           name,
           role,
@@ -70,8 +104,8 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      // Successfully registered -> move to Step 3 (Social Connect)
-      setStep(3);
+      // Successfully registered -> move to Step 4 (Social Connect)
+      setStep(4);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -102,7 +136,7 @@ function RegisterContent() {
   return (
     <div className="auth-viewport">
       <div className="auth-card">
-        {/* LEFT COLUMN: 3-STEP REGISTER FLOW */}
+        {/* LEFT COLUMN: 4-STEP REGISTER FLOW */}
         <div className="auth-form-pane">
           {/* Header */}
           <div className="auth-header">
@@ -126,7 +160,7 @@ function RegisterContent() {
               {step > 1 && (
                 <button
                   type="button"
-                  onClick={() => setStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3) : prev))}
+                  onClick={() => setStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3 | 4) : prev))}
                   className="auth-nav-arrow nav-prev"
                   aria-label="Previous step"
                   title="Previous step"
@@ -138,13 +172,14 @@ function RegisterContent() {
               )}
 
               {/* Right Navigation Arrow */}
-              {step < 3 && (
+              {step < 4 && (
                 <button
                   type="button"
                   onClick={() => {
                     if (step === 1) handleStep1Continue();
-                    else if (step === 2) {
-                      const formElem = document.querySelector('.auth-form') as HTMLFormElement;
+                    else if (step === 2) handleStep2Continue();
+                    else if (step === 3) {
+                      const formElem = document.querySelector('.auth-form-step3') as HTMLFormElement;
                       if (formElem) formElem.requestSubmit();
                     }
                   }}
@@ -158,16 +193,17 @@ function RegisterContent() {
                 </button>
               )}
 
-              {/* Modern Stepper Progress Bars (Clean top line only) */}
-              <div className="auth-stepper-container" style={{ marginBottom: '16px' }}>
+              {/* Modern 4-Step Stepper Progress Bar (No green, pure TIA Blue) */}
+              <div className="auth-stepper-container">
                 <div className="auth-stepper-bars">
-                  <div className={`auth-stepper-segment ${step === 1 ? 'active' : 'completed'}`} />
-                  <div className={`auth-stepper-segment ${step === 2 ? 'active' : step > 2 ? 'completed' : ''}`} />
-                  <div className={`auth-stepper-segment ${step === 3 ? 'active' : ''}`} />
+                  <div className={`auth-stepper-segment ${step >= 1 ? (step === 1 ? 'active' : 'completed') : ''}`} />
+                  <div className={`auth-stepper-segment ${step >= 2 ? (step === 2 ? 'active' : 'completed') : ''}`} />
+                  <div className={`auth-stepper-segment ${step >= 3 ? (step === 3 ? 'active' : 'completed') : ''}`} />
+                  <div className={`auth-stepper-segment ${step >= 4 ? 'active' : ''}`} />
                 </div>
               </div>
 
-              {/* STEP 1: LUXURY ROLE SELECTION */}
+              {/* STEP 1: ROLE SELECTION */}
               {step === 1 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
                   <h1 className="auth-title">How do you want to use TIA?</h1>
@@ -228,16 +264,16 @@ function RegisterContent() {
                     onClick={handleStep1Continue}
                     className="auth-submit-btn"
                   >
-                    Continue to Profile Details →
+                    Continue to Credentials →
                   </button>
                 </div>
               )}
 
-              {/* STEP 2: CREDENTIALS & DEMOGRAPHICS */}
+              {/* STEP 2: CREDENTIALS & PHONE NUMBER */}
               {step === 2 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <h1 className="auth-title">Complete your profile</h1>
-                  <p className="auth-subtitle">Enter your legal details to verify eligibility and set up your workspace.</p>
+                  <h1 className="auth-title">Create your credentials</h1>
+                  <p className="auth-subtitle">Enter your email, mobile number, and password to secure your account.</p>
 
                   {/* Social OAuth Buttons */}
                   <div className="auth-social-stack">
@@ -282,7 +318,102 @@ function RegisterContent() {
                     </div>
                   )}
 
-                  <form onSubmit={handleStep2Submit} className="auth-form">
+                  <form onSubmit={handleStep2Continue} className="auth-form">
+                    {/* Email */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="name@company.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">Mobile Phone Number (for WhatsApp/SMS updates)</label>
+                      <div className="auth-phone-row">
+                        <select
+                          className="auth-phone-code"
+                          value={phoneCode}
+                          onChange={(e) => setPhoneCode(e.target.value)}
+                        >
+                          <option value="+91">+91 (IN)</option>
+                          <option value="+1">+1 (US)</option>
+                          <option value="+44">+44 (UK)</option>
+                          <option value="+971">+971 (UAE)</option>
+                          <option value="+65">+65 (SG)</option>
+                        </select>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="98765 43210"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="auth-input"
+                          style={{ flex: 1 }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Password */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">Create Secure Password</label>
+                      <input
+                        type="password"
+                        required
+                        placeholder="At least 8 characters"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+
+                    {/* Legal Checkbox */}
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
+                      <input
+                        type="checkbox"
+                        id="terms-check"
+                        checked={agreedTerms}
+                        onChange={(e) => setAgreedTerms(e.target.checked)}
+                        style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
+                      />
+                      <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
+                        I agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
+                      </label>
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="auth-submit-btn"
+                    >
+                      Continue to Profile Details →
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {/* STEP 3: NAME, AGE & GENDER */}
+              {step === 3 && (
+                <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                  <h1 className="auth-title">Personal &amp; Demographics</h1>
+                  <p className="auth-subtitle">Enter your name, gender, and age to complete verified compliance.</p>
+
+                  {error && (
+                    <div className="auth-error-box">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                      </svg>
+                      <span>{error}</span>
+                    </div>
+                  )}
+
+                  <form onSubmit={handleStep3Submit} className="auth-form auth-form-step3">
                     {/* Name */}
                     <div className="auth-input-group">
                       <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
@@ -313,60 +444,19 @@ function RegisterContent() {
                       </div>
                     </div>
 
-                    {/* Age & Email Row */}
-                    <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
-                      <div style={{ flex: 1 }}>
-                        <label className="auth-label">Age (18+)</label>
-                        <input
-                          type="number"
-                          min="18"
-                          max="100"
-                          required
-                          placeholder="24"
-                          value={age}
-                          onChange={(e) => setAge(e.target.value)}
-                          className="auth-input"
-                        />
-                      </div>
-
-                      <div style={{ flex: 2.2 }}>
-                        <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
-                        <input
-                          type="email"
-                          required
-                          placeholder="name@company.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="auth-input"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Password */}
+                    {/* Age */}
                     <div className="auth-input-group">
-                      <label className="auth-label">Create Secure Password</label>
+                      <label className="auth-label">Age (18+ Required for Commercial Contracts)</label>
                       <input
-                        type="password"
+                        type="number"
+                        min="18"
+                        max="100"
                         required
-                        placeholder="At least 8 characters"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="24"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
                         className="auth-input"
                       />
-                    </div>
-
-                    {/* Legal Checkbox */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
-                      <input
-                        type="checkbox"
-                        id="terms-check"
-                        checked={agreedTerms}
-                        onChange={(e) => setAgreedTerms(e.target.checked)}
-                        style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
-                      />
-                      <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
-                        I confirm I am 18+ and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
-                      </label>
                     </div>
 
                     <button
@@ -374,17 +464,17 @@ function RegisterContent() {
                       disabled={loading}
                       className="auth-submit-btn"
                     >
-                      {loading ? 'Creating Account...' : 'Continue to Social Link →'}
+                      {loading ? 'Creating Account...' : 'Create Account & Continue →'}
                     </button>
                   </form>
                 </div>
               )}
 
-              {/* STEP 3: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
-              {step === 3 && (
+              {/* STEP 4: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
+              {step === 4 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 10px', borderRadius: '9999px' }}>
+                    <span style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#EFF6FF', border: '1px solid #BFDBFE', padding: '4px 12px', borderRadius: '9999px' }}>
                       Account Registered Successfully ✓
                     </span>
                   </div>
@@ -417,7 +507,7 @@ function RegisterContent() {
                         type="button"
                         className="auth-social-action-btn"
                         onClick={() => handleConnectSocial('instagram')}
-                        style={connectedSocials['instagram'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                        style={connectedSocials['instagram'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
                       >
                         {connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'}
                       </button>
@@ -440,7 +530,7 @@ function RegisterContent() {
                         type="button"
                         className="auth-social-action-btn"
                         onClick={() => handleConnectSocial('youtube')}
-                        style={connectedSocials['youtube'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                        style={connectedSocials['youtube'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
                       >
                         {connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'}
                       </button>
@@ -463,7 +553,7 @@ function RegisterContent() {
                         type="button"
                         className="auth-social-action-btn"
                         onClick={() => handleConnectSocial('tiktok')}
-                        style={connectedSocials['tiktok'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                        style={connectedSocials['tiktok'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
                       >
                         {connectedSocials['tiktok'] ? 'Connected ✓' : 'Connect'}
                       </button>
@@ -486,7 +576,7 @@ function RegisterContent() {
                         type="button"
                         className="auth-social-action-btn"
                         onClick={() => handleConnectSocial('twitter')}
-                        style={connectedSocials['twitter'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                        style={connectedSocials['twitter'] ? { background: '#EFF6FF', borderColor: '#0052FF', color: '#0052FF' } : {}}
                       >
                         {connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'}
                       </button>

@@ -981,12 +981,12 @@ table {
 
 .auth-stepper-container {
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .auth-stepper-bars {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   width: 100%;
   margin-bottom: 12px;
@@ -1001,11 +1001,30 @@ table {
 
 .auth-stepper-segment.active {
   background: #0052FF;
-  box-shadow: 0 0 10px rgba(0, 82, 255, 0.4);
+  box-shadow: 0 0 8px rgba(0, 82, 255, 0.35);
 }
 
 .auth-stepper-segment.completed {
-  background: #10B981;
+  background: #0052FF;
+}
+
+.auth-phone-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.auth-phone-code {
+  width: 80px;
+  padding: 0 10px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0F172A;
+  box-sizing: border-box;
 }
 
 .auth-stepper-meta {
