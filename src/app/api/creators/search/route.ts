@@ -58,7 +58,7 @@ export async function GET(request: Request) {
       orderBy: { intelligenceScore: 'desc' },
     });
 
-    // Compute live Match Scores and format results
+    // Compute live Match Scores, Intelligence Rankings and format results
     const results = creators.map((creator) => {
       const creatorCats = creator.categories ? JSON.parse(creator.categories) : ['Tech', 'Lifestyle'];
       const creatorPlats = creator.socialAccounts.map((s) => s.platform);
@@ -95,9 +95,12 @@ export async function GET(request: Request) {
         categories: creatorCats,
         verificationStatus: creator.verificationStatus,
         intelligenceScore: latestScore?.overallScore ?? creator.intelligenceScore,
+        audienceQualityScore: latestScore?.audienceQualityScore ?? 92,
+        authenticityScore: latestScore?.authenticityScore ?? 94,
         reputationScore: creator.reputationScore,
         brandSafetyScore: creator.brandSafetyScore,
         availabilityStatus: creator.availabilityStatus,
+        tierBadge: (latestScore?.overallScore ?? creator.intelligenceScore) >= 90 ? 'TOP_TIER' : (latestScore?.overallScore ?? creator.intelligenceScore) >= 80 ? 'VERIFIED_ELITE' : 'RISING_STAR',
         startingPrice,
         currency: creator.rateCard?.currency ?? 'INR',
         socialAccounts: creator.socialAccounts.map((s) => ({
