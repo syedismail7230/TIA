@@ -1014,8 +1014,9 @@ table {
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: #EFF6FF;
-  color: #0052FF;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1024,9 +1025,10 @@ table {
 }
 
 .auth-role-card.active .auth-role-card-icon {
-  background: #0052FF;
-  color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #0052FF;
+  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.15);
 }
 
 .auth-role-card-content {
