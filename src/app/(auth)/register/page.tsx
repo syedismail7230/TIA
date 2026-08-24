@@ -90,6 +90,7 @@ function RegisterContent() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(true);
+  const [optInPromo, setOptInPromo] = useState(true);
 
   // Step 3 Form State (Name & Demographics)
   const [name, setName] = useState('');
@@ -464,7 +465,7 @@ function RegisterContent() {
                     {/* Phone Number Input with Real-time Format Validation */}
                     <div className="auth-input-group">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <label className="auth-label">Mobile Phone (WhatsApp/SMS Deals)</label>
+                        <label className="auth-label">Mobile Phone Number</label>
                         {phoneTouched && phone && (
                           <span style={{ fontSize: '11px', fontWeight: 600, color: isValidPhone(phone, phoneCode) ? '#0052FF' : '#EF4444' }}>
                             {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' ? 'Enter 10-digits (6-9...)' : 'Invalid number')}
@@ -579,6 +580,20 @@ function RegisterContent() {
                       />
                       <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
                         I agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
+                      </label>
+                    </div>
+
+                    {/* Promotional Opt-in Checkbox */}
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '8px' }}>
+                      <input
+                        type="checkbox"
+                        id="promo-optin-check"
+                        checked={optInPromo}
+                        onChange={(e) => setOptInPromo(e.target.checked)}
+                        style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
+                      />
+                      <label htmlFor="promo-optin-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
+                        Opt in to receive promotional updates, exclusive deal alerts, and platform news via WhatsApp, SMS, or email.
                       </label>
                     </div>
 
