@@ -109,13 +109,8 @@ function RegisterContent() {
 
   const isValidPhone = (val: string, code: string) => {
     const digitsOnly = val.replace(/\D/g, '');
-    if (code === '+91') {
-      // Indian 10-digit mobile number starting with 6-9
-      return /^[6-9]\d{9}$/.test(digitsOnly);
-    }
-    if (code === '+1') {
-      // US / Canada 10-digit number
-      return /^\d{10}$/.test(digitsOnly);
+    if (code === '+91' || code === '+1') {
+      return digitsOnly.length === 10;
     }
     // International standard (7 to 15 digits)
     return digitsOnly.length >= 7 && digitsOnly.length <= 15;
@@ -158,8 +153,8 @@ function RegisterContent() {
 
     // Phone validation
     if (!phone || !isValidPhone(phone, phoneCode)) {
-      if (phoneCode === '+91') {
-        setError('Please enter a valid 10-digit Indian mobile number (e.g. 9876543210).');
+      if (phoneCode === '+91' || phoneCode === '+1') {
+        setError('Please enter a valid 10-digit mobile number.');
       } else {
         setError(`Please enter a valid phone number for ${phoneCode}.`);
       }
@@ -468,7 +463,7 @@ function RegisterContent() {
                         <label className="auth-label">Mobile Phone Number</label>
                         {phoneTouched && phone && (
                           <span style={{ fontSize: '11px', fontWeight: 600, color: isValidPhone(phone, phoneCode) ? '#0052FF' : '#EF4444' }}>
-                            {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' ? 'Enter 10-digits (6-9...)' : 'Invalid number')}
+                            {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' || phoneCode === '+1' ? 'Enter 10-digit number' : 'Invalid number')}
                           </span>
                         )}
                       </div>
