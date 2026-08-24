@@ -377,60 +377,72 @@ function RegisterContent() {
                 </div>
               </div>
 
-              {/* STEP 1: ROLE SELECTION */}
+              {/* STEP 1: ROLE SELECTION (STREAMLINED MINIMALIST SEGMENTED CONTROL) */}
               {step === 1 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <h1 className="auth-title">How do you want to use TIA?</h1>
-                  <p className="auth-subtitle">Select your account type to personalize your experience and workflow.</p>
+                  <h1 className="auth-title">Choose your account type</h1>
+                  <p className="auth-subtitle">Select how you want to use TIA to personalize your workspace.</p>
 
-                  <div className="auth-role-card-stack">
-                    {/* Brand / Agency Card */}
-                    <div
-                      className={`auth-role-card ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
+                  {/* Sleek Segmented Switcher (Zero Bulky Cards) */}
+                  <div className="auth-role-segmented">
+                    <button
+                      type="button"
+                      className={`auth-role-pill-btn ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
                       onClick={() => setRole('BRAND_ADMIN')}
                     >
-                      <div className="auth-role-card-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
-                      </div>
-                      <div className="auth-role-card-content">
-                        <div className="auth-role-card-header">
-                          <span className="auth-role-card-title">Brand / Agency</span>
-                          {role === 'BRAND_ADMIN' ? (
-                            <span className="auth-role-card-badge">Selected ✓</span>
-                          ) : null}
-                        </div>
-                        <p className="auth-role-card-desc">
-                          Discover top talent, verify audience authenticity, manage contracts, and track milestones with a flat 5% fee.
-                        </p>
-                      </div>
-                    </div>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                      </svg>
+                      <span>Brand / Agency</span>
+                    </button>
 
-                    {/* Creator / Talent Card */}
-                    <div
-                      className={`auth-role-card ${role === 'CREATOR' ? 'active' : ''}`}
+                    <button
+                      type="button"
+                      className={`auth-role-pill-btn ${role === 'CREATOR' ? 'active' : ''}`}
                       onClick={() => setRole('CREATOR')}
                     >
-                      <div className="auth-role-card-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                          <circle cx="12" cy="13" r="4"/>
-                        </svg>
-                      </div>
-                      <div className="auth-role-card-content">
-                        <div className="auth-role-card-header">
-                          <span className="auth-role-card-title">Creator / Talent</span>
-                          {role === 'CREATOR' ? (
-                            <span className="auth-role-card-badge">Selected ✓</span>
-                          ) : null}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                      </svg>
+                      <span>Creator / Talent</span>
+                    </button>
+                  </div>
+
+                  {/* Role Highlights */}
+                  <div className="auth-role-feature-preview">
+                    {role === 'BRAND_ADMIN' ? (
+                      <>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Discover &amp; contract verified creators with zero agency markups</span>
                         </div>
-                        <p className="auth-role-card-desc">
-                          Monetize your influence, receive direct brand offers, automated commercial contracts, and guaranteed milestone payouts.
-                        </p>
-                      </div>
-                    </div>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Audited audience analytics &amp; automated milestone releases</span>
+                        </div>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Transparent flat 5% platform fee on all deliverables</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Direct brand inbound deals with zero agency revenue cuts</span>
+                        </div>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Automated commercial contracts &amp; guaranteed milestone payouts</span>
+                        </div>
+                        <div className="auth-role-feature-item">
+                          <span className="auth-role-feature-check">✓</span>
+                          <span>Verified creator badge with synced live channel statistics</span>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <button
@@ -750,13 +762,13 @@ function RegisterContent() {
                       : 'Connect brand accounts for social campaign monitoring and audience demographic alignment.'}
                   </p>
 
-                  {/* Social Connect Stack */}
-                  <div className="auth-social-connect-stack">
+                  {/* Unified Single List (No 4 bulky separate card boxes) */}
+                  <div className="auth-social-unified-list">
                     {/* Instagram */}
-                    <div className={`auth-social-tile ${connectedSocials['instagram'] ? 'connected' : ''}`}>
+                    <div className={`auth-social-row ${connectedSocials['instagram'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
@@ -786,10 +798,10 @@ function RegisterContent() {
                     </div>
 
                     {/* YouTube */}
-                    <div className={`auth-social-tile ${connectedSocials['youtube'] ? 'connected' : ''}`}>
+                    <div className={`auth-social-row ${connectedSocials['youtube'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
                           </svg>
                         </div>
@@ -817,10 +829,10 @@ function RegisterContent() {
                     </div>
 
                     {/* TikTok */}
-                    <div className={`auth-social-tile ${connectedSocials['tiktok'] ? 'connected' : ''}`}>
+                    <div className={`auth-social-row ${connectedSocials['tiktok'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
                           </svg>
                         </div>
@@ -848,10 +860,10 @@ function RegisterContent() {
                     </div>
 
                     {/* X (Twitter) */}
-                    <div className={`auth-social-tile ${connectedSocials['twitter'] ? 'connected' : ''}`}>
+                    <div className={`auth-social-row ${connectedSocials['twitter'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                           </svg>
                         </div>
