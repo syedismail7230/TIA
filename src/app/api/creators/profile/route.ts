@@ -102,6 +102,44 @@ export async function PUT(request: Request) {
       });
     }
 
+    // Upsert connected social accounts
+    if (Array.isArray(body.socialAccounts)) {
+      for (const sa of body.socialAccounts) {
+        if (sa.platform && sa.username) {
+          try {
+            await prisma.socialAccount.upsert({
+              where: {
+                platform_platformAccountId: {
+                  platform: sa.platform,
+                  platformAccountId: sa.platformAccountId || `${sa.platform}_${sa.username}`,
+                },
+              },
+              update: {
+                username: sa.username,
+                audienceSize: sa.audienceSize || 100000,
+                connectionStatus: 'CONNECTED',
+                lastSyncedAt: new Date(),
+              },
+              create: {
+                creatorId: creator.id,
+                platform: sa.platform,
+                platformAccountId: sa.platformAccountId || `${sa.platform}_${sa.username}`,
+                username: sa.username,
+                profileUrl: `https://${sa.platform.toLowerCase()}.com/${sa.username}`,
+                audienceSize: sa.audienceSize || 100000,
+                engagementRate: sa.engagementRate || 4.5,
+                averageViews: Math.round((sa.audienceSize || 100000) * 0.2),
+                contentCount: 150,
+                connectionStatus: 'CONNECTED',
+              },
+            });
+          } catch (e: any) {
+            console.warn('Social account upsert note:', e.message);
+          }
+        }
+      }
+    }
+
     return NextResponse.json({ success: true, creator: updated });
   } catch (error: any) {
     console.error('Update Creator Profile Error:', error);

@@ -37,6 +37,64 @@ export async function GET(
     const { accessToken, refreshToken, expiresAt } = await connector.exchangeCodeForToken(code);
     const profile = await connector.fetchProfile(accessToken);
 
+    // If this is an onboarding / popup verification flow, return postMessage HTML and close window
+    if (decodedState.flow === 'onboarding' || decodedState.flow === 'popup') {
+      const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Account Verified • TIA Platform</title>
+  <style>
+    body { background: #07090e; color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; text-align: center; box-sizing: border-box; }
+    .card { background: #111827; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; max-width: 380px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .icon-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(16,185,129,0.12); color: #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 24px; border: 1px solid rgba(16,185,129,0.25); }
+    h2 { font-size: 20px; font-weight: 700; margin: 0 0 8px; color: #fff; }
+    p { font-size: 13px; color: #9ca3af; line-height: 1.5; margin: 0 0 20px; }
+    .metrics { background: #1a2234; border-radius: 10px; padding: 12px; font-size: 12px; color: #e5e7eb; margin-bottom: 20px; text-align: left; }
+    .metric-row { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .metric-row:last-child { margin-bottom: 0; }
+    .status-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #10b981; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-badge">✓</div>
+    <h2>${platform} Verified</h2>
+    <p>Your official account <strong>@${profile.username}</strong> has been authenticated with live API access.</p>
+    <div class="metrics">
+      <div class="metric-row"><span>Handle:</span><strong style="color:#60a5fa">@${profile.username}</strong></div>
+      <div class="metric-row"><span>Audience:</span><strong>${profile.audienceSize.toLocaleString()}</strong></div>
+      <div class="metric-row"><span>Avg Views:</span><strong>${profile.averageViews.toLocaleString()}</strong></div>
+      <div class="metric-row"><span>Status:</span><span class="status-tag">● Live Verified</span></div>
+    </div>
+  </div>
+  <script>
+    try {
+      const payload = {
+        type: 'TIA_SOCIAL_CONNECTED',
+        platform: ${JSON.stringify(platform.toLowerCase())},
+        profile: ${JSON.stringify(profile)}
+      };
+      if (window.opener && !window.opener.closed) {
+        window.opener.postMessage(payload, '*');
+        setTimeout(() => window.close(), 1000);
+      } else {
+        setTimeout(() => {
+          window.location.href = '/register?step=4&connected=' + encodeURIComponent(${JSON.stringify(platform.toLowerCase())});
+        }, 1200);
+      }
+    } catch(e) {
+      console.error(e);
+    }
+  </script>
+</body>
+</html>`;
+
+      return new NextResponse(html, {
+        headers: { 'Content-Type': 'text/html' },
+      });
+    }
+
     const session = await getCurrentUser();
 
     // 1. If user is already logged in, connect the platform account to their creator profile

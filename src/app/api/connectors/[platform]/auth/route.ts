@@ -13,11 +13,13 @@ export async function GET(
 
     const url = new URL(request.url);
     const roleParam = url.searchParams.get('role');
+    const flowParam = url.searchParams.get('flow');
 
     const state = Buffer.from(
       JSON.stringify({
         platform,
         role: roleParam || 'CREATOR',
+        flow: flowParam || 'login',
         timestamp: Date.now(),
         nonce: Math.random().toString(36).substring(7),
       })
