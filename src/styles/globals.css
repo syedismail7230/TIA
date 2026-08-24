@@ -916,6 +916,69 @@ table {
 }
 
 /* Modern Luxury 3-Step Flow Styles */
+.auth-step-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-nav-arrow {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1E293B;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+.auth-nav-arrow:hover {
+  border-color: #0052FF;
+  color: #0052FF;
+  background: #F8FAFC;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 82, 255, 0.18);
+}
+
+.auth-nav-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.auth-nav-arrow.nav-prev {
+  left: -58px;
+}
+
+.auth-nav-arrow.nav-next {
+  right: -58px;
+}
+
+@media (max-width: 1200px) {
+  .auth-nav-arrow.nav-prev {
+    left: -24px;
+  }
+  .auth-nav-arrow.nav-next {
+    right: -24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-nav-arrow.nav-prev {
+    left: -12px;
+  }
+  .auth-nav-arrow.nav-next {
+    right: -12px;
+  }
+}
+
 .auth-stepper-container {
   width: 100%;
   margin-bottom: 24px;

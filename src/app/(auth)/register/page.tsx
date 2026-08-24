@@ -121,385 +121,398 @@ function RegisterContent() {
           </div>
 
           <div className="auth-body">
-            {/* Modern Stepper Progress Header */}
-            <div className="auth-stepper-container">
-              <div className="auth-stepper-bars">
-                <div className={`auth-stepper-segment ${step === 1 ? 'active' : 'completed'}`} />
-                <div className={`auth-stepper-segment ${step === 2 ? 'active' : step > 2 ? 'completed' : ''}`} />
-                <div className={`auth-stepper-segment ${step === 3 ? 'active' : ''}`} />
-              </div>
-              <div className="auth-stepper-meta">
-                <span className="auth-step-pill-tag">
-                  {step === 1 && 'Step 1 of 3'}
-                  {step === 2 && 'Step 2 of 3'}
-                  {step === 3 && 'Step 3 of 3'}
-                </span>
-                <span className="auth-step-title-hint">
-                  {step === 1 && 'Account Type'}
-                  {step === 2 && 'Profile & Demographics'}
-                  {step === 3 && 'Social Connect (Optional)'}
-                </span>
-              </div>
-            </div>
-
-            {/* STEP 1: LUXURY ROLE SELECTION */}
-            {step === 1 && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                <h1 className="auth-title">How do you want to use TIA?</h1>
-                <p className="auth-subtitle">Select your account type to personalize your experience and workflow.</p>
-
-                <div className="auth-role-card-stack">
-                  {/* Brand / Agency Card */}
-                  <div
-                    className={`auth-role-card ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
-                    onClick={() => setRole('BRAND_ADMIN')}
-                  >
-                    <div className="auth-role-card-icon">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                      </svg>
-                    </div>
-                    <div className="auth-role-card-content">
-                      <div className="auth-role-card-header">
-                        <span className="auth-role-card-title">Brand / Agency</span>
-                        {role === 'BRAND_ADMIN' ? (
-                          <span className="auth-role-card-badge">Selected ✓</span>
-                        ) : null}
-                      </div>
-                      <p className="auth-role-card-desc">
-                        Discover top talent, verify audience authenticity, manage contracts, and track milestones with a flat 5% fee.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Creator / Talent Card */}
-                  <div
-                    className={`auth-role-card ${role === 'CREATOR' ? 'active' : ''}`}
-                    onClick={() => setRole('CREATOR')}
-                  >
-                    <div className="auth-role-card-icon">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                        <circle cx="12" cy="13" r="4"/>
-                      </svg>
-                    </div>
-                    <div className="auth-role-card-content">
-                      <div className="auth-role-card-header">
-                        <span className="auth-role-card-title">Creator / Talent</span>
-                        {role === 'CREATOR' ? (
-                          <span className="auth-role-card-badge">Selected ✓</span>
-                        ) : null}
-                      </div>
-                      <p className="auth-role-card-desc">
-                        Monetize your influence, receive direct brand offers, automated commercial contracts, and guaranteed milestone payouts.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
+            <div className="auth-step-viewport">
+              {/* Left Navigation Arrow */}
+              {step > 1 && (
                 <button
                   type="button"
-                  onClick={handleStep1Continue}
-                  className="auth-submit-btn"
+                  onClick={() => setStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3) : prev))}
+                  className="auth-nav-arrow nav-prev"
+                  aria-label="Previous step"
+                  title="Previous step"
                 >
-                  Continue to Profile Details →
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
                 </button>
+              )}
+
+              {/* Right Navigation Arrow */}
+              {step < 3 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (step === 1) handleStep1Continue();
+                    else if (step === 2) {
+                      const formElem = document.querySelector('.auth-form') as HTMLFormElement;
+                      if (formElem) formElem.requestSubmit();
+                    }
+                  }}
+                  className="auth-nav-arrow nav-next"
+                  aria-label="Next step"
+                  title="Next step"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
+              )}
+
+              {/* Modern Stepper Progress Bars (Clean top line only) */}
+              <div className="auth-stepper-container" style={{ marginBottom: '16px' }}>
+                <div className="auth-stepper-bars">
+                  <div className={`auth-stepper-segment ${step === 1 ? 'active' : 'completed'}`} />
+                  <div className={`auth-stepper-segment ${step === 2 ? 'active' : step > 2 ? 'completed' : ''}`} />
+                  <div className={`auth-stepper-segment ${step === 3 ? 'active' : ''}`} />
+                </div>
               </div>
-            )}
 
-            {/* STEP 2: CREDENTIALS & DEMOGRAPHICS */}
-            {step === 2 && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    style={{ background: 'none', border: 'none', color: '#64748B', fontSize: '12px', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
-                  >
-                    ← Change Account Type
-                  </button>
-                  <span style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                    {role === 'CREATOR' ? 'Creator Profile' : 'Brand Profile'}
-                  </span>
-                </div>
+              {/* STEP 1: LUXURY ROLE SELECTION */}
+              {step === 1 && (
+                <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                  <h1 className="auth-title">How do you want to use TIA?</h1>
+                  <p className="auth-subtitle">Select your account type to personalize your experience and workflow.</p>
 
-                <h1 className="auth-title">Complete your profile</h1>
-                <p className="auth-subtitle">Enter your legal details to verify eligibility and set up your workspace.</p>
+                  <div className="auth-role-card-stack">
+                    {/* Brand / Agency Card */}
+                    <div
+                      className={`auth-role-card ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
+                      onClick={() => setRole('BRAND_ADMIN')}
+                    >
+                      <div className="auth-role-card-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                      </div>
+                      <div className="auth-role-card-content">
+                        <div className="auth-role-card-header">
+                          <span className="auth-role-card-title">Brand / Agency</span>
+                          {role === 'BRAND_ADMIN' ? (
+                            <span className="auth-role-card-badge">Selected ✓</span>
+                          ) : null}
+                        </div>
+                        <p className="auth-role-card-desc">
+                          Discover top talent, verify audience authenticity, manage contracts, and track milestones with a flat 5% fee.
+                        </p>
+                      </div>
+                    </div>
 
-                {/* Social OAuth Buttons */}
-                <div className="auth-social-stack">
-                  <button
-                    type="button"
-                    onClick={() => handleSocialOAuth('google')}
-                    className="auth-social-btn"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24">
-                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                    </svg>
-                    <span>Continue with Google</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleSocialOAuth('apple')}
-                    className="auth-social-btn"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.98.6-2.62 1.35-.57.65-1.06 1.72-.93 2.74 1.01.08 2.02-.51 2.63-1.24z"/>
-                    </svg>
-                    <span>Continue with Apple</span>
-                  </button>
-                </div>
-
-                <div className="auth-divider">
-                  <span className="auth-divider-text">Or register with email</span>
-                </div>
-
-                {error && (
-                  <div className="auth-error-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="8" x2="12" y2="12" />
-                      <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                    <span>{error}</span>
-                  </div>
-                )}
-
-                <form onSubmit={handleStep2Submit} className="auth-form">
-                  {/* Name */}
-                  <div className="auth-input-group">
-                    <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder={role === 'BRAND_ADMIN' ? 'Acme Corp / Agency' : 'Your Legal Name'}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="auth-input"
-                    />
-                  </div>
-
-                  {/* Gender Selector */}
-                  <div className="auth-input-group">
-                    <label className="auth-label">Gender</label>
-                    <div className="auth-gender-segmented">
-                      {['Male', 'Female', 'Non-Binary', 'Other'].map((g) => (
-                        <button
-                          key={g}
-                          type="button"
-                          className={`auth-gender-btn ${gender === g ? 'active' : ''}`}
-                          onClick={() => setGender(g)}
-                        >
-                          {g}
-                        </button>
-                      ))}
+                    {/* Creator / Talent Card */}
+                    <div
+                      className={`auth-role-card ${role === 'CREATOR' ? 'active' : ''}`}
+                      onClick={() => setRole('CREATOR')}
+                    >
+                      <div className="auth-role-card-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                          <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                      </div>
+                      <div className="auth-role-card-content">
+                        <div className="auth-role-card-header">
+                          <span className="auth-role-card-title">Creator / Talent</span>
+                          {role === 'CREATOR' ? (
+                            <span className="auth-role-card-badge">Selected ✓</span>
+                          ) : null}
+                        </div>
+                        <p className="auth-role-card-desc">
+                          Monetize your influence, receive direct brand offers, automated commercial contracts, and guaranteed milestone payouts.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Age & Email Row */}
-                  <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
-                    <div style={{ flex: 1 }}>
-                      <label className="auth-label">Age (18+)</label>
-                      <input
-                        type="number"
-                        min="18"
-                        max="100"
-                        required
-                        placeholder="24"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        className="auth-input"
-                      />
-                    </div>
-
-                    <div style={{ flex: 2.2 }}>
-                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="name@company.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="auth-input"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Password */}
-                  <div className="auth-input-group">
-                    <label className="auth-label">Create Secure Password</label>
-                    <input
-                      type="password"
-                      required
-                      placeholder="At least 8 characters"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="auth-input"
-                    />
-                  </div>
-
-                  {/* Legal Checkbox */}
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
-                    <input
-                      type="checkbox"
-                      id="terms-check"
-                      checked={agreedTerms}
-                      onChange={(e) => setAgreedTerms(e.target.checked)}
-                      style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
-                    />
-                    <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
-                      I confirm I am 18+ and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
-                    </label>
-                  </div>
-
                   <button
-                    type="submit"
-                    disabled={loading}
+                    type="button"
+                    onClick={handleStep1Continue}
                     className="auth-submit-btn"
                   >
-                    {loading ? 'Creating Account...' : 'Continue to Social Link →'}
+                    Continue to Profile Details →
                   </button>
-                </form>
-              </div>
-            )}
-
-            {/* STEP 3: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
-            {step === 3 && (
-              <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 10px', borderRadius: '9999px' }}>
-                    Account Registered Successfully ✓
-                  </span>
                 </div>
+              )}
 
-                <h1 className="auth-title">Link your social channels</h1>
-                <p className="auth-subtitle">
-                  {role === 'CREATOR'
-                    ? 'Connect your public profiles to verify engagement, sync analytics, and land higher-paying campaigns.'
-                    : 'Connect brand accounts for social campaign monitoring and audience demographic alignment.'}
-                </p>
+              {/* STEP 2: CREDENTIALS & DEMOGRAPHICS */}
+              {step === 2 && (
+                <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                  <h1 className="auth-title">Complete your profile</h1>
+                  <p className="auth-subtitle">Enter your legal details to verify eligibility and set up your workspace.</p>
 
-                {/* Social Connect Stack */}
-                <div className="auth-social-connect-stack">
-                  {/* Instagram */}
-                  <div className="auth-social-tile">
-                    <div className="auth-social-info">
-                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="auth-social-name">Instagram</div>
-                        <div className="auth-social-subtitle">{connectedSocials['instagram'] ? 'Connected' : 'Audience & Stories Reach'}</div>
-                      </div>
-                    </div>
+                  {/* Social OAuth Buttons */}
+                  <div className="auth-social-stack">
                     <button
                       type="button"
-                      className="auth-social-action-btn"
-                      onClick={() => handleConnectSocial('instagram')}
-                      style={connectedSocials['instagram'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      onClick={() => handleSocialOAuth('google')}
+                      className="auth-social-btn"
                     >
-                      {connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'}
+                      <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                      </svg>
+                      <span>Continue with Google</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleSocialOAuth('apple')}
+                      className="auth-social-btn"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.98.6-2.62 1.35-.57.65-1.06 1.72-.93 2.74 1.01.08 2.02-.51 2.63-1.24z"/>
+                      </svg>
+                      <span>Continue with Apple</span>
                     </button>
                   </div>
 
-                  {/* YouTube */}
-                  <div className="auth-social-tile">
-                    <div className="auth-social-info">
-                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="auth-social-name">YouTube</div>
-                        <div className="auth-social-subtitle">{connectedSocials['youtube'] ? 'Connected' : 'Subscribers & Long-form'}</div>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="auth-social-action-btn"
-                      onClick={() => handleConnectSocial('youtube')}
-                      style={connectedSocials['youtube'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
-                    >
-                      {connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'}
-                    </button>
+                  <div className="auth-divider">
+                    <span className="auth-divider-text">Or register with email</span>
                   </div>
 
-                  {/* TikTok */}
-                  <div className="auth-social-tile">
-                    <div className="auth-social-info">
-                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="auth-social-name">TikTok</div>
-                        <div className="auth-social-subtitle">{connectedSocials['tiktok'] ? 'Connected' : 'Views & Viral Retention'}</div>
-                      </div>
+                  {error && (
+                    <div className="auth-error-box">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                      </svg>
+                      <span>{error}</span>
                     </div>
-                    <button
-                      type="button"
-                      className="auth-social-action-btn"
-                      onClick={() => handleConnectSocial('tiktok')}
-                      style={connectedSocials['tiktok'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
-                    >
-                      {connectedSocials['tiktok'] ? 'Connected ✓' : 'Connect'}
-                    </button>
-                  </div>
+                  )}
 
-                  {/* X (Twitter) */}
-                  <div className="auth-social-tile">
-                    <div className="auth-social-info">
-                      <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="auth-social-name">X (Twitter)</div>
-                        <div className="auth-social-subtitle">{connectedSocials['twitter'] ? 'Connected' : 'Engagement & Threads'}</div>
+                  <form onSubmit={handleStep2Submit} className="auth-form">
+                    {/* Name */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder={role === 'BRAND_ADMIN' ? 'Acme Corp / Agency' : 'Your Legal Name'}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+
+                    {/* Gender Selector */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">Gender</label>
+                      <div className="auth-gender-segmented">
+                        {['Male', 'Female', 'Non-Binary', 'Other'].map((g) => (
+                          <button
+                            key={g}
+                            type="button"
+                            className={`auth-gender-btn ${gender === g ? 'active' : ''}`}
+                            onClick={() => setGender(g)}
+                          >
+                            {g}
+                          </button>
+                        ))}
                       </div>
                     </div>
+
+                    {/* Age & Email Row */}
+                    <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
+                      <div style={{ flex: 1 }}>
+                        <label className="auth-label">Age (18+)</label>
+                        <input
+                          type="number"
+                          min="18"
+                          max="100"
+                          required
+                          placeholder="24"
+                          value={age}
+                          onChange={(e) => setAge(e.target.value)}
+                          className="auth-input"
+                        />
+                      </div>
+
+                      <div style={{ flex: 2.2 }}>
+                        <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal Email'}</label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="name@company.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="auth-input"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Password */}
+                    <div className="auth-input-group">
+                      <label className="auth-label">Create Secure Password</label>
+                      <input
+                        type="password"
+                        required
+                        placeholder="At least 8 characters"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="auth-input"
+                      />
+                    </div>
+
+                    {/* Legal Checkbox */}
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '2px' }}>
+                      <input
+                        type="checkbox"
+                        id="terms-check"
+                        checked={agreedTerms}
+                        onChange={(e) => setAgreedTerms(e.target.checked)}
+                        style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
+                      />
+                      <label htmlFor="terms-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
+                        I confirm I am 18+ and agree to TIA <Link href="/terms" style={{ color: '#0052FF', fontWeight: 600 }}>Terms of Service</Link> and <Link href="/privacy" style={{ color: '#0052FF', fontWeight: 600 }}>Privacy Policy</Link>.
+                      </label>
+                    </div>
+
                     <button
-                      type="button"
-                      className="auth-social-action-btn"
-                      onClick={() => handleConnectSocial('twitter')}
-                      style={connectedSocials['twitter'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      type="submit"
+                      disabled={loading}
+                      className="auth-submit-btn"
                     >
-                      {connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'}
+                      {loading ? 'Creating Account...' : 'Continue to Social Link →'}
                     </button>
-                  </div>
+                  </form>
                 </div>
+              )}
 
-                <button
-                  type="button"
-                  onClick={handleFinish}
-                  className="auth-submit-btn"
-                >
-                  Complete Setup &amp; Go to Dashboard →
-                </button>
+              {/* STEP 3: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
+              {step === 3 && (
+                <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#ECFDF5', border: '1px solid #A7F3D0', padding: '4px 10px', borderRadius: '9999px' }}>
+                      Account Registered Successfully ✓
+                    </span>
+                  </div>
 
-                <div style={{ textAlign: 'center' }}>
+                  <h1 className="auth-title">Link your social channels</h1>
+                  <p className="auth-subtitle">
+                    {role === 'CREATOR'
+                      ? 'Connect your public profiles to verify engagement, sync analytics, and land higher-paying campaigns.'
+                      : 'Connect brand accounts for social campaign monitoring and audience demographic alignment.'}
+                  </p>
+
+                  {/* Social Connect Stack */}
+                  <div className="auth-social-connect-stack">
+                    {/* Instagram */}
+                    <div className="auth-social-tile">
+                      <div className="auth-social-info">
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="auth-social-name">Instagram</div>
+                          <div className="auth-social-subtitle">{connectedSocials['instagram'] ? 'Connected' : 'Audience & Stories Reach'}</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="auth-social-action-btn"
+                        onClick={() => handleConnectSocial('instagram')}
+                        style={connectedSocials['instagram'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      >
+                        {connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'}
+                      </button>
+                    </div>
+
+                    {/* YouTube */}
+                    <div className="auth-social-tile">
+                      <div className="auth-social-info">
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="auth-social-name">YouTube</div>
+                          <div className="auth-social-subtitle">{connectedSocials['youtube'] ? 'Connected' : 'Subscribers & Long-form'}</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="auth-social-action-btn"
+                        onClick={() => handleConnectSocial('youtube')}
+                        style={connectedSocials['youtube'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      >
+                        {connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'}
+                      </button>
+                    </div>
+
+                    {/* TikTok */}
+                    <div className="auth-social-tile">
+                      <div className="auth-social-info">
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="auth-social-name">TikTok</div>
+                          <div className="auth-social-subtitle">{connectedSocials['tiktok'] ? 'Connected' : 'Views & Viral Retention'}</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="auth-social-action-btn"
+                        onClick={() => handleConnectSocial('tiktok')}
+                        style={connectedSocials['tiktok'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      >
+                        {connectedSocials['tiktok'] ? 'Connected ✓' : 'Connect'}
+                      </button>
+                    </div>
+
+                    {/* X (Twitter) */}
+                    <div className="auth-social-tile">
+                      <div className="auth-social-info">
+                        <div style={{ width: '34px', height: '34px', borderRadius: '9px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="auth-social-name">X (Twitter)</div>
+                          <div className="auth-social-subtitle">{connectedSocials['twitter'] ? 'Connected' : 'Engagement & Threads'}</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="auth-social-action-btn"
+                        onClick={() => handleConnectSocial('twitter')}
+                        style={connectedSocials['twitter'] ? { background: '#ECFDF5', borderColor: '#10B981', color: '#059669' } : {}}
+                      >
+                        {connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'}
+                      </button>
+                    </div>
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleFinish}
-                    className="auth-skip-btn"
+                    className="auth-submit-btn"
                   >
-                    Skip for Now
+                    Complete Setup &amp; Go to Dashboard →
                   </button>
+
+                  <div style={{ textAlign: 'center' }}>
+                    <button
+                      type="button"
+                      onClick={handleFinish}
+                      className="auth-skip-btn"
+                    >
+                      Skip for Now
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Footer */}
