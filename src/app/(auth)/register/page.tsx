@@ -1,21 +1,18 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-function RegisterContent() {
+export default function RegisterPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRole = searchParams.get('role') === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
 
   const [role, setRole] = useState<'CREATOR' | 'BRAND_ADMIN'>(initialRole);
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [organizationName, setOrganizationName] = useState('');
-  const [businessCategory, setBusinessCategory] = useState('Technology & Software');
-  const [country, setCountry] = useState('India');
+  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -28,15 +25,7 @@ function RegisterContent() {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role,
-          country,
-          organizationName: role === 'BRAND_ADMIN' ? organizationName : undefined,
-          businessCategory: role === 'BRAND_ADMIN' ? businessCategory : undefined,
-        }),
+        body: JSON.stringify({ email, password, name, role }),
       });
 
       const data = await res.json();
@@ -44,7 +33,7 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      if (role === 'CREATOR') {
+      if (data.user.role === 'CREATOR') {
         router.push('/creator');
       } else {
         router.push('/brand');
@@ -64,7 +53,7 @@ function RegisterContent() {
   return (
     <div className="auth-viewport">
       <div className="auth-card">
-        {/* LEFT COLUMN: REGISTRATION FORM */}
+        {/* LEFT COLUMN: REGISTER FORM */}
         <div className="auth-form-pane">
           {/* Header */}
           <div className="auth-header">
@@ -85,14 +74,43 @@ function RegisterContent() {
           {/* Body Content */}
           <div className="auth-body">
             <div className="auth-avatar-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
               </svg>
             </div>
 
-            <h1 className="auth-title">Create your account</h1>
-            <p className="auth-subtitle">Join top verified creators and enterprise brands worldwide.</p>
+            <h1 className="auth-title">Create your TIA account</h1>
+            <p className="auth-subtitle">Join India&apos;s leading platform for direct brand deals &amp; creator growth.</p>
+
+            {/* Account Type Toggle */}
+            <div className="auth-role-tabs">
+              <button
+                type="button"
+                className={`auth-role-tab ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
+                onClick={() => setRole('BRAND_ADMIN')}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                </svg>
+                <span>Brand / Agency</span>
+              </button>
+              <button
+                type="button"
+                className={`auth-role-tab ${role === 'CREATOR' ? 'active' : ''}`}
+                onClick={() => setRole('CREATOR')}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                <span>Creator / Talent</span>
+              </button>
+            </div>
 
             {/* Social Auth Buttons */}
             <div className="auth-social-stack">
@@ -137,31 +155,14 @@ function RegisterContent() {
               </div>
             )}
 
-            {/* Role Switcher */}
-            <div className="auth-role-tabs">
-              <button
-                type="button"
-                onClick={() => setRole('CREATOR')}
-                className={`auth-role-tab ${role === 'CREATOR' ? 'active' : ''}`}
-              >
-                Creator & Influencer
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole('BRAND_ADMIN')}
-                className={`auth-role-tab ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
-              >
-                Brand & Agency
-              </button>
-            </div>
-
             {/* Input Form */}
             <form onSubmit={handleSubmit} className="auth-form">
               <div className="auth-input-group">
+                <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Creator Full Name'}</label>
                 <input
                   type="text"
                   required
-                  placeholder="Full Name"
+                  placeholder={role === 'BRAND_ADMIN' ? 'Acme Corp / Agency' : 'Your Legal Name'}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="auth-input"
@@ -169,10 +170,11 @@ function RegisterContent() {
               </div>
 
               <div className="auth-input-group">
+                <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Personal / Management Email'}</label>
                 <input
                   type="email"
                   required
-                  placeholder="Email address"
+                  placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="auth-input"
@@ -180,140 +182,183 @@ function RegisterContent() {
               </div>
 
               <div className="auth-input-group">
+                <label className="auth-label">Create Secure Password</label>
                 <input
                   type="password"
                   required
-                  placeholder="Create password (min 8 characters)"
+                  placeholder="At least 8 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="auth-input"
                 />
               </div>
 
-              {role === 'BRAND_ADMIN' && (
-                <>
-                  <div className="auth-input-group">
-                    <input
-                      type="text"
-                      required
-                      placeholder="Company / Brand Name"
-                      value={organizationName}
-                      onChange={(e) => setOrganizationName(e.target.value)}
-                      className="auth-input"
-                    />
-                  </div>
-
-                  <div className="auth-input-group">
-                    <select
-                      value={businessCategory}
-                      onChange={(e) => setBusinessCategory(e.target.value)}
-                      className="auth-input"
-                    >
-                      <option value="Technology & Software">Technology & Software</option>
-                      <option value="Fashion & Apparel">Fashion & Apparel</option>
-                      <option value="Beauty & Cosmetics">Beauty & Cosmetics</option>
-                      <option value="Fitness & Health">Fitness & Health</option>
-                      <option value="Food & Beverage">Food & Beverage</option>
-                      <option value="Gaming & Esports">Gaming & Esports</option>
-                      <option value="Travel & Hospitality">Travel & Hospitality</option>
-                    </select>
-                  </div>
-                </>
-              )}
-
               <button
                 type="submit"
                 disabled={loading}
                 className="auth-submit-btn"
               >
-                {loading ? 'Creating Account...' : 'Sign up with Email'}
+                {loading ? 'Creating Account...' : `Register as ${role === 'BRAND_ADMIN' ? 'Brand / Agency' : 'Verified Creator'}`}
               </button>
             </form>
 
             <div className="auth-disclaimer">
-              By continuing, you acknowledge TIA <Link href="/privacy">Privacy Policy</Link> and <Link href="/terms">Terms of Service</Link>.
+              By creating an account, you agree to TIA <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>.
             </div>
           </div>
 
           {/* Footer */}
           <div className="auth-footer">
-            <span>© 2026 The Influencer&apos;s Agency</span>
-            <span className="auth-lang">🌐 ENG ▾</span>
+            <span>© 2026 The Influencer&apos;s Agency • India&apos;s Verified Network</span>
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <Link href="/legal" style={{ color: '#64748B', textDecoration: 'none' }}>Legal</Link>
+              <Link href="/pricing" style={{ color: '#64748B', textDecoration: 'none' }}>Pricing</Link>
+              <span className="auth-lang" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <span>ENG</span>
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: VISUAL HERO & SHOWCASE */}
+        {/* RIGHT COLUMN: TIA ENTERPRISE SHOWCASE PANE */}
         <div className="auth-showcase-pane">
+          {/* Top Headline & Trust Badge */}
           <div className="auth-showcase-content">
+            <div className="tia-theme-badge">
+              <span className="tia-badge-dot"></span>
+              <span>VERIFIED BRAND-CREATOR NETWORK</span>
+            </div>
             <h2 className="auth-showcase-title">
-              Build, Contract &amp; Scale<br />Influencer Partnerships
+              Discover Talent.<br />
+              <span style={{ color: '#0052FF' }}>Execute Protected Deals.</span>
             </h2>
             <p className="auth-showcase-desc">
-              Manage every creator partnership, bilateral legal contract, and 5% escrow settlement from one intelligent platform built for modern enterprises.
+              From contract generation and audience authenticity audits to milestone deliverables tracking, TIA automates high-converting campaigns with a flat 5% platform fee.
             </p>
           </div>
 
-          {/* 3D Glass Artwork Stack */}
-          <div className="auth-3d-scene">
-            <div className="auth-3d-glass-grid">
-              <div className="glass-tile t1" />
-              <div className="glass-tile t2" />
-              <div className="glass-tile t3">
-                <div className="glass-badge-glow">
-                  <div className="glass-badge-inner">
-                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white" />
+          {/* Middle: TIA Enterprise Visual Mockups Stack */}
+          <div className="tia-auth-mockup-stack">
+            {/* Widget 1: Creator Discovery & Audience Card */}
+            <div className="tia-auth-card tia-card-creator">
+              <div className="tia-card-header">
+                <div className="tia-creator-avatar-wrap">
+                  <div className="tia-creator-avatar">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#0052FF">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                     </svg>
                   </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span className="tia-creator-name">Rohan Mehta</span>
+                      <span className="tia-verified-badge">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
+                          <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Verified</span>
+                      </span>
+                    </div>
+                    <div className="tia-creator-handle">@rohanmehta • FinTech &amp; Startup Growth</div>
+                  </div>
+                </div>
+                <div className="tia-match-pill">99% Brand Match</div>
+              </div>
+
+              <div className="tia-metric-grid">
+                <div className="tia-metric-item">
+                  <div className="tia-metric-label">Reach</div>
+                  <div className="tia-metric-val">1.2M</div>
+                </div>
+                <div className="tia-metric-item">
+                  <div className="tia-metric-label">Engagement</div>
+                  <div className="tia-metric-val" style={{ color: '#059669' }}>5.4%</div>
+                </div>
+                <div className="tia-metric-item">
+                  <div className="tia-metric-label">Audience Quality</div>
+                  <div className="tia-metric-val" style={{ color: '#0052FF' }}>99.6%</div>
                 </div>
               </div>
-              <div className="glass-tile t4" />
-              <div className="glass-tile t5" />
+            </div>
+
+            {/* Widget 2: Campaign Contract & Milestone Deliverables Agreement */}
+            <div className="tia-auth-card tia-card-contract">
+              <div className="tia-contract-header">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div className="tia-shield-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="tia-contract-title">Campaign Contract #TIA-9140</div>
+                    <div className="tia-contract-sub">Commercial Rights &bull; Automated 5% Platform Fee</div>
+                  </div>
+                </div>
+                <div className="tia-contract-budget">₹2,80,000 Deal</div>
+              </div>
+
+              <div className="tia-milestone-track">
+                <div className="tia-milestone-step done">
+                  <div className="step-label-group">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span className="step-label">1. Creative Concept &amp; Talking Points</span>
+                  </div>
+                  <span className="step-tag" style={{ background: '#ECFDF5', color: '#059669' }}>Approved</span>
+                </div>
+                <div className="tia-milestone-step done">
+                  <div className="step-label-group">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span className="step-label">2. 4K Reel Production Draft</span>
+                  </div>
+                  <span className="step-tag" style={{ background: '#ECFDF5', color: '#059669' }}>Approved</span>
+                </div>
+                <div className="tia-milestone-step active">
+                  <div className="step-label-group">
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0052FF', display: 'inline-block' }}></span>
+                    <span className="step-label">3. Live Posting &amp; Direct Milestone Settlement</span>
+                  </div>
+                  <span className="step-tag live">Ready to Pay</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Live Floating Status Indicators */}
-          <div className="auth-floating-pills">
-            <div className="auth-live-pill pill-active">
-              <div className="pill-dot-wrapper">
-                <div className="pill-dot pulse-orange" />
-              </div>
-              <div className="pill-text">
-                Verify audience metrics &amp; engagement authenticity
-              </div>
-              <div className="pill-status orange">Working... <span className="status-dot">●</span></div>
+          {/* Bottom Trust Stat Bar */}
+          <div className="tia-auth-trust-row">
+            <div className="tia-trust-stat">
+              <div className="stat-num">5,000+</div>
+              <div className="stat-label">Verified Creators</div>
             </div>
-
-            <div className="auth-live-pill pill-success">
-              <div className="pill-dot-wrapper">
-                <div className="pill-dot static-green" />
-              </div>
-              <div className="pill-text">
-                Bilateral contract eSigned &amp; 5% escrow funded
-              </div>
-              <div className="pill-status green">Done <span className="status-dot">●</span></div>
+            <div className="tia-trust-divider" />
+            <div className="tia-trust-stat">
+              <div className="stat-num">₹15 Cr+</div>
+              <div className="stat-label">Deals Facilitated</div>
             </div>
-
-            <div className="auth-live-pill pill-subtle">
-              <div className="pill-dot-wrapper">
-                <div className="pill-dot static-blue" />
-              </div>
-              <div className="pill-text">
-                Milestone approved &amp; net 95% payout dispatched
-              </div>
-              <div className="pill-status green">Done <span className="status-dot">●</span></div>
+            <div className="tia-trust-divider" />
+            <div className="tia-trust-stat">
+              <div className="stat-num">5%</div>
+              <div className="stat-label">Transparent Platform Fee</div>
+            </div>
+            <div className="tia-trust-divider" />
+            <div className="tia-trust-stat">
+              <div className="stat-num">100%</div>
+              <div className="stat-label">Fraud Audited</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-}
-
-export default function RegisterPage() {
-  return (
-    <Suspense fallback={<div style={{ padding: '60px', textAlign: 'center' }}>Loading Registration...</div>}>
-      <RegisterContent />
-    </Suspense>
   );
 }
