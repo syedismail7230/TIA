@@ -8,11 +8,14 @@ import { saveStoredUser } from '@/lib/auth/local-auth-store';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, password, name, role, phone, gender, age, country, organizationName, businessCategory } = body;
+    const { email, password, phone, gender, age, country, organizationName, businessCategory } = body;
+    const finalName = body.name || body.contactName || body.companyName || body.organizationName || (email ? email.split('@')[0] : 'User');
+    const rawRole = body.role || 'CREATOR';
+    const finalRole = (rawRole === 'BRAND' || rawRole === 'BRAND_ADMIN') ? 'BRAND_ADMIN' : 'CREATOR';
 
-    if (!email || !password || !name || !role) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email, password, name, and role are required' },
+        { error: 'Email and password are required' },
         { status: 400 }
       );
     }
@@ -25,8 +28,8 @@ export async function POST(request: Request) {
       id: `user_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
       email: normalizedEmail,
       passwordHash,
-      name,
-      role,
+      name: finalName,
+      role: finalRole,
       phone,
       gender,
       age: age ? Number(age) : undefined,
@@ -53,18 +56,18 @@ export async function POST(request: Request) {
           data: {
             email: normalizedEmail,
             passwordHash,
-            name,
-            role,
+            name: finalName,
+            role: finalRole,
             country: country || 'India',
           },
         });
 
-        if (role === 'CREATOR') {
-          const username = `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}_${Math.floor(Math.random() * 1000)}`;
+        if (finalRole === 'CREATOR') {
+          const username = `${finalName.toLowerCase().replace(/[^a-z0-9]/g, '')}_${Math.floor(Math.random() * 1000)}`;
           const creator = await tx.creator.create({
             data: {
               userId: newUser.id,
-              displayName: name,
+              displayName: finalName,
               username,
               country: country || 'India',
               verificationStatus: 'EMAIL_VERIFIED',
@@ -89,11 +92,11 @@ export async function POST(request: Request) {
               maxSimultaneousCampaigns: 3,
             },
           });
-        } else if (role === 'BRAND_ADMIN' || role === 'BRAND_USER') {
+        } else if (finalRole === 'BRAND_ADMIN' || finalRole === 'BRAND_USER') {
           const org = await tx.organization.create({
             data: {
-              name: organizationName || `${name}'s Organization`,
-              legalName: organizationName || `${name}'s Organization`,
+              name: organizationName || `${finalName}'s Organization`,
+              legalName: organizationName || `${finalName}'s Organization`,
               country: country || 'India',
               businessCategory: businessCategory || 'General',
               verificationStatus: 'PENDING',
@@ -104,16 +107,16 @@ export async function POST(request: Request) {
             data: {
               organizationId: org.id,
               userId: newUser.id,
-              role: role === 'BRAND_ADMIN' ? 'OWNER' : 'CAMPAIGN_MANAGER',
+              role: finalRole === 'BRAND_ADMIN' ? 'OWNER' : 'CAMPAIGN_MANAGER',
             },
           });
 
           await tx.brandProfile.create({
             data: {
               organizationId: org.id,
-              companyName: organizationName || `${name}'s Brand`,
+              companyName: organizationName || `${finalName}'s Brand`,
               industry: businessCategory || 'General',
-              description: `Contact: ${name} (${gender || 'Not specified'}, Age: ${age || '18+'})${phone ? ` • Phone: ${phone}` : ''}`,
+              description: `Contact: ${finalName} (${gender || 'Not specified'}, Age: ${age || '18+'})${phone ? ` • Phone: ${phone}` : ''}`,
             },
           });
         }
@@ -152,13 +155,13 @@ export async function POST(request: Request) {
       await setSessionCookie({
         userId: fallbackUserId,
         email: normalizedEmail,
-        role,
+        role: finalRole,
       });
 
       return NextResponse.json(
         {
           message: 'Account registered successfully',
-          user: { id: fallbackUserId, email: normalizedEmail, name, role },
+          user: { id: fallbackUserId, email: normalizedEmail, name: finalName, role: finalRole },
         },
         { status: 201 }
       );
