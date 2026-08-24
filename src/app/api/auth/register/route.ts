@@ -7,7 +7,7 @@ import { logAuditEvent } from '@/lib/audit/logger';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, password, name, role, country, organizationName, businessCategory } = body;
+    const { email, password, name, role, gender, age, country, organizationName, businessCategory } = body;
 
     if (!email || !password || !name || !role) {
       return NextResponse.json(
@@ -53,6 +53,7 @@ export async function POST(request: Request) {
             username,
             country: country || 'India',
             verificationStatus: 'EMAIL_VERIFIED',
+            bio: gender || age ? `Demographics: ${gender || 'Not specified'}, Age: ${age || '18+'}` : null,
           },
         });
 
@@ -97,6 +98,7 @@ export async function POST(request: Request) {
             organizationId: org.id,
             companyName: organizationName || `${name}'s Brand`,
             industry: businessCategory || 'General',
+            description: gender || age ? `Contact: ${name} (${gender || 'Not specified'}, Age: ${age || '18+'})` : null,
           },
         });
       }
