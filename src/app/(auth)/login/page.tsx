@@ -186,88 +186,72 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: PREMIUM EDITORIAL TIA SHOWCASE PANE */}
+        {/* RIGHT COLUMN: CLEAN MINIMALIST SHOWCASE PANE */}
         <div className="auth-showcase-pane">
-          {/* Top Headline & Trust Badge */}
           <div className="auth-showcase-content">
-            <div className="tia-theme-badge">
-              <span className="tia-badge-dot"></span>
-              <span>VERIFIED BRAND-CREATOR NETWORK</span>
-            </div>
             <h2 className="auth-showcase-title">
-              Discover Top Creators.<br />
-              <span style={{ color: '#0052FF' }}>Execute Protected Deals.</span>
+              Empowering Brands &amp; Creators to Scale Together.
             </h2>
             <p className="auth-showcase-desc">
-              Direct brand collaborations, audited audience insights, and smart milestone contracts with a flat 5% platform fee.
+              India&apos;s transparent marketplace for direct creator partnerships, verified audience analytics, and automated campaign contracts with a flat 5% platform fee.
             </p>
+
+            {/* Feature Benefits List */}
+            <div className="tia-showcase-features">
+              <div className="tia-showcase-feature-item">
+                <div className="tia-feature-icon-wrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="tia-feature-text-title">Direct Brand-to-Creator Deals</div>
+                  <div className="tia-feature-text-desc">Connect directly with vetted talent and fast-growing brands with zero intermediaries.</div>
+                </div>
+              </div>
+
+              <div className="tia-showcase-feature-item">
+                <div className="tia-feature-icon-wrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="tia-feature-text-title">Bilateral Commercial Contracts</div>
+                  <div className="tia-feature-text-desc">Automated legal licensing, usage rights, and structured milestone deliverable tracking.</div>
+                </div>
+              </div>
+
+              <div className="tia-showcase-feature-item">
+                <div className="tia-feature-icon-wrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="tia-feature-text-title">Audited Audience Authenticity</div>
+                  <div className="tia-feature-text-desc">Real-time fraud audits, audience engagement metrics, and verified performance benchmarks.</div>
+                </div>
+              </div>
+
+              <div className="tia-showcase-feature-item">
+                <div className="tia-feature-icon-wrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" strokeWidth="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="tia-feature-text-title">Flat 5% Transparent Fee</div>
+                  <div className="tia-feature-text-desc">Zero hidden commissions or unexpected deductions on any campaign milestone.</div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Centerpiece: Real Creator Talent Asset with Floating Telemetry HUD */}
-          <div className="tia-hero-visual-center">
-            {/* Top Left Floating HUD Pill */}
-            <div className="tia-hud-floating-top">
-              <div className="tia-hud-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span>Audience Verified</span>
-              </div>
-              <div className="tia-hud-subtitle">99.2% Authentic Demographics</div>
-              <div className="tia-hud-stat-pill">
-                <span className="tia-hud-stat">Reach: <strong>850K</strong></span>
-                <span className="tia-hud-stat">Eng: <strong>4.9%</strong></span>
-              </div>
-            </div>
-
-            {/* Creator Photo Cutout Asset */}
-            <img
-              src="/influencer-home.png"
-              alt="TIA Verified Creator Talent"
-              className="tia-creator-hero-img"
-            />
-
-            {/* Bottom Right Floating HUD Card */}
-            <div className="tia-hud-floating-bottom">
-              <div className="tia-hud-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <span>Campaign #TIA-8920</span>
-              </div>
-              <div className="tia-hud-subtitle">Commercial License &bull; 5% Platform Fee</div>
-              <div className="tia-hud-progress">
-                <div className="tia-hud-progress-bar"></div>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '11px', color: '#64748B' }}>
-                <span>Milestone 2 of 3</span>
-                <span style={{ color: '#0052FF', fontWeight: 700 }}>In Review</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Trust Stat Bar */}
-          <div className="tia-auth-trust-row">
-            <div className="tia-trust-stat">
-              <div className="stat-num">5,000+</div>
-              <div className="stat-label">Verified Creators</div>
-            </div>
-            <div className="tia-trust-divider" />
-            <div className="tia-trust-stat">
-              <div className="stat-num">₹15 Cr+</div>
-              <div className="stat-label">Deals Facilitated</div>
-            </div>
-            <div className="tia-trust-divider" />
-            <div className="tia-trust-stat">
-              <div className="stat-num">5%</div>
-              <div className="stat-label">Platform Fee</div>
-            </div>
-            <div className="tia-trust-divider" />
-            <div className="tia-trust-stat">
-              <div className="stat-num">100%</div>
-              <div className="stat-label">Milestone Tracked</div>
-            </div>
+          {/* Bottom Showcase Trust Footer */}
+          <div className="auth-showcase-footer">
+            <span>Trusted by <strong>5,000+</strong> verified creators &amp; leading brands</span>
+            <span>256-Bit SSL Encrypted</span>
           </div>
         </div>
       </div>
