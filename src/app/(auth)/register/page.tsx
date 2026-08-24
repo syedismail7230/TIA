@@ -83,8 +83,10 @@ function RegisterContent() {
 
   // Step 2 Form State (Credentials & Phone)
   const [email, setEmail] = useState('');
+  const [emailTouched, setEmailTouched] = useState(false);
   const [phoneCode, setPhoneCode] = useState('+91');
   const [phone, setPhone] = useState('');
+  const [phoneTouched, setPhoneTouched] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(true);
@@ -144,6 +146,8 @@ function RegisterContent() {
   const handleStep2Continue = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setError('');
+    setEmailTouched(true);
+    setPhoneTouched(true);
 
     // Email validation
     if (!email || !isValidEmail(email)) {
@@ -439,7 +443,7 @@ function RegisterContent() {
                     <div className="auth-input-group">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Email Address'}</label>
-                        {email && (
+                        {emailTouched && email && (
                           <span style={{ fontSize: '11px', fontWeight: 600, color: isValidEmail(email) ? '#0052FF' : '#EF4444' }}>
                             {isValidEmail(email) ? 'Valid email ✓' : 'Invalid email format'}
                           </span>
@@ -451,8 +455,9 @@ function RegisterContent() {
                         placeholder="name@company.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        onBlur={() => setEmailTouched(true)}
                         className="auth-input"
-                        style={email && !isValidEmail(email) ? { borderColor: '#FCA5A5' } : {}}
+                        style={emailTouched && email && !isValidEmail(email) ? { borderColor: '#FCA5A5' } : {}}
                       />
                     </div>
 
@@ -460,7 +465,7 @@ function RegisterContent() {
                     <div className="auth-input-group">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <label className="auth-label">Mobile Phone (WhatsApp/SMS Deals)</label>
-                        {phone && (
+                        {phoneTouched && phone && (
                           <span style={{ fontSize: '11px', fontWeight: 600, color: isValidPhone(phone, phoneCode) ? '#0052FF' : '#EF4444' }}>
                             {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' ? 'Enter 10-digits (6-9...)' : 'Invalid number')}
                           </span>
@@ -484,8 +489,9 @@ function RegisterContent() {
                           placeholder={phoneCode === '+91' ? '98765 43210' : 'Mobile number'}
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
+                          onBlur={() => setPhoneTouched(true)}
                           className="auth-input"
-                          style={{ flex: 1, ...(phone && !isValidPhone(phone, phoneCode) ? { borderColor: '#FCA5A5' } : {}) }}
+                          style={{ flex: 1, ...(phoneTouched && phone && !isValidPhone(phone, phoneCode) ? { borderColor: '#FCA5A5' } : {}) }}
                         />
                       </div>
                     </div>
