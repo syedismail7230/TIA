@@ -1182,18 +1182,6 @@ table {
   font-weight: 500;
 }
 
-/* Modern Role Selection Cards */
-.auth-role-card-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
-  margin: 20px 0 24px 0;
-}
-
-.auth-role-card {
-  position: relative;
-  display: flex;
 /* Step 1: Sleek Segmented Role Selector */
 .auth-role-segmented {
   display: grid;
