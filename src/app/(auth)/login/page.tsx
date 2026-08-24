@@ -186,7 +186,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: TIA ENTERPRISE SHOWCASE PANE */}
+        {/* RIGHT COLUMN: PREMIUM EDITORIAL TIA SHOWCASE PANE */}
         <div className="auth-showcase-pane">
           {/* Top Headline & Trust Badge */}
           <div className="auth-showcase-content">
@@ -195,101 +195,54 @@ export default function LoginPage() {
               <span>VERIFIED BRAND-CREATOR NETWORK</span>
             </div>
             <h2 className="auth-showcase-title">
-              Direct Brand Deals.<br />
-              <span style={{ color: '#0052FF' }}>Automated Contracts &amp; 5% Platform Fee.</span>
+              Discover Top Creators.<br />
+              <span style={{ color: '#0052FF' }}>Execute Protected Deals.</span>
             </h2>
             <p className="auth-showcase-desc">
-              Join 5,000+ top brands and verified creators collaborating directly with smart bilateral contracts, audience fraud audits, and milestone-tracked campaign approvals.
+              Direct brand collaborations, audited audience insights, and smart milestone contracts with a flat 5% platform fee.
             </p>
           </div>
 
-          {/* Middle: TIA Enterprise Visual Mockups Stack */}
-          <div className="tia-auth-mockup-stack">
-            {/* Widget 1: Creator Discovery & Audience Card */}
-            <div className="tia-auth-card tia-card-creator">
-              <div className="tia-card-header">
-                <div className="tia-creator-avatar-wrap">
-                  <div className="tia-creator-avatar">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#0052FF">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span className="tia-creator-name">Priya Sharma</span>
-                      <span className="tia-verified-badge">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
-                          <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>Verified</span>
-                      </span>
-                    </div>
-                    <div className="tia-creator-handle">@priyasharma • Tech &amp; AI Lifestyle</div>
-                  </div>
-                </div>
-                <div className="tia-match-pill">98% Brand Match</div>
+          {/* Centerpiece: Real Creator Talent Asset with Floating Telemetry HUD */}
+          <div className="tia-hero-visual-center">
+            {/* Top Left Floating HUD Pill */}
+            <div className="tia-hud-floating-top">
+              <div className="tia-hud-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Audience Verified</span>
               </div>
-
-              <div className="tia-metric-grid">
-                <div className="tia-metric-item">
-                  <div className="tia-metric-label">Followers</div>
-                  <div className="tia-metric-val">850K</div>
-                </div>
-                <div className="tia-metric-item">
-                  <div className="tia-metric-label">Engagement</div>
-                  <div className="tia-metric-val" style={{ color: '#059669' }}>4.9%</div>
-                </div>
-                <div className="tia-metric-item">
-                  <div className="tia-metric-label">Audience Quality</div>
-                  <div className="tia-metric-val" style={{ color: '#0052FF' }}>99.2%</div>
-                </div>
+              <div className="tia-hud-subtitle">99.2% Authentic Demographics</div>
+              <div className="tia-hud-stat-pill">
+                <span className="tia-hud-stat">Reach: <strong>850K</strong></span>
+                <span className="tia-hud-stat">Eng: <strong>4.9%</strong></span>
               </div>
             </div>
 
-            {/* Widget 2: Campaign Contract & Milestone Deliverables Agreement */}
-            <div className="tia-auth-card tia-card-contract">
-              <div className="tia-contract-header">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div className="tia-shield-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14 2 14 8 20 8"/>
-                      <line x1="16" y1="13" x2="8" y2="13"/>
-                      <line x1="16" y1="17" x2="8" y2="17"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="tia-contract-title">Campaign Contract #TIA-8920</div>
-                    <div className="tia-contract-sub">Commercial IP License &bull; Flat 5% Platform Fee</div>
-                  </div>
-                </div>
-                <div className="tia-contract-budget">₹1,50,000 Deal</div>
-              </div>
+            {/* Creator Photo Cutout Asset */}
+            <img
+              src="/influencer-home.png"
+              alt="TIA Verified Creator Talent"
+              className="tia-creator-hero-img"
+            />
 
-              <div className="tia-milestone-track">
-                <div className="tia-milestone-step done">
-                  <div className="step-label-group">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3">
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span className="step-label">1. Script &amp; Angle Approved</span>
-                  </div>
-                  <span className="step-tag" style={{ background: '#ECFDF5', color: '#059669' }}>Approved</span>
-                </div>
-                <div className="tia-milestone-step active">
-                  <div className="step-label-group">
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0052FF', display: 'inline-block' }}></span>
-                    <span className="step-label">2. Video Draft &amp; Content Review</span>
-                  </div>
-                  <span className="step-tag live">In Review</span>
-                </div>
-                <div className="tia-milestone-step">
-                  <div className="step-label-group">
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#94A3B8', display: 'inline-block' }}></span>
-                    <span className="step-label">3. Live Posting &amp; Direct Milestone Settlement</span>
-                  </div>
-                  <span className="step-tag">Pending</span>
-                </div>
+            {/* Bottom Right Floating HUD Card */}
+            <div className="tia-hud-floating-bottom">
+              <div className="tia-hud-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                </svg>
+                <span>Campaign #TIA-8920</span>
+              </div>
+              <div className="tia-hud-subtitle">Commercial License &bull; 5% Platform Fee</div>
+              <div className="tia-hud-progress">
+                <div className="tia-hud-progress-bar"></div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '11px', color: '#64748B' }}>
+                <span>Milestone 2 of 3</span>
+                <span style={{ color: '#0052FF', fontWeight: 700 }}>In Review</span>
               </div>
             </div>
           </div>
@@ -308,12 +261,12 @@ export default function LoginPage() {
             <div className="tia-trust-divider" />
             <div className="tia-trust-stat">
               <div className="stat-num">5%</div>
-              <div className="stat-label">Transparent Fee</div>
+              <div className="stat-label">Platform Fee</div>
             </div>
             <div className="tia-trust-divider" />
             <div className="tia-trust-stat">
               <div className="stat-num">100%</div>
-              <div className="stat-label">Fraud Audited</div>
+              <div className="stat-label">Milestone Tracked</div>
             </div>
           </div>
         </div>
