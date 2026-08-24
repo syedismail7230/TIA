@@ -73,12 +73,11 @@ export default function LoginPage() {
           {/* Body Content */}
           <div className="auth-body">
             <div className="auth-avatar-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="4" y1="9" x2="20" y2="9" />
-                <line x1="4" y1="15" x2="20" y2="15" />
-                <line x1="10" y1="3" x2="8" y2="21" />
-                <line x1="16" y1="3" x2="14" y2="21" />
-              </svg>
+              <img
+                src="/main-logo-cropped.png"
+                alt="The Influencer's Agency"
+                className="auth-avatar-logo-img"
+              />
             </div>
 
             <h1 className="auth-title">Welcome back to TIA</h1>
