@@ -2341,15 +2341,15 @@ function CreatorPortalContent() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  flexWrap: 'wrap',
+                  width: '100%',
                 }}
               >
                 {/* Search Input */}
                 <div
                   style={{
                     position: 'relative',
-                    flex: '1 1 220px',
-                    minWidth: '180px',
+                    flex: '1',
+                    minWidth: '0',
                   }}
                 >
                   <svg
@@ -2376,10 +2376,10 @@ function CreatorPortalContent() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search campaigns, brands, or niches..."
+                    placeholder="Search campaigns..."
                     style={{
                       width: '100%',
-                      padding: '9px 32px 9px 36px',
+                      padding: '9px 30px 9px 34px',
                       fontSize: '13px',
                       fontWeight: 500,
                       color: '#0F172A',
@@ -2397,7 +2397,7 @@ function CreatorPortalContent() {
                       onClick={() => setSearchQuery('')}
                       style={{
                         position: 'absolute',
-                        right: '10px',
+                        right: '8px',
                         top: '50%',
                         transform: 'translateY(-50%)',
                         background: 'none',
@@ -2413,44 +2413,47 @@ function CreatorPortalContent() {
                   )}
                 </div>
 
-                {/* Mobile Filter Toggle Button */}
+                {/* Mobile Filter Toggle Button (Compact Icon Button) */}
                 <button
                   type="button"
+                  aria-label="Filter campaigns"
                   onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
                   className="tia-filter-btn-mobile"
                   style={{
+                    position: 'relative',
+                    width: '38px',
+                    height: '38px',
                     alignItems: 'center',
-                    gap: '6px',
-                    padding: '9px 12px',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    color: activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#334155',
+                    justifyContent: 'center',
+                    color: activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#475569',
                     backgroundColor: activeFiltersCount > 0 || mobileFilterOpen ? '#EFF6FF' : '#FFFFFF',
                     border: activeFiltersCount > 0 || mobileFilterOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    whiteSpace: 'nowrap',
                     boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                     transition: 'all 0.15s ease',
                     flexShrink: 0,
                   }}
                 >
-                  <SlidersIcon size={14} color={activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#64748B'} />
-                  <span>Filters</span>
+                  <SlidersIcon size={16} color={activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#475569'} />
                   {activeFiltersCount > 0 && (
                     <span
                       style={{
-                        display: 'inline-flex',
+                        position: 'absolute',
+                        top: '-4px',
+                        right: '-4px',
+                        display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: '18px',
-                        height: '18px',
-                        fontSize: '10.5px',
+                        minWidth: '16px',
+                        height: '16px',
+                        padding: '0 3px',
+                        fontSize: '9.5px',
                         fontWeight: 700,
                         color: '#FFFFFF',
                         backgroundColor: '#0052FF',
-                        borderRadius: '50%',
-                        marginLeft: '2px',
+                        borderRadius: '10px',
+                        border: '2px solid #FFFFFF',
                       }}
                     >
                       {activeFiltersCount}
