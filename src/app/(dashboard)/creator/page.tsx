@@ -2823,16 +2823,16 @@ function CreatorPortalContent() {
             </div>
 
             {/* Dynamic Time-Aware Personalized Greeting Header */}
-            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+            <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
               <div>
-                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0' }}>
+                <h3 style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
                   {dynamicGreeting.title}
                 </h3>
-                <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, fontWeight: 500 }}>
+                <p style={{ fontSize: '14.5px', color: '#64748B', margin: 0, fontWeight: 500, lineHeight: 1.45 }}>
                   {dynamicGreeting.subtitle}
                 </p>
               </div>
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: '#64748B' }}>
                 Showing {filteredCampaigns.length} of {campaigns.length} opportunities
               </span>
             </div>
