@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
@@ -248,6 +248,7 @@ function CreatorPortalContent() {
   const [deliverableNotes, setDeliverableNotes] = useState<string>('');
   const [deliverableSubmitSuccess, setDeliverableSubmitSuccess] = useState<boolean>(false);
   const [mobileChatViewActive, setMobileChatViewActive] = useState<boolean>(false);
+  const chatMessagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Realtime Notifications State & Engine
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
@@ -259,15 +260,15 @@ function CreatorPortalContent() {
       id: 'notif-1',
       type: 'ESCROW',
       category: 'PAYMENTS',
-      title: '₹45,000 Escrow Deposit Secured',
-      message: 'Verified Enterprise Client funded 100% milestone escrow for "Next-Gen Smartphone Showcase". Safe to begin drafting.',
+      title: '₹45,000 Milestone Payment Secured',
+      message: 'Verified Enterprise Client funded 100% upfront milestone payment for "Next-Gen Smartphone Showcase". Safe to begin drafting.',
       timeAgo: '2m ago',
       timestamp: Date.now() - 1000 * 60 * 2,
       read: false,
       actionTab: 'collabs',
       actionCollabId: 'collab-1',
       actionLabel: 'View Collab →',
-      badgeText: 'Escrow Secured',
+      badgeText: 'Payment Secured',
       badgeBg: '#ECFDF5',
       badgeColor: '#059669',
     },
@@ -328,9 +329,9 @@ function CreatorPortalContent() {
       timestamp: Date.now() - 1000 * 60 * 60 * 24,
       read: true,
       actionTab: 'payments',
-      actionLabel: 'View Invoice →',
-      badgeText: 'Disbursed',
-      badgeBg: '#F0FDF4',
+      actionLabel: 'View Statement →',
+      badgeText: 'Paid',
+      badgeBg: '#ECFDF5',
       badgeColor: '#16A34A',
     },
     {
@@ -422,11 +423,11 @@ function CreatorPortalContent() {
       {
         type: 'ESCROW',
         category: 'PAYMENTS',
-        title: 'Milestone Verification Update',
-        message: 'TIA Escrow system completed automated transaction check. 100% payout protection is active on all ongoing deals.',
+        title: 'Payment Protection Update',
+        message: 'TIA Payment Protection system completed automated verification. 100% payout protection is active on all ongoing deals.',
         actionTab: 'payments',
-        actionLabel: 'Check Escrow Policy →',
-        badgeText: 'Escrow Protected',
+        actionLabel: 'Check Security Policy →',
+        badgeText: 'Payment Protected',
         badgeBg: '#ECFDF5',
         badgeColor: '#059669',
       },
@@ -825,13 +826,13 @@ function CreatorPortalContent() {
         {
           id: 'msg-escrow-1',
           sender: 'SYSTEM',
-          senderName: 'TIA Escrow System',
-          badge: '100% Escrow Funded',
+          senderName: 'TIA Payment Protection',
+          badge: '100% Payment Secured',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
           date: 'Oct 26, 2026 - 11:25 AM',
           type: 'ESCROW',
-          text: 'Milestone deposit of ₹45,000 INR has been fully funded and locked into TIA Escrow. Creator is guaranteed 100% payout upon publication of agreed deliverables.',
+          text: 'Milestone deposit of ₹45,000 INR has been fully funded and locked into secure milestone protection. Creator is guaranteed 100% payout upon publication of agreed deliverables.',
           escrowMeta: {
             amount: '₹45,000',
             milestone: 'Milestone 1 & 2',
@@ -942,11 +943,11 @@ function CreatorPortalContent() {
           id: 'msg-31',
           sender: 'BRAND',
           senderName: 'Audio Brand Manager',
-          badge: 'Escrow Secured',
+          badge: 'Payment Secured',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
           date: 'Oct 20, 2026 - 10:00 AM',
-          text: 'Welcome aboard! Full ₹55,000 milestone deposit has been funded into TIA Escrow. Ready for draft delivery.',
+          text: 'Welcome aboard! Full ₹55,000 milestone deposit has been funded into secure payment protection. Ready for draft delivery.',
           type: 'TEXT',
         },
         {
@@ -998,7 +999,7 @@ function CreatorPortalContent() {
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
           date: 'Oct 25, 2026 - 09:00 AM',
-          text: 'Views and audience comments look phenomenal! Releasing full ₹55,000 payout from TIA Escrow to your balance. Thank you for a stellar collaboration!',
+          text: 'Views and audience comments look phenomenal! Releasing full ₹55,000 payout to your balance. Thank you for a stellar collaboration!',
           type: 'TEXT',
         },
       ],
@@ -1421,6 +1422,13 @@ function CreatorPortalContent() {
       });
     }, 2500);
   };
+
+  // Auto-scroll to bottom of chat when new message arrives or thread changes
+  useEffect(() => {
+    if (activeTab === 'collabs') {
+      chatMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [activeTab, selectedCollabId, isBrandTyping, collabs]);
 
   const selectedCollab = collabs.find((c) => c.id === selectedCollabId) || collabs[0];
   const displayName =
@@ -4586,7 +4594,7 @@ function CreatorPortalContent() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-                <span>100% Escrow Protected Communication</span>
+                <span>100% Guaranteed Payment Protection</span>
               </div>
             </div>
 
@@ -4622,7 +4630,7 @@ function CreatorPortalContent() {
                   No threads in this filter
                 </h3>
                 <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '400px', margin: '0 auto 20px auto', lineHeight: 1.5 }}>
-                  Apply to campaigns in the marketplace to start direct, escrow-secured 2-way conversations with verified brand managers.
+                  Apply to campaigns in the marketplace to start direct, 100% verified 2-way conversations with verified brand managers.
                 </p>
                 <button
                   type="button"
@@ -4649,7 +4657,9 @@ function CreatorPortalContent() {
                   gridTemplateColumns: 'minmax(300px, 340px) minmax(0, 1fr)',
                   gap: '16px',
                   alignItems: 'stretch',
-                  minHeight: '660px',
+                  height: 'calc(100vh - 195px)',
+                  minHeight: '620px',
+                  maxHeight: '840px',
                 }}
                 className="collabs-grid-layout"
               >
@@ -4661,11 +4671,12 @@ function CreatorPortalContent() {
                     borderRadius: '16px',
                     display: 'flex',
                     flexDirection: 'column',
+                    height: '100%',
                     overflow: 'hidden',
                   }}
                 >
                   {/* Search Threads Header */}
-                  <div style={{ padding: '14px 16px', borderBottom: '1px solid #F1F5F9' }}>
+                  <div style={{ padding: '14px 16px', borderBottom: '1px solid #F1F5F9', flexShrink: 0 }}>
                     <div style={{ position: 'relative' }}>
                       <svg
                         width="14"
@@ -4701,7 +4712,7 @@ function CreatorPortalContent() {
                   </div>
 
                   {/* Threads List Items */}
-                  <div style={{ flex: 1, overflowY: 'auto', padding: '6px 8px' }}>
+                  <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '6px 8px' }}>
                     {collabs
                       .filter((c) => c.status.toLowerCase() === collabFilter)
                       .filter((c) => {
@@ -4778,14 +4789,14 @@ function CreatorPortalContent() {
                                 {thread.brandName}
                               </div>
 
-                              {/* Rate & Escrow Pill */}
+                              {/* Rate & Payment Protection Pill */}
                               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
                                 <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0052FF' }}>
                                   {thread.proposedRate}
                                 </span>
                                 {thread.escrowFunded ? (
                                   <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
-                                    🔒 Escrow
+                                    🔒 Secured
                                   </span>
                                 ) : (
                                   <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#D97706', backgroundColor: '#FEF3C7', padding: '1px 5px', borderRadius: '4px' }}>
@@ -4832,10 +4843,11 @@ function CreatorPortalContent() {
                       overflow: 'hidden',
                       display: 'flex',
                       flexDirection: 'column',
-                      minHeight: '660px',
+                      height: '100%',
+                      position: 'relative',
                     }}
                   >
-                    {/* Top Workspace Header */}
+                    {/* Top Workspace Header (Fixed) */}
                     <div
                       style={{
                         padding: '14px 18px',
@@ -4846,6 +4858,7 @@ function CreatorPortalContent() {
                         justifyContent: 'space-between',
                         gap: '12px',
                         flexWrap: 'wrap',
+                        flexShrink: 0,
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -4899,7 +4912,7 @@ function CreatorPortalContent() {
                             {selectedCollab.escrowFunded && (
                               <>
                                 <span>•</span>
-                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Escrow Funded</span>
+                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Payment Secured</span>
                               </>
                             )}
                           </div>
@@ -4936,7 +4949,7 @@ function CreatorPortalContent() {
                       </div>
                     </div>
 
-                    {/* Milestone Progress Stepper Bar */}
+                    {/* Milestone Progress Stepper Bar (Fixed) */}
                     <div
                       style={{
                         padding: '10px 18px',
@@ -4947,6 +4960,7 @@ function CreatorPortalContent() {
                         justifyContent: 'space-between',
                         gap: '8px',
                         overflowX: 'auto',
+                        flexShrink: 0,
                       }}
                     >
                       {[
@@ -4980,7 +4994,7 @@ function CreatorPortalContent() {
                       ))}
                     </div>
 
-                    {/* Deliverables Overview Bar */}
+                    {/* Deliverables Overview Bar (Fixed) */}
                     <div
                       style={{
                         padding: '8px 18px',
@@ -4991,6 +5005,7 @@ function CreatorPortalContent() {
                         justifyContent: 'space-between',
                         fontSize: '11.5px',
                         color: '#1E40AF',
+                        flexShrink: 0,
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -5003,11 +5018,12 @@ function CreatorPortalContent() {
                       </div>
                     </div>
 
-                    {/* Chat Messages Canvas */}
+                    {/* Chat Messages Canvas (Scrollable ONLY here) */}
                     <div
                       style={{
                         padding: '18px',
                         flex: 1,
+                        minHeight: 0,
                         overflowY: 'auto',
                         display: 'flex',
                         flexDirection: 'column',
@@ -5035,7 +5051,7 @@ function CreatorPortalContent() {
                       {selectedCollab.messages.map((msg: any) => {
                         const isCreator = msg.sender === 'CREATOR';
 
-                        // Specialized ESCROW Card
+                        // Specialized PAYMENT PROTECTION Card
                         if (msg.type === 'ESCROW') {
                           return (
                             <div
@@ -5070,7 +5086,7 @@ function CreatorPortalContent() {
                               <div style={{ flex: 1 }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
                                   <span style={{ fontSize: '13px', fontWeight: 800, color: '#065F46' }}>
-                                    TIA Escrow Deposit Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
+                                    TIA Guaranteed Milestone Deposit Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
                                   </span>
                                   <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{msg.date}</span>
                                 </div>
@@ -5246,7 +5262,7 @@ function CreatorPortalContent() {
                       )}
                     </div>
 
-                    {/* Quick Reply Suggestions */}
+                    {/* Quick Reply Suggestions (Fixed Footer) */}
                     <div
                       style={{
                         padding: '6px 16px',
@@ -5255,6 +5271,7 @@ function CreatorPortalContent() {
                         display: 'flex',
                         gap: '6px',
                         overflowX: 'auto',
+                        flexShrink: 0,
                       }}
                     >
                       {[
@@ -5292,7 +5309,7 @@ function CreatorPortalContent() {
                       ))}
                     </div>
 
-                    {/* Composer Input Bar */}
+                    {/* Composer Input Bar (Fixed / Sticky Footer) */}
                     <div
                       style={{
                         padding: '12px 16px',
@@ -5301,6 +5318,7 @@ function CreatorPortalContent() {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
+                        flexShrink: 0,
                       }}
                     >
                       <button
@@ -5449,66 +5467,12 @@ function CreatorPortalContent() {
                   <div style={{ fontSize: '20px', fontWeight: 900, color: applyCredits > 0 ? '#0052FF' : '#B45309', marginTop: '2px' }}>
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
                   </div>
-                  <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '2px' }}>
-                    {totalAppliesCount} applied so far
-                  </div>
                 </div>
               </div>
 
-              {/* Purchase Packs Grid (Highlighting 2 Credits Option) */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '14px' }}>
-                {/* Option 1: 2 Credits (₹198) - Requested Featured Pack */}
-                <div
-                  style={{
-                    border: '2px solid #0052FF',
-                    backgroundColor: '#F8FAFF',
-                    borderRadius: '14px',
-                    padding: '16px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    position: 'relative',
-                  }}
-                >
-                  <div style={{ position: 'absolute', top: '-10px', right: '14px', backgroundColor: '#0052FF', color: '#FFFFFF', fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Recommended
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>2 Application Credits</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
-                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹198</span>
-                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 2 applies (₹99 ea)</span>
-                    </div>
-                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
-                      <li>Apply to 2 verified brand deals</li>
-                      <li>Unlock full campaign briefs</li>
-                      <li>Direct brand manager messaging</li>
-                    </ul>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleBuyCredits(2, 198)}
-                    style={{
-                      width: '100%',
-                      padding: '10px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
-                      transition: 'all 0.15s ease',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0045D8')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
-                  >
-                    Buy 2 Credits — ₹198
-                  </button>
-                </div>
-
-                {/* Option 2: 5 Credits (₹495) */}
+              {/* Credit Pricing Options */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '12px' }}>
+                {/* Option 1: 1 Credit (₹99) */}
                 <div
                   style={{
                     border: '1px solid #E2E8F0',
@@ -5521,20 +5485,19 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>1 Application Credit</div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
-                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹495</span>
-                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 5 applies (₹99 ea)</span>
+                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹99</span>
+                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 1 apply</span>
                     </div>
                     <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
-                      <li>Apply to 5 verified brand deals</li>
-                      <li>Priority application review queue</li>
-                      <li>Milestone escrow guarantee</li>
+                      <li>Apply to 1 verified brand deal</li>
+                      <li>Standard creator matchmaking</li>
                     </ul>
                   </div>
                   <button
                     type="button"
-                    onClick={() => handleBuyCredits(5, 495)}
+                    onClick={() => handleBuyCredits(1, 99)}
                     style={{
                       width: '100%',
                       padding: '10px',
@@ -5552,6 +5515,74 @@ function CreatorPortalContent() {
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.backgroundColor = '#F1F5F9';
+                    }}
+                  >
+                    Buy 1 Credit — ₹99
+                  </button>
+                </div>
+
+                {/* Option 2: 5 Credits (₹495) - POPULAR */}
+                <div
+                  style={{
+                    border: '2px solid #0052FF',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    boxShadow: '0 4px 12px rgba(0, 82, 255, 0.08)',
+                  }}
+                >
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '-10px',
+                      right: '16px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      fontSize: '10px',
+                      fontWeight: 800,
+                      padding: '2px 8px',
+                      borderRadius: '10px',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    Most Popular
+                  </span>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
+                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0052FF' }}>₹495</span>
+                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 5 applies (₹99 ea)</span>
+                    </div>
+                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                      <li>Apply to 5 verified brand deals</li>
+                      <li>Priority creator review queue</li>
+                      <li>Real-time notification alerts</li>
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits(5, 495)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.3)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0040CC';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0052FF';
                     }}
                   >
                     Buy 5 Credits — ₹495
@@ -5622,7 +5653,7 @@ function CreatorPortalContent() {
               <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>⌛</div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total pending escrow</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total pending payouts</div>
                   <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>$5,952.45</div>
                 </div>
               </div>
@@ -5643,7 +5674,7 @@ function CreatorPortalContent() {
                     <th style={{ padding: '12px 16px' }}>Brand / Campaign</th>
                     <th style={{ padding: '12px 16px' }}>Contract Rate</th>
                     <th style={{ padding: '12px 16px' }}>Authorized Date</th>
-                    <th style={{ padding: '12px 16px' }}>Escrow Status</th>
+                    <th style={{ padding: '12px 16px' }}>Payment Status</th>
                     <th style={{ padding: '12px 16px', textAlign: 'right' }}>Action</th>
                   </tr>
                 </thead>
