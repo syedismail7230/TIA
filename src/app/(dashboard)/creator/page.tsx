@@ -209,6 +209,7 @@ function CreatorPortalContent() {
       eligibilityRate: 94,
       categories: ['Sustainability', 'Cooking', 'Food', '+5'],
       isNew: true,
+      postedAt: 'Aug 27, 2026 • 10:45 AM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Australia',
@@ -234,6 +235,7 @@ function CreatorPortalContent() {
       eligibilityRate: 98,
       categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
       isNew: true,
+      postedAt: 'Aug 27, 2026 • 1:15 PM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Italy',
@@ -259,6 +261,7 @@ function CreatorPortalContent() {
       eligibilityRate: 88,
       categories: ['Entrepreneurship', 'Supplements'],
       isNew: true,
+      postedAt: 'Aug 26, 2026 • 4:20 PM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United States',
@@ -284,6 +287,7 @@ function CreatorPortalContent() {
       eligibilityRate: 75,
       categories: ['Technology', 'Gadgets', 'AI', '+3'],
       isNew: true,
+      postedAt: 'Aug 26, 2026 • 11:00 AM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'India',
@@ -309,6 +313,7 @@ function CreatorPortalContent() {
       eligibilityRate: 91,
       categories: ['Fitness', 'Running', 'Athleisure'],
       isNew: true,
+      postedAt: 'Aug 25, 2026 • 3:30 PM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United Kingdom',
@@ -334,6 +339,7 @@ function CreatorPortalContent() {
       eligibilityRate: 85,
       categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
       isNew: true,
+      postedAt: 'Aug 24, 2026 • 9:15 AM',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'France',
@@ -1538,27 +1544,27 @@ function CreatorPortalContent() {
                               Anonymized campaign name
                             </span>
 
-                            {camp.isNew && (
-                              <span
-                                style={{
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  gap: '4px',
-                                  fontSize: '11px',
-                                  fontWeight: 700,
-                                  color: '#0052FF',
-                                  backgroundColor: '#EFF6FF',
-                                  border: '1px solid #BFDBFE',
-                                  padding: '2px 8px',
-                                  borderRadius: '12px',
-                                }}
-                              >
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                </svg>
-                                New
-                              </span>
-                            )}
+                            {/* Posted Time & Date Badge */}
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                fontSize: '10.5px',
+                                fontWeight: 600,
+                                color: '#64748B',
+                                backgroundColor: '#F8FAFC',
+                                border: '1px solid #E2E8F0',
+                                padding: '2px 7px',
+                                borderRadius: '10px',
+                              }}
+                            >
+                              <svg width="10.5" height="10.5" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                              </svg>
+                              <span>{camp.postedAt || 'Aug 27, 2026 • 2:30 PM'}</span>
+                            </span>
                           </div>
 
                           {/* Status Badge */}
