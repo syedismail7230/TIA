@@ -5035,12 +5035,12 @@ function CreatorPortalContent() {
                               );
                             }}
                             style={{
-                              padding: '12px',
-                              borderRadius: '12px',
-                              marginBottom: '6px',
+                              padding: '10px 12px',
+                              borderRadius: '10px',
+                              marginBottom: '4px',
                               cursor: 'pointer',
                               backgroundColor: isSelected ? '#EFF6FF' : 'transparent',
-                              border: isSelected ? '1.5px solid #0052FF' : '1.5px solid transparent',
+                              borderLeft: isSelected ? '3px solid #0052FF' : '3px solid transparent',
                               transition: 'all 0.15s ease',
                               display: 'flex',
                               gap: '10px',
@@ -5056,8 +5056,8 @@ function CreatorPortalContent() {
                             {/* Brand Avatar */}
                             <div
                               style={{
-                                width: '38px',
-                                height: '38px',
+                                width: '36px',
+                                height: '36px',
                                 borderRadius: '10px',
                                 backgroundColor: thread.brandAvatarBg || '#EFF6FF',
                                 color: thread.brandAvatarColor || '#0052FF',
@@ -5067,7 +5067,6 @@ function CreatorPortalContent() {
                                 fontWeight: 800,
                                 fontSize: '13px',
                                 flexShrink: 0,
-                                border: '1px solid rgba(0, 0, 0, 0.05)',
                               }}
                             >
                               {thread.brandInitials || 'BR'}
@@ -5076,7 +5075,7 @@ function CreatorPortalContent() {
                             {/* Thread Info */}
                             <div style={{ flex: 1, minWidth: 0 }}>
                               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px', marginBottom: '2px' }}>
-                                <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                   {thread.campaignTitle}
                                 </div>
                                 <span style={{ fontSize: '10px', color: '#94A3B8', flexShrink: 0 }}>
@@ -5084,33 +5083,15 @@ function CreatorPortalContent() {
                                 </span>
                               </div>
 
-                              <div style={{ fontSize: '11px', color: '#64748B', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {thread.brandName}
-                              </div>
-
-                              {/* Rate & Payment Protection Pill */}
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                                <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0052FF' }}>
-                                  {thread.proposedRate}
-                                </span>
-                                {thread.status === 'ACCEPTED' ? (
-                                  <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
-                                    ✓ Active Deal
-                                  </span>
-                                ) : thread.status === 'AWAITING' ? (
-                                  <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#D97706', backgroundColor: '#FEF3C7', padding: '1px 5px', borderRadius: '4px' }}>
-                                    ⏳ Awaiting Review
-                                  </span>
-                                ) : (
-                                  <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 5px', borderRadius: '4px' }}>
-                                    📦 Archived
-                                  </span>
-                                )}
+                              <div style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{thread.brandName}</span>
+                                <span>•</span>
+                                <span style={{ fontWeight: 700, color: '#0052FF' }}>{thread.proposedRate}</span>
                               </div>
 
                               {/* Last message snippet */}
                               {lastMsg && (
-                                <p style={{ fontSize: '11px', color: isSelected ? '#1E293B' : '#94A3B8', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                <p style={{ fontSize: '11px', color: isSelected ? '#334155' : '#94A3B8', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                   {lastMsg.sender === 'CREATOR' ? 'You: ' : ''}{lastMsg.text}
                                 </p>
                               )}
@@ -5122,17 +5103,16 @@ function CreatorPortalContent() {
                                 style={{
                                   position: 'absolute',
                                   right: '10px',
-                                  top: '28px',
+                                  top: '24px',
                                   backgroundColor: '#0052FF',
                                   color: '#FFFFFF',
                                   fontSize: '10px',
                                   fontWeight: 800,
                                   padding: '1px 6px',
                                   borderRadius: '10px',
-                                  boxShadow: '0 2px 4px rgba(0, 82, 255, 0.3)',
                                 }}
                               >
-                                {thread.unreadCount} new
+                                {thread.unreadCount}
                               </span>
                             )}
                           </div>
@@ -5156,22 +5136,22 @@ function CreatorPortalContent() {
                       position: 'relative',
                     }}
                   >
-                    {/* Top Workspace Header (Fixed, Clean, Single-Row) */}
+                    {/* Unified Minimalist Studio Header (Clean Single App Bar) */}
                     <div
                       style={{
-                        padding: '10px 14px',
-                        borderBottom: '1px solid #F1F5F9',
+                        padding: '12px 18px',
+                        borderBottom: '1px solid #E2E8F0',
                         backgroundColor: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        gap: '8px',
+                        gap: '12px',
                         flexShrink: 0,
-                        minHeight: '56px',
+                        minHeight: '60px',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
-                        {/* Mobile Back to Threads Button */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
+                        {/* Mobile Back Button */}
                         <button
                           type="button"
                           onClick={() => setMobileChatViewActive(false)}
@@ -5195,18 +5175,19 @@ function CreatorPortalContent() {
                           </svg>
                         </button>
 
+                        {/* Brand Avatar */}
                         <div
                           style={{
-                            width: '36px',
-                            height: '36px',
+                            width: '38px',
+                            height: '38px',
                             borderRadius: '10px',
                             backgroundColor: selectedCollab.brandAvatarBg || '#EFF6FF',
                             color: selectedCollab.brandAvatarColor || '#0052FF',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontWeight: 900,
-                            fontSize: '13px',
+                            fontWeight: 800,
+                            fontSize: '13.5px',
                             flexShrink: 0,
                           }}
                         >
@@ -5214,10 +5195,10 @@ function CreatorPortalContent() {
                         </div>
 
                         <div style={{ minWidth: 0, flex: 1 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <h3
                               style={{
-                                fontSize: '13.5px',
+                                fontSize: '14px',
                                 fontWeight: 800,
                                 color: '#0F172A',
                                 margin: 0,
@@ -5229,37 +5210,70 @@ function CreatorPortalContent() {
                               {selectedCollab.campaignTitle}
                             </h3>
                             <span
-                              className="tia-desktop-only"
                               style={{
-                                fontSize: '9.5px',
-                                fontWeight: 800,
+                                fontSize: '10px',
+                                fontWeight: 700,
                                 color: selectedCollab.status === 'ACCEPTED' ? '#059669' : selectedCollab.status === 'AWAITING' ? '#D97706' : '#64748B',
                                 backgroundColor: selectedCollab.status === 'ACCEPTED' ? '#ECFDF5' : selectedCollab.status === 'AWAITING' ? '#FEF3C7' : '#F1F5F9',
-                                padding: '1px 5px',
-                                borderRadius: '4px',
+                                padding: '2px 7px',
+                                borderRadius: '12px',
                                 flexShrink: 0,
                               }}
                             >
-                              {selectedCollab.status === 'ACCEPTED' ? '✓ ACCEPTED' : selectedCollab.status === 'AWAITING' ? '⏳ AWAITING' : '📦 ARCHIVED'}
+                              {selectedCollab.status === 'ACCEPTED' ? '✓ Active Deal' : selectedCollab.status === 'AWAITING' ? '⏳ Awaiting Review' : 'Archived'}
                             </span>
                           </div>
 
-                          <div style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
+                          <div style={{ fontSize: '11.5px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '2px' }}>
                             <span style={{ fontWeight: 600 }}>{selectedCollab.brandName}</span>
                             <span>•</span>
-                            <span style={{ fontWeight: 800, color: '#0052FF' }}>{selectedCollab.proposedRate}</span>
+                            <span style={{ fontWeight: 800, color: '#0052FF' }}>Rate {selectedCollab.proposedRate}</span>
                             {selectedCollab.escrowFunded && (
                               <>
                                 <span>•</span>
-                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Secured</span>
+                                <span style={{ color: '#059669', fontWeight: 600 }}>🔒 Escrow Secured</span>
+                              </>
+                            )}
+                            {selectedCollab.deliverables && (
+                              <>
+                                <span className="tia-desktop-only">•</span>
+                                <span className="tia-desktop-only" style={{ color: '#475569' }}>Deliverables: {selectedCollab.deliverables}</span>
                               </>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      {/* Header Actions */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                      {/* Header Actions & Milestone Summary */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                        {/* Compact Stage Indicator Badge (Desktop Only) */}
+                        <div
+                          className="tia-desktop-only"
+                          style={{
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            color: '#0052FF',
+                            backgroundColor: '#EFF6FF',
+                            padding: '4px 10px',
+                            borderRadius: '20px',
+                            border: '1px solid #DBEAFE',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                          }}
+                        >
+                          <span>Stage {selectedCollab.milestoneStage || 1}/4:</span>
+                          <span style={{ color: '#1E293B', fontWeight: 600 }}>
+                            {selectedCollab.milestoneStage === 1
+                              ? 'Proposal'
+                              : selectedCollab.milestoneStage === 2
+                              ? 'Script & Storyboard'
+                              : selectedCollab.milestoneStage === 3
+                              ? 'Draft Review'
+                              : 'Live Post & Payout'}
+                          </span>
+                        </div>
+
                         {selectedCollab.status === 'AWAITING' && (
                           <button
                             type="button"
@@ -5269,21 +5283,21 @@ function CreatorPortalContent() {
                               color: '#FFFFFF',
                               border: 'none',
                               borderRadius: '8px',
-                              padding: '6px 10px',
-                              fontSize: '11.5px',
+                              padding: '7px 14px',
+                              fontSize: '12px',
                               fontWeight: 700,
                               cursor: 'pointer',
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '4px',
-                              boxShadow: '0 2px 6px rgba(5, 150, 105, 0.2)',
+                              gap: '5px',
+                              boxShadow: '0 1px 3px rgba(5, 150, 105, 0.2)',
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="20 6 9 17 4 12" />
                             </svg>
-                            <span>Accept</span>
+                            <span>Accept Deal</span>
                           </button>
                         )}
 
@@ -5296,38 +5310,37 @@ function CreatorPortalContent() {
                               color: '#FFFFFF',
                               border: 'none',
                               borderRadius: '8px',
-                              padding: '6px 11px',
-                              fontSize: '11.5px',
+                              padding: '7px 14px',
+                              fontSize: '12px',
                               fontWeight: 700,
                               cursor: 'pointer',
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '5px',
-                              boxShadow: '0 2px 6px rgba(0, 82, 255, 0.2)',
+                              gap: '6px',
+                              boxShadow: '0 1px 3px rgba(0, 82, 255, 0.2)',
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                             </svg>
-                            <span className="collabs-action-text">Submit</span>
+                            <span>Submit Deliverable</span>
                           </button>
                         )}
 
-                        {/* Archive / Unarchive Button */}
+                        {/* Archive / Unarchive Ghost Button */}
                         <button
                           type="button"
                           onClick={() => handleToggleArchiveCollab(selectedCollab.id)}
-                          title={selectedCollab.status === 'REJECTED' ? 'Restore to active deals' : 'Archive this deal thread'}
+                          title={selectedCollab.status === 'REJECTED' ? 'Restore deal' : 'Archive deal'}
                           style={{
-                            backgroundColor: selectedCollab.status === 'REJECTED' ? '#EFF6FF' : '#F8FAFC',
-                            color: selectedCollab.status === 'REJECTED' ? '#0052FF' : '#64748B',
-                            border: '1px solid',
-                            borderColor: selectedCollab.status === 'REJECTED' ? '#BFDBFE' : '#CBD5E1',
+                            backgroundColor: '#F8FAFC',
+                            color: '#64748B',
+                            border: '1px solid #E2E8F0',
                             borderRadius: '8px',
-                            padding: '6px 9px',
-                            fontSize: '11.5px',
-                            fontWeight: 700,
+                            padding: '7px 10px',
+                            fontSize: '12px',
+                            fontWeight: 600,
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
@@ -5335,149 +5348,35 @@ function CreatorPortalContent() {
                             whiteSpace: 'nowrap',
                           }}
                         >
-                          {selectedCollab.status === 'REJECTED' ? (
-                            <>
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="9 14 4 9 9 4" />
-                                <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
-                              </svg>
-                              <span className="collabs-archive-text">Unarchive</span>
-                            </>
-                          ) : (
-                            <>
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="21 8 21 21 3 21 3 8" />
-                                <rect x="1" y="3" width="22" height="5" />
-                                <line x1="10" y1="12" x2="14" y2="12" />
-                              </svg>
-                              <span className="collabs-archive-text">Archive</span>
-                            </>
-                          )}
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="21 8 21 21 3 21 3 8" />
+                            <rect x="1" y="3" width="22" height="5" />
+                            <line x1="10" y1="12" x2="14" y2="12" />
+                          </svg>
+                          <span className="tia-desktop-only">{selectedCollab.status === 'REJECTED' ? 'Unarchive' : 'Archive'}</span>
                         </button>
                       </div>
                     </div>
 
-                    {/* Mobile Compact Milestone Bar (Visible only on mobile) */}
-                    <div
-                      className="collabs-mobile-milestone-bar"
-                      style={{
-                        padding: '6px 12px',
-                        backgroundColor: '#F8FAFC',
-                        borderBottom: '1px solid #E2E8F0',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        fontSize: '11px',
-                        color: '#475569',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ fontWeight: 700, color: '#0052FF' }}>
-                          Stage {selectedCollab.milestoneStage || 1}/4:
-                        </span>
-                        <span style={{ fontWeight: 600, color: '#0F172A' }}>
-                          {selectedCollab.milestoneStage === 1
-                            ? 'Proposal Review'
-                            : selectedCollab.milestoneStage === 2
-                            ? 'Script & Storyboard'
-                            : selectedCollab.milestoneStage === 3
-                            ? 'Video Draft Review'
-                            : 'Live Post & Payout'}
-                        </span>
-                      </div>
-                      <span style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700 }}>
-                        🔒 100% Protected
-                      </span>
-                    </div>
-
-                    {/* Milestone Progress Stepper Bar (Desktop Only) */}
-                    <div
-                      className="collabs-desktop-milestone-bar"
-                      style={{
-                        padding: '10px 18px',
-                        backgroundColor: '#F8FAFC',
-                        borderBottom: '1px solid #E2E8F0',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '8px',
-                        overflowX: 'auto',
-                        flexShrink: 0,
-                      }}
-                    >
-                      {[
-                        { step: 1, label: 'Proposal Accepted', done: (selectedCollab.milestoneStage || 1) >= 1 },
-                        { step: 2, label: 'Script & Storyboard', done: (selectedCollab.milestoneStage || 1) >= 2 },
-                        { step: 3, label: 'Video Draft Review', done: (selectedCollab.milestoneStage || 1) >= 3 },
-                        { step: 4, label: 'Live Post & Payout', done: (selectedCollab.milestoneStage || 1) >= 4 },
-                      ].map((st, i) => (
-                        <div key={st.step} style={{ display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
-                          <div
-                            style={{
-                              width: '18px',
-                              height: '18px',
-                              borderRadius: '50%',
-                              backgroundColor: st.done ? '#059669' : '#E2E8F0',
-                              color: '#FFFFFF',
-                              fontSize: '10px',
-                              fontWeight: 800,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                            }}
-                          >
-                            {st.done ? '✓' : st.step}
-                          </div>
-                          <span style={{ fontSize: '11px', fontWeight: st.done ? 700 : 500, color: st.done ? '#0F172A' : '#94A3B8' }}>
-                            {st.label}
-                          </span>
-                          {i < 3 && <span style={{ color: '#CBD5E1', margin: '0 4px' }}>→</span>}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Deliverables Overview Bar (Desktop Only) */}
-                    <div
-                      className="collabs-desktop-milestone-bar"
-                      style={{
-                        padding: '8px 18px',
-                        backgroundColor: '#EFF6FF',
-                        borderBottom: '1px solid #DBEAFE',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        fontSize: '11.5px',
-                        color: '#1E40AF',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ fontWeight: 800 }}>Deliverables:</span>
-                        <span>{selectedCollab.deliverables}</span>
-                      </div>
-                      <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <span>⏱️ Timeline:</span>
-                        <span>{selectedCollab.deliveryTimeline || '14 Days'}</span>
-                      </div>
-                    </div>
-
-                    {/* Chat Messages Canvas (Scrollable ONLY here) */}
+                    {/* Chat Messages Canvas (Clean, Modern, Spacious) */}
                     <div
                       style={{
-                        padding: '18px',
+                        padding: '18px 20px',
                         flex: 1,
                         minHeight: 0,
                         overflowY: 'auto',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '14px',
-                        backgroundColor: '#FAFAFA',
+                        gap: '12px',
+                        backgroundColor: '#F8FAFC',
                       }}
                     >
                       {/* Date Divider */}
-                      <div style={{ textAlign: 'center', margin: '4px 0 8px 0' }}>
+                      <div style={{ textAlign: 'center', margin: '2px 0 8px 0' }}>
                         <span
                           style={{
-                            fontSize: '10.5px',
-                            fontWeight: 700,
+                            fontSize: '11px',
+                            fontWeight: 600,
                             color: '#94A3B8',
                             backgroundColor: '#FFFFFF',
                             padding: '3px 12px',
@@ -5485,97 +5384,93 @@ function CreatorPortalContent() {
                             border: '1px solid #E2E8F0',
                           }}
                         >
-                          Official Partnership Thread • {selectedCollab.appliedAt}
+                          Partnership Started • {selectedCollab.appliedAt}
                         </span>
                       </div>
 
                       {selectedCollab.messages.map((msg: any) => {
                         const isCreator = msg.sender === 'CREATOR';
 
-                        // Specialized PAYMENT PROTECTION Card
+                        // Specialized ESCROW Card (Clean, Minimalist)
                         if (msg.type === 'ESCROW') {
                           return (
                             <div
                               key={msg.id}
                               style={{
                                 backgroundColor: '#FFFFFF',
-                                border: '1.5px solid #A7F3D0',
+                                border: '1px solid #BBF7D0',
                                 borderRadius: '12px',
-                                padding: '14px 16px',
-                                boxShadow: '0 2px 8px rgba(5, 150, 105, 0.08)',
+                                padding: '12px 16px',
                                 display: 'flex',
-                                gap: '12px',
-                                alignItems: 'flex-start',
+                                gap: '10px',
+                                alignItems: 'center',
+                                boxShadow: '0 1px 3px rgba(5, 150, 105, 0.05)',
                               }}
                             >
                               <div
                                 style={{
-                                  width: '36px',
-                                  height: '36px',
-                                  borderRadius: '10px',
-                                  backgroundColor: '#ECFDF5',
-                                  color: '#059669',
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '8px',
+                                  backgroundColor: '#F0FDF4',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  fontSize: '18px',
+                                  fontSize: '16px',
                                   flexShrink: 0,
                                 }}
                               >
                                 🛡️
                               </div>
                               <div style={{ flex: 1 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
-                                  <span style={{ fontSize: '13px', fontWeight: 800, color: '#065F46' }}>
-                                    TIA Guaranteed Milestone Deposit Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
-                                  </span>
-                                  <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{msg.date}</span>
+                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#065F46' }}>
+                                  100% Upfront Milestone Payment Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
                                 </div>
-                                <p style={{ fontSize: '12px', color: '#334155', margin: '0 0 6px 0', lineHeight: 1.45 }}>
+                                <div style={{ fontSize: '11.5px', color: '#475569', marginTop: '2px' }}>
                                   {msg.text}
-                                </p>
-                                <span style={{ fontSize: '10px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 6px', borderRadius: '4px' }}>
-                                  ✓ 100% Guaranteed Payment Protection Active
-                                </span>
+                                </div>
                               </div>
+                              <span style={{ fontSize: '10.5px', color: '#94A3B8', flexShrink: 0 }}>
+                                {msg.date}
+                              </span>
                             </div>
                           );
                         }
 
-                        // Specialized DELIVERABLE Card
+                        // Specialized DELIVERABLE Card (Clean Embedded Card)
                         if (msg.type === 'DELIVERABLE') {
                           return (
                             <div
                               key={msg.id}
                               style={{
                                 alignSelf: isCreator ? 'flex-end' : 'flex-start',
-                                maxWidth: '85%',
+                                maxWidth: '78%',
                                 backgroundColor: '#FFFFFF',
-                                border: '1.5px solid #BFDBFE',
-                                borderRadius: '14px',
+                                border: '1px solid #E2E8F0',
+                                borderRadius: '12px',
                                 padding: '14px 16px',
-                                boxShadow: '0 2px 8px rgba(0, 82, 255, 0.08)',
+                                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
                               }}
                             >
                               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
-                                <span style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 7px', borderRadius: '4px' }}>
-                                  📝 DELIVERABLE SUBMISSION
+                                <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                  📎 Deliverable Submission
                                 </span>
                                 <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
                               </div>
 
-                              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                              <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>
                                 {msg.deliverableMeta?.title || 'Deliverable Asset'}
                               </div>
 
                               {msg.deliverableMeta?.notes && (
-                                <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.4 }}>
+                                <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.45 }}>
                                   {msg.deliverableMeta.notes}
                                 </p>
                               )}
 
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap' }}>
-                                {msg.deliverableMeta?.url && (
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', paddingTop: '4px', borderTop: '1px solid #F1F5F9' }}>
+                                {msg.deliverableMeta?.url ? (
                                   <a
                                     href={msg.deliverableMeta.url}
                                     target="_blank"
@@ -5583,20 +5478,17 @@ function CreatorPortalContent() {
                                     style={{
                                       display: 'inline-flex',
                                       alignItems: 'center',
-                                      gap: '5px',
+                                      gap: '4px',
                                       fontSize: '11.5px',
-                                      fontWeight: 700,
+                                      fontWeight: 600,
                                       color: '#0052FF',
-                                      backgroundColor: '#EFF6FF',
-                                      padding: '5px 10px',
-                                      borderRadius: '6px',
                                       textDecoration: 'none',
                                     }}
                                   >
                                     <span>Open Asset Link</span>
                                     <span>↗</span>
                                   </a>
-                                )}
+                                ) : <div />}
 
                                 <span
                                   style={{
@@ -5604,73 +5496,60 @@ function CreatorPortalContent() {
                                     fontWeight: 700,
                                     color: msg.deliverableMeta?.status === 'APPROVED' ? '#059669' : '#D97706',
                                     backgroundColor: msg.deliverableMeta?.status === 'APPROVED' ? '#ECFDF5' : '#FEF3C7',
-                                    padding: '3px 8px',
-                                    borderRadius: '6px',
+                                    padding: '2px 7px',
+                                    borderRadius: '10px',
                                   }}
                                 >
-                                  {msg.deliverableMeta?.status === 'APPROVED' ? '✓ Approved by Brand' : '⏳ In Brand Review'}
+                                  {msg.deliverableMeta?.status === 'APPROVED' ? '✓ Approved' : '⏳ In Review'}
                                 </span>
                               </div>
                             </div>
                           );
                         }
 
-                        // Normal Chat Bubble
+                        // Standard Chat Bubbles (WhatsApp / Slack Proportions)
                         return (
                           <div
                             key={msg.id}
                             style={{
                               alignSelf: isCreator ? 'flex-end' : 'flex-start',
-                              maxWidth: '75%',
+                              maxWidth: '72%',
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: isCreator ? 'flex-end' : 'flex-start',
                             }}
                           >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
-                              {!isCreator && (
-                                <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0F172A' }}>
+                            {!isCreator && (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                                <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#0F172A' }}>
                                   {msg.senderName}
                                 </span>
-                              )}
-                              {msg.badge && (
-                                <span
-                                  style={{
-                                    fontSize: '9.5px',
-                                    fontWeight: 700,
-                                    color: msg.badgeColor || '#0052FF',
-                                    backgroundColor: msg.badgeBg || '#EFF6FF',
-                                    padding: '1px 5px',
-                                    borderRadius: '4px',
-                                  }}
-                                >
-                                  {msg.badge}
-                                </span>
-                              )}
-                              <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
-                            </div>
+                                <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
+                              </div>
+                            )}
 
                             <div
                               style={{
                                 backgroundColor: isCreator ? '#0052FF' : '#FFFFFF',
-                                color: isCreator ? '#FFFFFF' : '#1E293B',
-                                padding: '10px 14px',
+                                color: isCreator ? '#FFFFFF' : '#0F172A',
+                                padding: '9px 14px',
                                 borderRadius: isCreator ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                                 border: isCreator ? 'none' : '1px solid #E2E8F0',
-                                fontSize: '12.5px',
+                                fontSize: '13px',
                                 lineHeight: 1.45,
-                                boxShadow: isCreator ? '0 2px 6px rgba(0, 82, 255, 0.25)' : '0 1px 3px rgba(0, 0, 0, 0.04)',
+                                boxShadow: isCreator ? '0 1px 3px rgba(0, 82, 255, 0.2)' : '0 1px 2px rgba(0, 0, 0, 0.04)',
                               }}
                             >
                               {msg.text}
                             </div>
 
                             {isCreator && (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '3px', fontSize: '10.5px', color: '#94A3B8' }}>
-                                <span>Delivered</span>
-                                <svg width="15" height="10" viewBox="0 0 16 11" fill="none" style={{ display: 'inline-block' }}>
-                                  <path d="M1 5.5L4.5 9L10.5 1.5" stroke="#0052FF" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-                                  <path d="M5.5 5.5L8.5 8.5L14.5 1.5" stroke="#0052FF" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px', fontSize: '10px', color: '#94A3B8' }}>
+                                <span>{msg.date}</span>
+                                <span>•</span>
+                                <svg width="14" height="9" viewBox="0 0 16 11" fill="none">
+                                  <path d="M1 5.5L4.5 9L10.5 1.5" stroke="#0052FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                  <path d="M5.5 5.5L8.5 8.5L14.5 1.5" stroke="#0052FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                               </div>
                             )}
@@ -5685,12 +5564,12 @@ function CreatorPortalContent() {
                             style={{
                               backgroundColor: '#FFFFFF',
                               border: '1px solid #E2E8F0',
-                              padding: '8px 12px',
-                              borderRadius: '14px',
+                              padding: '6px 12px',
+                              borderRadius: '12px',
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: '6px',
-                              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.04)',
+                              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)',
                             }}
                           >
                             <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
@@ -5706,7 +5585,7 @@ function CreatorPortalContent() {
                       )}
                     </div>
 
-                    {/* Quick Reply Suggestions (Fixed Footer) */}
+                    {/* Quick Reply Suggestions (Clean Pill Chips) */}
                     <div
                       style={{
                         padding: '6px 16px',
@@ -5729,22 +5608,25 @@ function CreatorPortalContent() {
                           type="button"
                           onClick={() => handleSendMessage(qr.replace(/^[^\s]+\s/, ''))}
                           style={{
-                            padding: '4px 9px',
+                            padding: '4px 10px',
                             fontSize: '11px',
-                            fontWeight: 600,
+                            fontWeight: 500,
                             color: '#475569',
                             backgroundColor: '#F8FAFC',
                             border: '1px solid #E2E8F0',
-                            borderRadius: '6px',
+                            borderRadius: '16px',
                             cursor: 'pointer',
                             whiteSpace: 'nowrap',
+                            transition: 'all 0.15s ease',
                           }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.backgroundColor = '#EFF6FF';
+                            e.currentTarget.style.borderColor = '#BFDBFE';
                             e.currentTarget.style.color = '#0052FF';
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.backgroundColor = '#F8FAFC';
+                            e.currentTarget.style.borderColor = '#E2E8F0';
                             e.currentTarget.style.color = '#475569';
                           }}
                         >
