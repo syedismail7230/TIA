@@ -1429,19 +1429,38 @@ function CreatorPortalContent() {
 
   const handleBuyCredits = (count: number, costInr: number) => {
     setApplyCredits((prev) => prev + count);
+    const txnCode = `TXN-CRD-${Date.now().toString().slice(-4)}`;
     setPayments((prev) => [
       {
         id: `tx-cred-${Date.now()}`,
+        invoiceCode: txnCode,
         mediaName: 'TIA Application Credits Top-up',
-        initials: 'CR',
+        initials: '⚡',
+        logoBg: '#0052FF',
+        email: 'billing@theinfluencealliance.com',
         campaign: `${count} Application Credits Pack (₹99/credit)`,
-        amount: `₹${costInr}`,
+        deliverableDesc: `${count}x Creator Campaign Pitch & Deal Applications`,
+        amount: `₹${costInr.toLocaleString('en-IN')}.00`,
+        priceFormatted: `₹${costInr.toLocaleString('en-IN')}.00`,
+        grossAmount: costInr,
+        tdsDeduction: 0,
+        platformFee: 0,
+        netAmount: costInr,
         authorizedAt: 'Just now',
+        dueDate: 'Instant Delivery',
         status: 'PAID',
+        statusLabel: 'Paid',
+        utrNumber: `TIA${Date.now().toString().slice(-8)}`,
+        invoiceNumber: `INV-${txnCode}-2026`,
+        billedTo: 'Sarah Jenkins',
+        currency: 'INR (₹ Indian Rupee)',
+        fromName: 'TIA Credit Engine',
+        fromEmail: 'billing@theinfluencealliance.com',
+        disbursedAt: 'Just now',
       },
       ...prev,
     ]);
-    setCreditPurchaseSuccess(`✓ Added ${count} Application Credits for ₹${costInr}!`);
+    setCreditPurchaseSuccess(`✓ Added ${count} Application Credits for ₹${costInr.toLocaleString('en-IN')}!`);
     setShowBuyCreditsModal(false);
     setTimeout(() => setCreditPurchaseSuccess(null), 4000);
 
@@ -6846,121 +6865,9 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* BANK ACCOUNT & WALLET COMPACT STRIP */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '14px 20px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: '12px',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '10px',
-                      backgroundColor: '#EFF6FF',
-                      color: '#0052FF',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
-                      flexShrink: 0,
-                    }}
-                  >
-                    🏦
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
-                        {bankAccount?.bankName || 'HDFC Bank Ltd.'} (•••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '4829'})
-                      </span>
-                      {bankAccount?.verified ? (
-                        <span
-                          style={{
-                            fontSize: '10px',
-                            fontWeight: 700,
-                            color: '#059669',
-                            backgroundColor: '#ECFDF5',
-                            border: '1px solid #A7F3D0',
-                            padding: '2px 8px',
-                            borderRadius: '10px',
-                          }}
-                        >
-                          ✓ Verified for Disbursals
-                        </span>
-                      ) : (
-                        <span
-                          style={{
-                            fontSize: '10px',
-                            fontWeight: 700,
-                            color: '#D97706',
-                            backgroundColor: '#FEF3C7',
-                            padding: '2px 8px',
-                            borderRadius: '10px',
-                          }}
-                        >
-                          ⚠️ Action Required
-                        </span>
-                      )}
-                    </div>
-                    <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '1px' }}>
-                      Beneficiary: {bankAccount?.accountHolderName || 'Sarah Jenkins'} • IFSC: {bankAccount?.ifscCode || 'HDFC0000128'} • Auto-Penny-Drop Verified
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <button
-                    type="button"
-                    onClick={() => setShowBankModal(true)}
-                    style={{
-                      padding: '7px 12px',
-                      backgroundColor: '#F8FAFC',
-                      border: '1px solid #CBD5E1',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: '#0F172A',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Edit Bank Details
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowCreditsStoreView(true)}
-                    style={{
-                      padding: '7px 14px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                    }}
-                  >
-                    <span>⚡</span>
-                    <span>{applyCredits} Credits</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* SPLIT INVOICE WORKSPACE (TABLE ON LEFT, DETAILS INSPECTOR ON RIGHT) */}
+              {/* SPLIT TRANSACTIONS WORKSPACE (TABLE ON LEFT, DETAILS INSPECTOR ON RIGHT) */}
               <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                {/* LEFT TABLE: ALL INVOICES */}
+                {/* LEFT TABLE: TRANSACTIONS HISTORY */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
@@ -6975,7 +6882,7 @@ function CreatorPortalContent() {
                   {/* Table Header Toolbar */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
                     <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                      All Invoices
+                      Transactions History
                     </h3>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -7001,14 +6908,14 @@ function CreatorPortalContent() {
                           type="text"
                           value={invoiceSearchQuery}
                           onChange={(e) => setInvoiceSearchQuery(e.target.value)}
-                          placeholder="Search here"
+                          placeholder="Search transactions..."
                           style={{
                             border: 'none',
                             backgroundColor: 'transparent',
                             outline: 'none',
                             fontSize: '12px',
                             color: '#0F172A',
-                            width: '120px',
+                            width: '140px',
                           }}
                         />
                       </div>
@@ -7052,7 +6959,7 @@ function CreatorPortalContent() {
                               boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
                               padding: '6px',
                               zIndex: 20,
-                              minWidth: '130px',
+                              minWidth: '140px',
                             }}
                           >
                             {(['ALL', 'PAID', 'UNPAID'] as const).map((filterOpt) => (
@@ -7076,7 +6983,7 @@ function CreatorPortalContent() {
                                   cursor: 'pointer',
                                 }}
                               >
-                                {filterOpt === 'ALL' ? 'All Invoices' : filterOpt === 'PAID' ? 'Paid Only' : 'Unpaid Only'}
+                                {filterOpt === 'ALL' ? 'All Transactions' : filterOpt === 'PAID' ? 'Paid Only' : 'Unpaid Only'}
                               </button>
                             ))}
                           </div>
@@ -7101,7 +7008,7 @@ function CreatorPortalContent() {
                     </div>
                   </div>
 
-                  {/* Invoices Table */}
+                  {/* Transactions Table */}
                   <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', minWidth: '500px', borderCollapse: 'collapse', textAlign: 'left' }}>
                       <thead>
@@ -7122,13 +7029,13 @@ function CreatorPortalContent() {
                           </th>
                           <th style={{ padding: '10px 12px' }}>
                             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-                              <span>Invoices</span>
+                              <span>Txn ID</span>
                               <span style={{ fontSize: '9px' }}>↕</span>
                             </div>
                           </th>
                           <th style={{ padding: '10px 12px' }}>
                             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-                              <span>Name</span>
+                              <span>Description</span>
                               <span style={{ fontSize: '9px' }}>↕</span>
                             </div>
                           </th>
@@ -7228,7 +7135,7 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: INVOICES DETAIL INSPECTOR PANEL */}
+                {/* RIGHT COLUMN: TRANSACTION DETAILS INSPECTOR PANEL */}
                 {invoiceDetailOpen && selectedInvoice && (
                   <div
                     style={{
@@ -7246,7 +7153,7 @@ function CreatorPortalContent() {
                     {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
                       <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                        Invoices Detail
+                        Transaction Details
                       </h4>
                       <button
                         type="button"
