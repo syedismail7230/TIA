@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 
 // ============================================================================
-// SLEEK VECTOR SVG ICONS (Matching Reference UI)
+// SLEEK VECTOR SVG ICONS
 // ============================================================================
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
@@ -152,16 +152,13 @@ function CreatorPortalContent() {
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
   const [collabFilter, setCollabFilter] = useState<CollabFilter>('awaiting');
   const [selectedCollabId, setSelectedCollabId] = useState<string>('collab-1');
-  const [collabSubTab, setCollabSubTab] = useState<'messages' | 'campaign' | 'deliverables' | 'notes'>('messages');
   const [replyMessage, setReplyMessage] = useState('');
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [connectingPlatform, setConnectingPlatform] = useState<string | null>(null);
   const [selectedCampaign, setSelectedCampaign] = useState<any | null>(null);
   const [applySuccess, setApplySuccess] = useState(false);
   const [claimSuccess, setClaimSuccess] = useState(false);
-  const [cashoutSuccess, setCashoutSuccess] = useState(false);
 
-  // Social accounts state (synced with live OAuth)
+  // Social accounts state
   const [socialAccounts, setSocialAccounts] = useState<any[]>([
     { platform: 'INSTAGRAM', username: 'creator.official', audienceSize: 320000, engagementRate: 4.85, connected: true },
     { platform: 'YOUTUBE', username: 'creatortech', audienceSize: 185000, engagementRate: 6.2, connected: true },
@@ -169,7 +166,7 @@ function CreatorPortalContent() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Teaser Marketplace Campaigns with Blurred Aesthetic (Matching Reference Screenshot)
+  // Teaser Marketplace Campaigns with Blurred Aesthetic
   const [campaigns] = useState<any[]>([
     {
       id: 'camp-1',
@@ -281,7 +278,7 @@ function CreatorPortalContent() {
     },
   ]);
 
-  // Collabs and Inbox Threads
+  // Collabs & Inbox Threads
   const [collabs, setCollabs] = useState<any[]>([
     {
       id: 'collab-1',
@@ -416,7 +413,6 @@ function CreatorPortalContent() {
               : acc
           )
         );
-        setConnectingPlatform(null);
       }
     };
     window.addEventListener('message', handleOAuthMessage);
@@ -429,27 +425,11 @@ function CreatorPortalContent() {
   };
 
   const handleConnectOAuth = (platform: string) => {
-    setConnectingPlatform(platform);
     const popupUrl = `/api/connectors/${platform.toLowerCase()}/auth?flow=onboarding&role=CREATOR`;
-    const popup = window.open(
+    window.open(
       popupUrl,
       `TIA_CONNECT_${platform}`,
       'width=600,height=750,scrollbars=yes,status=yes'
-    );
-
-    const checkTimer = setInterval(() => {
-      if (!popup || popup.closed) {
-        clearInterval(checkTimer);
-        setConnectingPlatform(null);
-      }
-    }, 1000);
-  };
-
-  const handleDisconnect = (platform: string) => {
-    setSocialAccounts((prev) =>
-      prev.map((acc) =>
-        acc.platform === platform ? { ...acc, connected: false, username: '' } : acc
-      )
     );
   };
 
@@ -503,11 +483,6 @@ function CreatorPortalContent() {
     setTimeout(() => setClaimSuccess(false), 3000);
   };
 
-  const handleInstantCashout = () => {
-    setCashoutSuccess(true);
-    setTimeout(() => setCashoutSuccess(false), 3500);
-  };
-
   const handleSendMessage = () => {
     if (!replyMessage.trim()) return;
     setCollabs((prev) =>
@@ -557,7 +532,92 @@ function CreatorPortalContent() {
   };
 
   return (
-    <div style={{ backgroundColor: '#FAFAFA', minHeight: '100vh', fontFamily: 'inherit' }}>
+    <div className="portal-root" style={{ backgroundColor: '#FAFAFA', minHeight: '100vh', fontFamily: 'inherit' }}>
+      {/* Mobile-Optimized CSS Rules */}
+      <style jsx global>{`
+        /* Hide scrollbars for clean tabs */
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        /* Top Header Mobile Rules */
+        @media (max-width: 768px) {
+          .portal-header-inner {
+            height: auto !important;
+            padding: 10px 14px !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 8px !important;
+          }
+          .portal-header-top-row {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+          }
+          .portal-nav-tabs {
+            width: 100% !important;
+            overflow-x: auto !important;
+            white-space: nowrap !important;
+            padding-bottom: 2px !important;
+            gap: 2px !important;
+            justify-content: flex-start !important;
+          }
+          .portal-nav-tabs button {
+            padding: 10px 12px !important;
+            font-size: 13px !important;
+            flex-shrink: 0 !important;
+          }
+          .portal-user-meta {
+            font-size: 11.5px !important;
+          }
+
+          /* Main Container */
+          .portal-main-container {
+            padding: 16px 12px !important;
+          }
+
+          /* Search Banner */
+          .portal-search-banner {
+            padding: 16px 14px !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 16px !important;
+            margin-bottom: 20px !important;
+          }
+          .portal-search-banner-content {
+            width: 100% !important;
+            gap: 12px !important;
+          }
+          .portal-search-banner-btn {
+            width: 100% !important;
+            padding: 12px 0 !important;
+            text-align: center !important;
+          }
+
+          /* Discovery Grid */
+          .portal-campaigns-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+
+          /* Payments KPIs */
+          .portal-payments-kpis {
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+          }
+
+          /* Collabs Pane */
+          .portal-collabs-pane {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+
       {/* Top Header Navigation Bar */}
       <header
         style={{
@@ -569,6 +629,7 @@ function CreatorPortalContent() {
         }}
       >
         <div
+          className="portal-header-inner"
           style={{
             maxWidth: '1440px',
             margin: '0 auto',
@@ -579,35 +640,35 @@ function CreatorPortalContent() {
             justifyContent: 'space-between',
           }}
         >
-          {/* Logo & Navigation Tabs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
+          {/* Top Row for Mobile (Logo + User) / Left block for Desktop */}
+          <div className="portal-header-top-row" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <Link
               href="/creator"
               style={{
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '8px',
               }}
             >
               <img
                 src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 style={{
-                  height: '32px',
+                  height: '28px',
                   width: 'auto',
-                  maxWidth: '150px',
+                  maxWidth: '135px',
                   objectFit: 'contain',
                   display: 'block',
                 }}
               />
               <span
                 style={{
-                  fontSize: '11px',
+                  fontSize: '10.5px',
                   fontWeight: 800,
                   color: '#0052FF',
                   backgroundColor: '#EFF6FF',
-                  padding: '2px 8px',
+                  padding: '2px 6px',
                   borderRadius: '4px',
                   letterSpacing: '0.04em',
                 }}
@@ -616,105 +677,114 @@ function CreatorPortalContent() {
               </span>
             </Link>
 
-            <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              {[
-                { id: 'marketplace', label: 'Marketplace' },
-                { id: 'collabs', label: 'Collabs' },
-                { id: 'payments', label: 'Payments' },
-                { id: 'social-media', label: 'Social Media' },
-                { id: 'settings', label: 'Settings' },
-              ].map((tab) => {
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => handleTabChange(tab.id as TabType)}
-                    style={{
-                      padding: '18px 16px',
-                      fontSize: '13.5px',
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? '#0052FF' : '#4B5563',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      borderBottom: isActive ? '2px solid #0052FF' : '2px solid transparent',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                      outline: 'none',
-                    }}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
+            {/* User Profile on Mobile right */}
+            <div className="portal-user-meta" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ fontSize: '12px', color: '#374151', fontWeight: 600 }}>
+                  {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
+                </span>
+                <BlueCheckBadge size={14} title="Verified Creator" />
+              </div>
 
-          {/* User Profile & Sign Out */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '13px', color: '#374151', fontWeight: 600 }}>
-                {currentUser?.email || 'creator@tia.agency'}
-              </span>
-              <BlueCheckBadge size={16} title="Verified Creator" />
+              <button
+                type="button"
+                onClick={async () => {
+                  await fetch('/api/auth/logout', { method: 'POST' });
+                  router.push('/login');
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  fontSize: '11.5px',
+                  color: '#6B7280',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                }}
+              >
+                <span>Logout</span>
+                <ArrowRightIcon size={10} color="#6B7280" />
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={async () => {
-                await fetch('/api/auth/logout', { method: 'POST' });
-                router.push('/login');
-              }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                fontSize: '12.5px',
-                color: '#6B7280',
-                backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 500,
-              }}
-            >
-              <span>Logout</span>
-              <ArrowRightIcon size={12} color="#6B7280" />
-            </button>
           </div>
+
+          {/* Navigation Tabs (Scrollable on Mobile) */}
+          <nav
+            className="portal-nav-tabs no-scrollbar"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+            }}
+          >
+            {[
+              { id: 'marketplace', label: 'Marketplace' },
+              { id: 'collabs', label: 'Collabs' },
+              { id: 'payments', label: 'Payments' },
+              { id: 'social-media', label: 'Social Media' },
+              { id: 'settings', label: 'Settings' },
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => handleTabChange(tab.id as TabType)}
+                  style={{
+                    padding: '18px 14px',
+                    fontSize: '13.5px',
+                    fontWeight: isActive ? 700 : 500,
+                    color: isActive ? '#0052FF' : '#4B5563',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    borderBottom: isActive ? '2px solid #0052FF' : '2px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                    outline: 'none',
+                  }}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </nav>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main style={{ maxWidth: '1440px', margin: '0 auto', padding: '24px' }}>
+      <main className="portal-main-container" style={{ maxWidth: '1440px', margin: '0 auto', padding: '24px' }}>
         {/* ==================================================================== */}
-        {/* TAB 1: MARKETPLACE WITH EXACT BLURRED CAMPAIGN TEASERS               */}
+        {/* TAB 1: MARKETPLACE                                                   */}
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
-            {/* Top Search Banner */}
+            {/* Top Responsive Search Banner */}
             <div
+              className="portal-search-banner"
               style={{
                 background: 'linear-gradient(90deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%)',
                 border: '1px solid #E0E7FF',
                 borderRadius: '12px',
-                padding: '24px 32px',
-                marginBottom: '32px',
+                padding: '24px 28px',
+                marginBottom: '28px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <InstagramIcon size={22} />
-                  <YouTubeIcon size={22} />
-                  <TikTokIcon size={22} />
+              <div className="portal-search-banner-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', paddingTop: '2px', flexShrink: 0 }}>
+                  <InstagramIcon size={20} />
+                  <YouTubeIcon size={20} />
+                  <TikTokIcon size={20} />
                 </div>
-                <div>
-                  <h2 style={{ fontSize: '16.5px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 4px 0' }}>
+                <div style={{ flex: 1 }}>
+                  <h2 style={{ fontSize: '15.5px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 4px 0', lineHeight: 1.35 }}>
                     We&apos;re actively searching for your perfect campaign! 👀
                   </h2>
-                  <p style={{ fontSize: '13px', color: '#4338CA', margin: 0 }}>
+                  <p style={{ fontSize: '12.5px', color: '#4338CA', margin: 0, lineHeight: 1.45 }}>
                     The more socials you link, the better the chances of finding the right fit for your audience and style!
                   </p>
                 </div>
@@ -722,6 +792,7 @@ function CreatorPortalContent() {
 
               <button
                 type="button"
+                className="portal-search-banner-btn"
                 onClick={() => handleTabChange('social-media')}
                 style={{
                   backgroundColor: '#0052FF',
@@ -733,6 +804,7 @@ function CreatorPortalContent() {
                   fontWeight: 700,
                   cursor: 'pointer',
                   boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
+                  flexShrink: 0,
                 }}
               >
                 Connect
@@ -740,19 +812,20 @@ function CreatorPortalContent() {
             </div>
 
             {/* Section Heading */}
-            <div style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ marginBottom: '18px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '16px' }}>🎁</span>
-              <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#111827', margin: 0 }}>
+              <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#111827', margin: 0 }}>
                 Keep growing, and these could be yours soon!
               </h3>
             </div>
 
-            {/* Exact Upfluence-Style Blurred Campaign Teaser Cards Grid */}
+            {/* Responsive Blurred Campaign Teaser Cards Grid */}
             <div
+              className="portal-campaigns-grid"
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-                gap: '24px',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
+                gap: '20px',
               }}
             >
               {campaigns.map((camp) => (
@@ -772,20 +845,19 @@ function CreatorPortalContent() {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  {/* Blurred Banner Container (Exact Upfluence Blur) */}
+                  {/* Blurred Banner */}
                   <div
                     style={{
-                      height: '140px',
+                      height: '130px',
                       position: 'relative',
                       overflow: 'hidden',
-                      padding: '16px',
+                      padding: '14px',
                       display: 'flex',
                       alignItems: 'flex-start',
                       justifyContent: 'space-between',
                       backgroundColor: '#E2E8F0',
                     }}
                   >
-                    {/* Background Image with Heavy Soft Gaussian Blur */}
                     <div
                       style={{
                         position: 'absolute',
@@ -802,15 +874,15 @@ function CreatorPortalContent() {
                       }}
                     />
 
-                    {/* Translucent Frosted Commercial Pill */}
+                    {/* Translucent Commercial Pill */}
                     <div
                       style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.88)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
                         backdropFilter: 'blur(8px)',
                         color: camp.commercialType === 'FLAT_FEE' ? '#B45309' : '#6D28D9',
-                        padding: '4px 12px',
-                        borderRadius: '16px',
-                        fontSize: '11.5px',
+                        padding: '3px 10px',
+                        borderRadius: '14px',
+                        fontSize: '11px',
                         fontWeight: 800,
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -820,21 +892,21 @@ function CreatorPortalContent() {
                       }}
                     >
                       {camp.commercialType === 'FLAT_FEE' ? (
-                        <FlatFeeBagIcon size={12} color="#B45309" />
+                        <FlatFeeBagIcon size={11} color="#B45309" />
                       ) : (
-                        <CommissionTargetIcon size={12} color="#6D28D9" />
+                        <CommissionTargetIcon size={11} color="#6D28D9" />
                       )}
                       <span>{camp.commercialLabel}</span>
                     </div>
 
-                    {/* Blurred / Metallic Gradient Brand Avatar */}
+                    {/* Metallic Avatar */}
                     <div
                       style={{
                         position: 'absolute',
-                        bottom: '-18px',
-                        left: '20px',
-                        width: '46px',
-                        height: '46px',
+                        bottom: '-16px',
+                        left: '16px',
+                        width: '42px',
+                        height: '42px',
                         background: camp.avatarGradient,
                         border: '2px solid #FFFFFF',
                         borderRadius: '10px',
@@ -845,17 +917,16 @@ function CreatorPortalContent() {
                   </div>
 
                   {/* Card Body */}
-                  <div style={{ padding: '26px 20px 20px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    {/* Anonymized Brand Name + Category Pills */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
-                      {/* Anonymized blurred brand pill (as seen in reference screenshot) */}
+                  <div style={{ padding: '24px 16px 16px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    {/* Brand Pill + Categories */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexWrap: 'wrap', marginBottom: '8px' }}>
                       <span
                         style={{
-                          fontSize: '12px',
+                          fontSize: '11.5px',
                           fontWeight: 700,
                           color: '#6B7280',
                           backgroundColor: '#F3F4F6',
-                          padding: '2px 8px',
+                          padding: '2px 6px',
                           borderRadius: '4px',
                           filter: 'blur(3px)',
                           userSelect: 'none',
@@ -868,11 +939,11 @@ function CreatorPortalContent() {
                         <span
                           key={idx}
                           style={{
-                            fontSize: '11px',
+                            fontSize: '10.5px',
                             fontWeight: 600,
                             color: '#374151',
                             backgroundColor: '#F3F4F6',
-                            padding: '2px 8px',
+                            padding: '2px 6px',
                             borderRadius: '4px',
                           }}
                         >
@@ -881,11 +952,11 @@ function CreatorPortalContent() {
                       ))}
                     </div>
 
-                    {/* Anonymized Campaign Title + ✨ New */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                    {/* Anonymized Title + New */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
                       <span
                         style={{
-                          fontSize: '13.5px',
+                          fontSize: '13px',
                           fontWeight: 700,
                           color: '#111827',
                           filter: 'blur(3.5px)',
@@ -899,9 +970,9 @@ function CreatorPortalContent() {
                           style={{
                             backgroundColor: '#EFF6FF',
                             color: '#0052FF',
-                            fontSize: '10.5px',
+                            fontSize: '10px',
                             fontWeight: 800,
-                            padding: '2px 6px',
+                            padding: '1px 5px',
                             borderRadius: '4px',
                             whiteSpace: 'nowrap',
                             display: 'inline-flex',
@@ -909,20 +980,20 @@ function CreatorPortalContent() {
                             gap: '3px',
                           }}
                         >
-                          <SparklesIcon size={10} color="#0052FF" />
+                          <SparklesIcon size={9} color="#0052FF" />
                           <span>New</span>
                         </span>
                       )}
                     </div>
 
                     {/* Requirements Section */}
-                    <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '14px', marginTop: 'auto' }}>
-                      <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px', color: '#D97706', fontSize: '12px', fontWeight: 700 }}>
-                        <InfoCircleIcon size={13} color="#D97706" />
+                    <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '12px', marginTop: 'auto' }}>
+                      <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '5px', color: '#D97706', fontSize: '11.5px', fontWeight: 700 }}>
+                        <InfoCircleIcon size={12} color="#D97706" />
                         <span>{camp.requirementLabel}</span>
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#4B5563' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontSize: '11.5px', color: '#4B5563' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#9CA3AF' }}>Language</span>
                           <span style={{ fontWeight: 600, color: '#111827' }}>{camp.language}</span>
@@ -930,17 +1001,15 @@ function CreatorPortalContent() {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#9CA3AF' }}>Country</span>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <span style={{ fontSize: '14px' }}>{camp.countryFlag}</span>
-                          </div>
+                          <span style={{ fontSize: '13px' }}>{camp.countryFlag}</span>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#9CA3AF' }}>Socials</span>
-                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                          <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
                             {camp.socials.map((s: string) => (
                               <div key={s} title={s}>
-                                {renderSocialIcon(s, 15)}
+                                {renderSocialIcon(s, 14)}
                               </div>
                             ))}
                           </div>
@@ -955,11 +1024,11 @@ function CreatorPortalContent() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 2: COLLABS & MESSAGING                                           */}
+        {/* TAB 2: COLLABS                                                       */}
         {/* ==================================================================== */}
         {activeTab === 'collabs' && (
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', overflowX: 'auto', paddingBottom: '4px' }}>
               {[
                 { id: 'awaiting', label: '⏳ Awaiting', count: collabs.filter((c) => c.status === 'AWAITING').length },
                 { id: 'accepted', label: '🌿 Accepted', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
@@ -972,17 +1041,18 @@ function CreatorPortalContent() {
                     type="button"
                     onClick={() => setCollabFilter(pill.id as CollabFilter)}
                     style={{
-                      padding: '8px 18px',
+                      padding: '7px 14px',
                       borderRadius: '8px',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       fontWeight: 700,
                       backgroundColor: isActive ? '#FEF3C7' : '#FFFFFF',
                       color: isActive ? '#92400E' : '#4B5563',
                       border: isActive ? '1px solid #FCD34D' : '1px solid #E5E7EB',
                       cursor: 'pointer',
+                      whiteSpace: 'nowrap',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '6px',
+                      gap: '4px',
                     }}
                   >
                     <span>{pill.label}</span>
@@ -992,23 +1062,22 @@ function CreatorPortalContent() {
               })}
             </div>
 
-            {/* Empty state illustration if nothing matches */}
             {collabs.filter((c) => c.status.toLowerCase() === collabFilter).length === 0 ? (
               <div
                 style={{
                   textAlign: 'center',
-                  padding: '80px 24px',
+                  padding: '60px 16px',
                   backgroundColor: '#FFFFFF',
                   borderRadius: '12px',
                   border: '1px solid #E5E7EB',
                 }}
               >
-                <div style={{ fontSize: '48px', marginBottom: '16px' }}>🗂️</div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', margin: '0 0 8px 0' }}>
+                <div style={{ fontSize: '42px', marginBottom: '12px' }}>🗂️</div>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', margin: '0 0 6px 0' }}>
                   Nothing pending to review—for now!
                 </h3>
-                <p style={{ fontSize: '13.5px', color: '#6B7280', maxWidth: '440px', margin: '0 auto 24px auto', lineHeight: 1.5 }}>
-                  Once you apply to a campaign, it&apos;ll appear here while the brand checks out your profile. In the meantime, keep exploring new opportunities.
+                <p style={{ fontSize: '13px', color: '#6B7280', maxWidth: '400px', margin: '0 auto 20px auto', lineHeight: 1.45 }}>
+                  Once you apply to a campaign, it&apos;ll appear here while the brand checks out your profile.
                 </p>
                 <button
                   type="button"
@@ -1018,8 +1087,8 @@ function CreatorPortalContent() {
                     color: '#FFFFFF',
                     border: 'none',
                     borderRadius: '8px',
-                    padding: '11px 26px',
-                    fontSize: '13.5px',
+                    padding: '10px 22px',
+                    fontSize: '13px',
                     fontWeight: 700,
                     cursor: 'pointer',
                   }}
@@ -1029,19 +1098,20 @@ function CreatorPortalContent() {
               </div>
             ) : (
               <div
+                className="portal-collabs-pane"
                 style={{
                   backgroundColor: '#FFFFFF',
                   border: '1px solid #E5E7EB',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   display: 'grid',
-                  gridTemplateColumns: '320px 1fr',
-                  minHeight: '560px',
+                  gridTemplateColumns: '300px 1fr',
+                  minHeight: '520px',
                 }}
               >
-                {/* Left Pane */}
+                {/* Left Thread List */}
                 <div style={{ borderRight: '1px solid #E5E7EB', backgroundColor: '#FAFAFA' }}>
-                  <div style={{ padding: '16px', borderBottom: '1px solid #E5E7EB', fontSize: '13px', fontWeight: 800, color: '#111827' }}>
+                  <div style={{ padding: '14px', borderBottom: '1px solid #E5E7EB', fontSize: '12.5px', fontWeight: 800, color: '#111827' }}>
                     Emails ({collabs.length})
                   </div>
                   {collabs.map((c) => (
@@ -1049,70 +1119,70 @@ function CreatorPortalContent() {
                       key={c.id}
                       onClick={() => setSelectedCollabId(c.id)}
                       style={{
-                        padding: '16px',
+                        padding: '14px',
                         borderBottom: '1px solid #F3F4F6',
                         backgroundColor: c.id === selectedCollabId ? '#EFF6FF' : '#FFFFFF',
                         cursor: 'pointer',
                       }}
                     >
-                      <div style={{ fontSize: '13px', fontWeight: 700, color: '#111827', marginBottom: '2px' }}>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#111827', marginBottom: '2px' }}>
                         {c.campaignTitle}
                       </div>
-                      <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                      <div style={{ fontSize: '11.5px', color: '#6B7280' }}>
                         {c.brandName} • {c.appliedAt}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Right Pane */}
+                {/* Right Active Message Pane */}
                 <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                  <div style={{ padding: '18px 24px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ padding: '16px 20px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', margin: 0 }}>
+                      <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#111827', margin: 0 }}>
                         {selectedCollab.subject}
                       </h3>
-                      <div style={{ fontSize: '12px', color: '#6B7280' }}>
+                      <div style={{ fontSize: '11.5px', color: '#6B7280' }}>
                         {selectedCollab.brandName} • Rate {selectedCollab.proposedRate}
                       </div>
                     </div>
                   </div>
 
-                  <div style={{ padding: '24px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ padding: '16px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {selectedCollab.messages.map((msg: any) => (
                       <div
                         key={msg.id}
                         style={{
                           backgroundColor: msg.sender === 'CREATOR' ? '#EFF6FF' : '#F9FAFB',
                           border: '1px solid #E5E7EB',
-                          borderRadius: '10px',
-                          padding: '16px',
+                          borderRadius: '8px',
+                          padding: '12px 14px',
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                          <span style={{ fontSize: '13px', fontWeight: 700, color: '#111827' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '12px', fontWeight: 700, color: '#111827' }}>
                             {msg.senderName}
                           </span>
-                          <span style={{ fontSize: '11px', color: '#9CA3AF' }}>{msg.date}</span>
+                          <span style={{ fontSize: '10.5px', color: '#9CA3AF' }}>{msg.date}</span>
                         </div>
-                        <p style={{ fontSize: '13px', color: '#374151', margin: 0 }}>{msg.text}</p>
+                        <p style={{ fontSize: '12.5px', color: '#374151', margin: 0, lineHeight: 1.4 }}>{msg.text}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div style={{ padding: '16px 24px', borderTop: '1px solid #E5E7EB', display: 'flex', gap: '10px' }}>
+                  <div style={{ padding: '12px 16px', borderTop: '1px solid #E5E7EB', display: 'flex', gap: '8px' }}>
                     <input
                       type="text"
                       value={replyMessage}
                       onChange={(e) => setReplyMessage(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                       placeholder="Type your reply..."
-                      style={{ flex: 1, padding: '10px 14px', borderRadius: '8px', border: '1px solid #D1D5DB', fontSize: '13px' }}
+                      style={{ flex: 1, padding: '9px 12px', borderRadius: '6px', border: '1px solid #D1D5DB', fontSize: '12.5px' }}
                     />
                     <button
                       type="button"
                       onClick={handleSendMessage}
-                      style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', padding: '10px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}
+                      style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '9px 16px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}
                     >
                       Reply
                     </button>
@@ -1129,63 +1199,63 @@ function CreatorPortalContent() {
         {activeTab === 'payments' && (
           <div>
             {claimSuccess && (
-              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 18px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px', fontWeight: 600 }}>
+              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '10px 14px', borderRadius: '8px', marginBottom: '16px', fontSize: '12.5px', fontWeight: 600 }}>
                 ✓ Payout claimed successfully!
               </div>
             )}
 
-            {/* Top 3 Metric Cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>$</div>
+            {/* Responsive Metric Cards */}
+            <div className="portal-payments-kpis" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>$</div>
                 <div>
-                  <div style={{ fontSize: '12px', color: '#6B7280' }}>Total received</div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: '#111827' }}>$25,345.00</div>
+                  <div style={{ fontSize: '11.5px', color: '#6B7280' }}>Total received</div>
+                  <div style={{ fontSize: '18px', fontWeight: 800, color: '#111827' }}>$25,345.00</div>
                 </div>
               </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⌛</div>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⌛</div>
                 <div>
-                  <div style={{ fontSize: '12px', color: '#6B7280' }}>Total pending</div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: '#111827' }}>$5,952.45</div>
+                  <div style={{ fontSize: '11.5px', color: '#6B7280' }}>Total pending</div>
+                  <div style={{ fontSize: '18px', fontWeight: 800, color: '#111827' }}>$5,952.45</div>
                 </div>
               </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', padding: '20px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⏱</div>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⏱</div>
                 <div>
-                  <div style={{ fontSize: '12px', color: '#6B7280' }}>Total unclaimed</div>
-                  <div style={{ fontSize: '20px', fontWeight: 800, color: '#0052FF' }}>$12,356.70</div>
+                  <div style={{ fontSize: '11.5px', color: '#6B7280' }}>Total unclaimed</div>
+                  <div style={{ fontSize: '18px', fontWeight: 800, color: '#0052FF' }}>$12,356.70</div>
                 </div>
               </div>
             </div>
 
-            {/* Transactions Table */}
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', overflow: 'hidden' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            {/* Scrollable Transactions Table */}
+            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', overflowX: 'auto' }}>
+              <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB', fontSize: '12px', fontWeight: 700, color: '#6B7280' }}>
-                    <th style={{ padding: '14px 20px' }}>Media Name</th>
-                    <th style={{ padding: '14px 20px' }}>Campaign</th>
-                    <th style={{ padding: '14px 20px' }}>Amount</th>
-                    <th style={{ padding: '14px 20px' }}>Authorized at</th>
-                    <th style={{ padding: '14px 20px' }}>Status</th>
-                    <th style={{ padding: '14px 20px', textAlign: 'right' }}>Action</th>
+                  <tr style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid #E5E7EB', fontSize: '11.5px', fontWeight: 700, color: '#6B7280' }}>
+                    <th style={{ padding: '12px 16px' }}>Media Name</th>
+                    <th style={{ padding: '12px 16px' }}>Campaign</th>
+                    <th style={{ padding: '12px 16px' }}>Amount</th>
+                    <th style={{ padding: '12px 16px' }}>Authorized at</th>
+                    <th style={{ padding: '12px 16px' }}>Status</th>
+                    <th style={{ padding: '12px 16px', textAlign: 'right' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {payments.map((p) => (
-                    <tr key={p.id} style={{ borderBottom: '1px solid #F3F4F6', fontSize: '13px' }}>
-                      <td style={{ padding: '16px 20px', fontWeight: 700, color: '#111827' }}>{p.mediaName}</td>
-                      <td style={{ padding: '16px 20px', color: '#4B5563' }}>{p.campaign}</td>
-                      <td style={{ padding: '16px 20px', fontWeight: 800, color: '#0052FF' }}>{p.amount}</td>
-                      <td style={{ padding: '16px 20px', color: '#6B7280' }}>{p.authorizedAt}</td>
-                      <td style={{ padding: '16px 20px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, padding: '3px 10px', borderRadius: '12px', backgroundColor: p.status === 'PAID' ? '#ECFDF5' : '#F3F4F6', color: p.status === 'PAID' ? '#059669' : '#4B5563' }}>
+                    <tr key={p.id} style={{ borderBottom: '1px solid #F3F4F6', fontSize: '12.5px' }}>
+                      <td style={{ padding: '14px 16px', fontWeight: 700, color: '#111827' }}>{p.mediaName}</td>
+                      <td style={{ padding: '14px 16px', color: '#4B5563' }}>{p.campaign}</td>
+                      <td style={{ padding: '14px 16px', fontWeight: 800, color: '#0052FF' }}>{p.amount}</td>
+                      <td style={{ padding: '14px 16px', color: '#6B7280' }}>{p.authorizedAt}</td>
+                      <td style={{ padding: '14px 16px' }}>
+                        <span style={{ fontSize: '10.5px', fontWeight: 700, padding: '2px 8px', borderRadius: '10px', backgroundColor: p.status === 'PAID' ? '#ECFDF5' : '#F3F4F6', color: p.status === 'PAID' ? '#059669' : '#4B5563' }}>
                           {p.status}
                         </span>
                       </td>
-                      <td style={{ padding: '16px 20px', textAlign: 'right' }}>
-                        <button type="button" onClick={() => handleClaimPayout(p.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '6px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>
+                      <td style={{ padding: '14px 16px', textAlign: 'right' }}>
+                        <button type="button" onClick={() => handleClaimPayout(p.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '5px 12px', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer' }}>
                           {p.status === 'UNCLAIMED' ? 'Claim!' : 'View'}
                         </button>
                       </td>
@@ -1194,9 +1264,9 @@ function CreatorPortalContent() {
                 </tbody>
               </table>
 
-              <div style={{ backgroundColor: '#EFF6FF', padding: '14px 20px', display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', fontWeight: 700, color: '#1E40AF' }}>
-                <span>Summary • Payment Requests: 32 • Paid: 19</span>
-                <span>Amount Sent: $4,203.50</span>
+              <div style={{ backgroundColor: '#EFF6FF', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, color: '#1E40AF' }}>
+                <span>Summary • Requests: 32 • Paid: 19</span>
+                <span>Amount: $4,203.50</span>
               </div>
             </div>
           </div>
@@ -1206,34 +1276,34 @@ function CreatorPortalContent() {
         {/* TAB 4: SOCIAL MEDIA                                                  */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', margin: '0 0 4px 0' }}>Social Media</h2>
-              <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>
+          <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '16px' }}>
+              <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', margin: '0 0 4px 0' }}>Social Media</h2>
+              <p style={{ fontSize: '12.5px', color: '#6B7280', margin: 0 }}>
                 TIA&apos;s Creator Portal allows you to integrate your social media accounts with official APIs.
               </p>
             </div>
 
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '12px', overflow: 'hidden', marginBottom: '24px' }}>
+            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', overflow: 'hidden', marginBottom: '20px' }}>
               {[
-                { id: 'INSTAGRAM', name: 'Instagram', icon: <InstagramIcon size={22} /> },
-                { id: 'TIKTOK', name: 'TikTok', icon: <TikTokIcon size={22} /> },
-                { id: 'YOUTUBE', name: 'YouTube', icon: <YouTubeIcon size={22} /> },
+                { id: 'INSTAGRAM', name: 'Instagram', icon: <InstagramIcon size={20} /> },
+                { id: 'TIKTOK', name: 'TikTok', icon: <TikTokIcon size={20} /> },
+                { id: 'YOUTUBE', name: 'YouTube', icon: <YouTubeIcon size={20} /> },
               ].map((plat, idx) => {
                 const account = socialAccounts.find((a) => a.platform === plat.id);
                 return (
-                  <div key={plat.id} style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: idx < 2 ? '1px solid #F3F4F6' : 'none' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div key={plat.id} style={{ padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: idx < 2 ? '1px solid #F3F4F6' : 'none' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       {plat.icon}
                       <div>
-                        <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>{plat.name}</div>
-                        {account?.connected && <div style={{ fontSize: '12px', color: '#6B7280' }}>@{account.username}</div>}
+                        <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#111827' }}>{plat.name}</div>
+                        {account?.connected && <div style={{ fontSize: '11.5px', color: '#6B7280' }}>@{account.username}</div>}
                       </div>
                     </div>
                     {account?.connected ? (
-                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '4px 10px', borderRadius: '6px' }}>✓ Connected</span>
+                      <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>✓ Connected</span>
                     ) : (
-                      <button type="button" onClick={() => handleConnectOAuth(plat.id)} style={{ backgroundColor: '#FFFFFF', color: '#0052FF', border: '1px solid #0052FF', borderRadius: '6px', padding: '6px 16px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}>Connect</button>
+                      <button type="button" onClick={() => handleConnectOAuth(plat.id)} style={{ backgroundColor: '#FFFFFF', color: '#0052FF', border: '1px solid #0052FF', borderRadius: '6px', padding: '5px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>Connect</button>
                     )}
                   </div>
                 );
@@ -1246,45 +1316,45 @@ function CreatorPortalContent() {
         {/* TAB 5: SETTINGS                                                      */}
         {/* ==================================================================== */}
         {activeTab === 'settings' && (
-          <div style={{ maxWidth: '640px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: '28px', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', marginBottom: '16px' }}>Profile Settings</h2>
+          <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: '24px 20px', borderRadius: '10px', border: '1px solid #E5E7EB' }}>
+            <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', marginBottom: '14px' }}>Profile Settings</h2>
             <div>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: '#374151', display: 'block', marginBottom: '6px' }}>Display Name</label>
-              <input type="text" defaultValue={displayName} style={{ width: '100%', padding: '10px 14px', borderRadius: '6px', border: '1px solid #D1D5DB', marginBottom: '16px' }} />
+              <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#374151', display: 'block', marginBottom: '5px' }}>Display Name</label>
+              <input type="text" defaultValue={displayName} style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', border: '1px solid #D1D5DB', marginBottom: '14px', fontSize: '13px' }} />
             </div>
-            <button type="button" style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '10px 20px', fontWeight: 700, cursor: 'pointer' }}>Save</button>
+            <button type="button" style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '9px 18px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>Save</button>
           </div>
         )}
       </main>
 
       {/* Campaign Detail Modal */}
       {selectedCampaign && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '500px', borderRadius: '12px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '16px' }}>
+          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '480px', borderRadius: '12px', padding: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
             {applySuccess ? (
-              <div style={{ textAlign: 'center', padding: '20px 0' }}>
-                <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', margin: '0 0 4px 0' }}>Application Submitted!</h3>
-                <p style={{ fontSize: '13px', color: '#6B7280', margin: 0 }}>Redirecting to Collabs...</p>
+              <div style={{ textAlign: 'center', padding: '16px 0' }}>
+                <div style={{ fontSize: '32px', marginBottom: '6px' }}>🎉</div>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', margin: '0 0 4px 0' }}>Application Submitted!</h3>
+                <p style={{ fontSize: '12.5px', color: '#6B7280', margin: 0 }}>Redirecting to Collabs...</p>
               </div>
             ) : (
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
                   <div>
-                    <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#7C3AED' }}>{selectedCampaign.commercialLabel}</span>
-                    <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#111827', margin: '2px 0 0 0' }}>{selectedCampaign.title}</h3>
-                    <div style={{ fontSize: '12px', color: '#6B7280' }}>{selectedCampaign.brandName} • {selectedCampaign.country}</div>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#7C3AED' }}>{selectedCampaign.commercialLabel}</span>
+                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', margin: '2px 0 0 0' }}>{selectedCampaign.title}</h3>
+                    <div style={{ fontSize: '11.5px', color: '#6B7280' }}>{selectedCampaign.brandName} • {selectedCampaign.country}</div>
                   </div>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: 'transparent', border: 'none', fontSize: '18px', cursor: 'pointer' }}>✕</button>
+                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: 'transparent', border: 'none', fontSize: '16px', cursor: 'pointer' }}>✕</button>
                 </div>
 
-                <div style={{ backgroundColor: '#F9FAFB', padding: '14px', borderRadius: '8px', marginBottom: '20px', fontSize: '13px', color: '#4B5563' }}>
+                <div style={{ backgroundColor: '#F9FAFB', padding: '12px', borderRadius: '6px', marginBottom: '16px', fontSize: '12.5px', color: '#4B5563', lineHeight: 1.4 }}>
                   <strong>Brief:</strong> {selectedCampaign.description}
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '8px 16px', backgroundColor: '#F3F4F6', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                  <button type="button" onClick={submitApplication} style={{ padding: '8px 20px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>Apply</button>
+                <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '8px 14px', backgroundColor: '#F3F4F6', border: 'none', borderRadius: '6px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                  <button type="button" onClick={submitApplication} style={{ padding: '8px 18px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}>Apply</button>
                 </div>
               </div>
             )}
