@@ -257,6 +257,44 @@ function CreatorPortalContent() {
   const [mobileChatViewActive, setMobileChatViewActive] = useState<boolean>(false);
   const chatMessagesEndRef = useRef<HTMLDivElement | null>(null);
 
+  // Bank Account & Payout Verification State
+  const [bankAccount, setBankAccount] = useState<{
+    accountHolderName: string;
+    bankName: string;
+    accountNumber: string;
+    ifscCode: string;
+    accountType: 'SAVINGS' | 'CURRENT';
+    upiId: string;
+    panNumber: string;
+    verified: boolean;
+    verifiedAt: string;
+  } | null>({
+    accountHolderName: 'Sarah Jenkins',
+    bankName: 'HDFC Bank Ltd.',
+    accountNumber: '50100482910482',
+    ifscCode: 'HDFC0000128',
+    accountType: 'SAVINGS',
+    upiId: 'sarah.jenkins@okhdfcbank',
+    panNumber: 'ABCDE1234F',
+    verified: true,
+    verifiedAt: 'Aug 15, 2026',
+  });
+  const [showBankModal, setShowBankModal] = useState<boolean>(false);
+  const [bankForm, setBankForm] = useState({
+    accountHolderName: 'Sarah Jenkins',
+    bankName: 'HDFC Bank Ltd.',
+    accountNumber: '50100482910482',
+    confirmAccountNumber: '50100482910482',
+    ifscCode: 'HDFC0000128',
+    accountType: 'SAVINGS' as 'SAVINGS' | 'CURRENT',
+    upiId: 'sarah.jenkins@okhdfcbank',
+    panNumber: 'ABCDE1234F',
+  });
+  const [isVerifyingBank, setIsVerifyingBank] = useState<boolean>(false);
+  const [bankVerificationSuccess, setBankVerificationSuccess] = useState<string | null>(null);
+  const [selectedReceiptTx, setSelectedReceiptTx] = useState<any | null>(null);
+  const [payoutTab, setPayoutTab] = useState<'ALL' | 'UNCLAIMED' | 'PAID'>('ALL');
+
   // Realtime Notifications State & Engine
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
   const [notificationFilter, setNotificationFilter] = useState<'ALL' | 'UNREAD' | 'COLLABS' | 'PAYMENTS' | 'SYSTEM'>('ALL');
@@ -1076,21 +1114,47 @@ function CreatorPortalContent() {
   const [payments, setPayments] = useState<any[]>([
     {
       id: 'tx-101',
-      mediaName: 'Paul Homes',
+      mediaName: 'Paul Homes Apparel',
       initials: 'PH',
-      campaign: 'Winter Fashion 2026',
+      campaign: 'Winter Fashion 2026 Lookbook',
       amount: '₹25,000',
+      grossAmount: 25000,
+      tdsDeduction: 250,
+      netAmount: 24750,
       authorizedAt: 'Aug 20, 2026',
       status: 'UNCLAIMED',
+      utrNumber: 'HDFC9821049219',
+      invoiceNumber: 'INV-TIA-2026-0891',
     },
     {
       id: 'tx-102',
-      mediaName: 'Nathalie Case',
+      mediaName: 'Nathalie Case Swimwear',
       initials: 'NC',
-      campaign: 'Beach Collection Summer',
+      campaign: 'Beach Collection Summer Reel',
       amount: '₹32,800',
+      grossAmount: 32800,
+      tdsDeduction: 328,
+      netAmount: 32472,
       authorizedAt: 'Aug 18, 2026',
       status: 'PAID',
+      utrNumber: 'HDFC7721839201',
+      invoiceNumber: 'INV-TIA-2026-0842',
+      disbursedAt: 'Aug 19, 2026 - 11:30 AM',
+    },
+    {
+      id: 'tx-103',
+      mediaName: 'NovaSound Audio',
+      initials: 'NS',
+      campaign: 'Active ANC Earbuds Launch Review',
+      amount: '₹55,000',
+      grossAmount: 55000,
+      tdsDeduction: 550,
+      netAmount: 54450,
+      authorizedAt: 'Oct 25, 2026',
+      status: 'PAID',
+      utrNumber: 'HDFC4492019482',
+      invoiceNumber: 'INV-TIA-2026-1102',
+      disbursedAt: 'Oct 25, 2026 - 02:45 PM',
     },
   ]);
 
@@ -1263,21 +1327,80 @@ function CreatorPortalContent() {
     });
   };
 
+  const handleVerifyBankAccount = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bankForm.accountNumber || !bankForm.ifscCode || !bankForm.accountHolderName) {
+      alert('Please fill all mandatory bank account fields.');
+      return;
+    }
+    if (bankForm.accountNumber !== bankForm.confirmAccountNumber) {
+      alert('Account numbers do not match. Please re-enter.');
+      return;
+    }
+
+    setIsVerifyingBank(true);
+    setTimeout(() => {
+      setIsVerifyingBank(false);
+      const updatedBank = {
+        accountHolderName: bankForm.accountHolderName,
+        bankName: bankForm.bankName || 'HDFC Bank Ltd.',
+        accountNumber: bankForm.accountNumber,
+        ifscCode: bankForm.ifscCode.toUpperCase(),
+        accountType: bankForm.accountType,
+        upiId: bankForm.upiId || 'creator@okhdfcbank',
+        panNumber: bankForm.panNumber || 'ABCDE1234F',
+        verified: true,
+        verifiedAt: 'Just now (Instant Penny-Drop Verified)',
+      };
+      setBankAccount(updatedBank);
+      setBankVerificationSuccess('✓ Bank account verified successfully via Automated Penny-Drop! Ready for instant 1-click payouts.');
+      setTimeout(() => {
+        setBankVerificationSuccess(null);
+        setShowBankModal(false);
+      }, 1500);
+
+      triggerRealtimeNotification({
+        type: 'PAYMENT',
+        category: 'PAYMENTS',
+        title: 'Bank Account Verified',
+        message: `${updatedBank.bankName} (•••• ${updatedBank.accountNumber.slice(-4)}) has been verified for automated direct payouts.`,
+        actionTab: 'payments',
+        badgeText: 'Bank Verified',
+        badgeBg: '#ECFDF5',
+        badgeColor: '#059669',
+      });
+    }, 1200);
+  };
+
   const handleClaimPayout = (txId: string) => {
+    if (!bankAccount || !bankAccount.verified) {
+      setShowBankModal(true);
+      return;
+    }
+
+    const targetTx = payments.find((p) => p.id === txId);
+    const updatedTx = {
+      ...targetTx,
+      status: 'PAID',
+      disbursedAt: 'Just now',
+      utrNumber: targetTx?.utrNumber || `HDFC${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+    };
+
     setPayments((prev) =>
-      prev.map((p) => (p.id === txId ? { ...p, status: 'PAID' } : p))
+      prev.map((p) => (p.id === txId ? updatedTx : p))
     );
+    setSelectedReceiptTx(updatedTx);
     setClaimSuccess(true);
-    setTimeout(() => setClaimSuccess(false), 3000);
+    setTimeout(() => setClaimSuccess(false), 4000);
 
     triggerRealtimeNotification({
       type: 'PAYMENT',
       category: 'PAYMENTS',
       title: 'Payout Disbursement Initiated',
-      message: `Payout claim has been processed and initiated to your linked bank account.`,
+      message: `Direct payout of ${targetTx?.amount || 'funds'} successfully transferred to ${bankAccount.bankName} (•••• ${bankAccount.accountNumber.slice(-4)}).`,
       actionTab: 'payments',
-      actionLabel: 'View Ledger →',
-      badgeText: 'Claimed',
+      actionLabel: 'View Receipt →',
+      badgeText: 'Disbursed',
       badgeBg: '#F0FDF4',
       badgeColor: '#16A34A',
     });
@@ -5724,32 +5847,417 @@ function CreatorPortalContent() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 3: PAYMENTS                                                      */}
+        {/* TAB 3: PAYMENTS & FINANCIAL STUDIO                                   */}
         {/* ==================================================================== */}
         {activeTab === 'payments' && (
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Header Title */}
+            <div>
+              <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>
+                Earnings, Bank Payouts & Application Wallet
+              </h2>
+              <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0 }}>
+                Manage verified bank account details for instant direct transfers, track milestone disbursements, and top up deal application credits.
+              </p>
+            </div>
+
             {creditPurchaseSuccess && (
-              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 16px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <span>🎉</span>
                 <span>{creditPurchaseSuccess}</span>
               </div>
             )}
 
             {claimSuccess && (
-              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '10px 14px', borderRadius: '8px', marginBottom: '14px', fontSize: '12.5px', fontWeight: 600 }}>
-                ✓ Payout claimed successfully to your verified bank account!
+              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>✓</span>
+                <span>Payout successfully claimed and dispatched to your verified bank account!</span>
               </div>
             )}
 
-            {/* Application Credits & Deals Section */}
+            {/* SECTION 1: BANK ACCOUNT & PAYOUT VERIFICATION */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '20px 24px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '10px',
+                      backgroundColor: '#EFF6FF',
+                      color: '#0052FF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '20px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    🏦
+                  </div>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                        Direct Bank Account & Payout Verification
+                      </h3>
+                      {bankAccount?.verified ? (
+                        <span
+                          style={{
+                            fontSize: '10.5px',
+                            fontWeight: 700,
+                            color: '#059669',
+                            backgroundColor: '#ECFDF5',
+                            border: '1px solid #A7F3D0',
+                            padding: '2px 8px',
+                            borderRadius: '12px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                          }}
+                        >
+                          <span>✓</span>
+                          <span>Verified for Direct Transfer</span>
+                        </span>
+                      ) : (
+                        <span
+                          style={{
+                            fontSize: '10.5px',
+                            fontWeight: 700,
+                            color: '#D97706',
+                            backgroundColor: '#FEF3C7',
+                            border: '1px solid #FDE68A',
+                            padding: '2px 8px',
+                            borderRadius: '12px',
+                          }}
+                        >
+                          ⚠️ Verification Required
+                        </span>
+                      )}
+                    </div>
+                    <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0 0' }}>
+                      Automated 1-click RTGS / NEFT disbursals directly to your linked Indian bank account.
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (bankAccount) {
+                        setBankForm({
+                          accountHolderName: bankAccount.accountHolderName,
+                          bankName: bankAccount.bankName,
+                          accountNumber: bankAccount.accountNumber,
+                          confirmAccountNumber: bankAccount.accountNumber,
+                          ifscCode: bankAccount.ifscCode,
+                          accountType: bankAccount.accountType,
+                          upiId: bankAccount.upiId,
+                          panNumber: bankAccount.panNumber,
+                        });
+                      }
+                      setShowBankModal(true);
+                    }}
+                    style={{
+                      backgroundColor: bankAccount?.verified ? '#F8FAFC' : '#0052FF',
+                      color: bankAccount?.verified ? '#0F172A' : '#FFFFFF',
+                      border: bankAccount?.verified ? '1px solid #CBD5E1' : 'none',
+                      borderRadius: '8px',
+                      padding: '8px 14px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: bankAccount?.verified ? 'none' : '0 2px 6px rgba(0, 82, 255, 0.25)',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 20h9" />
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    <span>{bankAccount?.verified ? 'Edit Bank Account' : 'Add Bank Account'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Linked Bank Details Grid */}
+              {bankAccount ? (
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '12px',
+                    padding: '14px 18px',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))',
+                    gap: '14px',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      Bank Name
+                    </div>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginTop: '2px' }}>
+                      {bankAccount.bankName}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B' }}>
+                      {bankAccount.accountType === 'SAVINGS' ? 'Savings Account' : 'Current Account'}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      Account Number
+                    </div>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginTop: '2px', fontFamily: 'monospace' }}>
+                      •••• •••• {bankAccount.accountNumber.slice(-4)}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B' }}>
+                      IFSC: {bankAccount.ifscCode}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      Account Holder
+                    </div>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginTop: '2px' }}>
+                      {bankAccount.accountHolderName}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B' }}>
+                      PAN: {bankAccount.panNumber}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      UPI ID / VPA
+                    </div>
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0052FF', marginTop: '2px' }}>
+                      {bankAccount.upiId || 'Not linked'}
+                    </div>
+                    <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 600 }}>
+                      ✓ Penny-Drop Verified
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    backgroundColor: '#FEF3C7',
+                    border: '1px solid #FDE68A',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '20px' }}>⚠️</span>
+                    <div>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#92400E' }}>
+                        No Bank Account Linked
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: '#B45309' }}>
+                        Link your bank account to receive campaign payouts directly into your balance.
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowBankModal(true)}
+                    style={{
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      padding: '7px 14px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    + Add Bank Account
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* SECTION 2: METRICS OVERVIEW (CONSISTENT INR ₹) */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+                gap: '14px',
+              }}
+            >
+              {/* Card 1: Lifetime Received */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '14px',
+                  padding: '18px 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                }}
+              >
+                <div
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '10px',
+                    backgroundColor: '#ECFDF5',
+                    color: '#059669',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 800,
+                    fontSize: '18px',
+                    flexShrink: 0,
+                  }}
+                >
+                  ₹
+                </div>
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Lifetime Disbursed</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>₹87,800</div>
+                  <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginTop: '2px' }}>
+                    ✓ 100% On-Time Disbursals
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: Pending Milestones */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '14px',
+                  padding: '18px 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '14px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                }}
+              >
+                <div
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '10px',
+                    backgroundColor: '#FEF3C7',
+                    color: '#D97706',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '18px',
+                    flexShrink: 0,
+                  }}
+                >
+                  ⏳
+                </div>
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Active Campaign Balance</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>₹45,000</div>
+                  <div style={{ fontSize: '10.5px', color: '#D97706', fontWeight: 700, marginTop: '2px' }}>
+                    2 Active Brand Deals
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Available to Claim */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '14px',
+                  padding: '18px 20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '14px',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '10px',
+                      backgroundColor: '#EFF6FF',
+                      color: '#0052FF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '18px',
+                      flexShrink: 0,
+                    }}
+                  >
+                    ⚡
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Available to Claim</div>
+                    <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px' }}>
+                      ₹{payments.filter((p) => p.status === 'UNCLAIMED').reduce((acc, curr) => acc + (curr.grossAmount || 25000), 0).toLocaleString('en-IN')}
+                    </div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, marginTop: '2px' }}>
+                      Ready for Instant Transfer
+                    </div>
+                  </div>
+                </div>
+
+                {payments.some((p) => p.status === 'UNCLAIMED') && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const firstUnclaimed = payments.find((p) => p.status === 'UNCLAIMED');
+                      if (firstUnclaimed) handleClaimPayout(firstUnclaimed.id);
+                    }}
+                    style={{
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      padding: '8px 14px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
+                    }}
+                  >
+                    Claim Payout
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* SECTION 3: APPLICATION CREDITS WALLET */}
             <div
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
                 borderRadius: '16px',
                 padding: '20px 22px',
-                marginBottom: '22px',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.02)',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
               }}
             >
               {/* Header with Balance */}
@@ -5757,15 +6265,15 @@ function CreatorPortalContent() {
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                     <span style={{ fontSize: '18px' }}>⚡</span>
-                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                       Application Credits Wallet
                     </h3>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '2px 8px', borderRadius: '12px' }}>
+                    <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '2px 8px', borderRadius: '12px' }}>
                       ₹99 / Credit
                     </span>
                   </div>
-                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, maxWidth: '640px', lineHeight: 1.45 }}>
-                    You receive 1 free application with basic preview. Use application credits to apply for verified brand deals, unlock the full campaign brief, and initiate direct deal contracts.
+                  <p style={{ fontSize: '12px', color: '#64748B', margin: 0, maxWidth: '640px', lineHeight: 1.45 }}>
+                    You receive 1 free application with basic preview. Use application credits to apply for verified brand deals, unlock campaign briefs, and initiate deal contracts.
                   </p>
                 </div>
 
@@ -5775,15 +6283,15 @@ function CreatorPortalContent() {
                     backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
                     border: applyCredits > 0 ? '1.5px solid #BFDBFE' : '1.5px solid #FDE68A',
                     borderRadius: '12px',
-                    padding: '10px 16px',
+                    padding: '8px 14px',
                     textAlign: 'right',
-                    minWidth: '160px',
+                    minWidth: '150px',
                   }}
                 >
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: applyCredits > 0 ? '#1E40AF' : '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  <div style={{ fontSize: '10.5px', fontWeight: 700, color: applyCredits > 0 ? '#1E40AF' : '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Available Balance
                   </div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: applyCredits > 0 ? '#0052FF' : '#B45309', marginTop: '2px' }}>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: applyCredits > 0 ? '#0052FF' : '#B45309', marginTop: '1px' }}>
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
                   </div>
                 </div>
@@ -5804,12 +6312,12 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>1 Application Credit</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
-                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹99</span>
-                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 1 apply</span>
+                    <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>1 Application Credit</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '6px 0 4px 0' }}>
+                      <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A' }}>₹99</span>
+                      <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 500 }}>/ 1 apply</span>
                     </div>
-                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                    <ul style={{ paddingLeft: '16px', margin: '8px 0 14px 0', fontSize: '11.5px', color: '#475569', lineHeight: 1.55 }}>
                       <li>Apply to 1 verified brand deal</li>
                       <li>Standard creator matchmaking</li>
                     </ul>
@@ -5819,21 +6327,25 @@ function CreatorPortalContent() {
                     onClick={() => handleBuyCredits(1, 99)}
                     style={{
                       width: '100%',
-                      padding: '10px',
-                      backgroundColor: '#F1F5F9',
+                      padding: '9px',
+                      backgroundColor: '#F8FAFC',
                       color: '#0F172A',
                       border: '1px solid #CBD5E1',
                       borderRadius: '8px',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       fontWeight: 700,
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#E2E8F0';
+                      e.currentTarget.style.backgroundColor = '#EFF6FF';
+                      e.currentTarget.style.color = '#0052FF';
+                      e.currentTarget.style.borderColor = '#BFDBFE';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#F1F5F9';
+                      e.currentTarget.style.backgroundColor = '#F8FAFC';
+                      e.currentTarget.style.color = '#0F172A';
+                      e.currentTarget.style.borderColor = '#CBD5E1';
                     }}
                   >
                     Buy 1 Credit — ₹99
@@ -5861,7 +6373,7 @@ function CreatorPortalContent() {
                       right: '16px',
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
-                      fontSize: '10px',
+                      fontSize: '9.5px',
                       fontWeight: 800,
                       padding: '2px 8px',
                       borderRadius: '10px',
@@ -5871,15 +6383,15 @@ function CreatorPortalContent() {
                     Most Popular
                   </span>
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
-                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0052FF' }}>₹495</span>
-                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 5 applies (₹99 ea)</span>
+                    <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '6px 0 4px 0' }}>
+                      <span style={{ fontSize: '22px', fontWeight: 900, color: '#0052FF' }}>₹495</span>
+                      <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 500 }}>/ 5 applies (₹99 ea)</span>
                     </div>
-                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                    <ul style={{ paddingLeft: '16px', margin: '8px 0 14px 0', fontSize: '11.5px', color: '#475569', lineHeight: 1.55 }}>
                       <li>Apply to 5 verified brand deals</li>
                       <li>Priority creator review queue</li>
-                      <li>Real-time notification alerts</li>
+                      <li>Real-time deal notifications</li>
                     </ul>
                   </div>
                   <button
@@ -5887,12 +6399,12 @@ function CreatorPortalContent() {
                     onClick={() => handleBuyCredits(5, 495)}
                     style={{
                       width: '100%',
-                      padding: '10px',
+                      padding: '9px',
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
                       border: 'none',
                       borderRadius: '8px',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       fontWeight: 700,
                       cursor: 'pointer',
                       boxShadow: '0 2px 6px rgba(0, 82, 255, 0.3)',
@@ -5921,12 +6433,12 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>10 Application Credits</div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
-                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹990</span>
-                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 10 applies (₹99 ea)</span>
+                    <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>10 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '6px 0 4px 0' }}>
+                      <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A' }}>₹990</span>
+                      <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 500 }}>/ 10 applies (₹99 ea)</span>
                     </div>
-                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                    <ul style={{ paddingLeft: '16px', margin: '8px 0 14px 0', fontSize: '11.5px', color: '#475569', lineHeight: 1.55 }}>
                       <li>Apply to 10 verified brand deals</li>
                       <li>VIP creator matchmaking priority</li>
                       <li>Dedicated campaign advisor</li>
@@ -5937,21 +6449,25 @@ function CreatorPortalContent() {
                     onClick={() => handleBuyCredits(10, 990)}
                     style={{
                       width: '100%',
-                      padding: '10px',
-                      backgroundColor: '#F1F5F9',
+                      padding: '9px',
+                      backgroundColor: '#F8FAFC',
                       color: '#0F172A',
                       border: '1px solid #CBD5E1',
                       borderRadius: '8px',
-                      fontSize: '13px',
+                      fontSize: '12.5px',
                       fontWeight: 700,
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#E2E8F0';
+                      e.currentTarget.style.backgroundColor = '#EFF6FF';
+                      e.currentTarget.style.color = '#0052FF';
+                      e.currentTarget.style.borderColor = '#BFDBFE';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#F1F5F9';
+                      e.currentTarget.style.backgroundColor = '#F8FAFC';
+                      e.currentTarget.style.color = '#0F172A';
+                      e.currentTarget.style.borderColor = '#CBD5E1';
                     }}
                   >
                     Buy 10 Credits — ₹990
@@ -5960,66 +6476,141 @@ function CreatorPortalContent() {
               </div>
             </div>
 
-            {/* Metric Cards Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '14px', marginBottom: '22px' }}>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '16px' }}>$</div>
+            {/* SECTION 4: PAYOUT TRANSACTIONS & INVOICE LEDGER */}
+            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+              <div style={{ padding: '16px 20px', borderBottom: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total received</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>$25,345.00</div>
+                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    Payout Transactions & Tax Invoices
+                  </h3>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
+                    Track milestone settlements, TDS deductions (Sec 194J), and bank reference UTR numbers.
+                  </div>
                 </div>
-              </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>⌛</div>
-                <div>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total pending payouts</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>$5,952.45</div>
-                </div>
-              </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>⚡</div>
-                <div>
-                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Available to claim</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0052FF' }}>$12,356.70</div>
-                </div>
-              </div>
-            </div>
 
-            {/* Scrollable Transactions Table */}
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', overflowX: 'auto' }}>
-              <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', textAlign: 'left' }}>
-                <thead>
-                  <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', fontSize: '11px', fontWeight: 700, color: '#64748B' }}>
-                    <th style={{ padding: '12px 16px' }}>Brand / Campaign</th>
-                    <th style={{ padding: '12px 16px' }}>Contract Rate</th>
-                    <th style={{ padding: '12px 16px' }}>Authorized Date</th>
-                    <th style={{ padding: '12px 16px' }}>Payment Status</th>
-                    <th style={{ padding: '12px 16px', textAlign: 'right' }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {payments.map((p) => (
-                    <tr key={p.id} style={{ borderBottom: '1px solid #F1F5F9', fontSize: '12.5px' }}>
-                      <td style={{ padding: '14px 16px' }}>
-                        <div style={{ fontWeight: 700, color: '#0F172A' }}>{p.mediaName}</div>
-                        <div style={{ fontSize: '11px', color: '#64748B' }}>{p.campaign}</div>
-                      </td>
-                      <td style={{ padding: '14px 16px', fontWeight: 900, color: '#0052FF' }}>{p.amount}</td>
-                      <td style={{ padding: '14px 16px', color: '#64748B' }}>{p.authorizedAt}</td>
-                      <td style={{ padding: '14px 16px' }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: 700, padding: '2px 8px', borderRadius: '6px', backgroundColor: p.status === 'PAID' ? '#ECFDF5' : '#FEF3C7', color: p.status === 'PAID' ? '#059669' : '#92400E' }}>
-                          {p.status === 'PAID' ? '✓ Disbursed' : '⏱ Ready to Claim'}
-                        </span>
-                      </td>
-                      <td style={{ padding: '14px 16px', textAlign: 'right' }}>
-                        <button type="button" onClick={() => handleClaimPayout(p.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '6px 14px', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer' }}>
-                          {p.status === 'UNCLAIMED' ? 'Claim Now' : 'Receipt'}
-                        </button>
-                      </td>
-                    </tr>
+                {/* Filter Pills */}
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  {(['ALL', 'UNCLAIMED', 'PAID'] as const).map((filterKey) => (
+                    <button
+                      key={filterKey}
+                      type="button"
+                      onClick={() => setPayoutTab(filterKey)}
+                      style={{
+                        padding: '4px 10px',
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        borderRadius: '6px',
+                        border: '1px solid',
+                        borderColor: payoutTab === filterKey ? '#0052FF' : '#E2E8F0',
+                        backgroundColor: payoutTab === filterKey ? '#EFF6FF' : '#FFFFFF',
+                        color: payoutTab === filterKey ? '#0052FF' : '#64748B',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {filterKey === 'ALL' ? 'All' : filterKey === 'UNCLAIMED' ? 'Ready to Claim' : 'Disbursed'}
+                    </button>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </div>
+
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', minWidth: '650px', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <thead>
+                    <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', fontSize: '11px', fontWeight: 700, color: '#64748B' }}>
+                      <th style={{ padding: '12px 18px' }}>Brand / Campaign</th>
+                      <th style={{ padding: '12px 18px' }}>Gross Amount</th>
+                      <th style={{ padding: '12px 18px' }}>TDS (1%)</th>
+                      <th style={{ padding: '12px 18px' }}>Net Disbursal</th>
+                      <th style={{ padding: '12px 18px' }}>Authorized Date</th>
+                      <th style={{ padding: '12px 18px' }}>Status</th>
+                      <th style={{ padding: '12px 18px', textAlign: 'right' }}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payments
+                      .filter((p) => {
+                        if (payoutTab === 'UNCLAIMED') return p.status === 'UNCLAIMED';
+                        if (payoutTab === 'PAID') return p.status === 'PAID';
+                        return true;
+                      })
+                      .map((p) => {
+                        const isPaid = p.status === 'PAID';
+                        return (
+                          <tr key={p.id} style={{ borderBottom: '1px solid #F1F5F9', fontSize: '12.5px' }}>
+                            <td style={{ padding: '14px 18px' }}>
+                              <div style={{ fontWeight: 700, color: '#0F172A' }}>{p.mediaName}</div>
+                              <div style={{ fontSize: '11px', color: '#64748B' }}>{p.campaign}</div>
+                            </td>
+                            <td style={{ padding: '14px 18px', fontWeight: 700, color: '#0F172A' }}>
+                              {p.amount}
+                            </td>
+                            <td style={{ padding: '14px 18px', color: '#64748B', fontSize: '12px' }}>
+                              -₹{p.tdsDeduction || 250}
+                            </td>
+                            <td style={{ padding: '14px 18px', fontWeight: 900, color: '#0052FF' }}>
+                              ₹{(p.netAmount || 24750).toLocaleString('en-IN')}
+                            </td>
+                            <td style={{ padding: '14px 18px', color: '#64748B', fontSize: '12px' }}>
+                              {p.authorizedAt}
+                            </td>
+                            <td style={{ padding: '14px 18px' }}>
+                              <span
+                                style={{
+                                  fontSize: '10.5px',
+                                  fontWeight: 700,
+                                  padding: '3px 8px',
+                                  borderRadius: '6px',
+                                  backgroundColor: isPaid ? '#ECFDF5' : '#FEF3C7',
+                                  color: isPaid ? '#059669' : '#92400E',
+                                }}
+                              >
+                                {isPaid ? '✓ Disbursed to Bank' : '⏱ Ready to Claim'}
+                              </span>
+                            </td>
+                            <td style={{ padding: '14px 18px', textAlign: 'right' }}>
+                              {isPaid ? (
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedReceiptTx(p)}
+                                  style={{
+                                    backgroundColor: '#F1F5F9',
+                                    color: '#0F172A',
+                                    border: '1px solid #CBD5E1',
+                                    borderRadius: '6px',
+                                    padding: '6px 12px',
+                                    fontSize: '11.5px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  View Receipt
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => handleClaimPayout(p.id)}
+                                  style={{
+                                    backgroundColor: '#0052FF',
+                                    color: '#FFFFFF',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    padding: '6px 14px',
+                                    fontSize: '11.5px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0, 82, 255, 0.2)',
+                                  }}
+                                >
+                                  Claim to Bank
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -6820,6 +7411,542 @@ function CreatorPortalContent() {
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Bank Account Details & Verification Modal */}
+      {showBankModal && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.65)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '16px',
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowBankModal(false);
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              width: '100%',
+              maxWidth: '520px',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              borderRadius: '20px',
+              padding: '24px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              border: '1px solid #E2E8F0',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    backgroundColor: '#EFF6FF',
+                    color: '#0052FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '18px',
+                  }}
+                >
+                  🏦
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    {bankAccount ? 'Update Bank Account Details' : 'Link Bank Account for Payouts'}
+                  </h3>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
+                    Instant automated penny-drop verification
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBankModal(false)}
+                style={{
+                  backgroundColor: '#F1F5F9',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '28px',
+                  height: '28px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  color: '#64748B',
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {bankVerificationSuccess && (
+              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 14px', borderRadius: '10px', fontSize: '12.5px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>✓</span>
+                <span>{bankVerificationSuccess}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleVerifyBankAccount} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {/* Account Holder Name */}
+              <div>
+                <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                  Account Holder Full Name (as per Bank / PAN) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Sarah Jenkins"
+                  value={bankForm.accountHolderName}
+                  onChange={(e) => setBankForm({ ...bankForm, accountHolderName: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #CBD5E1',
+                    fontSize: '13px',
+                    outline: 'none',
+                  }}
+                />
+              </div>
+
+              {/* Bank Name Selection */}
+              <div>
+                <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                  Bank Name *
+                </label>
+                <select
+                  value={bankForm.bankName}
+                  onChange={(e) => setBankForm({ ...bankForm, bankName: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: '10px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid #CBD5E1',
+                    fontSize: '13px',
+                    backgroundColor: '#FFFFFF',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="HDFC Bank Ltd.">HDFC Bank Ltd.</option>
+                  <option value="ICICI Bank Ltd.">ICICI Bank Ltd.</option>
+                  <option value="State Bank of India (SBI)">State Bank of India (SBI)</option>
+                  <option value="Axis Bank Ltd.">Axis Bank Ltd.</option>
+                  <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+                  <option value="Punjab National Bank">Punjab National Bank</option>
+                  <option value="Bank of Baroda">Bank of Baroda</option>
+                  <option value="Other Commercial Bank">Other Commercial Bank</option>
+                </select>
+              </div>
+
+              {/* Account Number & Confirm Account Number */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    Account Number *
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Enter account number"
+                    value={bankForm.accountNumber}
+                    onChange={(e) => setBankForm({ ...bankForm, accountNumber: e.target.value.replace(/\s+/g, '') })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      fontFamily: 'monospace',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    Confirm Account Number *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Re-enter account number"
+                    value={bankForm.confirmAccountNumber}
+                    onChange={(e) => setBankForm({ ...bankForm, confirmAccountNumber: e.target.value.replace(/\s+/g, '') })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      fontFamily: 'monospace',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* IFSC Code & Account Type */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    IFSC Code *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. HDFC0000128"
+                    value={bankForm.ifscCode}
+                    onChange={(e) => setBankForm({ ...bankForm, ifscCode: e.target.value.toUpperCase().trim() })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      fontFamily: 'monospace',
+                      textTransform: 'uppercase',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    Account Type *
+                  </label>
+                  <select
+                    value={bankForm.accountType}
+                    onChange={(e) => setBankForm({ ...bankForm, accountType: e.target.value as any })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      backgroundColor: '#FFFFFF',
+                      outline: 'none',
+                    }}
+                  >
+                    <option value="SAVINGS">Savings Account</option>
+                    <option value="CURRENT">Current Account</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* UPI ID & PAN Number */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    UPI ID / VPA (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. name@okhdfcbank"
+                    value={bankForm.upiId}
+                    onChange={(e) => setBankForm({ ...bankForm, upiId: e.target.value.trim() })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                    PAN Number (Tax Compliance) *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. ABCDE1234F"
+                    value={bankForm.panNumber}
+                    onChange={(e) => setBankForm({ ...bankForm, panNumber: e.target.value.toUpperCase().trim() })}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '13px',
+                      fontFamily: 'monospace',
+                      textTransform: 'uppercase',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Compliance & Security Callout */}
+              <div
+                style={{
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '10px',
+                  padding: '10px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '11.5px',
+                  color: '#475569',
+                }}
+              >
+                <span>🔒</span>
+                <span>
+                  Encrypted & RBI-compliant penny-drop verification will be executed to validate account title match before enabling 1-click payouts.
+                </span>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', gap: '10px', marginTop: '6px' }}>
+                <button
+                  type="submit"
+                  disabled={isVerifyingBank}
+                  style={{
+                    flex: 1,
+                    backgroundColor: '#0052FF',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '12px 18px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: isVerifyingBank ? 'wait' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    boxShadow: '0 2px 6px rgba(0, 82, 255, 0.3)',
+                  }}
+                >
+                  {isVerifyingBank ? (
+                    <>
+                      <div
+                        style={{
+                          width: '14px',
+                          height: '14px',
+                          border: '2px solid #FFFFFF',
+                          borderTopColor: 'transparent',
+                          borderRadius: '50%',
+                          animation: 'spin 0.8s linear infinite',
+                        }}
+                      />
+                      <span>Executing Penny-Drop Verification...</span>
+                    </>
+                  ) : (
+                    <span>Verify & Link Bank Account</span>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowBankModal(false)}
+                  style={{
+                    backgroundColor: '#F1F5F9',
+                    color: '#475569',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '12px 18px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Payout Tax Invoice & Receipt Modal */}
+      {selectedReceiptTx && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.65)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: '16px',
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setSelectedReceiptTx(null);
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              width: '100%',
+              maxWidth: '560px',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              borderRadius: '20px',
+              padding: '28px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              border: '1px solid #E2E8F0',
+            }}
+          >
+            {/* Receipt Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px', marginBottom: '18px' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '18px', fontWeight: 900, color: '#0052FF' }}>TIA</span>
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>Creator Disbursal Slip</span>
+                </div>
+                <div style={{ fontSize: '11px', color: '#64748B' }}>
+                  Invoice Ref: {selectedReceiptTx.invoiceNumber || 'INV-TIA-2026-0891'}
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'right' }}>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: '#059669',
+                    backgroundColor: '#ECFDF5',
+                    border: '1px solid #A7F3D0',
+                    padding: '3px 10px',
+                    borderRadius: '12px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  ✓ Disbursed
+                </span>
+                <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '4px' }}>
+                  {selectedReceiptTx.disbursedAt || 'Aug 20, 2026'}
+                </div>
+              </div>
+            </div>
+
+            {/* Campaign & Beneficiary Info */}
+            <div style={{ backgroundColor: '#F8FAFC', borderRadius: '12px', padding: '14px 16px', marginBottom: '18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '12px' }}>
+              <div>
+                <div style={{ color: '#64748B', fontSize: '11px', fontWeight: 600 }}>Brand Client</div>
+                <div style={{ fontWeight: 800, color: '#0F172A', marginTop: '2px' }}>{selectedReceiptTx.mediaName}</div>
+                <div style={{ color: '#475569', fontSize: '11px' }}>{selectedReceiptTx.campaign}</div>
+              </div>
+
+              <div>
+                <div style={{ color: '#64748B', fontSize: '11px', fontWeight: 600 }}>Disbursed To</div>
+                <div style={{ fontWeight: 800, color: '#0F172A', marginTop: '2px' }}>
+                  {bankAccount?.accountHolderName || 'Sarah Jenkins'}
+                </div>
+                <div style={{ color: '#475569', fontSize: '11px' }}>
+                  {bankAccount?.bankName || 'HDFC Bank'} (•••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '4829'})
+                </div>
+              </div>
+            </div>
+
+            {/* Financial Ledger Breakdown */}
+            <div style={{ borderTop: '1px solid #E2E8F0', borderBottom: '1px solid #E2E8F0', padding: '12px 0', marginBottom: '18px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '13px' }}>
+                <span style={{ color: '#475569' }}>Gross Campaign Contract Rate</span>
+                <span style={{ fontWeight: 700, color: '#0F172A' }}>{selectedReceiptTx.amount}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '13px' }}>
+                <span style={{ color: '#475569' }}>TDS Deducted (1% under Sec 194J)</span>
+                <span style={{ fontWeight: 700, color: '#64748B' }}>-₹{selectedReceiptTx.tdsDeduction || 250}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0 2px 0', fontSize: '15px', borderTop: '1px dashed #E2E8F0', marginTop: '6px' }}>
+                <span style={{ fontWeight: 800, color: '#0F172A' }}>Net Amount Disbursed</span>
+                <span style={{ fontWeight: 900, color: '#0052FF' }}>
+                  ₹{(selectedReceiptTx.netAmount || 24750).toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
+
+            {/* Bank UTR & Tax Metadata */}
+            <div style={{ fontSize: '11.5px', color: '#64748B', display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '20px' }}>
+              <div>
+                <strong>Bank UTR Reference:</strong>{' '}
+                <span style={{ fontFamily: 'monospace', color: '#0F172A', fontWeight: 700 }}>
+                  {selectedReceiptTx.utrNumber || 'HDFC9821049219'}
+                </span>
+              </div>
+              <div>
+                <strong>Disbursal Mode:</strong> IMPS / Direct RTGS Settlement
+              </div>
+              <div>
+                <strong>Tax Certificate Form 16A:</strong> Available at quarter end under Settings
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#0052FF',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '10px 16px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 6 2 18 2 18 9" />
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                  <rect x="6" y="14" width="12" height="8" />
+                </svg>
+                <span>Print / Download Slip</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedReceiptTx(null)}
+                style={{
+                  backgroundColor: '#F1F5F9',
+                  color: '#475569',
+                  border: 'none',
+                  borderRadius: '10px',
+                  padding: '10px 18px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
