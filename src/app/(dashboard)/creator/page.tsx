@@ -299,6 +299,8 @@ function CreatorPortalContent() {
   const [selectedCheckboxIds, setSelectedCheckboxIds] = useState<string[]>(['tx-101']);
   const [invoiceDetailOpen, setInvoiceDetailOpen] = useState<boolean>(true);
   const [invoiceFilterDropdownOpen, setInvoiceFilterDropdownOpen] = useState<boolean>(false);
+  const [showCreditsStoreView, setShowCreditsStoreView] = useState<boolean>(false);
+  const [storeSliderCredits, setStoreSliderCredits] = useState<number>(35);
 
   // Realtime Notifications State & Engine
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
@@ -6049,7 +6051,7 @@ function CreatorPortalContent() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 3: INVOICES & PAYOUTS STUDIO (STRUCTURE INSPIRATION)             */}
+        {/* TAB 3: INVOICES & PAYOUTS STUDIO / BUY CREDITS STUDIO VIEW           */}
         {/* ==================================================================== */}
         {activeTab === 'payments' && (() => {
           const selectedInvoice = payments.find((p) => p.id === selectedInvoiceId) || payments[0];
@@ -6070,7 +6072,445 @@ function CreatorPortalContent() {
           const paidCount = payments.filter((p) => p.status === 'PAID').length;
           const unpaidCount = payments.filter((p) => p.status === 'UNCLAIMED').length;
 
-          return (
+          // Pricing calculation helper for Buy Credits view
+          const getCreditPricing = (qty: number) => {
+            const baseUnitRate = 99;
+            const baseTotal = qty * baseUnitRate;
+            let discountPct = 0;
+            if (qty >= 50) discountPct = 0.35;
+            else if (qty >= 25) discountPct = 0.25;
+            else if (qty >= 10) discountPct = 0.15;
+            else if (qty >= 5) discountPct = 0.10;
+
+            const discountAmount = Math.round(baseTotal * discountPct);
+            const finalAmount = baseTotal - discountAmount;
+            return {
+              qty,
+              baseTotal,
+              discountPct: Math.round(discountPct * 100),
+              discountAmount,
+              finalAmount,
+            };
+          };
+
+          const activePricing = getCreditPricing(storeSliderCredits);
+
+          return showCreditsStoreView ? (
+            /* ==================================================================== */
+            /* VIEW 2: BUY CREDITS STUDIO (EXACT INSPIRATION MATCH)                 */
+            /* ==================================================================== */
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '24px',
+                padding: '36px 40px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+              }}
+            >
+              {/* Back Nav Link */}
+              <div style={{ marginBottom: '24px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCreditsStoreView(false)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#64748B',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    padding: 0,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0F172A')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                >
+                  <span style={{ fontSize: '15px' }}>←</span>
+                  <span>Back</span>
+                </button>
+              </div>
+
+              {/* Split Content: Left (Slider & Packages), Right (Recap Order Summary) */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.8fr) minmax(280px, 1fr)', gap: '48px', alignItems: 'flex-start' }}>
+                {/* Left Column */}
+                <div>
+                  <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0', letterSpacing: '-0.03em' }}>
+                    Buy Credits
+                  </h2>
+                  <p style={{ fontSize: '13.5px', color: '#64748B', margin: '0 0 32px 0' }}>
+                    Select the amount of credits you want to buy
+                  </p>
+
+                  {/* Big Dynamic Price */}
+                  <div style={{ fontSize: '38px', fontWeight: 900, color: '#0F172A', marginBottom: '28px', letterSpacing: '-0.02em' }}>
+                    ₹{activePricing.finalAmount.toLocaleString('en-IN')}
+                  </div>
+
+                  {/* Custom Dynamic Interactive Slider Track */}
+                  <div style={{ position: 'relative', marginBottom: '44px', maxWidth: '580px' }}>
+                    <input
+                      type="range"
+                      min="1"
+                      max="100"
+                      step="1"
+                      value={storeSliderCredits}
+                      onChange={(e) => setStoreSliderCredits(parseInt(e.target.value, 10))}
+                      style={{
+                        width: '100%',
+                        height: '6px',
+                        borderRadius: '6px',
+                        accentColor: '#0F172A',
+                        cursor: 'pointer',
+                      }}
+                    />
+
+                    {/* Value Indicator Pill below/near slider */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', fontSize: '12px', color: '#94A3B8', fontWeight: 600 }}>
+                      <span>1 Credit</span>
+                      <span
+                        style={{
+                          backgroundColor: '#0F172A',
+                          color: '#FFFFFF',
+                          padding: '4px 14px',
+                          borderRadius: '16px',
+                          fontWeight: 800,
+                          fontSize: '12px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                        }}
+                      >
+                        <span>⚡</span>
+                        <span>{storeSliderCredits} Credits</span>
+                        {activePricing.discountPct > 0 && (
+                          <span style={{ color: '#10B981', fontWeight: 700 }}>({activePricing.discountPct}% OFF)</span>
+                        )}
+                      </span>
+                      <span>100 Credits</span>
+                    </div>
+                  </div>
+
+                  {/* Section Heading */}
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '16px' }}>
+                    Or select our packages
+                  </div>
+
+                  {/* 4 Sleek Dark Package Cards (Exact match to inspiration) */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '14px' }}>
+                    {/* Package 1: 35 Credits (matching screenshot) */}
+                    <div
+                      onClick={() => setStoreSliderCredits(5)}
+                      style={{
+                        backgroundColor: '#0F172A',
+                        color: '#FFFFFF',
+                        borderRadius: '16px',
+                        padding: '16px 14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        border: storeSliderCredits === 5 ? '2px solid #0052FF' : '2px solid transparent',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <div>
+                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                          <span>⚡</span>
+                          <span>5</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹445</span>
+                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹495</span>
+                        </div>
+                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                          10% discount
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBuyCredits(5, 445);
+                          setShowCreditsStoreView(false);
+                        }}
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#FFFFFF',
+                          color: '#0F172A',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '7px',
+                          fontSize: '11.5px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Buy now
+                      </button>
+                    </div>
+
+                    {/* Package 2: 15 Credits */}
+                    <div
+                      onClick={() => setStoreSliderCredits(15)}
+                      style={{
+                        backgroundColor: '#0F172A',
+                        color: '#FFFFFF',
+                        borderRadius: '16px',
+                        padding: '16px 14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        border: storeSliderCredits === 15 ? '2px solid #0052FF' : '2px solid transparent',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <div>
+                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                          <span>⚡</span>
+                          <span>15</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹1,260</span>
+                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹1,485</span>
+                        </div>
+                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                          15% discount
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBuyCredits(15, 1260);
+                          setShowCreditsStoreView(false);
+                        }}
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#FFFFFF',
+                          color: '#0F172A',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '7px',
+                          fontSize: '11.5px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Buy now
+                      </button>
+                    </div>
+
+                    {/* Package 3: 35 Credits (People's Choice - green badge!) */}
+                    <div
+                      onClick={() => setStoreSliderCredits(35)}
+                      style={{
+                        backgroundColor: '#0F172A',
+                        color: '#FFFFFF',
+                        borderRadius: '16px',
+                        padding: '16px 14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        border: storeSliderCredits === 35 ? '2px solid #10B981' : '2px solid transparent',
+                        transition: 'all 0.15s ease',
+                        position: 'relative',
+                      }}
+                    >
+                      {/* Green People Choice Tag */}
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: '-8px',
+                          right: '8px',
+                          backgroundColor: '#10B981',
+                          color: '#FFFFFF',
+                          fontSize: '8px',
+                          fontWeight: 800,
+                          padding: '2px 6px',
+                          borderRadius: '6px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.02em',
+                        }}
+                      >
+                        People Choice
+                      </span>
+
+                      <div>
+                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                          <span>⚡</span>
+                          <span>35</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹2,590</span>
+                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹3,465</span>
+                        </div>
+                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                          25% discount
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBuyCredits(35, 2590);
+                          setShowCreditsStoreView(false);
+                        }}
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#FFFFFF',
+                          color: '#0F172A',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '7px',
+                          fontSize: '11.5px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Buy now
+                      </button>
+                    </div>
+
+                    {/* Package 4: 75 Credits */}
+                    <div
+                      onClick={() => setStoreSliderCredits(75)}
+                      style={{
+                        backgroundColor: '#0F172A',
+                        color: '#FFFFFF',
+                        borderRadius: '16px',
+                        padding: '16px 14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        border: storeSliderCredits === 75 ? '2px solid #0052FF' : '2px solid transparent',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <div>
+                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                          <span>⚡</span>
+                          <span>75</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹4,820</span>
+                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹7,425</span>
+                        </div>
+                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                          35% discount
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBuyCredits(75, 4820);
+                          setShowCreditsStoreView(false);
+                        }}
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#FFFFFF',
+                          color: '#0F172A',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '7px',
+                          fontSize: '11.5px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Buy now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Recap Order Summary Panel */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '20px',
+                    padding: '28px 24px',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    minHeight: '380px',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 700, marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      Recap
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>{storeSliderCredits} Credits</span>
+                        <span style={{ fontWeight: 700, color: '#0F172A' }}>₹{activePricing.baseTotal.toLocaleString('en-IN')}</span>
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>Service Cost</span>
+                        <span style={{ fontWeight: 700, color: '#059669' }}>Free</span>
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>GST / Taxes</span>
+                        <span style={{ fontWeight: 700, color: '#64748B' }}>Included</span>
+                      </div>
+
+                      {activePricing.discountAmount > 0 && (
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                          <span style={{ color: '#059669', fontWeight: 600 }}>Bundle Savings ({activePricing.discountPct}%)</span>
+                          <span style={{ fontWeight: 700, color: '#059669' }}>-₹{activePricing.discountAmount.toLocaleString('en-IN')}</span>
+                        </div>
+                      )}
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px' }}>
+                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>Total</span>
+                        <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A' }}>₹{activePricing.finalAmount.toLocaleString('en-IN')}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleBuyCredits(storeSliderCredits, activePricing.finalAmount);
+                      setShowCreditsStoreView(false);
+                    }}
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#000000',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '12px',
+                      padding: '14px',
+                      fontSize: '13.5px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      marginTop: '28px',
+                      boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
+                  >
+                    Buy now
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* ==================================================================== */
+            /* VIEW 1: INVOICES & PAYOUTS STUDIO (4-CARD SPLIT VIEW)                */
+            /* ==================================================================== */
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* TOP ROW: 4 STATS CARDS (Total Invoices, Paid Invoices, Unpaid Invoices, Credits Wallet) */}
               <div
@@ -6248,8 +6688,9 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* Card 4: Credits Wallet */}
+                {/* Card 4: Credits Wallet (Clicking Transforms Page!) */}
                 <div
+                  onClick={() => setShowCreditsStoreView(true)}
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1.5px solid #BFDBFE',
@@ -6260,6 +6701,18 @@ function CreatorPortalContent() {
                     justifyContent: 'space-between',
                     boxShadow: '0 2px 8px rgba(0, 82, 255, 0.04)',
                     position: 'relative',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#0052FF';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 82, 255, 0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#BFDBFE';
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 82, 255, 0.04)';
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -6267,16 +6720,13 @@ function CreatorPortalContent() {
                       <span style={{ fontSize: '14px' }}>⚡</span>
                       <span style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowBuyCreditsModal(true)}
+                    <span
                       style={{
                         backgroundColor: '#EFF6FF',
                         border: '1px solid #BFDBFE',
                         borderRadius: '6px',
                         padding: '2px 8px',
                         color: '#0052FF',
-                        cursor: 'pointer',
                         fontSize: '11px',
                         fontWeight: 700,
                         display: 'inline-flex',
@@ -6284,8 +6734,8 @@ function CreatorPortalContent() {
                         gap: '3px',
                       }}
                     >
-                      <span>+ Buy</span>
-                    </button>
+                      <span>+ Buy ↗</span>
+                    </span>
                   </div>
                   <div style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
@@ -6294,7 +6744,10 @@ function CreatorPortalContent() {
                     <span style={{ fontSize: '11.5px', color: '#64748B' }}>₹99 / application</span>
                     <button
                       type="button"
-                      onClick={() => setShowBuyCreditsModal(true)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowCreditsStoreView(true);
+                      }}
                       style={{
                         backgroundColor: '#0052FF',
                         color: '#FFFFFF',
@@ -6404,7 +6857,7 @@ function CreatorPortalContent() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => setShowBuyCreditsModal(true)}
+                    onClick={() => setShowCreditsStoreView(true)}
                     style={{
                       padding: '7px 14px',
                       backgroundColor: '#0052FF',
