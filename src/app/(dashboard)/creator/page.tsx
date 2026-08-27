@@ -952,6 +952,207 @@ function CreatorPortalContent() {
     }
   };
 
+  const renderProfileRanksAndApplyWidget = () => {
+    if (!selectedCampaign) return null;
+    return (
+      <>
+        {/* Applicant Competition & Profile Standing Benchmark Graph */}
+        <div className="cd-card">
+          {/* Personalized User Header */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+            <div style={{ width: '34px', height: '34px', borderRadius: '50%', backgroundColor: '#0052FF', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px', flexShrink: 0 }}>
+              {displayName ? displayName.charAt(0).toUpperCase() : 'C'}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  How Your Profile Ranks
+                </h3>
+                <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+                  <span>⭐</span> Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}%
+                </span>
+              </div>
+              <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                Comparing <strong>@{displayName}</strong> against {selectedCampaign.creatorsApplied} applicants
+              </div>
+            </div>
+          </div>
+
+          {/* Explicit Two-Side Legend (Flat / No Card) */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', fontSize: '10.5px', fontWeight: 700, flexWrap: 'wrap', gap: '4px', padding: '0 2px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#64748B' }}>
+              <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#94A3B8' }}></div>
+              <span>Other Applicants Avg</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#0052FF' }}>
+              <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
+              <span>Your Profile (@{displayName})</span>
+            </div>
+          </div>
+
+          {/* Hero Match Score Summary (Flat / No Card) */}
+          <div style={{ marginBottom: '14px', padding: '0 2px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <div>
+                <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  Your Profile Match Score
+                </div>
+                <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px', lineHeight: 1 }}>
+                  {selectedCampaign.eligibilityRate || 98}%
+                </div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669' }}>
+                  High Probability
+                </span>
+                <div style={{ fontSize: '10px', color: '#64748B', marginTop: '2px', fontWeight: 600 }}>
+                  Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}% tier
+                </div>
+              </div>
+            </div>
+
+            {/* Tiered Range Progress Bar */}
+            <div style={{ position: 'relative', marginTop: '10px', marginBottom: '4px' }}>
+              <div style={{ height: '7px', width: '100%', backgroundColor: '#E2E8F0', borderRadius: '5px', overflow: 'hidden', display: 'flex' }}>
+                <div style={{ width: '40%', height: '100%', backgroundColor: '#CBD5E1' }} title="Average Pool"></div>
+                <div style={{ width: '35%', height: '100%', backgroundColor: '#93C5FD' }} title="Competitive Tier"></div>
+                <div style={{ width: '25%', height: '100%', backgroundColor: '#0052FF' }} title="Your Tier (Top Match)"></div>
+              </div>
+
+              {/* Your Position Indicator Needle */}
+              <div style={{ position: 'absolute', left: `${Math.min(96, selectedCampaign.eligibilityRate || 95)}%`, top: '-4px', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ width: '15px', height: '15px', borderRadius: '50%', backgroundColor: '#0052FF', border: '2.5px solid #FFFFFF', boxShadow: '0 2px 6px rgba(0, 82, 255, 0.4)' }}></div>
+              </div>
+
+              {/* Tier Labels */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#64748B', fontWeight: 700, marginTop: '6px' }}>
+                <span>Avg: 45%</span>
+                <span>75%</span>
+                <span style={{ color: '#0052FF', fontWeight: 900 }}>You: {selectedCampaign.eligibilityRate || 98}%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 3 Circular Pie / Donut Charts in Grid (Flat / No Cards) */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px', marginBottom: '12px', padding: '4px 0' }}>
+            {/* Chart 1: Engagement Rate */}
+            <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
+                <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.42)}`} />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.87)}`} />
+                </svg>
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>8.7%</span>
+                  <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
+                </div>
+              </div>
+              <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
+                Engagement
+              </div>
+              <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                Avg: 4.2%
+              </div>
+              <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
+                +107% vs Avg
+              </div>
+            </div>
+
+            {/* Chart 2: Niche Relevance */}
+            <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
+                <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.68)}`} />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#059669" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.96)}`} />
+                </svg>
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>96%</span>
+                  <span style={{ fontSize: '7.5px', color: '#059669', fontWeight: 800 }}>YOU</span>
+                </div>
+              </div>
+              <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
+                Niche Match
+              </div>
+              <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                Avg: 68%
+              </div>
+              <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
+                Top Category
+              </div>
+            </div>
+
+            {/* Chart 3: Audience Geography */}
+            <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
+                <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.51)}`} />
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.84)}`} />
+                </svg>
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>84%</span>
+                  <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
+                </div>
+              </div>
+              <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
+                Audience Fit
+              </div>
+              <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                Avg: 51%
+              </div>
+              <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 4px', borderRadius: '3px' }}>
+                Direct Fit
+              </div>
+            </div>
+          </div>
+
+          {/* Advantage Footnote */}
+          <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 700 }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Based on your connected stats, your bid has high client visibility</span>
+          </div>
+        </div>
+
+        {/* Action Card (Apply to Project) */}
+        <div className="cd-card">
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById('proposal-form-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{
+              width: '100%',
+              padding: '12px',
+              backgroundColor: '#0052FF',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '10px',
+              fontSize: '13.5px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+              marginBottom: '10px',
+            }}
+          >
+            Apply to this Project →
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+            <span>100% Payment Protected</span>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'inherit', width: '100%', paddingBottom: '76px' }}>
       {/* Design System Global Styles */}
@@ -1298,43 +1499,11 @@ function CreatorPortalContent() {
                       <div style={{ fontSize: '12px', fontWeight: 800, color: '#059669', marginTop: '3px' }}>100% Protected</div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Mobile-Only Top Apply Button */}
-                  <div className="tia-mobile-only" style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const el = document.getElementById('proposal-form-section');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        backgroundColor: '#0052FF',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        borderRadius: '10px',
-                        fontSize: '14px',
-                        fontWeight: 800,
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                      }}
-                    >
-                      <span>Apply to this Project</span>
-                      <span>→</span>
-                    </button>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#059669', fontWeight: 700, justifyContent: 'center', marginTop: '6px' }}>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                        <polyline points="9 12 11 14 15 10" />
-                      </svg>
-                      <span>100% Payment Protected</span>
-                    </div>
-                  </div>
+                {/* Mobile-Only: Section 2 - How Your Profile Ranks & Apply Action */}
+                <div className="tia-mobile-only" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {renderProfileRanksAndApplyWidget()}
                 </div>
 
                 {/* 2. Detailed Campaign Narrative & Scope of Work */}
@@ -1717,198 +1886,9 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 3. Applicant Competition & Profile Standing Benchmark Graph */}
-                <div className="cd-card">
-                  {/* Personalized User Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
-                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', backgroundColor: '#0052FF', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px', flexShrink: 0 }}>
-                      {displayName ? displayName.charAt(0).toUpperCase() : 'C'}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-                        <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                          How Your Profile Ranks
-                        </h3>
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
-                          <span>⭐</span> Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}%
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        Comparing <strong>@{displayName}</strong> against {selectedCampaign.creatorsApplied} applicants
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Explicit Two-Side Legend (Flat / No Card) */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', fontSize: '10.5px', fontWeight: 700, flexWrap: 'wrap', gap: '4px', padding: '0 2px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#64748B' }}>
-                      <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#94A3B8' }}></div>
-                      <span>Other Applicants Avg</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#0052FF' }}>
-                      <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
-                      <span>Your Profile (@{displayName})</span>
-                    </div>
-                  </div>
-
-                  {/* Hero Match Score Summary (Flat / No Card) */}
-                  <div style={{ marginBottom: '14px', padding: '0 2px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                      <div>
-                        <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                          Your Profile Match Score
-                        </div>
-                        <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px', lineHeight: 1 }}>
-                          {selectedCampaign.eligibilityRate || 98}%
-                        </div>
-                      </div>
-                      <div style={{ textAlign: 'right' }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669' }}>
-                          High Probability
-                        </span>
-                        <div style={{ fontSize: '10px', color: '#64748B', marginTop: '2px', fontWeight: 600 }}>
-                          Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}% tier
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Tiered Range Progress Bar */}
-                    <div style={{ position: 'relative', marginTop: '10px', marginBottom: '4px' }}>
-                      <div style={{ height: '7px', width: '100%', backgroundColor: '#E2E8F0', borderRadius: '5px', overflow: 'hidden', display: 'flex' }}>
-                        <div style={{ width: '40%', height: '100%', backgroundColor: '#CBD5E1' }} title="Average Pool"></div>
-                        <div style={{ width: '35%', height: '100%', backgroundColor: '#93C5FD' }} title="Competitive Tier"></div>
-                        <div style={{ width: '25%', height: '100%', backgroundColor: '#0052FF' }} title="Your Tier (Top Match)"></div>
-                      </div>
-
-                      {/* Your Position Indicator Needle */}
-                      <div style={{ position: 'absolute', left: `${Math.min(96, selectedCampaign.eligibilityRate || 95)}%`, top: '-4px', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <div style={{ width: '15px', height: '15px', borderRadius: '50%', backgroundColor: '#0052FF', border: '2.5px solid #FFFFFF', boxShadow: '0 2px 6px rgba(0, 82, 255, 0.4)' }}></div>
-                      </div>
-
-                      {/* Tier Labels */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#64748B', fontWeight: 700, marginTop: '6px' }}>
-                        <span>Avg: 45%</span>
-                        <span>75%</span>
-                        <span style={{ color: '#0052FF', fontWeight: 900 }}>You: {selectedCampaign.eligibilityRate || 98}%</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 3 Circular Pie / Donut Charts in Grid (Flat / No Cards) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px', marginBottom: '12px', padding: '4px 0' }}>
-                    {/* Chart 1: Engagement Rate */}
-                    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
-                        <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.42)}`} />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.87)}`} />
-                        </svg>
-                        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>8.7%</span>
-                          <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
-                        Engagement
-                      </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
-                        Avg: 4.2%
-                      </div>
-                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
-                        +107% vs Avg
-                      </div>
-                    </div>
-
-                    {/* Chart 2: Niche Relevance */}
-                    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
-                        <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.68)}`} />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#059669" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.96)}`} />
-                        </svg>
-                        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>96%</span>
-                          <span style={{ fontSize: '7.5px', color: '#059669', fontWeight: 800 }}>YOU</span>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
-                        Niche Match
-                      </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
-                        Avg: 68%
-                      </div>
-                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
-                        Top Category
-                      </div>
-                    </div>
-
-                    {/* Chart 3: Audience Geography */}
-                    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
-                        <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.51)}`} />
-                          <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.84)}`} />
-                        </svg>
-                        <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>84%</span>
-                          <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
-                        </div>
-                      </div>
-                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
-                        Audience Fit
-                      </div>
-                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
-                        Avg: 51%
-                      </div>
-                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 4px', borderRadius: '3px' }}>
-                        Direct Fit
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Advantage Footnote */}
-                  <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 700 }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Based on your connected stats, your bid has high client visibility</span>
-                  </div>
-                </div>
-
-                {/* 4. Action Card (Apply to Project) */}
-                <div className="cd-card">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById('proposal-form-section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '10px',
-                      fontSize: '13.5px',
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    Apply to this Project →
-                  </button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <polyline points="9 12 11 14 15 10" />
-                    </svg>
-                    <span>100% Payment Protected</span>
-                  </div>
+                {/* Desktop-Only: How Your Profile Ranks & Apply Action */}
+                <div className="tia-desktop-only" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {renderProfileRanksAndApplyWidget()}
                 </div>
 
                 {/* 5. Other Campaigns from this Client */}
