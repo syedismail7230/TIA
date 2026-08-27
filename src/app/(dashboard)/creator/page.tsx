@@ -7136,252 +7136,290 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* RIGHT COLUMN: TRANSACTION DETAILS INSPECTOR PANEL */}
-                {invoiceDetailOpen && selectedInvoice && (
-                  <div
-                    style={{
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '16px',
-                      padding: '22px',
-                      width: '360px',
-                      flexShrink: 0,
-                      position: 'sticky',
-                      top: '20px',
-                      boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                    }}
-                  >
-                    {/* Header */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-                      <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                        Transaction Details
-                      </h4>
-                      <button
-                        type="button"
-                        onClick={() => setInvoiceDetailOpen(false)}
+                {invoiceDetailOpen && selectedInvoice && (() => {
+                  const isCreditPurchase = selectedInvoice.id?.includes('cred');
+                  const isPaid = selectedInvoice.status === 'PAID';
+
+                  return (
+                    <div
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '16px',
+                        padding: '22px',
+                        width: '380px',
+                        flexShrink: 0,
+                        position: 'sticky',
+                        top: '20px',
+                        boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+                      }}
+                    >
+                      {/* Header */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+                        <div>
+                          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
+                            Transaction Details
+                          </h4>
+                          <span style={{ fontSize: '11px', color: '#64748B' }}>
+                            {selectedInvoice.invoiceCode || 'TXN-PHA-0192'}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setInvoiceDetailOpen(false)}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#94A3B8',
+                            fontSize: '15px',
+                            cursor: 'pointer',
+                            padding: '4px 6px',
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      {/* From & To Entity Cards */}
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px' }}>
+                        {/* From Entity */}
+                        <div>
+                          <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
+                            {isCreditPurchase ? 'From (You)' : 'From (Brand)'}
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '8px',
+                                backgroundColor: isCreditPurchase ? '#0052FF' : (selectedInvoice.logoBg || '#2563EB'),
+                                color: '#FFFFFF',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '11px',
+                                fontWeight: 900,
+                                flexShrink: 0,
+                              }}
+                            >
+                              {isCreditPurchase ? 'SJ' : (selectedInvoice.initials || 'PH')}
+                            </div>
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {isCreditPurchase ? (currentUser?.name || 'Sarah Jenkins') : selectedInvoice.mediaName}
+                              </div>
+                              <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {isCreditPurchase ? 'creator@theinfluencealliance.com' : (selectedInvoice.email || 'brand@paulhomes.in')}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* To Entity */}
+                        <div>
+                          <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
+                            {isCreditPurchase ? 'To (Platform)' : 'To (You)'}
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <div
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                                borderRadius: '8px',
+                                backgroundColor: isCreditPurchase ? '#0F172A' : '#0052FF',
+                                color: '#FFFFFF',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '11px',
+                                fontWeight: 900,
+                                flexShrink: 0,
+                              }}
+                            >
+                              {isCreditPurchase ? 'TIA' : 'SJ'}
+                            </div>
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {isCreditPurchase ? 'TIA Credit Engine' : (currentUser?.name || 'Sarah Jenkins')}
+                              </div>
+                              <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {isCreditPurchase ? 'billing@theinfluencealliance.com' : 'creator@theinfluencealliance.com'}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Metadata Grid (2x2) */}
+                      <div
                         style={{
-                          background: 'none',
-                          border: 'none',
-                          color: '#94A3B8',
-                          fontSize: '14px',
-                          cursor: 'pointer',
-                          padding: '2px 6px',
+                          backgroundColor: '#F8FAFC',
+                          borderRadius: '12px',
+                          padding: '14px',
+                          display: 'grid',
+                          gridTemplateColumns: '1fr 1fr',
+                          gap: '12px',
+                          marginBottom: '16px',
+                          fontSize: '11.5px',
                         }}
                       >
-                        ✕
-                      </button>
-                    </div>
-
-                    {/* From & To Cards */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px' }}>
-                      {/* From */}
-                      <div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, marginBottom: '6px' }}>From</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <div
-                            style={{
-                              width: '28px',
-                              height: '28px',
-                              borderRadius: '7px',
-                              backgroundColor: '#0052FF',
-                              color: '#FFFFFF',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '11px',
-                              fontWeight: 900,
-                            }}
-                          >
-                            TIA
+                        <div>
+                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Date</div>
+                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
+                            {selectedInvoice.dueDate || selectedInvoice.authorizedAt}
                           </div>
-                          <div>
-                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>{selectedInvoice.fromName || 'TIA Financial Engine'}</div>
-                            <div style={{ fontSize: '10px', color: '#94A3B8' }}>{selectedInvoice.fromEmail || 'billing@theinfluencealliance.com'}</div>
+                        </div>
+                        <div>
+                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Subject</div>
+                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {selectedInvoice.campaign}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Entity</div>
+                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {selectedInvoice.billedTo || selectedInvoice.mediaName}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Currency</div>
+                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
+                            {selectedInvoice.currency || 'INR (₹ Indian Rupee)'}
                           </div>
                         </div>
                       </div>
 
-                      {/* To */}
-                      <div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, marginBottom: '6px' }}>To</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <div
-                            style={{
-                              width: '28px',
-                              height: '28px',
-                              borderRadius: '7px',
-                              backgroundColor: selectedInvoice.logoBg || '#2563EB',
-                              color: '#FFFFFF',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '11px',
-                              fontWeight: 900,
-                            }}
-                          >
-                            {selectedInvoice.initials || 'PH'}
-                          </div>
-                          <div>
-                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '110px' }}>
-                              {selectedInvoice.mediaName}
-                            </div>
-                            <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '110px' }}>
-                              {selectedInvoice.email || 'brand@paulhomes.in'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Metadata Grid (2x2) */}
-                    <div
-                      style={{
-                        backgroundColor: '#F8FAFC',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
-                        gap: '12px',
-                        marginBottom: '16px',
-                        fontSize: '11.5px',
-                      }}
-                    >
-                      <div>
-                        <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Due Date</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedInvoice.dueDate || selectedInvoice.authorizedAt}</div>
-                      </div>
-                      <div>
-                        <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Subject</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {selectedInvoice.campaign}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Billed to</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {selectedInvoice.billedTo || selectedInvoice.mediaName}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Currency</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedInvoice.currency || 'INR (₹ Indian Rupee)'}</div>
-                      </div>
-                    </div>
-
-                    {/* Itemized Table Card */}
-                    <div
-                      style={{
-                        backgroundColor: '#F8FAFC',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        marginBottom: '20px',
-                      }}
-                    >
-                      {/* Items Header */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, borderBottom: '1px solid #E2E8F0', paddingBottom: '6px', marginBottom: '8px' }}>
-                        <span>Description</span>
-                        <div style={{ display: 'flex', gap: '20px' }}>
-                          <span>Price</span>
+                      {/* Itemized Table Card */}
+                      <div
+                        style={{
+                          backgroundColor: '#F8FAFC',
+                          borderRadius: '12px',
+                          padding: '14px',
+                          marginBottom: '18px',
+                        }}
+                      >
+                        {/* Items Header */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, borderBottom: '1px solid #E2E8F0', paddingBottom: '6px', marginBottom: '8px' }}>
+                          <span>Description</span>
                           <span>Amount</span>
                         </div>
-                      </div>
 
-                      {/* Line Item */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', color: '#334155', marginBottom: '12px' }}>
-                        <span style={{ fontWeight: 600, maxWidth: '180px', lineHeight: 1.35 }}>
-                          {selectedInvoice.deliverableDesc || selectedInvoice.campaign}
-                        </span>
-                        <div style={{ display: 'flex', gap: '20px' }}>
-                          <span>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
-                        </div>
-                      </div>
-
-                      {/* Summary Lines */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid #E2E8F0', paddingTop: '10px', fontSize: '11.5px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>Gross Contract Total</span>
-                          <span style={{ fontWeight: 600, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>TDS Deducted (1% Sec 194J)</span>
-                          <span style={{ fontWeight: 600, color: '#DC2626' }}>
-                            -₹{selectedInvoice.tdsDeduction?.toLocaleString('en-IN') || '250'}.00
+                        {/* Line Item */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', fontSize: '11.5px', color: '#334155', marginBottom: '12px', gap: '10px' }}>
+                          <span style={{ fontWeight: 600, lineHeight: 1.4 }}>
+                            {selectedInvoice.deliverableDesc || selectedInvoice.campaign}
+                          </span>
+                          <span style={{ fontWeight: 700, color: '#0F172A', whiteSpace: 'nowrap' }}>
+                            {selectedInvoice.priceFormatted || selectedInvoice.amount}
                           </span>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>Platform Fee</span>
-                          <span style={{ fontWeight: 600, color: '#059669' }}>₹0.00 (Covered by Brand)</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
-                          <span style={{ fontWeight: 800, color: '#0F172A' }}>Net Payout Due</span>
-                          <span style={{ fontWeight: 900, color: '#0052FF' }}>
-                            ₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')}.00
-                          </span>
+
+                        {/* Summary Lines */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid #E2E8F0', paddingTop: '10px', fontSize: '11.5px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                            <span>Gross Contract Total</span>
+                            <span style={{ fontWeight: 600, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
+                          </div>
+                          {!isCreditPurchase && (
+                            <>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                                <span>TDS Deducted (1% Sec 194J)</span>
+                                <span style={{ fontWeight: 600, color: '#DC2626' }}>
+                                  -₹{selectedInvoice.tdsDeduction?.toLocaleString('en-IN') || '250'}.00
+                                </span>
+                              </div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                                <span>Platform Fee</span>
+                                <span style={{ fontWeight: 600, color: '#059669' }}>₹0.00 (Covered by Brand)</span>
+                              </div>
+                            </>
+                          )}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
+                            <span style={{ fontWeight: 800, color: '#0F172A' }}>
+                              {isCreditPurchase ? 'Total Paid' : 'Net Payout Due'}
+                            </span>
+                            <span style={{ fontWeight: 900, color: '#0052FF' }}>
+                              ₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')}.00
+                            </span>
+                          </div>
                         </div>
                       </div>
+
+                      {/* Bottom Primary Action Button */}
+                      {!isPaid ? (
+                        <button
+                          type="button"
+                          onClick={() => handleClaimPayout(selectedInvoice.id)}
+                          style={{
+                            width: '100%',
+                            padding: '13px',
+                            backgroundColor: '#0052FF',
+                            color: '#FFFFFF',
+                            border: 'none',
+                            borderRadius: '12px',
+                            fontSize: '13px',
+                            fontWeight: 800,
+                            cursor: 'pointer',
+                            transition: 'all 0.15s ease',
+                            boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#0040D6';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#0052FF';
+                          }}
+                        >
+                          <span>⚡</span>
+                          <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedReceiptTx(selectedInvoice)}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            backgroundColor: '#F8FAFC',
+                            color: '#0F172A',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '10px',
+                            fontSize: '12.5px',
+                            fontWeight: 800,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px',
+                            transition: 'all 0.15s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#EFF6FF';
+                            e.currentTarget.style.borderColor = '#BFDBFE';
+                            e.currentTarget.style.color = '#0052FF';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#F8FAFC';
+                            e.currentTarget.style.borderColor = '#CBD5E1';
+                            e.currentTarget.style.color = '#0F172A';
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="6 9 6 2 18 2 18 9" />
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                            <rect x="6" y="14" width="12" height="8" />
+                          </svg>
+                          <span>Download Tax Invoice / Slip</span>
+                        </button>
+                      )}
                     </div>
-
-                    {/* Bottom Primary Action Button */}
-                    {selectedInvoice.status === 'UNCLAIMED' ? (
-                      <button
-                        type="button"
-                        onClick={() => handleClaimPayout(selectedInvoice.id)}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          backgroundColor: '#0F172A',
-                          color: '#FFFFFF',
-                          border: 'none',
-                          borderRadius: '10px',
-                          fontSize: '13px',
-                          fontWeight: 800,
-                          cursor: 'pointer',
-                          transition: 'all 0.15s ease',
-                          boxShadow: '0 4px 12px rgba(15, 23, 42, 0.2)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '6px',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = '#0052FF';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = '#0F172A';
-                        }}
-                      >
-                        <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => setSelectedReceiptTx(selectedInvoice)}
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          backgroundColor: '#F1F5F9',
-                          color: '#0F172A',
-                          border: '1px solid #CBD5E1',
-                          borderRadius: '10px',
-                          fontSize: '13px',
-                          fontWeight: 800,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '6px',
-                        }}
-                      >
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="6 9 6 2 18 2 18 9" />
-                          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                          <rect x="6" y="14" width="12" height="8" />
-                        </svg>
-                        <span>Download Tax Invoice PDF</span>
-                      </button>
-                    )}
-                  </div>
-                )}
+                  );
+                })()}
               </div>
             </div>
           );
