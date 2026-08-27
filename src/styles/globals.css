@@ -1731,6 +1731,19 @@ table {
   margin-bottom: 6px;
 }
 
+/* Responsive visibility helpers */
+@media (max-width: 1023px) {
+  .tia-desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tia-mobile-only {
+    display: none !important;
+  }
+}
+
 
 
 

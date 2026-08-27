@@ -1125,6 +1125,7 @@ function CreatorPortalContent() {
                 }}
               />
               <span
+                className="tia-desktop-only"
                 style={{
                   fontSize: '10.5px',
                   fontWeight: 800,
@@ -1141,7 +1142,7 @@ function CreatorPortalContent() {
           </div>
 
           {/* User Profile, Remaining Credits & Sign Out on Right */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             {/* Remaining Credits Inline Indicator (Clean, Borderless, SVG Icon) */}
             <button
               type="button"
@@ -1150,37 +1151,40 @@ function CreatorPortalContent() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '5px',
+                gap: '4px',
                 padding: '0',
                 backgroundColor: 'transparent',
                 border: 'none',
-                fontSize: '12.5px',
+                fontSize: '12px',
                 fontWeight: 700,
                 color: '#0052FF',
                 cursor: 'pointer',
                 outline: 'none',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               <svg
-                width="14"
-                height="14"
+                width="13"
+                height="13"
                 viewBox="0 0 24 24"
                 fill="#0052FF"
                 stroke="#0052FF"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                style={{ flexShrink: 0 }}
               >
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
-              <span>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
+              <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ fontSize: '12.5px', color: '#1E293B', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+              <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '80px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
               </span>
-              <BlueCheckBadge size={14} title="Verified Creator" />
+              <BlueCheckBadge size={13} title="Verified Creator" />
             </div>
 
             <button
@@ -1190,14 +1194,16 @@ function CreatorPortalContent() {
                 router.push('/login');
               }}
               style={{
-                fontSize: '12px',
+                fontSize: '11.5px',
                 color: '#64748B',
                 backgroundColor: 'transparent',
                 border: 'none',
                 cursor: 'pointer',
                 fontWeight: 500,
-                padding: '4px 8px',
-                borderRadius: '6px',
+                padding: '3px 6px',
+                borderRadius: '4px',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
               }}
             >
               Logout
@@ -1280,7 +1286,7 @@ function CreatorPortalContent() {
                   <span>Back to Marketplace</span>
                 </button>
 
-                <div style={{ fontSize: '11.5px', fontWeight: 600, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div className="tia-desktop-only" style={{ fontSize: '11.5px', fontWeight: 600, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span>FREELANCER</span>
                   <span>›</span>
                   <span>CAMPAIGNS</span>
@@ -1364,6 +1370,43 @@ function CreatorPortalContent() {
                     <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
                       <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Payment Security</div>
                       <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>100% Payment Protected</div>
+                    </div>
+                  </div>
+
+                  {/* Mobile-Only Top Apply Button */}
+                  <div className="tia-mobile-only" style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById('proposal-form-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '13px 18px',
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '10px',
+                        fontSize: '14px',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <span>Apply to this Project</span>
+                      <span>→</span>
+                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center', marginTop: '8px' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        <polyline points="9 12 11 14 15 10" />
+                      </svg>
+                      <span>100% Payment Protected</span>
                     </div>
                   </div>
                 </div>
