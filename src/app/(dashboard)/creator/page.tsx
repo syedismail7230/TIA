@@ -158,6 +158,31 @@ function InfoCircleIcon({ size = 13, color = '#D97706' }: { size?: number; color
   );
 }
 
+function CountryFlag({ code, size = 18 }: { code: string; size?: number }) {
+  if (!code || code.toUpperCase() === 'ALL') return null;
+  const width = size;
+  const height = Math.round((size * 3) / 4);
+
+  return (
+    <img
+      src={`https://flagcdn.com/w40/${code.toLowerCase()}.png`}
+      srcSet={`https://flagcdn.com/w80/${code.toLowerCase()}.png 2x`}
+      width={width}
+      height={height}
+      alt={code}
+      style={{
+        borderRadius: '2px',
+        objectFit: 'cover',
+        display: 'inline-block',
+        flexShrink: 0,
+        boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+        verticalAlign: 'middle',
+      }}
+      loading="lazy"
+    />
+  );
+}
+
 type TabType = 'marketplace' | 'collabs' | 'payments' | 'social-media' | 'settings';
 type CollabFilter = 'awaiting' | 'accepted' | 'rejected';
 
@@ -175,6 +200,8 @@ function CreatorPortalContent() {
   const [applySuccess, setApplySuccess] = useState(false);
   const [claimSuccess, setClaimSuccess] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
+  const [countrySearchQuery, setCountrySearchQuery] = useState('');
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -182,14 +209,17 @@ function CreatorPortalContent() {
       if (!target.closest('#user-profile-dropdown-container')) {
         setProfileDropdownOpen(false);
       }
+      if (!target.closest('#country-filter-dropdown-container')) {
+        setCountryDropdownOpen(false);
+      }
     };
-    if (profileDropdownOpen) {
+    if (profileDropdownOpen || countryDropdownOpen) {
       document.addEventListener('click', handleOutsideClick);
     }
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [profileDropdownOpen]);
+  }, [profileDropdownOpen, countryDropdownOpen]);
 
   // Application Credits & Free Applies State (1 Free Apply initially, ₹99/credit thereafter)
   const [applyCredits, setApplyCredits] = useState<number>(1);
@@ -564,12 +594,76 @@ function CreatorPortalContent() {
 
   const filterCountries = [
     { code: 'ALL', label: 'All Countries' },
-    { code: 'AU', label: '🇦🇺 Australia' },
-    { code: 'IT', label: '🇮🇹 Italy' },
-    { code: 'US', label: '🇺🇸 United States' },
-    { code: 'IN', label: '🇮🇳 India' },
-    { code: 'GB', label: '🇬🇧 United Kingdom' },
-    { code: 'FR', label: '🇫🇷 France' },
+    { code: 'AR', label: 'Argentina' },
+    { code: 'AU', label: 'Australia' },
+    { code: 'AT', label: 'Austria' },
+    { code: 'BH', label: 'Bahrain' },
+    { code: 'BD', label: 'Bangladesh' },
+    { code: 'BE', label: 'Belgium' },
+    { code: 'BR', label: 'Brazil' },
+    { code: 'BG', label: 'Bulgaria' },
+    { code: 'CA', label: 'Canada' },
+    { code: 'CL', label: 'Chile' },
+    { code: 'CN', label: 'China' },
+    { code: 'CO', label: 'Colombia' },
+    { code: 'HR', label: 'Croatia' },
+    { code: 'CY', label: 'Cyprus' },
+    { code: 'CZ', label: 'Czech Republic' },
+    { code: 'DK', label: 'Denmark' },
+    { code: 'EG', label: 'Egypt' },
+    { code: 'EE', label: 'Estonia' },
+    { code: 'FI', label: 'Finland' },
+    { code: 'FR', label: 'France' },
+    { code: 'GE', label: 'Georgia' },
+    { code: 'DE', label: 'Germany' },
+    { code: 'GR', label: 'Greece' },
+    { code: 'HK', label: 'Hong Kong' },
+    { code: 'HU', label: 'Hungary' },
+    { code: 'IS', label: 'Iceland' },
+    { code: 'IN', label: 'India' },
+    { code: 'ID', label: 'Indonesia' },
+    { code: 'IE', label: 'Ireland' },
+    { code: 'IL', label: 'Israel' },
+    { code: 'IT', label: 'Italy' },
+    { code: 'JP', label: 'Japan' },
+    { code: 'JO', label: 'Jordan' },
+    { code: 'KZ', label: 'Kazakhstan' },
+    { code: 'KE', label: 'Kenya' },
+    { code: 'KW', label: 'Kuwait' },
+    { code: 'LV', label: 'Latvia' },
+    { code: 'LB', label: 'Lebanon' },
+    { code: 'LT', label: 'Lithuania' },
+    { code: 'LU', label: 'Luxembourg' },
+    { code: 'MY', label: 'Malaysia' },
+    { code: 'MX', label: 'Mexico' },
+    { code: 'MA', label: 'Morocco' },
+    { code: 'NL', label: 'Netherlands' },
+    { code: 'NZ', label: 'New Zealand' },
+    { code: 'NG', label: 'Nigeria' },
+    { code: 'NO', label: 'Norway' },
+    { code: 'OM', label: 'Oman' },
+    { code: 'PK', label: 'Pakistan' },
+    { code: 'PH', label: 'Philippines' },
+    { code: 'PL', label: 'Poland' },
+    { code: 'PT', label: 'Portugal' },
+    { code: 'QA', label: 'Qatar' },
+    { code: 'RO', label: 'Romania' },
+    { code: 'SA', label: 'Saudi Arabia' },
+    { code: 'SG', label: 'Singapore' },
+    { code: 'ZA', label: 'South Africa' },
+    { code: 'KR', label: 'South Korea' },
+    { code: 'ES', label: 'Spain' },
+    { code: 'LK', label: 'Sri Lanka' },
+    { code: 'SE', label: 'Sweden' },
+    { code: 'CH', label: 'Switzerland' },
+    { code: 'TW', label: 'Taiwan' },
+    { code: 'TH', label: 'Thailand' },
+    { code: 'TR', label: 'Turkey' },
+    { code: 'UA', label: 'Ukraine' },
+    { code: 'AE', label: 'United Arab Emirates' },
+    { code: 'GB', label: 'United Kingdom' },
+    { code: 'US', label: 'United States' },
+    { code: 'VN', label: 'Vietnam' },
   ];
 
   // Compute Filtered & Sorted Campaigns
@@ -2265,29 +2359,149 @@ function CreatorPortalContent() {
                   )}
                 </div>
 
-                {/* Country Filter */}
-                <select
-                  value={selectedCountry}
-                  onChange={(e) => setSelectedCountry(e.target.value)}
-                  style={{
-                    padding: '9px 12px',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    color: '#334155',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                  }}
-                >
-                  {filterCountries.map((c) => (
-                    <option key={c.code} value={c.code}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+                {/* Custom Country Filter Dropdown with Real Flag SVGs */}
+                <div id="country-filter-dropdown-container" style={{ position: 'relative' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCountryDropdownOpen(!countryDropdownOpen);
+                      setCountrySearchQuery('');
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: selectedCountry === 'ALL' ? '4px' : '8px',
+                      padding: '8px 12px',
+                      fontSize: '12.5px',
+                      fontWeight: 600,
+                      color: '#334155',
+                      backgroundColor: '#FFFFFF',
+                      border: countryDropdownOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                      transition: 'all 0.15s ease',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {selectedCountry !== 'ALL' && <CountryFlag code={selectedCountry} size={17} />}
+                    <span>
+                      {filterCountries.find((c) => c.code === selectedCountry)?.label || 'All Countries'}
+                    </span>
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#94A3B8"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{
+                        transform: countryDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.15s ease',
+                        marginLeft: '2px',
+                      }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {countryDropdownOpen && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 4px)',
+                        left: 0,
+                        width: '230px',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '10px',
+                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
+                        border: '1px solid #E2E8F0',
+                        padding: '6px',
+                        zIndex: 100,
+                      }}
+                    >
+                      {/* Search box inside dropdown */}
+                      <div style={{ padding: '2px 4px 6px 4px', borderBottom: '1px solid #F1F5F9', marginBottom: '4px' }}>
+                        <input
+                          type="text"
+                          value={countrySearchQuery}
+                          onChange={(e) => setCountrySearchQuery(e.target.value)}
+                          placeholder="Search country..."
+                          autoFocus
+                          style={{
+                            width: '100%',
+                            padding: '6px 8px',
+                            fontSize: '12px',
+                            color: '#0F172A',
+                            backgroundColor: '#F8FAFC',
+                            border: '1px solid #E2E8F0',
+                            borderRadius: '6px',
+                            outline: 'none',
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
+                        {filterCountries
+                          .filter((c) =>
+                            c.label.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
+                            c.code.toLowerCase().includes(countrySearchQuery.toLowerCase())
+                          )
+                          .map((c) => {
+                            const isSelected = selectedCountry === c.code;
+                            return (
+                              <button
+                                key={c.code}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedCountry(c.code);
+                                  setCountryDropdownOpen(false);
+                                  setCountrySearchQuery('');
+                                }}
+                                style={{
+                                  width: '100%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  gap: '8px',
+                                  padding: '7px 8px',
+                                  fontSize: '12px',
+                                  fontWeight: isSelected ? 700 : 500,
+                                  color: isSelected ? '#0052FF' : '#334155',
+                                  backgroundColor: isSelected ? '#EFF6FF' : 'transparent',
+                                  border: 'none',
+                                  borderRadius: '6px',
+                                  cursor: 'pointer',
+                                  textAlign: 'left',
+                                  transition: 'background-color 0.1s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+                                }}
+                              >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: c.code === 'ALL' ? '0px' : '8px' }}>
+                                  {c.code !== 'ALL' && <CountryFlag code={c.code} size={17} />}
+                                  <span>{c.label}</span>
+                                </div>
+                                {isSelected && (
+                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12" />
+                                  </svg>
+                                )}
+                              </button>
+                            );
+                          })}
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 {/* Commercial Type Filter */}
                 <select
