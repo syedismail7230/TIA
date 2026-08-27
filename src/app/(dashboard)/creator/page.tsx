@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
+import { INITIAL_CAMPAIGNS, CampaignItem } from '@/data/campaigns-data';
 
 // ============================================================================
 // VECTOR SVG BRAND & NAVIGATION ICONS
@@ -320,338 +321,8 @@ function CreatorPortalContent() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Clean Reference-Matched Campaigns Data
-  const [campaigns] = useState<any[]>([
-    {
-      id: 'camp-1',
-      title: 'EcoVibe Sustainable Living Challenge',
-      brandName: 'EcoVibe Global',
-      partnerLogo: '/logos/starbucks-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
-      commercialType: 'COMMISSION',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$1,100',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '2 Reels • 3 Stories • 1 Post',
-      creatorsApplied: 18,
-      acceptanceChance: 86,
-      eligibilityRate: 94,
-      categories: ['Sustainability', 'Cooking', 'Food', '+5'],
-      isNew: true,
-      postedAt: 'Aug 27, 2026 • 10:45 AM',
-      projectTimeline: 'Sep 1 – Sep 15, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'Australia',
-      countryCode: 'AU',
-      countryFlag: '🇦🇺',
-      socials: ['INSTAGRAM', 'YOUTUBE'],
-      description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
-      scopeOfWork: [
-        { title: 'Zero-Waste Cooking Reel', detail: 'Produce native 9:16 vertical 4K video showing low-waste meal prep or sustainable kitchen hack with engaging voiceover in first 3 seconds.' },
-        { title: 'Compost & Storage Routine Reel', detail: 'Aesthetic 60fps vertical reel demonstrating eco-friendly food storage containers and home pantry organization.' },
-        { title: 'Interactive Story Sequence', detail: '3-part Instagram Story sequence with interactive audience Q&A sticker and dedicated link-in-bio campaign tracking.' },
-        { title: 'Pantry Swap Carousel Post', detail: 'Multi-slide photo guide detailing sustainable pantry swap essentials and practical zero-waste tips.' },
-      ],
-      contentDirections: {
-        tone: 'Authentic, mindful, approachable, and educational. Emphasize sustainable everyday lifestyle without preaching.',
-        videoSetup: 'Warm natural daylight, clean eco-kitchen aesthetics, macro food textures, and compost prep shots.',
-        hashtags: 'Include #ZeroWasteKitchen, #SustainableLiving2026, and #EcoCollab in caption.',
-        audio: 'Gentle acoustic / lo-fi ambient track mixed at -18dB with crisp, clear narration. Subtitles mandatory.',
-      },
-      milestones: [
-        '1. Storyboard & Angle Outline: Due within 4 days of contract acceptance.',
-        '2. Draft Rough Cut Review: Client will review and provide feedback within 48 hours.',
-        '3. Content Publication: Live posting during peak engagement hours (Sep 5 – Sep 12, 2026).',
-        '4. Analytics Verification: Submit 7-day reach & engagement report for final settlement.',
-      ],
-      proposals: [
-        { handle: '@green_culinary', country: 'Australia', flag: '🇦🇺', bid: '$1,100', days: '12', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Specialized in zero-waste plant-based recipes with 8.9% engagement rate. 4K kitchen studio ready to shoot.' },
-        { handle: '@eco_earthling', country: 'New Zealand', flag: '🇳🇿', bid: '$1,050', days: '10', rating: '4.9', reviews: 64, er: '7.8', pitch: 'Sustainable lifestyle creator with 140k mindful followers. Extensive experience with zero-waste swaps.' },
-        { handle: '@mindful_bites', country: 'Australia', flag: '🇦🇺', bid: '$1,150', days: '14', rating: '5.0', reviews: 104, er: '9.2', pitch: 'Professional food stylist with cinematic macro lens setup. Focus on aesthetic kitchen tutorials.' },
-      ],
-      otherJobs: [
-        { title: 'Eco-Home Plastic Free Bathroom Review', payout: '$900 Fixed Pay' },
-        { title: 'Organic Farmers Market Vlog Series', payout: '$1,500 Fixed Pay' },
-        { title: 'Sustainable Travel Gear Showcase', payout: '$600 Fixed Pay' },
-      ],
-    },
-    {
-      id: 'camp-2',
-      title: 'Festive Season Artisan Gourmet Unboxing',
-      brandName: 'Nectar Bites Gourmet',
-      partnerLogo: '/logos/cocacola-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
-      commercialType: 'COMMISSION',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$700',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '7 Posts • 7 Stories • 7 Reels',
-      creatorsApplied: 24,
-      acceptanceChance: 92,
-      eligibilityRate: 98,
-      categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
-      isNew: true,
-      postedAt: 'Aug 27, 2026 • 1:15 PM',
-      projectTimeline: 'Sep 5 – Sep 20, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'Italy',
-      countryCode: 'IT',
-      countryFlag: '🇮🇹',
-      socials: ['INSTAGRAM', 'PINTEREST', 'YOUTUBE'],
-      description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
-      scopeOfWork: [
-        { title: 'Artisan Hamper Unboxing Reel', detail: 'High-energy celebratory unboxing showing luxury packaging details, ribbon unwrapping, and gift presentation.' },
-        { title: 'Gourmet Tasting & Pairing Short', detail: 'Honest taste reaction and holiday snack pairing ideas with crisp voiceover and subtitle overlays.' },
-        { title: 'Holiday Countdown Story Series', detail: 'Daily festive micro-moments featuring snack collection integration with link sticker.' },
-        { title: 'Festive Tablescape Photo Post', detail: 'Aesthetic holiday dinner table arrangement highlighting the gourmet spread.' },
-      ],
-      contentDirections: {
-        tone: 'Festive, warm, indulgent, and joyful. Highlight holiday gifting excitement and sensory tasting reactions.',
-        videoSetup: 'Cozy warm indoor lighting, holiday ambient background bokeh, macro closeup of artisanal treats.',
-        hashtags: 'Include #HolidayGourmet, #FestiveSeason2026, and #GourmetGiftGuide in caption.',
-        audio: 'Upbeat holiday acoustic or festive jazz score at -18dB with energetic voiceover.',
-      },
-      milestones: [
-        '1. Product Delivery & Concept Check: Confirm delivery within 3 days.',
-        '2. Unboxing Rough Cut Review: Client review within 48 hours.',
-        '3. Phased Holiday Posting: Phased publication across holiday timeline (Sep 8 – Sep 18, 2026).',
-        '4. Conversion & Reach Report: Screenshot submission for payout disbursement.',
-      ],
-      proposals: [
-        { handle: '@aria_lifestyle', country: 'Italy', flag: '🇮🇹', bid: '$700', days: '14', rating: '5.0', reviews: 98, er: '8.7', pitch: 'Specializing in luxury holiday tablescapes and Italian gourmet unboxings. Full 4K HDR gear ready.' },
-        { handle: '@culinary_marco', country: 'Italy', flag: '🇮🇹', bid: '$680', days: '10', rating: '4.9', reviews: 79, er: '7.1', pitch: 'Food photographer and Reel creator based in Milan. High holiday conversion track record.' },
-        { handle: '@tasteofsweet', country: 'France', flag: '🇫🇷', bid: '$720', days: '12', rating: '5.0', reviews: 112, er: '9.4', pitch: 'Pastry chef and lifestyle vlogger with 95k European food enthusiasts. Ready to film.' },
-      ],
-      otherJobs: [
-        { title: 'Autumn Truffle & Wine Hamper Reel', payout: '$850 Fixed Pay' },
-        { title: 'New Year Midnight Snack Kit Review', payout: '$600 Fixed Pay' },
-        { title: 'Artisan Chocolate Tasting Series', payout: '$950 Fixed Pay' },
-      ],
-    },
-    {
-      id: 'camp-3',
-      title: 'Bio-Active Herbal Vitality Booster Launch',
-      brandName: 'PureBotanics Laboratory',
-      partnerLogo: '/logos/redbull-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
-      commercialType: 'COMMISSION',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$1,800',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '1 Video • 3 Stories • 2 Reels',
-      creatorsApplied: 31,
-      acceptanceChance: 78,
-      eligibilityRate: 88,
-      categories: ['Entrepreneurship', 'Supplements'],
-      isNew: true,
-      postedAt: 'Aug 26, 2026 • 4:20 PM',
-      projectTimeline: 'Sep 10 – Oct 05, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'United States',
-      countryCode: 'US',
-      countryFlag: '🇺🇸',
-      socials: ['INSTAGRAM', 'X'],
-      description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
-      scopeOfWork: [
-        { title: 'Morning Routine Long-Form Integration', detail: '60-90s dedicated integration within daily morning routine vlog covering herbal extract purity and focus benefits.' },
-        { title: 'Day in the Life Energy Boost Reel', detail: 'High-tempo vertical video tracking energy levels through workout, work meetings, and evening wind-down.' },
-        { title: 'Ingredient Science Breakdown Reel', detail: 'Quick educational breakdown of bio-active herbs with on-screen infographic callouts.' },
-        { title: 'Weekly Progress Story Series', detail: '3 interactive stories tracking physical stamina and mental focus over 14 days.' },
-      ],
-      contentDirections: {
-        tone: 'Science-backed, confident, energizing, and authentic. No false medical claims—focus on daily routine benefits.',
-        videoSetup: 'Crisp morning natural sunlight, modern home office or fitness background, macro product dissolvability shots.',
-        hashtags: 'Include #MorningVitality, #HerbalScience2026, and #BioActiveBoost in caption.',
-        audio: 'Uplifting electronic beat with confident, crisp voiceover recorded on studio condenser mic.',
-      },
-      milestones: [
-        '1. Script & Compliance Outline: Client review within 3 days for health claim compliance.',
-        '2. Video Rough Cut Review: Client feedback provided within 48 hours.',
-        '3. Scheduled Release: Post live between Sep 15 – Sep 28, 2026.',
-        '4. Final Performance Analytics: Submission after 7 days for milestone completion.',
-      ],
-      proposals: [
-        { handle: '@dr_vitality', country: 'United States', flag: '🇺🇸', bid: '$1,800', days: '15', rating: '5.0', reviews: 142, er: '9.8', pitch: 'Holistic wellness educator and fitness creator with 210k high-intent followers. 4K multi-camera studio.' },
-        { handle: '@austin_wellness', country: 'United States', flag: '🇺🇸', bid: '$1,750', days: '14', rating: '4.9', reviews: 87, er: '8.4', pitch: 'Biohacking and productivity podcast host with strong US audience reach and high conversion.' },
-        { handle: '@claire_fitlife', country: 'Canada', flag: '🇨🇦', bid: '$1,850', days: '18', rating: '5.0', reviews: 96, er: '9.1', pitch: 'Certified nutritionist with 180k engaged wellness followers and 9.1% engagement rate.' },
-      ],
-      otherJobs: [
-        { title: 'Sleep Cycle Herbal Elixir Launch', payout: '$1,400 Fixed Pay' },
-        { title: 'Immunity Defense Drops Short Series', payout: '$1,200 Fixed Pay' },
-        { title: 'Adaptogen Coffee Alternative Review', payout: '$2,000 Fixed Pay' },
-      ],
-    },
-    {
-      id: 'camp-4',
-      title: 'Nexus X1 Ultra 4K Camera Showcase',
-      brandName: 'Nexus Tech Global',
-      partnerLogo: '/logos/sony-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
-      commercialType: 'COMMISSION',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$2,750',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '1 Dedicated Video • 2 Shorts',
-      creatorsApplied: 42,
-      acceptanceChance: 64,
-      eligibilityRate: 75,
-      categories: ['Technology', 'Gadgets', 'AI', '+3'],
-      isNew: true,
-      postedAt: 'Aug 26, 2026 • 11:00 AM',
-      projectTimeline: 'Sep 15 – Oct 10, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'India',
-      countryCode: 'IN',
-      countryFlag: '🇮🇳',
-      socials: ['INSTAGRAM', 'YOUTUBE'],
-      description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
-      scopeOfWork: [
-        { title: '8-10 Min Review Video', detail: 'In-depth breakdown covering low-light sensor performance, dynamic range, AI auto-framing, and workflow comparison.' },
-        { title: 'Low-Light Cinematic Short', detail: '60s vertical demonstration showcasing 4K 120fps slow-motion street cinematography in extreme low light.' },
-        { title: 'AI Auto-Tracking Workflow Short', detail: 'Quick vertical tutorial showing hands-free creator filming with AI subject tracking.' },
-        { title: 'Raw 4K Footage Asset Pack', detail: 'Deliver b-roll raw log files for project promotional distribution.' },
-      ],
-      contentDirections: {
-        tone: 'Tech-savvy, authoritative, cinematic, and detailed. Provide clear side-by-side video comparisons.',
-        videoSetup: 'High-end RGB studio lighting, dark neon urban night shoots, sharp telephoto lens closeups of camera hardware.',
-        hashtags: 'Include #NexusX1Ultra, #Cinematography2026, and #TechReview in caption.',
-        audio: 'Cinematic trailer soundtrack with crystal-clear shotgun microphone voiceover and foley camera shutter sounds.',
-      },
-      milestones: [
-        '1. Benchmark Test Plan: Submit test footage concepts within 5 days of camera arrival.',
-        '2. Video Rough Cut: 48-hour client review for technical accuracy.',
-        '3. Global Launch Publication: Post synchronized on global launch day (Sep 25, 2026).',
-        '4. Post Engagement Metrics: 7-day watch-time and CTR report.',
-      ],
-      proposals: [
-        { handle: '@tech_cinematics', country: 'India', flag: '🇮🇳', bid: '$2,750', days: '16', rating: '5.0', reviews: 180, er: '10.5', pitch: 'Professional DP & gear reviewer with 320k tech creators audience. Red Komodo & Sony FX3 comparative setup.' },
-        { handle: '@pixel_lens', country: 'United Kingdom', flag: '🇬🇧', bid: '$2,600', days: '14', rating: '4.9', reviews: 125, er: '11.2', pitch: 'Camera optics specialist and tech YouTuber with 11.2% tech enthusiast ER.' },
-        { handle: '@gadget_lab_us', country: 'United States', flag: '🇺🇸', bid: '$2,800', days: '20', rating: '5.0', reviews: 210, er: '9.4', pitch: 'Full studio review lab with calibrated color charts and low-light test studio.' },
-      ],
-      otherJobs: [
-        { title: 'Compact Wireless Gimbal Test & Review', payout: '$1,600 Fixed Pay' },
-        { title: 'Cinema Prime Lens Set Showcase', payout: '$3,200 Fixed Pay' },
-        { title: 'Wireless Audio Lavalier Microphone Series', payout: '$1,250 Fixed Pay' },
-      ],
-    },
-    {
-      id: 'camp-5',
-      title: 'Velocity Pro Marathon Performance Shoe',
-      brandName: 'Stride Athletics',
-      partnerLogo: '/logos/adidas-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
-      commercialType: 'COMMISSION',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$1,100',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '3 Reels • 5 Stories',
-      creatorsApplied: 15,
-      acceptanceChance: 89,
-      eligibilityRate: 91,
-      categories: ['Fitness', 'Running', 'Athleisure'],
-      isNew: true,
-      postedAt: 'Aug 25, 2026 • 3:30 PM',
-      projectTimeline: 'Sep 01 – Sep 25, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'United Kingdom',
-      countryCode: 'GB',
-      countryFlag: '🇬🇧',
-      socials: ['INSTAGRAM', 'X'],
-      description: 'High-energy running montage with direct swipe-up discount code for community followers.',
-      scopeOfWork: [
-        { title: 'Long-Run Wear Test Reel', detail: 'High-energy 60s Reel taking viewers through an 18-mile training session with feedback on cushioning and carbon plate response.' },
-        { title: 'Speed Workout & Sprint Track Reel', detail: 'Fast-cut montage focusing on heel strike, shoe flex, and traction on wet and dry surfaces.' },
-        { title: 'Race-Day Outfit Styling Reel', detail: 'Seamless transition from athletic running kit to casual athleisure streetwear.' },
-        { title: 'Training Week Story Arc', detail: '5-day story progression showing mileage tracking and recovery feedback.' },
-      ],
-      contentDirections: {
-        tone: 'Inspiring, high-octane, athletic, and authentic. Real sweat, genuine runner feedback, and energetic pacing.',
-        videoSetup: 'Golden hour track runs, scenic urban bridges, tracking camera shots matching runner pace (60fps/120fps).',
-        hashtags: 'Include #VelocityProRunner, #MarathonTraining2026, and #RunnersOfInstagram in caption.',
-        audio: 'High-BPM motivating bassline synced tightly with footsteps and upbeat voiceover.',
-      },
-      milestones: [
-        '1. Running Route & Storyboard Plan: Due within 4 days of shoe delivery.',
-        '2. Reel Edits Submission: 48-hour client review.',
-        '3. Race Season Publication: Published during prime morning fitness hours (Sep 8 – Sep 20, 2026).',
-        '4. Reach & Conversion Metrics: Submit swipe-up clicks and reach analytics.',
-      ],
-      proposals: [
-        { handle: '@marathon_marcus', country: 'United Kingdom', flag: '🇬🇧', bid: '$1,100', days: '14', rating: '5.0', reviews: 85, er: '9.3', pitch: 'Sub-3 marathoner and fitness influencer with 85k verified runners. Garmin & Strava tracking integration.' },
-        { handle: '@sarah_runs_london', country: 'United Kingdom', flag: '🇬🇧', bid: '$1,050', days: '10', rating: '4.9', reviews: 94, er: '8.1', pitch: 'Trail and road runner with 94k UK running community followers.' },
-        { handle: '@endurance_ethan', country: 'United States', flag: '🇺🇸', bid: '$1,150', days: '12', rating: '5.0', reviews: 110, er: '8.8', pitch: 'Triathlon coach and content creator with high-converting athletic shoe campaigns.' },
-      ],
-      otherJobs: [
-        { title: 'Hydration Running Vest & Flasks Review', payout: '$750 Fixed Pay' },
-        { title: 'Winter Thermal Running Jacket Reel', payout: '$1,200 Fixed Pay' },
-        { title: 'Carbon Distance Racing Spike Showcase', payout: '$1,450 Fixed Pay' },
-      ],
-    },
-    {
-      id: 'camp-6',
-      title: 'LuxeDerm Anti-Aging Night Serum',
-      brandName: 'LuxeDerm Skin Labs',
-      partnerLogo: '/logos/zara-full.svg',
-      bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
-      commercialType: 'FLAT_FEE',
-      commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$500',
-      payType: 'Fixed Pay',
-      deliverablesSummary: '1 Review Reel • 2 Stories',
-      creatorsApplied: 27,
-      acceptanceChance: 82,
-      eligibilityRate: 85,
-      categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
-      isNew: true,
-      postedAt: 'Aug 24, 2026 • 9:15 AM',
-      projectTimeline: 'Sep 12 – Sep 30, 2026',
-      requirementLabel: 'Requirement not met',
-      language: 'English',
-      country: 'France',
-      countryCode: 'FR',
-      countryFlag: '🇫🇷',
-      socials: ['INSTAGRAM', 'YOUTUBE'],
-      description: '7-day nighttime skin transformation diary with macro camera closeups.',
-      scopeOfWork: [
-        { title: '7-Day Transformation Reel', detail: 'Intimate, aesthetic night skincare ritual showing product texture, dropper application, and morning skin glow.' },
-        { title: 'Ingredient & Texture Macro Reel', detail: '4K closeup shot showing absorption rate, non-greasy finish, and peptide formulation explanation.' },
-        { title: 'Interactive Evening Stories', detail: '2 stories featuring skin quiz poll and direct swipe-up discount code.' },
-      ],
-      contentDirections: {
-        tone: 'Soothing, luxurious, personal, and glowing. Highlighting realistic skin texture without smoothing beauty filters.',
-        videoSetup: 'Warm bathroom vanity lighting, soft golden hour bedroom light, 4K macro lens focusing on dropper droplets and skin texture.',
-        hashtags: 'Include #NightSkincareRitual, #LuxeGlow2026, and #SkincareRoutine in caption.',
-        audio: 'Soothing ASMR skincare sounds (pipette suction, bottle click) with soft ambient chill music and whisper voiceover.',
-      },
-      milestones: [
-        '1. Unfiltered Skin Check & Plan: Submit concept within 3 days of product arrival.',
-        '2. Draft Video Review: Client review within 48 hours.',
-        '3. Scheduled Night Posting: Publish between 8 PM – 10 PM local time for maximum beauty engagement.',
-        '4. Engagement & Comment Audit: Submit comment sentiment and reach screenshots after 7 days.',
-      ],
-      proposals: [
-        { handle: '@charlotte_skinglow', country: 'France', flag: '🇫🇷', bid: '$500', days: '10', rating: '5.0', reviews: 110, er: '9.6', pitch: 'Esthetician & skincare creator with 110k French & European beauty lovers. Zero-filter macro camera.' },
-        { handle: '@elena_dermatology', country: 'Italy', flag: '🇮🇹', bid: '$480', days: '8', rating: '4.9', reviews: 76, er: '7.8', pitch: 'Dermatology resident sharing evidence-based skincare routines with 7.8% ER.' },
-        { handle: '@glowwith_sophie', country: 'France', flag: '🇫🇷', bid: '$520', days: '12', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Clean beauty advocate specializing in nighttime ASMR skincare Reels.' },
-      ],
-      otherJobs: [
-        { title: 'Daytime SPF 50 Hydrating Fluid Review', payout: '$450 Fixed Pay' },
-        { title: 'Brightening Vitamin C Eye Cream Short', payout: '$400 Fixed Pay' },
-        { title: 'Ceramide Barrier Repair Cream Series', payout: '$650 Fixed Pay' },
-      ],
-    },
-  ]);
+  // Clean Reference-Matched Campaigns Data (56 Rich Campaigns with Localized Currency & Language)
+  const [campaigns] = useState<CampaignItem[]>(INITIAL_CAMPAIGNS);
 
   // Filter Categories & Countries Configuration
   const filterCategories = [
@@ -974,7 +645,7 @@ function CreatorPortalContent() {
 
   const handleApply = (campaign: any) => {
     setSelectedCampaign(campaign);
-    setBidAmount(campaign.payoutAmount?.replace(/[^0-9]/g, '') || '700');
+    setBidAmount(campaign.payoutAmount?.replace(/[^0-9]/g, '') || '45000');
     setBidDays('14');
     setProposalPitch('');
     setApplySuccess(false);
@@ -1015,6 +686,10 @@ function CreatorPortalContent() {
     setApplyCredits((prev) => Math.max(0, prev - 1));
     setTotalAppliesCount((prev) => prev + 1);
 
+    const currSym = selectedCampaign.currencySymbol || '$';
+    const currCode = selectedCampaign.currencyCode || 'USD';
+    const currAmount = bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '45000';
+
     setCollabs((prev) => [
       {
         id: `collab-${Date.now()}`,
@@ -1024,7 +699,7 @@ function CreatorPortalContent() {
         brandInitials: selectedCampaign.brandName.substring(0, 2).toUpperCase(),
         status: 'AWAITING',
         appliedAt: 'Just now',
-        proposedRate: `$${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'}`,
+        proposedRate: `${currSym}${currAmount} ${currCode}`,
         deliverables: selectedCampaign.deliverablesSummary || selectedCampaign.description,
         unreadCount: 1,
         messages: [
@@ -1036,7 +711,7 @@ function CreatorPortalContent() {
             badgeColor: '#059669',
             badgeBg: '#ECFDF5',
             date: 'Just now',
-            text: `Hi! We received your verified bid of $${bidAmount || '700'} (${bidDays || '14'} days delivery) for ${selectedCampaign.title}. Your profile matches our audience criteria. We will review your pitch and confirm the milestone deposit shortly.`,
+            text: `Hi! We received your verified bid of ${currSym}${currAmount} ${currCode} (${bidDays || '14'} days delivery) for ${selectedCampaign.title}. Your profile matches our audience criteria. We will review your pitch and confirm the milestone deposit shortly.`,
           },
           {
             id: `msg-${Date.now() + 1}`,
@@ -1046,7 +721,7 @@ function CreatorPortalContent() {
             badgeColor: '#0052FF',
             badgeBg: '#EFF6FF',
             date: 'Just now',
-            text: proposalPitch || `Submitted proposal for ${selectedCampaign.title} at $${bidAmount}. Ready to deliver ${selectedCampaign.deliverablesSummary || selectedCampaign.description}.`,
+            text: proposalPitch || `Submitted proposal for ${selectedCampaign.title} at ${currSym}${currAmount} ${currCode}. Ready to deliver ${selectedCampaign.deliverablesSummary || selectedCampaign.description}.`,
           },
         ],
       },
@@ -3904,7 +3579,7 @@ function CreatorPortalContent() {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
                     <span style={{ color: '#64748B' }}>Your Proposed Rate</span>
-                    <span style={{ color: '#0052FF', fontWeight: 900 }}>${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'} USD</span>
+                    <span style={{ color: '#0052FF', fontWeight: 900 }}>{selectedCampaign.currencySymbol || '$'}{bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '45000'} {selectedCampaign.currencyCode || 'INR'}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
                     <span style={{ color: '#64748B' }}>Delivery Time</span>
@@ -4019,15 +3694,17 @@ function CreatorPortalContent() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '14px', marginBottom: '16px' }}>
                   <div>
                     <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                      Proposed Rate (USD)
+                      Proposed Rate ({selectedCampaign.currencyCode || 'INR'})
                     </label>
                     <div style={{ position: 'relative' }}>
-                      <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B', fontSize: '14px' }}>$</span>
+                      <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B', fontSize: '14px' }}>
+                        {selectedCampaign.currencySymbol || '$'}
+                      </span>
                       <input
                         type="text"
                         value={bidAmount}
                         onChange={(e) => setBidAmount(e.target.value)}
-                        placeholder="700"
+                        placeholder={selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '45000'}
                         style={{
                           width: '100%',
                           padding: '10px 12px 10px 28px',
