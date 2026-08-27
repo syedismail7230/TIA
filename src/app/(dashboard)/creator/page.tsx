@@ -6072,11 +6072,11 @@ function CreatorPortalContent() {
 
           return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {/* TOP ROW: 3 STATS CARDS (Exact match to reference design with TIA SaaS INR metrics) */}
+              {/* TOP ROW: 4 STATS CARDS (Total Invoices, Paid Invoices, Unpaid Invoices, Credits Wallet) */}
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 230px), 1fr))',
                   gap: '16px',
                 }}
               >
@@ -6086,7 +6086,7 @@ function CreatorPortalContent() {
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
                     borderRadius: '16px',
-                    padding: '22px 24px',
+                    padding: '20px 22px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -6111,11 +6111,11 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
+                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>Invoices this financial cycle</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Invoices this cycle</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6142,7 +6142,7 @@ function CreatorPortalContent() {
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
                     borderRadius: '16px',
-                    padding: '22px 24px',
+                    padding: '20px 22px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -6167,11 +6167,11 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
+                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalPaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from {paidCount} brand deals disbursed</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>{paidCount} deals disbursed</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6198,7 +6198,7 @@ function CreatorPortalContent() {
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
                     borderRadius: '16px',
-                    padding: '22px 24px',
+                    padding: '20px 22px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -6223,11 +6223,11 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
+                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from {unpaidCount} completed deals ready</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>{unpaidCount} deals ready</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6245,6 +6245,70 @@ function CreatorPortalContent() {
                       <span>6%</span>
                       <span>↗</span>
                     </span>
+                  </div>
+                </div>
+
+                {/* Card 4: Credits Wallet */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1.5px solid #BFDBFE',
+                    borderRadius: '16px',
+                    padding: '20px 22px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 2px 8px rgba(0, 82, 255, 0.04)',
+                    position: 'relative',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontSize: '14px' }}>⚡</span>
+                      <span style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShowBuyCreditsModal(true)}
+                      style={{
+                        backgroundColor: '#EFF6FF',
+                        border: '1px solid #BFDBFE',
+                        borderRadius: '6px',
+                        padding: '2px 8px',
+                        color: '#0052FF',
+                        cursor: 'pointer',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '3px',
+                      }}
+                    >
+                      <span>+ Buy</span>
+                    </button>
+                  </div>
+                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
+                    {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '11.5px', color: '#64748B' }}>₹99 / application</span>
+                    <button
+                      type="button"
+                      onClick={() => setShowBuyCreditsModal(true)}
+                      style={{
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '4px 10px',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 4px rgba(0, 82, 255, 0.2)',
+                      }}
+                    >
+                      Top Up ⚡
+                    </button>
                   </div>
                 </div>
               </div>
