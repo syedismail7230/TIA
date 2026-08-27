@@ -7139,6 +7139,8 @@ function CreatorPortalContent() {
                 {invoiceDetailOpen && selectedInvoice && (() => {
                   const isCreditPurchase = selectedInvoice.id?.includes('cred');
                   const isPaid = selectedInvoice.status === 'PAID';
+                  const creatorName = currentUser?.name || 'Sarah Jenkins';
+                  const creatorEmail = currentUser?.email || 'sarah.jenkins@gmail.com';
 
                   return (
                     <div
@@ -7148,10 +7150,13 @@ function CreatorPortalContent() {
                         borderRadius: '16px',
                         padding: '22px',
                         width: '380px',
+                        maxWidth: '100%',
                         flexShrink: 0,
                         position: 'sticky',
                         top: '20px',
                         boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
+                        overflow: 'hidden',
+                        boxSizing: 'border-box',
                       }}
                     >
                       {/* Header */}
@@ -7181,17 +7186,17 @@ function CreatorPortalContent() {
                       </div>
 
                       {/* From & To Entity Cards */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '18px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '12px', marginBottom: '18px' }}>
                         {/* From Entity */}
-                        <div>
+                        <div style={{ minWidth: 0, overflow: 'hidden' }}>
                           <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
                             {isCreditPurchase ? 'From (You)' : 'From (Brand)'}
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
                             <div
                               style={{
-                                width: '30px',
-                                height: '30px',
+                                width: '32px',
+                                height: '32px',
                                 borderRadius: '8px',
                                 backgroundColor: isCreditPurchase ? '#0052FF' : (selectedInvoice.logoBg || '#2563EB'),
                                 color: '#FFFFFF',
@@ -7205,27 +7210,27 @@ function CreatorPortalContent() {
                             >
                               {isCreditPurchase ? 'SJ' : (selectedInvoice.initials || 'PH')}
                             </div>
-                            <div style={{ minWidth: 0 }}>
+                            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
                               <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? (currentUser?.name || 'Sarah Jenkins') : selectedInvoice.mediaName}
+                                {isCreditPurchase ? creatorName : selectedInvoice.mediaName}
                               </div>
                               <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'creator@theinfluencealliance.com' : (selectedInvoice.email || 'brand@paulhomes.in')}
+                                {isCreditPurchase ? creatorEmail : (selectedInvoice.email || 'brand@paulhomes.in')}
                               </div>
                             </div>
                           </div>
                         </div>
 
                         {/* To Entity */}
-                        <div>
+                        <div style={{ minWidth: 0, overflow: 'hidden' }}>
                           <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
                             {isCreditPurchase ? 'To (Platform)' : 'To (You)'}
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
                             <div
                               style={{
-                                width: '30px',
-                                height: '30px',
+                                width: '32px',
+                                height: '32px',
                                 borderRadius: '8px',
                                 backgroundColor: isCreditPurchase ? '#0F172A' : '#0052FF',
                                 color: '#FFFFFF',
@@ -7239,54 +7244,55 @@ function CreatorPortalContent() {
                             >
                               {isCreditPurchase ? 'TIA' : 'SJ'}
                             </div>
-                            <div style={{ minWidth: 0 }}>
+                            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
                               <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'TIA Credit Engine' : (currentUser?.name || 'Sarah Jenkins')}
+                                {isCreditPurchase ? 'TIA Credit Engine' : creatorName}
                               </div>
                               <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'billing@theinfluencealliance.com' : 'creator@theinfluencealliance.com'}
+                                {isCreditPurchase ? 'billing@theinfluencealliance.com' : creatorEmail}
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Metadata Grid (2x2) */}
+                      {/* Metadata Details Card (Clean Key-Value Rows without overflow) */}
                       <div
                         style={{
                           backgroundColor: '#F8FAFC',
+                          border: '1px solid #F1F5F9',
                           borderRadius: '12px',
-                          padding: '14px',
-                          display: 'grid',
-                          gridTemplateColumns: '1fr 1fr',
-                          gap: '12px',
+                          padding: '12px 14px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '8px',
                           marginBottom: '16px',
                           fontSize: '11.5px',
                         }}
                       >
-                        <div>
-                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Date</div>
-                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Date</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A' }}>
                             {selectedInvoice.dueDate || selectedInvoice.authorizedAt}
-                          </div>
+                          </span>
                         </div>
-                        <div>
-                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Subject</div>
-                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Subject</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
                             {selectedInvoice.campaign}
-                          </div>
+                          </span>
                         </div>
-                        <div>
-                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Entity</div>
-                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Entity</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
                             {selectedInvoice.billedTo || selectedInvoice.mediaName}
-                          </div>
+                          </span>
                         </div>
-                        <div>
-                          <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Currency</div>
-                          <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Currency</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A' }}>
                             {selectedInvoice.currency || 'INR (₹ Indian Rupee)'}
-                          </div>
+                          </span>
                         </div>
                       </div>
 
