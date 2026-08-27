@@ -1415,16 +1415,6 @@ function CreatorPortalContent() {
                   </svg>
                   <span>Back to Marketplace</span>
                 </button>
-
-                <div className="tia-desktop-only" style={{ fontSize: '11.5px', fontWeight: 600, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span>FREELANCER</span>
-                  <span>›</span>
-                  <span>CAMPAIGNS</span>
-                  <span>›</span>
-                  <span style={{ color: '#64748B' }}>{selectedCampaign.categories?.[0] || 'LIFESTYLE'}</span>
-                  <span>›</span>
-                  <span style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCampaign.title}</span>
-                </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -1455,7 +1445,7 @@ function CreatorPortalContent() {
                           <span>Posted {selectedCampaign.postedAt} • Ends in 18 days</span>
                         </span>
                       </div>
-                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em', filter: 'blur(3.5px)', userSelect: 'none' }}>
+                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em', filter: 'blur(9px)', userSelect: 'none', pointerEvents: 'none' }}>
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', flexWrap: 'wrap' }}>
@@ -2672,8 +2662,10 @@ function CreatorPortalContent() {
                             fontSize: '11.5px',
                             fontWeight: 700,
                             color: '#64748B',
-                            filter: 'blur(3.5px)',
+                            filter: 'blur(7.5px)',
+                            opacity: 0.65,
                             userSelect: 'none',
+                            pointerEvents: 'none',
                           }}
                         >
                           {camp.brandName}
@@ -2718,8 +2710,10 @@ function CreatorPortalContent() {
                                 fontSize: '13.5px',
                                 fontWeight: 700,
                                 color: '#0F172A',
-                                filter: 'blur(3.5px)',
+                                filter: 'blur(8.5px)',
+                                opacity: 0.65,
                                 userSelect: 'none',
+                                pointerEvents: 'none',
                               }}
                             >
                               {camp.title}
