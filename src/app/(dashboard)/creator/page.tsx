@@ -1140,12 +1140,16 @@ function CreatorPortalContent() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
                     <div style={{ flex: '1 1 360px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                        <span style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', fontSize: '11.5px', fontWeight: 800, padding: '3px 10px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', fontSize: '11.5px', fontWeight: 800, padding: '3px 10px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
                           <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#059669' }}></span>
                           Open for Applications
                         </span>
-                        <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>
-                          🕒 Posted {selectedCampaign.postedAt} • Ends in 18 days
+                        <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
+                          <span>Posted {selectedCampaign.postedAt} • Ends in 18 days</span>
                         </span>
                       </div>
                       <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.25, letterSpacing: '-0.02em' }}>
@@ -1221,19 +1225,47 @@ function CreatorPortalContent() {
                   </h3>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '18px' }}>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎨 Tone of Voice & Mood</div>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                          <line x1="9" y1="9" x2="9.01" y2="9" />
+                          <line x1="15" y1="9" x2="15.01" y2="9" />
+                        </svg>
+                        <span>Tone of Voice & Mood</span>
+                      </div>
                       <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Authentic, vibrant, conversational, and energetic. Avoid overly rehearsed corporate sales scripts.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎬 Video & Lighting Setup</div>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <polygon points="23 7 16 12 23 17 23 7" />
+                          <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                        </svg>
+                        <span>Video & Lighting Setup</span>
+                      </div>
                       <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Natural daylight or soft studio lighting. Sharp macro focus when showcasing product texture and packaging.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🏷️ Campaign Hashtags & Mentions</div>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                          <line x1="7" y1="7" x2="7.01" y2="7" />
+                        </svg>
+                        <span>Campaign Hashtags & Mentions</span>
+                      </div>
                       <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Include #CreatorCollab and #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Lifestyle'}2026 in caption.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎙️ Audio & Voiceover</div>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                          <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                          <line x1="12" y1="19" x2="12" y2="23" />
+                          <line x1="8" y1="23" x2="16" y2="23" />
+                        </svg>
+                        <span>Audio & Voiceover</span>
+                      </div>
                       <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Crystal-clear vocal recording with background ambient music mixed at -18dB. Subtitles mandatory.</div>
                     </div>
                   </div>
@@ -1561,7 +1593,11 @@ function CreatorPortalContent() {
                       <span>✓</span> <span>Milestone deposit authorized</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span>🕒</span> <span>Member since Mar 26, 2021</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      <span>Member since Mar 26, 2021</span>
                     </div>
                   </div>
                 </div>
