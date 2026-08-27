@@ -6097,60 +6097,77 @@ function CreatorPortalContent() {
 
           return showCreditsStoreView ? (
             /* ==================================================================== */
-            /* VIEW 2: BUY CREDITS STUDIO (EXACT INSPIRATION MATCH)                 */
+            /* VIEW 2: BUY CREDITS STUDIO (ALIGNED WITH TIA WEBSITE THEME)          */
             /* ==================================================================== */
             <div
               style={{
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
-                borderRadius: '24px',
-                padding: '36px 40px',
+                borderRadius: '20px',
+                padding: '32px 36px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
               }}
             >
               {/* Back Nav Link */}
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '22px' }}>
                 <button
                   type="button"
                   onClick={() => setShowCreditsStoreView(false)}
                   style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#64748B',
-                    fontSize: '13px',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '20px',
+                    padding: '6px 14px',
+                    color: '#475569',
+                    fontSize: '12.5px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    padding: 0,
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
+                    transition: 'all 0.15s ease',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = '#0F172A')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#64748B')}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#EFF6FF';
+                    e.currentTarget.style.color = '#0052FF';
+                    e.currentTarget.style.borderColor = '#BFDBFE';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#F8FAFC';
+                    e.currentTarget.style.color = '#475569';
+                    e.currentTarget.style.borderColor = '#E2E8F0';
+                  }}
                 >
-                  <span style={{ fontSize: '15px' }}>←</span>
-                  <span>Back</span>
+                  <span style={{ fontSize: '14px' }}>←</span>
+                  <span>Back to Invoices</span>
                 </button>
               </div>
 
               {/* Split Content: Left (Slider & Packages), Right (Recap Order Summary) */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.8fr) minmax(280px, 1fr)', gap: '48px', alignItems: 'flex-start' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.8fr) minmax(280px, 1fr)', gap: '40px', alignItems: 'flex-start' }}>
                 {/* Left Column */}
                 <div>
-                  <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0', letterSpacing: '-0.03em' }}>
+                  <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
                     Buy Credits
                   </h2>
-                  <p style={{ fontSize: '13.5px', color: '#64748B', margin: '0 0 32px 0' }}>
-                    Select the amount of credits you want to buy
+                  <p style={{ fontSize: '13px', color: '#64748B', margin: '0 0 28px 0' }}>
+                    Select the amount of credits you want to buy for pitching and campaign applications
                   </p>
 
                   {/* Big Dynamic Price */}
-                  <div style={{ fontSize: '38px', fontWeight: 900, color: '#0F172A', marginBottom: '28px', letterSpacing: '-0.02em' }}>
-                    ₹{activePricing.finalAmount.toLocaleString('en-IN')}
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '24px' }}>
+                    <span style={{ fontSize: '36px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                      ₹{activePricing.finalAmount.toLocaleString('en-IN')}
+                    </span>
+                    {activePricing.discountAmount > 0 && (
+                      <span style={{ fontSize: '16px', color: '#94A3B8', textDecoration: 'line-through' }}>
+                        ₹{activePricing.baseTotal.toLocaleString('en-IN')}
+                      </span>
+                    )}
                   </div>
 
                   {/* Custom Dynamic Interactive Slider Track */}
-                  <div style={{ position: 'relative', marginBottom: '44px', maxWidth: '580px' }}>
+                  <div style={{ position: 'relative', marginBottom: '38px', maxWidth: '560px' }}>
                     <input
                       type="range"
                       min="1"
@@ -6162,7 +6179,7 @@ function CreatorPortalContent() {
                         width: '100%',
                         height: '6px',
                         borderRadius: '6px',
-                        accentColor: '#0F172A',
+                        accentColor: '#0052FF',
                         cursor: 'pointer',
                       }}
                     />
@@ -6172,8 +6189,9 @@ function CreatorPortalContent() {
                       <span>1 Credit</span>
                       <span
                         style={{
-                          backgroundColor: '#0F172A',
-                          color: '#FFFFFF',
+                          backgroundColor: '#EFF6FF',
+                          color: '#0052FF',
+                          border: '1px solid #BFDBFE',
                           padding: '4px 14px',
                           borderRadius: '16px',
                           fontWeight: 800,
@@ -6186,7 +6204,7 @@ function CreatorPortalContent() {
                         <span>⚡</span>
                         <span>{storeSliderCredits} Credits</span>
                         {activePricing.discountPct > 0 && (
-                          <span style={{ color: '#10B981', fontWeight: 700 }}>({activePricing.discountPct}% OFF)</span>
+                          <span style={{ color: '#059669', fontWeight: 700 }}>({activePricing.discountPct}% OFF)</span>
                         )}
                       </span>
                       <span>100 Credits</span>
@@ -6194,38 +6212,38 @@ function CreatorPortalContent() {
                   </div>
 
                   {/* Section Heading */}
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '16px' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A', marginBottom: '14px' }}>
                     Or select our packages
                   </div>
 
-                  {/* 4 Sleek Dark Package Cards (Exact match to inspiration) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '14px' }}>
-                    {/* Package 1: 35 Credits (matching screenshot) */}
+                  {/* 4 Sleek White/Blue Package Cards matching TIA theme */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 125px), 1fr))', gap: '12px' }}>
+                    {/* Package 1: 5 Credits */}
                     <div
                       onClick={() => setStoreSliderCredits(5)}
                       style={{
-                        backgroundColor: '#0F172A',
-                        color: '#FFFFFF',
+                        backgroundColor: storeSliderCredits === 5 ? '#F8FAFC' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '16px 14px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         cursor: 'pointer',
-                        border: storeSliderCredits === 5 ? '2px solid #0052FF' : '2px solid transparent',
+                        border: storeSliderCredits === 5 ? '2px solid #0052FF' : '1px solid #E2E8F0',
+                        boxShadow: storeSliderCredits === 5 ? '0 4px 16px rgba(0, 82, 255, 0.08)' : '0 1px 3px rgba(0,0,0,0.02)',
                         transition: 'all 0.15s ease',
                       }}
                     >
                       <div>
-                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                        <div style={{ backgroundColor: '#EFF6FF', color: '#0052FF', border: '1px solid #BFDBFE', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
                           <span>⚡</span>
                           <span>5</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
-                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹445</span>
-                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹495</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginBottom: '3px' }}>
+                          <span style={{ fontSize: '19px', fontWeight: 900, color: '#0F172A' }}>₹445</span>
+                          <span style={{ fontSize: '11px', color: '#94A3B8', textDecoration: 'line-through' }}>₹495</span>
                         </div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginBottom: '14px' }}>
                           10% discount
                         </div>
                       </div>
@@ -6238,14 +6256,15 @@ function CreatorPortalContent() {
                         }}
                         style={{
                           width: '100%',
-                          backgroundColor: '#FFFFFF',
-                          color: '#0F172A',
+                          backgroundColor: storeSliderCredits === 5 ? '#0052FF' : '#F1F5F9',
+                          color: storeSliderCredits === 5 ? '#FFFFFF' : '#0F172A',
                           border: 'none',
                           borderRadius: '8px',
                           padding: '7px',
                           fontSize: '11.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         Buy now
@@ -6256,28 +6275,28 @@ function CreatorPortalContent() {
                     <div
                       onClick={() => setStoreSliderCredits(15)}
                       style={{
-                        backgroundColor: '#0F172A',
-                        color: '#FFFFFF',
+                        backgroundColor: storeSliderCredits === 15 ? '#F8FAFC' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '16px 14px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         cursor: 'pointer',
-                        border: storeSliderCredits === 15 ? '2px solid #0052FF' : '2px solid transparent',
+                        border: storeSliderCredits === 15 ? '2px solid #0052FF' : '1px solid #E2E8F0',
+                        boxShadow: storeSliderCredits === 15 ? '0 4px 16px rgba(0, 82, 255, 0.08)' : '0 1px 3px rgba(0,0,0,0.02)',
                         transition: 'all 0.15s ease',
                       }}
                     >
                       <div>
-                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                        <div style={{ backgroundColor: '#EFF6FF', color: '#0052FF', border: '1px solid #BFDBFE', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
                           <span>⚡</span>
                           <span>15</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
-                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹1,260</span>
-                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹1,485</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginBottom: '3px' }}>
+                          <span style={{ fontSize: '19px', fontWeight: 900, color: '#0F172A' }}>₹1,260</span>
+                          <span style={{ fontSize: '11px', color: '#94A3B8', textDecoration: 'line-through' }}>₹1,485</span>
                         </div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginBottom: '14px' }}>
                           15% discount
                         </div>
                       </div>
@@ -6290,14 +6309,15 @@ function CreatorPortalContent() {
                         }}
                         style={{
                           width: '100%',
-                          backgroundColor: '#FFFFFF',
-                          color: '#0F172A',
+                          backgroundColor: storeSliderCredits === 15 ? '#0052FF' : '#F1F5F9',
+                          color: storeSliderCredits === 15 ? '#FFFFFF' : '#0F172A',
                           border: 'none',
                           borderRadius: '8px',
                           padding: '7px',
                           fontSize: '11.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         Buy now
@@ -6308,15 +6328,15 @@ function CreatorPortalContent() {
                     <div
                       onClick={() => setStoreSliderCredits(35)}
                       style={{
-                        backgroundColor: '#0F172A',
-                        color: '#FFFFFF',
+                        backgroundColor: storeSliderCredits === 35 ? '#F8FAFC' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '16px 14px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         cursor: 'pointer',
-                        border: storeSliderCredits === 35 ? '2px solid #10B981' : '2px solid transparent',
+                        border: storeSliderCredits === 35 ? '2px solid #0052FF' : '1px solid #E2E8F0',
+                        boxShadow: storeSliderCredits === 35 ? '0 6px 20px rgba(0, 82, 255, 0.12)' : '0 1px 3px rgba(0,0,0,0.02)',
                         transition: 'all 0.15s ease',
                         position: 'relative',
                       }}
@@ -6325,31 +6345,32 @@ function CreatorPortalContent() {
                       <span
                         style={{
                           position: 'absolute',
-                          top: '-8px',
+                          top: '-9px',
                           right: '8px',
-                          backgroundColor: '#10B981',
+                          backgroundColor: '#0052FF',
                           color: '#FFFFFF',
                           fontSize: '8px',
                           fontWeight: 800,
-                          padding: '2px 6px',
+                          padding: '2px 7px',
                           borderRadius: '6px',
                           textTransform: 'uppercase',
                           letterSpacing: '0.02em',
+                          boxShadow: '0 2px 4px rgba(0, 82, 255, 0.25)',
                         }}
                       >
                         People Choice
                       </span>
 
                       <div>
-                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                        <div style={{ backgroundColor: '#EFF6FF', color: '#0052FF', border: '1px solid #BFDBFE', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
                           <span>⚡</span>
                           <span>35</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
-                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹2,590</span>
-                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹3,465</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginBottom: '3px' }}>
+                          <span style={{ fontSize: '19px', fontWeight: 900, color: '#0F172A' }}>₹2,590</span>
+                          <span style={{ fontSize: '11px', color: '#94A3B8', textDecoration: 'line-through' }}>₹3,465</span>
                         </div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginBottom: '14px' }}>
                           25% discount
                         </div>
                       </div>
@@ -6362,14 +6383,15 @@ function CreatorPortalContent() {
                         }}
                         style={{
                           width: '100%',
-                          backgroundColor: '#FFFFFF',
-                          color: '#0F172A',
+                          backgroundColor: storeSliderCredits === 35 ? '#0052FF' : '#F1F5F9',
+                          color: storeSliderCredits === 35 ? '#FFFFFF' : '#0F172A',
                           border: 'none',
                           borderRadius: '8px',
                           padding: '7px',
                           fontSize: '11.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         Buy now
@@ -6380,28 +6402,28 @@ function CreatorPortalContent() {
                     <div
                       onClick={() => setStoreSliderCredits(75)}
                       style={{
-                        backgroundColor: '#0F172A',
-                        color: '#FFFFFF',
+                        backgroundColor: storeSliderCredits === 75 ? '#F8FAFC' : '#FFFFFF',
                         borderRadius: '16px',
                         padding: '16px 14px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         cursor: 'pointer',
-                        border: storeSliderCredits === 75 ? '2px solid #0052FF' : '2px solid transparent',
+                        border: storeSliderCredits === 75 ? '2px solid #0052FF' : '1px solid #E2E8F0',
+                        boxShadow: storeSliderCredits === 75 ? '0 4px 16px rgba(0, 82, 255, 0.08)' : '0 1px 3px rgba(0,0,0,0.02)',
                         transition: 'all 0.15s ease',
                       }}
                     >
                       <div>
-                        <div style={{ backgroundColor: '#1E293B', color: '#FFFFFF', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
+                        <div style={{ backgroundColor: '#EFF6FF', color: '#0052FF', border: '1px solid #BFDBFE', borderRadius: '20px', padding: '3px 8px', fontSize: '11px', fontWeight: 800, display: 'inline-flex', alignItems: 'center', gap: '4px', marginBottom: '12px' }}>
                           <span>⚡</span>
                           <span>75</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
-                          <span style={{ fontSize: '20px', fontWeight: 900 }}>₹4,820</span>
-                          <span style={{ fontSize: '11px', color: '#64748B', textDecoration: 'line-through' }}>₹7,425</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginBottom: '3px' }}>
+                          <span style={{ fontSize: '19px', fontWeight: 900, color: '#0F172A' }}>₹4,820</span>
+                          <span style={{ fontSize: '11px', color: '#94A3B8', textDecoration: 'line-through' }}>₹7,425</span>
                         </div>
-                        <div style={{ fontSize: '10.5px', color: '#94A3B8', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginBottom: '14px' }}>
                           35% discount
                         </div>
                       </div>
@@ -6414,14 +6436,15 @@ function CreatorPortalContent() {
                         }}
                         style={{
                           width: '100%',
-                          backgroundColor: '#FFFFFF',
-                          color: '#0F172A',
+                          backgroundColor: storeSliderCredits === 75 ? '#0052FF' : '#F1F5F9',
+                          color: storeSliderCredits === 75 ? '#FFFFFF' : '#0F172A',
                           border: 'none',
                           borderRadius: '8px',
                           padding: '7px',
                           fontSize: '11.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         Buy now
@@ -6435,46 +6458,46 @@ function CreatorPortalContent() {
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
-                    borderRadius: '20px',
-                    padding: '28px 24px',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.03)',
+                    borderRadius: '16px',
+                    padding: '24px 22px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    minHeight: '380px',
+                    minHeight: '360px',
                   }}
                 >
                   <div>
-                    <div style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 700, marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      Recap
+                    <div style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 700, marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      Order Summary
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '13px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
-                        <span style={{ color: '#475569', fontWeight: 600 }}>{storeSliderCredits} Credits</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '13px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>{storeSliderCredits} Application Credits</span>
                         <span style={{ fontWeight: 700, color: '#0F172A' }}>₹{activePricing.baseTotal.toLocaleString('en-IN')}</span>
                       </div>
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
-                        <span style={{ color: '#475569', fontWeight: 600 }}>Service Cost</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>Platform Processing</span>
                         <span style={{ fontWeight: 700, color: '#059669' }}>Free</span>
                       </div>
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
                         <span style={{ color: '#475569', fontWeight: 600 }}>GST / Taxes</span>
                         <span style={{ fontWeight: 700, color: '#64748B' }}>Included</span>
                       </div>
 
                       {activePricing.discountAmount > 0 && (
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '12px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #F1F5F9', paddingBottom: '10px' }}>
                           <span style={{ color: '#059669', fontWeight: 600 }}>Bundle Savings ({activePricing.discountPct}%)</span>
                           <span style={{ fontWeight: 700, color: '#059669' }}>-₹{activePricing.discountAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px' }}>
                         <span style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>Total</span>
-                        <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A' }}>₹{activePricing.finalAmount.toLocaleString('en-IN')}</span>
+                        <span style={{ fontSize: '22px', fontWeight: 900, color: '#0052FF' }}>₹{activePricing.finalAmount.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
                   </div>
@@ -6487,22 +6510,27 @@ function CreatorPortalContent() {
                     }}
                     style={{
                       width: '100%',
-                      backgroundColor: '#000000',
+                      backgroundColor: '#0052FF',
                       color: '#FFFFFF',
                       border: 'none',
                       borderRadius: '12px',
-                      padding: '14px',
-                      fontSize: '13.5px',
+                      padding: '13px',
+                      fontSize: '13px',
                       fontWeight: 800,
                       cursor: 'pointer',
-                      marginTop: '28px',
-                      boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+                      marginTop: '24px',
+                      boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
                       transition: 'all 0.15s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0040D6')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
                   >
-                    Buy now
+                    <span>⚡</span>
+                    <span>Buy now • ₹{activePricing.finalAmount.toLocaleString('en-IN')}</span>
                   </button>
                 </div>
               </div>
