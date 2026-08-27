@@ -787,23 +787,10 @@ function CreatorPortalContent() {
             padding: 0 16px;
           }
           .portal-main-wrapper {
-            padding: 12px 14px;
+            padding: 12px 14px 80px 14px;
           }
-          .portal-nav-segmented {
-            width: 100%;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 4px;
-            gap: 4px;
-            border-radius: 10px;
-            margin-bottom: 14px;
-            -webkit-overflow-scrolling: touch;
-          }
-          .portal-tab-pill {
-            padding: 7px 13px;
-            font-size: 12.5px;
-            gap: 6px;
-            flex-shrink: 0;
+          .portal-nav-segmented-container {
+            display: none !important;
           }
         }
 
@@ -939,8 +926,8 @@ function CreatorPortalContent() {
 
       {/* Main Content Container */}
       <main className="portal-main-wrapper">
-        {/* Nav Tabs */}
-        <div style={{ marginBottom: '20px' }}>
+        {/* Nav Tabs (Desktop Only, Mobile uses bottom navigation) */}
+        <div className="portal-nav-segmented-container" style={{ marginBottom: '20px' }}>
           <nav className="portal-nav-segmented no-scrollbar">
             {navTabs.map((tab) => {
               const isActive = activeTab === tab.id;
