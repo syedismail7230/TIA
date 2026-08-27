@@ -1117,7 +1117,7 @@ function CreatorPortalContent() {
     },
   ]);
 
-  // Financial Ledger & Invoices (TIA Creator Collabs SaaS Model)
+  // Financial Ledger & Invoices (TIA Creator Collabs SaaS Model with 5% Platform Commission)
   const [payments, setPayments] = useState<any[]>([
     {
       id: 'tx-101',
@@ -1132,8 +1132,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹25,000.00',
       grossAmount: 25000,
       tdsDeduction: 250,
-      platformFee: 0,
-      netAmount: 24750,
+      platformFee: 1250,
+      netAmount: 23500,
       authorizedAt: '20 Aug 2026',
       dueDate: '20 Aug 2026',
       status: 'UNCLAIMED',
@@ -1158,8 +1158,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹32,800.00',
       grossAmount: 32800,
       tdsDeduction: 328,
-      platformFee: 0,
-      netAmount: 32472,
+      platformFee: 1640,
+      netAmount: 30832,
       authorizedAt: '18 Aug 2026',
       dueDate: '18 Aug 2026',
       status: 'PAID',
@@ -1185,8 +1185,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹55,000.00',
       grossAmount: 55000,
       tdsDeduction: 550,
-      platformFee: 0,
-      netAmount: 54450,
+      platformFee: 2750,
+      netAmount: 51700,
       authorizedAt: '15 Aug 2026',
       dueDate: '15 Aug 2026',
       status: 'PAID',
@@ -1212,8 +1212,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹18,500.00',
       grossAmount: 18500,
       tdsDeduction: 185,
-      platformFee: 0,
-      netAmount: 18315,
+      platformFee: 925,
+      netAmount: 17390,
       authorizedAt: '12 Aug 2026',
       dueDate: '12 Aug 2026',
       status: 'UNCLAIMED',
@@ -1238,8 +1238,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹22,000.00',
       grossAmount: 22000,
       tdsDeduction: 220,
-      platformFee: 0,
-      netAmount: 21780,
+      platformFee: 1100,
+      netAmount: 20680,
       authorizedAt: '08 Aug 2026',
       dueDate: '08 Aug 2026',
       status: 'PAID',
@@ -1265,8 +1265,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹35,000.00',
       grossAmount: 35000,
       tdsDeduction: 350,
-      platformFee: 0,
-      netAmount: 34650,
+      platformFee: 1750,
+      netAmount: 32900,
       authorizedAt: '04 Aug 2026',
       dueDate: '04 Aug 2026',
       status: 'PAID',
@@ -1292,8 +1292,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹28,000.00',
       grossAmount: 28000,
       tdsDeduction: 280,
-      platformFee: 0,
-      netAmount: 27720,
+      platformFee: 1400,
+      netAmount: 26320,
       authorizedAt: '01 Aug 2026',
       dueDate: '01 Aug 2026',
       status: 'PAID',
@@ -1319,8 +1319,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹42,000.00',
       grossAmount: 42000,
       tdsDeduction: 420,
-      platformFee: 0,
-      netAmount: 41580,
+      platformFee: 2100,
+      netAmount: 39480,
       authorizedAt: '28 Jul 2026',
       dueDate: '28 Jul 2026',
       status: 'PAID',
@@ -1346,8 +1346,8 @@ function CreatorPortalContent() {
       priceFormatted: '₹30,000.00',
       grossAmount: 30000,
       tdsDeduction: 300,
-      platformFee: 0,
-      netAmount: 29700,
+      platformFee: 1500,
+      netAmount: 28200,
       authorizedAt: '24 Jul 2026',
       dueDate: '24 Jul 2026',
       status: 'PAID',
@@ -1477,6 +1477,416 @@ function CreatorPortalContent() {
     });
   };
 
+  const handleDownloadDisbursalSlip = (tx: any) => {
+    if (!tx) return;
+    const printWindow = window.open('', '_blank', 'width=860,height=950');
+    if (!printWindow) {
+      window.print();
+      return;
+    }
+
+    const invoiceNo = tx.invoiceNumber || tx.invoiceCode || 'INV-TIA-2026-0192';
+    const brandName = tx.mediaName || 'Brand Partner';
+    const billedTo = tx.billedTo || tx.mediaName || 'Brand Partner Pvt Ltd';
+    const campaign = tx.campaign || 'Campaign Collaboration';
+    const deliverable = tx.deliverableDesc || campaign;
+    const creator = currentUser?.name || 'Sarah Jenkins';
+    const creatorEmail = currentUser?.email || 'sarah.jenkins@gmail.com';
+    const bankName = bankAccount?.bankName || 'HDFC Bank Ltd.';
+    const bankAcc = `•••• •••• ${bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '0482'}`;
+    const ifsc = bankAccount?.ifscCode || 'HDFC0000128';
+    const panNo = bankAccount?.panNumber || 'ABCDE1234F';
+    const dateStr = tx.disbursedAt || tx.authorizedAt || '20 Aug 2026';
+    const grossNum = tx.grossAmount || 25000;
+    const feeNum = tx.platformFee ?? Math.round(grossNum * 0.05);
+    const tdsNum = tx.tdsDeduction ?? Math.round(grossNum * 0.01);
+    const netNum = tx.netAmount ?? (grossNum - feeNum - tdsNum);
+    const utr = tx.utrNumber || 'HDFC9821049219';
+    const isCreditTopup = tx.id?.includes('cred');
+
+    const numberToWords = (num: number): string => {
+      const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+      if ((num = num.toString() as any).length > 9) return 'overflow';
+      const n: any = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+      if (!n) return '';
+      let str = '';
+      str += n[1] != 0 ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+      str += n[2] != 0 ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+      str += n[3] != 0 ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+      str += n[4] != 0 ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+      str += n[5] != 0 ? ((str != '' ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]])) + 'Rupees Only' : 'Rupees Only';
+      return str;
+    };
+
+    const wordsNet = numberToWords(netNum);
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Payment_Disbursal_Slip_${invoiceNo}</title>
+          <meta charset="utf-8" />
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 12mm;
+            }
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              color: #0F172A;
+              background: #FFFFFF;
+              margin: 0;
+              padding: 12px;
+              -webkit-print-color-adjust: exact;
+              print-color-adjust: exact;
+            }
+            .slip-wrapper {
+              max-width: 780px;
+              margin: 0 auto;
+              border: 2px solid #0F172A;
+              background: #FFFFFF;
+              padding: 24px 28px;
+            }
+            .header-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 16px;
+            }
+            .header-table td {
+              vertical-align: top;
+            }
+            .company-name {
+              font-size: 22px;
+              font-weight: 900;
+              color: #0052FF;
+              letter-spacing: -0.02em;
+            }
+            .company-meta {
+              font-size: 10.5px;
+              color: #475569;
+              line-height: 1.4;
+              margin-top: 4px;
+            }
+            .title-bar {
+              background-color: #0F172A;
+              color: #FFFFFF;
+              text-align: center;
+              font-size: 13px;
+              font-weight: 800;
+              letter-spacing: 0.08em;
+              padding: 8px 12px;
+              margin-bottom: 16px;
+              text-transform: uppercase;
+            }
+            .meta-grid {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 16px;
+              border: 1px solid #CBD5E1;
+            }
+            .meta-grid td {
+              padding: 6px 10px;
+              font-size: 11px;
+              border: 1px solid #CBD5E1;
+            }
+            .meta-label {
+              color: #64748B;
+              font-weight: 600;
+              width: 22%;
+              background-color: #F8FAFC;
+            }
+            .meta-val {
+              color: #0F172A;
+              font-weight: 700;
+              width: 28%;
+            }
+            .parties-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 18px;
+            }
+            .party-box {
+              width: 49%;
+              border: 1px solid #CBD5E1;
+              padding: 10px 12px;
+              vertical-align: top;
+              background-color: #FAFAFA;
+            }
+            .party-title {
+              font-size: 10px;
+              font-weight: 800;
+              color: #0052FF;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+              border-bottom: 1px solid #E2E8F0;
+              padding-bottom: 4px;
+              margin-bottom: 6px;
+            }
+            .party-name {
+              font-size: 13px;
+              font-weight: 800;
+              color: #0F172A;
+              margin-bottom: 2px;
+            }
+            .party-detail {
+              font-size: 10.5px;
+              color: #475569;
+              line-height: 1.4;
+            }
+            .items-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 16px;
+              border: 1px solid #0F172A;
+            }
+            .items-table th {
+              background-color: #F1F5F9;
+              color: #0F172A;
+              font-size: 10.5px;
+              font-weight: 800;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;
+              padding: 8px 10px;
+              border: 1px solid #CBD5E1;
+              text-align: left;
+            }
+            .items-table td {
+              padding: 8px 10px;
+              font-size: 11.5px;
+              border: 1px solid #CBD5E1;
+              vertical-align: top;
+            }
+            .summary-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 18px;
+            }
+            .summary-table td {
+              padding: 6px 10px;
+              font-size: 11.5px;
+            }
+            .words-row {
+              background-color: #F8FAFC;
+              border: 1px solid #CBD5E1;
+              padding: 8px 12px;
+              font-size: 11px;
+              margin-bottom: 16px;
+            }
+            .settlement-box {
+              border: 1px solid #0052FF;
+              background-color: #EFF6FF;
+              padding: 10px 14px;
+              border-radius: 6px;
+              margin-bottom: 18px;
+              font-size: 11px;
+              color: #1E40AF;
+            }
+            .sign-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 24px;
+            }
+            .sign-table td {
+              vertical-align: bottom;
+              font-size: 10.5px;
+              color: #475569;
+            }
+            .stamp-seal {
+              display: inline-block;
+              border: 2px solid #059669;
+              color: #059669;
+              font-size: 10px;
+              font-weight: 800;
+              padding: 6px 12px;
+              border-radius: 4px;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="slip-wrapper">
+            <!-- Corporate Header -->
+            <table class="header-table">
+              <tr>
+                <td style="width: 60%;">
+                  <div class="company-name">THE INFLUENCE ALLIANCE</div>
+                  <div class="company-meta">
+                    <strong>The Influence Alliance Private Limited</strong><br />
+                    CIN: U74999DL2026PTC109281 • GSTIN: 07AAACT8819Q1Z8<br />
+                    Corporate HQ: Level 9, Cyber City Phase II, Gurugram, India - 122002<br />
+                    Web: theinfluencealliance.com • Email: disbursals@theinfluencealliance.com
+                  </div>
+                </td>
+                <td style="width: 40%; text-align: right;">
+                  <div class="stamp-seal">
+                    ✓ VERIFIED & SETTLED
+                  </div>
+                  <div style="font-size: 10px; color: #64748B; margin-top: 6px;">
+                    Authorized Payout Gateway
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Title Bar -->
+            <div class="title-bar">
+              CREATOR REMUNERATION & PAYMENT DISBURSAL ADVICE
+            </div>
+
+            <!-- Transaction Reference Grid -->
+            <table class="meta-grid">
+              <tr>
+                <td class="meta-label">Payment Ref / Voucher No:</td>
+                <td class="meta-val">${invoiceNo}</td>
+                <td class="meta-label">Disbursal Timestamp:</td>
+                <td class="meta-val">${dateStr}</td>
+              </tr>
+              <tr>
+                <td class="meta-label">Bank Settlement UTR:</td>
+                <td class="meta-val" style="font-family: monospace; color: #0052FF;">${utr}</td>
+                <td class="meta-label">Payment Channel:</td>
+                <td class="meta-val">IMPS / Direct RTGS Settlement</td>
+              </tr>
+            </table>
+
+            <!-- Two-Party Information Box -->
+            <table class="parties-table">
+              <tr>
+                <td class="party-box">
+                  <div class="party-title">Brand Client / Payer Sponsor</div>
+                  <div class="party-name">${brandName}</div>
+                  <div class="party-detail">
+                    <strong>Billed Entity:</strong> ${billedTo}<br />
+                    <strong>Campaign Subject:</strong> ${campaign}<br />
+                    <strong>Disbursed via:</strong> TIA Financial Gateway
+                  </div>
+                </td>
+                <td style="width: 2%;"></td>
+                <td class="party-box">
+                  <div class="party-title">Beneficiary (Creator Payee)</div>
+                  <div class="party-name">${creator}</div>
+                  <div class="party-detail">
+                    <strong>Email:</strong> ${creatorEmail}<br />
+                    <strong>Bank Account:</strong> ${bankName} (${bankAcc})<br />
+                    <strong>IFSC Code:</strong> ${ifsc} • <strong>PAN:</strong> ${panNo}
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Itemized Table -->
+            <table class="items-table">
+              <thead>
+                <tr>
+                  <th style="width: 8%; text-align: center;">Sr.</th>
+                  <th style="width: 62%;">Description / Deliverables</th>
+                  <th style="width: 15%; text-align: center;">SAC Code</th>
+                  <th style="width: 15%; text-align: right;">Gross Rate (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: center;">1</td>
+                  <td>
+                    <strong>${deliverable}</strong><br />
+                    <span style="font-size: 10px; color: #64748B;">Campaign: ${campaign} • Verified Milestone Completion</span>
+                  </td>
+                  <td style="text-align: center; color: #64748B;">998399</td>
+                  <td style="text-align: right; font-weight: 700;">₹${grossNum.toLocaleString('en-IN')}.00</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Statement Summary Table -->
+            <table class="summary-table">
+              <tr>
+                <td style="width: 60%;"></td>
+                <td style="width: 22%; font-weight: 600; color: #475569; border-top: 1px solid #CBD5E1;">Gross Campaign Rate:</td>
+                <td style="width: 18%; text-align: right; font-weight: 700; border-top: 1px solid #CBD5E1;">₹${grossNum.toLocaleString('en-IN')}.00</td>
+              </tr>
+              ${!isCreditTopup ? `
+              <tr>
+                <td></td>
+                <td style="font-weight: 600; color: #EA580C;">Less: TIA Platform Fee (5% Commission):</td>
+                <td style="text-align: right; font-weight: 700; color: #EA580C;">-₹${feeNum.toLocaleString('en-IN')}.00</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td style="font-weight: 600; color: #DC2626;">Less: TDS Deducted u/s 194J (1%):</td>
+                <td style="text-align: right; font-weight: 700; color: #DC2626;">-₹${tdsNum.toLocaleString('en-IN')}.00</td>
+              </tr>
+              ` : ''}
+              <tr style="background-color: #F8FAFC;">
+                <td></td>
+                <td style="font-size: 13px; font-weight: 900; color: #0052FF; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 10px;">
+                  NET AMOUNT DISBURSED:
+                </td>
+                <td style="font-size: 14px; font-weight: 900; color: #0052FF; text-align: right; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 10px;">
+                  ₹${netNum.toLocaleString('en-IN')}.00
+                </td>
+              </tr>
+            </table>
+
+            <!-- Amount in Words -->
+            <div class="words-row">
+              <strong>Amount in Words:</strong> <em>${wordsNet}</em>
+            </div>
+
+            <!-- Settlement Proof Box -->
+            <div class="settlement-box">
+              <div style="margin-bottom: 3px;">
+                <strong>Bank Settlement Verification:</strong> Transfer of <strong>₹${netNum.toLocaleString('en-IN')}.00</strong> successfully processed to <strong>${bankName} (A/C: ${bankAcc})</strong> with UTR Ref: <strong>${utr}</strong>.
+              </div>
+              <div style="font-size: 10px; color: #475569;">
+                TDS has been deposited under PAN <strong>${panNo}</strong> under Section 194J. Form 16A TDS Certificate will be available on the Income Tax TRACES portal.
+              </div>
+            </div>
+
+            <!-- Signatures & Authorization -->
+            <table class="sign-table">
+              <tr>
+                <td style="width: 50%;">
+                  <div style="font-family: monospace; font-size: 9.5px; color: #94A3B8;">
+                    DIGITAL SIGNATURE HASH:<br />
+                    SHA256:${invoiceNo.replace(/[^0-9]/g, '')}9b8f72a1e04c992a71d44
+                  </div>
+                  <div style="font-size: 10px; color: #64748B; margin-top: 4px;">
+                    This is a system-generated financial disbursal advice.
+                  </div>
+                </td>
+                <td style="width: 50%; text-align: right;">
+                  <div style="font-size: 11px; font-weight: 800; color: #0F172A;">For The Influence Alliance Pvt. Ltd.</div>
+                  <div style="height: 36px; display: flex; align-items: flex-end; justify-content: flex-end;">
+                    <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 20px; color: #0052FF;">TIA Finance Gateway</span>
+                  </div>
+                  <div style="border-top: 1px solid #CBD5E1; padding-top: 4px; font-size: 10px; color: #64748B;">
+                    Authorized Financial Signatory
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <script>
+            window.onload = function() {
+              window.focus();
+              window.print();
+            };
+          </script>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  };
+
   const submitApplication = () => {
     if (!selectedCampaign) return;
     if (applyCredits <= 0) {
@@ -1602,10 +2012,19 @@ function CreatorPortalContent() {
     }
 
     const targetTx = payments.find((p) => p.id === txId);
+    const gross = targetTx?.grossAmount || 25000;
+    const fee = targetTx?.platformFee ?? Math.round(gross * 0.05);
+    const tds = targetTx?.tdsDeduction ?? Math.round(gross * 0.01);
+    const net = targetTx?.netAmount ?? (gross - fee - tds);
+
     const updatedTx = {
       ...targetTx,
       status: 'PAID',
+      statusLabel: 'Paid',
       disbursedAt: 'Just now',
+      platformFee: fee,
+      tdsDeduction: tds,
+      netAmount: net,
       utrNumber: targetTx?.utrNumber || `HDFC${Math.floor(1000000000 + Math.random() * 9000000000)}`,
     };
 
@@ -7330,23 +7749,30 @@ function CreatorPortalContent() {
                           {!isCreditPurchase && (
                             <>
                               <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                                <span>TDS Deducted (1% Sec 194J)</span>
-                                <span style={{ fontWeight: 600, color: '#DC2626' }}>
-                                  -₹{selectedInvoice.tdsDeduction?.toLocaleString('en-IN') || '250'}.00
+                                <span>TIA Platform Fee (5% Commission)</span>
+                                <span style={{ fontWeight: 600, color: '#EA580C' }}>
+                                  -₹{(selectedInvoice.platformFee || ((selectedInvoice.grossAmount || 0) * 0.05) || 1250).toLocaleString('en-IN')}.00
                                 </span>
                               </div>
                               <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                                <span>Platform Fee</span>
-                                <span style={{ fontWeight: 600, color: '#059669' }}>₹0.00 (Covered by Brand)</span>
+                                <span>TDS Deducted (1% Sec 194J)</span>
+                                <span style={{ fontWeight: 600, color: '#DC2626' }}>
+                                  -₹{(selectedInvoice.tdsDeduction || ((selectedInvoice.grossAmount || 0) * 0.01) || 250).toLocaleString('en-IN')}.00
+                                </span>
                               </div>
                             </>
                           )}
                           <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
-                            <span style={{ fontWeight: 800, color: '#0F172A' }}>
-                              {isCreditPurchase ? 'Total Paid' : 'Net Payout Due'}
-                            </span>
+                            <div>
+                              <span style={{ fontWeight: 800, color: '#0F172A' }}>
+                                {isCreditPurchase ? 'Total Paid' : 'Net Disbursed by TIA'}
+                              </span>
+                              {!isCreditPurchase && (
+                                <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 500 }}>Direct to Bank Account</div>
+                              )}
+                            </div>
                             <span style={{ fontWeight: 900, color: '#0052FF' }}>
-                              ₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')}.00
+                              ₹{(selectedInvoice.netAmount || 23500).toLocaleString('en-IN')}.00
                             </span>
                           </div>
                         </div>
@@ -8690,13 +9116,24 @@ function CreatorPortalContent() {
                 <span style={{ fontWeight: 700, color: '#0F172A' }}>{selectedReceiptTx.amount}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '13px' }}>
+                <span style={{ color: '#475569' }}>TIA Platform Fee (5% Commission)</span>
+                <span style={{ fontWeight: 700, color: '#EA580C' }}>
+                  -₹{(selectedReceiptTx.platformFee || ((selectedReceiptTx.grossAmount || 0) * 0.05) || 1640).toLocaleString('en-IN')}
+                </span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '13px' }}>
                 <span style={{ color: '#475569' }}>TDS Deducted (1% under Sec 194J)</span>
-                <span style={{ fontWeight: 700, color: '#64748B' }}>-₹{selectedReceiptTx.tdsDeduction || 250}</span>
+                <span style={{ fontWeight: 700, color: '#DC2626' }}>
+                  -₹{(selectedReceiptTx.tdsDeduction || ((selectedReceiptTx.grossAmount || 0) * 0.01) || 328).toLocaleString('en-IN')}
+                </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0 2px 0', fontSize: '15px', borderTop: '1px dashed #E2E8F0', marginTop: '6px' }}>
-                <span style={{ fontWeight: 800, color: '#0F172A' }}>Net Amount Disbursed</span>
+                <div>
+                  <span style={{ fontWeight: 800, color: '#0F172A' }}>Net Disbursed by TIA</span>
+                  <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 500 }}>Direct to Beneficiary Bank</div>
+                </div>
                 <span style={{ fontWeight: 900, color: '#0052FF' }}>
-                  ₹{(selectedReceiptTx.netAmount || 24750).toLocaleString('en-IN')}
+                  ₹{(selectedReceiptTx.netAmount || 30832).toLocaleString('en-IN')}
                 </span>
               </div>
             </div>
@@ -8721,21 +9158,29 @@ function CreatorPortalContent() {
             <div style={{ display: 'flex', gap: '10px' }}>
               <button
                 type="button"
-                onClick={() => window.print()}
+                onClick={() => handleDownloadDisbursalSlip(selectedReceiptTx)}
                 style={{
                   flex: 1,
                   backgroundColor: '#0052FF',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '10px',
-                  padding: '10px 16px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
+                  padding: '11px 16px',
+                  fontSize: '13px',
+                  fontWeight: 800,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
+                  boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#0040D6';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#0052FF';
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
