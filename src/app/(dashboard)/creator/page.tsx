@@ -2445,6 +2445,141 @@ function CreatorPortalContent() {
           transform: translateY(-3px);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
+
+        @keyframes slideUp {
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        /* Responsive Payments 4-Card Stats Grid (Mobile 2x2 Clean Layout) */
+        .payments-stats-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+        }
+        @media (max-width: 1024px) {
+          .payments-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+        }
+        @media (max-width: 640px) {
+          .payments-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+          }
+          .payments-stat-card {
+            padding: 13px 12px !important;
+            border-radius: 14px !important;
+            min-height: 106px !important;
+          }
+          .payments-stat-label {
+            font-size: 11.5px !important;
+          }
+          .payments-stat-value {
+            font-size: 18px !important;
+            margin: 6px 0 4px 0 !important;
+            letter-spacing: -0.02em !important;
+          }
+          .payments-stat-subtext {
+            font-size: 9.5px !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            max-width: 90px !important;
+          }
+          .payments-stat-badge {
+            font-size: 9.5px !important;
+            padding: 1px 5px !important;
+          }
+          .portal-header-wrapper {
+            padding: 0 14px !important;
+            height: 56px !important;
+          }
+        }
+
+        /* Desktop Table vs Native Mobile Transactions List */
+        .desktop-table-view {
+          display: block;
+        }
+        .mobile-list-view {
+          display: none;
+        }
+        @media (max-width: 768px) {
+          .desktop-table-view {
+            display: none !important;
+          }
+          .mobile-list-view {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+          }
+        }
+
+        /* Inspector Panel Bottom Sheet on Mobile & Tablets */
+        .payments-inspector-sheet {
+          background-color: #FFFFFF;
+          border: 1px solid #E2E8F0;
+          border-radius: 16px;
+          padding: 22px;
+          width: 380px;
+          max-width: 100%;
+          flex-shrink: 0;
+          position: sticky;
+          top: 20px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+          overflow: hidden;
+          box-sizing: border-box;
+        }
+        .payments-sheet-drag-handle {
+          display: none;
+        }
+        @media (max-width: 1024px) {
+          .payments-inspector-wrapper {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 1000 !important;
+            background-color: rgba(15, 23, 42, 0.6) !important;
+            backdrop-filter: blur(4px) !important;
+            display: flex !important;
+            align-items: flex-end !important;
+            justify-content: center !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            border: none !important;
+          }
+          .payments-inspector-sheet {
+            width: 100% !important;
+            max-width: 560px !important;
+            max-height: 88vh !important;
+            overflow-y: auto !important;
+            border-radius: 24px 24px 0 0 !important;
+            padding: 20px 18px 28px 18px !important;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3) !important;
+            position: relative !important;
+            top: auto !important;
+            animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          }
+          .payments-sheet-drag-handle {
+            display: block !important;
+            width: 36px;
+            height: 4px;
+            background-color: #CBD5E1;
+            border-radius: 4px;
+            margin: 0 auto 14px auto;
+          }
+        }
       `}} />
 
       {/* Top Header Navigation Bar */}
@@ -6910,16 +7045,11 @@ function CreatorPortalContent() {
             /* VIEW 1: INVOICES & PAYOUTS STUDIO (4-CARD SPLIT VIEW)                */
             /* ==================================================================== */
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {/* TOP ROW: 4 STATS CARDS (Total Invoices, Paid Invoices, Unpaid Invoices, Credits Wallet) */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 230px), 1fr))',
-                  gap: '16px',
-                }}
-              >
+              {/* TOP ROW: 4 STATS CARDS (Mobile 2x2 Grid, Desktop 4-Col Grid) */}
+              <div className="payments-stats-grid">
                 {/* Card 1: Total Earnings */}
                 <div
+                  className="payments-stat-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
@@ -6932,7 +7062,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Earnings</span>
+                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -6949,12 +7079,13 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
+                  <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Gross earnings this cycle</span>
+                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#94A3B8' }}>Gross earnings</span>
                     <span
+                      className="payments-stat-badge"
                       style={{
                         fontSize: '11px',
                         fontWeight: 700,
@@ -6976,6 +7107,7 @@ function CreatorPortalContent() {
 
                 {/* Card 2: Paid Earnings */}
                 <div
+                  className="payments-stat-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
@@ -6988,7 +7120,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Earnings</span>
+                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -7005,12 +7137,13 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
+                  <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalPaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>from {paidCount} brand payouts</span>
+                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#94A3B8' }}>{paidCount} brand payouts</span>
                     <span
+                      className="payments-stat-badge"
                       style={{
                         fontSize: '11px',
                         fontWeight: 700,
@@ -7032,6 +7165,7 @@ function CreatorPortalContent() {
 
                 {/* Card 3: Pending Earnings */}
                 <div
+                  className="payments-stat-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
@@ -7044,7 +7178,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Pending Earnings</span>
+                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Pending Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -7061,12 +7195,13 @@ function CreatorPortalContent() {
                       •••
                     </button>
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
+                  <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>from {unpaidCount} deals ready to claim</span>
+                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#94A3B8' }}>{unpaidCount} ready to claim</span>
                     <span
+                      className="payments-stat-badge"
                       style={{
                         fontSize: '11px',
                         fontWeight: 700,
@@ -7089,6 +7224,7 @@ function CreatorPortalContent() {
                 {/* Card 4: Credits Wallet (Clicking Transforms Page!) */}
                 <div
                   onClick={() => setShowCreditsStoreView(true)}
+                  className="payments-stat-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1.5px solid #BFDBFE',
@@ -7102,23 +7238,14 @@ function CreatorPortalContent() {
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#0052FF';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 82, 255, 0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#BFDBFE';
-                    e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 82, 255, 0.04)';
-                  }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span style={{ fontSize: '14px' }}>⚡</span>
-                      <span style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
+                      <span className="payments-stat-label" style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
                     </div>
                     <span
+                      className="payments-stat-badge"
                       style={{
                         backgroundColor: '#EFF6FF',
                         border: '1px solid #BFDBFE',
@@ -7135,11 +7262,11 @@ function CreatorPortalContent() {
                       <span>+ Buy ↗</span>
                     </span>
                   </div>
-                  <div style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
+                  <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#64748B' }}>₹99 / application</span>
+                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#64748B' }}>₹99 / application</span>
                     <button
                       type="button"
                       onClick={(e) => {
@@ -7164,9 +7291,9 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* SPLIT TRANSACTIONS WORKSPACE (TABLE ON LEFT, DETAILS INSPECTOR ON RIGHT) */}
+              {/* SPLIT TRANSACTIONS WORKSPACE (TABLE ON LEFT, DETAILS INSPECTOR ON RIGHT / BOTTOM SHEET ON MOBILE) */}
               <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                {/* LEFT TABLE: TRANSACTIONS HISTORY */}
+                {/* LEFT: TRANSACTIONS HISTORY (DESKTOP TABLE & MOBILE FEED) */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
@@ -7184,7 +7311,7 @@ function CreatorPortalContent() {
                       Transactions History
                     </h3>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                       {/* Search Input */}
                       <div
                         style={{
@@ -7307,8 +7434,8 @@ function CreatorPortalContent() {
                     </div>
                   </div>
 
-                  {/* Transactions Table */}
-                  <div style={{ overflowX: 'auto' }}>
+                  {/* DESKTOP TABLE VIEW (> 768px) */}
+                  <div className="desktop-table-view" style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', minWidth: '500px', borderCollapse: 'collapse', textAlign: 'left' }}>
                       <thead>
                         <tr style={{ borderBottom: '1px solid #F1F5F9', fontSize: '11.5px', color: '#94A3B8', fontWeight: 600 }}>
@@ -7432,9 +7559,98 @@ function CreatorPortalContent() {
                       </tbody>
                     </table>
                   </div>
+
+                  {/* NATIVE MOBILE TRANSACTIONS FEED (<= 768px) */}
+                  <div className="mobile-list-view">
+                    {filteredInvoices.map((invoice) => {
+                      const isSelected = selectedInvoice?.id === invoice.id;
+                      const isPaid = invoice.status === 'PAID';
+                      const isCredit = invoice.id?.includes('cred');
+
+                      return (
+                        <div
+                          key={invoice.id}
+                          onClick={() => {
+                            setSelectedInvoiceId(invoice.id);
+                            setInvoiceDetailOpen(true);
+                          }}
+                          style={{
+                            backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                            border: isSelected ? '1.5px solid #0052FF' : '1px solid #E2E8F0',
+                            borderRadius: '14px',
+                            padding: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '12px',
+                            cursor: 'pointer',
+                            boxShadow: isSelected ? '0 4px 12px rgba(0, 82, 255, 0.08)' : '0 1px 3px rgba(0, 0, 0, 0.02)',
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          {/* Left Avatar + Details */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
+                            <div
+                              style={{
+                                width: '38px',
+                                height: '38px',
+                                borderRadius: '10px',
+                                backgroundColor: isCredit ? '#0052FF' : (invoice.logoBg || '#2563EB'),
+                                color: '#FFFFFF',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '12px',
+                                fontWeight: 900,
+                                flexShrink: 0,
+                              }}
+                            >
+                              {isCredit ? '⚡' : (invoice.initials || 'PH')}
+                            </div>
+                            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
+                              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {invoice.mediaName}
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
+                                {invoice.campaign}
+                              </div>
+                              <div style={{ fontSize: '10px', color: '#94A3B8', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <span>{invoice.authorizedAt}</span>
+                                <span>•</span>
+                                <span style={{ fontFamily: 'monospace' }}>{invoice.invoiceCode || 'TXN-0192'}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Right Amount + Status Badge */}
+                          <div style={{ textAlign: 'right', flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+                            <div style={{ fontSize: '14px', fontWeight: 900, color: '#0F172A' }}>
+                              {invoice.priceFormatted || invoice.amount}
+                            </div>
+                            <span
+                              style={{
+                                fontSize: '10.5px',
+                                fontWeight: 700,
+                                padding: '2px 8px',
+                                borderRadius: '6px',
+                                backgroundColor: isPaid ? '#ECFDF5' : '#FFF7ED',
+                                color: isPaid ? '#059669' : '#EA580C',
+                                border: isPaid ? '1px solid #D1FAE5' : '1px solid #FFEDD5',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '3px',
+                              }}
+                            >
+                              {isPaid ? '✓ Paid' : '⏳ Unpaid'}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {/* RIGHT COLUMN: TRANSACTION DETAILS INSPECTOR PANEL */}
+                {/* RIGHT COLUMN: TRANSACTION DETAILS INSPECTOR PANEL (DESKTOP RIGHT / MOBILE BOTTOM SHEET) */}
                 {invoiceDetailOpen && selectedInvoice && (() => {
                   const isCreditPurchase = selectedInvoice.id?.includes('cred');
                   const isPaid = selectedInvoice.status === 'PAID';
@@ -7443,353 +7659,347 @@ function CreatorPortalContent() {
 
                   return (
                     <div
-                      style={{
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '16px',
-                        padding: '22px',
-                        width: '380px',
-                        maxWidth: '100%',
-                        flexShrink: 0,
-                        position: 'sticky',
-                        top: '20px',
-                        boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
-                        overflow: 'hidden',
-                        boxSizing: 'border-box',
+                      className="payments-inspector-wrapper"
+                      onClick={(e) => {
+                        if (e.target === e.currentTarget) setInvoiceDetailOpen(false);
                       }}
                     >
-                      {/* Header */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
-                        <div>
-                          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
-                            Transaction Details
-                          </h4>
-                          <span style={{ fontSize: '11px', color: '#64748B' }}>
-                            {selectedInvoice.invoiceCode || 'TXN-PHA-0192'}
-                          </span>
+                      <div className="payments-inspector-sheet">
+                        {/* Mobile Drag Handle Indicator */}
+                        <div className="payments-sheet-drag-handle" />
+
+                        {/* Header */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+                          <div>
+                            <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
+                              Transaction Details
+                            </h4>
+                            <span style={{ fontSize: '11px', color: '#64748B' }}>
+                              {selectedInvoice.invoiceCode || 'TXN-PHA-0192'}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setInvoiceDetailOpen(false)}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: '#94A3B8',
+                              fontSize: '15px',
+                              cursor: 'pointer',
+                              padding: '4px 6px',
+                            }}
+                          >
+                            ✕
+                          </button>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => setInvoiceDetailOpen(false)}
+
+                        {/* From & To Entity Cards */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '12px', marginBottom: '18px' }}>
+                          {/* From Entity */}
+                          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
+                              {isCreditPurchase ? 'From (You)' : 'From (Brand)'}
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                              <div
+                                style={{
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '8px',
+                                  backgroundColor: isCreditPurchase ? '#0052FF' : (selectedInvoice.logoBg || '#2563EB'),
+                                  color: '#FFFFFF',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '11px',
+                                  fontWeight: 900,
+                                  flexShrink: 0,
+                                }}
+                              >
+                                {isCreditPurchase ? '⚡' : (selectedInvoice.initials || 'PH')}
+                              </div>
+                              <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {isCreditPurchase ? creatorName : (selectedInvoice.billedTo || selectedInvoice.mediaName)}
+                                </div>
+                                <div style={{ fontSize: '10.5px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {isCreditPurchase ? creatorEmail : selectedInvoice.city || 'India'}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* To Entity */}
+                          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                            <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
+                              {isCreditPurchase ? 'To (TIA)' : 'To (You / Creator)'}
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                              <div
+                                style={{
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '8px',
+                                  backgroundColor: isCreditPurchase ? '#0F172A' : '#0052FF',
+                                  color: '#FFFFFF',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '11px',
+                                  fontWeight: 900,
+                                  flexShrink: 0,
+                                }}
+                              >
+                                {isCreditPurchase ? 'TIA' : 'YOU'}
+                              </div>
+                              <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {isCreditPurchase ? 'The Influencers Agency' : creatorName}
+                                </div>
+                                <div style={{ fontSize: '10.5px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {isCreditPurchase ? 'billing@theinfluencersagency.com' : creatorEmail}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Metadata Rows */}
+                        <div
                           style={{
-                            background: 'none',
-                            border: 'none',
-                            color: '#94A3B8',
-                            fontSize: '15px',
-                            cursor: 'pointer',
-                            padding: '4px 6px',
+                            borderTop: '1px solid #F1F5F9',
+                            borderBottom: '1px solid #F1F5F9',
+                            padding: '12px 0',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '8px',
+                            marginBottom: '16px',
+                            fontSize: '11.5px',
                           }}
                         >
-                          ✕
-                        </button>
-                      </div>
-
-                      {/* From & To Entity Cards */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '12px', marginBottom: '18px' }}>
-                        {/* From Entity */}
-                        <div style={{ minWidth: 0, overflow: 'hidden' }}>
-                          <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
-                            {isCreditPurchase ? 'From (You)' : 'From (Brand)'}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Date</span>
+                            <span style={{ fontWeight: 700, color: '#0F172A' }}>
+                              {selectedInvoice.dueDate || selectedInvoice.authorizedAt}
+                            </span>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
-                            <div
-                              style={{
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '8px',
-                                backgroundColor: isCreditPurchase ? '#0052FF' : (selectedInvoice.logoBg || '#2563EB'),
-                                color: '#FFFFFF',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '11px',
-                                fontWeight: 900,
-                                flexShrink: 0,
-                              }}
-                            >
-                              {isCreditPurchase ? 'SJ' : (selectedInvoice.initials || 'PH')}
-                            </div>
-                            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
-                              <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? creatorName : selectedInvoice.mediaName}
-                              </div>
-                              <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? creatorEmail : (selectedInvoice.email || 'brand@paulhomes.in')}
-                              </div>
-                            </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                            <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Subject</span>
+                            <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
+                              {selectedInvoice.campaign}
+                            </span>
                           </div>
-                        </div>
-
-                        {/* To Entity */}
-                        <div style={{ minWidth: 0, overflow: 'hidden' }}>
-                          <div style={{ fontSize: '10.5px', color: '#94A3B8', fontWeight: 700, marginBottom: '6px', textTransform: 'uppercase' }}>
-                            {isCreditPurchase ? 'To (Platform)' : 'To (You)'}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+                            <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Entity</span>
+                            <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
+                              {selectedInvoice.billedTo || selectedInvoice.mediaName}
+                            </span>
                           </div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
-                            <div
-                              style={{
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '8px',
-                                backgroundColor: isCreditPurchase ? '#0F172A' : '#0052FF',
-                                color: '#FFFFFF',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '11px',
-                                fontWeight: 900,
-                                flexShrink: 0,
-                              }}
-                            >
-                              {isCreditPurchase ? 'TIA' : 'SJ'}
-                            </div>
-                            <div style={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
-                              <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'TIA Credit Engine' : creatorName}
-                              </div>
-                              <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'billing@theinfluencersagency.com' : creatorEmail}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Metadata Details Card (Clean Key-Value Rows without overflow) */}
-                      <div
-                        style={{
-                          backgroundColor: '#F8FAFC',
-                          border: '1px solid #F1F5F9',
-                          borderRadius: '12px',
-                          padding: '12px 14px',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '8px',
-                          marginBottom: '16px',
-                          fontSize: '11.5px',
-                        }}
-                      >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Date</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A' }}>
-                            {selectedInvoice.dueDate || selectedInvoice.authorizedAt}
-                          </span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
-                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Subject</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
-                            {selectedInvoice.campaign}
-                          </span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
-                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600, flexShrink: 0 }}>Entity</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A', textAlign: 'right', lineHeight: 1.35, maxWidth: '210px' }}>
-                            {selectedInvoice.billedTo || selectedInvoice.mediaName}
-                          </span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Currency</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A' }}>
-                            {selectedInvoice.currency || 'INR (₹ Indian Rupee)'}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Itemized Table Card */}
-                      <div
-                        style={{
-                          backgroundColor: '#F8FAFC',
-                          borderRadius: '12px',
-                          padding: '14px',
-                          marginBottom: '18px',
-                        }}
-                      >
-                        {/* Items Header */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, borderBottom: '1px solid #E2E8F0', paddingBottom: '6px', marginBottom: '8px' }}>
-                          <span>Description</span>
-                          <span>Amount</span>
-                        </div>
-
-                        {/* Line Item */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', fontSize: '11.5px', color: '#334155', marginBottom: '12px', gap: '10px' }}>
-                          <span style={{ fontWeight: 600, lineHeight: 1.4 }}>
-                            {selectedInvoice.deliverableDesc || selectedInvoice.campaign}
-                          </span>
-                          <span style={{ fontWeight: 700, color: '#0F172A', whiteSpace: 'nowrap' }}>
-                            {selectedInvoice.priceFormatted || selectedInvoice.amount}
-                          </span>
-                        </div>
-
-                        {/* Summary Lines */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid #E2E8F0', paddingTop: '10px', fontSize: '11.5px' }}>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                            <span>Gross Contract Total</span>
-                            <span style={{ fontWeight: 600, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
-                          </div>
-                          {!isCreditPurchase && (
-                            <>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                                <span>TIA Platform Fee (5% Commission)</span>
-                                <span style={{ fontWeight: 600, color: '#EA580C' }}>
-                                  -₹{(selectedInvoice.platformFee || ((selectedInvoice.grossAmount || 0) * 0.05) || 1250).toLocaleString('en-IN')}.00
-                                </span>
-                              </div>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                                <span>TDS Deducted (1% Sec 194J)</span>
-                                <span style={{ fontWeight: 600, color: '#DC2626' }}>
-                                  -₹{(selectedInvoice.tdsDeduction || ((selectedInvoice.grossAmount || 0) * 0.01) || 250).toLocaleString('en-IN')}.00
-                                </span>
-                              </div>
-                            </>
-                          )}
-                          <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
-                            <div>
-                              <span style={{ fontWeight: 800, color: '#0F172A' }}>
-                                {isCreditPurchase ? 'Total Paid' : 'Net Disbursed by TIA'}
-                              </span>
-                              {!isCreditPurchase && (
-                                <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 500 }}>Direct to Bank Account</div>
-                              )}
-                            </div>
-                            <span style={{ fontWeight: 900, color: '#0052FF' }}>
-                              ₹{(selectedInvoice.netAmount || 23500).toLocaleString('en-IN')}.00
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ color: '#94A3B8', fontSize: '11px', fontWeight: 600 }}>Currency</span>
+                            <span style={{ fontWeight: 700, color: '#0F172A' }}>
+                              {selectedInvoice.currency || 'INR (₹ Indian Rupee)'}
                             </span>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Settlement Verification Callout if Paid */}
-                      {isPaid && (
+                        {/* Itemized Table Card */}
                         <div
                           style={{
-                            backgroundColor: '#ECFDF5',
-                            border: '1px solid #A7F3D0',
+                            backgroundColor: '#F8FAFC',
                             borderRadius: '12px',
-                            padding: '12px 14px',
-                            marginBottom: '14px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px',
+                            padding: '14px',
+                            marginBottom: '18px',
                           }}
                         >
-                          <div
-                            style={{
-                              width: '24px',
-                              height: '24px',
-                              borderRadius: '50%',
-                              backgroundColor: '#059669',
-                              color: '#FFFFFF',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontWeight: 900,
-                              fontSize: '13px',
-                              flexShrink: 0,
-                            }}
-                          >
-                            ✓
+                          {/* Items Header */}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10.5px', color: '#94A3B8', fontWeight: 600, borderBottom: '1px solid #E2E8F0', paddingBottom: '6px', marginBottom: '8px' }}>
+                            <span>Description</span>
+                            <span>Amount</span>
                           </div>
-                          <div>
-                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#065F46' }}>
-                              Claim Verified & Disbursed
+
+                          {/* Line Item */}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', fontSize: '11.5px', color: '#334155', marginBottom: '12px', gap: '10px' }}>
+                            <span style={{ fontWeight: 600, lineHeight: 1.4 }}>
+                              {selectedInvoice.deliverableDesc || selectedInvoice.campaign}
+                            </span>
+                            <span style={{ fontWeight: 700, color: '#0F172A', whiteSpace: 'nowrap' }}>
+                              {selectedInvoice.priceFormatted || selectedInvoice.amount}
+                            </span>
+                          </div>
+
+                          {/* Summary Lines */}
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid #E2E8F0', paddingTop: '10px', fontSize: '11.5px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                              <span>Gross Contract Total</span>
+                              <span style={{ fontWeight: 600, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
                             </div>
-                            <div style={{ fontSize: '10.5px', color: '#047857', marginTop: '1px' }}>
-                              Credited to {bankAccount?.bankName || 'HDFC Bank'} (•••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '0482'}) • UTR: {selectedInvoice.utrNumber || 'HDFC9821049219'}
+                            {!isCreditPurchase && (
+                              <>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                                  <span>TIA Platform Fee (5% Commission)</span>
+                                  <span style={{ fontWeight: 600, color: '#EA580C' }}>
+                                    -₹{(selectedInvoice.platformFee || ((selectedInvoice.grossAmount || 0) * 0.05) || 1250).toLocaleString('en-IN')}.00
+                                  </span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                                  <span>TDS Deducted (1% Sec 194J)</span>
+                                  <span style={{ fontWeight: 600, color: '#DC2626' }}>
+                                    -₹{(selectedInvoice.tdsDeduction || ((selectedInvoice.grossAmount || 0) * 0.01) || 250).toLocaleString('en-IN')}.00
+                                  </span>
+                                </div>
+                              </>
+                            )}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
+                              <div>
+                                <span style={{ fontWeight: 800, color: '#0F172A' }}>
+                                  {isCreditPurchase ? 'Total Paid' : 'Net Disbursed by TIA'}
+                                </span>
+                                {!isCreditPurchase && (
+                                  <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 500 }}>Direct to Bank Account</div>
+                                )}
+                              </div>
+                              <span style={{ fontWeight: 900, color: '#0052FF' }}>
+                                ₹{(selectedInvoice.netAmount || 23500).toLocaleString('en-IN')}.00
+                              </span>
                             </div>
                           </div>
                         </div>
-                      )}
 
-                      {/* Bottom Primary Action Button */}
-                      {!isPaid ? (
-                        <button
-                          type="button"
-                          disabled={isClaimingPayoutId === selectedInvoice.id}
-                          onClick={() => handleClaimPayout(selectedInvoice.id)}
-                          style={{
-                            width: '100%',
-                            padding: '13px',
-                            backgroundColor: isClaimingPayoutId === selectedInvoice.id ? '#94A3B8' : '#0052FF',
-                            color: '#FFFFFF',
-                            border: 'none',
-                            borderRadius: '12px',
-                            fontSize: '13px',
-                            fontWeight: 800,
-                            cursor: isClaimingPayoutId === selectedInvoice.id ? 'wait' : 'pointer',
-                            transition: 'all 0.15s ease',
-                            boxShadow: isClaimingPayoutId === selectedInvoice.id ? 'none' : '0 4px 14px rgba(0, 82, 255, 0.25)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                          }}
-                          onMouseEnter={(e) => {
-                            if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0040D6';
-                          }}
-                          onMouseLeave={(e) => {
-                            if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0052FF';
-                          }}
-                        >
-                          {isClaimingPayoutId === selectedInvoice.id ? (
-                            <>
-                              <div
-                                style={{
-                                  width: '14px',
-                                  height: '14px',
-                                  border: '2px solid #FFFFFF',
-                                  borderTopColor: 'transparent',
-                                  borderRadius: '50%',
-                                  animation: 'spin 0.8s linear infinite',
-                                }}
-                              />
-                              <span>Verifying & Disbursing Funds...</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>⚡</span>
-                              <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
-                            </>
-                          )}
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => setSelectedReceiptTx(selectedInvoice)}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            backgroundColor: '#F8FAFC',
-                            color: '#0F172A',
-                            border: '1px solid #CBD5E1',
-                            borderRadius: '10px',
-                            fontSize: '12.5px',
-                            fontWeight: 800,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '6px',
-                            transition: 'all 0.15s ease',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = '#EFF6FF';
-                            e.currentTarget.style.borderColor = '#BFDBFE';
-                            e.currentTarget.style.color = '#0052FF';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = '#F8FAFC';
-                            e.currentTarget.style.borderColor = '#CBD5E1';
-                            e.currentTarget.style.color = '#0F172A';
-                          }}
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="6 9 6 2 18 2 18 9" />
-                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                            <rect x="6" y="14" width="12" height="8" />
-                          </svg>
-                          <span>View Disbursal Slip / Voucher</span>
-                        </button>
-                      )}
+                        {/* Verified Banner for Paid Tx */}
+                        {isPaid && (
+                          <div
+                            style={{
+                              backgroundColor: '#ECFDF5',
+                              border: '1px solid #A7F3D0',
+                              borderRadius: '12px',
+                              padding: '12px 14px',
+                              marginBottom: '14px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '50%',
+                                backgroundColor: '#059669',
+                                color: '#FFFFFF',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 900,
+                                fontSize: '13px',
+                                flexShrink: 0,
+                              }}
+                            >
+                              ✓
+                            </div>
+                            <div>
+                              <div style={{ fontSize: '12px', fontWeight: 800, color: '#065F46' }}>
+                                Claim Verified & Disbursed
+                              </div>
+                              <div style={{ fontSize: '10.5px', color: '#047857', marginTop: '1px' }}>
+                                Credited to {bankAccount?.bankName || 'HDFC Bank'} (•••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '0482'}) • UTR: {selectedInvoice.utrNumber || 'HDFC9821049219'}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Bottom Primary Action Button */}
+                        {!isPaid ? (
+                          <button
+                            type="button"
+                            disabled={isClaimingPayoutId === selectedInvoice.id}
+                            onClick={() => handleClaimPayout(selectedInvoice.id)}
+                            style={{
+                              width: '100%',
+                              padding: '13px',
+                              backgroundColor: isClaimingPayoutId === selectedInvoice.id ? '#94A3B8' : '#0052FF',
+                              color: '#FFFFFF',
+                              border: 'none',
+                              borderRadius: '12px',
+                              fontSize: '13px',
+                              fontWeight: 800,
+                              cursor: isClaimingPayoutId === selectedInvoice.id ? 'wait' : 'pointer',
+                              transition: 'all 0.15s ease',
+                              boxShadow: isClaimingPayoutId === selectedInvoice.id ? 'none' : '0 4px 14px rgba(0, 82, 255, 0.25)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '8px',
+                            }}
+                            onMouseEnter={(e) => {
+                              if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0040D6';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0052FF';
+                            }}
+                          >
+                            {isClaimingPayoutId === selectedInvoice.id ? (
+                              <>
+                                <div
+                                  style={{
+                                    width: '14px',
+                                    height: '14px',
+                                    border: '2px solid #FFFFFF',
+                                    borderTopColor: 'transparent',
+                                    borderRadius: '50%',
+                                    animation: 'spin 0.8s linear infinite',
+                                  }}
+                                />
+                                <span>Verifying & Disbursing Funds...</span>
+                              </>
+                            ) : (
+                              <>
+                                <span>⚡</span>
+                                <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
+                              </>
+                            )}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedReceiptTx(selectedInvoice)}
+                            style={{
+                              width: '100%',
+                              padding: '12px',
+                              backgroundColor: '#F8FAFC',
+                              color: '#0F172A',
+                              border: '1px solid #CBD5E1',
+                              borderRadius: '10px',
+                              fontSize: '12.5px',
+                              fontWeight: 800,
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '6px',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = '#EFF6FF';
+                              e.currentTarget.style.borderColor = '#BFDBFE';
+                              e.currentTarget.style.color = '#0052FF';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = '#F8FAFC';
+                              e.currentTarget.style.borderColor = '#CBD5E1';
+                              e.currentTarget.style.color = '#0F172A';
+                            }}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="6 9 6 2 18 2 18 9" />
+                              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                              <rect x="6" y="14" width="12" height="8" />
+                            </svg>
+                            <span>View Disbursal Slip / Voucher</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   );
                 })()}
