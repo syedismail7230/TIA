@@ -149,6 +149,25 @@ function SparklesIcon({ size = 14, color = '#0052FF' }: { size?: number; color?:
   );
 }
 
+function UsersGroupIcon({ size = 14, color = '#0052FF' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function LightningChanceIcon({ size = 14, color = '#10B981' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill={color} fillOpacity="0.2" />
+    </svg>
+  );
+}
+
 function CommissionTargetIcon({ size = 13, color = '#7C3AED' }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2">
@@ -213,7 +232,7 @@ function CreatorPortalContent() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Teaser Marketplace Campaigns with Blurred Aesthetic
+  // Teaser Marketplace Campaigns with Explicit Payout Amount, Total Applicants & Acceptance Chances
   const [campaigns] = useState<any[]>([
     {
       id: 'camp-1',
@@ -223,6 +242,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 10%',
+      payoutAmount: '$750 - $1,500',
+      payoutBadge: 'Est. $1,200',
+      creatorsApplied: 18,
+      acceptanceChance: 86,
+      acceptanceLevel: 'High',
+      acceptanceColor: '#10B981',
       categories: ['Sustainability', 'Cooking', 'Food', '+5'],
       isNew: true,
       requirementMet: false,
@@ -241,6 +266,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 12%',
+      payoutAmount: '$600 - $950',
+      payoutBadge: 'Est. $850',
+      creatorsApplied: 24,
+      acceptanceChance: 92,
+      acceptanceLevel: 'Very High',
+      acceptanceColor: '#059669',
       categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
       isNew: true,
       requirementMet: false,
@@ -259,6 +290,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 20%',
+      payoutAmount: '$1,200 - $2,400',
+      payoutBadge: 'Est. $1,800',
+      creatorsApplied: 31,
+      acceptanceChance: 78,
+      acceptanceLevel: 'Good',
+      acceptanceColor: '#10B981',
       categories: ['Entrepreneurship', 'Dietary Supplements'],
       isNew: true,
       requirementMet: false,
@@ -277,6 +314,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 20%',
+      payoutAmount: '$2,000 - $3,500',
+      payoutBadge: 'Est. $2,800',
+      creatorsApplied: 42,
+      acceptanceChance: 64,
+      acceptanceLevel: 'Moderate',
+      acceptanceColor: '#F59E0B',
       categories: ['Technology', 'Gadgets', 'AI', '+3'],
       isNew: true,
       requirementMet: false,
@@ -295,6 +338,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 12%',
+      payoutAmount: '$800 - $1,400',
+      payoutBadge: 'Est. $1,100',
+      creatorsApplied: 15,
+      acceptanceChance: 89,
+      acceptanceLevel: 'High',
+      acceptanceColor: '#10B981',
       categories: ['Fitness', 'Running', 'Athleisure'],
       isNew: true,
       requirementMet: false,
@@ -313,6 +362,12 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
       commercialType: 'FLAT_FEE',
       commercialLabel: 'Flat Fee $500',
+      payoutAmount: '$500 Fixed',
+      payoutBadge: '$500 Fixed',
+      creatorsApplied: 27,
+      acceptanceChance: 82,
+      acceptanceLevel: 'High',
+      acceptanceColor: '#10B981',
       categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
       isNew: true,
       requirementMet: false,
@@ -496,7 +551,7 @@ function CreatorPortalContent() {
         brandInitials: 'EV',
         status: 'AWAITING',
         appliedAt: 'Just now',
-        proposedRate: selectedCampaign.commercialLabel,
+        proposedRate: selectedCampaign.payoutBadge,
         deliverables: selectedCampaign.description,
         unreadCount: 0,
         messages: [
@@ -813,7 +868,7 @@ function CreatorPortalContent() {
 
       {/* Main Content Container */}
       <main className="portal-main-wrapper">
-        {/* Modern Segmented Pill Tab Bar (Standard Mobile Design Thinking) */}
+        {/* Modern Segmented Pill Tab Bar */}
         <div style={{ marginBottom: '20px' }}>
           <nav className="portal-nav-segmented no-scrollbar">
             {navTabs.map((tab) => {
@@ -915,7 +970,7 @@ function CreatorPortalContent() {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-                gap: '18px',
+                gap: '20px',
               }}
             >
               {campaigns.map((camp) => (
@@ -938,10 +993,10 @@ function CreatorPortalContent() {
                   {/* Blurred Banner */}
                   <div
                     style={{
-                      height: '130px',
+                      height: '135px',
                       position: 'relative',
                       overflow: 'hidden',
-                      padding: '14px',
+                      padding: '12px 14px',
                       display: 'flex',
                       alignItems: 'flex-start',
                       justifyContent: 'space-between',
@@ -987,6 +1042,27 @@ function CreatorPortalContent() {
                         <CommissionTargetIcon size={11} color="#6D28D9" />
                       )}
                       <span>{camp.commercialLabel}</span>
+                    </div>
+
+                    {/* Payout Badge on Right */}
+                    <div
+                      style={{
+                        backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                        backdropFilter: 'blur(8px)',
+                        color: '#FFFFFF',
+                        padding: '3px 10px',
+                        borderRadius: '14px',
+                        fontSize: '11px',
+                        fontWeight: 800,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        zIndex: 2,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
+                      }}
+                    >
+                      <span>💰</span>
+                      <span>{camp.payoutBadge}</span>
                     </div>
 
                     {/* Metallic Brand Avatar */}
@@ -1043,7 +1119,7 @@ function CreatorPortalContent() {
                     </div>
 
                     {/* Anonymized Title + New */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '14px' }}>
                       <span
                         style={{
                           fontSize: '13px',
@@ -1076,8 +1152,63 @@ function CreatorPortalContent() {
                       )}
                     </div>
 
+                    {/* Highlighted Metrics Box: Amount, Applicants & Acceptance Chance */}
+                    <div
+                      style={{
+                        backgroundColor: '#F8FAFC',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '10px',
+                        padding: '10px 12px',
+                        marginBottom: '14px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8px',
+                      }}
+                    >
+                      {/* Row 1: Amount & Creators Applied */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 700, color: '#0F172A' }}>
+                          <span style={{ color: '#059669', fontSize: '12px' }}>💵</span>
+                          <span>{camp.payoutAmount}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#64748B', fontWeight: 600 }}>
+                          <UsersGroupIcon size={12} color="#64748B" />
+                          <span>{camp.creatorsApplied} applied</span>
+                        </div>
+                      </div>
+
+                      {/* Row 2: Acceptance Chance Progress Bar */}
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px', fontSize: '11px' }}>
+                          <span style={{ color: '#475569', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '3px' }}>
+                            <LightningChanceIcon size={11} color={camp.acceptanceColor} />
+                            <span>Acceptance Chance</span>
+                          </span>
+                          <span style={{ fontWeight: 800, color: camp.acceptanceColor }}>
+                            {camp.acceptanceChance}% • {camp.acceptanceLevel}
+                          </span>
+                        </div>
+                        {/* Mini Gradient Progress Bar */}
+                        <div style={{ width: '100%', height: '5px', backgroundColor: '#E2E8F0', borderRadius: '4px', overflow: 'hidden' }}>
+                          <div
+                            style={{
+                              width: `${camp.acceptanceChance}%`,
+                              height: '100%',
+                              borderRadius: '4px',
+                              background:
+                                camp.acceptanceChance >= 85
+                                  ? 'linear-gradient(90deg, #10B981 0%, #059669 100%)'
+                                  : camp.acceptanceChance >= 70
+                                  ? 'linear-gradient(90deg, #3B82F6 0%, #1D4ED8 100%)'
+                                  : 'linear-gradient(90deg, #F59E0B 0%, #D97706 100%)',
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Requirements Section */}
-                    <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '12px', marginTop: 'auto' }}>
+                    <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '10px', marginTop: 'auto' }}>
                       <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '5px', color: '#D97706', fontSize: '11.5px', fontWeight: 700 }}>
                         <InfoCircleIcon size={12} color="#D97706" />
                         <span>{camp.requirementLabel}</span>
@@ -1401,34 +1532,55 @@ function CreatorPortalContent() {
         })}
       </nav>
 
-      {/* Campaign Detail Modal */}
+      {/* Campaign Detail & Application Modal */}
       {selectedCampaign && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.6)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '440px', borderRadius: '14px', padding: '20px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
+          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '460px', borderRadius: '16px', padding: '22px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
             {applySuccess ? (
-              <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                <div style={{ fontSize: '32px', marginBottom: '6px' }}>🎉</div>
-                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>Application Submitted!</h3>
-                <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0 }}>Redirecting to Collabs...</p>
+              <div style={{ textAlign: 'center', padding: '18px 0' }}>
+                <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>Application Submitted!</h3>
+                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Opening Collabs workspace...</p>
               </div>
             ) : (
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
                   <div>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#7C3AED' }}>{selectedCampaign.commercialLabel}</span>
-                    <h3 style={{ fontSize: '15.5px', fontWeight: 800, color: '#0F172A', margin: '2px 0 0 0' }}>{selectedCampaign.title}</h3>
-                    <div style={{ fontSize: '11.5px', color: '#64748B' }}>{selectedCampaign.brandName} • {selectedCampaign.country}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#7C3AED', backgroundColor: '#F5F3FF', padding: '2px 8px', borderRadius: '6px' }}>
+                        {selectedCampaign.commercialLabel}
+                      </span>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
+                        {selectedCampaign.payoutAmount}
+                      </span>
+                    </div>
+                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '4px 0 0 0' }}>{selectedCampaign.title}</h3>
+                    <div style={{ fontSize: '12px', color: '#64748B' }}>{selectedCampaign.brandName} • {selectedCampaign.country}</div>
                   </div>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: 'transparent', border: 'none', fontSize: '16px', cursor: 'pointer' }}>✕</button>
+                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: '#F1F5F9', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', cursor: 'pointer', color: '#64748B' }}>✕</button>
                 </div>
 
-                <div style={{ backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.4 }}>
-                  <strong>Brief:</strong> {selectedCampaign.description}
+                {/* Intelligence Metrics in Modal */}
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div>
+                    <div style={{ fontSize: '11px', color: '#64748B' }}>Total Applicants</div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>👥 {selectedCampaign.creatorsApplied} Creators</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '11px', color: '#64748B' }}>Acceptance Chance</div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: selectedCampaign.acceptanceColor }}>
+                      ⚡ {selectedCampaign.acceptanceChance}% ({selectedCampaign.acceptanceLevel})
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.45 }}>
+                  <strong>Deliverables Brief:</strong> {selectedCampaign.description}
                 </div>
 
                 <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '8px 14px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '6px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                  <button type="button" onClick={submitApplication} style={{ padding: '8px 18px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}>Apply</button>
+                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '9px 16px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                  <button type="button" onClick={submitApplication} style={{ padding: '9px 20px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,82,255,0.25)' }}>Apply Now</button>
                 </div>
               </div>
             )}
