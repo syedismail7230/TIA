@@ -1152,7 +1152,11 @@ function CreatorPortalContent() {
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
-                        <span>Brand: <strong style={{ color: '#0F172A' }}>{selectedCampaign.brandName}</strong></span>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                          <span>Client:</span>
+                          <span style={{ filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', color: 'transparent', borderRadius: '4px', padding: '0 6px', fontSize: '11px', display: 'inline-block' }}>Anonymized Enterprise</span>
+                          <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>✓ Verified Client</span>
+                        </span>
                         <span>•</span>
                         <span>{selectedCampaign.countryFlag} {selectedCampaign.country}</span>
                         <span>•</span>
@@ -1166,7 +1170,7 @@ function CreatorPortalContent() {
                         {selectedCampaign.payoutAmount}
                       </div>
                       <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600, marginTop: '4px' }}>
-                        {selectedCampaign.payType || 'Fixed Pay'} (Escrow Funded)
+                        {selectedCampaign.payType || 'Fixed Pay'} (100% Protected)
                       </div>
                       <div style={{ fontSize: '11.5px', color: '#0F172A', fontWeight: 700, marginTop: '3px' }}>
                         {selectedCampaign.deliverablesSummary}
@@ -1190,7 +1194,7 @@ function CreatorPortalContent() {
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
                       <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Payment Security</div>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>100% Escrow Verified</div>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>100% Payment Protected</div>
                     </div>
                   </div>
                 </div>
@@ -1228,7 +1232,7 @@ function CreatorPortalContent() {
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🏷️ Brand Mentions & Tags</div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Tag @{selectedCampaign.brandName.toLowerCase().replace(/[^a-z0-9]/g, '')}_official and use #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Collab'}2026.</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Tag @brand_official and use #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Collab'}2026.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎙️ Audio & Voiceover</div>
@@ -1248,11 +1252,11 @@ function CreatorPortalContent() {
                   </div>
 
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
-                    Campaign Terms & Escrow Protection
+                    Campaign Terms & Payment Protection
                   </h3>
                   <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.6 }}>
                     <ul style={{ paddingLeft: '18px', margin: 0 }}>
-                      <li><strong>100% Escrow Guarantee:</strong> Brand has pre-funded the full {selectedCampaign.payoutAmount} payout into TIA secure escrow. Funds cannot be withdrawn while project is active.</li>
+                      <li><strong>100% Payment Protection:</strong> Brand has pre-funded and secured the full {selectedCampaign.payoutAmount} payout through TIA verified settlement. Funds are guaranteed upon deliverable approval.</li>
                       <li><strong>Usage Rights:</strong> 90 days organic digital re-posting rights granted to brand on official social channels.</li>
                       <li><strong>Exclusivity:</strong> 30-day category exclusivity against direct competitors in the same sub-niche.</li>
                       <li><strong>Automated Disbursement:</strong> Funds released to your verified payout wallet upon automated URL verification.</li>
@@ -1359,7 +1363,7 @@ function CreatorPortalContent() {
                   {/* Benefits of Bidding on TIA Box */}
                   <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px', marginBottom: '18px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', fontSize: '11.5px', color: '#475569' }}>
                     <div>✓ Set your budget & timeframe</div>
-                    <div>✓ Full Escrow payment protection</div>
+                    <div>✓ 100% Guaranteed payment protection</div>
                     <div>✓ Direct brand director messaging</div>
                     <div>✓ Keep 100% of your creator earnings</div>
                   </div>
@@ -1516,7 +1520,7 @@ function CreatorPortalContent() {
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       <polyline points="9 12 11 14 15 10" />
                     </svg>
-                    <span>100% Escrow Milestone Protected</span>
+                    <span>100% Payment Protected</span>
                   </div>
                 </div>
 
@@ -1526,12 +1530,16 @@ function CreatorPortalContent() {
                     About the Client
                   </h3>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-                      <img src={selectedCampaign.partnerLogo} alt={selectedCampaign.brandName} style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }} />
+                    <div style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: '#F1F5F9', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+                      <img src={selectedCampaign.partnerLogo} alt="Client Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'blur(10px)', opacity: 0.3, transform: 'scale(1.2)' }} />
+                      <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🏢</span>
                     </div>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: '13.5px', color: '#0F172A' }}>{selectedCampaign.brandName}</div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', color: 'transparent', borderRadius: '4px', padding: '0 6px', fontSize: '12px', display: 'inline-block' }}>Confidential Brand</span>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800 }}>✓ Verified</span>
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
                     </div>
                   </div>
 
@@ -1544,7 +1552,7 @@ function CreatorPortalContent() {
                       <span>✓</span> <span>Payment method verified</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
-                      <span>✓</span> <span>Escrow deposit authorized</span>
+                      <span>✓</span> <span>Milestone deposit authorized</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span>🕒</span> <span>Member since Mar 26, 2021</span>
@@ -1552,23 +1560,64 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 3. Client Verification Checklist */}
+                {/* 3. Client Verification Checklist (Clean Green Outline SVG Vector Icons) */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                     Client Verification
                   </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px', color: '#334155' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ color: '#059669' }}>💳</span> <span>Payment Verified</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '4px 0' }}>
+                    {/* Payment / Card Icon */}
+                    <div title="Payment Method Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                          <line x1="1" y1="10" x2="23" y2="10" />
+                        </svg>
+                      </div>
+                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Payment ✓</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ color: '#059669' }}>✉️</span> <span>Email Address Verified</span>
+
+                    {/* Email / Envelope Icon */}
+                    <div title="Email Address Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                      </div>
+                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Email ✓</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ color: '#059669' }}>👤</span> <span>Identity Verified</span>
+
+                    {/* Identity / User Icon */}
+                    <div title="Identity Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Identity ✓</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ color: '#059669' }}>📞</span> <span>Phone Number Verified</span>
+
+                    {/* Phone / Handset Icon */}
+                    <div title="Phone Number Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                      </div>
+                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Phone ✓</span>
+                    </div>
+
+                    {/* Deposit / Shield Icon */}
+                    <div title="Milestone Deposit Funded" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
+                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                          <polyline points="9 12 11 14 15 10" />
+                        </svg>
+                      </div>
+                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Deposit ✓</span>
                     </div>
                   </div>
                 </div>
