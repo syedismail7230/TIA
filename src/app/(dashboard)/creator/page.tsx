@@ -5073,48 +5073,54 @@ function CreatorPortalContent() {
                             </div>
 
                             {/* Thread Info */}
-                            <div style={{ flex: 1, minWidth: 0 }}>
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px', marginBottom: '2px' }}>
-                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                              {/* Row 1: Title & Date */}
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }}>
                                   {thread.campaignTitle}
                                 </div>
-                                <span style={{ fontSize: '10px', color: '#94A3B8', flexShrink: 0 }}>
+                                <span style={{ fontSize: '10px', color: '#94A3B8', flexShrink: 0, whiteSpace: 'nowrap' }}>
                                   {thread.appliedAt}
                                 </span>
                               </div>
 
-                              <div style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
-                                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{thread.brandName}</span>
-                                <span>•</span>
-                                <span style={{ fontWeight: 700, color: '#0052FF' }}>{thread.proposedRate}</span>
+                              {/* Row 2: Brand, Rate & Unread Badge (Inline flex with zero overlap) */}
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                                <div style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }}>
+                                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{thread.brandName}</span>
+                                  <span>•</span>
+                                  <span style={{ fontWeight: 700, color: '#0052FF', flexShrink: 0 }}>{thread.proposedRate}</span>
+                                </div>
+
+                                {thread.unreadCount > 0 && (
+                                  <span
+                                    style={{
+                                      backgroundColor: '#0052FF',
+                                      color: '#FFFFFF',
+                                      fontSize: '9.5px',
+                                      fontWeight: 800,
+                                      minWidth: '18px',
+                                      height: '18px',
+                                      padding: '0 5px',
+                                      borderRadius: '9px',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      flexShrink: 0,
+                                    }}
+                                  >
+                                    {thread.unreadCount}
+                                  </span>
+                                )}
                               </div>
 
-                              {/* Last message snippet */}
+                              {/* Row 3: Last message snippet */}
                               {lastMsg && (
                                 <p style={{ fontSize: '11px', color: isSelected ? '#334155' : '#94A3B8', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                   {lastMsg.sender === 'CREATOR' ? 'You: ' : ''}{lastMsg.text}
                                 </p>
                               )}
                             </div>
-
-                            {/* Unread Pill */}
-                            {thread.unreadCount > 0 && (
-                              <span
-                                style={{
-                                  position: 'absolute',
-                                  right: '10px',
-                                  top: '24px',
-                                  backgroundColor: '#0052FF',
-                                  color: '#FFFFFF',
-                                  fontSize: '10px',
-                                  fontWeight: 800,
-                                  padding: '1px 6px',
-                                  borderRadius: '10px',
-                                }}
-                              >
-                                {thread.unreadCount}
-                              </span>
-                            )}
                           </div>
                         );
                       })}
@@ -5445,31 +5451,32 @@ function CreatorPortalContent() {
                               style={{
                                 alignSelf: isCreator ? 'flex-end' : 'flex-start',
                                 maxWidth: '78%',
-                                backgroundColor: '#FFFFFF',
-                                border: '1px solid #E2E8F0',
-                                borderRadius: '12px',
+                                backgroundColor: isCreator ? '#0052FF' : '#FFFFFF',
+                                color: isCreator ? '#FFFFFF' : '#0F172A',
+                                border: isCreator ? 'none' : '1px solid #E2E8F0',
+                                borderRadius: isCreator ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
                                 padding: '14px 16px',
-                                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                                boxShadow: isCreator ? '0 2px 8px rgba(0, 82, 255, 0.25)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
                               }}
                             >
                               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
-                                <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                <span style={{ fontSize: '11px', fontWeight: 700, color: isCreator ? '#DBEAFE' : '#0052FF', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                   📎 Deliverable Submission
                                 </span>
-                                <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
+                                <span style={{ fontSize: '10px', color: isCreator ? 'rgba(255, 255, 255, 0.75)' : '#94A3B8' }}>{msg.date}</span>
                               </div>
 
-                              <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>
+                              <div style={{ fontSize: '13.5px', fontWeight: 700, color: isCreator ? '#FFFFFF' : '#0F172A', marginBottom: '4px' }}>
                                 {msg.deliverableMeta?.title || 'Deliverable Asset'}
                               </div>
 
                               {msg.deliverableMeta?.notes && (
-                                <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.45 }}>
+                                <p style={{ fontSize: '12px', color: isCreator ? 'rgba(255, 255, 255, 0.9)' : '#64748B', margin: '0 0 10px 0', lineHeight: 1.45 }}>
                                   {msg.deliverableMeta.notes}
                                 </p>
                               )}
 
-                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', paddingTop: '4px', borderTop: '1px solid #F1F5F9' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', paddingTop: '8px', borderTop: isCreator ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid #F1F5F9' }}>
                                 {msg.deliverableMeta?.url ? (
                                   <a
                                     href={msg.deliverableMeta.url}
@@ -5480,8 +5487,11 @@ function CreatorPortalContent() {
                                       alignItems: 'center',
                                       gap: '4px',
                                       fontSize: '11.5px',
-                                      fontWeight: 600,
-                                      color: '#0052FF',
+                                      fontWeight: 700,
+                                      color: isCreator ? '#0052FF' : '#0052FF',
+                                      backgroundColor: isCreator ? '#FFFFFF' : '#EFF6FF',
+                                      padding: '5px 12px',
+                                      borderRadius: '6px',
                                       textDecoration: 'none',
                                     }}
                                   >
@@ -5494,15 +5504,25 @@ function CreatorPortalContent() {
                                   style={{
                                     fontSize: '10.5px',
                                     fontWeight: 700,
-                                    color: msg.deliverableMeta?.status === 'APPROVED' ? '#059669' : '#D97706',
-                                    backgroundColor: msg.deliverableMeta?.status === 'APPROVED' ? '#ECFDF5' : '#FEF3C7',
-                                    padding: '2px 7px',
+                                    color: msg.deliverableMeta?.status === 'APPROVED' ? (isCreator ? '#FFFFFF' : '#059669') : (isCreator ? '#FFFFFF' : '#D97706'),
+                                    backgroundColor: msg.deliverableMeta?.status === 'APPROVED' ? (isCreator ? 'rgba(255, 255, 255, 0.25)' : '#ECFDF5') : (isCreator ? 'rgba(255, 255, 255, 0.2)' : '#FEF3C7'),
+                                    padding: '3px 8px',
                                     borderRadius: '10px',
                                   }}
                                 >
                                   {msg.deliverableMeta?.status === 'APPROVED' ? '✓ Approved' : '⏳ In Review'}
                                 </span>
                               </div>
+
+                              {isCreator && (
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px', marginTop: '6px', fontSize: '10px', color: 'rgba(255, 255, 255, 0.75)' }}>
+                                  <span>Delivered</span>
+                                  <svg width="14" height="9" viewBox="0 0 16 11" fill="none">
+                                    <path d="M1 5.5L4.5 9L10.5 1.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M5.5 5.5L8.5 8.5L14.5 1.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
+                                </div>
+                              )}
                             </div>
                           );
                         }
@@ -5537,7 +5557,7 @@ function CreatorPortalContent() {
                                 border: isCreator ? 'none' : '1px solid #E2E8F0',
                                 fontSize: '13px',
                                 lineHeight: 1.45,
-                                boxShadow: isCreator ? '0 1px 3px rgba(0, 82, 255, 0.2)' : '0 1px 2px rgba(0, 0, 0, 0.04)',
+                                boxShadow: isCreator ? '0 2px 6px rgba(0, 82, 255, 0.25)' : '0 1px 2px rgba(0, 0, 0, 0.04)',
                               }}
                             >
                               {msg.text}
