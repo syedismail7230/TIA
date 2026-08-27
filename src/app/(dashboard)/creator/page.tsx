@@ -1651,6 +1651,48 @@ function CreatorPortalContent() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Apply to Campaign Action Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleApply(camp);
+                        }}
+                        style={{
+                          marginTop: '16px',
+                          width: '100%',
+                          padding: '10px 16px',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '10px',
+                          fontSize: '13px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          boxShadow: '0 2px 8px rgba(0, 82, 255, 0.18)',
+                          transition: 'all 0.15s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#0045D8';
+                          e.currentTarget.style.transform = 'translateY(-1px)';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 82, 255, 0.28)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = '#0052FF';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 82, 255, 0.18)';
+                        }}
+                      >
+                        <span>Apply to Campaign</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 ))}
