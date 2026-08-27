@@ -6,20 +6,20 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 
 // ============================================================================
-// SLEEK VECTOR SVG ICONS
+// VECTOR SVG BRAND ICONS
 // ============================================================================
 
-function InstagramIcon({ size = 16 }: { size?: number }) {
+function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <defs>
-        <radialGradient id="ig-grad" cx="20%" cy="100%" r="130%">
+        <radialGradient id="ig-grad-mobile" cx="20%" cy="100%" r="130%">
           <stop offset="0%" stopColor="#FFDD55" />
           <stop offset="25%" stopColor="#FF543E" />
           <stop offset="50%" stopColor="#C837AB" />
           <stop offset="100%" stopColor="#377424" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="ig-linear" x1="0%" y1="100%" x2="100%" y2="0%">
+        <linearGradient id="ig-linear-mobile" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#405DE6" />
           <stop offset="30%" stopColor="#5851DB" />
           <stop offset="50%" stopColor="#833AB4" />
@@ -28,8 +28,8 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
           <stop offset="100%" stopColor="#FD1D1D" />
         </linearGradient>
       </defs>
-      <rect width="24" height="24" rx="6" fill="url(#ig-linear)" />
-      <rect width="24" height="24" rx="6" fill="url(#ig-grad)" />
+      <rect width="24" height="24" rx="6" fill="url(#ig-linear-mobile)" />
+      <rect width="24" height="24" rx="6" fill="url(#ig-grad-mobile)" />
       <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
       <circle cx="12" cy="12" r="3.25" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
       <circle cx="15.5" cy="8.5" r="0.85" fill="#FFFFFF" />
@@ -37,7 +37,7 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function YouTubeIcon({ size = 16 }: { size?: number }) {
+function YouTubeIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="6" fill="#FF0000" />
@@ -46,7 +46,7 @@ function YouTubeIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function TikTokIcon({ size = 16 }: { size?: number }) {
+function TikTokIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="6" fill="#000000" />
@@ -58,7 +58,7 @@ function TikTokIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function XIcon({ size = 16 }: { size?: number }) {
+function XIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="6" fill="#0F172A" />
@@ -70,7 +70,7 @@ function XIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function PinterestIcon({ size = 16 }: { size?: number }) {
+function PinterestIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="6" fill="#E60023" />
@@ -82,7 +82,7 @@ function PinterestIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-function TwitchIcon({ size = 16 }: { size?: number }) {
+function TwitchIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <rect width="24" height="24" rx="6" fill="#9146FF" />
@@ -532,10 +532,14 @@ function CreatorPortalContent() {
   };
 
   return (
-    <div className="portal-root" style={{ backgroundColor: '#FAFAFA', minHeight: '100vh', fontFamily: 'inherit' }}>
-      {/* Mobile-Optimized CSS Rules */}
+    <div style={{ backgroundColor: '#FAFAFA', minHeight: '100vh', fontFamily: 'inherit', width: '100%', overflowX: 'hidden' }}>
+      {/* Dynamic Global Mobile CSS Rules */}
       <style jsx global>{`
-        /* Hide scrollbars for clean tabs */
+        /* Global Reset & Smooth Scroll */
+        * {
+          box-sizing: border-box;
+        }
+
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
@@ -544,76 +548,131 @@ function CreatorPortalContent() {
           scrollbar-width: none;
         }
 
-        /* Top Header Mobile Rules */
+        /* Desktop Layout Defaults */
+        .portal-header-wrapper {
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 24px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .portal-main-wrapper {
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 24px;
+        }
+        .portal-search-banner-box {
+          background: linear-gradient(90deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%);
+          border: 1px solid #E0E7FF;
+          border-radius: 12px;
+          padding: 24px 28px;
+          margin-bottom: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+        }
+        .portal-banner-left {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+        .portal-banner-cta-btn {
+          background-color: #0052FF;
+          color: #FFFFFF;
+          border: none;
+          border-radius: 8px;
+          padding: 10px 24px;
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          flex-shrink: 0;
+          box-shadow: 0 2px 8px rgba(0, 82, 255, 0.25);
+        }
+        .portal-grid-layout {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+          gap: 20px;
+        }
+        .portal-kpi-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+        .portal-split-collabs {
+          background-color: #FFFFFF;
+          border: 1px solid #E5E7EB;
+          border-radius: 12px;
+          overflow: hidden;
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          min-height: 520px;
+        }
+
+        /* Mobile Responsive Adaptations (< 768px) */
         @media (max-width: 768px) {
-          .portal-header-inner {
-            height: auto !important;
-            padding: 10px 14px !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            gap: 8px !important;
+          .portal-header-wrapper {
+            height: auto;
+            padding: 12px 14px 0 14px;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
           }
-          .portal-header-top-row {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            width: 100% !important;
+          .portal-header-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
           }
-          .portal-nav-tabs {
-            width: 100% !important;
-            overflow-x: auto !important;
-            white-space: nowrap !important;
-            padding-bottom: 2px !important;
-            gap: 2px !important;
-            justify-content: flex-start !important;
+          .portal-tabs-scroller {
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 0px;
+            gap: 4px;
+            border-top: 1px solid #F3F4F6;
           }
-          .portal-nav-tabs button {
-            padding: 10px 12px !important;
+          .portal-tab-btn {
+            padding: 12px 14px !important;
             font-size: 13px !important;
             flex-shrink: 0 !important;
           }
-          .portal-user-meta {
-            font-size: 11.5px !important;
+          .portal-main-wrapper {
+            padding: 16px 12px;
           }
-
-          /* Main Container */
-          .portal-main-container {
-            padding: 16px 12px !important;
+          .portal-search-banner-box {
+            padding: 18px 16px;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            margin-bottom: 20px;
           }
-
-          /* Search Banner */
-          .portal-search-banner {
-            padding: 16px 14px !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 16px !important;
-            margin-bottom: 20px !important;
+          .portal-banner-left {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
           }
-          .portal-search-banner-content {
-            width: 100% !important;
-            gap: 12px !important;
+          .portal-banner-cta-btn {
+            width: 100%;
+            padding: 12px 0;
+            font-size: 14px;
+            text-align: center;
           }
-          .portal-search-banner-btn {
-            width: 100% !important;
-            padding: 12px 0 !important;
-            text-align: center !important;
+          .portal-grid-layout {
+            grid-template-columns: 1fr;
+            gap: 16px;
           }
-
-          /* Discovery Grid */
-          .portal-campaigns-grid {
-            grid-template-columns: 1fr !important;
-            gap: 16px !important;
+          .portal-kpi-grid {
+            grid-template-columns: 1fr;
+            gap: 10px;
           }
-
-          /* Payments KPIs */
-          .portal-payments-kpis {
-            grid-template-columns: 1fr !important;
-            gap: 10px !important;
-          }
-
-          /* Collabs Pane */
-          .portal-collabs-pane {
-            grid-template-columns: 1fr !important;
+          .portal-split-collabs {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>
@@ -628,20 +687,9 @@ function CreatorPortalContent() {
           zIndex: 50,
         }}
       >
-        <div
-          className="portal-header-inner"
-          style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            padding: '0 24px',
-            height: '60px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {/* Top Row for Mobile (Logo + User) / Left block for Desktop */}
-          <div className="portal-header-top-row" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+        <div className="portal-header-wrapper">
+          {/* Top Row: Logo + User Profile */}
+          <div className="portal-header-row-top" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <Link
               href="/creator"
               style={{
@@ -657,7 +705,7 @@ function CreatorPortalContent() {
                 style={{
                   height: '28px',
                   width: 'auto',
-                  maxWidth: '135px',
+                  maxWidth: '140px',
                   objectFit: 'contain',
                   display: 'block',
                 }}
@@ -677,8 +725,8 @@ function CreatorPortalContent() {
               </span>
             </Link>
 
-            {/* User Profile on Mobile right */}
-            <div className="portal-user-meta" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {/* User Meta */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <span style={{ fontSize: '12px', color: '#374151', fontWeight: 600 }}>
                   {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
@@ -710,15 +758,8 @@ function CreatorPortalContent() {
             </div>
           </div>
 
-          {/* Navigation Tabs (Scrollable on Mobile) */}
-          <nav
-            className="portal-nav-tabs no-scrollbar"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-            }}
-          >
+          {/* Navigation Tabs (Smooth touch scrolling on Mobile) */}
+          <nav className="portal-tabs-scroller no-scrollbar">
             {[
               { id: 'marketplace', label: 'Marketplace' },
               { id: 'collabs', label: 'Collabs' },
@@ -731,6 +772,7 @@ function CreatorPortalContent() {
                 <button
                   key={tab.id}
                   type="button"
+                  className="portal-tab-btn"
                   onClick={() => handleTabChange(tab.id as TabType)}
                   style={{
                     padding: '18px 14px',
@@ -754,31 +796,19 @@ function CreatorPortalContent() {
       </header>
 
       {/* Main Content Area */}
-      <main className="portal-main-container" style={{ maxWidth: '1440px', margin: '0 auto', padding: '24px' }}>
+      <main className="portal-main-wrapper">
         {/* ==================================================================== */}
         {/* TAB 1: MARKETPLACE                                                   */}
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
             {/* Top Responsive Search Banner */}
-            <div
-              className="portal-search-banner"
-              style={{
-                background: 'linear-gradient(90deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%)',
-                border: '1px solid #E0E7FF',
-                borderRadius: '12px',
-                padding: '24px 28px',
-                marginBottom: '28px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div className="portal-search-banner-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', paddingTop: '2px', flexShrink: 0 }}>
-                  <InstagramIcon size={20} />
-                  <YouTubeIcon size={20} />
-                  <TikTokIcon size={20} />
+            <div className="portal-search-banner-box">
+              <div className="portal-banner-left">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                  <InstagramIcon size={22} />
+                  <YouTubeIcon size={22} />
+                  <TikTokIcon size={22} />
                 </div>
                 <div style={{ flex: 1 }}>
                   <h2 style={{ fontSize: '15.5px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 4px 0', lineHeight: 1.35 }}>
@@ -792,20 +822,8 @@ function CreatorPortalContent() {
 
               <button
                 type="button"
-                className="portal-search-banner-btn"
+                className="portal-banner-cta-btn"
                 onClick={() => handleTabChange('social-media')}
-                style={{
-                  backgroundColor: '#0052FF',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '8px',
-                  padding: '10px 24px',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
-                  flexShrink: 0,
-                }}
               >
                 Connect
               </button>
@@ -820,14 +838,7 @@ function CreatorPortalContent() {
             </div>
 
             {/* Responsive Blurred Campaign Teaser Cards Grid */}
-            <div
-              className="portal-campaigns-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-                gap: '20px',
-              }}
-            >
+            <div className="portal-grid-layout">
               {campaigns.map((camp) => (
                 <div
                   key={camp.id}
@@ -1097,18 +1108,7 @@ function CreatorPortalContent() {
                 </button>
               </div>
             ) : (
-              <div
-                className="portal-collabs-pane"
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E5E7EB',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  display: 'grid',
-                  gridTemplateColumns: '300px 1fr',
-                  minHeight: '520px',
-                }}
-              >
+              <div className="portal-split-collabs">
                 {/* Left Thread List */}
                 <div style={{ borderRight: '1px solid #E5E7EB', backgroundColor: '#FAFAFA' }}>
                   <div style={{ padding: '14px', borderBottom: '1px solid #E5E7EB', fontSize: '12.5px', fontWeight: 800, color: '#111827' }}>
@@ -1205,7 +1205,7 @@ function CreatorPortalContent() {
             )}
 
             {/* Responsive Metric Cards */}
-            <div className="portal-payments-kpis" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
+            <div className="portal-kpi-grid">
               <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '10px', padding: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>$</div>
                 <div>
