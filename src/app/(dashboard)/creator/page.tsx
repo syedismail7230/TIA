@@ -175,6 +175,12 @@ function CreatorPortalContent() {
   const [applySuccess, setApplySuccess] = useState(false);
   const [claimSuccess, setClaimSuccess] = useState(false);
 
+  // Application Credits & Free Applies State (1 Free Apply initially, ₹99/credit thereafter)
+  const [applyCredits, setApplyCredits] = useState<number>(1);
+  const [totalAppliesCount, setTotalAppliesCount] = useState<number>(0);
+  const [creditPurchaseSuccess, setCreditPurchaseSuccess] = useState<string | null>(null);
+  const [showBuyCreditsModal, setShowBuyCreditsModal] = useState<boolean>(false);
+
   // Search & Filter State
   const [showMatchBanner, setShowMatchBanner] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -602,30 +608,68 @@ function CreatorPortalContent() {
     setApplySuccess(false);
   };
 
+  const handleBuyCredits = (count: number, costInr: number) => {
+    setApplyCredits((prev) => prev + count);
+    setPayments((prev) => [
+      {
+        id: `tx-cred-${Date.now()}`,
+        mediaName: 'TIA Application Credits Top-up',
+        initials: 'CR',
+        campaign: `${count} Application Credits Pack (₹99/credit)`,
+        amount: `₹${costInr}`,
+        authorizedAt: 'Just now',
+        status: 'PAID',
+      },
+      ...prev,
+    ]);
+    setCreditPurchaseSuccess(`✓ Added ${count} Application Credits for ₹${costInr}!`);
+    setShowBuyCreditsModal(false);
+    setTimeout(() => setCreditPurchaseSuccess(null), 4000);
+  };
+
   const submitApplication = () => {
     if (!selectedCampaign) return;
+    if (applyCredits <= 0) {
+      setShowBuyCreditsModal(true);
+      return;
+    }
+
+    // Deduct 1 credit & increment total applies
+    setApplyCredits((prev) => Math.max(0, prev - 1));
+    setTotalAppliesCount((prev) => prev + 1);
+
     setCollabs((prev) => [
       {
         id: `collab-${Date.now()}`,
         campaignTitle: selectedCampaign.title,
         subject: selectedCampaign.title,
         brandName: selectedCampaign.brandName,
-        brandInitials: 'EV',
+        brandInitials: selectedCampaign.brandName.substring(0, 2).toUpperCase(),
         status: 'AWAITING',
         appliedAt: 'Just now',
         proposedRate: selectedCampaign.payoutAmount,
-        deliverables: selectedCampaign.description,
-        unreadCount: 0,
+        deliverables: selectedCampaign.deliverablesSummary || selectedCampaign.description,
+        unreadCount: 1,
         messages: [
           {
             id: `msg-${Date.now()}`,
+            sender: 'BRAND',
+            senderName: `${selectedCampaign.brandName} (Brand Lead)`,
+            badge: 'Proposal Received',
+            badgeColor: '#059669',
+            badgeBg: '#ECFDF5',
+            date: 'Just now',
+            text: `Hi! We received your verified application for ${selectedCampaign.title}. Your profile matches our audience criteria. We will review your media kit and confirm the milestone deposit shortly.`,
+          },
+          {
+            id: `msg-${Date.now() + 1}`,
             sender: 'CREATOR',
             senderName: 'You',
             badge: 'Application Form',
-            badgeColor: '#D97706',
-            badgeBg: '#FEF3C7',
+            badgeColor: '#0052FF',
+            badgeBg: '#EFF6FF',
             date: 'Just now',
-            text: `Submitted proposal for ${selectedCampaign.title}. Ready to produce high-impact deliverables.`,
+            text: `Submitted proposal for ${selectedCampaign.title} at ${selectedCampaign.payoutAmount}. Ready to deliver ${selectedCampaign.deliverablesSummary || selectedCampaign.description}.`,
           },
         ],
       },
@@ -1250,6 +1294,56 @@ function CreatorPortalContent() {
                   <option value="applicants">Sort: Most Popular</option>
                   <option value="newest">Sort: Newest</option>
                 </select>
+
+                {/* Application Credits Widget */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    marginLeft: 'auto',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 12px',
+                      backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
+                      border: applyCredits > 0 ? '1px solid #BFDBFE' : '1px solid #FDE68A',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      color: applyCredits > 0 ? '#0052FF' : '#B45309',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <span>⚡ {applyCredits} {applyCredits === 1 ? 'Free Apply' : 'Credits'} Remaining</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleTabChange('payments')}
+                    style={{
+                      padding: '8px 14px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.2)',
+                    }}
+                  >
+                    <span>+ Buy Credits</span>
+                  </button>
+                </div>
               </div>
 
               {/* Row 2: Category Quick Chips */}
@@ -1849,11 +1943,224 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'payments' && (
           <div>
+            {creditPurchaseSuccess && (
+              <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '12px 16px', borderRadius: '10px', marginBottom: '16px', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span>🎉</span>
+                <span>{creditPurchaseSuccess}</span>
+              </div>
+            )}
+
             {claimSuccess && (
               <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '10px 14px', borderRadius: '8px', marginBottom: '14px', fontSize: '12.5px', fontWeight: 600 }}>
                 ✓ Payout claimed successfully to your verified bank account!
               </div>
             )}
+
+            {/* Application Credits & Deals Section */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '20px 22px',
+                marginBottom: '22px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.02)',
+              }}
+            >
+              {/* Header with Balance */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px', marginBottom: '18px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                    <span style={{ fontSize: '18px' }}>⚡</span>
+                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      Application Credits Wallet
+                    </h3>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '2px 8px', borderRadius: '12px' }}>
+                      ₹99 / Credit
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, maxWidth: '640px', lineHeight: 1.45 }}>
+                    You receive 1 free application with basic preview. Use application credits to apply for verified brand deals, unlock the full campaign brief, and initiate direct deal contracts.
+                  </p>
+                </div>
+
+                {/* Balance Pill */}
+                <div
+                  style={{
+                    backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
+                    border: applyCredits > 0 ? '1.5px solid #BFDBFE' : '1.5px solid #FDE68A',
+                    borderRadius: '12px',
+                    padding: '10px 16px',
+                    textAlign: 'right',
+                    minWidth: '160px',
+                  }}
+                >
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: applyCredits > 0 ? '#1E40AF' : '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Available Balance
+                  </div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: applyCredits > 0 ? '#0052FF' : '#B45309', marginTop: '2px' }}>
+                    {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
+                  </div>
+                  <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '2px' }}>
+                    {totalAppliesCount} applied so far
+                  </div>
+                </div>
+              </div>
+
+              {/* Purchase Packs Grid (Highlighting 2 Credits Option) */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '14px' }}>
+                {/* Option 1: 2 Credits (₹198) - Requested Featured Pack */}
+                <div
+                  style={{
+                    border: '2px solid #0052FF',
+                    backgroundColor: '#F8FAFF',
+                    borderRadius: '14px',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                  }}
+                >
+                  <div style={{ position: 'absolute', top: '-10px', right: '14px', backgroundColor: '#0052FF', color: '#FFFFFF', fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Recommended
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>2 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
+                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹198</span>
+                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 2 applies (₹99 ea)</span>
+                    </div>
+                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                      <li>Apply to 2 verified brand deals</li>
+                      <li>Unlock full campaign briefs</li>
+                      <li>Direct brand manager messaging</li>
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits(2, 198)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0045D8')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
+                  >
+                    Buy 2 Credits — ₹198
+                  </button>
+                </div>
+
+                {/* Option 2: 5 Credits (₹495) */}
+                <div
+                  style={{
+                    border: '1px solid #E2E8F0',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
+                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹495</span>
+                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 5 applies (₹99 ea)</span>
+                    </div>
+                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                      <li>Apply to 5 verified brand deals</li>
+                      <li>Priority application review queue</li>
+                      <li>Milestone escrow guarantee</li>
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits(5, 495)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: '#F1F5F9',
+                      color: '#0F172A',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#E2E8F0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#F1F5F9';
+                    }}
+                  >
+                    Buy 5 Credits — ₹495
+                  </button>
+                </div>
+
+                {/* Option 3: 10 Credits (₹990) */}
+                <div
+                  style={{
+                    border: '1px solid #E2E8F0',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>10 Application Credits</div>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', margin: '8px 0 4px 0' }}>
+                      <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A' }}>₹990</span>
+                      <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>/ 10 applies (₹99 ea)</span>
+                    </div>
+                    <ul style={{ paddingLeft: '16px', margin: '10px 0 16px 0', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+                      <li>Apply to 10 verified brand deals</li>
+                      <li>VIP creator matchmaking priority</li>
+                      <li>Dedicated campaign advisor</li>
+                    </ul>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleBuyCredits(10, 990)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: '#F1F5F9',
+                      color: '#0F172A',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#E2E8F0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#F1F5F9';
+                    }}
+                  >
+                    Buy 10 Credits — ₹990
+                  </button>
+                </div>
+              </div>
+            </div>
 
             {/* Metric Cards Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '14px', marginBottom: '22px' }}>
@@ -1999,7 +2306,7 @@ function CreatorPortalContent() {
       {/* Campaign Detail & Application Modal */}
       {selectedCampaign && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '480px', borderRadius: '20px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
+          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '500px', borderRadius: '20px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
             {applySuccess ? (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
                 <div style={{ fontSize: '40px', marginBottom: '10px' }}>🎉</div>
@@ -2011,11 +2318,11 @@ function CreatorPortalContent() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#7C3AED', backgroundColor: '#F5F3FF', padding: '2px 8px', borderRadius: '6px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
                         {selectedCampaign.commercialLabel}
                       </span>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
-                        {selectedCampaign.payoutAmount}
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#0F172A', backgroundColor: '#F1F5F9', padding: '2px 8px', borderRadius: '6px' }}>
+                        {selectedCampaign.payoutAmount} {selectedCampaign.payType || 'Fixed'}
                       </span>
                     </div>
                     <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: '#0F172A', margin: '4px 0 0 0' }}>{selectedCampaign.title}</h3>
@@ -2025,7 +2332,7 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* Intelligence Metrics in Modal */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', textAlign: 'center' }}>
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', textAlign: 'center' }}>
                   <div>
                     <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Profile Success Rate</div>
                     <div style={{ fontSize: '15px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
@@ -2036,16 +2343,166 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                <div style={{ backgroundColor: '#F8FAFC', padding: '14px', borderRadius: '10px', marginBottom: '18px', fontSize: '12.5px', color: '#334155', lineHeight: 1.5 }}>
-                  <strong style={{ color: '#0F172A' }}>Deliverables Brief:</strong> {selectedCampaign.description}
+                {/* Limited Visibility Brief Notice */}
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', padding: '12px 14px', borderRadius: '10px', marginBottom: '14px', fontSize: '12px', color: '#334155', lineHeight: 1.5 }}>
+                  <div style={{ fontWeight: 700, color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <span>🔒 Limited Preview Brief</span>
+                  </div>
+                  <p style={{ margin: 0, color: '#64748B' }}>
+                    {selectedCampaign.description}
+                  </p>
+                  <div style={{ marginTop: '6px', fontSize: '11px', color: '#0052FF', fontWeight: 600 }}>
+                    ✓ Full unblurred brief and direct messaging unlock once proposal is dispatched.
+                  </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 18px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                  <button type="button" onClick={submitApplication} style={{ padding: '10px 22px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,82,255,0.25)' }}>Submit Application</button>
-                </div>
+                {/* Credit Balance & Action Area */}
+                {applyCredits > 0 ? (
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', marginBottom: '16px' }}>
+                      <div style={{ fontSize: '12px', color: '#1E40AF', fontWeight: 600 }}>
+                        ✨ Applying uses <strong>1 Credit</strong>
+                      </div>
+                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#0052FF' }}>
+                        {applyCredits} Available
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                      <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 18px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                      <button type="button" onClick={submitApplication} style={{ padding: '10px 22px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,82,255,0.25)' }}>
+                        Submit Application (Uses 1 Credit)
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ padding: '12px 14px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', marginBottom: '16px' }}>
+                      <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
+                        ⚠️ 0 Application Credits Remaining
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: '#7F1D1D', lineHeight: 1.4 }}>
+                        You've used your free application. Get more credits at ₹99/application to apply for verified deals.
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                      <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 16px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleBuyCredits(2, 198);
+                        }}
+                        style={{
+                          padding: '10px 20px',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          fontSize: '12.5px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          boxShadow: '0 2px 10px rgba(0,82,255,0.25)',
+                        }}
+                      >
+                        ⚡ Buy 2 Credits (₹198) & Apply
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Buy Credits Modal */}
+      {showBuyCreditsModal && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
+          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '440px', borderRadius: '20px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: 0 }}>⚡ Get Application Credits</h3>
+                <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>₹99 per Application Credit</div>
+              </div>
+              <button type="button" onClick={() => setShowBuyCreditsModal(false)} style={{ backgroundColor: '#F1F5F9', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', cursor: 'pointer', color: '#64748B' }}>✕</button>
+            </div>
+
+            <p style={{ fontSize: '12.5px', color: '#475569', lineHeight: 1.45, marginBottom: '16px' }}>
+              You need credits to apply for high-paying brand campaigns. Choose a pack below:
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '18px' }}>
+              <button
+                type="button"
+                onClick={() => handleBuyCredits(2, 198)}
+                style={{
+                  padding: '14px 16px',
+                  backgroundColor: '#EFF6FF',
+                  border: '2px solid #0052FF',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0052FF' }}>2 Application Credits ⭐</div>
+                  <div style={{ fontSize: '11px', color: '#64748B' }}>₹99 per credit • Most Popular</div>
+                </div>
+                <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>₹198</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleBuyCredits(5, 495)}
+                style={{
+                  padding: '14px 16px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>5 Application Credits</div>
+                  <div style={{ fontSize: '11px', color: '#64748B' }}>₹99 per credit</div>
+                </div>
+                <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>₹495</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleBuyCredits(10, 990)}
+                style={{
+                  padding: '14px 16px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>10 Application Credits</div>
+                  <div style={{ fontSize: '11px', color: '#64748B' }}>₹99 per credit • Best Value</div>
+                </div>
+                <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>₹990</div>
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button type="button" onClick={() => setShowBuyCreditsModal(false)} style={{ padding: '10px 18px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Close</button>
+            </div>
           </div>
         </div>
       )}
