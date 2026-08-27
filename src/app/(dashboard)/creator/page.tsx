@@ -966,7 +966,7 @@ function CreatorPortalContent() {
 
           {/* User Profile, Remaining Credits & Sign Out on Right */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            {/* Remaining Credits Badge next to Profile */}
+            {/* Remaining Credits Inline Indicator (Clean, Borderless, SVG Icon) */}
             <button
               type="button"
               onClick={() => handleTabChange('payments')}
@@ -975,18 +975,29 @@ function CreatorPortalContent() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '5px',
-                padding: '4px 10px',
-                backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
-                border: applyCredits > 0 ? '1px solid #BFDBFE' : '1px solid #FDE68A',
-                borderRadius: '8px',
-                fontSize: '11.5px',
+                padding: '0',
+                backgroundColor: 'transparent',
+                border: 'none',
+                fontSize: '12.5px',
                 fontWeight: 700,
-                color: applyCredits > 0 ? '#0052FF' : '#B45309',
+                color: '#0052FF',
                 cursor: 'pointer',
-                transition: 'all 0.15s ease',
+                outline: 'none',
               }}
             >
-              <span>⚡ {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="#0052FF"
+                stroke="#0052FF"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <span>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
             </button>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
