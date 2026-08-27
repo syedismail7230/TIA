@@ -7062,7 +7062,27 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Earnings</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '7px',
+                          backgroundColor: '#F1F5F9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#334155',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="12" y1="1" x2="12" y2="23" />
+                          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                      </div>
+                      <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Total Earnings</span>
+                    </div>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
@@ -7105,7 +7125,27 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Earnings</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '7px',
+                          backgroundColor: '#ECFDF5',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#059669',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                      </div>
+                      <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Paid Earnings</span>
+                    </div>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalPaidGross.toLocaleString('en-IN')}.00
@@ -7148,7 +7188,27 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Pending Earnings</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '7px',
+                          backgroundColor: '#FFF7ED',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#EA580C',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                      </div>
+                      <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Pending Earnings</span>
+                    </div>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
@@ -7195,8 +7255,24 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ fontSize: '14px' }}>⚡</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '7px',
+                          backgroundColor: '#EFF6FF',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#0052FF',
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                      </div>
                       <span className="payments-stat-label" style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
                     </div>
                   </div>
@@ -7221,9 +7297,15 @@ function CreatorPortalContent() {
                         fontWeight: 700,
                         cursor: 'pointer',
                         boxShadow: '0 2px 4px rgba(0, 82, 255, 0.2)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
                     >
-                      Top Up ⚡
+                      <span>Top Up</span>
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                      </svg>
                     </button>
                   </div>
                 </div>
