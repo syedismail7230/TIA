@@ -27,9 +27,9 @@ function getMatchedLogo(category, index) {
     list = LOGO_MAP.AUDIO;
   } else if (catLower.includes('mobile') || catLower.includes('camera') || catLower.includes('smartphone') || catLower.includes('photography')) {
     list = LOGO_MAP.TECH_FLAGSHIP;
-  } else if (catLower.includes('fitness') || catLower.includes('sport') || catLower.includes('gym') || catLower.includes('yoga') || catLower.includes('running') || catLower.includes('workout')) {
+  } else if (catLower.includes('fitness') || catLower.includes('sport') || catLower.includes('gym') || catLower.includes('yoga') || catLower.includes('running') || catLower.includes('workout') || catLower.includes('running shoes')) {
     list = LOGO_MAP.SPORTS_FITNESS;
-  } else if (catLower.includes('streetwear') || catLower.includes('fashion') || catLower.includes('apparel') || catLower.includes('saree') || catLower.includes('denim') || catLower.includes('clothing') || catLower.includes('menswear')) {
+  } else if (catLower.includes('streetwear') || catLower.includes('fashion') || catLower.includes('apparel') || catLower.includes('saree') || catLower.includes('denim') || catLower.includes('clothing') || catLower.includes('menswear') || catLower.includes('underwear')) {
     list = LOGO_MAP.FASHION_APPAREL;
   } else if (catLower.includes('automobile') || catLower.includes('ev') || catLower.includes('scooter') || catLower.includes('mobility') || catLower.includes('services')) {
     list = LOGO_MAP.AUTOMOBILE_MOBILITY;
@@ -1468,48 +1468,39 @@ const rawCampaignTemplates = [
   }
 ];
 
-// Additional diverse campaigns for total 106
-const categoryPool = [
-  // 1
-  { cat: 'Fashion', title: 'Relaxed Fit Linen Co-ord Set Resort Wear Lookbook', brand: 'Premium D2C Apparel Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹44,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'PINTEREST'], defaultLogo: '/logos/zara-full.svg' },
-  // 2
-  { cat: 'Beauty', title: 'Peptide Lip Glaze High-Shine Hydration Test', brand: 'Clean Beauty Cosmetics Label (Verified)', curSym: '₹', curCode: 'INR', pay: '₹32,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/canva.svg' },
-  // 3
-  { cat: 'Technology', title: '144Hz AMOLED Curved Display Gaming Smartphone Review', brand: 'Leading Electronics Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹72,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/samsung-full.svg' },
-  // 4
-  { cat: 'Fitness', title: 'Whey Isolate Double Rich Chocolate Dissolution Test', brand: 'Certified Sports Nutrition Label (Verified)', curSym: '₹', curCode: 'INR', pay: '₹48,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/nike-raw.svg' },
-  // 5
-  { cat: 'Food', title: 'Cold-Pressed Extra Virgin Coconut Oil Cooking Sizzle', brand: 'Organic FMCG Foods Enterprise (Verified)', curSym: '₹', curCode: 'INR', pay: '₹36,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/amazon-full.svg' },
-  // 6
-  { cat: 'Travel', title: 'Ultra-Lightweight Water-Resistant Weekend Duffle Bag', brand: 'Modern Travel Gear Label (Verified)', curSym: '₹', curCode: 'INR', pay: '₹40,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/airbnb.svg' },
-  // 7
-  { cat: 'Home', title: 'Minimalist Handcrafted Ceramic Coffee Mug Sets', brand: 'Artisanal Home Decor Studio (Verified)', curSym: '₹', curCode: 'INR', pay: '₹30,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'PINTEREST'], defaultLogo: '/logos/starbucks-full.svg' },
-  // 8
-  { cat: 'Finance', title: 'Automated Zero-Commission Stock Portfolio SIP Guide', brand: 'Leading Discount Broking Unicorn (Verified)', curSym: '₹', curCode: 'INR', pay: '₹80,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/stripe.svg' },
-  // 9
-  { cat: 'Automobile', title: 'Dual-Dashcam 4K Night Vision Parking Guard Test', brand: 'Smart Automotive Accessories Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹42,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/uber-raw.svg' },
-  // 10
-  { cat: 'Gaming', title: 'Mechanical Hot-Swappable RGB Wireless Keyboard Sound Test', brand: 'Esports Gaming Peripherals Enterprise (Verified)', curSym: '₹', curCode: 'INR', pay: '₹50,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE', 'TWITCH'], defaultLogo: '/logos/discord.svg' },
-  // 11
-  { cat: 'Music', title: 'Spatial Audio Hi-Res True Wireless Earphones Launch', brand: 'Premium Sound Acoustics Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹46,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/spotify-full.svg' },
-  // 12
-  { cat: 'Technology', title: 'Ergonomic Standing Desk Dual-Motor Smart Setup', brand: 'Modern Workspace Tech Enterprise (Verified)', curSym: '$', curCode: 'USD', pay: '$1,500', country: 'United States', code: 'US', flag: '🇺🇸', lang: 'English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/github-full.svg' },
-  // 13
-  { cat: 'Fashion', title: 'Waterproof Gore-Tex Trail Hiking Shell Jacket', brand: 'Alpine Performance Outdoor Label (Verified)', curSym: '£', curCode: 'GBP', pay: '£1,100', country: 'United Kingdom', code: 'GB', flag: '🇬🇧', lang: 'English', banner: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/adidas-full.svg' },
-  // 14
-  { cat: 'Beauty', title: 'Hyaluronic Marine Hydration Serum Deep Quench', brand: 'French Thalassotherapy Skincare House (Verified)', curSym: '€', curCode: 'EUR', pay: '€850', country: 'France', code: 'FR', flag: '🇫🇷', lang: 'French / English', banner: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/figma.svg' },
-  // 15
-  { cat: 'Gaming', title: 'Low-Latency Ultralight Esports Wireless Mouse', brand: 'Pro Gaming Gear Studio (Verified)', curSym: '₹', curCode: 'INR', pay: '₹48,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['TWITCH', 'YOUTUBE'], defaultLogo: '/logos/twitch-full.svg' },
-  // 16
-  { cat: 'Food', title: 'Single-Estate Ceremonial Grade Uji Matcha Whisking', brand: 'Kyoto Heritage Tea Producers (Verified)', curSym: '¥', curCode: 'JPY', pay: '¥140,000', country: 'Japan', code: 'JP', flag: '🇯🇵', lang: 'Japanese / English', banner: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/starbucks-full.svg' },
-  // 17
-  { cat: 'Technology', title: 'Cloud Collaboration AI Developer Platform Review', brand: 'Enterprise Cloud Solutions (Verified)', curSym: '$', curCode: 'USD', pay: '$2,500', country: 'United States', code: 'US', flag: '🇺🇸', lang: 'English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['YOUTUBE', 'X'], defaultLogo: '/logos/github.svg' },
-  // 18
-  { cat: 'Fitness', title: 'Carbon-Plated Marathon Road Racing Shoes Test', brand: 'Performance Athletic Running Label (Verified)', curSym: 'S$', curCode: 'SGD', pay: 'S$2,200', country: 'Singapore', code: 'SG', flag: '🇸🇬', lang: 'English', banner: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/nike-full.svg' },
-  // 19
-  { cat: 'Software', title: 'All-in-One Team Workspace & Document Sync Tour', brand: 'Productivity SaaS Platform (Verified)', curSym: '₹', curCode: 'INR', pay: '₹60,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['YOUTUBE', 'LINKEDIN'], defaultLogo: '/logos/notion.svg' },
-  // 20
-  { cat: 'Entertainment', title: 'Original Anime & Cinema 4K HDR Series Streaming Watchparty', brand: 'Global Video Streaming Platform (Verified)', curSym: '₹', curCode: 'INR', pay: '₹65,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/netflix-full.svg' },
+// Rich, highly specific, diverse Indian and international campaign briefs for the remaining 109 campaigns (total 156)
+const extendedCampaignsPool = [
+  // Fashion & Apparel
+  { cat: 'Fashion', title: 'Matte Ceramic Coated Non-Stick Sauté Pan Cooking Test', brand: 'Premium Culinary Cookware Enterprise (Verified)', curSym: '₹', curCode: 'INR', pay: '₹42,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/amazon-full.svg' },
+  { cat: 'Beauty', title: '100% Pure Cold-Pressed Sweet Almond Hair Oil Ritual', brand: 'Ayurvedic Hair & Scalp Therapeutics Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹38,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/canva-full.svg' },
+  { cat: 'Fashion', title: 'Ultra-Breathable Bamboo Viscose Underwear Comfort Challenge', brand: 'Modern Sustainable Essentials Label (Verified)', curSym: '₹', curCode: 'INR', pay: '₹35,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/zara-full.svg' },
+  { cat: 'Food', title: 'Smart Touchscreen Air Fryer Healthy Samosa Challenge', brand: 'Smart Kitchen Appliances Enterprise (Verified)', curSym: '₹', curCode: 'INR', pay: '₹55,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/amazon-full.svg' },
+  { cat: 'Home', title: 'Ergonomic Lumbar Support Mesh Office Chair Assembly & Review', brand: 'Ergonomic Workspace Solutions (Verified)', curSym: '₹', curCode: 'INR', pay: '₹60,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/notion.svg' },
+  { cat: 'Food', title: 'Instant Filter Coffee Decoction 30-Second Morning Pour', brand: 'South Indian Artisanal Coffee Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹32,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/starbucks-full.svg' },
+  { cat: 'Fitness', title: 'High-Cushion Carbon Plate Running Shoes 10K Time Trial', brand: 'Performance Athletic Footwear Label (Verified)', curSym: '₹', curCode: 'INR', pay: '₹65,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/nike-full.svg' },
+  { cat: 'Beauty', title: 'Hydrating Rice Water & Ceramide Night Barrier Moisture Mask', brand: 'Derma-Approved Clean Cosmetics (Verified)', curSym: '₹', curCode: 'INR', pay: '₹36,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/canva.svg' },
+  { cat: 'Technology', title: 'Wireless 65W Fast MagSafe Multi-Device Charging Station', brand: 'Next-Gen Mobile Accessories Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹48,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/apple-full.svg' },
+  { cat: 'Food', title: 'Direct-Trade Single-Origin Chikmagalur Dark Roast Beans', brand: 'Specialty Coffee Roasters (Verified)', curSym: '₹', curCode: 'INR', pay: '₹34,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/starbucks-full.svg' },
+  { cat: 'Technology', title: '4K Wireless Security Cam Dual-Lens Solar Powered Guard', brand: 'Smart Home Automation Unicorn (Verified)', curSym: '₹', curCode: 'INR', pay: '₹58,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/google-full.svg' },
+  { cat: 'Health', title: 'Pure Copper Hammered Water Bottle Ayurvedic Daily Ritual', brand: 'Heritage Copper & Brass Artisans (Verified)', curSym: '₹', curCode: 'INR', pay: '₹30,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/patreon.svg' },
+  { cat: 'Fashion', title: 'Classic Japanese Selvedge Raw Indigo Jeans Break-In Test', brand: 'Denim Artisanal Workshop (Verified)', curSym: '₹', curCode: 'INR', pay: '₹52,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'PINTEREST'], defaultLogo: '/logos/adidas-full.svg' },
+  { cat: 'Beauty', title: 'Dual-Phase Vitamin E Cleansing Balm Makeup Melt Test', brand: 'Clean Skincare Lab (Verified)', curSym: '₹', curCode: 'INR', pay: '₹33,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/shopify.svg' },
+  { cat: 'Gaming', title: 'Lightweight Honeycomb Shell 8000Hz Polling Rate Gaming Mouse', brand: 'Pro Gaming Gear (Verified)', curSym: '₹', curCode: 'INR', pay: '₹46,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['TWITCH', 'YOUTUBE'], defaultLogo: '/logos/twitch.svg' },
+  { cat: 'Fitness', title: 'Adjustable Quick-Lock Dumbbells Home Gym Space Saving Tour', brand: 'Home Fitness Equipment Innovators (Verified)', curSym: '₹', curCode: 'INR', pay: '₹70,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/nike-official.svg' },
+  { cat: 'Food', title: 'Artisanal Himalayan Yak Cheese Churpi Chews Dog Treats', brand: 'Natural Pet Nutrition Brand (Verified)', curSym: '₹', curCode: 'INR', pay: '₹28,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/shopify-full.svg' },
+  { cat: 'Fashion', title: 'Water-Repellent Commuter Laptop Backpack Weather Test', brand: 'Urban Travel & EDC Gear (Verified)', curSym: '₹', curCode: 'INR', pay: '₹40,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/puma-full.svg' },
+  { cat: 'Finance', title: 'Zero-Forex Markup Global Travel Debit Card Airport Test', brand: 'Neo-Banking Fintech Platform (Verified)', curSym: '₹', curCode: 'INR', pay: '₹65,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/wise-full.svg' },
+  { cat: 'Beauty', title: 'Cruelty-Free Botanical Lash Growth Peptide Mascara', brand: 'Clean Cosmetics Innovators (Verified)', curSym: '₹', curCode: 'INR', pay: '₹35,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/figma.svg' },
+  { cat: 'Automobile', title: 'High-Torque Electric Cycle All-Terrain Hill Climb Test', brand: 'Sustainable Smart Mobility (Verified)', curSym: '₹', curCode: 'INR', pay: '₹85,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/tesla-full.svg' },
+  { cat: 'Food', title: 'Organic Stone-Ground A2 Cow Ghee Tadka Aroma Test', brand: 'Certified Organic Farm Dairy (Verified)', curSym: '₹', curCode: 'INR', pay: '₹40,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/amazon-full.svg' },
+  { cat: 'Technology', title: 'Noise-Cancelling Studio Boom Mic Podcast Audio Test', brand: 'Creator Studio Acoustics (Verified)', curSym: '₹', curCode: 'INR', pay: '₹50,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/spotify.svg' },
+  { cat: 'Fashion', title: 'Pure Mulberry Silk Pillowcase Hair Frizz Reduction Test', brand: 'Luxury Sleep & Silk Essentials (Verified)', curSym: '₹', curCode: 'INR', pay: '₹45,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/zara-full.svg' },
+  { cat: 'Fitness', title: 'Plant-Based Fermented Pea Protein Shake Taste Test', brand: 'Vegan Sports Nutrition (Verified)', curSym: '₹', curCode: 'INR', pay: '₹42,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/nike.svg' },
+  { cat: 'Home', title: 'Smart Self-Watering Indoor Herb Garden Time-Lapse', brand: 'Urban Hydroponic Living (Verified)', curSym: '₹', curCode: 'INR', pay: '₹48,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/shopify.svg' },
+  { cat: 'Beauty', title: 'Multi-Peptide Lash & Brow Enhancing Density Serum', brand: 'Clinical Cosmetics (Verified)', curSym: '₹', curCode: 'INR', pay: '₹37,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/canva.svg' },
+  { cat: 'Travel', title: 'Compact Folding Ultra-Light Drone 4K Sunset Flight', brand: 'Consumer Drone & Robotics (Verified)', curSym: '₹', curCode: 'INR', pay: '₹95,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM', 'YOUTUBE'], defaultLogo: '/logos/sony-full.svg' },
+  { cat: 'Food', title: 'Gluten-Free Almond Flour Keto Cookie Baking Session', brand: 'Healthy Gourmet Bakery (Verified)', curSym: '₹', curCode: 'INR', pay: '₹34,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/starbucks-full.svg' },
+  { cat: 'Fashion', title: 'Anti-Theft RFID Blocking Minimalist Leather Bifold', brand: 'Heritage Leathercraft Studio (Verified)', curSym: '₹', curCode: 'INR', pay: '₹36,000', country: 'India', code: 'IN', flag: '🇮🇳', lang: 'Hindi / English', banner: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80', soc: ['INSTAGRAM'], defaultLogo: '/logos/puma-full.svg' },
 ];
 
 const totalCampaigns = [];
@@ -1559,15 +1550,16 @@ rawCampaignTemplates.forEach((tpl, idx) => {
   });
 });
 
-// 2. Add remaining to reach 106
-for (let i = totalCampaigns.length; i < 106; i++) {
-  const poolItem = categoryPool[(i - rawCampaignTemplates.length) % categoryPool.length];
-  const matchedLogo = getMatchedLogo(poolItem.cat, i);
+// 2. Add remaining to reach exactly 156 (adding 50 more campaigns)
+const TARGET_COUNT = 156;
+for (let i = totalCampaigns.length; i < TARGET_COUNT; i++) {
+  const poolItem = extendedCampaignsPool[(i - rawCampaignTemplates.length) % extendedCampaignsPool.length];
+  const matchedLogo = poolItem.defaultLogo || getMatchedLogo(poolItem.cat, i);
   totalCampaigns.push({
     id: `camp-${i + 1}`,
     title: poolItem.title,
     brandName: poolItem.brand,
-    partnerLogo: poolItem.defaultLogo || matchedLogo,
+    partnerLogo: matchedLogo,
     bannerImage: poolItem.banner,
     avatarGradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
     commercialType: i % 2 === 0 ? 'COMMISSION' : 'FLAT_FEE',
@@ -1581,7 +1573,7 @@ for (let i = totalCampaigns.length; i < 106; i++) {
     acceptanceChance: 82 + (i % 12),
     eligibilityRate: 88 + (i % 10),
     categories: [poolItem.cat, 'Lifestyle', 'CreatorCollab'],
-    isNew: i < 70,
+    isNew: i < 110,
     postedAt: 'Aug 26, 2026 • 11:15 AM',
     projectTimeline: 'Sep 6 – Sep 28, 2026',
     requirementLabel: 'Requirement not met',
@@ -1676,4 +1668,4 @@ export const INITIAL_CAMPAIGNS: CampaignItem[] = ${JSON.stringify(totalCampaigns
 `;
 
 fs.writeFileSync(path.join(__dirname, '../src/data/campaigns-data.ts'), outputCode, 'utf8');
-console.log('Successfully wrote campaigns-data.ts with matched category logos!');
+console.log('Successfully wrote campaigns-data.ts with 156 total blind campaigns!');
