@@ -925,7 +925,7 @@ function CreatorPortalContent() {
     setProposalPitch('');
     setApplySuccess(false);
     setBidSubmittedSuccess(false);
-    setShowApplyModal(true);
+    setShowApplyModal(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
