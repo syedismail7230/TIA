@@ -6689,7 +6689,7 @@ function CreatorPortalContent() {
           onClick={() => handleNotificationClick(liveToast)}
           style={{
             position: 'fixed',
-            bottom: '24px',
+            top: '84px',
             right: '24px',
             backgroundColor: '#FFFFFF',
             borderRadius: '12px',
