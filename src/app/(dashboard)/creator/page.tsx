@@ -1143,7 +1143,7 @@ function CreatorPortalContent() {
       billedTo: 'Paul Homes Retail India Pvt Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
     },
     {
       id: 'tx-102',
@@ -1169,7 +1169,7 @@ function CreatorPortalContent() {
       billedTo: 'Nathalie Case India Brand Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '19 Aug 2026 - 11:30 AM',
     },
     {
@@ -1196,7 +1196,7 @@ function CreatorPortalContent() {
       billedTo: 'NovaSound Electronics Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '15 Aug 2026 - 04:20 PM',
     },
     {
@@ -1223,7 +1223,7 @@ function CreatorPortalContent() {
       billedTo: 'UrbanBotanics Wellness Pvt Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
     },
     {
       id: 'tx-105',
@@ -1249,7 +1249,7 @@ function CreatorPortalContent() {
       billedTo: 'Zebronics India Pvt Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '09 Aug 2026 - 02:15 PM',
     },
     {
@@ -1276,7 +1276,7 @@ function CreatorPortalContent() {
       billedTo: 'Curefit Healthcare Pvt Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '05 Aug 2026 - 10:45 AM',
     },
     {
@@ -1303,7 +1303,7 @@ function CreatorPortalContent() {
       billedTo: 'Uprising Science Pvt Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '01 Aug 2026 - 05:30 PM',
     },
     {
@@ -1330,7 +1330,7 @@ function CreatorPortalContent() {
       billedTo: 'Imagine Marketing Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '29 Jul 2026 - 12:15 PM',
     },
     {
@@ -1357,7 +1357,7 @@ function CreatorPortalContent() {
       billedTo: 'Honasa Consumer Ltd',
       currency: 'INR (₹ Indian Rupee)',
       fromName: 'TIA Financial Engine',
-      fromEmail: 'billing@theinfluencealliance.com',
+      fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '25 Jul 2026 - 03:50 PM',
     },
   ]);
@@ -1437,7 +1437,7 @@ function CreatorPortalContent() {
         mediaName: 'TIA Application Credits Top-up',
         initials: '⚡',
         logoBg: '#0052FF',
-        email: 'billing@theinfluencealliance.com',
+        email: 'billing@theinfluencersagency.com',
         campaign: `${count} Application Credits Pack (₹99/credit)`,
         deliverableDesc: `${count}x Creator Campaign Pitch & Deal Applications`,
         amount: `₹${costInr.toLocaleString('en-IN')}.00`,
@@ -1455,7 +1455,7 @@ function CreatorPortalContent() {
         billedTo: 'Sarah Jenkins',
         currency: 'INR (₹ Indian Rupee)',
         fromName: 'TIA Credit Engine',
-        fromEmail: 'billing@theinfluencealliance.com',
+        fromEmail: 'billing@theinfluencersagency.com',
         disbursedAt: 'Just now',
       },
       ...prev,
@@ -1714,12 +1714,12 @@ function CreatorPortalContent() {
             <table class="header-table">
               <tr>
                 <td style="width: 60%;">
-                  <div class="company-name">THE INFLUENCE ALLIANCE</div>
+                  <div class="company-name">THE INFLUENCERS AGENCY</div>
                   <div class="company-meta">
-                    <strong>The Influence Alliance Private Limited</strong><br />
+                    <strong>The Influencers Agency Private Limited</strong><br />
                     CIN: U74999DL2026PTC109281 • GSTIN: 07AAACT8819Q1Z8<br />
                     Corporate HQ: Level 9, Cyber City Phase II, Gurugram, India - 122002<br />
-                    Web: theinfluencealliance.com • Email: disbursals@theinfluencealliance.com
+                    Web: theinfluencersagency.com • Email: disbursals@theinfluencersagency.com
                   </div>
                 </td>
                 <td style="width: 40%; text-align: right;">
@@ -1860,7 +1860,7 @@ function CreatorPortalContent() {
                   </div>
                 </td>
                 <td style="width: 50%; text-align: right;">
-                  <div style="font-size: 11px; font-weight: 800; color: #0F172A;">For The Influence Alliance Pvt. Ltd.</div>
+                  <div style="font-size: 11px; font-weight: 800; color: #0F172A;">For The Influencers Agency Pvt. Ltd.</div>
                   <div style="height: 36px; display: flex; align-items: flex-end; justify-content: flex-end;">
                     <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 20px; color: #0052FF;">TIA Finance Gateway</span>
                   </div>
@@ -7668,7 +7668,7 @@ function CreatorPortalContent() {
                                 {isCreditPurchase ? 'TIA Credit Engine' : creatorName}
                               </div>
                               <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {isCreditPurchase ? 'billing@theinfluencealliance.com' : creatorEmail}
+                                {isCreditPurchase ? 'billing@theinfluencersagency.com' : creatorEmail}
                               </div>
                             </div>
                           </div>
