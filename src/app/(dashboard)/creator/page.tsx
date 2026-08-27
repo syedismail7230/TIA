@@ -618,7 +618,7 @@ function CreatorPortalContent() {
     setSelectedCampaign(campaign);
     setBidAmount(campaign.payoutAmount?.replace(/[^0-9]/g, '') || '700');
     setBidDays('14');
-    setProposalPitch(`Hi ${campaign.brandName}! I'm excited to apply for ${campaign.title}. My verified engagement and creative style align directly with your deliverables. Looking forward to collaborating!`);
+    setProposalPitch('');
     setApplySuccess(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -1152,10 +1152,8 @@ function CreatorPortalContent() {
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                          <span>Client:</span>
-                          <span style={{ filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', color: 'transparent', borderRadius: '4px', padding: '0 6px', fontSize: '11px', display: 'inline-block' }}>Anonymized Enterprise</span>
-                          <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>✓ Verified Client</span>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                          ✓ Verified Client
                         </span>
                         <span>•</span>
                         <span>{selectedCampaign.countryFlag} {selectedCampaign.country}</span>
@@ -1339,13 +1337,13 @@ function CreatorPortalContent() {
 
                   <div style={{ marginBottom: '16px' }}>
                     <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
-                      Describe Your Proposal & Creative Angle
+                      Describe Your Proposal & Creative Angle <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Optional)</span>
                     </label>
                     <textarea
                       rows={4}
                       value={proposalPitch}
                       onChange={(e) => setProposalPitch(e.target.value)}
-                      placeholder="Outline why you are the best fit for this campaign, your equipment setup, and how you will deliver authentic engagement..."
+                      placeholder="Optional: Outline your creative vision, camera equipment, or any specific angle you'd like to propose to the brand..."
                       style={{
                         width: '100%',
                         padding: '12px 14px',
@@ -1441,13 +1439,17 @@ function CreatorPortalContent() {
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
-                            AV
+                            🔒
                           </div>
                           <div>
-                            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px' }}>
-                              @aria_lifestyle 🇮🇹
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px', filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', borderRadius: '4px', padding: '1px 6px', display: 'inline-block' }}>
+                                @aria_lifestyle
+                              </span>
+                              <span>🇮🇹</span>
+                              <span style={{ fontSize: '10.5px', color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>Sealed</span>
                             </div>
-                            <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
                               ⭐⭐⭐⭐⭐ 5.0 (98 reviews) • 8.7 ER Score
                             </div>
                           </div>
@@ -1466,13 +1468,17 @@ function CreatorPortalContent() {
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
-                            MS
+                            🔒
                           </div>
                           <div>
-                            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px' }}>
-                              @marcus_fit 🇬🇧
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px', filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', borderRadius: '4px', padding: '1px 6px', display: 'inline-block' }}>
+                                @marcus_fit
+                              </span>
+                              <span>🇬🇧</span>
+                              <span style={{ fontSize: '10.5px', color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>Sealed</span>
                             </div>
-                            <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
                               ⭐⭐⭐⭐⭐ 4.9 (79 reviews) • 7.1 ER Score
                             </div>
                           </div>
@@ -1530,16 +1536,22 @@ function CreatorPortalContent() {
                     About the Client
                   </h3>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                    <div style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: '#F1F5F9', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
-                      <img src={selectedCampaign.partnerLogo} alt="Client Logo" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'blur(10px)', opacity: 0.3, transform: 'scale(1.2)' }} />
-                      <span style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>🏢</span>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0052FF' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 21h18" />
+                        <path d="M5 21V7l8-4v18" />
+                        <path d="M19 21V11l-6-4" />
+                        <path d="M9 9h1" />
+                        <path d="M9 13h1" />
+                        <path d="M9 17h1" />
+                      </svg>
                     </div>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', color: 'transparent', borderRadius: '4px', padding: '0 6px', fontSize: '12px', display: 'inline-block' }}>Confidential Brand</span>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800 }}>✓ Verified</span>
+                        <span style={{ fontWeight: 800, fontSize: '13.5px', color: '#0F172A' }}>Enterprise Client</span>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>✓ Verified</span>
                       </div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
                     </div>
                   </div>
 
