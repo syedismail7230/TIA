@@ -1078,15 +1078,10 @@ function CreatorPortalContent() {
               </div>
             )}
 
-            {/* Search, Filter & Sort Toolbar */}
+            {/* Search, Filter & Sort Toolbar (Clean, Cardless) */}
             <div
               style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
-                borderRadius: '14px',
-                padding: '14px 16px',
-                marginBottom: '20px',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                marginBottom: '24px',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '12px',
@@ -1136,14 +1131,15 @@ function CreatorPortalContent() {
                     placeholder="Search campaigns, brands, or niches..."
                     style={{
                       width: '100%',
-                      padding: '8px 30px 8px 34px',
+                      padding: '9px 32px 9px 36px',
                       fontSize: '13px',
                       fontWeight: 500,
                       color: '#0F172A',
-                      backgroundColor: '#F8FAFC',
-                      border: '1px solid #E2E8F0',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       outline: 'none',
+                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                       transition: 'all 0.15s ease',
                     }}
                   />
@@ -1174,15 +1170,16 @@ function CreatorPortalContent() {
                   value={selectedCountry}
                   onChange={(e) => setSelectedCountry(e.target.value)}
                   style={{
-                    padding: '8px 12px',
+                    padding: '9px 12px',
                     fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     outline: 'none',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                   }}
                 >
                   {filterCountries.map((c) => (
@@ -1197,15 +1194,16 @@ function CreatorPortalContent() {
                   value={selectedCommercialType}
                   onChange={(e) => setSelectedCommercialType(e.target.value)}
                   style={{
-                    padding: '8px 12px',
+                    padding: '9px 12px',
                     fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     outline: 'none',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                   }}
                 >
                   <option value="ALL">All Deal Types</option>
@@ -1218,15 +1216,16 @@ function CreatorPortalContent() {
                   value={sortBy}
                   onChange={(e: any) => setSortBy(e.target.value)}
                   style={{
-                    padding: '8px 12px',
+                    padding: '9px 12px',
                     fontSize: '12.5px',
                     fontWeight: 600,
                     color: '#334155',
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
                     borderRadius: '8px',
                     cursor: 'pointer',
                     outline: 'none',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                   }}
                 >
                   <option value="success_rate">Sort: Highest Match</option>
