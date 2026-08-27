@@ -1167,21 +1167,10 @@ function CreatorPortalContent() {
                           <span style={{ fontWeight: 600, color: '#0F172A' }}>{camp.language}</span>
                         </div>
 
-                        {/* Country Flag & Symbol */}
+                        {/* Country Flag & Full Name */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Country</span>
-                          <div
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '6px',
-                              backgroundColor: '#FFFFFF',
-                              border: '1px solid #E2E8F0',
-                              borderRadius: '6px',
-                              padding: '2px 8px',
-                              boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
-                            }}
-                          >
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                             <img
                               src={`https://flagcdn.com/w40/${camp.countryCode.toLowerCase()}.png`}
                               alt={camp.country}
@@ -1193,8 +1182,8 @@ function CreatorPortalContent() {
                                 display: 'block',
                               }}
                             />
-                            <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#0F172A' }}>
-                              {camp.countryCode}
+                            <span style={{ fontWeight: 600, color: '#0F172A' }}>
+                              {camp.country}
                             </span>
                           </div>
                         </div>
