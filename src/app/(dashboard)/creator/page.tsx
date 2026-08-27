@@ -7063,21 +7063,6 @@ function CreatorPortalContent() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Earnings</span>
-                    <button
-                      type="button"
-                      style={{
-                        background: 'none',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '6px',
-                        padding: '2px 8px',
-                        color: '#94A3B8',
-                        cursor: 'pointer',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                      }}
-                    >
-                      •••
-                    </button>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
@@ -7121,21 +7106,6 @@ function CreatorPortalContent() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Earnings</span>
-                    <button
-                      type="button"
-                      style={{
-                        background: 'none',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '6px',
-                        padding: '2px 8px',
-                        color: '#94A3B8',
-                        cursor: 'pointer',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                      }}
-                    >
-                      •••
-                    </button>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalPaidGross.toLocaleString('en-IN')}.00
@@ -7179,21 +7149,6 @@ function CreatorPortalContent() {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span className="payments-stat-label" style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Pending Earnings</span>
-                    <button
-                      type="button"
-                      style={{
-                        background: 'none',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '6px',
-                        padding: '2px 8px',
-                        color: '#94A3B8',
-                        cursor: 'pointer',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                      }}
-                    >
-                      •••
-                    </button>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
@@ -7244,23 +7199,6 @@ function CreatorPortalContent() {
                       <span style={{ fontSize: '14px' }}>⚡</span>
                       <span className="payments-stat-label" style={{ fontSize: '13px', color: '#1E40AF', fontWeight: 700 }}>Credits Wallet</span>
                     </div>
-                    <span
-                      className="payments-stat-badge"
-                      style={{
-                        backgroundColor: '#EFF6FF',
-                        border: '1px solid #BFDBFE',
-                        borderRadius: '6px',
-                        padding: '2px 8px',
-                        color: '#0052FF',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '3px',
-                      }}
-                    >
-                      <span>+ Buy ↗</span>
-                    </span>
                   </div>
                   <div className="payments-stat-value" style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', margin: '12px 0 8px 0', letterSpacing: '-0.02em' }}>
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
@@ -7415,22 +7353,6 @@ function CreatorPortalContent() {
                           </div>
                         )}
                       </div>
-
-                      {/* Options Button */}
-                      <button
-                        type="button"
-                        style={{
-                          backgroundColor: '#FFFFFF',
-                          border: '1px solid #E2E8F0',
-                          borderRadius: '8px',
-                          padding: '6px 10px',
-                          color: '#64748B',
-                          cursor: 'pointer',
-                          fontSize: '12px',
-                        }}
-                      >
-                        •••
-                      </button>
                     </div>
                   </div>
 
