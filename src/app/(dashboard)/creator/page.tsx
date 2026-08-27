@@ -2480,7 +2480,7 @@ function CreatorPortalContent() {
       {/* Main Content Container */}
       <main className="portal-main-wrapper" style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px 20px' }}>
         {/* Nav Tabs (Responsive & Scrollable) */}
-        <div className="portal-nav-segmented-container creator-nav-tabs-wrapper" style={{ marginBottom: '20px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        <div className={`portal-nav-segmented-container creator-nav-tabs-wrapper ${mobileChatViewActive && activeTab === 'collabs' ? 'hide-on-mobile-chat' : ''}`} style={{ marginBottom: '16px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           <nav
             className="portal-nav-segmented no-scrollbar"
             style={{
@@ -4577,8 +4577,11 @@ function CreatorPortalContent() {
         {activeTab === 'collabs' && (
           <div>
             {/* Top Filter Bar with Crisp Vector SVG Icons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '18px', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+            <div
+              className={`collabs-top-filter-bar ${mobileChatViewActive ? 'hide-on-mobile-chat' : ''}`}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '14px', flexWrap: 'wrap' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', paddingBottom: '4px', maxWidth: '100%' }}>
                 {[
                   {
                     id: 'awaiting',
@@ -4629,9 +4632,9 @@ function CreatorPortalContent() {
                       type="button"
                       onClick={() => setCollabFilter(pill.id as CollabFilter)}
                       style={{
-                        padding: '7px 14px',
+                        padding: '6px 12px',
                         borderRadius: '8px',
-                        fontSize: '12.5px',
+                        fontSize: '12px',
                         fontWeight: 700,
                         backgroundColor: isActive ? activeBg : '#FFFFFF',
                         color: isActive ? activeColor : '#475569',
@@ -4649,7 +4652,7 @@ function CreatorPortalContent() {
                       <span>{pill.label}</span>
                       <span
                         style={{
-                          fontSize: '11px',
+                          fontSize: '10.5px',
                           fontWeight: 700,
                           backgroundColor: isActive
                             ? pill.id === 'accepted'
@@ -4659,7 +4662,7 @@ function CreatorPortalContent() {
                               : '#E2E8F0'
                             : '#F1F5F9',
                           color: isActive ? activeColor : '#94A3B8',
-                          padding: '1px 6px',
+                          padding: '1px 5px',
                           borderRadius: '10px',
                         }}
                       >
@@ -4670,8 +4673,9 @@ function CreatorPortalContent() {
                 })}
               </div>
 
-              {/* Status Guarantee Pill */}
+              {/* Status Guarantee Pill (Desktop Only) */}
               <div
+                className="guarantee-pill-desktop"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -4955,21 +4959,21 @@ function CreatorPortalContent() {
                       position: 'relative',
                     }}
                   >
-                    {/* Top Workspace Header (Fixed) */}
+                    {/* Top Workspace Header (Fixed, Clean, Single-Row) */}
                     <div
                       style={{
-                        padding: '14px 18px',
+                        padding: '10px 14px',
                         borderBottom: '1px solid #F1F5F9',
                         backgroundColor: '#FFFFFF',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        gap: '12px',
-                        flexWrap: 'wrap',
+                        gap: '8px',
                         flexShrink: 0,
+                        minHeight: '56px',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0, flex: 1 }}>
                         {/* Mobile Back to Threads Button */}
                         <button
                           type="button"
@@ -4978,71 +4982,79 @@ function CreatorPortalContent() {
                           title="Back to all conversations"
                           style={{
                             alignItems: 'center',
-                            gap: '4px',
-                            padding: '6px 10px',
-                            backgroundColor: '#F8FAFC',
+                            justifyContent: 'center',
+                            width: '32px',
+                            height: '32px',
+                            backgroundColor: '#F1F5F9',
                             color: '#0F172A',
                             borderRadius: '8px',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                            border: '1px solid #CBD5E1',
+                            border: 'none',
                             cursor: 'pointer',
+                            flexShrink: 0,
                           }}
                         >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6" />
                           </svg>
-                          <span>Back</span>
                         </button>
 
                         <div
                           style={{
-                            width: '42px',
-                            height: '42px',
-                            borderRadius: '12px',
+                            width: '36px',
+                            height: '36px',
+                            borderRadius: '10px',
                             backgroundColor: selectedCollab.brandAvatarBg || '#EFF6FF',
                             color: selectedCollab.brandAvatarColor || '#0052FF',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontWeight: 900,
-                            fontSize: '15px',
+                            fontSize: '13px',
                             flexShrink: 0,
                           }}
                         >
                           {selectedCollab.brandInitials || 'BR'}
                         </div>
 
-                        <div>
+                        <div style={{ minWidth: 0, flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <h3 style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                            <h3
+                              style={{
+                                fontSize: '13.5px',
+                                fontWeight: 800,
+                                color: '#0F172A',
+                                margin: 0,
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
                               {selectedCollab.campaignTitle}
                             </h3>
                             <span
+                              className="tia-desktop-only"
                               style={{
-                                fontSize: '10px',
+                                fontSize: '9.5px',
                                 fontWeight: 800,
                                 color: selectedCollab.status === 'ACCEPTED' ? '#059669' : selectedCollab.status === 'AWAITING' ? '#D97706' : '#64748B',
                                 backgroundColor: selectedCollab.status === 'ACCEPTED' ? '#ECFDF5' : selectedCollab.status === 'AWAITING' ? '#FEF3C7' : '#F1F5F9',
-                                padding: '2px 6px',
+                                padding: '1px 5px',
                                 borderRadius: '4px',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '3px',
+                                flexShrink: 0,
                               }}
                             >
-                              {selectedCollab.status === 'ACCEPTED' ? '✓ ACCEPTED DEAL' : selectedCollab.status === 'AWAITING' ? '⏳ AWAITING REVIEW' : '📦 ARCHIVED'}
+                              {selectedCollab.status === 'ACCEPTED' ? '✓ ACCEPTED' : selectedCollab.status === 'AWAITING' ? '⏳ AWAITING' : '📦 ARCHIVED'}
                             </span>
                           </div>
 
-                          <div style={{ fontSize: '11.5px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '2px' }}>
-                            <span>{selectedCollab.brandRole || selectedCollab.brandName}</span>
+                          <div style={{ fontSize: '11px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
+                            <span style={{ fontWeight: 600 }}>{selectedCollab.brandName}</span>
                             <span>•</span>
-                            <span style={{ fontWeight: 800, color: '#0052FF' }}>Rate {selectedCollab.proposedRate}</span>
+                            <span style={{ fontWeight: 800, color: '#0052FF' }}>{selectedCollab.proposedRate}</span>
                             {selectedCollab.escrowFunded && (
                               <>
                                 <span>•</span>
-                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Payment Secured</span>
+                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Secured</span>
                               </>
                             )}
                           </div>
@@ -5050,7 +5062,7 @@ function CreatorPortalContent() {
                       </div>
 
                       {/* Header Actions */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
                         {selectedCollab.status === 'AWAITING' && (
                           <button
                             type="button"
@@ -5060,20 +5072,21 @@ function CreatorPortalContent() {
                               color: '#FFFFFF',
                               border: 'none',
                               borderRadius: '8px',
-                              padding: '8px 14px',
-                              fontSize: '12px',
+                              padding: '6px 10px',
+                              fontSize: '11.5px',
                               fontWeight: 700,
                               cursor: 'pointer',
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '6px',
-                              boxShadow: '0 2px 6px rgba(5, 150, 105, 0.25)',
+                              gap: '4px',
+                              boxShadow: '0 2px 6px rgba(5, 150, 105, 0.2)',
+                              whiteSpace: 'nowrap',
                             }}
                           >
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="20 6 9 17 4 12" />
                             </svg>
-                            <span>Accept Deal & Start</span>
+                            <span>Accept</span>
                           </button>
                         )}
 
@@ -5086,20 +5099,21 @@ function CreatorPortalContent() {
                               color: '#FFFFFF',
                               border: 'none',
                               borderRadius: '8px',
-                              padding: '8px 14px',
-                              fontSize: '12px',
+                              padding: '6px 11px',
+                              fontSize: '11.5px',
                               fontWeight: 700,
                               cursor: 'pointer',
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '6px',
+                              gap: '5px',
                               boxShadow: '0 2px 6px rgba(0, 82, 255, 0.2)',
+                              whiteSpace: 'nowrap',
                             }}
                           >
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                             </svg>
-                            <span>Submit Deliverable</span>
+                            <span className="collabs-action-text">Submit</span>
                           </button>
                         )}
 
@@ -5114,51 +5128,78 @@ function CreatorPortalContent() {
                             border: '1px solid',
                             borderColor: selectedCollab.status === 'REJECTED' ? '#BFDBFE' : '#CBD5E1',
                             borderRadius: '8px',
-                            padding: '8px 12px',
-                            fontSize: '12px',
+                            padding: '6px 9px',
+                            fontSize: '11.5px',
                             fontWeight: 700,
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '6px',
-                            transition: 'all 0.15s ease',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = selectedCollab.status === 'REJECTED' ? '#DBEAFE' : '#F1F5F9';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = selectedCollab.status === 'REJECTED' ? '#EFF6FF' : '#F8FAFC';
+                            gap: '4px',
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           {selectedCollab.status === 'REJECTED' ? (
                             <>
-                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="9 14 4 9 9 4" />
                                 <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
                               </svg>
-                              <span>Unarchive</span>
+                              <span className="collabs-archive-text">Unarchive</span>
                             </>
                           ) : (
                             <>
-                              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="21 8 21 21 3 21 3 8" />
                                 <rect x="1" y="3" width="22" height="5" />
                                 <line x1="10" y1="12" x2="14" y2="12" />
                               </svg>
-                              <span>Archive</span>
+                              <span className="collabs-archive-text">Archive</span>
                             </>
                           )}
                         </button>
                       </div>
                     </div>
 
-                    {/* Milestone Progress Stepper Bar (Fixed) */}
+                    {/* Mobile Compact Milestone Bar (Visible only on mobile) */}
                     <div
+                      className="collabs-mobile-milestone-bar"
+                      style={{
+                        padding: '6px 12px',
+                        backgroundColor: '#F8FAFC',
+                        borderBottom: '1px solid #E2E8F0',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '11px',
+                        color: '#475569',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontWeight: 700, color: '#0052FF' }}>
+                          Stage {selectedCollab.milestoneStage || 1}/4:
+                        </span>
+                        <span style={{ fontWeight: 600, color: '#0F172A' }}>
+                          {selectedCollab.milestoneStage === 1
+                            ? 'Proposal Review'
+                            : selectedCollab.milestoneStage === 2
+                            ? 'Script & Storyboard'
+                            : selectedCollab.milestoneStage === 3
+                            ? 'Video Draft Review'
+                            : 'Live Post & Payout'}
+                        </span>
+                      </div>
+                      <span style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700 }}>
+                        🔒 100% Protected
+                      </span>
+                    </div>
+
+                    {/* Milestone Progress Stepper Bar (Desktop Only) */}
+                    <div
+                      className="collabs-desktop-milestone-bar"
                       style={{
                         padding: '10px 18px',
                         backgroundColor: '#F8FAFC',
                         borderBottom: '1px solid #E2E8F0',
-                        display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '8px',
@@ -5197,13 +5238,13 @@ function CreatorPortalContent() {
                       ))}
                     </div>
 
-                    {/* Deliverables Overview Bar (Fixed) */}
+                    {/* Deliverables Overview Bar (Desktop Only) */}
                     <div
+                      className="collabs-desktop-milestone-bar"
                       style={{
                         padding: '8px 18px',
                         backgroundColor: '#EFF6FF',
                         borderBottom: '1px solid #DBEAFE',
-                        display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         fontSize: '11.5px',

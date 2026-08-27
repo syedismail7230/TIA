@@ -1928,13 +1928,32 @@ table {
    CREATOR DASHBOARD & COLLABS MOBILE RESPONSIVENESS
    =================================================== */
 @media (max-width: 768px) {
+  .portal-header-wrapper {
+    height: 54px !important;
+    padding: 0 12px !important;
+  }
+
+  .portal-main-wrapper {
+    padding: 8px 10px !important;
+  }
+
+  /* When inside active chat on mobile, hide the upper navigation and filter tabs for full-screen chat */
+  .portal-nav-segmented-container.hide-on-mobile-chat {
+    display: none !important;
+  }
+
+  .collabs-top-filter-bar.hide-on-mobile-chat {
+    display: none !important;
+  }
+
   .collabs-grid-layout {
     display: flex !important;
     flex-direction: column !important;
-    height: calc(100vh - 170px) !important;
-    min-height: 540px !important;
+    height: calc(100vh - 72px) !important;
+    min-height: 480px !important;
     max-height: none !important;
     gap: 0 !important;
+    border-radius: 12px !important;
   }
 
   .collabs-grid-layout.mobile-chat-open .collabs-left-sidebar {
@@ -1945,12 +1964,14 @@ table {
     display: flex !important;
     width: 100% !important;
     height: 100% !important;
+    border-radius: 12px !important;
   }
 
   .collabs-grid-layout:not(.mobile-chat-open) .collabs-left-sidebar {
     display: flex !important;
     width: 100% !important;
     height: 100% !important;
+    border-radius: 12px !important;
   }
 
   .collabs-grid-layout:not(.mobile-chat-open) .collabs-right-studio {
@@ -1961,17 +1982,27 @@ table {
     display: inline-flex !important;
   }
 
+  .collabs-desktop-milestone-bar {
+    display: none !important;
+  }
+
+  .collabs-mobile-milestone-bar {
+    display: flex !important;
+  }
+
+  .collabs-archive-text {
+    display: none !important;
+  }
+
+  .guarantee-pill-desktop {
+    display: none !important;
+  }
+
   .creator-nav-tabs-wrapper {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     width: 100% !important;
-    padding-bottom: 4px !important;
-  }
-
-  .creator-tab-btn {
-    padding: 8px 12px !important;
-    font-size: 12px !important;
-    white-space: nowrap !important;
+    padding-bottom: 2px !important;
   }
 
   .marketplace-search-row {
@@ -1987,6 +2018,12 @@ table {
 @media (min-width: 769px) {
   .collabs-mobile-back-btn {
     display: none !important;
+  }
+  .collabs-mobile-milestone-bar {
+    display: none !important;
+  }
+  .collabs-desktop-milestone-bar {
+    display: flex !important;
   }
 }
 
