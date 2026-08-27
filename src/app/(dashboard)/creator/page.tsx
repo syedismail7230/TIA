@@ -229,6 +229,34 @@ function CreatorPortalContent() {
       countryFlag: '🇦🇺',
       socials: ['INSTAGRAM', 'YOUTUBE'],
       description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
+      scopeOfWork: [
+        { title: 'Zero-Waste Cooking Reel', detail: 'Produce native 9:16 vertical 4K video showing low-waste meal prep or sustainable kitchen hack with engaging voiceover in first 3 seconds.' },
+        { title: 'Compost & Storage Routine Reel', detail: 'Aesthetic 60fps vertical reel demonstrating eco-friendly food storage containers and home pantry organization.' },
+        { title: 'Interactive Story Sequence', detail: '3-part Instagram Story sequence with interactive audience Q&A sticker and dedicated link-in-bio campaign tracking.' },
+        { title: 'Pantry Swap Carousel Post', detail: 'Multi-slide photo guide detailing sustainable pantry swap essentials and practical zero-waste tips.' },
+      ],
+      contentDirections: {
+        tone: 'Authentic, mindful, approachable, and educational. Emphasize sustainable everyday lifestyle without preaching.',
+        videoSetup: 'Warm natural daylight, clean eco-kitchen aesthetics, macro food textures, and compost prep shots.',
+        hashtags: 'Include #ZeroWasteKitchen, #SustainableLiving2026, and #EcoCollab in caption.',
+        audio: 'Gentle acoustic / lo-fi ambient track mixed at -18dB with crisp, clear narration. Subtitles mandatory.',
+      },
+      milestones: [
+        '1. Storyboard & Angle Outline: Due within 4 days of contract acceptance.',
+        '2. Draft Rough Cut Review: Client will review and provide feedback within 48 hours.',
+        '3. Content Publication: Live posting during peak engagement hours (Sep 5 – Sep 12, 2026).',
+        '4. Analytics Verification: Submit 7-day reach & engagement report for final settlement.',
+      ],
+      proposals: [
+        { handle: '@green_culinary', country: 'Australia', flag: '🇦🇺', bid: '$1,100', days: '12', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Specialized in zero-waste plant-based recipes with 8.9% engagement rate. 4K kitchen studio ready to shoot.' },
+        { handle: '@eco_earthling', country: 'New Zealand', flag: '🇳🇿', bid: '$1,050', days: '10', rating: '4.9', reviews: 64, er: '7.8', pitch: 'Sustainable lifestyle creator with 140k mindful followers. Extensive experience with zero-waste swaps.' },
+        { handle: '@mindful_bites', country: 'Australia', flag: '🇦🇺', bid: '$1,150', days: '14', rating: '5.0', reviews: 104, er: '9.2', pitch: 'Professional food stylist with cinematic macro lens setup. Focus on aesthetic kitchen tutorials.' },
+      ],
+      otherJobs: [
+        { title: 'Eco-Home Plastic Free Bathroom Review', payout: '$900 Fixed Pay' },
+        { title: 'Organic Farmers Market Vlog Series', payout: '$1,500 Fixed Pay' },
+        { title: 'Sustainable Travel Gear Showcase', payout: '$600 Fixed Pay' },
+      ],
     },
     {
       id: 'camp-2',
@@ -256,6 +284,34 @@ function CreatorPortalContent() {
       countryFlag: '🇮🇹',
       socials: ['INSTAGRAM', 'PINTEREST', 'YOUTUBE'],
       description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
+      scopeOfWork: [
+        { title: 'Artisan Hamper Unboxing Reel', detail: 'High-energy celebratory unboxing showing luxury packaging details, ribbon unwrapping, and gift presentation.' },
+        { title: 'Gourmet Tasting & Pairing Short', detail: 'Honest taste reaction and holiday snack pairing ideas with crisp voiceover and subtitle overlays.' },
+        { title: 'Holiday Countdown Story Series', detail: 'Daily festive micro-moments featuring snack collection integration with link sticker.' },
+        { title: 'Festive Tablescape Photo Post', detail: 'Aesthetic holiday dinner table arrangement highlighting the gourmet spread.' },
+      ],
+      contentDirections: {
+        tone: 'Festive, warm, indulgent, and joyful. Highlight holiday gifting excitement and sensory tasting reactions.',
+        videoSetup: 'Cozy warm indoor lighting, holiday ambient background bokeh, macro closeup of artisanal treats.',
+        hashtags: 'Include #HolidayGourmet, #FestiveSeason2026, and #GourmetGiftGuide in caption.',
+        audio: 'Upbeat holiday acoustic or festive jazz score at -18dB with energetic voiceover.',
+      },
+      milestones: [
+        '1. Product Delivery & Concept Check: Confirm delivery within 3 days.',
+        '2. Unboxing Rough Cut Review: Client review within 48 hours.',
+        '3. Phased Holiday Posting: Phased publication across holiday timeline (Sep 8 – Sep 18, 2026).',
+        '4. Conversion & Reach Report: Screenshot submission for payout disbursement.',
+      ],
+      proposals: [
+        { handle: '@aria_lifestyle', country: 'Italy', flag: '🇮🇹', bid: '$700', days: '14', rating: '5.0', reviews: 98, er: '8.7', pitch: 'Specializing in luxury holiday tablescapes and Italian gourmet unboxings. Full 4K HDR gear ready.' },
+        { handle: '@culinary_marco', country: 'Italy', flag: '🇮🇹', bid: '$680', days: '10', rating: '4.9', reviews: 79, er: '7.1', pitch: 'Food photographer and Reel creator based in Milan. High holiday conversion track record.' },
+        { handle: '@tasteofsweet', country: 'France', flag: '🇫🇷', bid: '$720', days: '12', rating: '5.0', reviews: 112, er: '9.4', pitch: 'Pastry chef and lifestyle vlogger with 95k European food enthusiasts. Ready to film.' },
+      ],
+      otherJobs: [
+        { title: 'Autumn Truffle & Wine Hamper Reel', payout: '$850 Fixed Pay' },
+        { title: 'New Year Midnight Snack Kit Review', payout: '$600 Fixed Pay' },
+        { title: 'Artisan Chocolate Tasting Series', payout: '$950 Fixed Pay' },
+      ],
     },
     {
       id: 'camp-3',
@@ -283,6 +339,34 @@ function CreatorPortalContent() {
       countryFlag: '🇺🇸',
       socials: ['INSTAGRAM', 'X'],
       description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
+      scopeOfWork: [
+        { title: 'Morning Routine Long-Form Integration', detail: '60-90s dedicated integration within daily morning routine vlog covering herbal extract purity and focus benefits.' },
+        { title: 'Day in the Life Energy Boost Reel', detail: 'High-tempo vertical video tracking energy levels through workout, work meetings, and evening wind-down.' },
+        { title: 'Ingredient Science Breakdown Reel', detail: 'Quick educational breakdown of bio-active herbs with on-screen infographic callouts.' },
+        { title: 'Weekly Progress Story Series', detail: '3 interactive stories tracking physical stamina and mental focus over 14 days.' },
+      ],
+      contentDirections: {
+        tone: 'Science-backed, confident, energizing, and authentic. No false medical claims—focus on daily routine benefits.',
+        videoSetup: 'Crisp morning natural sunlight, modern home office or fitness background, macro product dissolvability shots.',
+        hashtags: 'Include #MorningVitality, #HerbalScience2026, and #BioActiveBoost in caption.',
+        audio: 'Uplifting electronic beat with confident, crisp voiceover recorded on studio condenser mic.',
+      },
+      milestones: [
+        '1. Script & Compliance Outline: Client review within 3 days for health claim compliance.',
+        '2. Video Rough Cut Review: Client feedback provided within 48 hours.',
+        '3. Scheduled Release: Post live between Sep 15 – Sep 28, 2026.',
+        '4. Final Performance Analytics: Submission after 7 days for milestone completion.',
+      ],
+      proposals: [
+        { handle: '@dr_vitality', country: 'United States', flag: '🇺🇸', bid: '$1,800', days: '15', rating: '5.0', reviews: 142, er: '9.8', pitch: 'Holistic wellness educator and fitness creator with 210k high-intent followers. 4K multi-camera studio.' },
+        { handle: '@austin_wellness', country: 'United States', flag: '🇺🇸', bid: '$1,750', days: '14', rating: '4.9', reviews: 87, er: '8.4', pitch: 'Biohacking and productivity podcast host with strong US audience reach and high conversion.' },
+        { handle: '@claire_fitlife', country: 'Canada', flag: '🇨🇦', bid: '$1,850', days: '18', rating: '5.0', reviews: 96, er: '9.1', pitch: 'Certified nutritionist with 180k engaged wellness followers and 9.1% engagement rate.' },
+      ],
+      otherJobs: [
+        { title: 'Sleep Cycle Herbal Elixir Launch', payout: '$1,400 Fixed Pay' },
+        { title: 'Immunity Defense Drops Short Series', payout: '$1,200 Fixed Pay' },
+        { title: 'Adaptogen Coffee Alternative Review', payout: '$2,000 Fixed Pay' },
+      ],
     },
     {
       id: 'camp-4',
@@ -310,6 +394,34 @@ function CreatorPortalContent() {
       countryFlag: '🇮🇳',
       socials: ['INSTAGRAM', 'YOUTUBE'],
       description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
+      scopeOfWork: [
+        { title: '8-10 Min Review Video', detail: 'In-depth breakdown covering low-light sensor performance, dynamic range, AI auto-framing, and workflow comparison.' },
+        { title: 'Low-Light Cinematic Short', detail: '60s vertical demonstration showcasing 4K 120fps slow-motion street cinematography in extreme low light.' },
+        { title: 'AI Auto-Tracking Workflow Short', detail: 'Quick vertical tutorial showing hands-free creator filming with AI subject tracking.' },
+        { title: 'Raw 4K Footage Asset Pack', detail: 'Deliver b-roll raw log files for project promotional distribution.' },
+      ],
+      contentDirections: {
+        tone: 'Tech-savvy, authoritative, cinematic, and detailed. Provide clear side-by-side video comparisons.',
+        videoSetup: 'High-end RGB studio lighting, dark neon urban night shoots, sharp telephoto lens closeups of camera hardware.',
+        hashtags: 'Include #NexusX1Ultra, #Cinematography2026, and #TechReview in caption.',
+        audio: 'Cinematic trailer soundtrack with crystal-clear shotgun microphone voiceover and foley camera shutter sounds.',
+      },
+      milestones: [
+        '1. Benchmark Test Plan: Submit test footage concepts within 5 days of camera arrival.',
+        '2. Video Rough Cut: 48-hour client review for technical accuracy.',
+        '3. Global Launch Publication: Post synchronized on global launch day (Sep 25, 2026).',
+        '4. Post Engagement Metrics: 7-day watch-time and CTR report.',
+      ],
+      proposals: [
+        { handle: '@tech_cinematics', country: 'India', flag: '🇮🇳', bid: '$2,750', days: '16', rating: '5.0', reviews: 180, er: '10.5', pitch: 'Professional DP & gear reviewer with 320k tech creators audience. Red Komodo & Sony FX3 comparative setup.' },
+        { handle: '@pixel_lens', country: 'United Kingdom', flag: '🇬🇧', bid: '$2,600', days: '14', rating: '4.9', reviews: 125, er: '11.2', pitch: 'Camera optics specialist and tech YouTuber with 11.2% tech enthusiast ER.' },
+        { handle: '@gadget_lab_us', country: 'United States', flag: '🇺🇸', bid: '$2,800', days: '20', rating: '5.0', reviews: 210, er: '9.4', pitch: 'Full studio review lab with calibrated color charts and low-light test studio.' },
+      ],
+      otherJobs: [
+        { title: 'Compact Wireless Gimbal Test & Review', payout: '$1,600 Fixed Pay' },
+        { title: 'Cinema Prime Lens Set Showcase', payout: '$3,200 Fixed Pay' },
+        { title: 'Wireless Audio Lavalier Microphone Series', payout: '$1,250 Fixed Pay' },
+      ],
     },
     {
       id: 'camp-5',
@@ -337,6 +449,34 @@ function CreatorPortalContent() {
       countryFlag: '🇬🇧',
       socials: ['INSTAGRAM', 'X'],
       description: 'High-energy running montage with direct swipe-up discount code for community followers.',
+      scopeOfWork: [
+        { title: 'Long-Run Wear Test Reel', detail: 'High-energy 60s Reel taking viewers through an 18-mile training session with feedback on cushioning and carbon plate response.' },
+        { title: 'Speed Workout & Sprint Track Reel', detail: 'Fast-cut montage focusing on heel strike, shoe flex, and traction on wet and dry surfaces.' },
+        { title: 'Race-Day Outfit Styling Reel', detail: 'Seamless transition from athletic running kit to casual athleisure streetwear.' },
+        { title: 'Training Week Story Arc', detail: '5-day story progression showing mileage tracking and recovery feedback.' },
+      ],
+      contentDirections: {
+        tone: 'Inspiring, high-octane, athletic, and authentic. Real sweat, genuine runner feedback, and energetic pacing.',
+        videoSetup: 'Golden hour track runs, scenic urban bridges, tracking camera shots matching runner pace (60fps/120fps).',
+        hashtags: 'Include #VelocityProRunner, #MarathonTraining2026, and #RunnersOfInstagram in caption.',
+        audio: 'High-BPM motivating bassline synced tightly with footsteps and upbeat voiceover.',
+      },
+      milestones: [
+        '1. Running Route & Storyboard Plan: Due within 4 days of shoe delivery.',
+        '2. Reel Edits Submission: 48-hour client review.',
+        '3. Race Season Publication: Published during prime morning fitness hours (Sep 8 – Sep 20, 2026).',
+        '4. Reach & Conversion Metrics: Submit swipe-up clicks and reach analytics.',
+      ],
+      proposals: [
+        { handle: '@marathon_marcus', country: 'United Kingdom', flag: '🇬🇧', bid: '$1,100', days: '14', rating: '5.0', reviews: 85, er: '9.3', pitch: 'Sub-3 marathoner and fitness influencer with 85k verified runners. Garmin & Strava tracking integration.' },
+        { handle: '@sarah_runs_london', country: 'United Kingdom', flag: '🇬🇧', bid: '$1,050', days: '10', rating: '4.9', reviews: 94, er: '8.1', pitch: 'Trail and road runner with 94k UK running community followers.' },
+        { handle: '@endurance_ethan', country: 'United States', flag: '🇺🇸', bid: '$1,150', days: '12', rating: '5.0', reviews: 110, er: '8.8', pitch: 'Triathlon coach and content creator with high-converting athletic shoe campaigns.' },
+      ],
+      otherJobs: [
+        { title: 'Hydration Running Vest & Flasks Review', payout: '$750 Fixed Pay' },
+        { title: 'Winter Thermal Running Jacket Reel', payout: '$1,200 Fixed Pay' },
+        { title: 'Carbon Distance Racing Spike Showcase', payout: '$1,450 Fixed Pay' },
+      ],
     },
     {
       id: 'camp-6',
@@ -364,6 +504,33 @@ function CreatorPortalContent() {
       countryFlag: '🇫🇷',
       socials: ['INSTAGRAM', 'YOUTUBE'],
       description: '7-day nighttime skin transformation diary with macro camera closeups.',
+      scopeOfWork: [
+        { title: '7-Day Transformation Reel', detail: 'Intimate, aesthetic night skincare ritual showing product texture, dropper application, and morning skin glow.' },
+        { title: 'Ingredient & Texture Macro Reel', detail: '4K closeup shot showing absorption rate, non-greasy finish, and peptide formulation explanation.' },
+        { title: 'Interactive Evening Stories', detail: '2 stories featuring skin quiz poll and direct swipe-up discount code.' },
+      ],
+      contentDirections: {
+        tone: 'Soothing, luxurious, personal, and glowing. Highlighting realistic skin texture without smoothing beauty filters.',
+        videoSetup: 'Warm bathroom vanity lighting, soft golden hour bedroom light, 4K macro lens focusing on dropper droplets and skin texture.',
+        hashtags: 'Include #NightSkincareRitual, #LuxeGlow2026, and #SkincareRoutine in caption.',
+        audio: 'Soothing ASMR skincare sounds (pipette suction, bottle click) with soft ambient chill music and whisper voiceover.',
+      },
+      milestones: [
+        '1. Unfiltered Skin Check & Plan: Submit concept within 3 days of product arrival.',
+        '2. Draft Video Review: Client review within 48 hours.',
+        '3. Scheduled Night Posting: Publish between 8 PM – 10 PM local time for maximum beauty engagement.',
+        '4. Engagement & Comment Audit: Submit comment sentiment and reach screenshots after 7 days.',
+      ],
+      proposals: [
+        { handle: '@charlotte_skinglow', country: 'France', flag: '🇫🇷', bid: '$500', days: '10', rating: '5.0', reviews: 110, er: '9.6', pitch: 'Esthetician & skincare creator with 110k French & European beauty lovers. Zero-filter macro camera.' },
+        { handle: '@elena_dermatology', country: 'Italy', flag: '🇮🇹', bid: '$480', days: '8', rating: '4.9', reviews: 76, er: '7.8', pitch: 'Dermatology resident sharing evidence-based skincare routines with 7.8% ER.' },
+        { handle: '@glowwith_sophie', country: 'France', flag: '🇫🇷', bid: '$520', days: '12', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Clean beauty advocate specializing in nighttime ASMR skincare Reels.' },
+      ],
+      otherJobs: [
+        { title: 'Daytime SPF 50 Hydrating Fluid Review', payout: '$450 Fixed Pay' },
+        { title: 'Brightening Vitamin C Eye Cream Short', payout: '$400 Fixed Pay' },
+        { title: 'Ceramide Barrier Repair Cream Series', payout: '$650 Fixed Pay' },
+      ],
     },
   ]);
 
@@ -1214,10 +1381,18 @@ function CreatorPortalContent() {
                     Selected Scope of Work
                   </h3>
                   <ul style={{ paddingLeft: '20px', margin: '0 0 18px 0', fontSize: '13px', color: '#334155', lineHeight: 1.75 }}>
-                    <li><strong>High-Resolution Vertical Video:</strong> Produce native 9:16 vertical 4K assets (60fps preferred) optimized for Instagram Reels, YouTube Shorts, and TikTok algorithms.</li>
-                    <li><strong>Integrated Creative Storytelling:</strong> Seamlessly integrate project themes into your everyday routine or creative tutorial with authentic voiceover and hook in the first 3 seconds.</li>
-                    <li><strong>Swipe-Up / Link-in-Bio Attribution:</strong> Include dedicated UTM tracked link-in-bio sticker and pinned comment during the entire active campaign window.</li>
-                    <li><strong>Compliance & Creative Quality:</strong> Deliver raw exports without third-party watermarks or copyrighted audio tracks.</li>
+                    {selectedCampaign.scopeOfWork && selectedCampaign.scopeOfWork.length > 0 ? (
+                      selectedCampaign.scopeOfWork.map((scope: any, idx: number) => (
+                        <li key={idx}><strong>{scope.title}:</strong> {scope.detail}</li>
+                      ))
+                    ) : (
+                      <>
+                        <li><strong>High-Resolution Deliverable:</strong> Produce high-quality content optimized for {selectedCampaign.socials?.join(', ') || 'social platforms'}.</li>
+                        <li><strong>Integrated Storytelling:</strong> Seamlessly integrate project themes with authentic voiceover and hook in the first 3 seconds.</li>
+                        <li><strong>Tracking & Attribution:</strong> Include dedicated UTM campaign link and pinned comment during the active campaign window.</li>
+                        <li><strong>Compliance & Creative Quality:</strong> Deliver raw exports without third-party watermarks or copyrighted audio tracks.</li>
+                      </>
+                    )}
                   </ul>
 
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
@@ -1234,7 +1409,9 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Tone of Voice & Mood</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Authentic, vibrant, conversational, and energetic. Avoid overly rehearsed corporate sales scripts.</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                        {selectedCampaign.contentDirections?.tone || 'Authentic, vibrant, conversational, and energetic. Avoid overly rehearsed corporate sales scripts.'}
+                      </div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -1244,7 +1421,9 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Video & Lighting Setup</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Natural daylight or soft studio lighting. Sharp macro focus when showcasing product texture and packaging.</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                        {selectedCampaign.contentDirections?.videoSetup || 'Natural daylight or soft studio lighting. Sharp macro focus when showcasing details.'}
+                      </div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -1254,7 +1433,9 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Campaign Hashtags & Mentions</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Include #CreatorCollab and #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Lifestyle'}2026 in caption.</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                        {selectedCampaign.contentDirections?.hashtags || `Include #CreatorCollab and #${selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Lifestyle'}2026 in caption.`}
+                      </div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -1266,7 +1447,9 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Audio & Voiceover</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Crystal-clear vocal recording with background ambient music mixed at -18dB. Subtitles mandatory.</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                        {selectedCampaign.contentDirections?.audio || 'Crystal-clear vocal recording with background ambient music mixed at -18dB. Subtitles mandatory.'}
+                      </div>
                     </div>
                   </div>
 
@@ -1275,10 +1458,18 @@ function CreatorPortalContent() {
                   </h3>
                   <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '14px 16px', marginBottom: '18px', fontSize: '12.5px', color: '#1E3A8A', lineHeight: 1.6 }}>
                     <div style={{ fontWeight: 700, marginBottom: '6px' }}>Milestone Review Process:</div>
-                    <div>1. <strong>Concept & Rough Cut Submission:</strong> Due within 5 days of milestone confirmation.</div>
-                    <div>2. <strong>Client Review Window:</strong> Client will approve or request 1 round of revisions within 48 hours.</div>
-                    <div>3. <strong>Final Publication:</strong> Post live on feed during peak engagement hours ({selectedCampaign.projectTimeline}).</div>
-                    <div>4. <strong>Analytics Verification:</strong> Submit post reach & insights screenshot after 7 days for milestone closure.</div>
+                    {selectedCampaign.milestones && selectedCampaign.milestones.length > 0 ? (
+                      selectedCampaign.milestones.map((m: string, idx: number) => (
+                        <div key={idx}>{m}</div>
+                      ))
+                    ) : (
+                      <>
+                        <div>1. <strong>Concept & Rough Cut Submission:</strong> Due within 5 days of milestone confirmation.</div>
+                        <div>2. <strong>Client Review Window:</strong> Client will approve or request 1 round of revisions within 48 hours.</div>
+                        <div>3. <strong>Final Publication:</strong> Post live on feed during peak engagement hours ({selectedCampaign.projectTimeline}).</div>
+                        <div>4. <strong>Analytics Verification:</strong> Submit post reach & insights screenshot after 7 days for milestone closure.</div>
+                      </>
+                    )}
                   </div>
 
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
@@ -1458,73 +1649,6 @@ function CreatorPortalContent() {
                     </div>
                   )}
                 </div>
-
-                {/* 4. Active Creator Proposals (Showcase Bids) */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 16px 0' }}>
-                    {selectedCampaign.creatorsApplied} creators are bidding on average {selectedCampaign.payoutAmount} for this job
-                  </h3>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    {/* Proposal 1 */}
-                    <div style={{ border: '1px solid #F1F5F9', borderRadius: '12px', padding: '16px', backgroundColor: '#FAFAFA' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
-                            🔒
-                          </div>
-                          <div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px', filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', borderRadius: '4px', padding: '1px 6px', display: 'inline-block' }}>
-                                @aria_lifestyle
-                              </span>
-                              <span>🇮🇹</span>
-                              <span style={{ fontSize: '10.5px', color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>Sealed</span>
-                            </div>
-                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
-                              ⭐⭐⭐⭐⭐ 5.0 (98 reviews) • 8.7 ER Score
-                            </div>
-                          </div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>$700 USD in 14 days</div>
-                        </div>
-                      </div>
-                      <p style={{ fontSize: '12.5px', color: '#475569', margin: 0, lineHeight: 1.5 }}>
-                        I specialize in aesthetic vertical storytelling and high-converting Reels in this exact niche. I have full 4K HDR production gear ready and can deliver the first rough cut in 4 days.
-                      </p>
-                    </div>
-
-                    {/* Proposal 2 */}
-                    <div style={{ border: '1px solid #F1F5F9', borderRadius: '12px', padding: '16px', backgroundColor: '#FAFAFA' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
-                            🔒
-                          </div>
-                          <div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px', filter: 'blur(5px)', userSelect: 'none', backgroundColor: '#E2E8F0', borderRadius: '4px', padding: '1px 6px', display: 'inline-block' }}>
-                                @marcus_fit
-                              </span>
-                              <span>🇬🇧</span>
-                              <span style={{ fontSize: '10.5px', color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 6px', borderRadius: '4px', fontWeight: 700 }}>Sealed</span>
-                            </div>
-                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
-                              ⭐⭐⭐⭐⭐ 4.9 (79 reviews) • 7.1 ER Score
-                            </div>
-                          </div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>$650 USD in 10 days</div>
-                        </div>
-                      </div>
-                      <p style={{ fontSize: '12.5px', color: '#475569', margin: 0, lineHeight: 1.5 }}>
-                        Passionate about engaging lifestyle narratives. My audience is 84% European and aligns directly with your target audience demographics. Ready to start immediately.
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* RIGHT SIDEBAR COLUMN */}
@@ -1581,8 +1705,10 @@ function CreatorPortalContent() {
                     </div>
                   </div>
 
-                  <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 700, marginBottom: '10px' }}>
-                    ⭐⭐⭐⭐⭐ 5.0 <span style={{ color: '#64748B', fontWeight: 500 }}>(42 reviews)</span>
+                  <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span style={{ color: '#F59E0B' }}>★</span>
+                    <span style={{ color: '#0F172A' }}>5.0</span>
+                    <span style={{ color: '#64748B', fontWeight: 500 }}>(42 reviews)</span>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#475569', borderTop: '1px solid #F1F5F9', paddingTop: '12px' }}>
@@ -1654,24 +1780,135 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 4. Other Campaigns from this Client */}
+                {/* 4. Applicant Competition & Profile Standing Benchmark Graph */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                    <div>
+                      <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
+                        Your Competitive Standing
+                      </h3>
+                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                        Benchmarked against {selectedCampaign.creatorsApplied} applicants
+                      </div>
+                    </div>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                      Top {100 - (selectedCampaign.eligibilityRate || 92)}% Rank
+                    </span>
+                  </div>
+
+                  {/* Bell Curve / Percentile Distribution Graphic */}
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px 10px', marginBottom: '14px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontWeight: 700, marginBottom: '6px' }}>
+                      <span style={{ color: '#64748B' }}>Applicant Distribution</span>
+                      <span style={{ color: '#0052FF', fontWeight: 800 }}>Profile Match: {selectedCampaign.eligibilityRate}%</span>
+                    </div>
+
+                    {/* SVG Bell Curve with glowing User Pin */}
+                    <svg viewBox="0 0 280 75" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                      <defs>
+                        <linearGradient id="compBellGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#0052FF" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="#0052FF" stopOpacity="0.0" />
+                        </linearGradient>
+                        <linearGradient id="compCurveStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#94A3B8" />
+                          <stop offset="70%" stopColor="#3B82F6" />
+                          <stop offset="100%" stopColor="#0052FF" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Bell curve area */}
+                      <path
+                        d="M 10 65 Q 70 65, 110 40 Q 140 10, 165 40 Q 200 65, 270 65 Z"
+                        fill="url(#compBellGradient)"
+                      />
+                      {/* Bell curve line */}
+                      <path
+                        d="M 10 65 Q 70 65, 110 40 Q 140 10, 165 40 Q 200 65, 270 65"
+                        fill="none"
+                        stroke="url(#compCurveStroke)"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+
+                      {/* Average Marker */}
+                      <line x1="140" y1="15" x2="140" y2="65" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="3,3" />
+                      <text x="140" y="73" textAnchor="middle" fontSize="9" fill="#94A3B8" fontWeight="600">Avg Pool</text>
+
+                      {/* User Standing Marker (Top Percentile) */}
+                      <line x1="225" y1="35" x2="225" y2="65" stroke="#0052FF" strokeWidth="2" />
+                      <circle cx="225" cy="35" r="4.5" fill="#0052FF" stroke="#FFFFFF" strokeWidth="2" />
+                      
+                      {/* User Tag Box */}
+                      <rect x="195" y="6" width="60" height="18" rx="4" fill="#0052FF" />
+                      <text x="225" y="18" textAnchor="middle" fontSize="9" fill="#FFFFFF" fontWeight="800">You (Top 8%)</text>
+                    </svg>
+                  </div>
+
+                  {/* Dimension Comparative Bars */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '11.5px' }}>
+                    {/* 1. Engagement Rate */}
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>Engagement Rate</span>
+                        <span style={{ fontWeight: 800, color: '#0052FF' }}>8.7% <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 4.2%)</span></span>
+                      </div>
+                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
+                        <div style={{ width: '88%', height: '100%', backgroundColor: '#0052FF', borderRadius: '4px' }}></div>
+                        <div style={{ position: 'absolute', left: '45%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
+                      </div>
+                    </div>
+
+                    {/* 2. Niche Relevance */}
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>Niche Relevance Match</span>
+                        <span style={{ fontWeight: 800, color: '#0052FF' }}>96% <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 68%)</span></span>
+                      </div>
+                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
+                        <div style={{ width: '96%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }}></div>
+                        <div style={{ position: 'absolute', left: '68%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
+                      </div>
+                    </div>
+
+                    {/* 3. Audience Country Fit */}
+                    <div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
+                        <span style={{ color: '#475569', fontWeight: 600 }}>Target Audience Match</span>
+                        <span style={{ fontWeight: 800, color: '#0052FF' }}>84% {selectedCampaign.countryCode || 'Demographics'} <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 51%)</span></span>
+                      </div>
+                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
+                        <div style={{ width: '84%', height: '100%', backgroundColor: '#0052FF', borderRadius: '4px' }}></div>
+                        <div style={{ position: 'absolute', left: '51%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Advantage Footnote */}
+                  <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 700 }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>High conversion match for this campaign brief</span>
+                  </div>
+                </div>
+
+                {/* 5. Other Campaigns from this Client */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
                     Other jobs from this client
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>Summer Lifestyle Reel Launch</div>
-                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$850 Fixed Pay</div>
-                    </div>
-                    <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>YouTube Product Integration</div>
-                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$1,400 Fixed Pay</div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>24-Hour Story Takeover & Review</div>
-                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$450 Fixed Pay</div>
-                    </div>
+                    {(selectedCampaign.otherJobs || [
+                      { title: 'Summer Lifestyle Reel Launch', payout: '$850 Fixed Pay' },
+                      { title: 'YouTube Product Integration', payout: '$1,400 Fixed Pay' },
+                      { title: '24-Hour Story Takeover & Review', payout: '$450 Fixed Pay' }
+                    ]).map((job: any, idx: number, arr: any[]) => (
+                      <div key={idx} style={{ borderBottom: idx < arr.length - 1 ? '1px solid #F1F5F9' : 'none', paddingBottom: idx < arr.length - 1 ? '8px' : '0' }}>
+                        <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>{job.title}</div>
+                        <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>{job.payout}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
