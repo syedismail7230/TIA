@@ -4576,19 +4576,39 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'collabs' && (
           <div>
-            {/* Top Filter Bar with Crisp Vector SVG Icons */}
+            {/* Top Filter Bar with Standard Segmented Control */}
             <div
               className={`collabs-top-filter-bar ${mobileChatViewActive ? 'hide-on-mobile-chat' : ''}`}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '14px', flexWrap: 'wrap' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+                marginBottom: '16px',
+                flexWrap: 'wrap',
+              }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', paddingBottom: '4px', maxWidth: '100%' }}>
+              {/* Sleek Segmented Control Track */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backgroundColor: '#F1F5F9',
+                  padding: '3px',
+                  borderRadius: '10px',
+                  border: '1px solid #E2E8F0',
+                  gap: '2px',
+                  overflowX: 'auto',
+                  maxWidth: '100%',
+                }}
+              >
                 {[
                   {
                     id: 'awaiting',
                     label: 'Awaiting Review',
                     count: collabs.filter((c) => c.status === 'AWAITING').length,
-                    icon: (color: string) => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                    icon: (active: boolean) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={active ? '#0052FF' : '#64748B'} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
@@ -4598,8 +4618,8 @@ function CreatorPortalContent() {
                     id: 'accepted',
                     label: 'Accepted & Active',
                     count: collabs.filter((c) => c.status === 'ACCEPTED').length,
-                    icon: (color: string) => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                    icon: (active: boolean) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={active ? '#0052FF' : '#64748B'} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                         <polyline points="22 4 12 14.01 9 11.01" />
                       </svg>
@@ -4609,8 +4629,8 @@ function CreatorPortalContent() {
                     id: 'rejected',
                     label: 'Archived',
                     count: collabs.filter((c) => c.status === 'REJECTED').length,
-                    icon: (color: string) => (
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                    icon: (active: boolean) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={active ? '#0052FF' : '#64748B'} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="21 8 21 21 3 21 3 8" />
                         <rect x="1" y="3" width="22" height="5" />
                         <line x1="10" y1="12" x2="14" y2="12" />
@@ -4619,12 +4639,6 @@ function CreatorPortalContent() {
                   },
                 ].map((pill) => {
                   const isActive = collabFilter === pill.id;
-                  const activeColor =
-                    pill.id === 'awaiting' ? '#0052FF' : pill.id === 'accepted' ? '#059669' : '#64748B';
-                  const activeBg =
-                    pill.id === 'awaiting' ? '#EFF6FF' : pill.id === 'accepted' ? '#ECFDF5' : '#F1F5F9';
-                  const activeBorder =
-                    pill.id === 'awaiting' ? '#BFDBFE' : pill.id === 'accepted' ? '#A7F3D0' : '#CBD5E1';
 
                   return (
                     <button
@@ -4633,37 +4647,38 @@ function CreatorPortalContent() {
                       onClick={() => setCollabFilter(pill.id as CollabFilter)}
                       style={{
                         padding: '6px 12px',
-                        borderRadius: '8px',
+                        borderRadius: '7px',
                         fontSize: '12px',
-                        fontWeight: 700,
-                        backgroundColor: isActive ? activeBg : '#FFFFFF',
-                        color: isActive ? activeColor : '#475569',
-                        border: isActive ? `1px solid ${activeBorder}` : '1px solid #E2E8F0',
+                        fontWeight: isActive ? 700 : 500,
+                        backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                        color: isActive ? '#0F172A' : '#64748B',
+                        border: 'none',
                         cursor: 'pointer',
                         whiteSpace: 'nowrap',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '6px',
                         transition: 'all 0.15s ease',
-                        boxShadow: isActive ? '0 1px 3px rgba(0, 0, 0, 0.04)' : 'none',
+                        boxShadow: isActive ? '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)' : 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) e.currentTarget.style.color = '#0F172A';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) e.currentTarget.style.color = '#64748B';
                       }}
                     >
-                      {pill.icon(isActive ? activeColor : '#64748B')}
+                      {pill.icon(isActive)}
                       <span>{pill.label}</span>
                       <span
                         style={{
                           fontSize: '10.5px',
                           fontWeight: 700,
-                          backgroundColor: isActive
-                            ? pill.id === 'accepted'
-                              ? '#D1FAE5'
-                              : pill.id === 'awaiting'
-                              ? '#DBEAFE'
-                              : '#E2E8F0'
-                            : '#F1F5F9',
-                          color: isActive ? activeColor : '#94A3B8',
-                          padding: '1px 5px',
-                          borderRadius: '10px',
+                          backgroundColor: isActive ? '#EFF6FF' : '#E2E8F0',
+                          color: isActive ? '#0052FF' : '#64748B',
+                          padding: '1px 6px',
+                          borderRadius: '8px',
+                          transition: 'all 0.15s ease',
                         }}
                       >
                         {pill.count}
@@ -4681,15 +4696,15 @@ function CreatorPortalContent() {
                   alignItems: 'center',
                   gap: '6px',
                   fontSize: '11.5px',
-                  fontWeight: 700,
-                  color: '#059669',
-                  backgroundColor: '#ECFDF5',
-                  padding: '5px 10px',
+                  fontWeight: 600,
+                  color: '#047857',
+                  backgroundColor: '#F0FDF4',
+                  padding: '5px 12px',
                   borderRadius: '20px',
-                  border: '1px solid #A7F3D0',
+                  border: '1px solid #BBF7D0',
                 }}
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
                 <span>100% Guaranteed Payment Protection</span>
