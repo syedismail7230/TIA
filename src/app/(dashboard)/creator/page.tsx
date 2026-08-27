@@ -1415,6 +1415,16 @@ function CreatorPortalContent() {
                   </svg>
                   <span>Back to Marketplace</span>
                 </button>
+
+                <div className="tia-desktop-only" style={{ fontSize: '11.5px', fontWeight: 600, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>FREELANCER</span>
+                  <span>›</span>
+                  <span>CAMPAIGNS</span>
+                  <span>›</span>
+                  <span style={{ color: '#64748B' }}>{selectedCampaign.categories?.[0] || 'LIFESTYLE'}</span>
+                  <span>›</span>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCampaign.title}</span>
+                </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -1445,7 +1455,7 @@ function CreatorPortalContent() {
                           <span>Posted {selectedCampaign.postedAt} • Ends in 18 days</span>
                         </span>
                       </div>
-                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em', filter: 'blur(9px)', userSelect: 'none', pointerEvents: 'none' }}>
+                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', flexWrap: 'wrap' }}>
@@ -2540,19 +2550,19 @@ function CreatorPortalContent() {
                   gap: '20px',
                 }}
               >
-                {filteredCampaigns.map((camp) => (
+                {filteredCampaigns.map((camp, cIndex) => (
                   <div
                     key={camp.id}
                     className="upfluence-card"
                     style={{
                       backgroundColor: '#FFFFFF',
-                      border: '1px solid #E2E8F0',
+                      border: cIndex === 0 ? '1.5px solid #0052FF' : '1px solid #E2E8F0',
                       borderRadius: '16px',
                       position: 'relative',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'space-between',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
+                      boxShadow: cIndex === 0 ? '0 4px 16px rgba(0, 82, 255, 0.10)' : '0 2px 8px rgba(0, 0, 0, 0.03)',
                       cursor: 'default',
                     }}
                   >
@@ -2562,8 +2572,8 @@ function CreatorPortalContent() {
                         height: '140px',
                         position: 'relative',
                         backgroundColor: '#CBD5E1',
-                        borderTopLeftRadius: '16px',
-                        borderTopRightRadius: '16px',
+                        borderTopLeftRadius: '15px',
+                        borderTopRightRadius: '15px',
                       }}
                     >
                       {/* Blurred Image Wrapper (Inner overflow hidden to maintain top corner radius) */}
@@ -2572,8 +2582,8 @@ function CreatorPortalContent() {
                           position: 'absolute',
                           inset: 0,
                           overflow: 'hidden',
-                          borderTopLeftRadius: '16px',
-                          borderTopRightRadius: '16px',
+                          borderTopLeftRadius: '15px',
+                          borderTopRightRadius: '15px',
                         }}
                       >
                         <div
@@ -2619,6 +2629,34 @@ function CreatorPortalContent() {
                         <span>{camp.commercialLabel}</span>
                       </div>
 
+                      {/* Best Match Pill Badge on Top Right for the First Card */}
+                      {cIndex === 0 && (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '12px',
+                            right: '12px',
+                            backgroundColor: '#0052FF',
+                            color: '#FFFFFF',
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            fontSize: '11px',
+                            fontWeight: 800,
+                            letterSpacing: '0.02em',
+                            boxShadow: '0 2px 8px rgba(0, 82, 255, 0.35)',
+                            zIndex: 2,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                          }}
+                        >
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#FFFFFF" strokeWidth="1">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
+                          <span>Best Match</span>
+                        </div>
+                      )}
+
                       {/* Smooth Rounded Avatar Box with Blurred Brand Logo */}
                       <div
                         style={{
@@ -2662,10 +2700,6 @@ function CreatorPortalContent() {
                             fontSize: '11.5px',
                             fontWeight: 700,
                             color: '#64748B',
-                            filter: 'blur(7.5px)',
-                            opacity: 0.65,
-                            userSelect: 'none',
-                            pointerEvents: 'none',
                           }}
                         >
                           {camp.brandName}
@@ -2710,10 +2744,6 @@ function CreatorPortalContent() {
                                 fontSize: '13.5px',
                                 fontWeight: 700,
                                 color: '#0F172A',
-                                filter: 'blur(8.5px)',
-                                opacity: 0.65,
-                                userSelect: 'none',
-                                pointerEvents: 'none',
                               }}
                             >
                               {camp.title}
