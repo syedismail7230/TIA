@@ -1782,111 +1782,126 @@ function CreatorPortalContent() {
 
                 {/* 4. Applicant Competition & Profile Standing Benchmark Graph */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
                     <div>
-                      <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
-                        Your Competitive Standing
+                      <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
+                        Applicant Comparison
                       </h3>
                       <div style={{ fontSize: '11.5px', color: '#64748B' }}>
-                        Benchmarked against {selectedCampaign.creatorsApplied} applicants
+                        Benchmarked against {selectedCampaign.creatorsApplied} active applicants
                       </div>
                     </div>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
-                      Top {100 - (selectedCampaign.eligibilityRate || 92)}% Rank
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '3px 9px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <span>⭐</span> Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}% Candidate
                     </span>
                   </div>
 
-                  {/* Bell Curve / Percentile Distribution Graphic */}
-                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px 10px', marginBottom: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', fontWeight: 700, marginBottom: '6px' }}>
-                      <span style={{ color: '#64748B' }}>Applicant Distribution</span>
-                      <span style={{ color: '#0052FF', fontWeight: 800 }}>Profile Match: {selectedCampaign.eligibilityRate}%</span>
+                  {/* Hero Match Score Summary Card */}
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 16px', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                      <div>
+                        <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Overall Profile Match
+                        </div>
+                        <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px', lineHeight: 1 }}>
+                          {selectedCampaign.eligibilityRate || 98}%
+                        </div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                          Strong Applicant Advantage
+                        </span>
+                        <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '4px' }}>
+                          Outperforms {Math.min(98, (selectedCampaign.eligibilityRate || 98) - 2)}% of applicants
+                        </div>
+                      </div>
                     </div>
 
-                    {/* SVG Bell Curve with glowing User Pin */}
-                    <svg viewBox="0 0 280 75" style={{ width: '100%', height: 'auto', display: 'block' }}>
-                      <defs>
-                        <linearGradient id="compBellGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#0052FF" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#0052FF" stopOpacity="0.0" />
-                        </linearGradient>
-                        <linearGradient id="compCurveStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#94A3B8" />
-                          <stop offset="70%" stopColor="#3B82F6" />
-                          <stop offset="100%" stopColor="#0052FF" />
-                        </linearGradient>
-                      </defs>
+                    {/* Tiered Range Progress Bar */}
+                    <div style={{ position: 'relative', marginTop: '12px' }}>
+                      <div style={{ height: '8px', width: '100%', backgroundColor: '#E2E8F0', borderRadius: '6px', overflow: 'hidden', display: 'flex' }}>
+                        <div style={{ width: '40%', height: '100%', backgroundColor: '#CBD5E1' }} title="Average Pool"></div>
+                        <div style={{ width: '35%', height: '100%', backgroundColor: '#93C5FD' }} title="Competitive Tier"></div>
+                        <div style={{ width: '25%', height: '100%', backgroundColor: '#0052FF' }} title="Top Tier"></div>
+                      </div>
 
-                      {/* Bell curve area */}
-                      <path
-                        d="M 10 65 Q 70 65, 110 40 Q 140 10, 165 40 Q 200 65, 270 65 Z"
-                        fill="url(#compBellGradient)"
-                      />
-                      {/* Bell curve line */}
-                      <path
-                        d="M 10 65 Q 70 65, 110 40 Q 140 10, 165 40 Q 200 65, 270 65"
-                        fill="none"
-                        stroke="url(#compCurveStroke)"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                      />
+                      {/* Your Position Indicator Needle */}
+                      <div style={{ position: 'absolute', left: `${Math.min(96, selectedCampaign.eligibilityRate || 95)}%`, top: '-4px', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ width: '16px', height: '16px', borderRadius: '50%', backgroundColor: '#0052FF', border: '2.5px solid #FFFFFF', boxShadow: '0 2px 6px rgba(0, 82, 255, 0.4)' }}></div>
+                      </div>
 
-                      {/* Average Marker */}
-                      <line x1="140" y1="15" x2="140" y2="65" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="3,3" />
-                      <text x="140" y="73" textAnchor="middle" fontSize="9" fill="#94A3B8" fontWeight="600">Avg Pool</text>
-
-                      {/* User Standing Marker (Top Percentile) */}
-                      <line x1="225" y1="35" x2="225" y2="65" stroke="#0052FF" strokeWidth="2" />
-                      <circle cx="225" cy="35" r="4.5" fill="#0052FF" stroke="#FFFFFF" strokeWidth="2" />
-                      
-                      {/* User Tag Box */}
-                      <rect x="195" y="6" width="60" height="18" rx="4" fill="#0052FF" />
-                      <text x="225" y="18" textAnchor="middle" fontSize="9" fill="#FFFFFF" fontWeight="800">You (Top 8%)</text>
-                    </svg>
+                      {/* Tier Labels */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9.5px', color: '#94A3B8', fontWeight: 700, marginTop: '8px' }}>
+                        <span>Avg Pool (45%)</span>
+                        <span>Competitive (75%)</span>
+                        <span style={{ color: '#0052FF', fontWeight: 800 }}>You ({selectedCampaign.eligibilityRate || 98}%)</span>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Dimension Comparative Bars */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '11.5px' }}>
+                  {/* Detailed Metric Breakdowns */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                     {/* 1. Engagement Rate */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                        <span style={{ color: '#475569', fontWeight: 600 }}>Engagement Rate</span>
-                        <span style={{ fontWeight: 800, color: '#0052FF' }}>8.7% <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 4.2%)</span></span>
+                    <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F1F5F9', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>Engagement Rate</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px' }}>
+                          <span style={{ fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px' }}>
+                            You: 8.7%
+                          </span>
+                          <span style={{ color: '#64748B', fontSize: '10.5px' }}>
+                            Avg: 4.2%
+                          </span>
+                        </div>
                       </div>
-                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
-                        <div style={{ width: '88%', height: '100%', backgroundColor: '#0052FF', borderRadius: '4px' }}></div>
-                        <div style={{ position: 'absolute', left: '45%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
-                      </div>
-                    </div>
-
-                    {/* 2. Niche Relevance */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                        <span style={{ color: '#475569', fontWeight: 600 }}>Niche Relevance Match</span>
-                        <span style={{ fontWeight: 800, color: '#0052FF' }}>96% <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 68%)</span></span>
-                      </div>
-                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
-                        <div style={{ width: '96%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }}></div>
-                        <div style={{ position: 'absolute', left: '68%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
+                      <div style={{ position: 'relative', width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: '87%', height: '100%', backgroundColor: '#0052FF', borderRadius: '3px' }}></div>
+                        <div style={{ position: 'absolute', left: '42%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Market Average: 4.2%"></div>
                       </div>
                     </div>
 
-                    {/* 3. Audience Country Fit */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
-                        <span style={{ color: '#475569', fontWeight: 600 }}>Target Audience Match</span>
-                        <span style={{ fontWeight: 800, color: '#0052FF' }}>84% {selectedCampaign.countryCode || 'Demographics'} <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Avg: 51%)</span></span>
+                    {/* 2. Niche & Category Relevance */}
+                    <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F1F5F9', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>Niche & Content Relevance</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px' }}>
+                          <span style={{ fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 6px', borderRadius: '4px' }}>
+                            You: 96%
+                          </span>
+                          <span style={{ color: '#64748B', fontSize: '10.5px' }}>
+                            Avg: 68%
+                          </span>
+                        </div>
                       </div>
-                      <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden', position: 'relative' }}>
-                        <div style={{ width: '84%', height: '100%', backgroundColor: '#0052FF', borderRadius: '4px' }}></div>
-                        <div style={{ position: 'absolute', left: '51%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Average"></div>
+                      <div style={{ position: 'relative', width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: '96%', height: '100%', backgroundColor: '#059669', borderRadius: '3px' }}></div>
+                        <div style={{ position: 'absolute', left: '68%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Market Average: 68%"></div>
+                      </div>
+                    </div>
+
+                    {/* 3. Target Demographics Match */}
+                    <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #F1F5F9', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>Audience Geography Match</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px' }}>
+                          <span style={{ fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px' }}>
+                            You: 84% {selectedCampaign.countryCode || 'Target'}
+                          </span>
+                          <span style={{ color: '#64748B', fontSize: '10.5px' }}>
+                            Avg: 51%
+                          </span>
+                        </div>
+                      </div>
+                      <div style={{ position: 'relative', width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: '84%', height: '100%', backgroundColor: '#0052FF', borderRadius: '3px' }}></div>
+                        <div style={{ position: 'absolute', left: '51%', top: 0, bottom: 0, width: '2px', backgroundColor: '#94A3B8' }} title="Market Average: 51%"></div>
                       </div>
                     </div>
                   </div>
 
                   {/* Advantage Footnote */}
-                  <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 700 }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '7px', fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                     <span>High conversion match for this campaign brief</span>
