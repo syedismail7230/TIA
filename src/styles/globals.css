@@ -1869,6 +1869,62 @@ table {
   }
 }
 
+/* Campaign Details & Freelancer Mobile Optimization */
+.cd-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.cd-payout-box {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  min-width: 180px;
+  text-align: right;
+}
+
+.cd-intel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 16px;
+}
+
+.cd-directions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 1023px) {
+  .cd-card {
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+  }
+  .cd-payout-box {
+    width: 100% !important;
+    min-width: unset !important;
+    text-align: left !important;
+    padding: 12px 14px !important;
+  }
+  .cd-intel-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    padding-top: 12px !important;
+  }
+  .cd-directions-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+
 
 
 

@@ -1231,31 +1231,31 @@ function CreatorPortalContent() {
             </div>
 
             {/* Main 2-Column Freelancer Layout */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px', alignItems: 'start' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '18px', alignItems: 'start' }}>
               {/* LEFT MAIN CONTENT COLUMN */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* 1. Project Hero Header Card */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
-                    <div style={{ flex: '1 1 360px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                        <span style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', fontSize: '11.5px', fontWeight: 800, padding: '3px 10px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#059669' }}></span>
+                <div className="cd-card">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px', marginBottom: '14px' }}>
+                    <div style={{ flex: '1 1 300px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                        <span style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', fontSize: '11px', fontWeight: 800, padding: '2px 8px', borderRadius: '5px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#059669' }}></span>
                           Open for Applications
                         </span>
-                        <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                           </svg>
                           <span>Posted {selectedCampaign.postedAt} • Ends in 18 days</span>
                         </span>
                       </div>
-                      <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.25, letterSpacing: '-0.02em' }}>
+                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
                         {selectedCampaign.title}
                       </h1>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
                           ✓ Verified Client
                         </span>
                         <span>•</span>
@@ -1266,8 +1266,8 @@ function CreatorPortalContent() {
                     </div>
 
                     {/* Big Payout & Deliverables Box */}
-                    <div style={{ textAlign: 'right', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 18px', minWidth: '180px' }}>
-                      <div style={{ fontSize: '28px', fontWeight: 900, color: '#0052FF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                    <div className="cd-payout-box">
+                      <div style={{ fontSize: '26px', fontWeight: 900, color: '#0052FF', lineHeight: 1, letterSpacing: '-0.02em' }}>
                         {selectedCampaign.payoutAmount}
                       </div>
                       <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600, marginTop: '4px' }}>
@@ -1280,27 +1280,27 @@ function CreatorPortalContent() {
                   </div>
 
                   {/* Quick Project Intelligence Bar */}
-                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px' }}>
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Success Rate</div>
-                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
+                  <div className="cd-intel-grid">
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '8px 10px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>Your Success Rate</div>
+                      <div style={{ fontSize: '15px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Active Applicants</div>
-                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied} Creators</div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '8px 10px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>Active Applicants</div>
+                      <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied} Creators</div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Project Timeline</div>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>{selectedCampaign.projectTimeline || 'Sep 5 – Sep 20'}</div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '8px 10px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>Project Timeline</div>
+                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', marginTop: '3px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{selectedCampaign.projectTimeline || 'Sep 5 – Sep 20'}</div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Payment Security</div>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>100% Payment Protected</div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '8px 10px', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>Payment Security</div>
+                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#059669', marginTop: '3px' }}>100% Protected</div>
                     </div>
                   </div>
 
                   {/* Mobile-Only Top Apply Button */}
-                  <div className="tia-mobile-only" style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
+                  <div className="tia-mobile-only" style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
                     <button
                       type="button"
                       onClick={() => {
@@ -1309,7 +1309,7 @@ function CreatorPortalContent() {
                       }}
                       style={{
                         width: '100%',
-                        padding: '13px 18px',
+                        padding: '12px 16px',
                         backgroundColor: '#0052FF',
                         color: '#FFFFFF',
                         border: 'none',
@@ -1327,8 +1327,8 @@ function CreatorPortalContent() {
                       <span>Apply to this Project</span>
                       <span>→</span>
                     </button>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center', marginTop: '8px' }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#059669', fontWeight: 700, justifyContent: 'center', marginTop: '6px' }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         <polyline points="9 12 11 14 15 10" />
                       </svg>
@@ -1338,18 +1338,18 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* 2. Detailed Campaign Narrative & Scope of Work */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                <div className="cd-card">
+                  <h2 style={{ fontSize: '16.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 10px 0' }}>
                     Campaign Overview & Creative Brief
                   </h2>
-                  <p style={{ fontSize: '13.5px', color: '#334155', lineHeight: 1.65, margin: '0 0 16px 0' }}>
+                  <p style={{ fontSize: '13px', color: '#334155', lineHeight: 1.6, margin: '0 0 14px 0' }}>
                     {selectedCampaign.description} We are seeking dynamic, authentic digital creators who have demonstrated high viewer engagement and aesthetic video production in {selectedCampaign.categories?.join(', ')}. The primary objective of this project is to craft captivating, native-feel content that drives high conversion, genuine community discussions, and click-throughs to the campaign tracking link.
                   </p>
 
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '16px 0 8px 0' }}>
                     Selected Scope of Work
                   </h3>
-                  <ul style={{ paddingLeft: '20px', margin: '0 0 18px 0', fontSize: '13px', color: '#334155', lineHeight: 1.75 }}>
+                  <ul style={{ paddingLeft: '18px', margin: '0 0 16px 0', fontSize: '12.5px', color: '#334155', lineHeight: 1.65 }}>
                     {selectedCampaign.scopeOfWork && selectedCampaign.scopeOfWork.length > 0 ? (
                       selectedCampaign.scopeOfWork.map((scope: any, idx: number) => (
                         <li key={idx}><strong>{scope.title}:</strong> {scope.detail}</li>
@@ -1364,13 +1364,13 @@ function CreatorPortalContent() {
                     )}
                   </ul>
 
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '16px 0 8px 0' }}>
                     Content Directions & Aesthetic Guidelines
                   </h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '18px' }}>
-                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="cd-directions-grid">
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12px', color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="12" cy="12" r="10" />
                           <path d="M8 14s1.5 2 4 2 4-2 4-2" />
                           <line x1="9" y1="9" x2="9.01" y2="9" />
@@ -1378,37 +1378,37 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Tone of Voice & Mood</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.4 }}>
                         {selectedCampaign.contentDirections?.tone || 'Authentic, vibrant, conversational, and energetic. Avoid overly rehearsed corporate sales scripts.'}
                       </div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12px', color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                           <polygon points="23 7 16 12 23 17 23 7" />
                           <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
                         </svg>
                         <span>Video & Lighting Setup</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.4 }}>
                         {selectedCampaign.contentDirections?.videoSetup || 'Natural daylight or soft studio lighting. Sharp macro focus when showcasing details.'}
                       </div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12px', color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                           <line x1="7" y1="7" x2="7.01" y2="7" />
                         </svg>
-                        <span>Campaign Hashtags & Mentions</span>
+                        <span>Hashtags & Mentions</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.4 }}>
                         {selectedCampaign.contentDirections?.hashtags || `Include #CreatorCollab and #${selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Lifestyle'}2026 in caption.`}
                       </div>
                     </div>
-                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '10px 12px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12px', color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
                           <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
                           <line x1="12" y1="19" x2="12" y2="23" />
@@ -1416,75 +1416,74 @@ function CreatorPortalContent() {
                         </svg>
                         <span>Audio & Voiceover</span>
                       </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.4 }}>
                         {selectedCampaign.contentDirections?.audio || 'Crystal-clear vocal recording with background ambient music mixed at -18dB. Subtitles mandatory.'}
                       </div>
                     </div>
                   </div>
 
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '16px 0 8px 0' }}>
                     Client Expectations & Milestone Schedule
                   </h3>
-                  <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '14px 16px', marginBottom: '18px', fontSize: '12.5px', color: '#1E3A8A', lineHeight: 1.6 }}>
-                    <div style={{ fontWeight: 700, marginBottom: '6px' }}>Milestone Review Process:</div>
+                  <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', padding: '12px 14px', marginBottom: '16px', fontSize: '12px', color: '#1E3A8A', lineHeight: 1.55 }}>
+                    <div style={{ fontWeight: 700, marginBottom: '4px' }}>Milestone Review Process:</div>
                     {selectedCampaign.milestones && selectedCampaign.milestones.length > 0 ? (
                       selectedCampaign.milestones.map((m: string, idx: number) => (
                         <div key={idx}>{m}</div>
                       ))
                     ) : (
                       <>
-                        <div>1. <strong>Concept & Rough Cut Submission:</strong> Due within 5 days of milestone confirmation.</div>
-                        <div>2. <strong>Client Review Window:</strong> Client will approve or request 1 round of revisions within 48 hours.</div>
-                        <div>3. <strong>Final Publication:</strong> Post live on feed during peak engagement hours ({selectedCampaign.projectTimeline}).</div>
-                        <div>4. <strong>Analytics Verification:</strong> Submit post reach & insights screenshot after 7 days for milestone closure.</div>
+                        <div>1. <strong>Concept & Rough Cut:</strong> Due within 5 days of confirmation.</div>
+                        <div>2. <strong>Client Review Window:</strong> Approval or revisions within 48 hours.</div>
+                        <div>3. <strong>Final Publication:</strong> Post live on feed during peak hours ({selectedCampaign.projectTimeline}).</div>
+                        <div>4. <strong>Analytics Verification:</strong> Submit reach insights after 7 days.</div>
                       </>
                     )}
                   </div>
 
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '16px 0 8px 0' }}>
                     Campaign Terms & Payment Protection
                   </h3>
-                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.6 }}>
-                    <ul style={{ paddingLeft: '18px', margin: 0 }}>
-                      <li><strong>100% Payment Protection:</strong> Client has pre-funded and secured the full {selectedCampaign.payoutAmount} payout through TIA verified settlement. Funds are guaranteed upon deliverable approval.</li>
-                      <li><strong>Usage Rights:</strong> 90 days organic digital promotional distribution rights granted for the project.</li>
-                      <li><strong>Exclusivity:</strong> 30-day category exclusivity against direct competitors in the same sub-niche.</li>
-                      <li><strong>Automated Disbursement:</strong> Funds released to your verified payout wallet upon automated URL verification.</li>
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px', fontSize: '12px', color: '#334155', lineHeight: 1.55 }}>
+                    <ul style={{ paddingLeft: '16px', margin: 0 }}>
+                      <li><strong>100% Payment Protection:</strong> Full {selectedCampaign.payoutAmount} secured through TIA verified settlement.</li>
+                      <li><strong>Usage Rights:</strong> 90 days organic digital promotional distribution rights.</li>
+                      <li><strong>Exclusivity:</strong> 30-day category exclusivity against direct competitors.</li>
+                      <li><strong>Automated Disbursement:</strong> Funds released to your wallet upon automated URL verification.</li>
                     </ul>
                   </div>
 
                   {/* Skills / Niches Pill Chips */}
-                  <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>Skills / Niches:</span>
+                  <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>Skills / Niches:</span>
                     {selectedCampaign.categories?.map((cat: string) => (
-                      <span key={cat} style={{ fontSize: '11.5px', fontWeight: 600, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '3px 10px', borderRadius: '16px' }}>
+                      <span key={cat} style={{ fontSize: '11px', fontWeight: 600, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '2px 8px', borderRadius: '14px' }}>
                         {cat}
                       </span>
                     ))}
-                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>Instagram Reels</span>
-                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>4K Video Editing</span>
-                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>Storytelling</span>
+                    <span style={{ fontSize: '11px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '2px 8px', borderRadius: '14px' }}>Instagram Reels</span>
+                    <span style={{ fontSize: '11px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '2px 8px', borderRadius: '14px' }}>4K Video Editing</span>
                   </div>
                 </div>
 
                 {/* 3. Interactive Place Your Bid / Proposal Form */}
-                <div id="proposal-form-section" style={{ backgroundColor: '#FFFFFF', border: '2px solid #0052FF', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 4px 16px rgba(0, 82, 255, 0.06)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
-                    <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                <div id="proposal-form-section" className="cd-card" style={{ border: '2px solid #0052FF', boxShadow: '0 4px 16px rgba(0, 82, 255, 0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '6px' }}>
+                    <h2 style={{ fontSize: '16.5px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
                       Place Your Bid & Submit Proposal
                     </h2>
-                    <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '3px 10px', borderRadius: '8px' }}>
-                      ⚡ 1 Application Credit Required
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
+                      ⚡ 1 Credit Required
                     </span>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', marginBottom: '14px' }}>
                     <div>
-                      <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                      <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                         Proposed Rate (USD)
                       </label>
                       <div style={{ position: 'relative' }}>
-                        <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B' }}>$</span>
+                        <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B', fontSize: '13px' }}>$</span>
                         <input
                           type="text"
                           value={bidAmount}
@@ -1492,8 +1491,8 @@ function CreatorPortalContent() {
                           placeholder="700"
                           style={{
                             width: '100%',
-                            padding: '10px 12px 10px 26px',
-                            fontSize: '14px',
+                            padding: '9px 10px 9px 24px',
+                            fontSize: '13.5px',
                             fontWeight: 700,
                             color: '#0F172A',
                             border: '1px solid #CBD5E1',
@@ -1505,8 +1504,8 @@ function CreatorPortalContent() {
                     </div>
 
                     <div>
-                      <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
-                        Delivery Timeframe (Days)
+                      <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                        Delivery Time (Days)
                       </label>
                       <input
                         type="number"
@@ -1515,8 +1514,8 @@ function CreatorPortalContent() {
                         placeholder="14"
                         style={{
                           width: '100%',
-                          padding: '10px 12px',
-                          fontSize: '14px',
+                          padding: '9px 10px',
+                          fontSize: '13.5px',
                           fontWeight: 700,
                           color: '#0F172A',
                           border: '1px solid #CBD5E1',
@@ -1527,31 +1526,31 @@ function CreatorPortalContent() {
                     </div>
                   </div>
 
-                  <div style={{ marginBottom: '16px' }}>
-                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
-                      Describe Your Proposal & Creative Angle <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Optional)</span>
+                  <div style={{ marginBottom: '14px' }}>
+                    <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                      Describe Your Proposal <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Optional)</span>
                     </label>
                     <textarea
-                      rows={4}
+                      rows={3}
                       value={proposalPitch}
                       onChange={(e) => setProposalPitch(e.target.value)}
-                      placeholder="Optional: Outline your creative vision, camera equipment, or any specific angle you'd like to propose..."
+                      placeholder="Outline your creative vision, camera equipment, or any specific angle you'd like to propose..."
                       style={{
                         width: '100%',
-                        padding: '12px 14px',
-                        fontSize: '13px',
+                        padding: '10px 12px',
+                        fontSize: '12.5px',
                         color: '#0F172A',
                         border: '1px solid #CBD5E1',
                         borderRadius: '8px',
                         outline: 'none',
                         resize: 'vertical',
-                        lineHeight: 1.5,
+                        lineHeight: 1.45,
                       }}
                     />
                   </div>
 
                   {/* Benefits of Bidding on TIA Box */}
-                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px', marginBottom: '18px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', fontSize: '11.5px', color: '#475569' }}>
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '10px 12px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '6px', fontSize: '11px', color: '#475569' }}>
                     <div>✓ Set your budget & timeframe</div>
                     <div>✓ 100% Guaranteed payment protection</div>
                     <div>✓ Direct client messaging</div>
@@ -1560,26 +1559,28 @@ function CreatorPortalContent() {
 
                   {/* Action Button with Credit Check */}
                   {applyCredits > 0 ? (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                      <div style={{ fontSize: '12px', color: '#059669', fontWeight: 700 }}>
-                        ✓ {applyCredits} Available Credit{applyCredits === 1 ? '' : 's'} (1 credit deducted upon bid submission)
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+                      <div style={{ fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
+                        ✓ {applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}
                       </div>
                       <button
                         type="button"
                         onClick={submitApplication}
                         style={{
+                          width: '100%',
                           backgroundColor: '#0052FF',
                           color: '#FFFFFF',
                           border: 'none',
                           borderRadius: '10px',
-                          padding: '13px 28px',
-                          fontSize: '14px',
+                          padding: '12px 20px',
+                          fontSize: '13.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
                           boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
-                          display: 'inline-flex',
+                          display: 'flex',
                           alignItems: 'center',
-                          gap: '8px',
+                          justifyContent: 'center',
+                          gap: '6px',
                         }}
                       >
                         <span>Bid on this Project (Uses 1 Credit)</span>
@@ -1588,12 +1589,12 @@ function CreatorPortalContent() {
                     </div>
                   ) : (
                     <div>
-                      <div style={{ padding: '12px 14px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', marginBottom: '14px' }}>
-                        <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
+                      <div style={{ padding: '10px 12px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', marginBottom: '12px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
                           ⚠️ 0 Application Credits Remaining
                         </div>
-                        <div style={{ fontSize: '12px', color: '#7F1D1D' }}>
-                          You have used your free application credit. Top up credits at ₹99/credit to submit your bid.
+                        <div style={{ fontSize: '11.5px', color: '#7F1D1D' }}>
+                          Top up credits at ₹99/credit to submit your bid.
                         </div>
                       </div>
 
@@ -1606,8 +1607,8 @@ function CreatorPortalContent() {
                           color: '#FFFFFF',
                           border: 'none',
                           borderRadius: '10px',
-                          padding: '13px 24px',
-                          fontSize: '14px',
+                          padding: '12px 20px',
+                          fontSize: '13.5px',
                           fontWeight: 800,
                           cursor: 'pointer',
                           boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
@@ -1621,41 +1622,41 @@ function CreatorPortalContent() {
               </div>
 
               {/* RIGHT SIDEBAR COLUMN */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {/* 1. About the Client Card */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+                <div className="cd-card">
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
                     About the Client
                   </h3>
-                  <div style={{ marginBottom: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontWeight: 800, fontSize: '14.5px', color: '#0F172A' }}>
+                  <div style={{ marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontWeight: 800, fontSize: '13.5px', color: '#0F172A' }}>
                         Verified Enterprise Client
                       </span>
-                      <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
+                      <span style={{ fontSize: '10.5px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 5px', borderRadius: '4px' }}>
                         ✓ Verified
                       </span>
                     </div>
-                    <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
+                    <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
                       {selectedCampaign.countryFlag} {selectedCampaign.country}
                     </div>
                   </div>
 
-                  <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ fontSize: '11.5px', color: '#D97706', fontWeight: 700, marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <span style={{ color: '#F59E0B' }}>★</span>
                     <span style={{ color: '#0F172A' }}>5.0</span>
                     <span style={{ color: '#64748B', fontWeight: 500 }}>(42 reviews)</span>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#475569', borderTop: '1px solid #F1F5F9', paddingTop: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontSize: '11.5px', color: '#475569', borderTop: '1px solid #F1F5F9', paddingTop: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#059669', fontWeight: 600 }}>
                       <span>✓</span> <span>Payment method verified</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#059669', fontWeight: 600 }}>
                       <span>✓</span> <span>Milestone deposit authorized</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
@@ -1665,281 +1666,212 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* 2. Client Verification Checklist (Clean Green Outline SVG Vector Icons - Vertical Layout) */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+                <div className="cd-card">
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
                     Client Verification
                   </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {/* Payment */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
                         <line x1="1" y1="10" x2="23" y2="10" />
                       </svg>
-                      <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#334155' }}>Payment Verified</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155' }}>Payment Verified</span>
                     </div>
 
                     {/* Email */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                         <polyline points="22,6 12,13 2,6" />
                       </svg>
-                      <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#334155' }}>Email Address Verified</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155' }}>Email Address Verified</span>
                     </div>
 
                     {/* Identity */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
-                      <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#334155' }}>Identity Verified</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155' }}>Identity Verified</span>
                     </div>
 
                     {/* Phone */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                       </svg>
-                      <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#334155' }}>Phone Number Verified</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155' }}>Phone Number Verified</span>
                     </div>
 
                     {/* Deposit */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         <polyline points="9 12 11 14 15 10" />
                       </svg>
-                      <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#334155' }}>Deposit Verified</span>
+                      <span style={{ fontSize: '12px', fontWeight: 600, color: '#334155' }}>Deposit Verified</span>
                     </div>
                   </div>
                 </div>
 
                 {/* 3. Applicant Competition & Profile Standing Benchmark Graph */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                <div className="cd-card">
                   {/* Personalized User Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                    <div style={{ width: '38px', height: '38px', borderRadius: '50%', backgroundColor: '#0052FF', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '15px', flexShrink: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '50%', backgroundColor: '#0052FF', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px', flexShrink: 0 }}>
                       {displayName ? displayName.charAt(0).toUpperCase() : 'C'}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
-                        <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                        <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                           How Your Profile Ranks
                         </h3>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
                           <span>⭐</span> Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}%
                         </span>
                       </div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        Comparing <strong>@{displayName}</strong> against {selectedCampaign.creatorsApplied} other applicants
+                      <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        Comparing <strong>@{displayName}</strong> against {selectedCampaign.creatorsApplied} applicants
                       </div>
                     </div>
                   </div>
 
                   {/* Explicit Two-Side Legend (Flat / No Card) */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', fontSize: '11px', fontWeight: 700, flexWrap: 'wrap', gap: '6px', padding: '0 2px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#64748B' }}>
-                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#94A3B8' }}></div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', fontSize: '10.5px', fontWeight: 700, flexWrap: 'wrap', gap: '4px', padding: '0 2px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#64748B' }}>
+                      <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#94A3B8' }}></div>
                       <span>Other Applicants Avg</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0052FF' }}>
-                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#0052FF' }}>
+                      <div style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
                       <span>Your Profile (@{displayName})</span>
                     </div>
                   </div>
 
                   {/* Hero Match Score Summary (Flat / No Card) */}
-                  <div style={{ marginBottom: '18px', padding: '0 2px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <div style={{ marginBottom: '14px', padding: '0 2px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                       <div>
-                        <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                           Your Profile Match Score
                         </div>
-                        <div style={{ fontSize: '22px', fontWeight: 900, color: '#0052FF', marginTop: '2px', lineHeight: 1 }}>
+                        <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px', lineHeight: 1 }}>
                           {selectedCampaign.eligibilityRate || 98}%
                         </div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669' }}>
-                          High Selection Probability
+                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669' }}>
+                          High Probability
                         </span>
-                        <div style={{ fontSize: '10.5px', color: '#64748B', marginTop: '3px', fontWeight: 600 }}>
-                          You outperform {Math.min(98, (selectedCampaign.eligibilityRate || 98) - 2)}% of applicants
+                        <div style={{ fontSize: '10px', color: '#64748B', marginTop: '2px', fontWeight: 600 }}>
+                          Top {Math.max(2, 100 - (selectedCampaign.eligibilityRate || 95))}% tier
                         </div>
                       </div>
                     </div>
 
                     {/* Tiered Range Progress Bar */}
-                    <div style={{ position: 'relative', marginTop: '14px', marginBottom: '4px' }}>
-                      <div style={{ height: '8px', width: '100%', backgroundColor: '#E2E8F0', borderRadius: '6px', overflow: 'hidden', display: 'flex' }}>
+                    <div style={{ position: 'relative', marginTop: '10px', marginBottom: '4px' }}>
+                      <div style={{ height: '7px', width: '100%', backgroundColor: '#E2E8F0', borderRadius: '5px', overflow: 'hidden', display: 'flex' }}>
                         <div style={{ width: '40%', height: '100%', backgroundColor: '#CBD5E1' }} title="Average Pool"></div>
                         <div style={{ width: '35%', height: '100%', backgroundColor: '#93C5FD' }} title="Competitive Tier"></div>
                         <div style={{ width: '25%', height: '100%', backgroundColor: '#0052FF' }} title="Your Tier (Top Match)"></div>
                       </div>
 
                       {/* Your Position Indicator Needle */}
-                      <div style={{ position: 'absolute', left: `${Math.min(96, selectedCampaign.eligibilityRate || 95)}%`, top: '-5px', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <div style={{ width: '18px', height: '18px', borderRadius: '50%', backgroundColor: '#0052FF', border: '3px solid #FFFFFF', boxShadow: '0 2px 8px rgba(0, 82, 255, 0.4)' }}></div>
+                      <div style={{ position: 'absolute', left: `${Math.min(96, selectedCampaign.eligibilityRate || 95)}%`, top: '-4px', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ width: '15px', height: '15px', borderRadius: '50%', backgroundColor: '#0052FF', border: '2.5px solid #FFFFFF', boxShadow: '0 2px 6px rgba(0, 82, 255, 0.4)' }}></div>
                       </div>
 
                       {/* Tier Labels */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9.5px', color: '#64748B', fontWeight: 700, marginTop: '8px' }}>
-                        <span>Others: Avg 45%</span>
-                        <span>Competitive: 75%</span>
-                        <span style={{ color: '#0052FF', fontWeight: 900 }}>Your Profile: {selectedCampaign.eligibilityRate || 98}%</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#64748B', fontWeight: 700, marginTop: '6px' }}>
+                        <span>Avg: 45%</span>
+                        <span>75%</span>
+                        <span style={{ color: '#0052FF', fontWeight: 900 }}>You: {selectedCampaign.eligibilityRate || 98}%</span>
                       </div>
                     </div>
                   </div>
 
                   {/* 3 Circular Pie / Donut Charts in Grid (Flat / No Cards) */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '14px', padding: '6px 0' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px', marginBottom: '12px', padding: '4px 0' }}>
                     {/* Chart 1: Engagement Rate */}
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '68px', height: '68px', marginBottom: '8px' }}>
+                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
                         <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          {/* Background Ring */}
                           <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          {/* Applicant Avg Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#CBD5E1"
-                            strokeWidth="6"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.42)}`}
-                          />
-                          {/* Your Profile Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#0052FF"
-                            strokeWidth="6"
-                            strokeLinecap="round"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.87)}`}
-                          />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.42)}`} />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.87)}`} />
                         </svg>
-                        {/* Center Value */}
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '12px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>8.7%</span>
-                          <span style={{ fontSize: '8px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>8.7%</span>
+                          <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
                         </div>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#0F172A', marginBottom: '3px' }}>
+                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
                         Engagement
                       </div>
-                      <div style={{ fontSize: '10px', color: '#64748B' }}>
-                        Avg: <strong style={{ color: '#475569' }}>4.2%</strong>
+                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                        Avg: 4.2%
                       </div>
-                      <div style={{ marginTop: '6px', fontSize: '9.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
+                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
                         +107% vs Avg
                       </div>
                     </div>
 
                     {/* Chart 2: Niche Relevance */}
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '68px', height: '68px', marginBottom: '8px' }}>
+                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
                         <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          {/* Background Ring */}
                           <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          {/* Applicant Avg Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#CBD5E1"
-                            strokeWidth="6"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.68)}`}
-                          />
-                          {/* Your Profile Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#059669"
-                            strokeWidth="6"
-                            strokeLinecap="round"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.96)}`}
-                          />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.68)}`} />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#059669" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.96)}`} />
                         </svg>
-                        {/* Center Value */}
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '12px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>96%</span>
-                          <span style={{ fontSize: '8px', color: '#059669', fontWeight: 800 }}>YOU</span>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>96%</span>
+                          <span style={{ fontSize: '7.5px', color: '#059669', fontWeight: 800 }}>YOU</span>
                         </div>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#0F172A', marginBottom: '3px' }}>
+                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
                         Niche Match
                       </div>
-                      <div style={{ fontSize: '10px', color: '#64748B' }}>
-                        Avg: <strong style={{ color: '#475569' }}>68%</strong>
+                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                        Avg: 68%
                       </div>
-                      <div style={{ marginTop: '6px', fontSize: '9.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
+                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 4px', borderRadius: '3px' }}>
                         Top Category
                       </div>
                     </div>
 
                     {/* Chart 3: Audience Geography */}
                     <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ position: 'relative', width: '68px', height: '68px', marginBottom: '8px' }}>
+                      <div style={{ position: 'relative', width: '58px', height: '58px', marginBottom: '6px' }}>
                         <svg viewBox="0 0 68 68" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
-                          {/* Background Ring */}
                           <circle cx="34" cy="34" r="26" fill="none" stroke="#F1F5F9" strokeWidth="6" />
-                          {/* Applicant Avg Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#CBD5E1"
-                            strokeWidth="6"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.51)}`}
-                          />
-                          {/* Your Profile Arc */}
-                          <circle
-                            cx="34"
-                            cy="34"
-                            r="26"
-                            fill="none"
-                            stroke="#0052FF"
-                            strokeWidth="6"
-                            strokeLinecap="round"
-                            strokeDasharray="163.36"
-                            strokeDashoffset={`${163.36 * (1 - 0.84)}`}
-                          />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#CBD5E1" strokeWidth="6" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.51)}`} />
+                          <circle cx="34" cy="34" r="26" fill="none" stroke="#0052FF" strokeWidth="6" strokeLinecap="round" strokeDasharray="163.36" strokeDashoffset={`${163.36 * (1 - 0.84)}`} />
                         </svg>
-                        {/* Center Value */}
                         <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '12px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>84%</span>
-                          <span style={{ fontSize: '8px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
+                          <span style={{ fontSize: '11px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>84%</span>
+                          <span style={{ fontSize: '7.5px', color: '#0052FF', fontWeight: 800 }}>YOU</span>
                         </div>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#0F172A', marginBottom: '3px' }}>
-                        Audience {selectedCampaign.countryCode || 'Fit'}
+                      <div style={{ fontSize: '10.5px', fontWeight: 700, color: '#0F172A', marginBottom: '2px' }}>
+                        Audience Fit
                       </div>
-                      <div style={{ fontSize: '10px', color: '#64748B' }}>
-                        Avg: <strong style={{ color: '#475569' }}>51%</strong>
+                      <div style={{ fontSize: '9.5px', color: '#64748B' }}>
+                        Avg: 51%
                       </div>
-                      <div style={{ marginTop: '6px', fontSize: '9.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px' }}>
+                      <div style={{ marginTop: '4px', fontSize: '9px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 4px', borderRadius: '3px' }}>
                         Direct Fit
                       </div>
                     </div>
                   </div>
 
                   {/* Advantage Footnote */}
-                  <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '7px', fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <div style={{ marginTop: '10px', paddingTop: '8px', borderTop: '1px solid #F1F5F9', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 700 }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                     <span>Based on your connected stats, your bid has high client visibility</span>
@@ -1947,7 +1879,7 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* 4. Action Card (Apply to Project) */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                <div className="cd-card">
                   <button
                     type="button"
                     onClick={() => {
@@ -1965,13 +1897,13 @@ function CreatorPortalContent() {
                       fontWeight: 800,
                       cursor: 'pointer',
                       boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
-                      marginBottom: '12px',
+                      marginBottom: '10px',
                     }}
                   >
                     Apply to this Project →
                   </button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       <polyline points="9 12 11 14 15 10" />
                     </svg>
@@ -1980,19 +1912,19 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* 5. Other Campaigns from this Client */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                <div className="cd-card">
+                  <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 10px 0' }}>
                     Other jobs from this client
                   </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {(selectedCampaign.otherJobs || [
                       { title: 'Summer Lifestyle Reel Launch', payout: '$850 Fixed Pay' },
                       { title: 'YouTube Product Integration', payout: '$1,400 Fixed Pay' },
                       { title: '24-Hour Story Takeover & Review', payout: '$450 Fixed Pay' }
                     ]).map((job: any, idx: number, arr: any[]) => (
-                      <div key={idx} style={{ borderBottom: idx < arr.length - 1 ? '1px solid #F1F5F9' : 'none', paddingBottom: idx < arr.length - 1 ? '8px' : '0' }}>
-                        <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>{job.title}</div>
-                        <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>{job.payout}</div>
+                      <div key={idx} style={{ borderBottom: idx < arr.length - 1 ? '1px solid #F1F5F9' : 'none', paddingBottom: idx < arr.length - 1 ? '6px' : '0' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>{job.title}</div>
+                        <div style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>{job.payout}</div>
                       </div>
                     ))}
                   </div>
