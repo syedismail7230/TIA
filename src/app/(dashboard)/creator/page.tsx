@@ -2188,8 +2188,8 @@ function CreatorPortalContent() {
           </div>
         ) : activeTab === 'marketplace' ? (
           <div>
-            {/* High-End Match Booster Banner (Dismissible with ✕) */}
-            {showMatchBanner && (
+            {/* High-End Match Booster Banner (Only shown if no social account is connected, and dismissible with ✕) */}
+            {showMatchBanner && !socialAccounts.some((a) => a.connected) && (
               <div
                 style={{
                   background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%)',
