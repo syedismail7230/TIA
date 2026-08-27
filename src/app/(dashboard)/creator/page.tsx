@@ -740,23 +740,26 @@ function CreatorPortalContent() {
         }
 
         .portal-nav-segmented {
-          display: inline-flex;
+          display: flex;
           align-items: center;
-          gap: 4px;
-          background: #F8FAFC;
-          padding: 4px;
-          border-radius: 12px;
-          border: 1px solid #E2E8F0;
+          gap: 28px;
+          background: transparent;
+          padding: 0;
+          border: none;
+          border-bottom: 1px solid #E2E8F0;
+          width: 100%;
         }
         .portal-tab-pill {
           display: inline-flex;
           align-items: center;
-          gap: 7px;
-          padding: 7px 14px;
-          font-size: 13px;
+          gap: 8px;
+          padding: 10px 4px 14px 4px;
+          font-size: 13.5px;
           font-weight: 500;
-          border-radius: 8px;
+          border-radius: 0;
           border: none;
+          border-bottom: 2px solid transparent;
+          margin-bottom: -1px;
           cursor: pointer;
           transition: all 0.15s ease;
           color: #64748B;
@@ -764,13 +767,14 @@ function CreatorPortalContent() {
         }
         .portal-tab-pill:hover:not(.active) {
           color: #0F172A;
-          background: rgba(241, 245, 249, 0.8);
+          border-bottom: 2px solid #CBD5E1;
         }
         .portal-tab-pill.active {
-          background: #FFFFFF;
+          background: transparent;
           color: #0052FF;
-          font-weight: 600;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+          font-weight: 700;
+          border-bottom: 2px solid #0052FF;
+          box-shadow: none;
         }
 
         .upfluence-card {
