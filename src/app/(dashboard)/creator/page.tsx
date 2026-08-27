@@ -6600,7 +6600,7 @@ function CreatorPortalContent() {
                   gap: '16px',
                 }}
               >
-                {/* Card 1: Total Invoices */}
+                {/* Card 1: Total Earnings */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
@@ -6614,7 +6614,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Invoices</span>
+                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Total Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -6635,7 +6635,7 @@ function CreatorPortalContent() {
                     ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Invoices this cycle</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Gross earnings this cycle</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6656,7 +6656,7 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* Card 2: Paid Invoices */}
+                {/* Card 2: Paid Earnings */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
@@ -6670,7 +6670,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Invoices</span>
+                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Paid Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -6691,7 +6691,7 @@ function CreatorPortalContent() {
                     ₹{totalPaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>{paidCount} deals disbursed</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>from {paidCount} brand payouts</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6712,7 +6712,7 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* Card 3: Unpaid Invoices */}
+                {/* Card 3: Pending Earnings */}
                 <div
                   style={{
                     backgroundColor: '#FFFFFF',
@@ -6726,7 +6726,7 @@ function CreatorPortalContent() {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Unpaid Invoices</span>
+                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>Pending Earnings</span>
                     <button
                       type="button"
                       style={{
@@ -6747,7 +6747,7 @@ function CreatorPortalContent() {
                     ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>{unpaidCount} deals ready</span>
+                    <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>from {unpaidCount} deals ready to claim</span>
                     <span
                       style={{
                         fontSize: '11px',
