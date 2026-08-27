@@ -238,6 +238,17 @@ function CreatorPortalContent() {
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  // 2-Way Collabs & Messaging Workspace State
+  const [isBrandTyping, setIsBrandTyping] = useState<boolean>(false);
+  const [collabSearchQuery, setCollabSearchQuery] = useState<string>('');
+  const [showDeliverableModal, setShowDeliverableModal] = useState<boolean>(false);
+  const [deliverableType, setDeliverableType] = useState<'DRAFT_VIDEO' | 'SCRIPT' | 'LIVE_POST'>('DRAFT_VIDEO');
+  const [deliverableTitle, setDeliverableTitle] = useState<string>('');
+  const [deliverableUrl, setDeliverableUrl] = useState<string>('');
+  const [deliverableNotes, setDeliverableNotes] = useState<string>('');
+  const [deliverableSubmitSuccess, setDeliverableSubmitSuccess] = useState<boolean>(false);
+  const [mobileChatViewActive, setMobileChatViewActive] = useState<boolean>(false);
+
   // Realtime Notifications State & Engine
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
   const [notificationFilter, setNotificationFilter] = useState<'ALL' | 'UNREAD' | 'COLLABS' | 'PAYMENTS' | 'SYSTEM'>('ALL');
@@ -783,63 +794,114 @@ function CreatorPortalContent() {
     {
       id: 'collab-1',
       campaignTitle: 'Next-Gen Smartphone Showcase',
-      subject: 'Creator Campaign Partnership',
-      brandName: 'Confidential Enterprise Client',
-      brandInitials: 'CE',
+      subject: 'Creator Flagship Partnership & Unboxing',
+      brandName: 'Leading Consumer Tech Brand (Verified)',
+      brandRole: 'Lead Campaign Producer • Mobile Devices Group',
+      brandInitials: 'TC',
+      brandAvatarBg: '#EFF6FF',
+      brandAvatarColor: '#0052FF',
       status: 'ACCEPTED',
+      milestoneStage: 3,
+      milestoneName: 'Milestone 2: Video Draft Review',
       appliedAt: 'Oct 26, 2026',
       proposedRate: '₹45,000',
+      escrowFunded: true,
+      escrowAmount: '₹45,000',
+      deliveryTimeline: '14 Days',
       deliverables: '1x Dedicated YouTube Review, 2x IG Reels',
-      unreadCount: 2,
+      unreadCount: 0,
       messages: [
         {
           id: 'msg-1',
           sender: 'BRAND',
-          senderName: 'Brand Campaign Manager',
-          badge: 'Application Form',
-          badgeColor: '#D97706',
-          badgeBg: '#FEF3C7',
+          senderName: 'Tech Brand Lead',
+          badge: 'Application Accepted',
+          badgeColor: '#059669',
+          badgeBg: '#ECFDF5',
           date: 'Oct 26, 2026 - 11:22 AM',
-          text: 'Hey! We are currently recruiting verified creators for our flagship smartphone launch and love your camera review content!',
+          text: 'Hey! We are thrilled to confirm your selection for our flagship smartphone launch campaign! We loved your camera comparison formats.',
+          type: 'TEXT',
+        },
+        {
+          id: 'msg-escrow-1',
+          sender: 'SYSTEM',
+          senderName: 'TIA Escrow System',
+          badge: '100% Escrow Funded',
+          badgeColor: '#059669',
+          badgeBg: '#ECFDF5',
+          date: 'Oct 26, 2026 - 11:25 AM',
+          type: 'ESCROW',
+          text: 'Milestone deposit of ₹45,000 INR has been fully funded and locked into TIA Escrow. Creator is guaranteed 100% payout upon publication of agreed deliverables.',
+          escrowMeta: {
+            amount: '₹45,000',
+            milestone: 'Milestone 1 & 2',
+            status: 'LOCKED',
+          },
         },
         {
           id: 'msg-2',
           sender: 'CREATOR',
           senderName: 'You',
           date: 'Oct 27, 2026 - 02:15 PM',
-          text: 'Hi, it would be a pleasure! I have reviewed the deliverable brief. My first draft will be ready by end of next week.',
+          text: 'Thank you for the confirmation! I have reviewed the brief guidelines. I am working on the script outline and storyboard today.',
+          type: 'TEXT',
         },
         {
           id: 'msg-3',
           sender: 'BRAND',
-          senderName: 'Brand Campaign Manager',
+          senderName: 'Tech Brand Lead',
           badge: 'Product Shipment',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
           date: 'Oct 28, 2026 - 10:40 AM',
-          text: 'Awesome! Package tracking ID has been dispatched. Let us know when the package arrives safely.',
+          text: 'Awesome! Priority review unit tracking ID has been dispatched: DHL Express #99281920. Please let us know when the device arrives safely.',
+          type: 'TEXT',
+        },
+        {
+          id: 'msg-deliv-1',
+          sender: 'CREATOR',
+          senderName: 'You',
+          date: 'Oct 29, 2026 - 06:10 PM',
+          type: 'DELIVERABLE',
+          text: 'Submitted preliminary script & storyboard outline for Milestone 1.',
+          deliverableMeta: {
+            title: 'Script & Storyboard v1.2 (Unboxing & Low-Light Camera Test)',
+            url: 'https://docs.google.com/document/d/sample-script-outline',
+            notes: 'Includes hook: 100x zoom demonstration in low light, followed by real-world battery benchmark.',
+            type: 'SCRIPT',
+            status: 'APPROVED',
+          },
         },
         {
           id: 'msg-4',
           sender: 'BRAND',
-          senderName: 'Brand Campaign Manager',
-          badge: 'Publication Instructions',
+          senderName: 'Tech Brand Lead',
+          badge: 'Milestone Approved',
           badgeColor: '#0052FF',
           badgeBg: '#EFF6FF',
           date: 'Oct 30, 2026 - 04:10 PM',
-          text: 'First draft looks brilliant! Please use the tracking link in the video description and mention the campaign tags #FlagshipCamera #TechReview #Ad.',
+          text: 'First draft script looks brilliant! The 100x zoom hook is fantastic. Please proceed with filming the 4K video. Mention the campaign tags #FlagshipCamera #TechReview #Ad.',
+          type: 'TEXT',
         },
       ],
     },
     {
       id: 'collab-2',
-      campaignTitle: 'Spring Campaign',
-      subject: 'Aurora Hydra Skincare Collaboration',
-      brandName: 'Aurora Organics',
+      campaignTitle: 'Aurora Hydra Skincare Launch',
+      subject: 'Hydra Glow 30-Day Creator Collaboration',
+      brandName: 'Aurora Organics Skincare (Verified)',
+      brandRole: 'Influencer Partnerships Lead',
       brandInitials: 'AO',
+      brandAvatarBg: '#FDF2F8',
+      brandAvatarColor: '#DB2777',
       status: 'AWAITING',
+      milestoneStage: 1,
+      milestoneName: 'Milestone 1: Proposal Review',
       appliedAt: 'Oct 28, 2026',
       proposedRate: '₹30,000',
+      escrowFunded: false,
+      escrowAmount: '₹30,000',
+      deliveryTimeline: '10 Days',
       deliverables: '2x Instagram Reels, 3x Story Frame Sets',
       unreadCount: 1,
       messages: [
@@ -847,11 +909,130 @@ function CreatorPortalContent() {
           id: 'msg-21',
           sender: 'BRAND',
           senderName: 'Laura B. (Campaign Lead)',
-          badge: 'Application Form',
+          badge: 'Proposal Review',
           badgeColor: '#D97706',
           badgeBg: '#FEF3C7',
           date: 'Oct 28, 2026 - 09:30 AM',
-          text: 'Hi! We received your proposal and our marketing team is reviewing your audience demographic match.',
+          text: 'Hi! We received your verified bid of ₹30,000 INR. Our marketing team is reviewing your audience demographic breakdown. We will update you here shortly!',
+          type: 'TEXT',
+        },
+      ],
+    },
+    {
+      id: 'collab-3',
+      campaignTitle: 'Active ANC Wireless Earbuds Sound Test',
+      subject: 'High-Fidelity Audio Creator Review',
+      brandName: 'Leading Audio & Wearables Brand (Verified)',
+      brandRole: 'Senior Marketing Director',
+      brandInitials: 'AW',
+      brandAvatarBg: '#ECFDF5',
+      brandAvatarColor: '#059669',
+      status: 'ACCEPTED',
+      milestoneStage: 4,
+      milestoneName: 'Milestone 3: Live Post & Final Payout Release',
+      appliedAt: 'Oct 20, 2026',
+      proposedRate: '₹55,000',
+      escrowFunded: true,
+      escrowAmount: '₹55,000',
+      deliveryTimeline: '7 Days',
+      deliverables: '1x YouTube Integration, 1x Instagram Reel',
+      unreadCount: 0,
+      messages: [
+        {
+          id: 'msg-31',
+          sender: 'BRAND',
+          senderName: 'Audio Brand Manager',
+          badge: 'Escrow Secured',
+          badgeColor: '#059669',
+          badgeBg: '#ECFDF5',
+          date: 'Oct 20, 2026 - 10:00 AM',
+          text: 'Welcome aboard! Full ₹55,000 milestone deposit has been funded into TIA Escrow. Ready for draft delivery.',
+          type: 'TEXT',
+        },
+        {
+          id: 'msg-deliv-31',
+          sender: 'CREATOR',
+          senderName: 'You',
+          date: 'Oct 22, 2026 - 04:30 PM',
+          type: 'DELIVERABLE',
+          text: 'Submitted final video draft for review.',
+          deliverableMeta: {
+            title: '4K Earbuds Noise Cancelling Field Test (Unlisted Video)',
+            url: 'https://youtube.com/watch?v=sample-unlisted-video',
+            notes: 'Tested in noisy subway train and coffee shop. Sound quality highlights ANC strength.',
+            type: 'DRAFT_VIDEO',
+            status: 'APPROVED',
+          },
+        },
+        {
+          id: 'msg-32',
+          sender: 'BRAND',
+          senderName: 'Audio Brand Manager',
+          badge: 'Video Approved',
+          badgeColor: '#0052FF',
+          badgeBg: '#EFF6FF',
+          date: 'Oct 23, 2026 - 11:15 AM',
+          text: 'The subway noise test is incredible! Zero revisions required. Please publish the video live on Friday at 6:00 PM IST.',
+          type: 'TEXT',
+        },
+        {
+          id: 'msg-deliv-32',
+          sender: 'CREATOR',
+          senderName: 'You',
+          date: 'Oct 24, 2026 - 06:15 PM',
+          type: 'DELIVERABLE',
+          text: 'Video is published live on YouTube with tracking link.',
+          deliverableMeta: {
+            title: 'Live Video Link: Active ANC Earbuds Review (Public)',
+            url: 'https://youtube.com/watch?v=live-earbuds-public',
+            notes: 'Link in description and pinned top comment with discount code.',
+            type: 'LIVE_POST',
+            status: 'APPROVED',
+          },
+        },
+        {
+          id: 'msg-33',
+          sender: 'BRAND',
+          senderName: 'Audio Brand Manager',
+          badge: 'Payout Approved',
+          badgeColor: '#059669',
+          badgeBg: '#ECFDF5',
+          date: 'Oct 25, 2026 - 09:00 AM',
+          text: 'Views and audience comments look phenomenal! Releasing full ₹55,000 payout from TIA Escrow to your balance. Thank you for a stellar collaboration!',
+          type: 'TEXT',
+        },
+      ],
+    },
+    {
+      id: 'collab-4',
+      campaignTitle: 'Smart Fitness Tracker Launch',
+      subject: 'Endurance & Heart Rate Test Campaign',
+      brandName: 'Wearable Tech Enterprise (Verified)',
+      brandRole: 'Global Outreach Manager',
+      brandInitials: 'WT',
+      brandAvatarBg: '#F1F5F9',
+      brandAvatarColor: '#64748B',
+      status: 'REJECTED',
+      milestoneStage: 1,
+      milestoneName: 'Archived',
+      appliedAt: 'Oct 12, 2026',
+      proposedRate: '₹22,000',
+      escrowFunded: false,
+      escrowAmount: '₹0',
+      deliveryTimeline: '14 Days',
+      deliverables: '1x Dedicated Reel',
+      unreadCount: 0,
+      messages: [
+        {
+          id: 'msg-41',
+          sender: 'BRAND',
+          senderName: 'Fitness Tech Team',
+          badge: 'Wave Filled',
+          badgeColor: '#64748B',
+          badgeBg: '#F1F5F9',
+          date: 'Oct 14, 2026 - 03:20 PM',
+          text: 'Thank you for your proposal. All creator roster slots for this campaign wave have been filled. We will keep your profile on file for our upcoming Q1 campaign.',
+          type: 'TEXT',
         },
       ],
     },
@@ -1068,28 +1249,177 @@ function CreatorPortalContent() {
     });
   };
 
-  const handleSendMessage = () => {
-    if (!replyMessage.trim()) return;
+  const handleSendMessage = (customText?: string) => {
+    const textToSend = (customText || replyMessage).trim();
+    if (!textToSend) return;
+
+    const currentCollab = collabs.find((c) => c.id === selectedCollabId) || collabs[0];
+    if (!currentCollab) return;
+
+    const creatorMsg = {
+      id: `msg-${Date.now()}`,
+      sender: 'CREATOR',
+      senderName: 'You',
+      date: 'Just now',
+      text: textToSend,
+      type: 'TEXT',
+    };
+
     setCollabs((prev) =>
       prev.map((c) =>
-        c.id === selectedCollabId
+        c.id === currentCollab.id
           ? {
               ...c,
-              messages: [
-                ...c.messages,
-                {
-                  id: `msg-${Date.now()}`,
-                  sender: 'CREATOR',
-                  senderName: 'You',
-                  date: 'Just now',
-                  text: replyMessage,
-                },
-              ],
+              messages: [...c.messages, creatorMsg],
             }
           : c
       )
     );
     setReplyMessage('');
+
+    // Trigger realistic 2-way Brand Response simulation
+    setIsBrandTyping(true);
+
+    setTimeout(() => {
+      setIsBrandTyping(false);
+
+      let brandReplyText = '';
+      const lower = textToSend.toLowerCase();
+
+      if (lower.includes('draft') || lower.includes('video') || lower.includes('link') || lower.includes('uploaded')) {
+        brandReplyText = `Thanks for sending the update! Our creative team is reviewing the draft footage and pacing. We will confirm milestone feedback shortly.`;
+      } else if (lower.includes('script') || lower.includes('outline') || lower.includes('hook')) {
+        brandReplyText = `We went over your script notes—the messaging alignment is spot on! Feel free to move ahead into full filming.`;
+      } else if (lower.includes('payout') || lower.includes('payment') || lower.includes('escrow') || lower.includes('money')) {
+        brandReplyText = `Your ${currentCollab.proposedRate} milestone is 100% locked in TIA Escrow. Once the final live post link is submitted, the payout is released directly to your balance.`;
+      } else if (lower.includes('eta') || lower.includes('tomorrow') || lower.includes('time') || lower.includes('schedule') || lower.includes('friday') || lower.includes('monday')) {
+        brandReplyText = `Appreciate the timeline confirmation! That fits our marketing launch schedule perfectly.`;
+      } else {
+        brandReplyText = `Got it! We have shared this with our campaign operations manager and will keep you posted. Thanks for the quick communication!`;
+      }
+
+      const brandReplyMsg = {
+        id: `msg-${Date.now() + 1}`,
+        sender: 'BRAND',
+        senderName: currentCollab.brandName,
+        badge: 'Campaign Team',
+        badgeColor: '#0052FF',
+        badgeBg: '#EFF6FF',
+        date: 'Just now',
+        text: brandReplyText,
+        type: 'TEXT',
+      };
+
+      setCollabs((prev) =>
+        prev.map((c) =>
+          c.id === currentCollab.id
+            ? {
+                ...c,
+                messages: [...c.messages, brandReplyMsg],
+              }
+            : c
+        )
+      );
+
+      triggerRealtimeNotification({
+        type: 'MESSAGE',
+        category: 'COLLABS',
+        title: `${currentCollab.brandName} Replied`,
+        message: brandReplyText,
+        actionTab: 'collabs',
+        actionCollabId: currentCollab.id,
+        actionLabel: 'View Thread →',
+        badgeText: 'New Message',
+        badgeBg: '#F5F3FF',
+        badgeColor: '#7C3AED',
+      });
+    }, 2200);
+  };
+
+  const handleSubmitDeliverable = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!deliverableUrl.trim()) return;
+
+    const currentCollab = collabs.find((c) => c.id === selectedCollabId) || collabs[0];
+    if (!currentCollab) return;
+
+    const deliverableMsg = {
+      id: `msg-deliv-${Date.now()}`,
+      sender: 'CREATOR',
+      senderName: 'You',
+      date: 'Just now',
+      type: 'DELIVERABLE',
+      text: deliverableNotes || `Submitted deliverable: ${deliverableTitle || (deliverableType === 'DRAFT_VIDEO' ? 'Draft Video Review' : deliverableType === 'SCRIPT' ? 'Script & Storyboard' : 'Live Post URL')}`,
+      deliverableMeta: {
+        title: deliverableTitle || (deliverableType === 'DRAFT_VIDEO' ? 'Draft Video Review' : deliverableType === 'SCRIPT' ? 'Script & Storyboard' : 'Live Post URL'),
+        url: deliverableUrl,
+        notes: deliverableNotes,
+        type: deliverableType,
+        status: 'UNDER_REVIEW',
+      },
+    };
+
+    setCollabs((prev) =>
+      prev.map((c) =>
+        c.id === currentCollab.id
+          ? {
+              ...c,
+              milestoneStage: Math.min(4, (c.milestoneStage || 2) + 1),
+              messages: [...c.messages, deliverableMsg],
+            }
+          : c
+      )
+    );
+
+    setDeliverableSubmitSuccess(true);
+    setTimeout(() => {
+      setDeliverableSubmitSuccess(false);
+      setShowDeliverableModal(false);
+      setDeliverableUrl('');
+      setDeliverableNotes('');
+      setDeliverableTitle('');
+    }, 1200);
+
+    // Brand acknowledges deliverable
+    setIsBrandTyping(true);
+    setTimeout(() => {
+      setIsBrandTyping(false);
+      const brandAckMsg = {
+        id: `msg-${Date.now() + 2}`,
+        sender: 'BRAND',
+        senderName: currentCollab.brandName,
+        badge: 'Deliverable Received',
+        badgeColor: '#059669',
+        badgeBg: '#ECFDF5',
+        date: 'Just now',
+        text: `Deliverable link received! Our marketing and QA teams are reviewing the footage against the campaign requirements. Milestone confirmation will follow.`,
+        type: 'TEXT',
+      };
+
+      setCollabs((prev) =>
+        prev.map((c) =>
+          c.id === currentCollab.id
+            ? {
+                ...c,
+                messages: [...c.messages, brandAckMsg],
+              }
+            : c
+        )
+      );
+
+      triggerRealtimeNotification({
+        type: 'APPROVAL',
+        category: 'COLLABS',
+        title: 'Deliverable Under Review',
+        message: `${currentCollab.brandName} has received your deliverable submission.`,
+        actionTab: 'collabs',
+        actionCollabId: currentCollab.id,
+        actionLabel: 'View Milestone →',
+        badgeText: 'Under Review',
+        badgeBg: '#ECFDF5',
+        badgeColor: '#059669',
+      });
+    }, 2500);
   };
 
   const selectedCollab = collabs.find((c) => c.id === selectedCollabId) || collabs[0];
@@ -4140,118 +4470,159 @@ function CreatorPortalContent() {
         ) : null}
 
         {/* ==================================================================== */}
-        {/* TAB 2: COLLABS                                                       */}
+        {/* TAB 2: COLLABS & 2-WAY CONVERSATION PLATFORM                         */}
         {/* ==================================================================== */}
         {activeTab === 'collabs' && (
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px', overflowX: 'auto', paddingBottom: '4px' }}>
-              {[
-                {
-                  id: 'awaiting',
-                  label: 'Awaiting Review',
-                  count: collabs.filter((c) => c.status === 'AWAITING').length,
-                  icon: (color: string) => (
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  ),
-                },
-                {
-                  id: 'accepted',
-                  label: 'Accepted & Active',
-                  count: collabs.filter((c) => c.status === 'ACCEPTED').length,
-                  icon: (color: string) => (
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                  ),
-                },
-                {
-                  id: 'rejected',
-                  label: 'Archived',
-                  count: collabs.filter((c) => c.status === 'REJECTED').length,
-                  icon: (color: string) => (
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="21 8 21 21 3 21 3 8" />
-                      <rect x="1" y="3" width="22" height="5" />
-                      <line x1="10" y1="12" x2="14" y2="12" />
-                    </svg>
-                  ),
-                },
-              ].map((pill) => {
-                const isActive = collabFilter === pill.id;
-                const activeColor =
-                  pill.id === 'awaiting' ? '#0052FF' : pill.id === 'accepted' ? '#059669' : '#64748B';
-                const activeBg =
-                  pill.id === 'awaiting' ? '#EFF6FF' : pill.id === 'accepted' ? '#ECFDF5' : '#F1F5F9';
-                const activeBorder =
-                  pill.id === 'awaiting' ? '#BFDBFE' : pill.id === 'accepted' ? '#A7F3D0' : '#CBD5E1';
+            {/* Top Filter Bar with Crisp Vector SVG Icons */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '18px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+                {[
+                  {
+                    id: 'awaiting',
+                    label: 'Awaiting Review',
+                    count: collabs.filter((c) => c.status === 'AWAITING').length,
+                    icon: (color: string) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    id: 'accepted',
+                    label: 'Accepted & Active',
+                    count: collabs.filter((c) => c.status === 'ACCEPTED').length,
+                    icon: (color: string) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    id: 'rejected',
+                    label: 'Archived',
+                    count: collabs.filter((c) => c.status === 'REJECTED').length,
+                    icon: (color: string) => (
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="21 8 21 21 3 21 3 8" />
+                        <rect x="1" y="3" width="22" height="5" />
+                        <line x1="10" y1="12" x2="14" y2="12" />
+                      </svg>
+                    ),
+                  },
+                ].map((pill) => {
+                  const isActive = collabFilter === pill.id;
+                  const activeColor =
+                    pill.id === 'awaiting' ? '#0052FF' : pill.id === 'accepted' ? '#059669' : '#64748B';
+                  const activeBg =
+                    pill.id === 'awaiting' ? '#EFF6FF' : pill.id === 'accepted' ? '#ECFDF5' : '#F1F5F9';
+                  const activeBorder =
+                    pill.id === 'awaiting' ? '#BFDBFE' : pill.id === 'accepted' ? '#A7F3D0' : '#CBD5E1';
 
-                return (
-                  <button
-                    key={pill.id}
-                    type="button"
-                    onClick={() => setCollabFilter(pill.id as CollabFilter)}
-                    style={{
-                      padding: '7px 14px',
-                      borderRadius: '8px',
-                      fontSize: '12.5px',
-                      fontWeight: 700,
-                      backgroundColor: isActive ? activeBg : '#FFFFFF',
-                      color: isActive ? activeColor : '#475569',
-                      border: isActive ? `1px solid ${activeBorder}` : '1px solid #E2E8F0',
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      transition: 'all 0.15s ease',
-                      boxShadow: isActive ? '0 1px 3px rgba(0, 0, 0, 0.04)' : 'none',
-                    }}
-                  >
-                    {pill.icon(isActive ? activeColor : '#64748B')}
-                    <span>{pill.label}</span>
-                    <span
+                  return (
+                    <button
+                      key={pill.id}
+                      type="button"
+                      onClick={() => setCollabFilter(pill.id as CollabFilter)}
                       style={{
-                        fontSize: '11px',
+                        padding: '7px 14px',
+                        borderRadius: '8px',
+                        fontSize: '12.5px',
                         fontWeight: 700,
-                        backgroundColor: isActive
-                          ? pill.id === 'accepted'
-                            ? '#D1FAE5'
-                            : pill.id === 'awaiting'
-                            ? '#DBEAFE'
-                            : '#E2E8F0'
-                          : '#F1F5F9',
-                        color: isActive ? activeColor : '#94A3B8',
-                        padding: '1px 6px',
-                        borderRadius: '10px',
+                        backgroundColor: isActive ? activeBg : '#FFFFFF',
+                        color: isActive ? activeColor : '#475569',
+                        border: isActive ? `1px solid ${activeBorder}` : '1px solid #E2E8F0',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        transition: 'all 0.15s ease',
+                        boxShadow: isActive ? '0 1px 3px rgba(0, 0, 0, 0.04)' : 'none',
                       }}
                     >
-                      {pill.count}
-                    </span>
-                  </button>
-                );
-              })}
+                      {pill.icon(isActive ? activeColor : '#64748B')}
+                      <span>{pill.label}</span>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          backgroundColor: isActive
+                            ? pill.id === 'accepted'
+                              ? '#D1FAE5'
+                              : pill.id === 'awaiting'
+                              ? '#DBEAFE'
+                              : '#E2E8F0'
+                            : '#F1F5F9',
+                          color: isActive ? activeColor : '#94A3B8',
+                          padding: '1px 6px',
+                          borderRadius: '10px',
+                        }}
+                      >
+                        {pill.count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Status Guarantee Pill */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  color: '#059669',
+                  backgroundColor: '#ECFDF5',
+                  padding: '5px 10px',
+                  borderRadius: '20px',
+                  border: '1px solid #A7F3D0',
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>100% Escrow Protected Communication</span>
+              </div>
             </div>
 
+            {/* Main Split-Pane Workspace */}
             {collabs.filter((c) => c.status.toLowerCase() === collabFilter).length === 0 ? (
               <div
                 style={{
                   textAlign: 'center',
-                  padding: '50px 16px',
+                  padding: '60px 20px',
                   backgroundColor: '#FFFFFF',
                   borderRadius: '16px',
                   border: '1px solid #E2E8F0',
                 }}
               >
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>🗂️</div>
+                <div
+                  style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    backgroundColor: '#F1F5F9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 14px auto',
+                    color: '#64748B',
+                  }}
+                >
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                </div>
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
-                  No active threads in this view
+                  No threads in this filter
                 </h3>
-                <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '380px', margin: '0 auto 18px auto', lineHeight: 1.45 }}>
-                  Once you apply to a campaign, your proposal and messages with brand managers will appear here.
+                <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '400px', margin: '0 auto 20px auto', lineHeight: 1.5 }}>
+                  Apply to campaigns in the marketplace to start direct, escrow-secured 2-way conversations with verified brand managers.
                 </p>
                 <button
                   type="button"
@@ -4265,76 +4636,751 @@ function CreatorPortalContent() {
                     fontSize: '13px',
                     fontWeight: 700,
                     cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
                   }}
                 >
-                  Browse Marketplace Opportunities
+                  Explore Marketplace Briefs
                 </button>
               </div>
             ) : (
               <div
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  minHeight: '480px',
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(300px, 340px) minmax(0, 1fr)',
+                  gap: '16px',
+                  alignItems: 'stretch',
+                  minHeight: '660px',
                 }}
+                className="collabs-grid-layout"
               >
-                {/* Thread Header */}
-                <div style={{ padding: '14px 18px', borderBottom: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F8FAFC' }}>
-                  <div>
-                    <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                      {selectedCollab.subject}
-                    </h3>
-                    <div style={{ fontSize: '11.5px', color: '#64748B' }}>
-                      {selectedCollab.brandName} • Rate {selectedCollab.proposedRate}
+                {/* Left Panel: Conversation Threads List */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* Search Threads Header */}
+                  <div style={{ padding: '14px 16px', borderBottom: '1px solid #F1F5F9' }}>
+                    <div style={{ position: 'relative' }}>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#94A3B8"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{ position: 'absolute', left: '11px', top: '10px' }}
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                      <input
+                        type="text"
+                        value={collabSearchQuery}
+                        onChange={(e) => setCollabSearchQuery(e.target.value)}
+                        placeholder="Search conversations..."
+                        style={{
+                          width: '100%',
+                          padding: '7px 12px 7px 32px',
+                          fontSize: '12px',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '8px',
+                          outline: 'none',
+                          backgroundColor: '#F8FAFC',
+                          color: '#0F172A',
+                        }}
+                      />
                     </div>
+                  </div>
+
+                  {/* Threads List Items */}
+                  <div style={{ flex: 1, overflowY: 'auto', padding: '6px 8px' }}>
+                    {collabs
+                      .filter((c) => c.status.toLowerCase() === collabFilter)
+                      .filter((c) => {
+                        if (!collabSearchQuery.trim()) return true;
+                        const q = collabSearchQuery.toLowerCase();
+                        return (
+                          c.campaignTitle.toLowerCase().includes(q) ||
+                          c.brandName.toLowerCase().includes(q) ||
+                          c.subject.toLowerCase().includes(q)
+                        );
+                      })
+                      .map((thread) => {
+                        const isSelected = selectedCollab?.id === thread.id;
+                        const lastMsg = thread.messages[thread.messages.length - 1];
+
+                        return (
+                          <div
+                            key={thread.id}
+                            onClick={() => {
+                              setSelectedCollabId(thread.id);
+                              setMobileChatViewActive(true);
+                            }}
+                            style={{
+                              padding: '12px',
+                              borderRadius: '12px',
+                              marginBottom: '6px',
+                              cursor: 'pointer',
+                              backgroundColor: isSelected ? '#EFF6FF' : 'transparent',
+                              border: isSelected ? '1.5px solid #0052FF' : '1.5px solid transparent',
+                              transition: 'all 0.15s ease',
+                              display: 'flex',
+                              gap: '10px',
+                              position: 'relative',
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+                            }}
+                          >
+                            {/* Brand Avatar */}
+                            <div
+                              style={{
+                                width: '38px',
+                                height: '38px',
+                                borderRadius: '10px',
+                                backgroundColor: thread.brandAvatarBg || '#EFF6FF',
+                                color: thread.brandAvatarColor || '#0052FF',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 800,
+                                fontSize: '13px',
+                                flexShrink: 0,
+                                border: '1px solid rgba(0, 0, 0, 0.05)',
+                              }}
+                            >
+                              {thread.brandInitials || 'BR'}
+                            </div>
+
+                            {/* Thread Info */}
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px', marginBottom: '2px' }}>
+                                <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {thread.campaignTitle}
+                                </div>
+                                <span style={{ fontSize: '10px', color: '#94A3B8', flexShrink: 0 }}>
+                                  {thread.appliedAt}
+                                </span>
+                              </div>
+
+                              <div style={{ fontSize: '11px', color: '#64748B', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {thread.brandName}
+                              </div>
+
+                              {/* Rate & Escrow Pill */}
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                                <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0052FF' }}>
+                                  {thread.proposedRate}
+                                </span>
+                                {thread.escrowFunded ? (
+                                  <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
+                                    🔒 Escrow
+                                  </span>
+                                ) : (
+                                  <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#D97706', backgroundColor: '#FEF3C7', padding: '1px 5px', borderRadius: '4px' }}>
+                                    In Review
+                                  </span>
+                                )}
+                              </div>
+
+                              {/* Last message snippet */}
+                              {lastMsg && (
+                                <p style={{ fontSize: '11px', color: isSelected ? '#1E293B' : '#94A3B8', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                  {lastMsg.sender === 'CREATOR' ? 'You: ' : ''}{lastMsg.text}
+                                </p>
+                              )}
+                            </div>
+
+                            {/* Unread Pill */}
+                            {thread.unreadCount > 0 && (
+                              <span
+                                style={{
+                                  position: 'absolute',
+                                  right: '10px',
+                                  top: '32px',
+                                  width: '8px',
+                                  height: '8px',
+                                  borderRadius: '50%',
+                                  backgroundColor: '#0052FF',
+                                }}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
 
-                {/* Messages List */}
-                <div style={{ padding: '16px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {selectedCollab.messages.map((msg: any) => (
+                {/* Right Panel: Full Interactive 2-Way Conversation Studio */}
+                {selectedCollab ? (
+                  <div
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      minHeight: '660px',
+                    }}
+                  >
+                    {/* Top Workspace Header */}
                     <div
-                      key={msg.id}
                       style={{
-                        backgroundColor: msg.sender === 'CREATOR' ? '#EFF6FF' : '#F8FAFC',
-                        border: '1px solid #E2E8F0',
-                        borderRadius: '10px',
-                        padding: '12px 14px',
+                        padding: '14px 18px',
+                        borderBottom: '1px solid #F1F5F9',
+                        backgroundColor: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '12px',
+                        flexWrap: 'wrap',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>
-                          {msg.senderName}
-                        </span>
-                        <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{msg.date}</span>
-                      </div>
-                      <p style={{ fontSize: '12.5px', color: '#334155', margin: 0, lineHeight: 1.4 }}>{msg.text}</p>
-                    </div>
-                  ))}
-                </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div
+                          style={{
+                            width: '42px',
+                            height: '42px',
+                            borderRadius: '12px',
+                            backgroundColor: selectedCollab.brandAvatarBg || '#EFF6FF',
+                            color: selectedCollab.brandAvatarColor || '#0052FF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: 900,
+                            fontSize: '15px',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {selectedCollab.brandInitials || 'BR'}
+                        </div>
 
-                {/* Reply Input Bar */}
-                <div style={{ padding: '12px 16px', borderTop: '1px solid #E2E8F0', display: 'flex', gap: '8px' }}>
-                  <input
-                    type="text"
-                    value={replyMessage}
-                    onChange={(e) => setReplyMessage(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Type your reply to brand manager..."
-                    style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '12.5px' }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleSendMessage}
-                    style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', padding: '10px 18px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer' }}
-                  >
-                    Reply
-                  </button>
-                </div>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <h3 style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                              {selectedCollab.campaignTitle}
+                            </h3>
+                            <span
+                              style={{
+                                fontSize: '10px',
+                                fontWeight: 800,
+                                color: '#059669',
+                                backgroundColor: '#ECFDF5',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '3px',
+                              }}
+                            >
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                              VERIFIED
+                            </span>
+                          </div>
+
+                          <div style={{ fontSize: '11.5px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '2px' }}>
+                            <span>{selectedCollab.brandRole || selectedCollab.brandName}</span>
+                            <span>•</span>
+                            <span style={{ fontWeight: 800, color: '#0052FF' }}>Rate {selectedCollab.proposedRate}</span>
+                            {selectedCollab.escrowFunded && (
+                              <>
+                                <span>•</span>
+                                <span style={{ color: '#059669', fontWeight: 700 }}>100% Escrow Funded</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Header Actions */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {selectedCollab.status === 'ACCEPTED' && (
+                          <button
+                            type="button"
+                            onClick={() => setShowDeliverableModal(true)}
+                            style={{
+                              backgroundColor: '#0052FF',
+                              color: '#FFFFFF',
+                              border: 'none',
+                              borderRadius: '8px',
+                              padding: '8px 14px',
+                              fontSize: '12px',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              boxShadow: '0 2px 6px rgba(0, 82, 255, 0.2)',
+                            }}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                            </svg>
+                            <span>Submit Deliverable</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Milestone Progress Stepper Bar */}
+                    <div
+                      style={{
+                        padding: '10px 18px',
+                        backgroundColor: '#F8FAFC',
+                        borderBottom: '1px solid #E2E8F0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '8px',
+                        overflowX: 'auto',
+                      }}
+                    >
+                      {[
+                        { step: 1, label: 'Proposal Accepted', done: (selectedCollab.milestoneStage || 1) >= 1 },
+                        { step: 2, label: 'Script & Storyboard', done: (selectedCollab.milestoneStage || 1) >= 2 },
+                        { step: 3, label: 'Video Draft Review', done: (selectedCollab.milestoneStage || 1) >= 3 },
+                        { step: 4, label: 'Live Post & Payout', done: (selectedCollab.milestoneStage || 1) >= 4 },
+                      ].map((st, i) => (
+                        <div key={st.step} style={{ display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                          <div
+                            style={{
+                              width: '18px',
+                              height: '18px',
+                              borderRadius: '50%',
+                              backgroundColor: st.done ? '#059669' : '#E2E8F0',
+                              color: '#FFFFFF',
+                              fontSize: '10px',
+                              fontWeight: 800,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {st.done ? '✓' : st.step}
+                          </div>
+                          <span style={{ fontSize: '11px', fontWeight: st.done ? 700 : 500, color: st.done ? '#0F172A' : '#94A3B8' }}>
+                            {st.label}
+                          </span>
+                          {i < 3 && <span style={{ color: '#CBD5E1', margin: '0 4px' }}>→</span>}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Deliverables Overview Bar */}
+                    <div
+                      style={{
+                        padding: '8px 18px',
+                        backgroundColor: '#EFF6FF',
+                        borderBottom: '1px solid #DBEAFE',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '11.5px',
+                        color: '#1E40AF',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontWeight: 800 }}>Deliverables:</span>
+                        <span>{selectedCollab.deliverables}</span>
+                      </div>
+                      <div style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span>⏱️ Timeline:</span>
+                        <span>{selectedCollab.deliveryTimeline || '14 Days'}</span>
+                      </div>
+                    </div>
+
+                    {/* Chat Messages Canvas */}
+                    <div
+                      style={{
+                        padding: '18px',
+                        flex: 1,
+                        overflowY: 'auto',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '14px',
+                        backgroundColor: '#FAFAFA',
+                      }}
+                    >
+                      {/* Date Divider */}
+                      <div style={{ textAlign: 'center', margin: '4px 0 8px 0' }}>
+                        <span
+                          style={{
+                            fontSize: '10.5px',
+                            fontWeight: 700,
+                            color: '#94A3B8',
+                            backgroundColor: '#FFFFFF',
+                            padding: '3px 12px',
+                            borderRadius: '12px',
+                            border: '1px solid #E2E8F0',
+                          }}
+                        >
+                          Official Partnership Thread • {selectedCollab.appliedAt}
+                        </span>
+                      </div>
+
+                      {selectedCollab.messages.map((msg: any) => {
+                        const isCreator = msg.sender === 'CREATOR';
+
+                        // Specialized ESCROW Card
+                        if (msg.type === 'ESCROW') {
+                          return (
+                            <div
+                              key={msg.id}
+                              style={{
+                                backgroundColor: '#FFFFFF',
+                                border: '1.5px solid #A7F3D0',
+                                borderRadius: '12px',
+                                padding: '14px 16px',
+                                boxShadow: '0 2px 8px rgba(5, 150, 105, 0.08)',
+                                display: 'flex',
+                                gap: '12px',
+                                alignItems: 'flex-start',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: '36px',
+                                  height: '36px',
+                                  borderRadius: '10px',
+                                  backgroundColor: '#ECFDF5',
+                                  color: '#059669',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '18px',
+                                  flexShrink: 0,
+                                }}
+                              >
+                                🛡️
+                              </div>
+                              <div style={{ flex: 1 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
+                                  <span style={{ fontSize: '13px', fontWeight: 800, color: '#065F46' }}>
+                                    TIA Escrow Deposit Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
+                                  </span>
+                                  <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{msg.date}</span>
+                                </div>
+                                <p style={{ fontSize: '12px', color: '#334155', margin: '0 0 6px 0', lineHeight: 1.45 }}>
+                                  {msg.text}
+                                </p>
+                                <span style={{ fontSize: '10px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 6px', borderRadius: '4px' }}>
+                                  ✓ 100% Guaranteed Payment Protection Active
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        // Specialized DELIVERABLE Card
+                        if (msg.type === 'DELIVERABLE') {
+                          return (
+                            <div
+                              key={msg.id}
+                              style={{
+                                alignSelf: isCreator ? 'flex-end' : 'flex-start',
+                                maxWidth: '85%',
+                                backgroundColor: '#FFFFFF',
+                                border: '1.5px solid #BFDBFE',
+                                borderRadius: '14px',
+                                padding: '14px 16px',
+                                boxShadow: '0 2px 8px rgba(0, 82, 255, 0.08)',
+                              }}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '6px' }}>
+                                <span style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 7px', borderRadius: '4px' }}>
+                                  📝 DELIVERABLE SUBMISSION
+                                </span>
+                                <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
+                              </div>
+
+                              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                                {msg.deliverableMeta?.title || 'Deliverable Asset'}
+                              </div>
+
+                              {msg.deliverableMeta?.notes && (
+                                <p style={{ fontSize: '12px', color: '#64748B', margin: '0 0 10px 0', lineHeight: 1.4 }}>
+                                  {msg.deliverableMeta.notes}
+                                </p>
+                              )}
+
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'wrap' }}>
+                                {msg.deliverableMeta?.url && (
+                                  <a
+                                    href={msg.deliverableMeta.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '5px',
+                                      fontSize: '11.5px',
+                                      fontWeight: 700,
+                                      color: '#0052FF',
+                                      backgroundColor: '#EFF6FF',
+                                      padding: '5px 10px',
+                                      borderRadius: '6px',
+                                      textDecoration: 'none',
+                                    }}
+                                  >
+                                    <span>Open Asset Link</span>
+                                    <span>↗</span>
+                                  </a>
+                                )}
+
+                                <span
+                                  style={{
+                                    fontSize: '10.5px',
+                                    fontWeight: 700,
+                                    color: msg.deliverableMeta?.status === 'APPROVED' ? '#059669' : '#D97706',
+                                    backgroundColor: msg.deliverableMeta?.status === 'APPROVED' ? '#ECFDF5' : '#FEF3C7',
+                                    padding: '3px 8px',
+                                    borderRadius: '6px',
+                                  }}
+                                >
+                                  {msg.deliverableMeta?.status === 'APPROVED' ? '✓ Approved by Brand' : '⏳ In Brand Review'}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        // Normal Chat Bubble
+                        return (
+                          <div
+                            key={msg.id}
+                            style={{
+                              alignSelf: isCreator ? 'flex-end' : 'flex-start',
+                              maxWidth: '75%',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: isCreator ? 'flex-end' : 'flex-start',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                              {!isCreator && (
+                                <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0F172A' }}>
+                                  {msg.senderName}
+                                </span>
+                              )}
+                              {msg.badge && (
+                                <span
+                                  style={{
+                                    fontSize: '9.5px',
+                                    fontWeight: 700,
+                                    color: msg.badgeColor || '#0052FF',
+                                    backgroundColor: msg.badgeBg || '#EFF6FF',
+                                    padding: '1px 5px',
+                                    borderRadius: '4px',
+                                  }}
+                                >
+                                  {msg.badge}
+                                </span>
+                              )}
+                              <span style={{ fontSize: '10px', color: '#94A3B8' }}>{msg.date}</span>
+                            </div>
+
+                            <div
+                              style={{
+                                backgroundColor: isCreator ? '#0052FF' : '#FFFFFF',
+                                color: isCreator ? '#FFFFFF' : '#1E293B',
+                                padding: '10px 14px',
+                                borderRadius: isCreator ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                                border: isCreator ? 'none' : '1px solid #E2E8F0',
+                                fontSize: '12.5px',
+                                lineHeight: 1.45,
+                                boxShadow: isCreator ? '0 2px 6px rgba(0, 82, 255, 0.25)' : '0 1px 3px rgba(0, 0, 0, 0.04)',
+                              }}
+                            >
+                              {msg.text}
+                            </div>
+
+                            {isCreator && (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px', fontSize: '10px', color: '#94A3B8' }}>
+                                <span>Delivered</span>
+                                <span style={{ color: '#0052FF', fontWeight: 800 }}>✓✓</span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+
+                      {/* 2-Way Typing Indicator */}
+                      {isBrandTyping && (
+                        <div style={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div
+                            style={{
+                              backgroundColor: '#FFFFFF',
+                              border: '1px solid #E2E8F0',
+                              padding: '8px 12px',
+                              borderRadius: '14px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.04)',
+                            }}
+                          >
+                            <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
+                              {selectedCollab.brandName} is typing
+                            </span>
+                            <span style={{ display: 'inline-flex', gap: '2px' }}>
+                              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#0052FF', display: 'inline-block' }} />
+                              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#0052FF', display: 'inline-block' }} />
+                              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#0052FF', display: 'inline-block' }} />
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Quick Reply Suggestions */}
+                    <div
+                      style={{
+                        padding: '6px 16px',
+                        backgroundColor: '#FFFFFF',
+                        borderTop: '1px solid #F1F5F9',
+                        display: 'flex',
+                        gap: '6px',
+                        overflowX: 'auto',
+                      }}
+                    >
+                      {[
+                        '✨ Draft is ready for review!',
+                        '📅 ETA is tomorrow 5 PM',
+                        '📎 Uploaded video to Drive',
+                        '💳 Confirming milestone approval',
+                      ].map((qr, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => handleSendMessage(qr.replace(/^[^\s]+\s/, ''))}
+                          style={{
+                            padding: '4px 9px',
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            color: '#475569',
+                            backgroundColor: '#F8FAFC',
+                            border: '1px solid #E2E8F0',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#EFF6FF';
+                            e.currentTarget.style.color = '#0052FF';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '#F8FAFC';
+                            e.currentTarget.style.color = '#475569';
+                          }}
+                        >
+                          {qr}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Composer Input Bar */}
+                    <div
+                      style={{
+                        padding: '12px 16px',
+                        borderTop: '1px solid #E2E8F0',
+                        backgroundColor: '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setShowDeliverableModal(true)}
+                        title="Attach Deliverable Link"
+                        style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '8px',
+                          border: '1px solid #CBD5E1',
+                          backgroundColor: '#F8FAFC',
+                          color: '#475569',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          flexShrink: 0,
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#EFF6FF';
+                          e.currentTarget.style.color = '#0052FF';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = '#F8FAFC';
+                          e.currentTarget.style.color = '#475569';
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                        </svg>
+                      </button>
+
+                      <input
+                        type="text"
+                        value={replyMessage}
+                        onChange={(e) => setReplyMessage(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                        placeholder="Type your message to brand campaign manager (Press Enter ↵)..."
+                        style={{
+                          flex: 1,
+                          padding: '10px 14px',
+                          borderRadius: '8px',
+                          border: '1px solid #CBD5E1',
+                          fontSize: '12.5px',
+                          outline: 'none',
+                        }}
+                      />
+
+                      <button
+                        type="button"
+                        onClick={() => handleSendMessage()}
+                        style={{
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '10px 18px',
+                          fontSize: '12.5px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
+                        }}
+                      >
+                        <span>Send</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="22" y1="2" x2="11" y2="13" />
+                          <polygon points="22 2 15 22 11 13 2 9 22 2" fill="currentColor" stroke="none" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>
+                    Select a conversation to start chatting
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -5192,6 +6238,237 @@ function CreatorPortalContent() {
                   </div>
                 )}
               </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Deliverable / Draft Link Submission Modal */}
+      {showDeliverableModal && selectedCollab && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.65)',
+            backdropFilter: 'blur(4px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '16px',
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowDeliverableModal(false);
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              width: '100%',
+              maxWidth: '520px',
+              borderRadius: '20px',
+              padding: '24px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              border: '1px solid #E2E8F0',
+              position: 'relative',
+            }}
+          >
+            {deliverableSubmitSuccess ? (
+              <div style={{ textAlign: 'center', padding: '16px 8px' }}>
+                <div
+                  style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    backgroundColor: '#ECFDF5',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 12px auto',
+                  }}
+                >
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0' }}>
+                  Deliverable Submitted to Brand!
+                </h3>
+                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>
+                  Posted into the collaboration stream. The brand team has been notified for milestone review.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitDeliverable}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: '0 0 4px 0' }}>
+                      Submit Campaign Deliverable
+                    </h3>
+                    <div style={{ fontSize: '12px', color: '#64748B' }}>
+                      To: <strong>{selectedCollab.brandName}</strong> ({selectedCollab.campaignTitle})
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowDeliverableModal(false)}
+                    style={{
+                      background: '#F1F5F9',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '28px',
+                      height: '28px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#64748B',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Deliverable Type Select */}
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    Deliverable Stage / Asset Type
+                  </label>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+                    {[
+                      { id: 'DRAFT_VIDEO', label: '🎬 Video Draft', desc: 'YouTube Unlisted / Drive' },
+                      { id: 'SCRIPT', label: '📝 Script & Concept', desc: 'Google Docs / PDF' },
+                      { id: 'LIVE_POST', label: '🚀 Live Post URL', desc: 'Public Instagram / YT' },
+                    ].map((t) => {
+                      const isSel = deliverableType === t.id;
+                      return (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => setDeliverableType(t.id as any)}
+                          style={{
+                            padding: '10px 8px',
+                            borderRadius: '10px',
+                            border: isSel ? '2px solid #0052FF' : '1px solid #CBD5E1',
+                            backgroundColor: isSel ? '#EFF6FF' : '#FFFFFF',
+                            textAlign: 'center',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <div style={{ fontSize: '12px', fontWeight: 700, color: isSel ? '#0052FF' : '#0F172A' }}>
+                            {t.label}
+                          </div>
+                          <div style={{ fontSize: '10px', color: isSel ? '#0052FF' : '#94A3B8', marginTop: '2px' }}>
+                            {t.desc}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Asset Title */}
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
+                    Asset / Video Title
+                  </label>
+                  <input
+                    type="text"
+                    value={deliverableTitle}
+                    onChange={(e) => setDeliverableTitle(e.target.value)}
+                    placeholder="e.g. 4K Camera Showcase & Low-Light Review Cut v1"
+                    style={{
+                      width: '100%',
+                      padding: '9px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '12.5px',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+
+                {/* Public / Preview Link URL */}
+                <div style={{ marginBottom: '14px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
+                    Asset Link / Video URL (Required) *
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={deliverableUrl}
+                    onChange={(e) => setDeliverableUrl(e.target.value)}
+                    placeholder="https://youtube.com/watch?v=... or https://drive.google.com/..."
+                    style={{
+                      width: '100%',
+                      padding: '9px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '12.5px',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+
+                {/* Notes for Brand Team */}
+                <div style={{ marginBottom: '18px' }}>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
+                    Production Notes / Comments for Brand Review
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={deliverableNotes}
+                    onChange={(e) => setDeliverableNotes(e.target.value)}
+                    placeholder="e.g. Rough cut with color grading complete. Audio benchmark starts at 01:45. Let me know if any cuts need tweaking."
+                    style={{
+                      width: '100%',
+                      padding: '9px 12px',
+                      borderRadius: '8px',
+                      border: '1px solid #CBD5E1',
+                      fontSize: '12px',
+                      outline: 'none',
+                      resize: 'none',
+                    }}
+                  />
+                </div>
+
+                {/* Submit Buttons */}
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    type="submit"
+                    style={{
+                      flex: 1,
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '10px',
+                      padding: '12px',
+                      fontSize: '13px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                    }}
+                  >
+                    Submit Deliverable to Brand →
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowDeliverableModal(false)}
+                    style={{
+                      backgroundColor: '#F1F5F9',
+                      color: '#334155',
+                      border: 'none',
+                      borderRadius: '10px',
+                      padding: '12px 18px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
             )}
           </div>
         </div>
