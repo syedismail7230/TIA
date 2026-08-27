@@ -4146,11 +4146,49 @@ function CreatorPortalContent() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px', overflowX: 'auto', paddingBottom: '4px' }}>
               {[
-                { id: 'awaiting', label: '⏳ Awaiting Review', count: collabs.filter((c) => c.status === 'AWAITING').length },
-                { id: 'accepted', label: '🌿 Accepted & Active', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
-                { id: 'rejected', label: '🚫 Archived', count: collabs.filter((c) => c.status === 'REJECTED').length },
+                {
+                  id: 'awaiting',
+                  label: 'Awaiting Review',
+                  count: collabs.filter((c) => c.status === 'AWAITING').length,
+                  icon: (color: string) => (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'accepted',
+                  label: 'Accepted & Active',
+                  count: collabs.filter((c) => c.status === 'ACCEPTED').length,
+                  icon: (color: string) => (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                  ),
+                },
+                {
+                  id: 'rejected',
+                  label: 'Archived',
+                  count: collabs.filter((c) => c.status === 'REJECTED').length,
+                  icon: (color: string) => (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="21 8 21 21 3 21 3 8" />
+                      <rect x="1" y="3" width="22" height="5" />
+                      <line x1="10" y1="12" x2="14" y2="12" />
+                    </svg>
+                  ),
+                },
               ].map((pill) => {
                 const isActive = collabFilter === pill.id;
+                const activeColor =
+                  pill.id === 'awaiting' ? '#0052FF' : pill.id === 'accepted' ? '#059669' : '#64748B';
+                const activeBg =
+                  pill.id === 'awaiting' ? '#EFF6FF' : pill.id === 'accepted' ? '#ECFDF5' : '#F1F5F9';
+                const activeBorder =
+                  pill.id === 'awaiting' ? '#BFDBFE' : pill.id === 'accepted' ? '#A7F3D0' : '#CBD5E1';
+
                 return (
                   <button
                     key={pill.id}
@@ -4161,18 +4199,38 @@ function CreatorPortalContent() {
                       borderRadius: '8px',
                       fontSize: '12.5px',
                       fontWeight: 700,
-                      backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
-                      color: isActive ? '#0052FF' : '#475569',
-                      border: isActive ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
+                      backgroundColor: isActive ? activeBg : '#FFFFFF',
+                      color: isActive ? activeColor : '#475569',
+                      border: isActive ? `1px solid ${activeBorder}` : '1px solid #E2E8F0',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '5px',
+                      gap: '6px',
+                      transition: 'all 0.15s ease',
+                      boxShadow: isActive ? '0 1px 3px rgba(0, 0, 0, 0.04)' : 'none',
                     }}
                   >
+                    {pill.icon(isActive ? activeColor : '#64748B')}
                     <span>{pill.label}</span>
-                    <span style={{ fontSize: '11px', opacity: 0.85 }}>({pill.count})</span>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        backgroundColor: isActive
+                          ? pill.id === 'accepted'
+                            ? '#D1FAE5'
+                            : pill.id === 'awaiting'
+                            ? '#DBEAFE'
+                            : '#E2E8F0'
+                          : '#F1F5F9',
+                        color: isActive ? activeColor : '#94A3B8',
+                        padding: '1px 6px',
+                        borderRadius: '10px',
+                      }}
+                    >
+                      {pill.count}
+                    </span>
                   </button>
                 );
               })}
