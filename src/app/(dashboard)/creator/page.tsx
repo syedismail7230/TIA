@@ -1804,13 +1804,13 @@ function CreatorPortalContent() {
 
                   {/* Explicit Two-Side Legend (Flat / No Card) */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', fontSize: '11px', fontWeight: 700, flexWrap: 'wrap', gap: '6px', padding: '0 2px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0052FF' }}>
-                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
-                      <span>Your Profile (@{displayName})</span>
-                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#64748B' }}>
                       <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#94A3B8' }}></div>
                       <span>Other Applicants Avg</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0052FF' }}>
+                      <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#0052FF' }}></div>
+                      <span>Your Profile (@{displayName})</span>
                     </div>
                   </div>
 
