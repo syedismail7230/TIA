@@ -312,7 +312,11 @@ function CreatorPortalContent() {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedCountry, setSelectedCountry] = useState('ALL');
   const [selectedCommercialType, setSelectedCommercialType] = useState('ALL');
-  const [sortBy, setSortBy] = useState<'success_rate' | 'applicants' | 'newest'>('success_rate');
+  const [selectedPlatform, setSelectedPlatform] = useState<string>('ALL');
+  const [selectedBudgetTier, setSelectedBudgetTier] = useState<string>('ALL');
+  const [selectedSuccessFilter, setSelectedSuccessFilter] = useState<string>('ALL');
+  const [advancedFilterExpanded, setAdvancedFilterExpanded] = useState<boolean>(false);
+  const [sortBy, setSortBy] = useState<'success_rate' | 'payout_high' | 'applicants' | 'newest'>('success_rate');
 
   // Social accounts state
   const [socialAccounts, setSocialAccounts] = useState<any[]>([
@@ -321,19 +325,48 @@ function CreatorPortalContent() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Clean Reference-Matched Campaigns Data (56 Rich Campaigns with Localized Currency & Language)
+  // Clean Reference-Matched Campaigns Data (156 Rich Campaigns with Localized Currency & Language)
   const [campaigns] = useState<CampaignItem[]>(INITIAL_CAMPAIGNS);
 
   // Filter Categories & Countries Configuration
   const filterCategories = [
     { id: 'ALL', label: 'All Niches' },
-    { id: 'Sustainability', label: 'Sustainability' },
-    { id: 'Food', label: 'Food & Cooking' },
-    { id: 'Lifestyle', label: 'Lifestyle' },
-    { id: 'Supplements', label: 'Supplements' },
     { id: 'Technology', label: 'Tech & Gadgets' },
-    { id: 'Fitness', label: 'Fitness & Running' },
+    { id: 'Fashion', label: 'Fashion & Apparel' },
     { id: 'Beauty', label: 'Beauty & Skincare' },
+    { id: 'Food', label: 'Food & Culinary' },
+    { id: 'Fitness', label: 'Fitness & Gym' },
+    { id: 'Lifestyle', label: 'Lifestyle' },
+    { id: 'Travel', label: 'Travel & Outdoors' },
+    { id: 'Gaming', label: 'Gaming & Esports' },
+    { id: 'Finance', label: 'Finance & Web3' },
+    { id: 'Automobile', label: 'Automobile & EV' },
+    { id: 'Health', label: 'Health & Wellness' },
+    { id: 'Music', label: 'Music & Audio' },
+    { id: 'Sustainability', label: 'Sustainability' },
+  ];
+
+  const filterPlatforms = [
+    { id: 'ALL', label: 'All Platforms', icon: '🌐' },
+    { id: 'INSTAGRAM', label: 'Instagram', icon: '📸' },
+    { id: 'YOUTUBE', label: 'YouTube', icon: '▶️' },
+    { id: 'TWITCH', label: 'Twitch', icon: '👾' },
+    { id: 'PINTEREST', label: 'Pinterest', icon: '📌' },
+    { id: 'X', label: 'X (Twitter)', icon: '𝕏' },
+  ];
+
+  const filterBudgetTiers = [
+    { id: 'ALL', label: 'All Payouts' },
+    { id: 'UNDER_35K', label: '< ₹35,000' },
+    { id: '35K_60K', label: '₹35,000 – ₹60,000' },
+    { id: '60K_100K', label: '₹60,000 – ₹1,00,000' },
+    { id: 'ABOVE_100K', label: '₹1,00,000+ High Value' },
+  ];
+
+  const filterMatchTiers = [
+    { id: 'ALL', label: 'All Opportunities' },
+    { id: 'HIGH_MATCH', label: 'High Match (90%+)' },
+    { id: 'LOW_COMPETITION', label: 'Low Competition (< 35 Applicants)' },
   ];
 
   const filterCountries = [
@@ -451,11 +484,49 @@ function CreatorPortalContent() {
         }
       }
 
+      // 5. Platform Filter
+      if (selectedPlatform !== 'ALL') {
+        const hasPlatform = camp.socials?.some(
+          (s: string) => s.toUpperCase() === selectedPlatform.toUpperCase()
+        );
+        if (!hasPlatform) return false;
+      }
+
+      // 6. Budget Tier Filter
+      if (selectedBudgetTier !== 'ALL') {
+        const numericAmount = parseInt(camp.payoutAmount.replace(/[^0-9]/g, ''), 10) || 0;
+        if (selectedBudgetTier === 'UNDER_35K') {
+          if (camp.currencyCode === 'INR' && numericAmount >= 35000) return false;
+          if (camp.currencyCode !== 'INR' && numericAmount >= 1000) return false;
+        } else if (selectedBudgetTier === '35K_60K') {
+          if (camp.currencyCode === 'INR' && (numericAmount < 35000 || numericAmount > 60000)) return false;
+          if (camp.currencyCode !== 'INR' && (numericAmount < 500 || numericAmount > 1500)) return false;
+        } else if (selectedBudgetTier === '60K_100K') {
+          if (camp.currencyCode === 'INR' && (numericAmount < 60000 || numericAmount > 100000)) return false;
+          if (camp.currencyCode !== 'INR' && (numericAmount < 1500 || numericAmount > 3000)) return false;
+        } else if (selectedBudgetTier === 'ABOVE_100K') {
+          if (camp.currencyCode === 'INR' && numericAmount < 100000) return false;
+          if (camp.currencyCode !== 'INR' && numericAmount < 2000) return false;
+        }
+      }
+
+      // 7. Success / Match Filter
+      if (selectedSuccessFilter === 'HIGH_MATCH') {
+        if ((camp.acceptanceChance || 0) < 90 && (camp.eligibilityRate || 0) < 90) return false;
+      } else if (selectedSuccessFilter === 'LOW_COMPETITION') {
+        if ((camp.creatorsApplied || 0) >= 35) return false;
+      }
+
       return true;
     })
     .sort((a, b) => {
       if (sortBy === 'success_rate') {
         return b.eligibilityRate - a.eligibilityRate;
+      }
+      if (sortBy === 'payout_high') {
+        const numA = parseInt(a.payoutAmount.replace(/[^0-9]/g, ''), 10) || 0;
+        const numB = parseInt(b.payoutAmount.replace(/[^0-9]/g, ''), 10) || 0;
+        return numB - numA;
       }
       if (sortBy === 'applicants') {
         return b.creatorsApplied - a.creatorsApplied;
@@ -466,25 +537,31 @@ function CreatorPortalContent() {
       return 0;
     });
 
+  const activeAdvancedCount =
+    (selectedPlatform !== 'ALL' ? 1 : 0) +
+    (selectedBudgetTier !== 'ALL' ? 1 : 0) +
+    (selectedSuccessFilter !== 'ALL' ? 1 : 0);
+
   const activeFiltersCount =
     (selectedCategory !== 'ALL' ? 1 : 0) +
     (selectedCountry !== 'ALL' ? 1 : 0) +
     (selectedCommercialType !== 'ALL' ? 1 : 0) +
+    (selectedPlatform !== 'ALL' ? 1 : 0) +
+    (selectedBudgetTier !== 'ALL' ? 1 : 0) +
+    (selectedSuccessFilter !== 'ALL' ? 1 : 0) +
     (sortBy !== 'success_rate' ? 1 : 0) +
     (searchQuery.trim() !== '' ? 1 : 0);
 
-  const hasActiveFilters =
-    searchQuery.trim() !== '' ||
-    selectedCategory !== 'ALL' ||
-    selectedCountry !== 'ALL' ||
-    selectedCommercialType !== 'ALL' ||
-    sortBy !== 'success_rate';
+  const hasActiveFilters = activeFiltersCount > 0;
 
   const resetFilters = () => {
     setSearchQuery('');
     setSelectedCategory('ALL');
     setSelectedCountry('ALL');
     setSelectedCommercialType('ALL');
+    setSelectedPlatform('ALL');
+    setSelectedBudgetTier('ALL');
+    setSelectedSuccessFilter('ALL');
     setSortBy('success_rate');
   };
 
@@ -2060,9 +2137,9 @@ function CreatorPortalContent() {
                         padding: '8px 12px',
                         fontSize: '12.5px',
                         fontWeight: 600,
-                        color: '#334155',
-                        backgroundColor: '#FFFFFF',
-                        border: countryDropdownOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                        color: selectedCountry !== 'ALL' ? '#0052FF' : '#334155',
+                        backgroundColor: selectedCountry !== 'ALL' ? '#EFF6FF' : '#FFFFFF',
+                        border: countryDropdownOpen || selectedCountry !== 'ALL' ? '1px solid #0052FF' : '1px solid #CBD5E1',
                         borderRadius: '8px',
                         cursor: 'pointer',
                         outline: 'none',
@@ -2080,7 +2157,7 @@ function CreatorPortalContent() {
                         height="10"
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="#94A3B8"
+                        stroke={selectedCountry !== 'ALL' ? '#0052FF' : '#94A3B8'}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -2197,9 +2274,9 @@ function CreatorPortalContent() {
                       padding: '9px 12px',
                       fontSize: '12.5px',
                       fontWeight: 600,
-                      color: '#334155',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #CBD5E1',
+                      color: selectedCommercialType !== 'ALL' ? '#0052FF' : '#334155',
+                      backgroundColor: selectedCommercialType !== 'ALL' ? '#EFF6FF' : '#FFFFFF',
+                      border: selectedCommercialType !== 'ALL' ? '1px solid #0052FF' : '1px solid #CBD5E1',
                       borderRadius: '8px',
                       cursor: 'pointer',
                       outline: 'none',
@@ -2207,8 +2284,8 @@ function CreatorPortalContent() {
                     }}
                   >
                     <option value="ALL">All Deal Types</option>
-                    <option value="COMMISSION">Commission %</option>
-                    <option value="FLAT_FEE">Flat Fee Guaranteed</option>
+                    <option value="FLAT_FEE">Guaranteed Fixed Pay</option>
+                    <option value="COMMISSION">Commission % + Bonus</option>
                   </select>
 
                   {/* Sort By Dropdown */}
@@ -2229,69 +2306,500 @@ function CreatorPortalContent() {
                     }}
                   >
                     <option value="success_rate">Sort: Highest Match</option>
+                    <option value="payout_high">Sort: Highest Payout (₹ / $)</option>
                     <option value="applicants">Sort: Most Popular</option>
-                    <option value="newest">Sort: Newest</option>
+                    <option value="newest">Sort: Recently Posted</option>
                   </select>
+
+                  {/* Advanced Filters Drawer Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={() => setAdvancedFilterExpanded(!advancedFilterExpanded)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 13px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: advancedFilterExpanded || activeAdvancedCount > 0 ? '#0052FF' : '#475569',
+                      backgroundColor: advancedFilterExpanded || activeAdvancedCount > 0 ? '#EFF6FF' : '#FFFFFF',
+                      border: advancedFilterExpanded || activeAdvancedCount > 0 ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                      transition: 'all 0.15s ease',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <SlidersIcon size={14} color={advancedFilterExpanded || activeAdvancedCount > 0 ? '#0052FF' : '#475569'} />
+                    <span>Filters</span>
+                    {activeAdvancedCount > 0 && (
+                      <span
+                        style={{
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          fontSize: '10px',
+                          fontWeight: 800,
+                          padding: '1px 6px',
+                          borderRadius: '10px',
+                          marginLeft: '2px',
+                        }}
+                      >
+                        {activeAdvancedCount}
+                      </span>
+                    )}
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke={advancedFilterExpanded || activeAdvancedCount > 0 ? '#0052FF' : '#94A3B8'}
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{
+                        transform: advancedFilterExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.15s ease',
+                      }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
 
-              {/* Row 2: Category Quick Chips (Desktop Only) */}
+              {/* Row 2: Category Quick Chips Carousel (Desktop & Mobile) */}
               <div
                 className="tia-filter-desktop-chips"
                 style={{
                   alignItems: 'center',
                   gap: '6px',
                   overflowX: 'auto',
-                  paddingBottom: '2px',
+                  paddingBottom: '4px',
                   scrollbarWidth: 'none',
                 }}
               >
                 {filterCategories.map((cat) => {
                   const isSelected = selectedCategory === cat.id;
+                  const matchingCount =
+                    cat.id === 'ALL'
+                      ? campaigns.length
+                      : campaigns.filter((c) =>
+                          c.categories.some((k) => k.toLowerCase().includes(cat.id.toLowerCase()))
+                        ).length;
+
                   return (
                     <button
                       key={cat.id}
                       type="button"
                       onClick={() => setSelectedCategory(cat.id)}
                       style={{
-                        padding: '5px 12px',
-                        fontSize: '11.5px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 13px',
+                        fontSize: '12px',
                         fontWeight: isSelected ? 700 : 500,
-                        color: isSelected ? '#0052FF' : '#64748B',
-                        backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
-                        border: isSelected ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
+                        color: isSelected ? '#0052FF' : '#475569',
+                        backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                        border: isSelected ? '1px solid #0052FF' : '1px solid #E2E8F0',
                         borderRadius: '20px',
                         cursor: 'pointer',
                         whiteSpace: 'nowrap',
+                        boxShadow: isSelected ? '0 2px 6px rgba(0, 82, 255, 0.15)' : '0 1px 2px rgba(0, 0, 0, 0.02)',
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      {cat.label}
+                      <span>{cat.label}</span>
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          padding: '1px 5px',
+                          borderRadius: '8px',
+                          backgroundColor: isSelected ? '#DBEAFE' : '#F1F5F9',
+                          color: isSelected ? '#0052FF' : '#94A3B8',
+                        }}
+                      >
+                        {matchingCount}
+                      </span>
                     </button>
                   );
                 })}
+              </div>
 
-                {hasActiveFilters && (
+              {/* Row 3: Advanced Filter Expandable Panel */}
+              {advancedFilterExpanded && (
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '12px',
+                    padding: '16px 18px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '14px',
+                    marginTop: '2px',
+                    animation: 'fadeIn 0.2s ease',
+                  }}
+                >
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                    {/* Platform Selector */}
+                    <div>
+                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                        Social Platform
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {filterPlatforms.map((p) => {
+                          const isSelected = selectedPlatform === p.id;
+                          return (
+                            <button
+                              key={p.id}
+                              type="button"
+                              onClick={() => setSelectedPlatform(p.id)}
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '5px',
+                                padding: '6px 11px',
+                                fontSize: '11.5px',
+                                fontWeight: isSelected ? 700 : 500,
+                                color: isSelected ? '#0052FF' : '#334155',
+                                backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                                border: isSelected ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.12s ease',
+                              }}
+                            >
+                              <span>{p.icon}</span>
+                              <span>{p.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Payout Range Selector */}
+                    <div>
+                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                        Payout / Budget Tier
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {filterBudgetTiers.map((b) => {
+                          const isSelected = selectedBudgetTier === b.id;
+                          return (
+                            <button
+                              key={b.id}
+                              type="button"
+                              onClick={() => setSelectedBudgetTier(b.id)}
+                              style={{
+                                padding: '6px 11px',
+                                fontSize: '11.5px',
+                                fontWeight: isSelected ? 700 : 500,
+                                color: isSelected ? '#0052FF' : '#334155',
+                                backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                                border: isSelected ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.12s ease',
+                              }}
+                            >
+                              {b.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Opportunity / Match Level */}
+                    <div>
+                      <div style={{ fontSize: '11px', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                        Opportunity & Match Level
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {filterMatchTiers.map((m) => {
+                          const isSelected = selectedSuccessFilter === m.id;
+                          return (
+                            <button
+                              key={m.id}
+                              type="button"
+                              onClick={() => setSelectedSuccessFilter(m.id)}
+                              style={{
+                                padding: '6px 11px',
+                                fontSize: '11.5px',
+                                fontWeight: isSelected ? 700 : 500,
+                                color: isSelected ? '#0052FF' : '#334155',
+                                backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                                border: isSelected ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.12s ease',
+                              }}
+                            >
+                              {m.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Panel Footer */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '10px' }}>
+                    <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>
+                      Showing <strong>{filteredCampaigns.length}</strong> of {campaigns.length} campaigns
+                    </span>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      {hasActiveFilters && (
+                        <button
+                          type="button"
+                          onClick={resetFilters}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#EF4444',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            padding: '4px 8px',
+                          }}
+                        >
+                          Clear all filters
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setAdvancedFilterExpanded(false)}
+                        style={{
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '6px 14px',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        Apply Filters
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Row 4: Active Filter Chips Bar (When filters are applied) */}
+              {hasActiveFilters && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    flexWrap: 'wrap',
+                    paddingTop: '2px',
+                  }}
+                >
+                  <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#64748B' }}>
+                    Active filters:
+                  </span>
+
+                  {searchQuery.trim() && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#F1F5F9',
+                        color: '#0F172A',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Search: &ldquo;{searchQuery}&rdquo;
+                      <button
+                        type="button"
+                        onClick={() => setSearchQuery('')}
+                        style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedCategory !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Niche: {filterCategories.find((c) => c.id === selectedCategory)?.label}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCategory('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedCountry !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Country: {filterCountries.find((c) => c.code === selectedCountry)?.label}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCountry('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedCommercialType !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Deal: {selectedCommercialType === 'FLAT_FEE' ? 'Guaranteed Fixed' : 'Commission %'}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCommercialType('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedPlatform !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Platform: {filterPlatforms.find((p) => p.id === selectedPlatform)?.label}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPlatform('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedBudgetTier !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Budget: {filterBudgetTiers.find((b) => b.id === selectedBudgetTier)?.label}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedBudgetTier('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
+                  {selectedSuccessFilter !== 'ALL' && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        backgroundColor: '#EFF6FF',
+                        color: '#0052FF',
+                        fontSize: '11.5px',
+                        fontWeight: 600,
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Level: {filterMatchTiers.find((m) => m.id === selectedSuccessFilter)?.label}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedSuccessFilter('ALL')}
+                        style={{ background: 'none', border: 'none', color: '#0052FF', cursor: 'pointer', padding: 0, fontSize: '12px' }}
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  )}
+
                   <button
                     type="button"
                     onClick={resetFilters}
                     style={{
-                      padding: '5px 10px',
-                      fontSize: '11.5px',
-                      fontWeight: 600,
+                      padding: '3px 9px',
+                      fontSize: '11px',
+                      fontWeight: 700,
                       color: '#EF4444',
                       backgroundColor: '#FEF2F2',
                       border: '1px solid #FECACA',
-                      borderRadius: '20px',
+                      borderRadius: '6px',
                       cursor: 'pointer',
-                      whiteSpace: 'nowrap',
                       marginLeft: 'auto',
                     }}
                   >
-                    Reset Filters ✕
+                    Reset all filters ({activeFiltersCount})
                   </button>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Mobile Filter Collapsible Panel (Rendered only on Mobile when toggled) */}
               {mobileFilterOpen && (
@@ -2312,7 +2820,7 @@ function CreatorPortalContent() {
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <SlidersIcon size={14} color="#0052FF" />
-                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>Filters & Sorting</span>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>Advanced Filters</span>
                       {activeFiltersCount > 0 && (
                         <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 7px', borderRadius: '10px' }}>
                           {activeFiltersCount} active
@@ -2382,8 +2890,8 @@ function CreatorPortalContent() {
                         }}
                       >
                         <option value="ALL">All Deals</option>
+                        <option value="FLAT_FEE">Fixed Pay</option>
                         <option value="COMMISSION">Commission %</option>
-                        <option value="FLAT_FEE">Flat Fee</option>
                       </select>
                     </div>
 
@@ -2408,9 +2916,72 @@ function CreatorPortalContent() {
                         }}
                       >
                         <option value="success_rate">Highest Match</option>
+                        <option value="payout_high">Highest Payout</option>
                         <option value="applicants">Most Popular</option>
                         <option value="newest">Newest</option>
                       </select>
+                    </div>
+                  </div>
+
+                  {/* Social Platform Filter */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '4px' }}>
+                      Social Platform
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                      {filterPlatforms.map((p) => {
+                        const isSelected = selectedPlatform === p.id;
+                        return (
+                          <button
+                            key={p.id}
+                            type="button"
+                            onClick={() => setSelectedPlatform(p.id)}
+                            style={{
+                              padding: '5px 9px',
+                              fontSize: '11px',
+                              fontWeight: isSelected ? 700 : 500,
+                              color: isSelected ? '#0052FF' : '#334155',
+                              backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
+                              border: isSelected ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {p.icon} {p.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Payout Range Filter */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '4px' }}>
+                      Budget / Payout
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                      {filterBudgetTiers.map((b) => {
+                        const isSelected = selectedBudgetTier === b.id;
+                        return (
+                          <button
+                            key={b.id}
+                            type="button"
+                            onClick={() => setSelectedBudgetTier(b.id)}
+                            style={{
+                              padding: '5px 9px',
+                              fontSize: '11px',
+                              fontWeight: isSelected ? 700 : 500,
+                              color: isSelected ? '#0052FF' : '#334155',
+                              backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
+                              border: isSelected ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {b.label}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
