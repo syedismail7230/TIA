@@ -3803,63 +3803,65 @@ function CreatorPortalContent() {
           >
             {/* Modal Body: Either Confirmation Screen or Place Bid Form */}
             {bidSubmittedSuccess ? (
-              <div style={{ textAlign: 'center', padding: '10px 4px 6px 4px' }}>
+              <div style={{ textAlign: 'center', padding: '6px 4px' }}>
+                {/* SVG Success Checkmark Icon */}
                 <div
                   style={{
-                    width: '68px',
-                    height: '68px',
+                    width: '60px',
+                    height: '60px',
                     borderRadius: '50%',
                     backgroundColor: '#ECFDF5',
-                    border: '2px solid #A7F3D0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: '0 auto 16px auto',
-                    fontSize: '32px',
-                    boxShadow: '0 8px 20px rgba(16, 185, 129, 0.15)',
                   }}
                 >
-                  🎉
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </div>
 
                 <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0' }}>
                   Bid Placed Successfully!
                 </h2>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', padding: '4px 12px', borderRadius: '20px', fontSize: '12.5px', fontWeight: 700, margin: '0 0 18px 0' }}>
-                  <span>✓</span>
+
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#059669', fontSize: '13px', fontWeight: 700, margin: '0 0 20px 0' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                   <span>1 Application Credit Deducted</span>
                 </div>
 
-                {/* Proposal Summary Box */}
+                {/* Flat Clean Key-Value List (No Card Container) */}
                 <div
                   style={{
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '14px',
-                    padding: '14px 18px',
                     textAlign: 'left',
-                    marginBottom: '18px',
+                    marginBottom: '20px',
+                    borderTop: '1px solid #E2E8F0',
+                    borderBottom: '1px solid #E2E8F0',
+                    padding: '6px 0',
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
-                    <span style={{ color: '#64748B' }}>Campaign:</span>
-                    <strong style={{ color: '#0F172A', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedCampaign.title}</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Campaign</span>
+                    <span style={{ color: '#0F172A', fontWeight: 700, maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedCampaign.title}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
-                    <span style={{ color: '#64748B' }}>Brand Client:</span>
-                    <strong style={{ color: '#0F172A' }}>{selectedCampaign.brandName}</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Brand Client</span>
+                    <span style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCampaign.brandName}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
-                    <span style={{ color: '#64748B' }}>Your Proposed Rate:</span>
-                    <strong style={{ color: '#0052FF', fontWeight: 900 }}>${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'} USD</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Your Proposed Rate</span>
+                    <span style={{ color: '#0052FF', fontWeight: 900 }}>${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'} USD</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
-                    <span style={{ color: '#64748B' }}>Delivery Time:</span>
-                    <strong style={{ color: '#0F172A' }}>{bidDays || '14'} Days</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Delivery Time</span>
+                    <span style={{ color: '#0F172A', fontWeight: 700 }}>{bidDays || '14'} Days</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0 2px 0', fontSize: '12.5px' }}>
-                    <span style={{ color: '#64748B' }}>Remaining Balance:</span>
-                    <strong style={{ color: applyCredits > 0 ? '#059669' : '#D97706', fontWeight: 800 }}>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</strong>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', fontSize: '13px' }}>
+                    <span style={{ color: '#64748B' }}>Remaining Balance</span>
+                    <span style={{ color: applyCredits > 0 ? '#059669' : '#D97706', fontWeight: 800 }}>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</span>
                   </div>
                 </div>
 
@@ -3928,8 +3930,11 @@ function CreatorPortalContent() {
                       <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
                         Place Your Bid &amp; Submit Proposal
                       </h2>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
-                        ⚡ 1 Credit Required
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        <span>1 Credit Required</span>
                       </span>
                     </div>
                     <div style={{ fontSize: '12px', color: '#64748B' }}>
@@ -4034,32 +4039,53 @@ function CreatorPortalContent() {
                   />
                 </div>
 
-                {/* Benefits Box */}
+                {/* Flat Benefits Rows */}
                 <div
                   style={{
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '10px',
-                    padding: '12px 14px',
+                    padding: '10px 0',
                     marginBottom: '18px',
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                     gap: '8px',
-                    fontSize: '11.5px',
+                    fontSize: '12px',
                     color: '#475569',
+                    borderTop: '1px solid #F1F5F9',
+                    borderBottom: '1px solid #F1F5F9',
                   }}
                 >
-                  <div>✓ Set your budget &amp; timeframe</div>
-                  <div>✓ 100% Guaranteed payment protection</div>
-                  <div>✓ Direct client messaging</div>
-                  <div>✓ Keep 100% of your creator earnings</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>Set your budget &amp; timeframe</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>100% Payment protection</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>Direct client messaging</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>Keep 100% of your earnings</span>
+                  </div>
                 </div>
 
                 {/* Action Button with Credit Check */}
                 {applyCredits > 0 ? (
                   <div>
                     <div style={{ fontSize: '12px', color: '#059669', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                      <span>✓</span>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                       <span>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</span>
                     </div>
                     <button
@@ -4089,8 +4115,13 @@ function CreatorPortalContent() {
                 ) : (
                   <div>
                     <div style={{ padding: '14px 16px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '12px', marginBottom: '14px' }}>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#991B1B', marginBottom: '3px' }}>
-                        ⚠️ 0 Application Credits Remaining
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#991B1B', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#991B1B" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="12" y1="8" x2="12" y2="12" />
+                          <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        <span>0 Application Credits Remaining</span>
                       </div>
                       <div style={{ fontSize: '12px', color: '#7F1D1D', lineHeight: 1.45 }}>
                         You have used all available application credits. Redirect to the Payments page to purchase credits and submit your bid.
