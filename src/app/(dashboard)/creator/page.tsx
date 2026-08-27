@@ -1029,31 +1029,31 @@ function CreatorPortalContent() {
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
 
-        @media (max-width: 768px) {
+        .portal-mobile-bottom-nav {
+          display: none;
+        }
+
+        @media (max-width: 1023px) {
           .portal-header-wrapper {
-            height: 56px;
-            padding: 0 16px;
+            height: 54px;
+            padding: 0 12px;
+            gap: 8px;
+            flex-wrap: nowrap;
           }
           .portal-main-wrapper {
-            padding: 12px 14px 80px 14px;
+            padding: 12px 14px 84px 14px;
           }
           .portal-nav-segmented-container {
             display: none !important;
           }
-        }
-
-        .portal-mobile-bottom-nav {
-          display: none;
-        }
-        @media (max-width: 768px) {
           .portal-mobile-bottom-nav {
-            display: flex;
+            display: flex !important;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             height: 62px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-top: 1px solid #E2E8F0;
@@ -1215,7 +1215,7 @@ function CreatorPortalContent() {
       {/* Main Content Container */}
       <main className="portal-main-wrapper">
         {/* Nav Tabs (Desktop Only, Mobile uses bottom navigation) */}
-        <div className="portal-nav-segmented-container" style={{ marginBottom: '20px' }}>
+        <div className="portal-nav-segmented-container tia-desktop-only" style={{ marginBottom: '20px' }}>
           <nav className="portal-nav-segmented no-scrollbar">
             {navTabs.map((tab) => {
               const isActive = activeTab === tab.id;
