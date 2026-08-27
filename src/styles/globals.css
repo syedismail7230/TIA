@@ -2005,6 +2005,15 @@ table {
     padding-bottom: 2px !important;
   }
 
+  .collabs-filter-desktop-segmented {
+    display: none !important;
+  }
+
+  .collabs-filter-mobile-dropdown {
+    display: block !important;
+    width: 100% !important;
+  }
+
   .marketplace-search-row {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -2024,6 +2033,12 @@ table {
   }
   .collabs-desktop-milestone-bar {
     display: flex !important;
+  }
+  .collabs-filter-desktop-segmented {
+    display: inline-flex !important;
+  }
+  .collabs-filter-mobile-dropdown {
+    display: none !important;
   }
 }
 

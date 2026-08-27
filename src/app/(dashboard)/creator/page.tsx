@@ -227,6 +227,7 @@ function CreatorPortalContent() {
 
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
   const [collabFilter, setCollabFilter] = useState<CollabFilter>('awaiting');
+  const [collabFilterDropdownOpen, setCollabFilterDropdownOpen] = useState(false);
   const [selectedCollabId, setSelectedCollabId] = useState<string>('collab-1');
   const [replyMessage, setReplyMessage] = useState('');
   const [currentUser, setCurrentUser] = useState<any>(null);
@@ -4576,7 +4577,7 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'collabs' && (
           <div>
-            {/* Top Filter Bar with Standard Segmented Control */}
+            {/* Top Filter Bar with Standard Segmented Control & Mobile Dropdown */}
             <div
               className={`collabs-top-filter-bar ${mobileChatViewActive ? 'hide-on-mobile-chat' : ''}`}
               style={{
@@ -4588,17 +4589,16 @@ function CreatorPortalContent() {
                 flexWrap: 'wrap',
               }}
             >
-              {/* Sleek Segmented Control Track */}
+              {/* Desktop Sleek Segmented Control Track */}
               <div
+                className="collabs-filter-desktop-segmented"
                 style={{
-                  display: 'inline-flex',
                   alignItems: 'center',
                   backgroundColor: '#F1F5F9',
                   padding: '3px',
                   borderRadius: '10px',
                   border: '1px solid #E2E8F0',
                   gap: '2px',
-                  overflowX: 'auto',
                   maxWidth: '100%',
                 }}
               >
@@ -4686,6 +4686,188 @@ function CreatorPortalContent() {
                     </button>
                   );
                 })}
+              </div>
+
+              {/* Mobile Filter Dropdown (Zero Horizontal Scroll) */}
+              <div
+                className="collabs-filter-mobile-dropdown"
+                style={{ position: 'relative', width: '100%' }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setCollabFilterDropdownOpen(!collabFilterDropdownOpen)}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    borderRadius: '10px',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #CBD5E1',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.04)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Filter:</span>
+                    {collabFilter === 'awaiting' ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#0052FF', fontWeight: 700 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        Awaiting Review ({collabs.filter((c) => c.status === 'AWAITING').length})
+                      </span>
+                    ) : collabFilter === 'accepted' ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#059669', fontWeight: 700 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        Accepted & Active ({collabs.filter((c) => c.status === 'ACCEPTED').length})
+                      </span>
+                    ) : (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#64748B', fontWeight: 700 }}>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="21 8 21 21 3 21 3 8" />
+                          <rect x="1" y="3" width="22" height="5" />
+                          <line x1="10" y1="12" x2="14" y2="12" />
+                        </svg>
+                        Archived ({collabs.filter((c) => c.status === 'REJECTED').length})
+                      </span>
+                    )}
+                  </div>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#64748B"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ transform: collabFilterDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+
+                {/* Dropdown Menu Popup */}
+                {collabFilterDropdownOpen && (
+                  <>
+                    <div
+                      onClick={() => setCollabFilterDropdownOpen(false)}
+                      style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 'calc(100% + 4px)',
+                        left: 0,
+                        right: 0,
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '10px',
+                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        zIndex: 50,
+                        overflow: 'hidden',
+                        padding: '4px',
+                      }}
+                    >
+                      {[
+                        {
+                          id: 'awaiting',
+                          label: 'Awaiting Review',
+                          count: collabs.filter((c) => c.status === 'AWAITING').length,
+                          color: '#0052FF',
+                          bg: '#EFF6FF',
+                          icon: (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="12" cy="12" r="10" />
+                              <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                          ),
+                        },
+                        {
+                          id: 'accepted',
+                          label: 'Accepted & Active',
+                          count: collabs.filter((c) => c.status === 'ACCEPTED').length,
+                          color: '#059669',
+                          bg: '#ECFDF5',
+                          icon: (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                              <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                          ),
+                        },
+                        {
+                          id: 'rejected',
+                          label: 'Archived Deals',
+                          count: collabs.filter((c) => c.status === 'REJECTED').length,
+                          color: '#64748B',
+                          bg: '#F1F5F9',
+                          icon: (
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="21 8 21 21 3 21 3 8" />
+                              <rect x="1" y="3" width="22" height="5" />
+                              <line x1="10" y1="12" x2="14" y2="12" />
+                            </svg>
+                          ),
+                        },
+                      ].map((item) => {
+                        const isSelected = collabFilter === item.id;
+                        return (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => {
+                              setCollabFilter(item.id as CollabFilter);
+                              setCollabFilterDropdownOpen(false);
+                            }}
+                            style={{
+                              width: '100%',
+                              padding: '9px 12px',
+                              borderRadius: '7px',
+                              backgroundColor: isSelected ? item.bg : 'transparent',
+                              border: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              cursor: 'pointer',
+                              textAlign: 'left',
+                              fontSize: '12.5px',
+                              fontWeight: isSelected ? 700 : 500,
+                              color: isSelected ? item.color : '#334155',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              {item.icon}
+                              <span>{item.label}</span>
+                            </div>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                backgroundColor: isSelected ? '#FFFFFF' : '#F1F5F9',
+                                color: isSelected ? item.color : '#64748B',
+                                padding: '1px 6px',
+                                borderRadius: '10px',
+                                border: isSelected ? `1px solid ${item.color}30` : 'none',
+                              }}
+                            >
+                              {item.count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
 
               {/* Status Guarantee Pill (Desktop Only) */}
