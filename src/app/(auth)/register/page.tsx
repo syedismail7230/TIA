@@ -906,48 +906,6 @@ function RegisterContent() {
                       </button>
                     </div>
 
-                    {/* TikTok */}
-                    <div className={`auth-social-row ${connectedSocials['tiktok'] ? 'connected' : ''}`}>
-                      <div className="auth-social-info">
-                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.81 4.47A6.29 6.29 0 0 0 15.82 16V9.13a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.56z"/>
-                          </svg>
-                        </div>
-                        <div>
-                          <div className="auth-social-name">
-                            <span>TikTok</span>
-                            {connectedSocials['tiktok'] && (
-                              <span className="auth-social-verified-tag">Verified ✓</span>
-                            )}
-                          </div>
-                          <div className="auth-social-subtitle">
-                            {connectedSocials['tiktok']
-                              ? `${connectedSocials['tiktok'].handle} • ${connectedSocials['tiktok'].audience}`
-                              : 'Views & Viral Retention'}
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        disabled={connectingPlatform === 'tiktok'}
-                        className={`auth-social-action-btn ${connectedSocials['tiktok'] ? 'is-connected' : ''}`}
-                        onClick={() => handleDirectConnectPlatform('tiktok')}
-                      >
-                        {connectingPlatform === 'tiktok' ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                            <svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="12" r="10" strokeOpacity="0.25"/>
-                              <path d="M12 2a10 10 0 0 1 10 10" strokeOpacity="0.75"/>
-                            </svg>
-                            <span>Verifying...</span>
-                          </span>
-                        ) : (
-                          connectedSocials['tiktok'] ? 'Connected ✓' : 'Connect'
-                        )}
-                      </button>
-                    </div>
-
                     {/* X (Twitter) */}
                     <div className={`auth-social-row ${connectedSocials['twitter'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">

@@ -179,7 +179,6 @@ function CreatorPortalContent() {
   const [socialAccounts, setSocialAccounts] = useState<any[]>([
     { platform: 'INSTAGRAM', username: 'creator.official', audienceSize: 320000, engagementRate: 4.85, connected: true },
     { platform: 'YOUTUBE', username: 'creatortech', audienceSize: 185000, engagementRate: 6.2, connected: true },
-    { platform: 'TIKTOK', username: '', audienceSize: 0, engagementRate: 0, connected: false },
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
@@ -202,8 +201,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Australia',
+      countryCode: 'AU',
       countryFlag: '🇦🇺',
-      socials: ['INSTAGRAM', 'TIKTOK', 'YOUTUBE'],
+      socials: ['INSTAGRAM', 'YOUTUBE'],
       description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
     },
     {
@@ -223,8 +223,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Italy',
+      countryCode: 'IT',
       countryFlag: '🇮🇹',
-      socials: ['INSTAGRAM', 'PINTEREST', 'TIKTOK', 'YOUTUBE'],
+      socials: ['INSTAGRAM', 'PINTEREST', 'YOUTUBE'],
       description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
     },
     {
@@ -244,8 +245,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United States',
+      countryCode: 'US',
       countryFlag: '🇺🇸',
-      socials: ['INSTAGRAM', 'TIKTOK'],
+      socials: ['INSTAGRAM', 'X'],
       description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
     },
     {
@@ -265,8 +267,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'India',
+      countryCode: 'IN',
       countryFlag: '🇮🇳',
-      socials: ['INSTAGRAM', 'YOUTUBE', 'TIKTOK'],
+      socials: ['INSTAGRAM', 'YOUTUBE'],
       description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
     },
     {
@@ -286,8 +289,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United Kingdom',
+      countryCode: 'GB',
       countryFlag: '🇬🇧',
-      socials: ['INSTAGRAM', 'TIKTOK'],
+      socials: ['INSTAGRAM', 'X'],
       description: 'High-energy running montage with direct swipe-up discount code for community followers.',
     },
     {
@@ -307,8 +311,9 @@ function CreatorPortalContent() {
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'France',
+      countryCode: 'FR',
       countryFlag: '🇫🇷',
-      socials: ['INSTAGRAM', 'YOUTUBE', 'TIKTOK'],
+      socials: ['INSTAGRAM', 'YOUTUBE'],
       description: '7-day nighttime skin transformation diary with macro camera closeups.',
     },
   ]);
@@ -555,46 +560,46 @@ function CreatorPortalContent() {
     { id: 'settings', label: 'Settings', icon: <SettingsIcon size={16} /> },
   ];
 
-  const renderSocialCircle = (platform: string) => {
-    let icon = null;
+  const renderThemeSocialIcon = (platform: string) => {
     switch (platform) {
       case 'INSTAGRAM':
-        icon = <InstagramIcon size={14} />;
-        break;
+        return (
+          <span key={platform} title="Instagram" style={{ display: 'inline-flex', alignItems: 'center', color: '#0F172A', transition: 'color 0.15s' }}>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+          </span>
+        );
       case 'YOUTUBE':
-        icon = <YouTubeIcon size={14} />;
-        break;
-      case 'TIKTOK':
-        icon = <TikTokIcon size={14} />;
-        break;
+        return (
+          <span key={platform} title="YouTube" style={{ display: 'inline-flex', alignItems: 'center', color: '#0F172A', transition: 'color 0.15s' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none" />
+            </svg>
+          </span>
+        );
       case 'X':
-        icon = <XIcon size={14} />;
-        break;
+        return (
+          <span key={platform} title="X (Twitter)" style={{ display: 'inline-flex', alignItems: 'center', color: '#0F172A', transition: 'color 0.15s' }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </span>
+        );
       case 'PINTEREST':
-        icon = <PinterestIcon size={14} />;
-        break;
+        return (
+          <span key={platform} title="Pinterest" style={{ display: 'inline-flex', alignItems: 'center', color: '#0F172A', transition: 'color 0.15s' }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0a12 12 0 0 0-4.37 23.18c-.07-.98-.13-2.48.03-3.55.14-.97.94-3.98.94-3.98s-.24-.48-.24-1.2c0-1.12.65-1.96 1.46-1.96.69 0 1.02.52 1.02 1.14 0 .7-.44 1.74-.67 2.7-.19.81.4 1.47 1.2 1.47 1.44 0 2.54-1.52 2.54-3.71 0-1.94-1.39-3.3-3.38-3.3-2.3 0-3.66 1.73-3.66 3.51 0 .7.27 1.44.6 1.84a.3.3 0 0 1 .07.29c-.08.32-.25 1.02-.28 1.16-.05.18-.15.22-.35.13-1.33-.62-2.16-2.56-2.16-4.12 0-3.36 2.44-6.44 7.04-6.44 3.7 0 6.57 2.63 6.57 6.15 0 3.67-2.31 6.63-5.52 6.63-1.08 0-2.09-.56-2.44-1.22l-.66 2.53c-.24.93-.89 2.09-1.33 2.79A12 12 0 1 0 12 0z"/>
+            </svg>
+          </span>
+        );
       default:
-        icon = null;
+        return null;
     }
-    return (
-      <div
-        key={platform}
-        title={platform}
-        style={{
-          width: '28px',
-          height: '28px',
-          borderRadius: '50%',
-          border: '1px solid #E2E8F0',
-          backgroundColor: '#FFFFFF',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
-        }}
-      >
-        {icon}
-      </div>
-    );
   };
 
   return (
@@ -882,14 +887,11 @@ function CreatorPortalContent() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: '1 1 380px' }}>
                 {/* Overlapping Social Badges */}
                 <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', zIndex: 3 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', zIndex: 2 }}>
                     <InstagramIcon size={18} />
                   </div>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 2 }}>
-                    <YouTubeIcon size={18} />
-                  </div>
                   <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 1 }}>
-                    <TikTokIcon size={18} />
+                    <YouTubeIcon size={18} />
                   </div>
                 </div>
 
@@ -1165,32 +1167,43 @@ function CreatorPortalContent() {
                           <span style={{ fontWeight: 600, color: '#0F172A' }}>{camp.language}</span>
                         </div>
 
-                        {/* Country in Frosted Circle */}
+                        {/* Country Flag & Symbol */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Country</span>
                           <div
                             style={{
-                              width: '28px',
-                              height: '28px',
-                              borderRadius: '50%',
-                              border: '1px solid #E2E8F0',
-                              backgroundColor: '#FFFFFF',
-                              display: 'flex',
+                              display: 'inline-flex',
                               alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '14px',
+                              gap: '6px',
+                              backgroundColor: '#FFFFFF',
+                              border: '1px solid #E2E8F0',
+                              borderRadius: '6px',
+                              padding: '2px 8px',
                               boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
                             }}
                           >
-                            {camp.countryFlag}
+                            <img
+                              src={`https://flagcdn.com/w40/${camp.countryCode.toLowerCase()}.png`}
+                              alt={camp.country}
+                              style={{
+                                width: '16px',
+                                height: '11px',
+                                objectFit: 'cover',
+                                borderRadius: '2px',
+                                display: 'block',
+                              }}
+                            />
+                            <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#0F172A' }}>
+                              {camp.countryCode}
+                            </span>
                           </div>
                         </div>
 
-                        {/* Socials in Frosted Circle Buttons */}
+                        {/* Socials - No Card Box, Clean Theme Icons */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Socials</span>
-                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                            {camp.socials.map((s: string) => renderSocialCircle(s))}
+                          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            {camp.socials.map((s: string) => renderThemeSocialIcon(s))}
                           </div>
                         </div>
                       </div>
@@ -1435,8 +1448,8 @@ function CreatorPortalContent() {
             <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', overflow: 'hidden' }}>
               {[
                 { id: 'INSTAGRAM', name: 'Instagram Creator', icon: <InstagramIcon size={22} /> },
-                { id: 'TIKTOK', name: 'TikTok Creator Marketplace', icon: <TikTokIcon size={22} /> },
                 { id: 'YOUTUBE', name: 'YouTube Partner Channel', icon: <YouTubeIcon size={22} /> },
+                { id: 'X', name: 'X / Twitter Creator Account', icon: <XIcon size={22} /> },
               ].map((plat, idx) => {
                 const account = socialAccounts.find((a) => a.platform === plat.id);
                 return (
