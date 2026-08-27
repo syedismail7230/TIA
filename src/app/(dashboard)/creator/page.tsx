@@ -254,6 +254,8 @@ function CreatorPortalContent() {
   const [deliverableNotes, setDeliverableNotes] = useState<string>('');
   const [deliverableSubmitSuccess, setDeliverableSubmitSuccess] = useState<boolean>(false);
   const [mobileChatViewActive, setMobileChatViewActive] = useState<boolean>(false);
+  const [collabStatusMenuOpen, setCollabStatusMenuOpen] = useState<boolean>(false);
+  const [statusChangeToast, setStatusChangeToast] = useState<string | null>(null);
   const chatMessagesEndRef = useRef<HTMLDivElement | null>(null);
 
   // Realtime Notifications State & Engine
@@ -1453,6 +1455,34 @@ function CreatorPortalContent() {
         badgeColor: '#059669',
       });
     }, 2500);
+  };
+
+  const handleUpdateCollabStatus = (collabId: string, newStatus: 'AWAITING' | 'ACCEPTED' | 'REJECTED') => {
+    const target = collabs.find((c) => c.id === collabId);
+    if (!target) return;
+
+    setCollabs((prev) =>
+      prev.map((c) =>
+        c.id === collabId
+          ? {
+              ...c,
+              status: newStatus,
+            }
+          : c
+      )
+    );
+
+    const statusLabel =
+      newStatus === 'ACCEPTED'
+        ? 'Accepted & Active'
+        : newStatus === 'AWAITING'
+        ? 'Awaiting Review'
+        : 'Archived';
+
+    setStatusChangeToast(`"${target.campaignTitle}" moved to ${statusLabel}`);
+    setTimeout(() => {
+      setStatusChangeToast(null);
+    }, 3500);
   };
 
   // Auto-scroll to bottom of chat when new message arrives or thread changes
@@ -4543,7 +4573,7 @@ function CreatorPortalContent() {
                   {
                     id: 'rejected',
                     label: 'Archived',
-                    count: collabs.filter((c) => c.status === 'REJECTED').length,
+                    count: collabs.filter((c) => c.status === 'REJECTED' || c.status === 'ARCHIVED').length,
                     icon: (color: string) => (
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="21 8 21 21 3 21 3 8" />
@@ -4630,8 +4660,48 @@ function CreatorPortalContent() {
               </div>
             </div>
 
+            {/* Status Change Notification Feedback Banner */}
+            {statusChangeToast && (
+              <div
+                style={{
+                  backgroundColor: '#0F172A',
+                  color: '#FFFFFF',
+                  padding: '10px 18px',
+                  borderRadius: '10px',
+                  marginBottom: '12px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '10px',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+                  animation: 'fadeIn 0.2s ease',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>✓</span>
+                  <span>{statusChangeToast}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStatusChangeToast(null)}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    color: '#94A3B8',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
             {/* Main Split-Pane Workspace */}
-            {collabs.filter((c) => c.status.toLowerCase() === collabFilter).length === 0 ? (
+            {collabs.filter((c) => (collabFilter === 'rejected' ? (c.status === 'REJECTED' || c.status === 'ARCHIVED') : c.status.toLowerCase() === collabFilter)).length === 0 ? (
               <div
                 style={{
                   textAlign: 'center',
@@ -4746,7 +4816,7 @@ function CreatorPortalContent() {
                   {/* Threads List Items */}
                   <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '6px 8px' }}>
                     {collabs
-                      .filter((c) => c.status.toLowerCase() === collabFilter)
+                      .filter((c) => (collabFilter === 'rejected' ? (c.status === 'REJECTED' || c.status === 'ARCHIVED') : c.status.toLowerCase() === collabFilter))
                       .filter((c) => {
                         if (!collabSearchQuery.trim()) return true;
                         const q = collabSearchQuery.toLowerCase();
@@ -4826,13 +4896,17 @@ function CreatorPortalContent() {
                                 <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#0052FF' }}>
                                   {thread.proposedRate}
                                 </span>
-                                {thread.escrowFunded ? (
+                                {thread.status === 'ACCEPTED' ? (
                                   <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 5px', borderRadius: '4px' }}>
-                                    🔒 Secured
+                                    ✓ Active
+                                  </span>
+                                ) : thread.status === 'AWAITING' ? (
+                                  <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#D97706', backgroundColor: '#FEF3C7', padding: '1px 5px', borderRadius: '4px' }}>
+                                    ⏳ Awaiting
                                   </span>
                                 ) : (
-                                  <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#D97706', backgroundColor: '#FEF3C7', padding: '1px 5px', borderRadius: '4px' }}>
-                                    In Review
+                                  <span style={{ fontSize: '9.5px', fontWeight: 600, color: '#64748B', backgroundColor: '#F1F5F9', padding: '1px 5px', borderRadius: '4px' }}>
+                                    📦 Archived
                                   </span>
                                 )}
                               </div>
@@ -4951,8 +5025,189 @@ function CreatorPortalContent() {
                         </div>
                       </div>
 
-                      {/* Header Actions */}
+                      {/* Header Actions (Status Dropdown & Deliverable Submission) */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {/* Interactive Status Changer Menu */}
+                        <div style={{ position: 'relative' }}>
+                          <button
+                            type="button"
+                            onClick={() => setCollabStatusMenuOpen((prev) => !prev)}
+                            style={{
+                              padding: '7px 12px',
+                              borderRadius: '8px',
+                              fontSize: '12px',
+                              fontWeight: 700,
+                              backgroundColor:
+                                selectedCollab.status === 'ACCEPTED'
+                                  ? '#ECFDF5'
+                                  : selectedCollab.status === 'AWAITING'
+                                  ? '#FEF3C7'
+                                  : '#F1F5F9',
+                              color:
+                                selectedCollab.status === 'ACCEPTED'
+                                  ? '#059669'
+                                  : selectedCollab.status === 'AWAITING'
+                                  ? '#D97706'
+                                  : '#475569',
+                              border: `1px solid ${
+                                selectedCollab.status === 'ACCEPTED'
+                                  ? '#A7F3D0'
+                                  : selectedCollab.status === 'AWAITING'
+                                  ? '#FDE68A'
+                                  : '#CBD5E1'
+                              }`,
+                              cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            <span>
+                              {selectedCollab.status === 'ACCEPTED'
+                                ? '✓ Accepted'
+                                : selectedCollab.status === 'AWAITING'
+                                ? '⏳ Awaiting'
+                                : '📦 Archived'}
+                            </span>
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                          </button>
+
+                          {collabStatusMenuOpen && (
+                            <>
+                              <div
+                                onClick={() => setCollabStatusMenuOpen(false)}
+                                style={{ position: 'fixed', inset: 0, zIndex: 45 }}
+                              />
+                              <div
+                                style={{
+                                  position: 'absolute',
+                                  top: 'calc(100% + 6px)',
+                                  right: 0,
+                                  backgroundColor: '#FFFFFF',
+                                  border: '1px solid #E2E8F0',
+                                  borderRadius: '12px',
+                                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.12)',
+                                  padding: '6px',
+                                  zIndex: 50,
+                                  minWidth: '190px',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '3px',
+                                }}
+                              >
+                                <div style={{ fontSize: '10px', fontWeight: 800, color: '#94A3B8', padding: '4px 8px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                                  Change Status
+                                </div>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    handleUpdateCollabStatus(selectedCollab.id, 'ACCEPTED');
+                                    setCollabStatusMenuOpen(false);
+                                  }}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '8px 10px',
+                                    borderRadius: '6px',
+                                    border: 'none',
+                                    backgroundColor: selectedCollab.status === 'ACCEPTED' ? '#ECFDF5' : 'transparent',
+                                    color: selectedCollab.status === 'ACCEPTED' ? '#059669' : '#0F172A',
+                                    fontSize: '12px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (selectedCollab.status !== 'ACCEPTED') e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (selectedCollab.status !== 'ACCEPTED') e.currentTarget.style.backgroundColor = 'transparent';
+                                  }}
+                                >
+                                  <span style={{ fontSize: '13px' }}>✓</span>
+                                  <div>
+                                    <div>Mark as Accepted</div>
+                                    <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 500 }}>Active collaboration</div>
+                                  </div>
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    handleUpdateCollabStatus(selectedCollab.id, 'AWAITING');
+                                    setCollabStatusMenuOpen(false);
+                                  }}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '8px 10px',
+                                    borderRadius: '6px',
+                                    border: 'none',
+                                    backgroundColor: selectedCollab.status === 'AWAITING' ? '#FEF3C7' : 'transparent',
+                                    color: selectedCollab.status === 'AWAITING' ? '#D97706' : '#0F172A',
+                                    fontSize: '12px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (selectedCollab.status !== 'AWAITING') e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (selectedCollab.status !== 'AWAITING') e.currentTarget.style.backgroundColor = 'transparent';
+                                  }}
+                                >
+                                  <span style={{ fontSize: '13px' }}>⏳</span>
+                                  <div>
+                                    <div>Mark as Awaiting</div>
+                                    <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 500 }}>Proposal under review</div>
+                                  </div>
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    handleUpdateCollabStatus(selectedCollab.id, 'REJECTED');
+                                    setCollabStatusMenuOpen(false);
+                                  }}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    padding: '8px 10px',
+                                    borderRadius: '6px',
+                                    border: 'none',
+                                    backgroundColor: (selectedCollab.status === 'REJECTED' || selectedCollab.status === 'ARCHIVED') ? '#F1F5F9' : 'transparent',
+                                    color: (selectedCollab.status === 'REJECTED' || selectedCollab.status === 'ARCHIVED') ? '#475569' : '#0F172A',
+                                    fontSize: '12px',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (selectedCollab.status !== 'REJECTED' && selectedCollab.status !== 'ARCHIVED') e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (selectedCollab.status !== 'REJECTED' && selectedCollab.status !== 'ARCHIVED') e.currentTarget.style.backgroundColor = 'transparent';
+                                  }}
+                                >
+                                  <span style={{ fontSize: '13px' }}>📦</span>
+                                  <div>
+                                    <div>Mark as Archived</div>
+                                    <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 500 }}>Move to archive</div>
+                                  </div>
+                                </button>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
                         {selectedCollab.status === 'ACCEPTED' && (
                           <button
                             type="button"
