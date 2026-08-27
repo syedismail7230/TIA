@@ -1907,49 +1907,6 @@ function CreatorPortalContent() {
                     <span style={{ fontSize: '11px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '2px 8px', borderRadius: '14px' }}>4K Video Editing</span>
                   </div>
                 </div>
-
-                {/* 3. Ready to Apply CTA Card */}
-                <div
-                  className="cd-card"
-                  style={{
-                    border: '2px solid #0052FF',
-                    backgroundColor: '#F8FAFF',
-                    padding: '24px 20px',
-                    textAlign: 'center',
-                    boxShadow: '0 4px 16px rgba(0, 82, 255, 0.06)',
-                    borderRadius: '16px',
-                  }}
-                >
-                  <div style={{ fontSize: '28px', marginBottom: '8px' }}>🚀</div>
-                  <h2 style={{ fontSize: '17px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0' }}>
-                    Ready to collaborate with {selectedCampaign.brandName}?
-                  </h2>
-                  <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '460px', margin: '0 auto 16px auto', lineHeight: 1.45 }}>
-                    Submit your custom proposal, set your preferred rate, and connect directly with the campaign manager.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setShowApplyModal(true)}
-                    style={{
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '10px',
-                      padding: '12px 28px',
-                      fontSize: '14px',
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      transition: 'all 0.15s ease',
-                    }}
-                  >
-                    <span>Apply to this Project</span>
-                    <span>→</span>
-                  </button>
-                </div>
               </div>
 
               {/* RIGHT SIDEBAR COLUMN */}
