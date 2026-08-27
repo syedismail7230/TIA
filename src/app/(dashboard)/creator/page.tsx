@@ -244,6 +244,7 @@ function CreatorPortalContent() {
   const [creditPurchaseSuccess, setCreditPurchaseSuccess] = useState<string | null>(null);
   const [showBuyCreditsModal, setShowBuyCreditsModal] = useState<boolean>(false);
   const [showApplyModal, setShowApplyModal] = useState<boolean>(false);
+  const [bidSubmittedSuccess, setBidSubmittedSuccess] = useState<boolean>(false);
 
   // Proposal & Bid State for Full-Page Project View (Freelancer.com Inspiration)
   const [bidAmount, setBidAmount] = useState<string>('700');
@@ -923,6 +924,8 @@ function CreatorPortalContent() {
     setBidDays('14');
     setProposalPitch('');
     setApplySuccess(false);
+    setBidSubmittedSuccess(false);
+    setShowApplyModal(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -948,7 +951,9 @@ function CreatorPortalContent() {
   const submitApplication = () => {
     if (!selectedCampaign) return;
     if (applyCredits <= 0) {
-      setShowBuyCreditsModal(true);
+      setShowApplyModal(false);
+      setSelectedCampaign(null);
+      handleTabChange('payments');
       return;
     }
 
@@ -993,13 +998,9 @@ function CreatorPortalContent() {
       },
       ...prev,
     ]);
-    setApplySuccess(true);
-    setShowApplyModal(false);
-    setTimeout(() => {
-      setSelectedCampaign(null);
-      setApplySuccess(false);
-      handleTabChange('collabs');
-    }, 1200);
+
+    // Show bid placement confirmation screen in modal
+    setBidSubmittedSuccess(true);
   };
 
   const handleClaimPayout = (txId: string) => {
@@ -3800,204 +3801,332 @@ function CreatorPortalContent() {
               position: 'relative',
             }}
           >
-            {/* Modal Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', gap: '10px' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                  <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
-                    Place Your Bid & Submit Proposal
-                  </h2>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
-                    ⚡ 1 Credit Required
-                  </span>
+            {/* Modal Body: Either Confirmation Screen or Place Bid Form */}
+            {bidSubmittedSuccess ? (
+              <div style={{ textAlign: 'center', padding: '10px 4px 6px 4px' }}>
+                <div
+                  style={{
+                    width: '68px',
+                    height: '68px',
+                    borderRadius: '50%',
+                    backgroundColor: '#ECFDF5',
+                    border: '2px solid #A7F3D0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px auto',
+                    fontSize: '32px',
+                    boxShadow: '0 8px 20px rgba(16, 185, 129, 0.15)',
+                  }}
+                >
+                  🎉
                 </div>
-                <div style={{ fontSize: '12px', color: '#64748B' }}>
-                  Campaign: <strong>{selectedCampaign.title}</strong> by <strong>{selectedCampaign.brandName}</strong>
+
+                <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0' }}>
+                  Bid Placed Successfully!
+                </h2>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0', padding: '4px 12px', borderRadius: '20px', fontSize: '12.5px', fontWeight: 700, margin: '0 0 18px 0' }}>
+                  <span>✓</span>
+                  <span>1 Application Credit Deducted</span>
+                </div>
+
+                {/* Proposal Summary Box */}
+                <div
+                  style={{
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '14px',
+                    padding: '14px 18px',
+                    textAlign: 'left',
+                    marginBottom: '18px',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Campaign:</span>
+                    <strong style={{ color: '#0F172A', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedCampaign.title}</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Brand Client:</span>
+                    <strong style={{ color: '#0F172A' }}>{selectedCampaign.brandName}</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Your Proposed Rate:</span>
+                    <strong style={{ color: '#0052FF', fontWeight: 900 }}>${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'} USD</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', fontSize: '12.5px', borderBottom: '1px solid #F1F5F9' }}>
+                    <span style={{ color: '#64748B' }}>Delivery Time:</span>
+                    <strong style={{ color: '#0F172A' }}>{bidDays || '14'} Days</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0 2px 0', fontSize: '12.5px' }}>
+                    <span style={{ color: '#64748B' }}>Remaining Balance:</span>
+                    <strong style={{ color: applyCredits > 0 ? '#059669' : '#D97706', fontWeight: 800 }}>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</strong>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45, marginBottom: '20px' }}>
+                  The brand manager has received your verified bid and proposal. Track their response and milestones under your <strong>Collabs</strong> messenger tab.
+                </p>
+
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowApplyModal(false);
+                      setBidSubmittedSuccess(false);
+                      setSelectedCampaign(null);
+                      handleTabChange('collabs');
+                    }}
+                    style={{
+                      flex: '1 1 200px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '10px',
+                      padding: '13px 20px',
+                      fontSize: '13.5px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
+                    }}
+                  >
+                    <span>View in Collabs &amp; Messages</span>
+                    <span>→</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowApplyModal(false);
+                      setBidSubmittedSuccess(false);
+                      setSelectedCampaign(null);
+                    }}
+                    style={{
+                      padding: '13px 20px',
+                      backgroundColor: '#F1F5F9',
+                      color: '#334155',
+                      border: 'none',
+                      borderRadius: '10px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Done
+                  </button>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setShowApplyModal(false)}
-                aria-label="Close modal"
-                style={{
-                  backgroundColor: '#F1F5F9',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '30px',
-                  height: '30px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  color: '#64748B',
-                  flexShrink: 0,
-                }}
-              >
-                ✕
-              </button>
-            </div>
+            ) : (
+              <>
+                {/* Modal Header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px', gap: '10px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+                      <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                        Place Your Bid &amp; Submit Proposal
+                      </h2>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
+                        ⚡ 1 Credit Required
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748B' }}>
+                      Campaign: <strong>{selectedCampaign.title}</strong> by <strong>{selectedCampaign.brandName}</strong>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowApplyModal(false)}
+                    aria-label="Close modal"
+                    style={{
+                      backgroundColor: '#F1F5F9',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '30px',
+                      height: '30px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                      color: '#64748B',
+                      flexShrink: 0,
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
 
-            {/* Rate and Days Inputs */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '14px', marginBottom: '16px' }}>
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                  Proposed Rate (USD)
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B', fontSize: '14px' }}>$</span>
-                  <input
-                    type="text"
-                    value={bidAmount}
-                    onChange={(e) => setBidAmount(e.target.value)}
-                    placeholder="700"
+                {/* Rate and Days Inputs */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '14px', marginBottom: '16px' }}>
+                  <div>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
+                      Proposed Rate (USD)
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B', fontSize: '14px' }}>$</span>
+                      <input
+                        type="text"
+                        value={bidAmount}
+                        onChange={(e) => setBidAmount(e.target.value)}
+                        placeholder="700"
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px 10px 28px',
+                          fontSize: '14px',
+                          fontWeight: 700,
+                          color: '#0F172A',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '10px',
+                          outline: 'none',
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
+                      Delivery Time (Days)
+                    </label>
+                    <input
+                      type="number"
+                      value={bidDays}
+                      onChange={(e) => setBidDays(e.target.value)}
+                      placeholder="14"
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        color: '#0F172A',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '10px',
+                        outline: 'none',
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Pitch Textarea */}
+                <div style={{ marginBottom: '16px' }}>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
+                    Describe Your Proposal <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Optional)</span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={proposalPitch}
+                    onChange={(e) => setProposalPitch(e.target.value)}
+                    placeholder="Outline your creative vision, camera equipment, or any specific angle you'd like to propose..."
                     style={{
                       width: '100%',
-                      padding: '10px 12px 10px 28px',
-                      fontSize: '14px',
-                      fontWeight: 700,
+                      padding: '12px',
+                      fontSize: '13px',
                       color: '#0F172A',
                       border: '1px solid #CBD5E1',
                       borderRadius: '10px',
                       outline: 'none',
+                      resize: 'vertical',
+                      lineHeight: 1.5,
+                      fontFamily: 'inherit',
                     }}
                   />
                 </div>
-              </div>
 
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                  Delivery Time (Days)
-                </label>
-                <input
-                  type="number"
-                  value={bidDays}
-                  onChange={(e) => setBidDays(e.target.value)}
-                  placeholder="14"
+                {/* Benefits Box */}
+                <div
                   style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    color: '#0F172A',
-                    border: '1px solid #CBD5E1',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
                     borderRadius: '10px',
-                    outline: 'none',
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Pitch Textarea */}
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '6px' }}>
-                Describe Your Proposal <span style={{ color: '#94A3B8', fontWeight: 500 }}>(Optional)</span>
-              </label>
-              <textarea
-                rows={3}
-                value={proposalPitch}
-                onChange={(e) => setProposalPitch(e.target.value)}
-                placeholder="Outline your creative vision, camera equipment, or any specific angle you'd like to propose..."
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  fontSize: '13px',
-                  color: '#0F172A',
-                  border: '1px solid #CBD5E1',
-                  borderRadius: '10px',
-                  outline: 'none',
-                  resize: 'vertical',
-                  lineHeight: 1.5,
-                  fontFamily: 'inherit',
-                }}
-              />
-            </div>
-
-            {/* Benefits Box */}
-            <div
-              style={{
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: '10px',
-                padding: '12px 14px',
-                marginBottom: '18px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '8px',
-                fontSize: '11.5px',
-                color: '#475569',
-              }}
-            >
-              <div>✓ Set your budget &amp; timeframe</div>
-              <div>✓ 100% Guaranteed payment protection</div>
-              <div>✓ Direct client messaging</div>
-              <div>✓ Keep 100% of your creator earnings</div>
-            </div>
-
-            {/* Action Button with Credit Check */}
-            {applyCredits > 0 ? (
-              <div>
-                <div style={{ fontSize: '12px', color: '#059669', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <span>✓</span>
-                  <span>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={submitApplication}
-                  style={{
-                    width: '100%',
-                    backgroundColor: '#0052FF',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '12px',
-                    padding: '13px 20px',
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    padding: '12px 14px',
+                    marginBottom: '18px',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                     gap: '8px',
+                    fontSize: '11.5px',
+                    color: '#475569',
                   }}
                 >
-                  <span>Bid on this Project (Uses 1 Credit)</span>
-                  <span>→</span>
-                </button>
-              </div>
-            ) : (
-              <div>
-                <div style={{ padding: '12px 14px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', marginBottom: '12px' }}>
-                  <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
-                    ⚠️ 0 Application Credits Remaining
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#7F1D1D' }}>
-                    Top up credits at ₹99/credit to submit your bid.
-                  </div>
+                  <div>✓ Set your budget &amp; timeframe</div>
+                  <div>✓ 100% Guaranteed payment protection</div>
+                  <div>✓ Direct client messaging</div>
+                  <div>✓ Keep 100% of your creator earnings</div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowApplyModal(false);
-                    handleBuyCredits(2, 198);
-                  }}
-                  style={{
-                    width: '100%',
-                    backgroundColor: '#0052FF',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '12px',
-                    padding: '13px 20px',
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
-                  }}
-                >
-                  ⚡ Buy 2 Credits for ₹198 &amp; Submit Bid
-                </button>
-              </div>
+                {/* Action Button with Credit Check */}
+                {applyCredits > 0 ? (
+                  <div>
+                    <div style={{ fontSize: '12px', color: '#059669', fontWeight: 700, marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <span>✓</span>
+                      <span>{applyCredits} Available Credit{applyCredits === 1 ? '' : 's'}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={submitApplication}
+                      style={{
+                        width: '100%',
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '12px',
+                        padding: '13px 20px',
+                        fontSize: '14px',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <span>Bid on this Project (Uses 1 Credit)</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ padding: '14px 16px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '12px', marginBottom: '14px' }}>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#991B1B', marginBottom: '3px' }}>
+                        ⚠️ 0 Application Credits Remaining
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#7F1D1D', lineHeight: 1.45 }}>
+                        You have used all available application credits. Redirect to the Payments page to purchase credits and submit your bid.
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowApplyModal(false);
+                        setSelectedCampaign(null);
+                        handleTabChange('payments');
+                      }}
+                      style={{
+                        width: '100%',
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '12px',
+                        padding: '13px 20px',
+                        fontSize: '14px',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                      }}
+                    >
+                      <span>Go to Payments to Buy Credits</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
