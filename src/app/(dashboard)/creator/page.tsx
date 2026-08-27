@@ -1653,40 +1653,7 @@ function CreatorPortalContent() {
 
               {/* RIGHT SIDEBAR COLUMN */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                {/* 1. Sticky Action Card */}
-                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const el = document.getElementById('proposal-form-section');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    style={{
-                      width: '100%',
-                      padding: '12px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '10px',
-                      fontSize: '13.5px',
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
-                      marginBottom: '12px',
-                    }}
-                  >
-                    Apply to this Project →
-                  </button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <polyline points="9 12 11 14 15 10" />
-                    </svg>
-                    <span>100% Payment Protected</span>
-                  </div>
-                </div>
-
-                {/* 2. About the Client Card */}
+                {/* 1. About the Client Card */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                   <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                     About the Client
@@ -1728,7 +1695,7 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 3. Client Verification Checklist (Clean Green Outline SVG Vector Icons - Vertical Layout) */}
+                {/* 2. Client Verification Checklist (Clean Green Outline SVG Vector Icons - Vertical Layout) */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                     Client Verification
@@ -1780,7 +1747,7 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 4. Applicant Competition & Profile Standing Benchmark Graph */}
+                {/* 3. Applicant Competition & Profile Standing Benchmark Graph */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                   {/* Personalized User Header */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
@@ -2007,6 +1974,39 @@ function CreatorPortalContent() {
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                     <span>Based on your connected stats, your bid has high client visibility</span>
+                  </div>
+                </div>
+
+                {/* 4. Action Card (Apply to Project) */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById('proposal-form-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '10px',
+                      fontSize: '13.5px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    Apply to this Project →
+                  </button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <polyline points="9 12 11 14 15 10" />
+                    </svg>
+                    <span>100% Payment Protected</span>
                   </div>
                 </div>
 
