@@ -200,7 +200,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 10%',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$750 – $1,500',
       creatorsApplied: 18,
       acceptanceChance: 86,
@@ -223,7 +223,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 12%',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$600 – $950',
       creatorsApplied: 24,
       acceptanceChance: 92,
@@ -246,7 +246,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 20%',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$1,200 – $2,400',
       creatorsApplied: 31,
       acceptanceChance: 78,
@@ -269,7 +269,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 20%',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$2,000 – $3,500',
       creatorsApplied: 42,
       acceptanceChance: 64,
@@ -292,7 +292,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 12%',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$800 – $1,400',
       creatorsApplied: 15,
       acceptanceChance: 89,
@@ -315,7 +315,7 @@ function CreatorPortalContent() {
       bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
       commercialType: 'FLAT_FEE',
-      commercialLabel: 'Flat Fee $500',
+      commercialLabel: 'Payment verified by brand',
       payoutAmount: '$500 Fixed',
       creatorsApplied: 27,
       acceptanceChance: 82,
@@ -1402,7 +1402,7 @@ function CreatorPortalContent() {
                         />
                       </div>
 
-                      {/* Commercial Pill Badge */}
+                      {/* Payment Verified Pill Badge */}
                       <div
                         style={{
                           position: 'absolute',
@@ -1414,17 +1414,17 @@ function CreatorPortalContent() {
                           borderRadius: '6px',
                           fontSize: '11px',
                           fontWeight: 800,
-                          letterSpacing: '0.02em',
+                          letterSpacing: '0.01em',
                           boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
                           zIndex: 2,
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '4px',
+                          gap: '5px',
                         }}
                       >
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <circle cx="12" cy="12" r="10" />
-                          <circle cx="12" cy="12" r="3" />
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                          <polyline points="9 12 11 14 15 10" />
                         </svg>
                         <span>{camp.commercialLabel}</span>
                       </div>
