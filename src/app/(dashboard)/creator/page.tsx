@@ -1470,7 +1470,6 @@ function CreatorPortalContent() {
                 {filteredCampaigns.map((camp) => (
                   <div
                     key={camp.id}
-                    onClick={() => handleApply(camp)}
                     className="upfluence-card"
                     style={{
                       backgroundColor: '#FFFFFF',
@@ -1481,7 +1480,7 @@ function CreatorPortalContent() {
                       flexDirection: 'column',
                       justifyContent: 'space-between',
                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
-                      cursor: 'pointer',
+                      cursor: 'default',
                     }}
                   >
                     {/* Top Cover Banner */}
