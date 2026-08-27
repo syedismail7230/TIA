@@ -1103,20 +1103,22 @@ function CreatorPortalContent() {
 
                     {/* Thin Horizontal Divider */}
                     <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '12px', marginTop: 'auto' }}>
-                      {/* Requirement Warning Notice */}
+                      {/* Requirement Notice / Eligibility Status */}
                       <div
                         style={{
                           marginBottom: '10px',
                           display: 'flex',
                           alignItems: 'center',
                           gap: '5px',
-                          color: '#D97706',
+                          color: '#059669',
                           fontSize: '12px',
                           fontWeight: 700,
                         }}
                       >
-                        <span>{camp.requirementLabel}</span>
-                        <InfoCircleIcon size={13} color="#D97706" />
+                        <span>You are eligible</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
                       </div>
 
                       {/* Clean Key-Value List with Circle Flag & Socials */}
