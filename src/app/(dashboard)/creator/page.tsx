@@ -955,7 +955,7 @@ function CreatorPortalContent() {
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'inherit', width: '100%', paddingBottom: '76px' }}>
       {/* Design System Global Styles */}
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         * {
           box-sizing: border-box;
         }
@@ -968,59 +968,6 @@ function CreatorPortalContent() {
           scrollbar-width: none;
         }
 
-        .portal-header-wrapper {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 24px;
-          height: 64px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .portal-main-wrapper {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 24px;
-        }
-
-        .portal-nav-segmented {
-          display: flex;
-          align-items: center;
-          gap: 28px;
-          background: transparent;
-          padding: 0;
-          border: none;
-          border-bottom: 1px solid #E2E8F0;
-          width: 100%;
-        }
-        .portal-tab-pill {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 4px 14px 4px;
-          font-size: 13.5px;
-          font-weight: 500;
-          border-radius: 0;
-          border: none;
-          border-bottom: 2px solid transparent;
-          margin-bottom: -1px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          color: #64748B;
-          background: transparent;
-        }
-        .portal-tab-pill:hover:not(.active) {
-          color: #0F172A;
-          border-bottom: 2px solid #CBD5E1;
-        }
-        .portal-tab-pill.active {
-          background: transparent;
-          color: #0052FF;
-          font-weight: 700;
-          border-bottom: 2px solid #0052FF;
-          box-shadow: none;
-        }
-
         .upfluence-card {
           transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -1028,67 +975,7 @@ function CreatorPortalContent() {
           transform: translateY(-3px);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
-
-        .portal-mobile-bottom-nav {
-          display: none;
-        }
-
-        @media (max-width: 1023px) {
-          .portal-header-wrapper {
-            height: 54px;
-            padding: 0 12px;
-            gap: 8px;
-            flex-wrap: nowrap;
-          }
-          .portal-main-wrapper {
-            padding: 12px 14px 84px 14px;
-          }
-          .portal-nav-segmented-container {
-            display: none !important;
-          }
-          .portal-mobile-bottom-nav {
-            display: flex !important;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 62px;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid #E2E8F0;
-            z-index: 999;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 8px;
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.03);
-          }
-          .portal-bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 8px;
-            color: #64748B;
-            font-size: 10.5px;
-            font-weight: 600;
-            transition: all 0.15s ease;
-            flex: 1;
-          }
-          .portal-bottom-nav-item.active {
-            color: #0052FF;
-            font-weight: 800;
-          }
-          .portal-bottom-nav-item.active svg {
-            stroke: #0052FF;
-          }
-        }
-      `}</style>
+      `}} />
 
       {/* Top Header Navigation Bar */}
       <header
@@ -1101,9 +988,21 @@ function CreatorPortalContent() {
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
         }}
       >
-        <div className="portal-header-wrapper">
+        <div
+          className="portal-header-wrapper"
+          style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 24px',
+            height: '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '12px',
+          }}
+        >
           {/* Logo & Portal Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link
               href="/creator"
               style={{
@@ -1142,7 +1041,7 @@ function CreatorPortalContent() {
           </div>
 
           {/* User Profile, Remaining Credits & Sign Out on Right */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
             {/* Remaining Credits Inline Indicator (Clean, Borderless, SVG Icon) */}
             <button
               type="button"
@@ -1181,7 +1080,7 @@ function CreatorPortalContent() {
             </button>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
-              <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '80px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
               </span>
               <BlueCheckBadge size={13} title="Verified Creator" />
@@ -1213,10 +1112,22 @@ function CreatorPortalContent() {
       </header>
 
       {/* Main Content Container */}
-      <main className="portal-main-wrapper">
+      <main className="portal-main-wrapper" style={{ maxWidth: '1400px', margin: '0 auto', padding: '24px' }}>
         {/* Nav Tabs (Desktop Only, Mobile uses bottom navigation) */}
         <div className="portal-nav-segmented-container tia-desktop-only" style={{ marginBottom: '20px' }}>
-          <nav className="portal-nav-segmented no-scrollbar">
+          <nav
+            className="portal-nav-segmented no-scrollbar"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '28px',
+              background: 'transparent',
+              padding: 0,
+              border: 'none',
+              borderBottom: '1px solid #E2E8F0',
+              width: '100%',
+            }}
+          >
             {navTabs.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
@@ -1225,6 +1136,21 @@ function CreatorPortalContent() {
                   type="button"
                   onClick={() => handleTabChange(tab.id)}
                   className={`portal-tab-pill ${isActive ? 'active' : ''}`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 4px 14px 4px',
+                    fontSize: '13.5px',
+                    fontWeight: isActive ? 700 : 500,
+                    borderRadius: 0,
+                    border: 'none',
+                    borderBottom: isActive ? '2px solid #0052FF' : '2px solid transparent',
+                    marginBottom: '-1px',
+                    cursor: 'pointer',
+                    color: isActive ? '#0052FF' : '#64748B',
+                    background: 'transparent',
+                  }}
                 >
                   <span style={{ color: isActive ? '#0052FF' : '#94A3B8' }}>{tab.icon}</span>
                   <span>{tab.label}</span>
