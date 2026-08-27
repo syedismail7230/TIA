@@ -4869,28 +4869,6 @@ function CreatorPortalContent() {
                   </>
                 )}
               </div>
-
-              {/* Status Guarantee Pill (Desktop Only) */}
-              <div
-                className="guarantee-pill-desktop"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '11.5px',
-                  fontWeight: 600,
-                  color: '#047857',
-                  backgroundColor: '#F0FDF4',
-                  padding: '5px 12px',
-                  borderRadius: '20px',
-                  border: '1px solid #BBF7D0',
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-                <span>100% Guaranteed Payment Protection</span>
-              </div>
             </div>
 
             {/* Main Split-Pane Workspace */}
@@ -5234,12 +5212,6 @@ function CreatorPortalContent() {
                             <span style={{ fontWeight: 600 }}>{selectedCollab.brandName}</span>
                             <span>•</span>
                             <span style={{ fontWeight: 800, color: '#0052FF' }}>Rate {selectedCollab.proposedRate}</span>
-                            {selectedCollab.escrowFunded && (
-                              <>
-                                <span>•</span>
-                                <span style={{ color: '#059669', fontWeight: 600 }}>🔒 Escrow Secured</span>
-                              </>
-                            )}
                             {selectedCollab.deliverables && (
                               <>
                                 <span className="tia-desktop-only">•</span>
@@ -5397,20 +5369,20 @@ function CreatorPortalContent() {
                       {selectedCollab.messages.map((msg: any) => {
                         const isCreator = msg.sender === 'CREATOR';
 
-                        // Specialized ESCROW Card (Clean, Minimalist)
+                        // Specialized Payment Card (Clean, Minimalist)
                         if (msg.type === 'ESCROW') {
                           return (
                             <div
                               key={msg.id}
                               style={{
                                 backgroundColor: '#FFFFFF',
-                                border: '1px solid #BBF7D0',
+                                border: '1px solid #E2E8F0',
                                 borderRadius: '12px',
                                 padding: '12px 16px',
                                 display: 'flex',
                                 gap: '10px',
                                 alignItems: 'center',
-                                boxShadow: '0 1px 3px rgba(5, 150, 105, 0.05)',
+                                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
                               }}
                             >
                               <div
@@ -5418,22 +5390,23 @@ function CreatorPortalContent() {
                                   width: '32px',
                                   height: '32px',
                                   borderRadius: '8px',
-                                  backgroundColor: '#F0FDF4',
+                                  backgroundColor: '#F1F5F9',
+                                  color: '#0052FF',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  fontSize: '16px',
+                                  fontSize: '15px',
                                   flexShrink: 0,
                                 }}
                               >
-                                🛡️
+                                💳
                               </div>
                               <div style={{ flex: 1 }}>
-                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#065F46' }}>
-                                  100% Upfront Milestone Payment Secured ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
+                                <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>
+                                  Milestone Payment Funded ({msg.escrowMeta?.amount || selectedCollab.proposedRate})
                                 </div>
-                                <div style={{ fontSize: '11.5px', color: '#475569', marginTop: '2px' }}>
-                                  {msg.text}
+                                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
+                                  {msg.text?.replace(/escrow/gi, 'milestone balance')}
                                 </div>
                               </div>
                               <span style={{ fontSize: '10.5px', color: '#94A3B8', flexShrink: 0 }}>
