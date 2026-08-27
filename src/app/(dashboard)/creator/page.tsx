@@ -181,6 +181,11 @@ function CreatorPortalContent() {
   const [creditPurchaseSuccess, setCreditPurchaseSuccess] = useState<string | null>(null);
   const [showBuyCreditsModal, setShowBuyCreditsModal] = useState<boolean>(false);
 
+  // Proposal & Bid State for Full-Page Project View (Freelancer.com Inspiration)
+  const [bidAmount, setBidAmount] = useState<string>('700');
+  const [bidDays, setBidDays] = useState<string>('14');
+  const [proposalPitch, setProposalPitch] = useState<string>('');
+
   // Search & Filter State
   const [showMatchBanner, setShowMatchBanner] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -611,7 +616,11 @@ function CreatorPortalContent() {
 
   const handleApply = (campaign: any) => {
     setSelectedCampaign(campaign);
+    setBidAmount(campaign.payoutAmount?.replace(/[^0-9]/g, '') || '700');
+    setBidDays('14');
+    setProposalPitch(`Hi ${campaign.brandName}! I'm excited to apply for ${campaign.title}. My verified engagement and creative style align directly with your deliverables. Looking forward to collaborating!`);
     setApplySuccess(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBuyCredits = (count: number, costInr: number) => {
@@ -653,7 +662,7 @@ function CreatorPortalContent() {
         brandInitials: selectedCampaign.brandName.substring(0, 2).toUpperCase(),
         status: 'AWAITING',
         appliedAt: 'Just now',
-        proposedRate: selectedCampaign.payoutAmount,
+        proposedRate: `$${bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '700'}`,
         deliverables: selectedCampaign.deliverablesSummary || selectedCampaign.description,
         unreadCount: 1,
         messages: [
@@ -665,7 +674,7 @@ function CreatorPortalContent() {
             badgeColor: '#059669',
             badgeBg: '#ECFDF5',
             date: 'Just now',
-            text: `Hi! We received your verified application for ${selectedCampaign.title}. Your profile matches our audience criteria. We will review your media kit and confirm the milestone deposit shortly.`,
+            text: `Hi! We received your verified bid of $${bidAmount || '700'} (${bidDays || '14'} days delivery) for ${selectedCampaign.title}. Your profile matches our audience criteria. We will review your pitch and confirm the milestone deposit shortly.`,
           },
           {
             id: `msg-${Date.now() + 1}`,
@@ -675,7 +684,7 @@ function CreatorPortalContent() {
             badgeColor: '#0052FF',
             badgeBg: '#EFF6FF',
             date: 'Just now',
-            text: `Submitted proposal for ${selectedCampaign.title} at ${selectedCampaign.payoutAmount}. Ready to deliver ${selectedCampaign.deliverablesSummary || selectedCampaign.description}.`,
+            text: proposalPitch || `Submitted proposal for ${selectedCampaign.title} at $${bidAmount}. Ready to deliver ${selectedCampaign.deliverablesSummary || selectedCampaign.description}.`,
           },
         ],
       },
@@ -1069,7 +1078,525 @@ function CreatorPortalContent() {
           {/* ==================================================================== */}
         {/* TAB 1: MARKETPLACE                                                   */}
         {/* ==================================================================== */}
-        {activeTab === 'marketplace' && (
+        {activeTab === 'marketplace' && selectedCampaign ? (
+          /* ================================================================ */
+          /* FULL-PAGE ZOOM-IN PROJECT DETAIL VIEW (FREELANCER.COM STYLE)     */
+          /* ================================================================ */
+          <div style={{ animation: 'fadeIn 0.2s ease-in-out' }}>
+            {/* Top Navigation & Breadcrumbs Bar */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => setSelectedCampaign(null)}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    padding: '7px 14px',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  <span>Back to Marketplace</span>
+                </button>
+
+                <div style={{ fontSize: '11.5px', fontWeight: 600, color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>FREELANCER</span>
+                  <span>›</span>
+                  <span>CAMPAIGNS</span>
+                  <span>›</span>
+                  <span style={{ color: '#64748B' }}>{selectedCampaign.categories?.[0] || 'LIFESTYLE'}</span>
+                  <span>›</span>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>{selectedCampaign.title}</span>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#64748B' }}>
+                  Project ID: <strong style={{ color: '#0F172A' }}>#TIA-{selectedCampaign.id?.replace('camp-', '406740') || '40674076'}</strong>
+                </span>
+              </div>
+            </div>
+
+            {/* Main 2-Column Freelancer Layout */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px', alignItems: 'start' }}>
+              {/* LEFT MAIN CONTENT COLUMN */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* 1. Project Hero Header Card */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
+                    <div style={{ flex: '1 1 360px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                        <span style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', fontSize: '11.5px', fontWeight: 800, padding: '3px 10px', borderRadius: '6px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#059669' }}></span>
+                          Open for Applications
+                        </span>
+                        <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 500 }}>
+                          🕒 Posted {selectedCampaign.postedAt} • Ends in 18 days
+                        </span>
+                      </div>
+                      <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.25, letterSpacing: '-0.02em' }}>
+                        {selectedCampaign.title}
+                      </h1>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
+                        <span>Brand: <strong style={{ color: '#0F172A' }}>{selectedCampaign.brandName}</strong></span>
+                        <span>•</span>
+                        <span>{selectedCampaign.countryFlag} {selectedCampaign.country}</span>
+                        <span>•</span>
+                        <span>{selectedCampaign.language}</span>
+                      </div>
+                    </div>
+
+                    {/* Big Payout & Deliverables Box */}
+                    <div style={{ textAlign: 'right', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 18px', minWidth: '180px' }}>
+                      <div style={{ fontSize: '28px', fontWeight: 900, color: '#0052FF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                        {selectedCampaign.payoutAmount}
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600, marginTop: '4px' }}>
+                        {selectedCampaign.payType || 'Fixed Pay'} (Escrow Funded)
+                      </div>
+                      <div style={{ fontSize: '11.5px', color: '#0F172A', fontWeight: 700, marginTop: '3px' }}>
+                        {selectedCampaign.deliverablesSummary}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quick Project Intelligence Bar */}
+                  <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px' }}>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Success Rate</div>
+                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Active Applicants</div>
+                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied} Creators</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Project Timeline</div>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>{selectedCampaign.projectTimeline || 'Sep 5 – Sep 20'}</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px 12px', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                      <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Payment Security</div>
+                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>100% Escrow Verified</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Detailed Campaign Narrative & Scope of Work */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                    Campaign Overview & Creative Brief
+                  </h2>
+                  <p style={{ fontSize: '13.5px', color: '#334155', lineHeight: 1.65, margin: '0 0 16px 0' }}>
+                    {selectedCampaign.description} We are seeking dynamic, authentic digital creators who have demonstrated high viewer engagement and aesthetic video production in {selectedCampaign.categories?.join(', ')}. The primary objective of this project is to craft captivating, native-feel content that drives high conversion, genuine community discussions, and click-throughs to our verified brand link.
+                  </p>
+
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                    Selected Scope of Work
+                  </h3>
+                  <ul style={{ paddingLeft: '20px', margin: '0 0 18px 0', fontSize: '13px', color: '#334155', lineHeight: 1.75 }}>
+                    <li><strong>High-Resolution Vertical Video:</strong> Produce native 9:16 vertical 4K assets (60fps preferred) optimized for Instagram Reels, YouTube Shorts, and TikTok algorithms.</li>
+                    <li><strong>Integrated Brand Storytelling:</strong> Seamlessly integrate product usage into your everyday routine or creative tutorial with authentic voiceover and hook in the first 3 seconds.</li>
+                    <li><strong>Swipe-Up / Link-in-Bio Attribution:</strong> Include dedicated UTM tracked link-in-bio sticker and pinned comment during the entire active campaign window.</li>
+                    <li><strong>Compliance & Creative Quality:</strong> Deliver raw exports without third-party watermarks or copyrighted audio tracks.</li>
+                  </ul>
+
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                    Content Directions & Aesthetic Guidelines
+                  </h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginBottom: '18px' }}>
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎨 Tone of Voice & Mood</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Authentic, vibrant, conversational, and energetic. Avoid overly rehearsed corporate sales scripts.</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎬 Video & Lighting Setup</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Natural daylight or soft studio lighting. Sharp macro focus when showcasing product texture and packaging.</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🏷️ Brand Mentions & Tags</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Tag @{selectedCampaign.brandName.toLowerCase().replace(/[^a-z0-9]/g, '')}_official and use #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Collab'}2026.</div>
+                    </div>
+                    <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎙️ Audio & Voiceover</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Crystal-clear vocal recording with background ambient music mixed at -18dB. Subtitles mandatory.</div>
+                    </div>
+                  </div>
+
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                    Client Expectations & Milestone Schedule
+                  </h3>
+                  <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '14px 16px', marginBottom: '18px', fontSize: '12.5px', color: '#1E3A8A', lineHeight: 1.6 }}>
+                    <div style={{ fontWeight: 700, marginBottom: '6px' }}>Milestone Review Process:</div>
+                    <div>1. <strong>Concept & Rough Cut Submission:</strong> Due within 5 days of milestone confirmation.</div>
+                    <div>2. <strong>Brand Review Window:</strong> Brand lead will approve or request 1 round of revisions within 48 hours.</div>
+                    <div>3. <strong>Final Publication:</strong> Post live on feed during peak engagement hours ({selectedCampaign.projectTimeline}).</div>
+                    <div>4. <strong>Analytics Verification:</strong> Submit post reach & insights screenshot after 7 days for milestone closure.</div>
+                  </div>
+
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
+                    Campaign Terms & Escrow Protection
+                  </h3>
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.6 }}>
+                    <ul style={{ paddingLeft: '18px', margin: 0 }}>
+                      <li><strong>100% Escrow Guarantee:</strong> Brand has pre-funded the full {selectedCampaign.payoutAmount} payout into TIA secure escrow. Funds cannot be withdrawn while project is active.</li>
+                      <li><strong>Usage Rights:</strong> 90 days organic digital re-posting rights granted to brand on official social channels.</li>
+                      <li><strong>Exclusivity:</strong> 30-day category exclusivity against direct competitors in the same sub-niche.</li>
+                      <li><strong>Automated Disbursement:</strong> Funds released to your verified payout wallet upon automated URL verification.</li>
+                    </ul>
+                  </div>
+
+                  {/* Skills / Niches Pill Chips */}
+                  <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>Skills / Niches:</span>
+                    {selectedCampaign.categories?.map((cat: string) => (
+                      <span key={cat} style={{ fontSize: '11.5px', fontWeight: 600, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '3px 10px', borderRadius: '16px' }}>
+                        {cat}
+                      </span>
+                    ))}
+                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>Instagram Reels</span>
+                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>4K Video Editing</span>
+                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#475569', backgroundColor: '#F1F5F9', padding: '3px 10px', borderRadius: '16px' }}>Storytelling</span>
+                  </div>
+                </div>
+
+                {/* 3. Interactive Place Your Bid / Proposal Form */}
+                <div id="proposal-form-section" style={{ backgroundColor: '#FFFFFF', border: '2px solid #0052FF', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 4px 16px rgba(0, 82, 255, 0.06)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                      Place Your Bid & Submit Proposal
+                    </h2>
+                    <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '3px 10px', borderRadius: '8px' }}>
+                      ⚡ 1 Application Credit Required
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+                    <div>
+                      <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                        Proposed Rate (USD)
+                      </label>
+                      <div style={{ position: 'relative' }}>
+                        <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontWeight: 700, color: '#64748B' }}>$</span>
+                        <input
+                          type="text"
+                          value={bidAmount}
+                          onChange={(e) => setBidAmount(e.target.value)}
+                          placeholder="700"
+                          style={{
+                            width: '100%',
+                            padding: '10px 12px 10px 26px',
+                            fontSize: '14px',
+                            fontWeight: 700,
+                            color: '#0F172A',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '8px',
+                            outline: 'none',
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                        Delivery Timeframe (Days)
+                      </label>
+                      <input
+                        type="number"
+                        value={bidDays}
+                        onChange={(e) => setBidDays(e.target.value)}
+                        placeholder="14"
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px',
+                          fontSize: '14px',
+                          fontWeight: 700,
+                          color: '#0F172A',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '8px',
+                          outline: 'none',
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                      Describe Your Proposal & Creative Angle
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={proposalPitch}
+                      onChange={(e) => setProposalPitch(e.target.value)}
+                      placeholder="Outline why you are the best fit for this campaign, your equipment setup, and how you will deliver authentic engagement..."
+                      style={{
+                        width: '100%',
+                        padding: '12px 14px',
+                        fontSize: '13px',
+                        color: '#0F172A',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        outline: 'none',
+                        resize: 'vertical',
+                        lineHeight: 1.5,
+                      }}
+                    />
+                  </div>
+
+                  {/* Benefits of Bidding on TIA Box */}
+                  <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px', marginBottom: '18px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', fontSize: '11.5px', color: '#475569' }}>
+                    <div>✓ Set your budget & timeframe</div>
+                    <div>✓ Full Escrow payment protection</div>
+                    <div>✓ Direct brand director messaging</div>
+                    <div>✓ Keep 100% of your creator earnings</div>
+                  </div>
+
+                  {/* Action Button with Credit Check */}
+                  {applyCredits > 0 ? (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+                      <div style={{ fontSize: '12px', color: '#059669', fontWeight: 700 }}>
+                        ✓ {applyCredits} Available Credit{applyCredits === 1 ? '' : 's'} (1 credit deducted upon bid submission)
+                      </div>
+                      <button
+                        type="button"
+                        onClick={submitApplication}
+                        style={{
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '10px',
+                          padding: '13px 28px',
+                          fontSize: '14px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                          boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                        }}
+                      >
+                        <span>Bid on this Project (Uses 1 Credit)</span>
+                        <span>→</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div style={{ padding: '12px 14px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', marginBottom: '14px' }}>
+                        <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
+                          ⚠️ 0 Application Credits Remaining
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#7F1D1D' }}>
+                          You have used your free application credit. Top up credits at ₹99/credit to submit your bid.
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleBuyCredits(2, 198)}
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '10px',
+                          padding: '13px 24px',
+                          fontSize: '14px',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                          boxShadow: '0 4px 14px rgba(0, 82, 255, 0.3)',
+                        }}
+                      >
+                        ⚡ Buy 2 Credits for ₹198 & Submit Bid
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* 4. Active Creator Proposals (Showcase Bids) */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '24px 26px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 16px 0' }}>
+                    {selectedCampaign.creatorsApplied} creators are bidding on average {selectedCampaign.payoutAmount} for this job
+                  </h3>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    {/* Proposal 1 */}
+                    <div style={{ border: '1px solid #F1F5F9', borderRadius: '12px', padding: '16px', backgroundColor: '#FAFAFA' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
+                            AV
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px' }}>
+                              @aria_lifestyle 🇮🇹
+                            </div>
+                            <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                              ⭐⭐⭐⭐⭐ 5.0 (98 reviews) • 8.7 ER Score
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>$700 USD in 14 days</div>
+                        </div>
+                      </div>
+                      <p style={{ fontSize: '12.5px', color: '#475569', margin: 0, lineHeight: 1.5 }}>
+                        I specialize in aesthetic vertical storytelling and high-converting Reels in this exact niche. I have full 4K HDR production gear ready and can deliver the first rough cut in 4 days.
+                      </p>
+                    </div>
+
+                    {/* Proposal 2 */}
+                    <div style={{ border: '1px solid #F1F5F9', borderRadius: '12px', padding: '16px', backgroundColor: '#FAFAFA' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '14px' }}>
+                            MS
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '13.5px' }}>
+                              @marcus_fit 🇬🇧
+                            </div>
+                            <div style={{ fontSize: '11.5px', color: '#64748B' }}>
+                              ⭐⭐⭐⭐⭐ 4.9 (79 reviews) • 7.1 ER Score
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>$650 USD in 10 days</div>
+                        </div>
+                      </div>
+                      <p style={{ fontSize: '12.5px', color: '#475569', margin: 0, lineHeight: 1.5 }}>
+                        Passionate about engaging lifestyle narratives. My audience is 84% European and aligns directly with your target audience demographics. Ready to start immediately.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT SIDEBAR COLUMN */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                {/* 1. Sticky Action Card */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById('proposal-form-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '12px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '10px',
+                      fontSize: '13.5px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                      marginBottom: '12px',
+                    }}
+                  >
+                    Apply to this Project →
+                  </button>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700, justifyContent: 'center' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <polyline points="9 12 11 14 15 10" />
+                    </svg>
+                    <span>100% Escrow Milestone Protected</span>
+                  </div>
+                </div>
+
+                {/* 2. About the Client Card */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+                    About the Client
+                  </h3>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                      <img src={selectedCampaign.partnerLogo} alt={selectedCampaign.brandName} style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }} />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '13.5px', color: '#0F172A' }}>{selectedCampaign.brandName}</div>
+                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
+                    </div>
+                  </div>
+
+                  <div style={{ fontSize: '12px', color: '#D97706', fontWeight: 700, marginBottom: '10px' }}>
+                    ⭐⭐⭐⭐⭐ 5.0 <span style={{ color: '#64748B', fontWeight: 500 }}>(42 reviews)</span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#475569', borderTop: '1px solid #F1F5F9', paddingTop: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
+                      <span>✓</span> <span>Payment method verified</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
+                      <span>✓</span> <span>Escrow deposit authorized</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>🕒</span> <span>Member since Mar 26, 2021</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Client Verification Checklist */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                    Client Verification
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px', color: '#334155' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#059669' }}>💳</span> <span>Payment Verified</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#059669' }}>✉️</span> <span>Email Address Verified</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#059669' }}>👤</span> <span>Identity Verified</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: '#059669' }}>📞</span> <span>Phone Number Verified</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Other Campaigns from this Client */}
+                <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                    Other jobs from this client
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>Summer Lifestyle Reel Launch</div>
+                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$850 Fixed Pay</div>
+                    </div>
+                    <div style={{ borderBottom: '1px solid #F1F5F9', paddingBottom: '8px' }}>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>YouTube Product Integration</div>
+                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$1,400 Fixed Pay</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>24-Hour Story Takeover & Review</div>
+                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>$450 Fixed Pay</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : activeTab === 'marketplace' ? (
           <div>
             {/* High-End Match Booster Banner (Dismissible with ✕) */}
             {showMatchBanner && (
@@ -1790,7 +2317,7 @@ function CreatorPortalContent() {
               </div>
             )}
           </div>
-        )}
+        ) : null}
 
         {/* ==================================================================== */}
         {/* TAB 2: COLLABS                                                       */}
@@ -2300,122 +2827,7 @@ function CreatorPortalContent() {
         })}
       </nav>
 
-      {/* Campaign Detail & Application Modal */}
-      {selectedCampaign && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '500px', borderRadius: '20px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
-            {applySuccess ? (
-              <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>🎉</div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>Proposal Dispatched!</h3>
-                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Opening your Collabs thread with {selectedCampaign.brandName}...</p>
-              </div>
-            ) : (
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
-                        {selectedCampaign.commercialLabel}
-                      </span>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#0F172A', backgroundColor: '#F1F5F9', padding: '2px 8px', borderRadius: '6px' }}>
-                        {selectedCampaign.payoutAmount} {selectedCampaign.payType || 'Fixed'}
-                      </span>
-                    </div>
-                    <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: '#0F172A', margin: '4px 0 0 0' }}>{selectedCampaign.title}</h3>
-                    <div style={{ fontSize: '12px', color: '#64748B' }}>{selectedCampaign.brandName} • {selectedCampaign.countryFlag} {selectedCampaign.country}</div>
-                  </div>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: '#F1F5F9', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', cursor: 'pointer', color: '#64748B' }}>✕</button>
-                </div>
 
-                {/* Intelligence Metrics in Modal */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', textAlign: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Success Rate</div>
-                    <div style={{ fontSize: '14px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Project Timeline</div>
-                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0F172A', marginTop: '3px' }}>{selectedCampaign.projectTimeline || 'Sep 1 – Sep 15'}</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Applicants</div>
-                    <div style={{ fontSize: '14px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied}</div>
-                  </div>
-                </div>
-
-                {/* Limited Visibility Brief Notice */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', padding: '12px 14px', borderRadius: '10px', marginBottom: '14px', fontSize: '12px', color: '#334155', lineHeight: 1.5 }}>
-                  <div style={{ fontWeight: 700, color: '#0F172A', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <span>🔒 Limited Preview Brief</span>
-                  </div>
-                  <p style={{ margin: 0, color: '#64748B' }}>
-                    {selectedCampaign.description}
-                  </p>
-                  <div style={{ marginTop: '6px', fontSize: '11px', color: '#0052FF', fontWeight: 600 }}>
-                    ✓ Full unblurred brief and direct messaging unlock once proposal is dispatched.
-                  </div>
-                </div>
-
-                {/* Credit Balance & Action Area */}
-                {applyCredits > 0 ? (
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', marginBottom: '16px' }}>
-                      <div style={{ fontSize: '12px', color: '#1E40AF', fontWeight: 600 }}>
-                        ✨ Applying uses <strong>1 Credit</strong>
-                      </div>
-                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#0052FF' }}>
-                        {applyCredits} Available
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-                      <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 18px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                      <button type="button" onClick={submitApplication} style={{ padding: '10px 22px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,82,255,0.25)' }}>
-                        Submit Application (Uses 1 Credit)
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div style={{ padding: '12px 14px', backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '10px', marginBottom: '16px' }}>
-                      <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#991B1B', marginBottom: '2px' }}>
-                        ⚠️ 0 Application Credits Remaining
-                      </div>
-                      <div style={{ fontSize: '11.5px', color: '#7F1D1D', lineHeight: 1.4 }}>
-                        You've used your free application. Get more credits at ₹99/application to apply for verified deals.
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-                      <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 16px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          handleBuyCredits(2, 198);
-                        }}
-                        style={{
-                          padding: '10px 20px',
-                          backgroundColor: '#0052FF',
-                          color: '#FFFFFF',
-                          border: 'none',
-                          borderRadius: '8px',
-                          fontSize: '12.5px',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 10px rgba(0,82,255,0.25)',
-                        }}
-                      >
-                        ⚡ Buy 2 Credits (₹198) & Apply
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Buy Credits Modal */}
       {showBuyCreditsModal && (
