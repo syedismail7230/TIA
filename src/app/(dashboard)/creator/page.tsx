@@ -203,6 +203,23 @@ function CountryFlag({ code, size = 18 }: { code: string; size?: number }) {
 type TabType = 'marketplace' | 'collabs' | 'payments' | 'social-media' | 'settings';
 type CollabFilter = 'awaiting' | 'accepted' | 'rejected';
 
+export interface PlatformNotification {
+  id: string;
+  type: 'ESCROW' | 'MATCH' | 'MESSAGE' | 'APPROVAL' | 'PAYMENT' | 'SYSTEM' | 'PROPOSAL' | 'CREDIT';
+  category: 'COLLABS' | 'PAYMENTS' | 'SYSTEM';
+  title: string;
+  message: string;
+  timeAgo: string;
+  timestamp: number;
+  read: boolean;
+  actionTab?: TabType;
+  actionCollabId?: string;
+  actionLabel?: string;
+  badgeText?: string;
+  badgeBg?: string;
+  badgeColor?: string;
+}
+
 function CreatorPortalContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -221,6 +238,199 @@ function CreatorPortalContent() {
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  // Realtime Notifications State & Engine
+  const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);
+  const [notificationFilter, setNotificationFilter] = useState<'ALL' | 'UNREAD' | 'COLLABS' | 'PAYMENTS' | 'SYSTEM'>('ALL');
+  const [liveToast, setLiveToast] = useState<PlatformNotification | null>(null);
+
+  const [notifications, setNotifications] = useState<PlatformNotification[]>([
+    {
+      id: 'notif-1',
+      type: 'ESCROW',
+      category: 'PAYMENTS',
+      title: '₹45,000 Escrow Deposit Secured',
+      message: 'Verified Enterprise Client funded 100% milestone escrow for "Next-Gen Smartphone Showcase". Safe to begin drafting.',
+      timeAgo: '2m ago',
+      timestamp: Date.now() - 1000 * 60 * 2,
+      read: false,
+      actionTab: 'collabs',
+      actionCollabId: 'collab-1',
+      actionLabel: 'View Collab →',
+      badgeText: 'Escrow Secured',
+      badgeBg: '#ECFDF5',
+      badgeColor: '#059669',
+    },
+    {
+      id: 'notif-2',
+      type: 'MATCH',
+      category: 'COLLABS',
+      title: '98% Match: ₹75,000 Audio Brief',
+      message: 'New high-match campaign dropped: "Active ANC Wireless Earbuds Sound Test". Top recommendation for your tech audience.',
+      timeAgo: '14m ago',
+      timestamp: Date.now() - 1000 * 60 * 14,
+      read: false,
+      actionTab: 'marketplace',
+      actionLabel: 'Explore Brief →',
+      badgeText: 'Top Match',
+      badgeBg: '#EFF6FF',
+      badgeColor: '#0052FF',
+    },
+    {
+      id: 'notif-3',
+      type: 'MESSAGE',
+      category: 'COLLABS',
+      title: 'Client Sent a Message',
+      message: '"Hi! We reviewed your preliminary creative outline and love the concept. Let us know when the storyboard is ready."',
+      timeAgo: '45m ago',
+      timestamp: Date.now() - 1000 * 60 * 45,
+      read: false,
+      actionTab: 'collabs',
+      actionCollabId: 'collab-1',
+      actionLabel: 'Open Inbox →',
+      badgeText: 'New Message',
+      badgeBg: '#F5F3FF',
+      badgeColor: '#7C3AED',
+    },
+    {
+      id: 'notif-4',
+      type: 'APPROVAL',
+      category: 'COLLABS',
+      title: 'Draft Script Approved',
+      message: 'Enterprise Client approved your video script with zero revision requests. Ready for final filming and upload.',
+      timeAgo: '3h ago',
+      timestamp: Date.now() - 1000 * 60 * 180,
+      read: true,
+      actionTab: 'collabs',
+      actionCollabId: 'collab-2',
+      actionLabel: 'View Milestone →',
+      badgeText: 'Approved',
+      badgeBg: '#ECFDF5',
+      badgeColor: '#059669',
+    },
+    {
+      id: 'notif-5',
+      type: 'PAYMENT',
+      category: 'PAYMENTS',
+      title: '₹32,800 Transferred to Bank Account',
+      message: 'Disbursement complete for "Beach Collection Summer" via IMPS to HDFC Bank (A/C ending in **4921). Reference: TIA-TXN-88492.',
+      timeAgo: 'Yesterday',
+      timestamp: Date.now() - 1000 * 60 * 60 * 24,
+      read: true,
+      actionTab: 'payments',
+      actionLabel: 'View Invoice →',
+      badgeText: 'Disbursed',
+      badgeBg: '#F0FDF4',
+      badgeColor: '#16A34A',
+    },
+    {
+      id: 'notif-6',
+      type: 'SYSTEM',
+      category: 'SYSTEM',
+      title: 'Social Media Sync & Verified Badge Active',
+      message: 'Your Instagram & YouTube account statistics have been automatically refreshed. Overall audience reach updated to 505k+ verified followers.',
+      timeAgo: '2d ago',
+      timestamp: Date.now() - 1000 * 60 * 60 * 48,
+      read: true,
+      actionTab: 'social-media',
+      actionLabel: 'Check Metrics →',
+      badgeText: 'Verified',
+      badgeBg: '#EFF6FF',
+      badgeColor: '#0052FF',
+    },
+  ]);
+
+  const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
+
+  const markNotificationAsRead = (id: string) => {
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  };
+
+  const markAllNotificationsAsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const deleteNotification = (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+
+  const handleNotificationClick = (notif: PlatformNotification) => {
+    markNotificationAsRead(notif.id);
+    if (notif.actionTab) {
+      setActiveTab(notif.actionTab);
+      router.replace(`/creator?tab=${notif.actionTab}`);
+    }
+    if (notif.actionCollabId) {
+      setSelectedCollabId(notif.actionCollabId);
+    }
+    setNotificationsDropdownOpen(false);
+  };
+
+  const triggerRealtimeNotification = (notif: Omit<PlatformNotification, 'id' | 'timestamp' | 'timeAgo' | 'read'>) => {
+    const newNotif: PlatformNotification = {
+      ...notif,
+      id: `notif-${Date.now()}`,
+      timestamp: Date.now(),
+      timeAgo: 'Just now',
+      read: false,
+    };
+    setNotifications((prev) => [newNotif, ...prev]);
+    setLiveToast(newNotif);
+    setTimeout(() => {
+      setLiveToast((current) => (current?.id === newNotif.id ? null : current));
+    }, 6500);
+  };
+
+  // Realtime Platform Heartbeat Simulation (Receives live matching brief / client inquiry notifications)
+  useEffect(() => {
+    const realtimeEvents: Array<Omit<PlatformNotification, 'id' | 'timestamp' | 'timeAgo' | 'read'>> = [
+      {
+        type: 'MATCH',
+        category: 'COLLABS',
+        title: 'New High-Value Brief Drop',
+        message: 'A verified D2C Wellness brand just launched a ₹60,000 campaign matching your health & lifestyle profile.',
+        actionTab: 'marketplace',
+        actionLabel: 'View Brief →',
+        badgeText: 'New Opportunity',
+        badgeBg: '#EFF6FF',
+        badgeColor: '#0052FF',
+      },
+      {
+        type: 'SYSTEM',
+        category: 'SYSTEM',
+        title: 'Brand Viewed Your Media Kit',
+        message: 'A verified Enterprise Client reviewed your engagement analytics and media kit from your TIA profile.',
+        actionTab: 'social-media',
+        actionLabel: 'View Analytics →',
+        badgeText: 'Profile View',
+        badgeBg: '#F5F3FF',
+        badgeColor: '#7C3AED',
+      },
+      {
+        type: 'ESCROW',
+        category: 'PAYMENTS',
+        title: 'Milestone Verification Update',
+        message: 'TIA Escrow system completed automated transaction check. 100% payout protection is active on all ongoing deals.',
+        actionTab: 'payments',
+        actionLabel: 'Check Escrow Policy →',
+        badgeText: 'Escrow Protected',
+        badgeBg: '#ECFDF5',
+        badgeColor: '#059669',
+      },
+    ];
+
+    let eventIndex = 0;
+    const timer = setInterval(() => {
+      const nextEvent = realtimeEvents[eventIndex % realtimeEvents.length];
+      eventIndex++;
+      triggerRealtimeNotification(nextEvent);
+    }, 45000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -230,14 +440,17 @@ function CreatorPortalContent() {
       if (!target.closest('#country-filter-dropdown-container')) {
         setCountryDropdownOpen(false);
       }
+      if (!target.closest('#notification-bell-dropdown-container')) {
+        setNotificationsDropdownOpen(false);
+      }
     };
-    if (profileDropdownOpen || countryDropdownOpen) {
+    if (profileDropdownOpen || countryDropdownOpen || notificationsDropdownOpen) {
       document.addEventListener('click', handleOutsideClick);
     }
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [profileDropdownOpen, countryDropdownOpen]);
+  }, [profileDropdownOpen, countryDropdownOpen, notificationsDropdownOpen]);
 
   // Application Credits & Free Applies State (1 Free Apply initially, ₹99/credit thereafter)
   const [applyCredits, setApplyCredits] = useState<number>(1);
@@ -748,6 +961,18 @@ function CreatorPortalContent() {
     setCreditPurchaseSuccess(`✓ Added ${count} Application Credits for ₹${costInr}!`);
     setShowBuyCreditsModal(false);
     setTimeout(() => setCreditPurchaseSuccess(null), 4000);
+
+    triggerRealtimeNotification({
+      type: 'CREDIT',
+      category: 'PAYMENTS',
+      title: `${count} Application Credits Added`,
+      message: `Successfully topped up your account with ${count} credits for ₹${costInr}.`,
+      actionTab: 'payments',
+      actionLabel: 'View Payments →',
+      badgeText: 'Credits Added',
+      badgeBg: '#EFF6FF',
+      badgeColor: '#0052FF',
+    });
   };
 
   const submitApplication = () => {
@@ -766,10 +991,11 @@ function CreatorPortalContent() {
     const currSym = selectedCampaign.currencySymbol || '$';
     const currCode = selectedCampaign.currencyCode || 'USD';
     const currAmount = bidAmount || selectedCampaign.payoutAmount?.replace(/[^0-9]/g, '') || '45000';
+    const newCollabId = `collab-${Date.now()}`;
 
     setCollabs((prev) => [
       {
-        id: `collab-${Date.now()}`,
+        id: newCollabId,
         campaignTitle: selectedCampaign.title,
         subject: selectedCampaign.title,
         brandName: selectedCampaign.brandName,
@@ -807,6 +1033,19 @@ function CreatorPortalContent() {
 
     // Show bid placement confirmation screen in modal
     setBidSubmittedSuccess(true);
+
+    triggerRealtimeNotification({
+      type: 'PROPOSAL',
+      category: 'COLLABS',
+      title: 'Proposal Dispatched to Client',
+      message: `Your verified proposal of ${currSym}${currAmount} for "${selectedCampaign.title}" was delivered to the client.`,
+      actionTab: 'collabs',
+      actionCollabId: newCollabId,
+      actionLabel: 'View Collab →',
+      badgeText: 'Bid Submitted',
+      badgeBg: '#EFF6FF',
+      badgeColor: '#0052FF',
+    });
   };
 
   const handleClaimPayout = (txId: string) => {
@@ -815,6 +1054,18 @@ function CreatorPortalContent() {
     );
     setClaimSuccess(true);
     setTimeout(() => setClaimSuccess(false), 3000);
+
+    triggerRealtimeNotification({
+      type: 'PAYMENT',
+      category: 'PAYMENTS',
+      title: 'Payout Disbursement Initiated',
+      message: `Payout claim has been processed and initiated to your linked bank account.`,
+      actionTab: 'payments',
+      actionLabel: 'View Ledger →',
+      badgeText: 'Claimed',
+      badgeBg: '#F0FDF4',
+      badgeColor: '#16A34A',
+    });
   };
 
   const handleSendMessage = () => {
@@ -1182,8 +1433,8 @@ function CreatorPortalContent() {
             </Link>
           </div>
 
-          {/* User Profile, Remaining Credits & Sign Out on Right */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+          {/* User Profile, Realtime Notification Bell & Remaining Credits on Right */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
             {/* Remaining Credits Inline Indicator (Clean, Borderless, SVG Icon) */}
             <button
               type="button"
@@ -1220,6 +1471,409 @@ function CreatorPortalContent() {
               </svg>
               <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
             </button>
+
+            {/* Realtime Notification Bell Center */}
+            <div id="notification-bell-dropdown-container" style={{ position: 'relative', flexShrink: 0 }}>
+              <button
+                type="button"
+                onClick={() => setNotificationsDropdownOpen(!notificationsDropdownOpen)}
+                title="Platform Notifications"
+                aria-label="View notifications"
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  backgroundColor: notificationsDropdownOpen ? '#EFF6FF' : 'transparent',
+                  color: unreadNotificationsCount > 0 || notificationsDropdownOpen ? '#0052FF' : '#475569',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (!notificationsDropdownOpen) e.currentTarget.style.backgroundColor = '#F1F5F9';
+                }}
+                onMouseLeave={(e) => {
+                  if (!notificationsDropdownOpen) e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                </svg>
+
+                {/* Unread Badge */}
+                {unreadNotificationsCount > 0 && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: '1px',
+                      right: '1px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minWidth: '16px',
+                      height: '16px',
+                      padding: '0 3px',
+                      fontSize: '9px',
+                      fontWeight: 800,
+                      color: '#FFFFFF',
+                      backgroundColor: '#0052FF',
+                      borderRadius: '10px',
+                      border: '2px solid #FFFFFF',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.4)',
+                    }}
+                  >
+                    {unreadNotificationsCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Realtime Notification Popover Dropdown Panel */}
+              {notificationsDropdownOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    right: '-40px',
+                    width: '380px',
+                    maxWidth: 'calc(100vw - 24px)',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    boxShadow: '0 16px 40px rgba(0, 0, 0, 0.14), 0 4px 12px rgba(0, 0, 0, 0.06)',
+                    border: '1px solid #E2E8F0',
+                    zIndex: 1000,
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* Top Header */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 16px',
+                      borderBottom: '1px solid #F1F5F9',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>Notifications</span>
+                      {unreadNotificationsCount > 0 ? (
+                        <span
+                          style={{
+                            fontSize: '10.5px',
+                            fontWeight: 700,
+                            color: '#0052FF',
+                            backgroundColor: '#EFF6FF',
+                            padding: '2px 7px',
+                            borderRadius: '10px',
+                          }}
+                        >
+                          {unreadNotificationsCount} new
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 600 }}>All caught up</span>
+                      )}
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      {unreadNotificationsCount > 0 && (
+                        <button
+                          type="button"
+                          onClick={markAllNotificationsAsRead}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#0052FF',
+                            fontSize: '11.5px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            padding: '2px 4px',
+                          }}
+                        >
+                          Mark all read
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setNotificationsDropdownOpen(false)}
+                        style={{
+                          background: '#F1F5F9',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '24px',
+                          height: '24px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#64748B',
+                          fontSize: '12px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Category Tabs */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '4px',
+                      padding: '8px 12px',
+                      borderBottom: '1px solid #F1F5F9',
+                      backgroundColor: '#F8FAFC',
+                      overflowX: 'auto',
+                    }}
+                  >
+                    {[
+                      { id: 'ALL', label: 'All' },
+                      { id: 'UNREAD', label: `Unread (${unreadNotificationsCount})` },
+                      { id: 'COLLABS', label: 'Collabs' },
+                      { id: 'PAYMENTS', label: 'Payments' },
+                      { id: 'SYSTEM', label: 'System' },
+                    ].map((tab) => {
+                      const isSelected = notificationFilter === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          type="button"
+                          onClick={() => setNotificationFilter(tab.id as any)}
+                          style={{
+                            padding: '4px 10px',
+                            fontSize: '11px',
+                            fontWeight: isSelected ? 700 : 500,
+                            color: isSelected ? '#0052FF' : '#64748B',
+                            backgroundColor: isSelected ? '#FFFFFF' : 'transparent',
+                            border: isSelected ? '1px solid #CBD5E1' : '1px solid transparent',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                            boxShadow: isSelected ? '0 1px 2px rgba(0, 0, 0, 0.04)' : 'none',
+                          }}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Notification Items List */}
+                  <div style={{ maxHeight: '360px', overflowY: 'auto' }}>
+                    {notifications
+                      .filter((n) => {
+                        if (notificationFilter === 'UNREAD') return !n.read;
+                        if (notificationFilter === 'COLLABS') return n.category === 'COLLABS';
+                        if (notificationFilter === 'PAYMENTS') return n.category === 'PAYMENTS';
+                        if (notificationFilter === 'SYSTEM') return n.category === 'SYSTEM';
+                        return true;
+                      })
+                      .map((notif) => (
+                        <div
+                          key={notif.id}
+                          onClick={() => handleNotificationClick(notif)}
+                          style={{
+                            display: 'flex',
+                            gap: '12px',
+                            padding: '12px 16px',
+                            borderBottom: '1px solid #F1F5F9',
+                            backgroundColor: notif.read ? '#FFFFFF' : '#F8FAFF',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.12s ease',
+                            position: 'relative',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = notif.read ? '#F8FAFC' : '#EFF6FF';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = notif.read ? '#FFFFFF' : '#F8FAFF';
+                          }}
+                        >
+                          {/* Contextual Icon Avatar */}
+                          <div
+                            style={{
+                              width: '34px',
+                              height: '34px',
+                              borderRadius: '10px',
+                              backgroundColor:
+                                notif.type === 'ESCROW' || notif.type === 'APPROVAL'
+                                  ? '#ECFDF5'
+                                  : notif.type === 'MATCH'
+                                  ? '#EFF6FF'
+                                  : notif.type === 'MESSAGE'
+                                  ? '#F5F3FF'
+                                  : notif.type === 'PAYMENT'
+                                  ? '#F0FDF4'
+                                  : '#FEF3C7',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              flexShrink: 0,
+                              fontSize: '15px',
+                            }}
+                          >
+                            {notif.type === 'ESCROW' && '🛡️'}
+                            {notif.type === 'MATCH' && '⭐'}
+                            {notif.type === 'MESSAGE' && '💬'}
+                            {notif.type === 'APPROVAL' && '✓'}
+                            {notif.type === 'PAYMENT' && '💰'}
+                            {notif.type === 'CREDIT' && '⚡'}
+                            {notif.type === 'PROPOSAL' && '📝'}
+                            {notif.type === 'SYSTEM' && '✨'}
+                          </div>
+
+                          {/* Text & Meta */}
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px', marginBottom: '2px' }}>
+                              <span
+                                style={{
+                                  fontSize: '12px',
+                                  fontWeight: notif.read ? 600 : 700,
+                                  color: notif.read ? '#334155' : '#0F172A',
+                                  lineHeight: 1.3,
+                                }}
+                              >
+                                {notif.title}
+                              </span>
+                              {!notif.read && (
+                                <span
+                                  style={{
+                                    width: '6px',
+                                    height: '6px',
+                                    borderRadius: '50%',
+                                    backgroundColor: '#0052FF',
+                                    flexShrink: 0,
+                                  }}
+                                />
+                              )}
+                            </div>
+
+                            <p
+                              style={{
+                                fontSize: '11.5px',
+                                color: '#64748B',
+                                margin: '0 0 6px 0',
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              {notif.message}
+                            </p>
+
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                {notif.badgeText && (
+                                  <span
+                                    style={{
+                                      fontSize: '9.5px',
+                                      fontWeight: 700,
+                                      padding: '1px 5px',
+                                      borderRadius: '4px',
+                                      backgroundColor: notif.badgeBg || '#F1F5F9',
+                                      color: notif.badgeColor || '#475569',
+                                    }}
+                                  >
+                                    {notif.badgeText}
+                                  </span>
+                                )}
+                                <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{notif.timeAgo}</span>
+                              </div>
+
+                              {notif.actionLabel && (
+                                <span
+                                  style={{
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    color: '#0052FF',
+                                  }}
+                                >
+                                  {notif.actionLabel}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Dismiss X button */}
+                          <button
+                            type="button"
+                            onClick={(e) => deleteNotification(notif.id, e)}
+                            title="Dismiss"
+                            style={{
+                              position: 'absolute',
+                              top: '8px',
+                              right: '8px',
+                              background: 'none',
+                              border: 'none',
+                              color: '#CBD5E1',
+                              fontSize: '11px',
+                              cursor: 'pointer',
+                              padding: '2px',
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = '#EF4444')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = '#CBD5E1')}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))}
+
+                    {notifications.filter((n) => {
+                      if (notificationFilter === 'UNREAD') return !n.read;
+                      if (notificationFilter === 'COLLABS') return n.category === 'COLLABS';
+                      if (notificationFilter === 'PAYMENTS') return n.category === 'PAYMENTS';
+                      if (notificationFilter === 'SYSTEM') return n.category === 'SYSTEM';
+                      return true;
+                    }).length === 0 && (
+                      <div style={{ padding: '32px 16px', textAlign: 'center', color: '#94A3B8' }}>
+                        <div style={{ fontSize: '24px', marginBottom: '6px' }}>🔔</div>
+                        <div style={{ fontSize: '12.5px', fontWeight: 600, color: '#475569' }}>No notifications in this tab</div>
+                        <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '2px' }}>You will receive real-time alerts when brands take action</div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Footer */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      backgroundColor: '#F8FAFC',
+                      borderTop: '1px solid #F1F5F9',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#059669', fontWeight: 600 }}>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block', boxShadow: '0 0 6px rgba(16, 185, 129, 0.6)' }} />
+                      <span>Realtime Activity Stream</span>
+                    </div>
+
+                    {notifications.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setNotifications([])}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: '#94A3B8',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = '#EF4444')}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = '#94A3B8')}
+                      >
+                        Clear all
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* User Profile Dropdown */}
             <div id="user-profile-dropdown-container" style={{ position: 'relative', flexShrink: 0 }}>
@@ -4482,6 +5136,75 @@ function CreatorPortalContent() {
               </>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Floating Live Realtime Toast Popup */}
+      {liveToast && (
+        <div
+          onClick={() => handleNotificationClick(liveToast)}
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '12px',
+            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #E2E8F0',
+            padding: '14px 16px',
+            maxWidth: '360px',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
+            cursor: 'pointer',
+            animation: 'fadeIn 0.2s ease',
+          }}
+        >
+          <div
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
+              backgroundColor: '#EFF6FF',
+              color: '#0052FF',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              fontSize: '15px',
+            }}
+          >
+            {liveToast.type === 'ESCROW' ? '🛡️' : liveToast.type === 'MATCH' ? '⭐' : liveToast.type === 'CREDIT' ? '⚡' : liveToast.type === 'PROPOSAL' ? '📝' : '🔔'}
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A', marginBottom: '2px' }}>
+              {liveToast.title}
+            </div>
+            <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.35, marginBottom: '6px' }}>
+              {liveToast.message}
+            </div>
+            <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF' }}>
+              {liveToast.actionLabel || 'View Details →'}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLiveToast(null);
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#94A3B8',
+              fontSize: '13px',
+              cursor: 'pointer',
+              padding: 0,
+            }}
+          >
+            ✕
+          </button>
         </div>
       )}
     </div>
