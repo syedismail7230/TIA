@@ -863,31 +863,47 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
-            {/* Search Booster Banner */}
+            {/* High-End Match Booster Banner */}
             <div
               style={{
-                background: 'linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #FAF5FF 100%)',
-                border: '1px solid #E0E7FF',
-                borderRadius: '14px',
-                padding: '20px',
-                marginBottom: '24px',
+                background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%)',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '20px 24px',
+                marginBottom: '26px',
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '14px',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '18px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', paddingTop: '2px', flexShrink: 0 }}>
-                  <InstagramIcon size={22} />
-                  <YouTubeIcon size={22} />
-                  <TikTokIcon size={22} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: '1 1 380px' }}>
+                {/* Overlapping Social Badges */}
+                <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', zIndex: 3 }}>
+                    <InstagramIcon size={18} />
+                  </div>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 2 }}>
+                    <YouTubeIcon size={18} />
+                  </div>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 1 }}>
+                    <TikTokIcon size={18} />
+                  </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 4px 0', lineHeight: 1.35 }}>
-                    We&apos;re actively searching for your perfect campaign! 👀
+
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                    <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.03em' }}>
+                      AUDIENCE INTELLIGENCE
+                    </span>
+                  </div>
+                  <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0', lineHeight: 1.35 }}>
+                    We&apos;re actively searching for your perfect campaign!
                   </h2>
-                  <p style={{ fontSize: '12.5px', color: '#4338CA', margin: 0, lineHeight: 1.45 }}>
-                    The more socials you link, the better the chances of finding the right fit for your audience and style!
+                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, lineHeight: 1.45 }}>
+                    The more socials you link, the better the chances of finding the right fit for your audience and style.
                   </p>
                 </div>
               </div>
@@ -899,17 +915,23 @@ function CreatorPortalContent() {
                   backgroundColor: '#0052FF',
                   color: '#FFFFFF',
                   border: 'none',
-                  borderRadius: '8px',
-                  padding: '11px 0',
+                  borderRadius: '10px',
+                  padding: '11px 22px',
                   fontSize: '13px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  width: '100%',
-                  textAlign: 'center',
-                  boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
+                  boxShadow: '0 2px 10px rgba(0, 82, 255, 0.25)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                Connect Socials
+                <span>Connect Socials</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </button>
             </div>
 
