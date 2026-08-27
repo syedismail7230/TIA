@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 
 // ============================================================================
-// VECTOR SVG BRAND & NAVIGATION ICONS
+// VECTOR SVG ICONS (PREMIUM TIA DESIGN SYSTEM)
 // ============================================================================
 
 function MarketplaceIcon({ size = 18, color = 'currentColor' }: { size?: number; color?: string }) {
@@ -60,13 +60,13 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <defs>
-        <radialGradient id="ig-grad-mobile" cx="20%" cy="100%" r="130%">
+        <radialGradient id="ig-grad" cx="20%" cy="100%" r="130%">
           <stop offset="0%" stopColor="#FFDD55" />
           <stop offset="25%" stopColor="#FF543E" />
           <stop offset="50%" stopColor="#C837AB" />
           <stop offset="100%" stopColor="#377424" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="ig-linear-mobile" x1="0%" y1="100%" x2="100%" y2="0%">
+        <linearGradient id="ig-linear" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#405DE6" />
           <stop offset="30%" stopColor="#5851DB" />
           <stop offset="50%" stopColor="#833AB4" />
@@ -75,8 +75,8 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
           <stop offset="100%" stopColor="#FD1D1D" />
         </linearGradient>
       </defs>
-      <rect width="24" height="24" rx="6" fill="url(#ig-linear-mobile)" />
-      <rect width="24" height="24" rx="6" fill="url(#ig-grad-mobile)" />
+      <rect width="24" height="24" rx="6" fill="url(#ig-linear)" />
+      <rect width="24" height="24" rx="6" fill="url(#ig-grad)" />
       <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
       <circle cx="12" cy="12" r="3.25" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
       <circle cx="15.5" cy="8.5" r="0.85" fill="#FFFFFF" />
@@ -149,41 +149,20 @@ function SparklesIcon({ size = 14, color = '#0052FF' }: { size?: number; color?:
   );
 }
 
-function CommissionTargetIcon({ size = 13, color = '#7C3AED' }: { size?: number; color?: string }) {
+function ArrowUpRightIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2">
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="4" fill={color} fillOpacity="0.3" />
-      <path d="M12 2V6M12 18V22M2 12H6M18 12H22" strokeLinecap="round" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
     </svg>
   );
 }
 
-function FlatFeeBagIcon({ size = 13, color = '#D97706' }: { size?: number; color?: string }) {
+function ShieldCheckIcon({ size = 13, color = '#059669' }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <path d="M16 10a4 4 0 0 1-8 0" />
-    </svg>
-  );
-}
-
-function InfoCircleIcon({ size = 14, color = '#D97706' }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="16" x2="12" y2="12" />
-      <line x1="12" y1="8" x2="12.01" y2="8" />
-    </svg>
-  );
-}
-
-function ArrowRightIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <polyline points="9 12 11 14 15 10" />
     </svg>
   );
 }
@@ -213,27 +192,29 @@ function CreatorPortalContent() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Teaser Marketplace Campaigns with Clean Upfluence-Style Structure
+  // Master Marketplace Campaigns with Restructured High-End UX
   const [campaigns] = useState<any[]>([
     {
       id: 'camp-1',
       title: 'EcoVibe Sustainable Living Challenge',
       brandName: 'EcoVibe Global',
+      brandLogoText: 'EV',
       bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
+      avatarGradient: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 10%',
-      payoutAmount: '$750 - $1,500',
+      commercialBadge: '10% Commission',
+      payoutAmount: '$750 – $1,500',
+      payoutLabel: 'Est. Creator Payout',
       creatorsApplied: 18,
       acceptanceChance: 86,
       eligibilityRate: 94,
-      categories: ['Sustainability', 'Cooking', 'Food', '+5'],
+      categories: ['Sustainability', 'Cooking', 'Eco-Lifestyle'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'Connect TikTok to boost match to 100%',
       language: 'English',
       country: 'Australia',
-      countryFlag: '🇦🇺 AU',
+      countryCode: 'AU',
+      countryFlag: '🇦🇺',
       socials: ['INSTAGRAM', 'TIKTOK', 'YOUTUBE'],
       description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
     },
@@ -241,21 +222,23 @@ function CreatorPortalContent() {
       id: 'camp-2',
       title: 'Festive Season Artisan Gourmet Unboxing',
       brandName: 'Nectar Bites Gourmet',
+      brandLogoText: 'NB',
       bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
+      avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 12%',
-      payoutAmount: '$600 - $950',
+      commercialBadge: '12% Commission',
+      payoutAmount: '$600 – $950',
+      payoutLabel: 'Est. Creator Payout',
       creatorsApplied: 24,
       acceptanceChance: 92,
       eligibilityRate: 98,
-      categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
+      categories: ['Festivals', 'Food', 'Lifestyle'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'All requirements met & verified',
       language: 'English',
       country: 'Italy',
-      countryFlag: '🇮🇹 IT',
+      countryCode: 'IT',
+      countryFlag: '🇮🇹',
       socials: ['INSTAGRAM', 'PINTEREST', 'TIKTOK', 'YOUTUBE'],
       description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
     },
@@ -263,43 +246,47 @@ function CreatorPortalContent() {
       id: 'camp-3',
       title: 'Bio-Active Herbal Vitality Booster Launch',
       brandName: 'PureBotanics Laboratory',
+      brandLogoText: 'PB',
       bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
+      avatarGradient: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 20%',
-      payoutAmount: '$1,200 - $2,400',
+      commercialBadge: '20% Commission',
+      payoutAmount: '$1,200 – $2,400',
+      payoutLabel: 'Est. Creator Payout',
       creatorsApplied: 31,
       acceptanceChance: 78,
       eligibilityRate: 88,
-      categories: ['Entrepreneurship', 'Dietary Supplements'],
+      categories: ['Supplements', 'Wellness', 'Fitness'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'Min. 50k followers across linked socials',
       language: 'English',
       country: 'United States',
-      countryFlag: '🇺🇸 US',
+      countryCode: 'US',
+      countryFlag: '🇺🇸',
       socials: ['INSTAGRAM', 'TIKTOK'],
       description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
     },
     {
       id: 'camp-4',
-      title: 'Nexus X1 Ultra 4K Camera Showcase',
+      title: 'Nexus X1 Ultra 4K Cinema Camera Review',
       brandName: 'Nexus Tech Global',
+      brandLogoText: 'NX',
       bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
+      avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 20%',
-      payoutAmount: '$2,000 - $3,500',
+      commercialBadge: '20% Commission',
+      payoutAmount: '$2,000 – $3,500',
+      payoutLabel: 'Est. Creator Payout',
       creatorsApplied: 42,
       acceptanceChance: 64,
       eligibilityRate: 75,
-      categories: ['Technology', 'Gadgets', 'AI', '+3'],
+      categories: ['Technology', 'Gadgets', 'Filmmaking'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'Requires YouTube tech channel connection',
       language: 'English',
       country: 'India',
-      countryFlag: '🇮🇳 IN',
+      countryCode: 'IN',
+      countryFlag: '🇮🇳',
       socials: ['INSTAGRAM', 'YOUTUBE', 'TIKTOK'],
       description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
     },
@@ -307,21 +294,23 @@ function CreatorPortalContent() {
       id: 'camp-5',
       title: 'Velocity Pro Marathon Performance Shoe',
       brandName: 'Stride Athletics',
+      brandLogoText: 'SA',
       bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
+      avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)',
       commercialType: 'COMMISSION',
-      commercialLabel: 'Commission 12%',
-      payoutAmount: '$800 - $1,400',
+      commercialBadge: '12% Commission',
+      payoutAmount: '$800 – $1,400',
+      payoutLabel: 'Est. Creator Payout',
       creatorsApplied: 15,
       acceptanceChance: 89,
       eligibilityRate: 91,
       categories: ['Fitness', 'Running', 'Athleisure'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'All requirements met & verified',
       language: 'English',
       country: 'United Kingdom',
-      countryFlag: '🇬🇧 UK',
+      countryCode: 'GB',
+      countryFlag: '🇬🇧',
       socials: ['INSTAGRAM', 'TIKTOK'],
       description: 'High-energy running montage with direct swipe-up discount code for community followers.',
     },
@@ -329,21 +318,23 @@ function CreatorPortalContent() {
       id: 'camp-6',
       title: 'LuxeDerm Anti-Aging Night Serum',
       brandName: 'LuxeDerm Skin Labs',
+      brandLogoText: 'LD',
       bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-      avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
+      avatarGradient: 'linear-gradient(135deg, #D97706 0%, #92400E 100%)',
       commercialType: 'FLAT_FEE',
-      commercialLabel: 'Flat Fee $500',
+      commercialBadge: 'Flat Fee Guaranteed',
       payoutAmount: '$500 Fixed',
+      payoutLabel: 'Guaranteed Escrow Payout',
       creatorsApplied: 27,
       acceptanceChance: 82,
       eligibilityRate: 85,
-      categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
+      categories: ['Beauty', 'Skincare', 'Cosmetics'],
       isNew: true,
-      requirementMet: false,
-      requirementLabel: 'Requirement not met',
+      requirementLabel: 'Requires skincare video portfolio',
       language: 'English',
       country: 'France',
-      countryFlag: '🇫🇷 FR',
+      countryCode: 'FR',
+      countryFlag: '🇫🇷',
       socials: ['INSTAGRAM', 'YOUTUBE', 'TIKTOK'],
       description: '7-day nighttime skin transformation diary with macro camera closeups.',
     },
@@ -517,7 +508,7 @@ function CreatorPortalContent() {
         campaignTitle: selectedCampaign.title,
         subject: selectedCampaign.title,
         brandName: selectedCampaign.brandName,
-        brandInitials: 'EV',
+        brandInitials: selectedCampaign.brandLogoText || 'EV',
         status: 'AWAITING',
         appliedAt: 'Just now',
         proposedRate: selectedCampaign.payoutAmount,
@@ -611,8 +602,8 @@ function CreatorPortalContent() {
   };
 
   return (
-    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'inherit', width: '100%', paddingBottom: '76px' }}>
-      {/* Mobile Design System Styles */}
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'inherit', width: '100%', paddingBottom: '80px' }}>
+      {/* Dynamic Theme Styles */}
       <style jsx global>{`
         * {
           box-sizing: border-box;
@@ -626,9 +617,9 @@ function CreatorPortalContent() {
           scrollbar-width: none;
         }
 
-        /* Desktop Header */
+        /* Container wrappers */
         .portal-header-wrapper {
-          max-width: 1440px;
+          max-width: 1400px;
           margin: 0 auto;
           padding: 0 24px;
           height: 64px;
@@ -637,14 +628,14 @@ function CreatorPortalContent() {
           justify-content: space-between;
         }
         .portal-main-wrapper {
-          max-width: 1440px;
+          max-width: 1400px;
           margin: 0 auto;
           padding: 24px;
         }
 
-        /* Desktop Tabs: Floating Pill Capsule Container */
+        /* Segmented Capsule Tabs */
         .portal-nav-segmented {
-          display: flex;
+          display: inline-flex;
           align-items: center;
           gap: 6px;
           background: #F1F5F9;
@@ -673,14 +664,24 @@ function CreatorPortalContent() {
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
         }
 
-        /* Mobile Segmented Scroller (< 768px) */
+        /* Opportunity Card Hover Effect */
+        .opportunity-card {
+          transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+        }
+        .opportunity-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 12px 28px -6px rgba(0, 82, 255, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+          border-color: #CBD5E1;
+        }
+
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
           .portal-header-wrapper {
             height: 56px;
             padding: 0 16px;
           }
           .portal-main-wrapper {
-            padding: 12px 14px;
+            padding: 14px 16px;
           }
           .portal-nav-segmented {
             width: 100%;
@@ -689,7 +690,7 @@ function CreatorPortalContent() {
             padding: 4px;
             gap: 4px;
             border-radius: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             -webkit-overflow-scrolling: touch;
           }
           .portal-tab-pill {
@@ -700,7 +701,7 @@ function CreatorPortalContent() {
           }
         }
 
-        /* Mobile Bottom Tab Bar for Native App Feel */
+        /* Mobile Bottom App Bar */
         .portal-mobile-bottom-nav {
           display: none;
         }
@@ -801,8 +802,8 @@ function CreatorPortalContent() {
 
           {/* User Profile & Sign Out on Right */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ fontSize: '12.5px', color: '#1E293B', fontWeight: 600 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '13px', color: '#0F172A', fontWeight: 600 }}>
                 {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
               </span>
               <BlueCheckBadge size={14} title="Verified Creator" />
@@ -815,21 +816,17 @@ function CreatorPortalContent() {
                 router.push('/login');
               }}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
                 fontSize: '12px',
                 color: '#64748B',
-                backgroundColor: 'transparent',
+                backgroundColor: '#F1F5F9',
                 border: 'none',
                 cursor: 'pointer',
-                fontWeight: 500,
-                padding: '4px 8px',
+                fontWeight: 600,
+                padding: '5px 10px',
                 borderRadius: '6px',
               }}
             >
-              <span>Logout</span>
-              <ArrowRightIcon size={11} color="#64748B" />
+              Logout
             </button>
           </div>
         </div>
@@ -837,8 +834,8 @@ function CreatorPortalContent() {
 
       {/* Main Content Container */}
       <main className="portal-main-wrapper">
-        {/* Modern Segmented Pill Tab Bar */}
-        <div style={{ marginBottom: '20px' }}>
+        {/* Navigation Tab Bar */}
+        <div style={{ marginBottom: '22px' }}>
           <nav className="portal-nav-segmented no-scrollbar">
             {navTabs.map((tab) => {
               const isActive = activeTab === tab.id;
@@ -876,33 +873,40 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
-            {/* Top Search Banner */}
+            {/* Top Match Booster Banner */}
             <div
               style={{
-                background: 'linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #FAF5FF 100%)',
+                backgroundColor: '#FFFFFF',
                 border: '1px solid #E0E7FF',
-                borderRadius: '14px',
-                padding: '20px',
-                marginBottom: '24px',
+                borderRadius: '16px',
+                padding: '20px 24px',
+                marginBottom: '28px',
+                boxShadow: '0 4px 16px rgba(0, 82, 255, 0.04)',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '14px',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '16px',
+                background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #EFF6FF 100%)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', paddingTop: '2px', flexShrink: 0 }}>
-                  <InstagramIcon size={22} />
-                  <YouTubeIcon size={22} />
-                  <TikTokIcon size={22} />
+              <div style={{ maxWidth: '680px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.04em' }}>
+                    CREATOR INTELLIGENCE ACTIVE
+                  </span>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <InstagramIcon size={16} />
+                    <YouTubeIcon size={16} />
+                    <TikTokIcon size={16} />
+                  </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 4px 0', lineHeight: 1.35 }}>
-                    We&apos;re actively searching for your perfect campaign! 👀
-                  </h2>
-                  <p style={{ fontSize: '12.5px', color: '#4338CA', margin: 0, lineHeight: 1.45 }}>
-                    The more socials you link, the better the chances of finding the right fit for your audience and style!
-                  </p>
-                </div>
+                <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>
+                  Top Campaign Matches Tailored for Your Audience
+                </h2>
+                <p style={{ fontSize: '13px', color: '#64748B', margin: 0, lineHeight: 1.45 }}>
+                  Our AI engine matches your verified engagement metrics and target demographics to exclusive brand budgets.
+                </p>
               </div>
 
               <button
@@ -912,266 +916,317 @@ function CreatorPortalContent() {
                   backgroundColor: '#0052FF',
                   color: '#FFFFFF',
                   border: 'none',
-                  borderRadius: '8px',
-                  padding: '11px 0',
+                  borderRadius: '10px',
+                  padding: '10px 18px',
                   fontSize: '13px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  width: '100%',
-                  textAlign: 'center',
-                  boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
+                  boxShadow: '0 2px 10px rgba(0, 82, 255, 0.25)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                Connect Socials
+                <span>Connect More Channels</span>
+                <ArrowUpRightIcon size={13} color="#FFFFFF" />
               </button>
             </div>
 
-            {/* Section Heading */}
-            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '16px' }}>🎁</span>
-              <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                Keep growing, and these could be yours soon!
-              </h3>
+            {/* Section Header */}
+            <div style={{ marginBottom: '18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  Curated Commercial Opportunities
+                </h3>
+                <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0 0' }}>
+                  Showing {campaigns.length} verified campaigns actively recruiting
+                </p>
+              </div>
             </div>
 
-            {/* Responsive Clean Cards Grid */}
+            {/* Restructured High-End Cards Grid */}
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-                gap: '20px',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))',
+                gap: '22px',
               }}
             >
               {campaigns.map((camp) => (
                 <div
                   key={camp.id}
                   onClick={() => handleApply(camp)}
+                  className="opportunity-card"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
-                    borderRadius: '14px',
-                    overflow: 'visible',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                     cursor: 'pointer',
-                    transition: 'transform 0.18s ease, box-shadow 0.18s ease',
+                    boxShadow: '0 1px 4px rgba(0, 0, 0, 0.03)',
                   }}
                 >
-                  {/* Banner Container (Avatar floats completely visible across bottom border) */}
+                  {/* 1. Cover Banner */}
                   <div
                     style={{
-                      height: '130px',
+                      height: '110px',
                       position: 'relative',
-                      backgroundColor: '#CBD5E1',
-                      borderTopLeftRadius: '14px',
-                      borderTopRightRadius: '14px',
+                      backgroundColor: '#E2E8F0',
+                      backgroundImage: `url(${camp.bannerImage})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
                     }}
                   >
-                    {/* Blurred Image Wrapper (overflow hidden to preserve rounded top card corners) */}
+                    {/* Dark gradient vignette for text readability */}
                     <div
                       style={{
                         position: 'absolute',
                         inset: 0,
-                        overflow: 'hidden',
-                        borderTopLeftRadius: '14px',
-                        borderTopRightRadius: '14px',
+                        background: 'linear-gradient(180deg, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.15) 60%, rgba(15,23,42,0.7) 100%)',
+                      }}
+                    />
+
+                    {/* Commercial Badge (Top Left) */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '10px',
+                        left: '12px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(8px)',
+                        color: camp.commercialType === 'FLAT_FEE' ? '#92400E' : '#4338CA',
+                        padding: '3px 9px',
+                        borderRadius: '6px',
+                        fontSize: '11px',
+                        fontWeight: 800,
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.12)',
+                        letterSpacing: '0.02em',
                       }}
                     >
+                      {camp.commercialBadge}
+                    </div>
+
+                    {/* New Indicator (Top Right) */}
+                    {camp.isNew && (
                       <div
                         style={{
                           position: 'absolute',
-                          top: -10,
-                          left: -10,
-                          right: -10,
-                          bottom: -10,
-                          backgroundImage: `url(${camp.bannerImage})`,
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          filter: 'blur(16px) saturate(1.15)',
-                          transform: 'scale(1.2)',
+                          top: '10px',
+                          right: '12px',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          fontSize: '10.5px',
+                          fontWeight: 800,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '3px',
+                          boxShadow: '0 2px 6px rgba(0,82,255,0.3)',
                         }}
-                      />
-                    </div>
+                      >
+                        <SparklesIcon size={9} color="#FFFFFF" />
+                        <span>NEW</span>
+                      </div>
+                    )}
 
-                    {/* Translucent Commercial Pill (Top Left) */}
+                    {/* Target Country Chip (Bottom Right) */}
                     <div
                       style={{
                         position: 'absolute',
-                        top: '12px',
-                        left: '14px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
-                        backdropFilter: 'blur(8px)',
-                        color: camp.commercialType === 'FLAT_FEE' ? '#B45309' : '#6D28D9',
-                        padding: '3px 10px',
-                        borderRadius: '14px',
+                        bottom: '8px',
+                        right: '12px',
+                        backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                        backdropFilter: 'blur(6px)',
+                        color: '#FFFFFF',
+                        padding: '2px 8px',
+                        borderRadius: '6px',
                         fontSize: '11px',
-                        fontWeight: 800,
+                        fontWeight: 700,
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: '5px',
-                        zIndex: 2,
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
+                        gap: '4px',
                       }}
                     >
-                      {camp.commercialType === 'FLAT_FEE' ? (
-                        <FlatFeeBagIcon size={11} color="#B45309" />
-                      ) : (
-                        <CommissionTargetIcon size={11} color="#6D28D9" />
-                      )}
-                      <span>{camp.commercialLabel}</span>
+                      <span>{camp.countryFlag}</span>
+                      <span>{camp.countryCode}</span>
                     </div>
-
-                    {/* Metallic Brand Avatar (Full unclipped rounded square floating cleanly) */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '-20px',
-                        left: '16px',
-                        width: '46px',
-                        height: '46px',
-                        background: camp.avatarGradient,
-                        border: '3px solid #FFFFFF',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
-                        zIndex: 3,
-                      }}
-                    />
                   </div>
 
-                  {/* Card Body */}
-                  <div style={{ padding: '28px 16px 16px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    {/* Brand Pill + Categories */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', flexWrap: 'wrap', marginBottom: '8px' }}>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          color: '#64748B',
-                          backgroundColor: '#F1F5F9',
-                          padding: '2px 6px',
-                          borderRadius: '4px',
-                          filter: 'blur(3px)',
-                          userSelect: 'none',
-                        }}
-                      >
-                        Anonymized brand
-                      </span>
-
-                      {camp.categories.map((cat: string, idx: number) => (
-                        <span
-                          key={idx}
+                  {/* 2. Card Content Body */}
+                  <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    {/* Brand Identifier & Category Tags */}
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                        {/* Brand Monogram Avatar */}
+                        <div
                           style={{
-                            fontSize: '10.5px',
-                            fontWeight: 600,
-                            color: '#334155',
-                            backgroundColor: '#F1F5F9',
-                            padding: '2px 6px',
-                            borderRadius: '4px',
-                          }}
-                        >
-                          {cat}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Anonymized Title + New */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '6px' }}>
-                      <span
-                        style={{
-                          fontSize: '13px',
-                          fontWeight: 700,
-                          color: '#0F172A',
-                          filter: 'blur(3.5px)',
-                          userSelect: 'none',
-                        }}
-                      >
-                        Anonymized campaign name
-                      </span>
-                      {camp.isNew && (
-                        <span
-                          style={{
-                            backgroundColor: '#EFF6FF',
-                            color: '#0052FF',
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '6px',
+                            background: camp.avatarGradient,
+                            color: '#FFFFFF',
                             fontSize: '10px',
                             fontWeight: 800,
-                            padding: '1px 5px',
-                            borderRadius: '4px',
-                            whiteSpace: 'nowrap',
-                            display: 'inline-flex',
+                            display: 'flex',
                             alignItems: 'center',
-                            gap: '3px',
+                            justifyContent: 'center',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            flexShrink: 0,
                           }}
                         >
-                          <SparklesIcon size={9} color="#0052FF" />
-                          <span>New</span>
+                          {camp.brandLogoText}
+                        </div>
+                        <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>
+                          {camp.brandName}
                         </span>
-                      )}
-                    </div>
-
-                    {/* Prominent Amount in Bigger Font Down Inside Body */}
-                    <div style={{ margin: '4px 0 14px 0', display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                      <span style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-                        {camp.payoutAmount}
-                      </span>
-                      {camp.commercialType === 'COMMISSION' && (
-                        <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 500 }}>
-                          est. earnings
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Unified Clean Key-Value Metadata List */}
-                    <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '12px', marginTop: 'auto' }}>
-                      <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px', color: '#D97706', fontSize: '11.5px', fontWeight: 700 }}>
-                        <InfoCircleIcon size={12} color="#D97706" />
-                        <span>{camp.requirementLabel}</span>
+                        <ShieldCheckIcon size={12} color="#059669" />
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11.5px', color: '#475569' }}>
-                        {/* Your Profile Eligibility Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Your profile eligibility</span>
-                          <span style={{ fontWeight: 700, color: '#0284C7' }}>{camp.eligibilityRate}%</span>
-                        </div>
+                      <h4
+                        style={{
+                          fontSize: '14px',
+                          fontWeight: 800,
+                          color: '#0F172A',
+                          margin: '0 0 8px 0',
+                          lineHeight: 1.35,
+                        }}
+                      >
+                        {camp.title}
+                      </h4>
 
-                        {/* Acceptance Chance Row (Pure Percentage) */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Acceptance chance</span>
-                          <span style={{ fontWeight: 700, color: '#059669' }}>{camp.acceptanceChance}%</span>
-                        </div>
+                      {/* Category Chips */}
+                      <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                        {camp.categories.map((cat: string) => (
+                          <span
+                            key={cat}
+                            style={{
+                              fontSize: '10.5px',
+                              fontWeight: 600,
+                              color: '#475569',
+                              backgroundColor: '#F1F5F9',
+                              padding: '2px 7px',
+                              borderRadius: '4px',
+                            }}
+                          >
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                        {/* Creators Applied Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Creators applied</span>
-                          <span style={{ fontWeight: 600, color: '#0F172A' }}>{camp.creatorsApplied}</span>
+                    {/* 3. High-Impact Payout Highlight Block */}
+                    <div
+                      style={{
+                        backgroundColor: '#F8FAFC',
+                        border: '1px solid #EEF2F6',
+                        borderRadius: '10px',
+                        padding: '10px 14px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          {camp.payoutLabel}
                         </div>
-
-                        {/* Language Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Language</span>
-                          <span style={{ fontWeight: 600, color: '#0F172A' }}>{camp.language}</span>
+                        <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                          {camp.payoutAmount}
                         </div>
+                      </div>
 
-                        {/* Country Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Country</span>
-                          <span style={{ fontSize: '12px', fontWeight: 600, color: '#0F172A' }}>{camp.countryFlag}</span>
-                        </div>
-
-                        {/* Socials Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Socials</span>
-                          <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-                            {camp.socials.map((s: string) => (
-                              <div key={s} title={s}>
-                                {renderSocialIcon(s, 14)}
-                              </div>
-                            ))}
+                      {/* Social Platform Icons */}
+                      <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                        {camp.socials.map((s: string) => (
+                          <div key={s} title={s}>
+                            {renderSocialIcon(s, 16)}
                           </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 4. Creator Intelligence Metrics Trio (Clean, High Contrast) */}
+                    <div
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(3, 1fr)',
+                        gap: '6px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '10px',
+                        padding: '8px 10px',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <div style={{ borderRight: '1px solid #F1F5F9', paddingRight: '4px' }}>
+                        <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>
+                          Your Eligibility
+                        </div>
+                        <div style={{ fontSize: '14px', fontWeight: 900, color: '#0052FF', marginTop: '2px' }}>
+                          {camp.eligibilityRate}%
                         </div>
                       </div>
+
+                      <div style={{ borderRight: '1px solid #F1F5F9', paddingRight: '4px' }}>
+                        <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>
+                          Acceptance
+                        </div>
+                        <div style={{ fontSize: '14px', fontWeight: 900, color: '#059669', marginTop: '2px' }}>
+                          {camp.acceptanceChance}%
+                        </div>
+                      </div>
+
+                      <div>
+                        <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>
+                          Applicants
+                        </div>
+                        <div style={{ fontSize: '14px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>
+                          {camp.creatorsApplied}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 5. Campaign Criteria & Apply Footer */}
+                    <div style={{ marginTop: 'auto', paddingTop: '4px' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          fontSize: '11.5px',
+                          color: '#64748B',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        <span>Language: <strong style={{ color: '#0F172A' }}>{camp.language}</strong></span>
+                        <span style={{ color: '#D97706', fontWeight: 600, fontSize: '11px' }}>{camp.requirementLabel}</span>
+                      </div>
+
+                      <button
+                        type="button"
+                        style={{
+                          width: '100%',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          padding: '9px 0',
+                          fontSize: '12.5px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '5px',
+                          boxShadow: '0 2px 8px rgba(0, 82, 255, 0.2)',
+                        }}
+                      >
+                        <span>View Brief & Apply</span>
+                        <ArrowUpRightIcon size={12} color="#FFFFFF" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1187,9 +1242,9 @@ function CreatorPortalContent() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px', overflowX: 'auto', paddingBottom: '4px' }}>
               {[
-                { id: 'awaiting', label: '⏳ Awaiting', count: collabs.filter((c) => c.status === 'AWAITING').length },
-                { id: 'accepted', label: '🌿 Accepted', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
-                { id: 'rejected', label: '🚫 Rejected', count: collabs.filter((c) => c.status === 'REJECTED').length },
+                { id: 'awaiting', label: '⏳ Awaiting Review', count: collabs.filter((c) => c.status === 'AWAITING').length },
+                { id: 'accepted', label: '🌿 Accepted & Active', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
+                { id: 'rejected', label: '🚫 Archived', count: collabs.filter((c) => c.status === 'REJECTED').length },
               ].map((pill) => {
                 const isActive = collabFilter === pill.id;
                 return (
@@ -1202,18 +1257,18 @@ function CreatorPortalContent() {
                       borderRadius: '8px',
                       fontSize: '12.5px',
                       fontWeight: 700,
-                      backgroundColor: isActive ? '#FEF3C7' : '#FFFFFF',
-                      color: isActive ? '#92400E' : '#475569',
-                      border: isActive ? '1px solid #FCD34D' : '1px solid #E2E8F0',
+                      backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
+                      color: isActive ? '#0052FF' : '#475569',
+                      border: isActive ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
                       cursor: 'pointer',
                       whiteSpace: 'nowrap',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '4px',
+                      gap: '5px',
                     }}
                   >
                     <span>{pill.label}</span>
-                    <span style={{ fontSize: '11px', opacity: 0.8 }}>({pill.count})</span>
+                    <span style={{ fontSize: '11px', opacity: 0.85 }}>({pill.count})</span>
                   </button>
                 );
               })}
@@ -1225,16 +1280,16 @@ function CreatorPortalContent() {
                   textAlign: 'center',
                   padding: '50px 16px',
                   backgroundColor: '#FFFFFF',
-                  borderRadius: '14px',
+                  borderRadius: '16px',
                   border: '1px solid #E2E8F0',
                 }}
               >
                 <div style={{ fontSize: '40px', marginBottom: '10px' }}>🗂️</div>
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>
-                  Nothing pending to review—for now!
+                  No active threads in this view
                 </h3>
                 <p style={{ fontSize: '13px', color: '#64748B', maxWidth: '380px', margin: '0 auto 18px auto', lineHeight: 1.45 }}>
-                  Once you apply to a campaign, it&apos;ll appear here while the brand checks out your profile.
+                  Once you apply to a campaign, your proposal and messages with brand managers will appear here.
                 </p>
                 <button
                   type="button"
@@ -1250,7 +1305,7 @@ function CreatorPortalContent() {
                     cursor: 'pointer',
                   }}
                 >
-                  Explore opportunities
+                  Browse Marketplace Opportunities
                 </button>
               </div>
             ) : (
@@ -1258,7 +1313,7 @@ function CreatorPortalContent() {
                 style={{
                   backgroundColor: '#FFFFFF',
                   border: '1px solid #E2E8F0',
-                  borderRadius: '14px',
+                  borderRadius: '16px',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
@@ -1307,7 +1362,7 @@ function CreatorPortalContent() {
                     value={replyMessage}
                     onChange={(e) => setReplyMessage(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                    placeholder="Type your reply..."
+                    placeholder="Type your reply to brand manager..."
                     style={{ flex: 1, padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '12.5px' }}
                   />
                   <button
@@ -1330,61 +1385,64 @@ function CreatorPortalContent() {
           <div>
             {claimSuccess && (
               <div style={{ backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#065F46', padding: '10px 14px', borderRadius: '8px', marginBottom: '14px', fontSize: '12.5px', fontWeight: 600 }}>
-                ✓ Payout claimed successfully!
+                ✓ Payout claimed successfully to your verified bank account!
               </div>
             )}
 
             {/* Metric Cards Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '12px', marginBottom: '20px' }}>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>$</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '14px', marginBottom: '22px' }}>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: '16px' }}>$</div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>Total received</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A' }}>$25,345.00</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total received</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>$25,345.00</div>
                 </div>
               </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⌛</div>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEF3C7', color: '#D97706', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>⌛</div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>Total pending</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A' }}>$5,952.45</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total pending escrow</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A' }}>$5,952.45</div>
                 </div>
               </div>
-              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⏱</div>
+              <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '16px', display: 'flex', alignItems: 'center', gap: '14px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>⚡</div>
                 <div>
-                  <div style={{ fontSize: '11px', color: '#64748B' }}>Total unclaimed</div>
-                  <div style={{ fontSize: '17px', fontWeight: 800, color: '#0052FF' }}>$12,356.70</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Available to claim</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0052FF' }}>$12,356.70</div>
                 </div>
               </div>
             </div>
 
             {/* Scrollable Transactions Table */}
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflowX: 'auto' }}>
-              <table style={{ width: '100%', minWidth: '540px', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', overflowX: 'auto', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+              <table style={{ width: '100%', minWidth: '560px', borderCollapse: 'collapse', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', fontSize: '11px', fontWeight: 700, color: '#64748B' }}>
-                    <th style={{ padding: '12px 14px' }}>Media Name</th>
-                    <th style={{ padding: '12px 14px' }}>Campaign</th>
-                    <th style={{ padding: '12px 14px' }}>Amount</th>
-                    <th style={{ padding: '12px 14px' }}>Status</th>
-                    <th style={{ padding: '12px 14px', textAlign: 'right' }}>Action</th>
+                    <th style={{ padding: '12px 16px' }}>Brand / Campaign</th>
+                    <th style={{ padding: '12px 16px' }}>Contract Rate</th>
+                    <th style={{ padding: '12px 16px' }}>Authorized Date</th>
+                    <th style={{ padding: '12px 16px' }}>Escrow Status</th>
+                    <th style={{ padding: '12px 16px', textAlign: 'right' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {payments.map((p) => (
                     <tr key={p.id} style={{ borderBottom: '1px solid #F1F5F9', fontSize: '12.5px' }}>
-                      <td style={{ padding: '12px 14px', fontWeight: 700, color: '#0F172A' }}>{p.mediaName}</td>
-                      <td style={{ padding: '12px 14px', color: '#475569' }}>{p.campaign}</td>
-                      <td style={{ padding: '12px 14px', fontWeight: 800, color: '#0052FF' }}>{p.amount}</td>
-                      <td style={{ padding: '12px 14px' }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: 700, padding: '2px 7px', borderRadius: '8px', backgroundColor: p.status === 'PAID' ? '#ECFDF5' : '#F1F5F9', color: p.status === 'PAID' ? '#059669' : '#475569' }}>
-                          {p.status}
+                      <td style={{ padding: '14px 16px' }}>
+                        <div style={{ fontWeight: 700, color: '#0F172A' }}>{p.mediaName}</div>
+                        <div style={{ fontSize: '11px', color: '#64748B' }}>{p.campaign}</div>
+                      </td>
+                      <td style={{ padding: '14px 16px', fontWeight: 900, color: '#0052FF' }}>{p.amount}</td>
+                      <td style={{ padding: '14px 16px', color: '#64748B' }}>{p.authorizedAt}</td>
+                      <td style={{ padding: '14px 16px' }}>
+                        <span style={{ fontSize: '10.5px', fontWeight: 700, padding: '2px 8px', borderRadius: '6px', backgroundColor: p.status === 'PAID' ? '#ECFDF5' : '#FEF3C7', color: p.status === 'PAID' ? '#059669' : '#92400E' }}>
+                          {p.status === 'PAID' ? '✓ Disbursed' : '⏱ Ready to Claim'}
                         </span>
                       </td>
-                      <td style={{ padding: '12px 14px', textAlign: 'right' }}>
-                        <button type="button" onClick={() => handleClaimPayout(p.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '5px 12px', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer' }}>
-                          {p.status === 'UNCLAIMED' ? 'Claim!' : 'View'}
+                      <td style={{ padding: '14px 16px', textAlign: 'right' }}>
+                        <button type="button" onClick={() => handleClaimPayout(p.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '6px 14px', fontSize: '11.5px', fontWeight: 700, cursor: 'pointer' }}>
+                          {p.status === 'UNCLAIMED' ? 'Claim Now' : 'Receipt'}
                         </button>
                       </td>
                     </tr>
@@ -1399,34 +1457,38 @@ function CreatorPortalContent() {
         {/* TAB 4: SOCIAL MEDIA                                                  */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div style={{ maxWidth: '640px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '14px' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>Social Media Accounts</h2>
-              <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
-                Integrate your verified accounts to calculate your real creator intelligence score.
+          <div style={{ maxWidth: '680px', margin: '0 auto' }}>
+            <div style={{ marginBottom: '18px' }}>
+              <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>Connected Creator Channels</h2>
+              <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0 }}>
+                Authenticate your official social media accounts to sync real-time follower counts and unlock higher brand rate cards.
               </p>
             </div>
 
-            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' }}>
+            <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
               {[
-                { id: 'INSTAGRAM', name: 'Instagram', icon: <InstagramIcon size={20} /> },
-                { id: 'TIKTOK', name: 'TikTok', icon: <TikTokIcon size={20} /> },
-                { id: 'YOUTUBE', name: 'YouTube', icon: <YouTubeIcon size={20} /> },
+                { id: 'INSTAGRAM', name: 'Instagram Creator', icon: <InstagramIcon size={22} /> },
+                { id: 'TIKTOK', name: 'TikTok Creator Marketplace', icon: <TikTokIcon size={22} /> },
+                { id: 'YOUTUBE', name: 'YouTube Partner Channel', icon: <YouTubeIcon size={22} /> },
               ].map((plat, idx) => {
                 const account = socialAccounts.find((a) => a.platform === plat.id);
                 return (
-                  <div key={plat.id} style={{ padding: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: idx < 2 ? '1px solid #F1F5F9' : 'none' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div key={plat.id} style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: idx < 2 ? '1px solid #F1F5F9' : 'none' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       {plat.icon}
                       <div>
-                        <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>{plat.name}</div>
-                        {account?.connected && <div style={{ fontSize: '11.5px', color: '#64748B' }}>@{account.username}</div>}
+                        <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A' }}>{plat.name}</div>
+                        {account?.connected ? (
+                          <div style={{ fontSize: '11.5px', color: '#64748B' }}>@{account.username} • {(account.audienceSize / 1000).toFixed(0)}k followers • {account.engagementRate}% ER</div>
+                        ) : (
+                          <div style={{ fontSize: '11.5px', color: '#94A3B8' }}>Not connected yet</div>
+                        )}
                       </div>
                     </div>
                     {account?.connected ? (
-                      <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>✓ Connected</span>
+                      <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', padding: '4px 10px', borderRadius: '6px' }}>✓ Verified Active</span>
                     ) : (
-                      <button type="button" onClick={() => handleConnectOAuth(plat.id)} style={{ backgroundColor: '#FFFFFF', color: '#0052FF', border: '1px solid #0052FF', borderRadius: '6px', padding: '5px 14px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>Connect</button>
+                      <button type="button" onClick={() => handleConnectOAuth(plat.id)} style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '6px 16px', fontSize: '12px', fontWeight: 700, cursor: 'pointer' }}>Connect Channel</button>
                     )}
                   </div>
                 );
@@ -1439,18 +1501,18 @@ function CreatorPortalContent() {
         {/* TAB 5: SETTINGS                                                      */}
         {/* ==================================================================== */}
         {activeTab === 'settings' && (
-          <div style={{ maxWidth: '540px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', marginBottom: '12px' }}>Profile Settings</h2>
+          <div style={{ maxWidth: '560px', margin: '0 auto', backgroundColor: '#FFFFFF', padding: '24px', borderRadius: '16px', border: '1px solid #E2E8F0', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+            <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', marginBottom: '14px' }}>Creator Profile & Rates</h2>
             <div>
-              <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>Display Name</label>
-              <input type="text" defaultValue={displayName} style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', border: '1px solid #CBD5E1', marginBottom: '14px', fontSize: '13px' }} />
+              <label style={{ fontSize: '11.5px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>Public Display Name</label>
+              <input type="text" defaultValue={displayName} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', marginBottom: '16px', fontSize: '13px' }} />
             </div>
-            <button type="button" style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '6px', padding: '9px 18px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>Save</button>
+            <button type="button" style={{ backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', padding: '10px 20px', fontSize: '13px', fontWeight: 700, cursor: 'pointer' }}>Save Changes</button>
           </div>
         )}
       </main>
 
-      {/* Modern Fixed Mobile Bottom Navigation Bar */}
+      {/* Fixed Mobile Bottom Navigation Bar */}
       <nav className="portal-mobile-bottom-nav">
         {navTabs.map((tab) => {
           const isActive = activeTab === tab.id;
@@ -1471,56 +1533,54 @@ function CreatorPortalContent() {
       {/* Campaign Detail & Application Modal */}
       {selectedCampaign && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '16px' }}>
-          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '460px', borderRadius: '16px', padding: '22px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
+          <div style={{ backgroundColor: '#FFFFFF', width: '100%', maxWidth: '480px', borderRadius: '20px', padding: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.25)' }}>
             {applySuccess ? (
-              <div style={{ textAlign: 'center', padding: '18px 0' }}>
-                <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
-                <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>Application Submitted!</h3>
-                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Opening Collabs workspace...</p>
+              <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                <div style={{ fontSize: '40px', marginBottom: '10px' }}>🎉</div>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0' }}>Proposal Dispatched!</h3>
+                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>Opening your Collabs thread with {selectedCampaign.brandName}...</p>
               </div>
             ) : (
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#7C3AED', backgroundColor: '#F5F3FF', padding: '2px 8px', borderRadius: '6px' }}>
-                        {selectedCampaign.commercialLabel}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px' }}>
+                        {selectedCampaign.commercialBadge}
                       </span>
                       <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
                         {selectedCampaign.payoutAmount}
                       </span>
                     </div>
-                    <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '4px 0 0 0' }}>{selectedCampaign.title}</h3>
-                    <div style={{ fontSize: '12px', color: '#64748B' }}>{selectedCampaign.brandName} • {selectedCampaign.country}</div>
+                    <h3 style={{ fontSize: '16.5px', fontWeight: 800, color: '#0F172A', margin: '4px 0 0 0' }}>{selectedCampaign.title}</h3>
+                    <div style={{ fontSize: '12px', color: '#64748B' }}>{selectedCampaign.brandName} • {selectedCampaign.countryFlag} {selectedCampaign.country}</div>
                   </div>
                   <button type="button" onClick={() => setSelectedCampaign(null)} style={{ backgroundColor: '#F1F5F9', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', cursor: 'pointer', color: '#64748B' }}>✕</button>
                 </div>
 
-                {/* Intelligence Metrics in Modal */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+                {/* Intelligence Metrics */}
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', textAlign: 'center' }}>
                   <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B' }}>Your Profile Eligibility</div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284C7' }}>{selectedCampaign.eligibilityRate}%</div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Eligibility</div>
+                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0052FF', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B' }}>Acceptance Chance</div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669' }}>
-                      {selectedCampaign.acceptanceChance}%
-                    </div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Acceptance Chance</div>
+                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#059669', marginTop: '2px' }}>{selectedCampaign.acceptanceChance}%</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B' }}>Applicants</div>
-                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>{selectedCampaign.creatorsApplied}</div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Applied</div>
+                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied}</div>
                   </div>
                 </div>
 
-                <div style={{ backgroundColor: '#F8FAFC', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.45 }}>
-                  <strong>Deliverables Brief:</strong> {selectedCampaign.description}
+                <div style={{ backgroundColor: '#F8FAFC', padding: '14px', borderRadius: '10px', marginBottom: '18px', fontSize: '12.5px', color: '#334155', lineHeight: 1.5 }}>
+                  <strong style={{ color: '#0F172A' }}>Deliverables Brief:</strong> {selectedCampaign.description}
                 </div>
 
-                <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '9px 16px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
-                  <button type="button" onClick={submitApplication} style={{ padding: '9px 20px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,82,255,0.25)' }}>Apply Now</button>
+                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                  <button type="button" onClick={() => setSelectedCampaign(null)} style={{ padding: '10px 18px', backgroundColor: '#F1F5F9', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
+                  <button type="button" onClick={submitApplication} style={{ padding: '10px 22px', backgroundColor: '#0052FF', color: '#FFFFFF', border: 'none', borderRadius: '8px', fontSize: '12.5px', fontWeight: 700, cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,82,255,0.25)' }}>Submit Application</button>
                 </div>
               </div>
             )}
