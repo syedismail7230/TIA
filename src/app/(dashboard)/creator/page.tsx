@@ -238,6 +238,12 @@ function CreatorPortalContent() {
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  const activeTabRef = useRef<TabType>(activeTab);
+  activeTabRef.current = activeTab;
+
+  const selectedCollabIdRef = useRef<string>(selectedCollabId);
+  selectedCollabIdRef.current = selectedCollabId;
+
   // 2-Way Collabs & Messaging Workspace State
   const [isBrandTyping, setIsBrandTyping] = useState<boolean>(false);
   const [collabSearchQuery, setCollabSearchQuery] = useState<string>('');
@@ -380,19 +386,45 @@ function CreatorPortalContent() {
     setNotificationsDropdownOpen(false);
   };
 
+  // Automatically dismiss live toast if the user is already on or navigates to that exact page/thread
+  useEffect(() => {
+    if (liveToast) {
+      const isNowOnPage =
+        (liveToast.actionTab === 'collabs' && liveToast.actionCollabId
+          ? activeTab === 'collabs' && selectedCollabId === liveToast.actionCollabId
+          : liveToast.actionTab ? activeTab === liveToast.actionTab : false);
+      if (isNowOnPage) {
+        setLiveToast(null);
+      }
+    }
+  }, [activeTab, selectedCollabId, liveToast]);
+
   const triggerRealtimeNotification = (notif: Omit<PlatformNotification, 'id' | 'timestamp' | 'timeAgo' | 'read'>) => {
+    const currentTab = activeTabRef.current;
+    const currentCollab = selectedCollabIdRef.current;
+
+    // Check if the user is already on the exact same page/view or actively inside that conversation thread
+    const isAlreadyOnPage =
+      (notif.actionTab === 'collabs' && notif.actionCollabId
+        ? currentTab === 'collabs' && currentCollab === notif.actionCollabId
+        : notif.actionTab ? currentTab === notif.actionTab : false);
+
     const newNotif: PlatformNotification = {
       ...notif,
       id: `notif-${Date.now()}`,
       timestamp: Date.now(),
       timeAgo: 'Just now',
-      read: false,
+      read: isAlreadyOnPage,
     };
     setNotifications((prev) => [newNotif, ...prev]);
-    setLiveToast(newNotif);
-    setTimeout(() => {
-      setLiveToast((current) => (current?.id === newNotif.id ? null : current));
-    }, 6500);
+
+    // ONLY show the floating live toast popup if the user is NOT already on that page/thread
+    if (!isAlreadyOnPage) {
+      setLiveToast(newNotif);
+      setTimeout(() => {
+        setLiveToast((current) => (current?.id === newNotif.id ? null : current));
+      }, 6500);
+    }
   };
 
   // Realtime Platform Heartbeat Simulation (Receives live matching brief / client inquiry notifications)
@@ -5225,9 +5257,12 @@ function CreatorPortalContent() {
                             </div>
 
                             {isCreator && (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', marginTop: '2px', fontSize: '10px', color: '#94A3B8' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '3px', fontSize: '10.5px', color: '#94A3B8' }}>
                                 <span>Delivered</span>
-                                <span style={{ color: '#0052FF', fontWeight: 800 }}>✓✓</span>
+                                <svg width="15" height="10" viewBox="0 0 16 11" fill="none" style={{ display: 'inline-block' }}>
+                                  <path d="M1 5.5L4.5 9L10.5 1.5" stroke="#0052FF" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                                  <path d="M5.5 5.5L8.5 8.5L14.5 1.5" stroke="#0052FF" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
                               </div>
                             )}
                           </div>
