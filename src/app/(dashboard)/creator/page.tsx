@@ -1544,22 +1544,18 @@ function CreatorPortalContent() {
                               Anonymized campaign name
                             </span>
 
-                            {/* Posted Time & Date Badge */}
+                            {/* Posted Time & Date (Clean, Borderless Text) */}
                             <span
                               style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '4px',
-                                fontSize: '10.5px',
-                                fontWeight: 600,
-                                color: '#64748B',
-                                backgroundColor: '#F8FAFC',
-                                border: '1px solid #E2E8F0',
-                                padding: '2px 7px',
-                                borderRadius: '10px',
+                                fontSize: '11px',
+                                fontWeight: 500,
+                                color: '#94A3B8',
                               }}
                             >
-                              <svg width="10.5" height="10.5" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="12" r="10" />
                                 <polyline points="12 6 12 12 16 14" />
                               </svg>
