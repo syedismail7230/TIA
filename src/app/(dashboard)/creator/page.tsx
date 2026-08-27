@@ -175,6 +175,14 @@ function CreatorPortalContent() {
   const [applySuccess, setApplySuccess] = useState(false);
   const [claimSuccess, setClaimSuccess] = useState(false);
 
+  // Search & Filter State
+  const [showMatchBanner, setShowMatchBanner] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('ALL');
+  const [selectedCountry, setSelectedCountry] = useState('ALL');
+  const [selectedCommercialType, setSelectedCommercialType] = useState('ALL');
+  const [sortBy, setSortBy] = useState<'success_rate' | 'applicants' | 'newest'>('success_rate');
+
   // Social accounts state
   const [socialAccounts, setSocialAccounts] = useState<any[]>([
     { platform: 'INSTAGRAM', username: 'creator.official', audienceSize: 320000, engagementRate: 4.85, connected: true },
@@ -323,6 +331,98 @@ function CreatorPortalContent() {
       description: '7-day nighttime skin transformation diary with macro camera closeups.',
     },
   ]);
+
+  // Filter Categories & Countries Configuration
+  const filterCategories = [
+    { id: 'ALL', label: 'All Niches' },
+    { id: 'Sustainability', label: 'Sustainability' },
+    { id: 'Food', label: 'Food & Cooking' },
+    { id: 'Lifestyle', label: 'Lifestyle' },
+    { id: 'Supplements', label: 'Supplements' },
+    { id: 'Technology', label: 'Tech & Gadgets' },
+    { id: 'Fitness', label: 'Fitness & Running' },
+    { id: 'Beauty', label: 'Beauty & Skincare' },
+  ];
+
+  const filterCountries = [
+    { code: 'ALL', label: 'All Countries' },
+    { code: 'AU', label: '🇦🇺 Australia' },
+    { code: 'IT', label: '🇮🇹 Italy' },
+    { code: 'US', label: '🇺🇸 United States' },
+    { code: 'IN', label: '🇮🇳 India' },
+    { code: 'GB', label: '🇬🇧 United Kingdom' },
+    { code: 'FR', label: '🇫🇷 France' },
+  ];
+
+  // Compute Filtered & Sorted Campaigns
+  const filteredCampaigns = campaigns
+    .filter((camp) => {
+      // 1. Search Query
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchesTitle = camp.title.toLowerCase().includes(q);
+        const matchesBrand = camp.brandName.toLowerCase().includes(q);
+        const matchesCountry =
+          camp.country.toLowerCase().includes(q) || camp.countryCode.toLowerCase().includes(q);
+        const matchesCategories = camp.categories.some((cat: string) =>
+          cat.toLowerCase().includes(q)
+        );
+        const matchesDesc = camp.description.toLowerCase().includes(q);
+        if (!matchesTitle && !matchesBrand && !matchesCountry && !matchesCategories && !matchesDesc) {
+          return false;
+        }
+      }
+
+      // 2. Category Filter
+      if (selectedCategory !== 'ALL') {
+        const matchesCat = camp.categories.some((c: string) =>
+          c.toLowerCase().includes(selectedCategory.toLowerCase())
+        );
+        if (!matchesCat) return false;
+      }
+
+      // 3. Country Filter
+      if (selectedCountry !== 'ALL') {
+        if (camp.countryCode.toLowerCase() !== selectedCountry.toLowerCase()) {
+          return false;
+        }
+      }
+
+      // 4. Commercial Type Filter
+      if (selectedCommercialType !== 'ALL') {
+        if (camp.commercialType !== selectedCommercialType) {
+          return false;
+        }
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'success_rate') {
+        return b.eligibilityRate - a.eligibilityRate;
+      }
+      if (sortBy === 'applicants') {
+        return b.creatorsApplied - a.creatorsApplied;
+      }
+      if (sortBy === 'newest') {
+        return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+      }
+      return 0;
+    });
+
+  const hasActiveFilters =
+    searchQuery.trim() !== '' ||
+    selectedCategory !== 'ALL' ||
+    selectedCountry !== 'ALL' ||
+    selectedCommercialType !== 'ALL';
+
+  const resetFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory('ALL');
+    setSelectedCountry('ALL');
+    setSelectedCommercialType('ALL');
+    setSortBy('success_rate');
+  };
 
   // Collabs & Inbox Threads
   const [collabs, setCollabs] = useState<any[]>([
@@ -642,8 +742,8 @@ function CreatorPortalContent() {
         .portal-nav-segmented {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          background: #F1F5F9;
+          gap: 4px;
+          background: #F8FAFC;
           padding: 4px;
           border-radius: 12px;
           border: 1px solid #E2E8F0;
@@ -651,22 +751,26 @@ function CreatorPortalContent() {
         .portal-tab-pill {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 16px;
+          gap: 7px;
+          padding: 7px 14px;
           font-size: 13px;
-          font-weight: 600;
+          font-weight: 500;
           border-radius: 8px;
           border: none;
           cursor: pointer;
-          transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: all 0.15s ease;
           color: #64748B;
           background: transparent;
+        }
+        .portal-tab-pill:hover:not(.active) {
+          color: #0F172A;
+          background: rgba(241, 245, 249, 0.8);
         }
         .portal-tab-pill.active {
           background: #FFFFFF;
           color: #0052FF;
-          font-weight: 700;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+          font-weight: 600;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
         }
 
         .upfluence-card {
@@ -869,318 +973,618 @@ function CreatorPortalContent() {
           </nav>
         </div>
 
-        {/* ==================================================================== */}
+          {/* ==================================================================== */}
         {/* TAB 1: MARKETPLACE                                                   */}
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
-            {/* High-End Match Booster Banner */}
-            <div
-              style={{
-                background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%)',
-                border: '1px solid #E2E8F0',
-                borderRadius: '16px',
-                padding: '20px 24px',
-                marginBottom: '26px',
-                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '18px',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: '1 1 380px' }}>
-                {/* Overlapping Social Badges */}
-                <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', zIndex: 2 }}>
-                    <InstagramIcon size={18} />
-                  </div>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 1 }}>
-                    <YouTubeIcon size={18} />
-                  </div>
-                </div>
-
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
-                    <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.03em' }}>
-                      AUDIENCE INTELLIGENCE
-                    </span>
-                  </div>
-                  <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0', lineHeight: 1.35 }}>
-                    We&apos;re actively searching for your perfect campaign!
-                  </h2>
-                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, lineHeight: 1.45 }}>
-                    The more socials you link, the better the chances of finding the right fit for your audience and style.
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleTabChange('social-media')}
+            {/* High-End Match Booster Banner (Dismissible with ✕) */}
+            {showMatchBanner && (
+              <div
                 style={{
-                  backgroundColor: '#0052FF',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '10px',
-                  padding: '11px 22px',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 10px rgba(0, 82, 255, 0.25)',
-                  display: 'inline-flex',
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 60%, #EFF6FF 100%)',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '16px',
+                  padding: '20px 48px 20px 24px',
+                  marginBottom: '20px',
+                  boxShadow: '0 2px 10px rgba(0, 0, 0, 0.02)',
+                  display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  whiteSpace: 'nowrap',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '18px',
+                  position: 'relative',
                 }}
               >
-                <span>Connect Socials</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: '1 1 380px' }}>
+                  {/* Overlapping Social Badges */}
+                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', zIndex: 2 }}>
+                      <InstagramIcon size={18} />
+                    </div>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '2px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', boxShadow: '0 2px 6px rgba(0,0,0,0.06)', marginLeft: '-10px', zIndex: 1 }}>
+                      <YouTubeIcon size={18} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
+                      <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '6px', letterSpacing: '0.03em' }}>
+                        AUDIENCE INTELLIGENCE
+                      </span>
+                    </div>
+                    <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0', lineHeight: 1.35 }}>
+                      We&apos;re actively searching for your perfect campaign!
+                    </h2>
+                    <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, lineHeight: 1.45 }}>
+                      The more socials you link, the better the chances of finding the right fit for your audience and style.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleTabChange('social-media')}
+                  style={{
+                    backgroundColor: '#0052FF',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '11px 22px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 10px rgba(0, 82, 255, 0.25)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  <span>Connect Socials</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </button>
+
+                {/* Dismiss Button ✕ */}
+                <button
+                  type="button"
+                  onClick={() => setShowMatchBanner(false)}
+                  title="Hide banner"
+                  aria-label="Hide banner"
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    right: '12px',
+                    width: '26px',
+                    height: '26px',
+                    borderRadius: '50%',
+                    border: 'none',
+                    backgroundColor: 'transparent',
+                    color: '#94A3B8',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#F1F5F9';
+                    e.currentTarget.style.color = '#0F172A';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#94A3B8';
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {/* Search, Filter & Sort Toolbar */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '14px',
+                padding: '14px 16px',
+                marginBottom: '20px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+              }}
+            >
+              {/* Row 1: Search Input + Select Dropdowns */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {/* Search Input */}
+                <div
+                  style={{
+                    position: 'relative',
+                    flex: '1 1 240px',
+                    minWidth: '200px',
+                  }}
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#94A3B8"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      position: 'absolute',
+                      left: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search campaigns, brands, or niches..."
+                    style={{
+                      width: '100%',
+                      padding: '8px 30px 8px 34px',
+                      fontSize: '13px',
+                      fontWeight: 500,
+                      color: '#0F172A',
+                      backgroundColor: '#F8FAFC',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '8px',
+                      outline: 'none',
+                      transition: 'all 0.15s ease',
+                    }}
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setSearchQuery('')}
+                      style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'none',
+                        border: 'none',
+                        color: '#94A3B8',
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                        padding: '2px',
+                      }}
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Country Filter */}
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: 600,
+                    color: '#334155',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                >
+                  {filterCountries.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.label}
+                    </option>
+                  ))}
+                </select>
+
+                {/* Commercial Type Filter */}
+                <select
+                  value={selectedCommercialType}
+                  onChange={(e) => setSelectedCommercialType(e.target.value)}
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: 600,
+                    color: '#334155',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="ALL">All Deal Types</option>
+                  <option value="COMMISSION">Commission %</option>
+                  <option value="FLAT_FEE">Flat Fee Guaranteed</option>
+                </select>
+
+                {/* Sort By Dropdown */}
+                <select
+                  value={sortBy}
+                  onChange={(e: any) => setSortBy(e.target.value)}
+                  style={{
+                    padding: '8px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: 600,
+                    color: '#334155',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="success_rate">Sort: Highest Match</option>
+                  <option value="applicants">Sort: Most Popular</option>
+                  <option value="newest">Sort: Newest</option>
+                </select>
+              </div>
+
+              {/* Row 2: Category Quick Chips */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  overflowX: 'auto',
+                  paddingBottom: '2px',
+                  scrollbarWidth: 'none',
+                }}
+              >
+                {filterCategories.map((cat) => {
+                  const isSelected = selectedCategory === cat.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.id)}
+                      style={{
+                        padding: '5px 12px',
+                        fontSize: '11.5px',
+                        fontWeight: isSelected ? 700 : 500,
+                        color: isSelected ? '#0052FF' : '#64748B',
+                        backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
+                        border: isSelected ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
+
+                {hasActiveFilters && (
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    style={{
+                      padding: '5px 10px',
+                      fontSize: '11.5px',
+                      fontWeight: 600,
+                      color: '#EF4444',
+                      backgroundColor: '#FEF2F2',
+                      border: '1px solid #FECACA',
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                      marginLeft: 'auto',
+                    }}
+                  >
+                    Reset Filters ✕
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Section Heading */}
-            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '16px' }}>🎁</span>
-              <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                Keep growing, and these could be yours soon!
-              </h3>
+            {/* Section Heading + Count */}
+            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '16px' }}>🎁</span>
+                <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  Keep growing, and these could be yours soon!
+                </h3>
+              </div>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>
+                Showing {filteredCampaigns.length} of {campaigns.length} opportunities
+              </span>
             </div>
 
             {/* Exact Reference-Matched Clean Cards Grid */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-                gap: '20px',
-              }}
-            >
-              {campaigns.map((camp) => (
-                <div
-                  key={camp.id}
-                  onClick={() => handleApply(camp)}
-                  className="upfluence-card"
+            {filteredCampaigns.length === 0 ? (
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px dashed #CBD5E1',
+                  borderRadius: '16px',
+                  padding: '48px 24px',
+                  textAlign: 'center',
+                }}
+              >
+                <div style={{ fontSize: '32px', marginBottom: '10px' }}>🔍</div>
+                <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#0F172A', margin: '0 0 6px 0' }}>
+                  No campaigns match your filters
+                </h4>
+                <p style={{ fontSize: '13px', color: '#64748B', margin: '0 0 16px 0' }}>
+                  Try changing your search terms, selecting a different niche, or clearing your active filters.
+                </p>
+                <button
+                  type="button"
+                  onClick={resetFilters}
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
+                    backgroundColor: '#0052FF',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '8px 18px',
+                    fontSize: '12.5px',
+                    fontWeight: 600,
                     cursor: 'pointer',
                   }}
                 >
-                  {/* Top Cover Banner */}
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
+                  gap: '20px',
+                }}
+              >
+                {filteredCampaigns.map((camp) => (
                   <div
+                    key={camp.id}
+                    onClick={() => handleApply(camp)}
+                    className="upfluence-card"
                     style={{
-                      height: '140px',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '16px',
                       position: 'relative',
-                      backgroundColor: '#CBD5E1',
-                      borderTopLeftRadius: '16px',
-                      borderTopRightRadius: '16px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.03)',
+                      cursor: 'pointer',
                     }}
                   >
-                    {/* Blurred Image Wrapper (Inner overflow hidden to maintain top corner radius) */}
+                    {/* Top Cover Banner */}
                     <div
                       style={{
-                        position: 'absolute',
-                        inset: 0,
-                        overflow: 'hidden',
+                        height: '140px',
+                        position: 'relative',
+                        backgroundColor: '#CBD5E1',
                         borderTopLeftRadius: '16px',
                         borderTopRightRadius: '16px',
                       }}
                     >
+                      {/* Blurred Image Wrapper (Inner overflow hidden to maintain top corner radius) */}
                       <div
                         style={{
                           position: 'absolute',
-                          top: -12,
-                          left: -12,
-                          right: -12,
-                          bottom: -12,
-                          backgroundImage: `url(${camp.bannerImage})`,
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                          filter: 'blur(16px) saturate(1.2)',
-                          transform: 'scale(1.2)',
-                        }}
-                      />
-                    </div>
-
-                    {/* Clean Frosted Pill Badge (Top Left) */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid rgba(124, 58, 237, 0.18)',
-                        color: '#7C3AED',
-                        padding: '4px 12px',
-                        borderRadius: '20px',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        zIndex: 2,
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
-                      }}
-                    >
-                      <PercentBadgeIcon size={12} color="#7C3AED" />
-                      <span>{camp.commercialLabel}</span>
-                    </div>
-
-                    {/* Smooth Rounded Avatar Box with Blurred Partner Logo */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '-18px',
-                        left: '16px',
-                        width: '48px',
-                        height: '48px',
-                        backgroundColor: '#FFFFFF',
-                        border: '2.5px solid #FFFFFF',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                        zIndex: 3,
-                        overflow: 'hidden',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <img
-                        src={camp.partnerLogo}
-                        alt="Partner Brand"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          filter: 'blur(3.5px)',
-                          transform: 'scale(1.25)',
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Card Content Body */}
-                  <div style={{ padding: '26px 16px 16px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                    {/* Row 1: Blurred Brand + Divider + Category Capsule Pills */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
-                      <span
-                        style={{
-                          fontSize: '11.5px',
-                          fontWeight: 700,
-                          color: '#64748B',
-                          filter: 'blur(3.5px)',
-                          userSelect: 'none',
+                          inset: 0,
+                          overflow: 'hidden',
+                          borderTopLeftRadius: '16px',
+                          borderTopRightRadius: '16px',
                         }}
                       >
-                        Anonymized brand
-                      </span>
-
-                      <span style={{ width: '1px', height: '11px', backgroundColor: '#E2E8F0', margin: '0 2px' }} />
-
-                      {camp.categories.map((cat: string, idx: number) => (
-                        <span
-                          key={idx}
+                        <div
                           style={{
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            color: '#334155',
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #E2E8F0',
-                            padding: '3px 10px',
-                            borderRadius: '20px',
+                            position: 'absolute',
+                            top: -12,
+                            left: -12,
+                            right: -12,
+                            bottom: -12,
+                            backgroundImage: `url(${camp.bannerImage})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            filter: 'blur(16px) saturate(1.2)',
+                            transform: 'scale(1.2)',
                           }}
-                        >
-                          {cat}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Row 2: Blurred Title + "New" Sparkle Capsule Badge */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                      <span
-                        style={{
-                          fontSize: '13px',
-                          fontWeight: 700,
-                          color: '#0F172A',
-                          filter: 'blur(3.5px)',
-                          userSelect: 'none',
-                        }}
-                      >
-                        Anonymized campaign name
-                      </span>
-
-                      {camp.isNew && (
-                        <span
-                          style={{
-                            backgroundColor: '#EFF6FF',
-                            color: '#0052FF',
-                            fontSize: '10.5px',
-                            fontWeight: 700,
-                            padding: '2px 9px',
-                            borderRadius: '20px',
-                            whiteSpace: 'nowrap',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                          }}
-                        >
-                          <SparklesIcon size={11} color="#0052FF" />
-                          <span>New</span>
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Payout Display */}
-                    <div style={{ marginBottom: '12px' }}>
-                      <span style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                        {camp.payoutAmount}
-                      </span>
-                    </div>
-
-                    {/* Thin Horizontal Divider */}
-                    <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '12px', marginTop: 'auto' }}>
-                      {/* Requirement Notice / Eligibility Status */}
-                      <div
-                        style={{
-                          marginBottom: '10px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '5px',
-                          color: '#059669',
-                          fontSize: '12px',
-                          fontWeight: 700,
-                        }}
-                      >
-                        <span>You are eligible</span>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
+                        />
                       </div>
 
-                      {/* Clean Key-Value List with Circle Flag & Socials */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px', color: '#475569' }}>
-                        {/* Your Profile Success Rate */}
+                      {/* Commercial Pill Badge */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '12px',
+                          left: '12px',
+                          backgroundColor: '#FFFFFF',
+                          color: '#7C3AED',
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          letterSpacing: '0.02em',
+                          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08)',
+                          zIndex: 2,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                        }}
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <span>{camp.commercialLabel}</span>
+                      </div>
+
+                      {/* Smooth Rounded Avatar Box with Blurred Brand Logo */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          bottom: '-18px',
+                          left: '16px',
+                          width: '48px',
+                          height: '48px',
+                          backgroundColor: '#FFFFFF',
+                          border: '2.5px solid #FFFFFF',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                          zIndex: 3,
+                          overflow: 'hidden',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '6px',
+                        }}
+                      >
+                        <img
+                          src={camp.partnerLogo}
+                          alt="Partner Brand Logo"
+                          style={{
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            objectFit: 'contain',
+                            filter: 'blur(3.5px)',
+                            transform: 'scale(1.15)',
+                            display: 'block',
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Card Content Body */}
+                    <div style={{ padding: '26px 16px 16px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                      {/* Row 1: Blurred Brand + Divider + Category Capsule Pills */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                        <span
+                          style={{
+                            fontSize: '11.5px',
+                            fontWeight: 700,
+                            color: '#64748B',
+                            filter: 'blur(3.5px)',
+                            userSelect: 'none',
+                          }}
+                        >
+                          Anonymized brand
+                        </span>
+
+                        <span style={{ width: '1px', height: '11px', backgroundColor: '#E2E8F0', margin: '0 2px' }} />
+
+                        {camp.categories.map((cat: string, idx: number) => (
+                          <span
+                            key={idx}
+                            style={{
+                              fontSize: '11px',
+                              fontWeight: 600,
+                              color: '#334155',
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              padding: '3px 10px',
+                              borderRadius: '20px',
+                            }}
+                          >
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Row 2: Blurred Title + "New" Sparkle Capsule Badge */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                        <span
+                          style={{
+                            fontSize: '13px',
+                            fontWeight: 700,
+                            color: '#0F172A',
+                            filter: 'blur(3.5px)',
+                            userSelect: 'none',
+                          }}
+                        >
+                          Anonymized campaign name
+                        </span>
+
+                        {camp.isNew && (
+                          <span
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              color: '#0052FF',
+                              backgroundColor: '#EFF6FF',
+                              border: '1px solid #BFDBFE',
+                              padding: '2px 8px',
+                              borderRadius: '12px',
+                            }}
+                          >
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                            New
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Row 3: Status Badge */}
+                      <div style={{ marginBottom: '14px' }}>
+                        <div
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            color: '#059669',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                          }}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                          </svg>
+                          <span>You are eligible ✓</span>
+                        </div>
+                      </div>
+
+                      {/* Row 4: Clean Metadata List */}
+                      <div
+                        style={{
+                          borderTop: '1px solid #F1F5F9',
+                          paddingTop: '12px',
+                          marginTop: 'auto',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '8px',
+                          fontSize: '12px',
+                        }}
+                      >
+                        {/* Profile Success Rate */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Your profile success rate</span>
-                          <span style={{ fontWeight: 700, color: '#0284C7' }}>{camp.eligibilityRate}%</span>
-                        </div>
-
-
-
-                        {/* Creators Applied */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Creators applied</span>
-                          <span style={{ fontWeight: 600, color: '#0F172A' }}>{camp.creatorsApplied}</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A' }}>
+                            {camp.eligibilityRate}%
+                          </span>
                         </div>
 
                         {/* Language */}
@@ -1220,9 +1624,9 @@ function CreatorPortalContent() {
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
