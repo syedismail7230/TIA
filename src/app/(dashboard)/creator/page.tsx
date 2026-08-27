@@ -868,6 +868,9 @@ function CreatorPortalContent() {
     setSortBy('success_rate');
   };
 
+  // PDF Generation State
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
   // Collabs & Inbox Threads
   const [collabs, setCollabs] = useState<any[]>([
     {
@@ -1477,13 +1480,9 @@ function CreatorPortalContent() {
     });
   };
 
-  const handleDownloadDisbursalSlip = (tx: any) => {
-    if (!tx) return;
-    const printWindow = window.open('', '_blank', 'width=860,height=950');
-    if (!printWindow) {
-      window.print();
-      return;
-    }
+  const handleDownloadDisbursalSlip = async (tx: any) => {
+    if (!tx || isGeneratingPdf) return;
+    setIsGeneratingPdf(true);
 
     const invoiceNo = tx.invoiceNumber || tx.invoiceCode || 'INV-TIA-2026-0192';
     const brandName = tx.mediaName || 'Brand Partner';
@@ -1522,389 +1521,242 @@ function CreatorPortalContent() {
 
     const wordsNet = numberToWords(netNum);
 
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Payment_Disbursal_Slip_${invoiceNo}</title>
-          <meta charset="utf-8" />
-          <style>
-            @page {
-              size: A4 portrait;
-              margin: 12mm;
-            }
-            * {
-              box-sizing: border-box;
-            }
-            body {
-              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-              color: #0F172A;
-              background: #FFFFFF;
-              margin: 0;
-              padding: 12px;
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .slip-wrapper {
-              max-width: 780px;
-              margin: 0 auto;
-              border: 2px solid #0F172A;
-              background: #FFFFFF;
-              padding: 24px 28px;
-            }
-            .header-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 16px;
-            }
-            .header-table td {
-              vertical-align: top;
-            }
-            .company-name {
-              font-size: 22px;
-              font-weight: 900;
-              color: #0052FF;
-              letter-spacing: -0.02em;
-            }
-            .company-meta {
-              font-size: 10.5px;
-              color: #475569;
-              line-height: 1.4;
-              margin-top: 4px;
-            }
-            .title-bar {
-              background-color: #0F172A;
-              color: #FFFFFF;
-              text-align: center;
-              font-size: 13px;
-              font-weight: 800;
-              letter-spacing: 0.08em;
-              padding: 8px 12px;
-              margin-bottom: 16px;
-              text-transform: uppercase;
-            }
-            .meta-grid {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 16px;
-              border: 1px solid #CBD5E1;
-            }
-            .meta-grid td {
-              padding: 6px 10px;
-              font-size: 11px;
-              border: 1px solid #CBD5E1;
-            }
-            .meta-label {
-              color: #64748B;
-              font-weight: 600;
-              width: 22%;
-              background-color: #F8FAFC;
-            }
-            .meta-val {
-              color: #0F172A;
-              font-weight: 700;
-              width: 28%;
-            }
-            .parties-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 18px;
-            }
-            .party-box {
-              width: 49%;
-              border: 1px solid #CBD5E1;
-              padding: 10px 12px;
-              vertical-align: top;
-              background-color: #FAFAFA;
-            }
-            .party-title {
-              font-size: 10px;
-              font-weight: 800;
-              color: #0052FF;
-              text-transform: uppercase;
-              letter-spacing: 0.05em;
-              border-bottom: 1px solid #E2E8F0;
-              padding-bottom: 4px;
-              margin-bottom: 6px;
-            }
-            .party-name {
-              font-size: 13px;
-              font-weight: 800;
-              color: #0F172A;
-              margin-bottom: 2px;
-            }
-            .party-detail {
-              font-size: 10.5px;
-              color: #475569;
-              line-height: 1.4;
-            }
-            .items-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 16px;
-              border: 1px solid #0F172A;
-            }
-            .items-table th {
-              background-color: #F1F5F9;
-              color: #0F172A;
-              font-size: 10.5px;
-              font-weight: 800;
-              text-transform: uppercase;
-              letter-spacing: 0.04em;
-              padding: 8px 10px;
-              border: 1px solid #CBD5E1;
-              text-align: left;
-            }
-            .items-table td {
-              padding: 8px 10px;
-              font-size: 11.5px;
-              border: 1px solid #CBD5E1;
-              vertical-align: top;
-            }
-            .summary-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 18px;
-            }
-            .summary-table td {
-              padding: 6px 10px;
-              font-size: 11.5px;
-            }
-            .words-row {
-              background-color: #F8FAFC;
-              border: 1px solid #CBD5E1;
-              padding: 8px 12px;
-              font-size: 11px;
-              margin-bottom: 16px;
-            }
-            .settlement-box {
-              border: 1px solid #0052FF;
-              background-color: #EFF6FF;
-              padding: 10px 14px;
-              border-radius: 6px;
-              margin-bottom: 18px;
-              font-size: 11px;
-              color: #1E40AF;
-            }
-            .sign-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 24px;
-            }
-            .sign-table td {
-              vertical-align: bottom;
-              font-size: 10.5px;
-              color: #475569;
-            }
-            .stamp-seal {
-              display: inline-block;
-              border: 2px solid #059669;
-              color: #059669;
-              font-size: 10px;
-              font-weight: 800;
-              padding: 6px 12px;
-              border-radius: 4px;
-              text-transform: uppercase;
-              letter-spacing: 0.05em;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="slip-wrapper">
-            <!-- Corporate Header -->
-            <table class="header-table">
-              <tr>
-                <td style="width: 60%;">
-                  <div style="margin-bottom: 8px;">
-                    <img
-                      src="${logoUrl}"
-                      class="company-logo-img"
-                      alt="The Influencers Agency"
-                      style="height: 38px; width: auto; max-width: 175px; object-fit: contain; display: block;"
-                    />
-                  </div>
-                  <div class="company-meta">
-                    <strong>The Influencers Agency Private Limited</strong><br />
-                    CIN: U74999DL2026PTC109281 • GSTIN: 07AAACT8819Q1Z8<br />
-                    Corporate HQ: Level 9, Cyber City Phase II, Gurugram, India - 122002<br />
-                    Web: theinfluencersagency.com • Email: disbursals@theinfluencersagency.com
-                  </div>
-                </td>
-                <td style="width: 40%; text-align: right;">
-                  <div class="stamp-seal">
-                    ✓ VERIFIED & SETTLED
-                  </div>
-                  <div style="font-size: 10px; color: #64748B; margin-top: 6px;">
-                    Authorized Payout Gateway
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-            <!-- Title Bar -->
-            <div class="title-bar">
-              CREATOR REMUNERATION & PAYMENT DISBURSAL ADVICE
-            </div>
-
-            <!-- Transaction Reference Grid -->
-            <table class="meta-grid">
-              <tr>
-                <td class="meta-label">Payment Ref / Voucher No:</td>
-                <td class="meta-val">${invoiceNo}</td>
-                <td class="meta-label">Disbursal Timestamp:</td>
-                <td class="meta-val">${dateStr}</td>
-              </tr>
-              <tr>
-                <td class="meta-label">Bank Settlement UTR:</td>
-                <td class="meta-val" style="font-family: monospace; color: #0052FF;">${utr}</td>
-                <td class="meta-label">Payment Channel:</td>
-                <td class="meta-val">IMPS / Direct RTGS Settlement</td>
-              </tr>
-            </table>
-
-            <!-- Two-Party Information Box -->
-            <table class="parties-table">
-              <tr>
-                <td class="party-box">
-                  <div class="party-title">Brand Client / Payer Sponsor</div>
-                  <div class="party-name">${brandName}</div>
-                  <div class="party-detail">
-                    <strong>Billed Entity:</strong> ${billedTo}<br />
-                    <strong>Campaign Subject:</strong> ${campaign}<br />
-                    <strong>Disbursed via:</strong> TIA Financial Gateway
-                  </div>
-                </td>
-                <td style="width: 2%;"></td>
-                <td class="party-box">
-                  <div class="party-title">Beneficiary (Creator Payee)</div>
-                  <div class="party-name">${creator}</div>
-                  <div class="party-detail">
-                    <strong>Email:</strong> ${creatorEmail}<br />
-                    <strong>Bank Account:</strong> ${bankName} (${bankAcc})<br />
-                    <strong>IFSC Code:</strong> ${ifsc} • <strong>PAN:</strong> ${panNo}
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-            <!-- Itemized Table -->
-            <table class="items-table">
-              <thead>
-                <tr>
-                  <th style="width: 8%; text-align: center;">Sr.</th>
-                  <th style="width: 62%;">Description / Deliverables</th>
-                  <th style="width: 15%; text-align: center;">SAC Code</th>
-                  <th style="width: 15%; text-align: right;">Gross Rate (₹)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="text-align: center;">1</td>
-                  <td>
-                    <strong>${deliverable}</strong><br />
-                    <span style="font-size: 10px; color: #64748B;">Campaign: ${campaign} • Verified Milestone Completion</span>
-                  </td>
-                  <td style="text-align: center; color: #64748B;">998399</td>
-                  <td style="text-align: right; font-weight: 700;">₹${grossNum.toLocaleString('en-IN')}.00</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <!-- Statement Summary Table -->
-            <table class="summary-table">
-              <tr>
-                <td style="width: 60%;"></td>
-                <td style="width: 22%; font-weight: 600; color: #475569; border-top: 1px solid #CBD5E1;">Gross Campaign Rate:</td>
-                <td style="width: 18%; text-align: right; font-weight: 700; border-top: 1px solid #CBD5E1;">₹${grossNum.toLocaleString('en-IN')}.00</td>
-              </tr>
-              ${!isCreditTopup ? `
-              <tr>
-                <td></td>
-                <td style="font-weight: 600; color: #EA580C;">Less: TIA Platform Fee (5% Commission):</td>
-                <td style="text-align: right; font-weight: 700; color: #EA580C;">-₹${feeNum.toLocaleString('en-IN')}.00</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td style="font-weight: 600; color: #DC2626;">Less: TDS Deducted u/s 194J (1%):</td>
-                <td style="text-align: right; font-weight: 700; color: #DC2626;">-₹${tdsNum.toLocaleString('en-IN')}.00</td>
-              </tr>
-              ` : ''}
-              <tr style="background-color: #F8FAFC;">
-                <td></td>
-                <td style="font-size: 13px; font-weight: 900; color: #0052FF; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 10px;">
-                  NET AMOUNT DISBURSED:
-                </td>
-                <td style="font-size: 14px; font-weight: 900; color: #0052FF; text-align: right; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 10px;">
-                  ₹${netNum.toLocaleString('en-IN')}.00
-                </td>
-              </tr>
-            </table>
-
-            <!-- Amount in Words -->
-            <div class="words-row">
-              <strong>Amount in Words:</strong> <em>${wordsNet}</em>
-            </div>
-
-            <!-- Settlement Proof Box -->
-            <div class="settlement-box">
-              <div style="margin-bottom: 3px;">
-                <strong>Bank Settlement Verification:</strong> Transfer of <strong>₹${netNum.toLocaleString('en-IN')}.00</strong> successfully processed to <strong>${bankName} (A/C: ${bankAcc})</strong> with UTR Ref: <strong>${utr}</strong>.
+    // Create offscreen container for clean, high-DPI PDF capture
+    const container = document.createElement('div');
+    container.style.position = 'fixed';
+    container.style.top = '-9999px';
+    container.style.left = '-9999px';
+    container.style.width = '794px'; // standard A4 at 96 DPI
+    container.style.backgroundColor = '#FFFFFF';
+    container.style.zIndex = '-1000';
+    container.innerHTML = `
+      <div style="width: 794px; background: #FFFFFF; color: #0F172A; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 24px; box-sizing: border-box; border: 2px solid #0F172A;">
+        <!-- Corporate Header -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 14px;">
+          <tr>
+            <td style="width: 60%; vertical-align: top;">
+              <div style="margin-bottom: 8px;">
+                <img
+                  src="${logoUrl}"
+                  alt="The Influencers Agency"
+                  style="height: 38px; width: auto; max-width: 175px; object-fit: contain; display: block;"
+                />
               </div>
-              <div style="font-size: 10px; color: #475569;">
-                TDS has been deposited under PAN <strong>${panNo}</strong> under Section 194J. Form 16A TDS Certificate will be available on the Income Tax TRACES portal.
+              <div style="font-size: 10px; color: #475569; line-height: 1.4;">
+                <strong style="color: #0F172A;">The Influencers Agency Private Limited</strong><br />
+                CIN: U74999DL2026PTC109281 • GSTIN: 07AAACT8819Q1Z8<br />
+                Corporate HQ: Level 9, Cyber City Phase II, Gurugram, India - 122002<br />
+                Web: theinfluencersagency.com • Email: disbursals@theinfluencersagency.com
               </div>
-            </div>
+            </td>
+            <td style="width: 40%; text-align: right; vertical-align: top;">
+              <div style="display: inline-block; border: 2px solid #059669; color: #059669; font-size: 10px; font-weight: 800; padding: 5px 12px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; background-color: #ECFDF5;">
+                ✓ VERIFIED & SETTLED
+              </div>
+              <div style="font-size: 9.5px; color: #64748B; margin-top: 5px;">
+                Authorized Payout Gateway
+              </div>
+            </td>
+          </tr>
+        </table>
 
-            <!-- Signatures & Authorization -->
-            <table class="sign-table">
-              <tr>
-                <td style="width: 50%;">
-                  <div style="font-family: monospace; font-size: 9.5px; color: #94A3B8;">
-                    DIGITAL SIGNATURE HASH:<br />
-                    SHA256:${invoiceNo.replace(/[^0-9]/g, '')}9b8f72a1e04c992a71d44
-                  </div>
-                  <div style="font-size: 10px; color: #64748B; margin-top: 4px;">
-                    This is a system-generated financial disbursal advice.
-                  </div>
-                </td>
-                <td style="width: 50%; text-align: right;">
-                  <div style="font-size: 11px; font-weight: 800; color: #0F172A;">For The Influencers Agency Pvt. Ltd.</div>
-                  <div style="height: 36px; display: flex; align-items: flex-end; justify-content: flex-end;">
-                    <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 20px; color: #0052FF;">TIA Finance Gateway</span>
-                  </div>
-                  <div style="border-top: 1px solid #CBD5E1; padding-top: 4px; font-size: 10px; color: #64748B;">
-                    Authorized Financial Signatory
-                  </div>
-                </td>
-              </tr>
-            </table>
+        <!-- Title Bar -->
+        <div style="background-color: #0F172A; color: #FFFFFF; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; padding: 7px 10px; margin-bottom: 14px; text-transform: uppercase;">
+          CREATOR REMUNERATION & PAYMENT DISBURSAL ADVICE
+        </div>
+
+        <!-- Transaction Reference Grid -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 14px; border: 1px solid #CBD5E1;">
+          <tr>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; background-color: #F8FAFC; color: #64748B; font-weight: 600; width: 24%;">Payment Ref / Voucher No:</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; color: #0F172A; font-weight: 700; width: 26%;">${invoiceNo}</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; background-color: #F8FAFC; color: #64748B; font-weight: 600; width: 22%;">Disbursal Timestamp:</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; color: #0F172A; font-weight: 700; width: 28%;">${dateStr}</td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; background-color: #F8FAFC; color: #64748B; font-weight: 600;">Bank Settlement UTR:</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; color: #0052FF; font-weight: 700; font-family: monospace;">${utr}</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; background-color: #F8FAFC; color: #64748B; font-weight: 600;">Payment Channel:</td>
+            <td style="padding: 5px 8px; font-size: 10.5px; border: 1px solid #CBD5E1; color: #0F172A; font-weight: 700;">IMPS / Direct RTGS Settlement</td>
+          </tr>
+        </table>
+
+        <!-- Two-Party Information Box -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 14px;">
+          <tr>
+            <td style="width: 49%; border: 1px solid #CBD5E1; padding: 9px 11px; vertical-align: top; background-color: #FAFAFA;">
+              <div style="font-size: 9.5px; font-weight: 800; color: #0052FF; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E2E8F0; padding-bottom: 3px; margin-bottom: 5px;">Brand Client / Payer Sponsor</div>
+              <div style="font-size: 12px; font-weight: 800; color: #0F172A; margin-bottom: 2px;">${brandName}</div>
+              <div style="font-size: 10px; color: #475569; line-height: 1.4;">
+                <strong>Billed Entity:</strong> ${billedTo}<br />
+                <strong>Campaign Subject:</strong> ${campaign}<br />
+                <strong>Disbursed via:</strong> TIA Financial Gateway
+              </div>
+            </td>
+            <td style="width: 2%;"></td>
+            <td style="width: 49%; border: 1px solid #CBD5E1; padding: 9px 11px; vertical-align: top; background-color: #FAFAFA;">
+              <div style="font-size: 9.5px; font-weight: 800; color: #0052FF; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #E2E8F0; padding-bottom: 3px; margin-bottom: 5px;">Beneficiary (Creator Payee)</div>
+              <div style="font-size: 12px; font-weight: 800; color: #0F172A; margin-bottom: 2px;">${creator}</div>
+              <div style="font-size: 10px; color: #475569; line-height: 1.4;">
+                <strong>Email:</strong> ${creatorEmail}<br />
+                <strong>Bank Account:</strong> ${bankName} (${bankAcc})<br />
+                <strong>IFSC Code:</strong> ${ifsc} • <strong>PAN:</strong> ${panNo}
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Itemized Table -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border: 1px solid #0F172A;">
+          <thead>
+            <tr style="background-color: #F1F5F9;">
+              <th style="width: 8%; text-align: center; font-size: 10px; font-weight: 800; color: #0F172A; padding: 6px 8px; border: 1px solid #CBD5E1; text-transform: uppercase;">Sr.</th>
+              <th style="width: 62%; font-size: 10px; font-weight: 800; color: #0F172A; padding: 6px 8px; border: 1px solid #CBD5E1; text-transform: uppercase; text-align: left;">Description / Deliverables</th>
+              <th style="width: 14%; text-align: center; font-size: 10px; font-weight: 800; color: #0F172A; padding: 6px 8px; border: 1px solid #CBD5E1; text-transform: uppercase;">SAC Code</th>
+              <th style="width: 16%; text-align: right; font-size: 10px; font-weight: 800; color: #0F172A; padding: 6px 8px; border: 1px solid #CBD5E1; text-transform: uppercase;">Gross Rate (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: center; font-size: 11px; padding: 7px 8px; border: 1px solid #CBD5E1;">1</td>
+              <td style="font-size: 11px; padding: 7px 8px; border: 1px solid #CBD5E1;">
+                <strong style="color: #0F172A;">${deliverable}</strong><br />
+                <span style="font-size: 9.5px; color: #64748B;">Campaign: ${campaign} • Verified Milestone Completion</span>
+              </td>
+              <td style="text-align: center; color: #64748B; font-size: 11px; padding: 7px 8px; border: 1px solid #CBD5E1;">998399</td>
+              <td style="text-align: right; font-weight: 700; color: #0F172A; font-size: 11px; padding: 7px 8px; border: 1px solid #CBD5E1;">₹${grossNum.toLocaleString('en-IN')}.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Statement Summary Table -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px;">
+          <tr>
+            <td style="width: 55%;"></td>
+            <td style="width: 25%; font-weight: 600; color: #475569; border-top: 1px solid #CBD5E1; padding: 4px 8px; font-size: 11px;">Gross Campaign Rate:</td>
+            <td style="width: 20%; text-align: right; font-weight: 700; color: #0F172A; border-top: 1px solid #CBD5E1; padding: 4px 8px; font-size: 11px;">₹${grossNum.toLocaleString('en-IN')}.00</td>
+          </tr>
+          ${!isCreditTopup ? `
+          <tr>
+            <td></td>
+            <td style="font-weight: 600; color: #EA580C; padding: 4px 8px; font-size: 11px;">Less: TIA Platform Fee (5% Commission):</td>
+            <td style="text-align: right; font-weight: 700; color: #EA580C; padding: 4px 8px; font-size: 11px;">-₹${feeNum.toLocaleString('en-IN')}.00</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style="font-weight: 600; color: #DC2626; padding: 4px 8px; font-size: 11px;">Less: TDS Deducted u/s 194J (1%):</td>
+            <td style="text-align: right; font-weight: 700; color: #DC2626; padding: 4px 8px; font-size: 11px;">-₹${tdsNum.toLocaleString('en-IN')}.00</td>
+          </tr>
+          ` : ''}
+          <tr style="background-color: #F8FAFC;">
+            <td></td>
+            <td style="font-size: 12px; font-weight: 900; color: #0052FF; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 8px;">
+              NET AMOUNT DISBURSED:
+            </td>
+            <td style="font-size: 13px; font-weight: 900; color: #0052FF; text-align: right; border-top: 2px solid #0F172A; border-bottom: 2px solid #0F172A; padding: 8px;">
+              ₹${netNum.toLocaleString('en-IN')}.00
+            </td>
+          </tr>
+        </table>
+
+        <!-- Amount in Words -->
+        <div style="background-color: #F8FAFC; border: 1px solid #CBD5E1; padding: 6px 10px; font-size: 10.5px; margin-bottom: 12px;">
+          <strong>Amount in Words:</strong> <em>${wordsNet}</em>
+        </div>
+
+        <!-- Settlement Proof Box -->
+        <div style="border: 1px solid #0052FF; background-color: #EFF6FF; padding: 8px 12px; border-radius: 6px; margin-bottom: 14px; font-size: 10.5px; color: #1E40AF;">
+          <div style="margin-bottom: 2px;">
+            <strong>Bank Settlement Verification:</strong> Transfer of <strong>₹${netNum.toLocaleString('en-IN')}.00</strong> successfully processed to <strong>${bankName} (A/C: ${bankAcc})</strong> with UTR Ref: <strong>${utr}</strong>.
           </div>
+          <div style="font-size: 9.5px; color: #475569;">
+            TDS has been deposited under PAN <strong>${panNo}</strong> under Section 194J. Form 16A TDS Certificate will be available on the Income Tax TRACES portal.
+          </div>
+        </div>
 
-          <script>
-            window.onload = function() {
-              const img = document.querySelector('.company-logo-img');
-              if (img && !img.complete) {
-                img.onload = function() {
-                  window.focus();
-                  window.print();
-                };
-                img.onerror = function() {
-                  window.focus();
-                  window.print();
-                };
-              } else {
-                window.focus();
-                window.print();
-              }
-            };
-          </script>
-        </body>
-      </html>
+        <!-- Signatures & Authorization -->
+        <table style="width: 100%; border-collapse: collapse; margin-top: 14px;">
+          <tr>
+            <td style="width: 50%; vertical-align: bottom;">
+              <div style="font-family: monospace; font-size: 9px; color: #94A3B8;">
+                DIGITAL SIGNATURE HASH:<br />
+                SHA256:${invoiceNo.replace(/[^0-9]/g, '')}9b8f72a1e04c992a71d44
+              </div>
+              <div style="font-size: 9.5px; color: #64748B; margin-top: 3px;">
+                This is a system-generated financial disbursal advice.
+              </div>
+            </td>
+            <td style="width: 50%; text-align: right; vertical-align: bottom;">
+              <div style="font-size: 10.5px; font-weight: 800; color: #0F172A;">For The Influencers Agency Pvt. Ltd.</div>
+              <div style="height: 30px; display: flex; align-items: flex-end; justify-content: flex-end;">
+                <span style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 18px; color: #0052FF;">TIA Finance Gateway</span>
+              </div>
+              <div style="border-top: 1px solid #CBD5E1; padding-top: 3px; font-size: 9.5px; color: #64748B;">
+                Authorized Financial Signatory
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     `;
 
-    printWindow.document.open();
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
+    document.body.appendChild(container);
+
+    try {
+      const jsPDFModule = await import('jspdf');
+      const jsPDF = jsPDFModule.default || jsPDFModule.jsPDF;
+      const html2canvasModule = await import('html2canvas');
+      const html2canvas = html2canvasModule.default || html2canvasModule;
+
+      const canvas = await html2canvas(container, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#FFFFFF',
+        logging: false,
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      const imgWidth = 210;
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
+      pdf.save(`Payment_Disbursal_Slip_${invoiceNo}.pdf`);
+
+      triggerRealtimeNotification({
+        type: 'PAYMENT',
+        category: 'PAYMENTS',
+        title: 'Disbursal Slip Downloaded',
+        message: `Payment disbursal advice for ${invoiceNo} was saved directly to your Downloads folder.`,
+        actionTab: 'payments',
+        badgeText: 'Downloaded',
+        badgeBg: '#ECFDF5',
+        badgeColor: '#059669',
+      });
+    } catch (err) {
+      console.error('Direct PDF generation error, downloading HTML copy:', err);
+      const blob = new Blob([container.innerHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Payment_Disbursal_Slip_${invoiceNo}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } finally {
+      if (document.body.contains(container)) {
+        document.body.removeChild(container);
+      }
+      setIsGeneratingPdf(false);
+    }
   };
 
   const submitApplication = () => {
@@ -9184,37 +9036,56 @@ function CreatorPortalContent() {
             <div style={{ display: 'flex', gap: '10px' }}>
               <button
                 type="button"
+                disabled={isGeneratingPdf}
                 onClick={() => handleDownloadDisbursalSlip(selectedReceiptTx)}
                 style={{
                   flex: 1,
-                  backgroundColor: '#0052FF',
+                  backgroundColor: isGeneratingPdf ? '#94A3B8' : '#0052FF',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '10px',
                   padding: '11px 16px',
                   fontSize: '13px',
                   fontWeight: 800,
-                  cursor: 'pointer',
+                  cursor: isGeneratingPdf ? 'wait' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
-                  boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                  gap: '8px',
+                  boxShadow: isGeneratingPdf ? 'none' : '0 4px 12px rgba(0, 82, 255, 0.25)',
                   transition: 'all 0.15s ease',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0040D6';
+                  if (!isGeneratingPdf) e.currentTarget.style.backgroundColor = '#0040D6';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0052FF';
+                  if (!isGeneratingPdf) e.currentTarget.style.backgroundColor = '#0052FF';
                 }}
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 6 2 18 2 18 9" />
-                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                  <rect x="6" y="14" width="12" height="8" />
-                </svg>
-                <span>Print / Download Slip</span>
+                {isGeneratingPdf ? (
+                  <>
+                    <div
+                      style={{
+                        width: '14px',
+                        height: '14px',
+                        border: '2px solid #FFFFFF',
+                        borderTopColor: 'transparent',
+                        borderRadius: '50%',
+                        animation: 'spin 0.8s linear infinite',
+                      }}
+                    />
+                    <span>Downloading PDF...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Download Disbursal Slip (PDF)</span>
+                  </>
+                )}
               </button>
 
               <button
