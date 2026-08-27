@@ -1152,10 +1152,7 @@ function CreatorPortalContent() {
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
-                        <span style={{ filter: 'blur(5px)', userSelect: 'none', color: '#0F172A', fontWeight: 800, display: 'inline-block' }}>
-                          {selectedCampaign.brandName}
-                        </span>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
                           ✓ Verified Client
                         </span>
                         <span>•</span>
@@ -1206,7 +1203,7 @@ function CreatorPortalContent() {
                     Campaign Overview & Creative Brief
                   </h2>
                   <p style={{ fontSize: '13.5px', color: '#334155', lineHeight: 1.65, margin: '0 0 16px 0' }}>
-                    {selectedCampaign.description} We are seeking dynamic, authentic digital creators who have demonstrated high viewer engagement and aesthetic video production in {selectedCampaign.categories?.join(', ')}. The primary objective of this project is to craft captivating, native-feel content that drives high conversion, genuine community discussions, and click-throughs to our verified brand link.
+                    {selectedCampaign.description} We are seeking dynamic, authentic digital creators who have demonstrated high viewer engagement and aesthetic video production in {selectedCampaign.categories?.join(', ')}. The primary objective of this project is to craft captivating, native-feel content that drives high conversion, genuine community discussions, and click-throughs to the campaign tracking link.
                   </p>
 
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '18px 0 10px 0' }}>
@@ -1214,7 +1211,7 @@ function CreatorPortalContent() {
                   </h3>
                   <ul style={{ paddingLeft: '20px', margin: '0 0 18px 0', fontSize: '13px', color: '#334155', lineHeight: 1.75 }}>
                     <li><strong>High-Resolution Vertical Video:</strong> Produce native 9:16 vertical 4K assets (60fps preferred) optimized for Instagram Reels, YouTube Shorts, and TikTok algorithms.</li>
-                    <li><strong>Integrated Brand Storytelling:</strong> Seamlessly integrate product usage into your everyday routine or creative tutorial with authentic voiceover and hook in the first 3 seconds.</li>
+                    <li><strong>Integrated Creative Storytelling:</strong> Seamlessly integrate project themes into your everyday routine or creative tutorial with authentic voiceover and hook in the first 3 seconds.</li>
                     <li><strong>Swipe-Up / Link-in-Bio Attribution:</strong> Include dedicated UTM tracked link-in-bio sticker and pinned comment during the entire active campaign window.</li>
                     <li><strong>Compliance & Creative Quality:</strong> Deliver raw exports without third-party watermarks or copyrighted audio tracks.</li>
                   </ul>
@@ -1232,8 +1229,8 @@ function CreatorPortalContent() {
                       <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Natural daylight or soft studio lighting. Sharp macro focus when showcasing product texture and packaging.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🏷️ Brand Mentions & Tags</div>
-                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Tag @brand_official and use #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Collab'}2026.</div>
+                      <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🏷️ Campaign Hashtags & Mentions</div>
+                      <div style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.45 }}>Include #CreatorCollab and #{selectedCampaign.categories?.[0]?.replace(/\s+/g, '') || 'Lifestyle'}2026 in caption.</div>
                     </div>
                     <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px' }}>
                       <div style={{ fontWeight: 700, fontSize: '12.5px', color: '#0F172A', marginBottom: '3px' }}>🎙️ Audio & Voiceover</div>
@@ -1247,7 +1244,7 @@ function CreatorPortalContent() {
                   <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '14px 16px', marginBottom: '18px', fontSize: '12.5px', color: '#1E3A8A', lineHeight: 1.6 }}>
                     <div style={{ fontWeight: 700, marginBottom: '6px' }}>Milestone Review Process:</div>
                     <div>1. <strong>Concept & Rough Cut Submission:</strong> Due within 5 days of milestone confirmation.</div>
-                    <div>2. <strong>Brand Review Window:</strong> Brand lead will approve or request 1 round of revisions within 48 hours.</div>
+                    <div>2. <strong>Client Review Window:</strong> Client will approve or request 1 round of revisions within 48 hours.</div>
                     <div>3. <strong>Final Publication:</strong> Post live on feed during peak engagement hours ({selectedCampaign.projectTimeline}).</div>
                     <div>4. <strong>Analytics Verification:</strong> Submit post reach & insights screenshot after 7 days for milestone closure.</div>
                   </div>
@@ -1257,8 +1254,8 @@ function CreatorPortalContent() {
                   </h3>
                   <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '14px 16px', fontSize: '12.5px', color: '#334155', lineHeight: 1.6 }}>
                     <ul style={{ paddingLeft: '18px', margin: 0 }}>
-                      <li><strong>100% Payment Protection:</strong> Brand has pre-funded and secured the full {selectedCampaign.payoutAmount} payout through TIA verified settlement. Funds are guaranteed upon deliverable approval.</li>
-                      <li><strong>Usage Rights:</strong> 90 days organic digital re-posting rights granted to brand on official social channels.</li>
+                      <li><strong>100% Payment Protection:</strong> Client has pre-funded and secured the full {selectedCampaign.payoutAmount} payout through TIA verified settlement. Funds are guaranteed upon deliverable approval.</li>
+                      <li><strong>Usage Rights:</strong> 90 days organic digital promotional distribution rights granted for the project.</li>
                       <li><strong>Exclusivity:</strong> 30-day category exclusivity against direct competitors in the same sub-niche.</li>
                       <li><strong>Automated Disbursement:</strong> Funds released to your verified payout wallet upon automated URL verification.</li>
                     </ul>
@@ -1346,7 +1343,7 @@ function CreatorPortalContent() {
                       rows={4}
                       value={proposalPitch}
                       onChange={(e) => setProposalPitch(e.target.value)}
-                      placeholder="Optional: Outline your creative vision, camera equipment, or any specific angle you'd like to propose to the brand..."
+                      placeholder="Optional: Outline your creative vision, camera equipment, or any specific angle you'd like to propose..."
                       style={{
                         width: '100%',
                         padding: '12px 14px',
@@ -1365,7 +1362,7 @@ function CreatorPortalContent() {
                   <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px 14px', marginBottom: '18px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '8px', fontSize: '11.5px', color: '#475569' }}>
                     <div>✓ Set your budget & timeframe</div>
                     <div>✓ 100% Guaranteed payment protection</div>
-                    <div>✓ Direct brand director messaging</div>
+                    <div>✓ Direct client messaging</div>
                     <div>✓ Keep 100% of your creator earnings</div>
                   </div>
 
@@ -1540,8 +1537,8 @@ function CreatorPortalContent() {
                   </h3>
                   <div style={{ marginBottom: '12px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontWeight: 800, fontSize: '15px', color: '#0F172A', filter: 'blur(5px)', userSelect: 'none', display: 'inline-block' }}>
-                        {selectedCampaign.brandName}
+                      <span style={{ fontWeight: 800, fontSize: '14.5px', color: '#0F172A' }}>
+                        Verified Enterprise Client
                       </span>
                       <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
                         ✓ Verified
