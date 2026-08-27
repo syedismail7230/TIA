@@ -1,23 +1,158 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
-import {
-  CheckIcon,
-  SearchIcon,
-  ShieldCheckIcon,
-  ArrowRightIcon,
-  GlobeIcon,
-  TagIcon,
-  LockIcon,
-} from '@/components/ui/Icons';
+
+// ============================================================================
+// SLEEK VECTOR SVG ICONS (No raw emojis in premium UI)
+// ============================================================================
+
+function InstagramIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <defs>
+        <radialGradient id="ig-grad" cx="20%" cy="100%" r="130%">
+          <stop offset="0%" stopColor="#FFDD55" />
+          <stop offset="25%" stopColor="#FF543E" />
+          <stop offset="50%" stopColor="#C837AB" />
+          <stop offset="100%" stopColor="#377424" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="ig-linear" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#405DE6" />
+          <stop offset="30%" stopColor="#5851DB" />
+          <stop offset="50%" stopColor="#833AB4" />
+          <stop offset="70%" stopColor="#C13584" />
+          <stop offset="85%" stopColor="#E1306C" />
+          <stop offset="100%" stopColor="#FD1D1D" />
+        </linearGradient>
+      </defs>
+      <rect width="24" height="24" rx="6" fill="url(#ig-linear)" />
+      <rect width="24" height="24" rx="6" fill="url(#ig-grad)" />
+      <rect x="5.5" y="5.5" width="13" height="13" rx="3.5" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
+      <circle cx="12" cy="12" r="3.25" stroke="#FFFFFF" strokeWidth="1.75" fill="none" />
+      <circle cx="15.5" cy="8.5" r="0.85" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function YouTubeIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#FF0000" />
+      <path d="M9.5 8.5L16 12L9.5 15.5V8.5Z" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function TikTokIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#000000" />
+      <path
+        d="M14.5 6C15.2 7.2 16.3 8 17.8 8.1V10.5C16.6 10.5 15.5 10.1 14.5 9.4V14.3C14.5 16.8 12.5 18.8 10 18.8C7.5 18.8 5.5 16.8 5.5 14.3C5.5 11.8 7.5 9.8 10 9.8C10.4 9.8 10.8 9.9 11.2 10V12.4C10.8 12.2 10.4 12.1 10 12.1C8.8 12.1 7.8 13.1 7.8 14.3C7.8 15.5 8.8 16.5 10 16.5C11.2 16.5 12.2 15.5 12.2 14.3V6H14.5Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+function XIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#0F172A" />
+      <path
+        d="M15.8 6.5H17.6L13.7 10.9L18.3 17.5H14.7L11.8 13.7L8.6 17.5H6.8L11 12.7L6.5 6.5H10.2L12.8 10.1L15.8 6.5ZM15.2 16.4H16.2L9.7 7.5H8.6L15.2 16.4Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+function PinterestIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#E60023" />
+      <path
+        d="M12 5.5C8.4 5.5 5.5 8.4 5.5 12C5.5 14.8 7.2 17.1 9.7 18C9.6 17.5 9.6 16.6 9.7 16.1C9.8 15.6 10.6 12.2 10.6 12.2C10.6 12.2 10.4 11.7 10.4 11C10.4 9.9 11 9.1 11.8 9.1C12.5 9.1 12.8 9.6 12.8 10.2C12.8 10.9 12.3 11.9 12.1 12.9C11.9 13.8 12.6 14.5 13.5 14.5C15.1 14.5 16.4 12.8 16.4 10.4C16.4 8.3 14.9 6.8 12.2 6.8C9.1 6.8 7.3 9.1 7.3 11.7C7.3 12.6 7.7 13.6 8.1 14.1C8.2 14.2 8.2 14.3 8.1 14.5C8 14.8 7.8 15.6 7.7 15.8C7.6 16 7.4 16.1 7.2 16C5.8 15.4 4.9 13.4 4.9 11.6C4.9 8.1 7.5 5 12.3 5C16.2 5 19.1 7.8 19.1 11.5C19.1 15.3 16.7 18.3 13.3 18.3C12.2 18.3 11.2 17.7 10.8 17C10.8 17 10.1 19.7 10 20.2C9.8 20.9 9.3 21.8 8.9 22.4C9.9 22.7 10.9 22.9 12 22.9C17.5 22.9 22 18.4 22 12.9C22 7.4 17.5 5.5 12 5.5Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+function TwitchIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#9146FF" />
+      <path
+        d="M6 6H18V14.5L14.5 18H11.5L9.5 20V18H6V6ZM16.5 13.5V7.5H15V13.5H16.5ZM13 13.5V7.5H11.5V13.5H13Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+function SparklesIcon({ size = 16, color = 'currentColor' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1" />
+      <circle cx="12" cy="12" r="4" fill={color} fillOpacity="0.2" />
+    </svg>
+  );
+}
+
+function TagIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+      <line x1="7" y1="7" x2="7.01" y2="7" />
+    </svg>
+  );
+}
+
+function GlobePinIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon({ size = 16, color = '#059669' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill={color} fillOpacity="0.15" />
+      <path d="M8 12.5L10.5 15L16 9.5" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function InfoCircleIcon({ size = 16, color = '#D97706' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill={color} fillOpacity="0.15" />
+      <path d="M12 8V8.01M12 11V16" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ArrowRightIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  );
+}
 
 type TabType = 'marketplace' | 'collabs' | 'payments' | 'social-media' | 'settings';
 type CollabFilter = 'awaiting' | 'accepted' | 'rejected';
 
-export default function CreatorPortalPage() {
+function CreatorPortalContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get('tab') as TabType) || 'marketplace';
@@ -28,7 +163,6 @@ export default function CreatorPortalPage() {
   const [collabSubTab, setCollabSubTab] = useState<'messages' | 'campaign' | 'deliverables' | 'notes'>('messages');
   const [replyMessage, setReplyMessage] = useState('');
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [connectingPlatform, setConnectingPlatform] = useState<string | null>(null);
   const [selectedCampaign, setSelectedCampaign] = useState<any | null>(null);
   const [applySuccess, setApplySuccess] = useState(false);
@@ -43,24 +177,22 @@ export default function CreatorPortalPage() {
     { platform: 'X', username: 'creator_x', audienceSize: 45000, engagementRate: 2.1, connected: true },
   ]);
 
-  // Marketplace Campaigns
-  const [campaigns, setCampaigns] = useState<any[]>([
+  // High-Resolution Curated Campaign Imagery & Cards
+  const [campaigns] = useState<any[]>([
     {
       id: 'camp-1',
       title: 'EcoVibe Sustainable Living Challenge',
       brandName: 'EcoVibe Global',
-      brandLogo: '🌱',
-      bannerBg: 'linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)',
+      brandInitials: 'EV',
+      bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 10%',
-      badgeColor: '#7C3AED',
-      badgeBg: '#F3E8FF',
       categories: ['Sustainability', 'Cooking', 'Food', '+5'],
       isNew: true,
       requirementMet: true,
       language: 'English',
       country: 'India',
-      countryFlag: '🇮🇳',
+      countryCode: 'IN',
       socials: ['INSTAGRAM', 'TIKTOK', 'YOUTUBE'],
       budgetMinor: 3500000,
       description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
@@ -69,18 +201,16 @@ export default function CreatorPortalPage() {
       id: 'camp-2',
       title: 'Festive Season Artisan Snack Unboxing',
       brandName: 'Nectar Bites',
-      brandLogo: '🍯',
-      bannerBg: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
+      brandInitials: 'NB',
+      bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 12%',
-      badgeColor: '#7C3AED',
-      badgeBg: '#F3E8FF',
       categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
       isNew: true,
       requirementMet: true,
       language: 'English',
       country: 'India',
-      countryFlag: '🇮🇳',
+      countryCode: 'IN',
       socials: ['INSTAGRAM', 'PINTEREST', 'TIKTOK', 'YOUTUBE'],
       budgetMinor: 4500000,
       description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
@@ -89,19 +219,17 @@ export default function CreatorPortalPage() {
       id: 'camp-3',
       title: 'Bio-Active Herbal Vitality Booster Launch',
       brandName: 'PureBotanics Co.',
-      brandLogo: '🌿',
-      bannerBg: 'linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)',
+      brandInitials: 'PB',
+      bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 20%',
-      badgeColor: '#7C3AED',
-      badgeBg: '#F3E8FF',
       categories: ['Entrepreneurship', 'Dietary Supplements'],
       isNew: true,
       requirementMet: false,
       requirementNote: 'Requires 500k+ YouTube Subscribers',
       language: 'English',
       country: 'United States',
-      countryFlag: '🇺🇸',
+      countryCode: 'US',
       socials: ['INSTAGRAM', 'TIKTOK'],
       budgetMinor: 6000000,
       description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
@@ -110,18 +238,16 @@ export default function CreatorPortalPage() {
       id: 'camp-4',
       title: 'Nexus X1 Ultra 4K Camera Showcase',
       brandName: 'Nexus Tech Global',
-      brandLogo: '⚡',
-      bannerBg: 'linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%)',
+      brandInitials: 'NX',
+      bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80',
       commercialType: 'FLAT_FEE',
       commercialLabel: 'Flat Fee ₹45,000',
-      badgeColor: '#D97706',
-      badgeBg: '#FEF3C7',
       categories: ['Technology', 'Gadgets', 'AI', '+3'],
       isNew: false,
       requirementMet: true,
       language: 'English',
       country: 'India',
-      countryFlag: '🇮🇳',
+      countryCode: 'IN',
       socials: ['YOUTUBE', 'INSTAGRAM'],
       budgetMinor: 4500000,
       description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
@@ -130,18 +256,16 @@ export default function CreatorPortalPage() {
       id: 'camp-5',
       title: 'Velocity Pro Marathon Performance Shoe',
       brandName: 'Stride Athletics',
-      brandLogo: '👟',
-      bannerBg: 'linear-gradient(135deg, #FDF2F8 0%, #FCE7F3 100%)',
+      brandInitials: 'SA',
+      bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
       commercialType: 'FLAT_FEE',
       commercialLabel: 'Flat Fee ₹30,000',
-      badgeColor: '#D97706',
-      badgeBg: '#FEF3C7',
       categories: ['Fitness', 'Running', 'Athleisure'],
       isNew: true,
       requirementMet: true,
       language: 'English',
       country: 'India',
-      countryFlag: '🇮🇳',
+      countryCode: 'IN',
       socials: ['INSTAGRAM', 'TIKTOK'],
       budgetMinor: 3000000,
       description: 'High-energy running montage with direct swipe-up discount code for community followers.',
@@ -150,32 +274,30 @@ export default function CreatorPortalPage() {
       id: 'camp-6',
       title: 'GlowHydra Ceramide Overnight Recovery Cream',
       brandName: 'LuxeDerm Skin Labs',
-      brandLogo: '✨',
-      bannerBg: 'linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%)',
+      brandInitials: 'LD',
+      bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
       commercialType: 'COMMISSION',
       commercialLabel: 'Commission 15%',
-      badgeColor: '#7C3AED',
-      badgeBg: '#F3E8FF',
       categories: ['Beauty', 'Skincare', 'Self-Care'],
       isNew: false,
       requirementMet: true,
       language: 'English',
       country: 'Global',
-      countryFlag: '🌐',
+      countryCode: 'GL',
       socials: ['INSTAGRAM', 'YOUTUBE', 'TIKTOK'],
       budgetMinor: 2500000,
       description: '7-day nighttime skin transformation diary with macro camera closeups.',
     },
   ]);
 
-  // Collabs and Inbox Threads (Image 4 Design Inspiration)
+  // Collabs and Inbox Threads
   const [collabs, setCollabs] = useState<any[]>([
     {
       id: 'collab-1',
       campaignTitle: 'Affiliation Program',
       subject: 'Holiday Creator Campaign Partnership',
       brandName: 'Nexus Tech Global',
-      brandLogo: '⚡',
+      brandInitials: 'NX',
       status: 'ACCEPTED',
       appliedAt: 'Oct 26, 2026',
       proposedRate: '₹45,000',
@@ -186,7 +308,6 @@ export default function CreatorPortalPage() {
           id: 'msg-1',
           sender: 'BRAND',
           senderName: 'Alan W. (Brand Manager)',
-          avatar: '👨‍💼',
           badge: 'Application Form',
           badgeColor: '#D97706',
           badgeBg: '#FEF3C7',
@@ -197,7 +318,6 @@ export default function CreatorPortalPage() {
           id: 'msg-2',
           sender: 'CREATOR',
           senderName: 'You',
-          avatar: '📸',
           date: 'Oct 27, 2026 - 02:15 PM',
           text: 'Hi Alan, it would be a pleasure! I have reviewed the deliverable brief. My first draft will be ready by end of next week.',
         },
@@ -205,7 +325,6 @@ export default function CreatorPortalPage() {
           id: 'msg-3',
           sender: 'BRAND',
           senderName: 'Alan W. (Brand Manager)',
-          avatar: '👨‍💼',
           badge: 'Product Shipment',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
@@ -216,7 +335,6 @@ export default function CreatorPortalPage() {
           id: 'msg-4',
           sender: 'BRAND',
           senderName: 'Alan W. (Brand Manager)',
-          avatar: '👨‍💼',
           badge: 'Publication Instructions',
           badgeColor: '#0052FF',
           badgeBg: '#EFF6FF',
@@ -230,7 +348,7 @@ export default function CreatorPortalPage() {
       campaignTitle: 'Spring Campaign',
       subject: 'Aurora Hydra Skincare Collaboration',
       brandName: 'Aurora Organics',
-      brandLogo: '🌿',
+      brandInitials: 'AO',
       status: 'AWAITING',
       appliedAt: 'Oct 28, 2026',
       proposedRate: '₹30,000',
@@ -241,7 +359,6 @@ export default function CreatorPortalPage() {
           id: 'msg-21',
           sender: 'BRAND',
           senderName: 'Laura B. (Campaign Lead)',
-          avatar: '👩‍💼',
           badge: 'Application Form',
           badgeColor: '#D97706',
           badgeBg: '#FEF3C7',
@@ -255,7 +372,7 @@ export default function CreatorPortalPage() {
       campaignTitle: 'Black Friday Mega Deals',
       subject: 'Stride Athletics Marathon Launch',
       brandName: 'Stride Athletics',
-      brandLogo: '👟',
+      brandInitials: 'SA',
       status: 'ACCEPTED',
       appliedAt: 'Oct 29, 2026',
       proposedRate: '₹35,000',
@@ -266,7 +383,6 @@ export default function CreatorPortalPage() {
           id: 'msg-31',
           sender: 'BRAND',
           senderName: 'Nathan R. (Partnerships)',
-          avatar: '🏃‍♂️',
           badge: 'Payment Disbursed',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
@@ -277,57 +393,52 @@ export default function CreatorPortalPage() {
     },
   ]);
 
-  // Financial Ledger (Image 1, 2, 3 Design Inspiration)
+  // Financial Ledger
   const [payments, setPayments] = useState<any[]>([
     {
       id: 'tx-101',
       mediaName: 'Paul Homes',
-      avatar: '👨‍🦰',
+      initials: 'PH',
       campaign: 'Winter Fashion 2026',
       amount: '₹25,000',
       authorizedAt: 'Aug 20, 2026',
       status: 'UNCLAIMED',
-      type: 'Deliverable Approval',
     },
     {
       id: 'tx-102',
       mediaName: 'Nathalie Case',
-      avatar: '👩‍🦰',
+      initials: 'NC',
       campaign: 'Beach Collection Summer',
       amount: '₹32,800',
       authorizedAt: 'Aug 18, 2026',
       status: 'PAID',
-      type: 'Milestone 2 Release',
     },
     {
       id: 'tx-103',
       mediaName: 'Marcus Vance',
-      avatar: '🧑‍💻',
+      initials: 'MV',
       campaign: 'Tech Gadget Launch',
       amount: '₹56,000',
       authorizedAt: 'Aug 14, 2026',
       status: 'PAID',
-      type: 'Final Completion Payout',
     },
     {
       id: 'tx-104',
       mediaName: 'Elena Rostova',
-      avatar: '👱‍♀️',
+      initials: 'ER',
       campaign: 'Fitness Energy Drink',
       amount: '₹18,500',
       authorizedAt: 'Aug 10, 2026',
       status: 'PENDING',
-      type: 'Escrow Lock (In Review)',
     },
     {
       id: 'tx-105',
-      mediaName: 'David K.',
-      avatar: '🧔',
+      mediaName: 'David Kumar',
+      initials: 'DK',
       campaign: 'Wireless ANC Headphones',
       amount: '₹42,000',
       authorizedAt: 'Aug 05, 2026',
       status: 'PAID',
-      type: 'Contract Completion',
     },
   ]);
 
@@ -342,8 +453,6 @@ export default function CreatorPortalPage() {
         }
       } catch (err) {
         console.warn('Session load note:', err);
-      } finally {
-        setLoading(false);
       }
     }
     loadUser();
@@ -417,7 +526,7 @@ export default function CreatorPortalPage() {
         campaignTitle: selectedCampaign.title,
         subject: selectedCampaign.title,
         brandName: selectedCampaign.brandName,
-        brandLogo: selectedCampaign.brandLogo,
+        brandInitials: selectedCampaign.brandInitials,
         status: 'AWAITING',
         appliedAt: 'Just now',
         proposedRate: selectedCampaign.commercialLabel,
@@ -428,7 +537,6 @@ export default function CreatorPortalPage() {
             id: `msg-${Date.now()}`,
             sender: 'CREATOR',
             senderName: 'You',
-            avatar: '📸',
             badge: 'Application Form',
             badgeColor: '#D97706',
             badgeBg: '#FEF3C7',
@@ -473,7 +581,6 @@ export default function CreatorPortalPage() {
                   id: `msg-${Date.now()}`,
                   sender: 'CREATOR',
                   senderName: 'You',
-                  avatar: '📸',
                   date: 'Just now',
                   text: replyMessage,
                 },
@@ -490,11 +597,28 @@ export default function CreatorPortalPage() {
     currentUser?.name ||
     (currentUser?.email ? currentUser.email.split('@')[0] : 'Creator');
 
+  const renderSocialIcon = (platform: string, size = 16) => {
+    switch (platform) {
+      case 'INSTAGRAM':
+        return <InstagramIcon size={size} />;
+      case 'YOUTUBE':
+        return <YouTubeIcon size={size} />;
+      case 'TIKTOK':
+        return <TikTokIcon size={size} />;
+      case 'X':
+        return <XIcon size={size} />;
+      case 'PINTEREST':
+        return <PinterestIcon size={size} />;
+      case 'TWITCH':
+        return <TwitchIcon size={size} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', fontFamily: 'inherit' }}>
-      {/* ==================================================================== */}
-      {/* TOP HEADER NAVIGATION BAR (Upfluence SaaS Portal Style)             */}
-      {/* ==================================================================== */}
+      {/* Top Header Navigation Bar */}
       <header
         style={{
           backgroundColor: '#FFFFFF',
@@ -517,7 +641,7 @@ export default function CreatorPortalPage() {
           }}
         >
           {/* Logo & Navigation Tabs */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
             <Link
               href="/creator"
               style={{
@@ -615,50 +739,74 @@ export default function CreatorPortalPage() {
         </div>
       </header>
 
-      {/* ==================================================================== */}
-      {/* MAIN PORTAL BODY                                                     */}
-      {/* ==================================================================== */}
+      {/* Main Content Area */}
       <main style={{ maxWidth: '1440px', margin: '0 auto', padding: '28px 24px' }}>
         {/* ==================================================================== */}
-        {/* TAB 1: MARKETPLACE DISCOVERY (Upfluence Reference 1)                 */}
+        {/* TAB 1: MARKETPLACE DISCOVERY                                         */}
         {/* ==================================================================== */}
         {activeTab === 'marketplace' && (
           <div>
-            {/* Top Gradient Banner */}
+            {/* Mesh Gradient Search Banner with Floating Platform Icons */}
             <div
               style={{
-                background: 'linear-gradient(90deg, #EFF6FF 0%, #EEF2FF 40%, #F5F3FF 100%)',
-                border: '1px solid #DBEAFE',
+                background: 'linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 50%, #F5F3FF 100%)',
+                border: '1px solid #C7D2FE',
                 borderRadius: '16px',
                 padding: '28px 36px',
                 marginBottom: '32px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                boxShadow: '0 4px 16px rgba(0, 82, 255, 0.05)',
+                boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.1)',
+                position: 'relative',
+                overflow: 'hidden',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    backgroundColor: '#FFFFFF',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.08)',
-                    fontSize: '28px',
-                    flexShrink: 0,
-                  }}
-                >
-                  🚀
+              <div style={{ display: 'flex', alignItems: 'center', gap: '24px', zIndex: 2 }}>
+                {/* Floating Social Circles Cluster */}
+                <div style={{ display: 'flex', alignItems: 'center', position: 'relative', width: '64px', height: '64px' }}>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 0,
+                      top: 0,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    <InstagramIcon size={28} />
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 4,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    <YouTubeIcon size={28} />
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      left: 18,
+                      bottom: 0,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      borderRadius: '8px',
+                    }}
+                  >
+                    <TikTokIcon size={28} />
+                  </div>
                 </div>
+
                 <div>
-                  <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#1E1B4B', margin: '0 0 6px 0' }}>
-                    We&apos;re actively searching for your perfect campaign! 👀
-                  </h2>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#1E1B4B', margin: 0 }}>
+                      We&apos;re actively searching for your perfect campaign!
+                    </h2>
+                    <SparklesIcon size={18} color="#4F46E5" />
+                  </div>
                   <p style={{ fontSize: '14px', color: '#4338CA', margin: 0, lineHeight: 1.4 }}>
                     The more socials you link, the better the chances of finding the right fit for your audience and style!
                   </p>
@@ -677,23 +825,41 @@ export default function CreatorPortalPage() {
                   fontSize: '14px',
                   fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: '0 4px 12px rgba(0, 82, 255, 0.35)',
-                  flexShrink: 0,
+                  boxShadow: '0 4px 14px rgba(0, 82, 255, 0.35)',
+                  zIndex: 2,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'transform 0.15s ease',
                 }}
               >
-                Connect Socials
+                <span>Connect Socials</span>
+                <ArrowRightIcon size={13} color="#FFFFFF" />
               </button>
             </div>
 
             {/* Section Heading */}
             <div style={{ marginBottom: '22px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '20px' }}>🎁</span>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '6px',
+                  backgroundColor: '#EFF6FF',
+                  color: '#0052FF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <TagIcon size={16} color="#0052FF" />
+              </div>
               <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                 Keep growing, and these could be yours soon!
               </h3>
             </div>
 
-            {/* Campaign Discovery Cards */}
+            {/* Premium Campaign Discovery Grid with High-Res Photography */}
             <div
               style={{
                 display: 'grid',
@@ -707,68 +873,77 @@ export default function CreatorPortalPage() {
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
-                    borderRadius: '14px',
+                    borderRadius: '16px',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
-                    transition: 'all 0.2s ease',
+                    boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
-                  {/* Card Banner */}
+                  {/* Photo Banner with Gradient Overlay */}
                   <div
                     style={{
-                      height: '140px',
-                      background: camp.bannerBg,
+                      height: '150px',
+                      backgroundImage: `linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.65) 100%), url(${camp.bannerImage})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
                       position: 'relative',
                       padding: '16px',
                       display: 'flex',
                       alignItems: 'flex-start',
+                      justifyContent: 'space-between',
                     }}
                   >
+                    {/* Frosted Glassmorphism Commercial Pill */}
                     <div
                       style={{
-                        backgroundColor: camp.badgeBg,
-                        color: camp.badgeColor,
+                        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+                        backdropFilter: 'blur(10px)',
+                        color: camp.commercialType === 'FLAT_FEE' ? '#B45309' : '#6D28D9',
                         padding: '5px 14px',
                         borderRadius: '20px',
                         fontSize: '12px',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '6px',
-                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
                       }}
                     >
-                      <span>🏷️</span>
+                      <TagIcon size={12} color={camp.commercialType === 'FLAT_FEE' ? '#B45309' : '#6D28D9'} />
                       <span>{camp.commercialLabel}</span>
                     </div>
 
-                    {/* Brand Logo Avatar */}
+                    {/* Brand Initials Avatar */}
                     <div
                       style={{
                         position: 'absolute',
                         bottom: '-22px',
                         left: '20px',
-                        width: '56px',
-                        height: '56px',
-                        backgroundColor: '#FFFFFF',
+                        width: '52px',
+                        height: '52px',
+                        backgroundColor: '#0F172A',
+                        color: '#FFFFFF',
                         border: '3px solid #FFFFFF',
                         borderRadius: '12px',
-                        boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+                        boxShadow: '0 6px 16px rgba(0, 0, 0, 0.15)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '26px',
+                        fontSize: '16px',
+                        fontWeight: 900,
+                        letterSpacing: '0.04em',
                       }}
                     >
-                      {camp.brandLogo}
+                      {camp.brandInitials}
                     </div>
                   </div>
 
                   {/* Card Body */}
                   <div style={{ padding: '30px 22px 22px 22px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    {/* Brand Name & Categories */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
                       <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A' }}>
                         {camp.brandName}
@@ -790,7 +965,8 @@ export default function CreatorPortalPage() {
                       ))}
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '14px' }}>
+                    {/* Campaign Title & New Badge */}
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '12px' }}>
                       <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0, lineHeight: 1.35 }}>
                         {camp.title}
                       </h4>
@@ -804,9 +980,13 @@ export default function CreatorPortalPage() {
                             padding: '3px 6px',
                             borderRadius: '4px',
                             whiteSpace: 'nowrap',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '3px',
                           }}
                         >
-                          ✨ New
+                          <SparklesIcon size={11} color="#0052FF" />
+                          <span>New</span>
                         </span>
                       )}
                     </div>
@@ -815,49 +995,43 @@ export default function CreatorPortalPage() {
                       {camp.description}
                     </p>
 
+                    {/* Requirement Evaluation Section */}
                     <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '16px', marginBottom: '16px' }}>
-                      <div style={{ marginBottom: '10px' }}>
+                      <div style={{ marginBottom: '12px' }}>
                         {camp.requirementMet ? (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#059669', fontSize: '12.5px', fontWeight: 700 }}>
-                            <span>✓</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontSize: '12.5px', fontWeight: 700 }}>
+                            <CheckCircleIcon size={15} color="#059669" />
                             <span>Requirements Met</span>
                           </div>
                         ) : (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#D97706', fontSize: '12.5px', fontWeight: 700 }}>
-                            <span>ⓘ</span>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#D97706', fontSize: '12.5px', fontWeight: 700 }}>
+                            <InfoCircleIcon size={15} color="#D97706" />
                             <span>{camp.requirementNote || 'Requirement not met'}</span>
                           </div>
                         )}
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12.5px', color: '#475569' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12.5px', color: '#475569' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Language:</span>
-                          <span style={{ fontWeight: 600 }}>{camp.language}</span>
+                          <span style={{ fontWeight: 600, color: '#1E293B' }}>{camp.language}</span>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <span style={{ color: '#94A3B8' }}>Country:</span>
-                          <span style={{ fontWeight: 600 }}>
-                            {camp.countryFlag} {camp.country}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <GlobePinIcon size={13} color="#94A3B8" />
+                            <span>Country:</span>
+                          </span>
+                          <span style={{ fontWeight: 600, color: '#1E293B' }}>
+                            {camp.country} ({camp.countryCode})
                           </span>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Socials:</span>
-                          <div style={{ display: 'flex', gap: '5px' }}>
-                            {camp.socials.map((s: string, idx: number) => (
-                              <span
-                                key={idx}
-                                style={{
-                                  fontSize: '10.5px',
-                                  fontWeight: 700,
-                                  backgroundColor: '#F1F5F9',
-                                  padding: '2px 7px',
-                                  borderRadius: '4px',
-                                  color: '#334155',
-                                }}
-                              >
-                                {s}
-                              </span>
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                            {camp.socials.map((s: string) => (
+                              <div key={s} title={s}>
+                                {renderSocialIcon(s, 18)}
+                              </div>
                             ))}
                           </div>
                         </div>
@@ -881,6 +1055,7 @@ export default function CreatorPortalPage() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '6px',
+                        boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
                       }}
                     >
                       <span>View Brief & Apply</span>
@@ -894,16 +1069,15 @@ export default function CreatorPortalPage() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 2: COLLABS & MULTI-PANE MESSAGING (Upfluence Reference 4)        */}
+        {/* TAB 2: COLLABS & MULTI-PANE MESSAGING                                */}
         {/* ==================================================================== */}
         {activeTab === 'collabs' && (
           <div>
-            {/* Filter Pills Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
               {[
-                { id: 'awaiting', label: '⏳ Awaiting', count: collabs.filter((c) => c.status === 'AWAITING').length },
-                { id: 'accepted', label: '🌿 Accepted', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
-                { id: 'rejected', label: '🚫 Rejected', count: collabs.filter((c) => c.status === 'REJECTED').length },
+                { id: 'awaiting', label: 'Awaiting', count: collabs.filter((c) => c.status === 'AWAITING').length },
+                { id: 'accepted', label: 'Accepted', count: collabs.filter((c) => c.status === 'ACCEPTED').length },
+                { id: 'rejected', label: 'Rejected', count: collabs.filter((c) => c.status === 'REJECTED').length },
               ].map((pill) => {
                 const isActive = collabFilter === pill.id;
                 return (
@@ -916,9 +1090,9 @@ export default function CreatorPortalPage() {
                       borderRadius: '8px',
                       fontSize: '13px',
                       fontWeight: 700,
-                      backgroundColor: isActive ? '#FEF3C7' : '#FFFFFF',
-                      color: isActive ? '#92400E' : '#475569',
-                      border: isActive ? '1px solid #FCD34D' : '1px solid #E2E8F0',
+                      backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
+                      color: isActive ? '#0052FF' : '#475569',
+                      border: isActive ? '1px solid #93C5FD' : '1px solid #E2E8F0',
                       cursor: 'pointer',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -932,7 +1106,6 @@ export default function CreatorPortalPage() {
               })}
             </div>
 
-            {/* Multi-Pane Campaign Collaboration Workspace (Upfluence Ref 4) */}
             <div
               style={{
                 backgroundColor: '#FFFFFF',
@@ -973,7 +1146,8 @@ export default function CreatorPortalPage() {
                           <span style={{ fontSize: '11px', color: '#94A3B8' }}>{c.appliedAt}</span>
                         </div>
                         <div style={{ fontSize: '12px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span>{c.brandLogo}</span>
+                          <span style={{ fontWeight: 700, color: '#0F172A' }}>{c.brandInitials}</span>
+                          <span>•</span>
                           <span>{c.brandName}</span>
                         </div>
                       </div>
@@ -984,7 +1158,6 @@ export default function CreatorPortalPage() {
 
               {/* Right Pane: Thread & Deliverables */}
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                {/* Detail Header & Sub-Tabs */}
                 <div style={{ padding: '18px 24px', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: '0 0 4px 0' }}>
@@ -1019,7 +1192,6 @@ export default function CreatorPortalPage() {
                   </div>
                 </div>
 
-                {/* Messages Stream */}
                 <div style={{ padding: '24px', flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   {selectedCollab.messages.map((msg: any) => {
                     const isCreator = msg.sender === 'CREATOR';
@@ -1036,7 +1208,6 @@ export default function CreatorPortalPage() {
                       >
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontSize: '18px' }}>{msg.avatar}</span>
                             <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
                               {msg.senderName}
                             </span>
@@ -1066,7 +1237,6 @@ export default function CreatorPortalPage() {
                   })}
                 </div>
 
-                {/* Compose Reply Box */}
                 <div style={{ padding: '16px 24px', borderTop: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', display: 'flex', gap: '12px' }}>
                   <input
                     type="text"
@@ -1106,7 +1276,7 @@ export default function CreatorPortalPage() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 3: PAYMENTS & OVERPAY FINTECH WALLET (Upfluence Ref 1, 2, 3)     */}
+        {/* TAB 3: PAYMENTS & OVERPAY FINTECH WALLET                             */}
         {/* ==================================================================== */}
         {activeTab === 'payments' && (
           <div>
@@ -1144,7 +1314,7 @@ export default function CreatorPortalPage() {
               </div>
             )}
 
-            {/* Top 3 Financial KPI Cards (Upfluence Ref 1 Exact Layout) */}
+            {/* Top 3 Financial KPI Cards */}
             <div
               style={{
                 display: 'grid',
@@ -1177,7 +1347,7 @@ export default function CreatorPortalPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '22px',
-                    fontWeight: 800,
+                    fontWeight: 900,
                   }}
                 >
                   ₹
@@ -1216,9 +1386,10 @@ export default function CreatorPortalPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '20px',
+                    fontWeight: 900,
                   }}
                 >
-                  ⌛
+                  ⏳
                 </div>
                 <div>
                   <div style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>
@@ -1254,9 +1425,10 @@ export default function CreatorPortalPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: '20px',
+                    fontWeight: 900,
                   }}
                 >
-                  ⏱️
+                  ⏱
                 </div>
                 <div>
                   <div style={{ fontSize: '13px', color: '#64748B', fontWeight: 600 }}>
@@ -1271,7 +1443,6 @@ export default function CreatorPortalPage() {
 
             {/* Layout Grid: Transactions Table + TIA Pay Cashout Widget */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '24px', alignItems: 'flex-start' }}>
-              {/* Transactions Table (Upfluence Ref 1 Style) */}
               <div
                 style={{
                   backgroundColor: '#FFFFFF',
@@ -1305,30 +1476,40 @@ export default function CreatorPortalPage() {
                             transition: 'background 0.15s',
                           }}
                         >
-                          {/* Media / Creator Name */}
                           <td style={{ padding: '16px 20px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                              <span style={{ fontSize: '20px' }}>{p.avatar}</span>
+                              <div
+                                style={{
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '50%',
+                                  backgroundColor: '#0F172A',
+                                  color: '#FFFFFF',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '12px',
+                                  fontWeight: 800,
+                                }}
+                              >
+                                {p.initials}
+                              </div>
                               <span style={{ fontWeight: 800, color: '#0F172A' }}>{p.mediaName}</span>
                             </div>
                           </td>
 
-                          {/* Campaign Title */}
                           <td style={{ padding: '16px 20px', color: '#475569', fontWeight: 500 }}>
                             {p.campaign}
                           </td>
 
-                          {/* Amount */}
                           <td style={{ padding: '16px 20px', fontWeight: 800, color: '#0052FF' }}>
                             {p.amount}
                           </td>
 
-                          {/* Date */}
                           <td style={{ padding: '16px 20px', color: '#64748B', fontSize: '12.5px' }}>
                             {p.authorizedAt}
                           </td>
 
-                          {/* Status */}
                           <td style={{ padding: '16px 20px' }}>
                             <span
                               style={{
@@ -1344,7 +1525,6 @@ export default function CreatorPortalPage() {
                             </span>
                           </td>
 
-                          {/* Action Button */}
                           <td style={{ padding: '16px 20px', textAlign: 'right' }}>
                             {isUnclaimed ? (
                               <button
@@ -1380,7 +1560,6 @@ export default function CreatorPortalPage() {
                                   gap: '4px',
                                 }}
                               >
-                                <span>👁️</span>
                                 <span>View</span>
                               </button>
                             )}
@@ -1391,7 +1570,6 @@ export default function CreatorPortalPage() {
                   </tbody>
                 </table>
 
-                {/* Bottom Summary Bar (Upfluence Ref 1 Exact Layout) */}
                 <div
                   style={{
                     backgroundColor: '#EFF6FF',
@@ -1416,9 +1594,8 @@ export default function CreatorPortalPage() {
                 </div>
               </div>
 
-              {/* TIA Pay Instant Cashout Card (Upfluence Ref 2 & Overpay Ref 3) */}
+              {/* TIA Pay Instant Cashout Card */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {/* Cobalt Blue Card */}
                 <div
                   style={{
                     background: 'linear-gradient(135deg, #0052FF 0%, #1D4ED8 100%)',
@@ -1431,7 +1608,7 @@ export default function CreatorPortalPage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
-                    <div style={{ fontSize: '28px' }}>💳</div>
+                    <div style={{ fontSize: '20px', fontWeight: 900 }}>TIA PAY</div>
                     <span
                       style={{
                         fontSize: '10.5px',
@@ -1441,7 +1618,7 @@ export default function CreatorPortalPage() {
                         borderRadius: '4px',
                       }}
                     >
-                      TIA PAY ESCROW
+                      ESCROW LEDGER
                     </span>
                   </div>
 
@@ -1480,10 +1657,8 @@ export default function CreatorPortalPage() {
                   </div>
                 </div>
 
-                {/* Instant Escrow Protections */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', padding: '20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                    <ShieldCheckIcon size={18} color="#0052FF" />
                     <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
                       Milestone Security
                     </span>
@@ -1498,7 +1673,7 @@ export default function CreatorPortalPage() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 4: SOCIAL MEDIA CONNECTORS (Upfluence Reference 4)               */}
+        {/* TAB 4: SOCIAL MEDIA CONNECTORS                                       */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
           <div style={{ maxWidth: '840px', margin: '0 auto' }}>
@@ -1525,20 +1700,8 @@ export default function CreatorPortalPage() {
                 boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
               }}
             >
-              <div
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  backgroundColor: '#FDF2F8',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '20px',
-                  flexShrink: 0,
-                }}
-              >
-                📸
+              <div>
+                <InstagramIcon size={32} />
               </div>
               <div>
                 <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
@@ -1577,9 +1740,9 @@ export default function CreatorPortalPage() {
 
               <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden' }}>
                 {[
-                  { id: 'INSTAGRAM', name: 'Instagram', icon: '📸', color: '#E1306C' },
-                  { id: 'TIKTOK', name: 'TikTok', icon: '🎵', color: '#000000' },
-                  { id: 'YOUTUBE', name: 'YouTube', icon: '▶️', color: '#FF0000' },
+                  { id: 'INSTAGRAM', name: 'Instagram', icon: <InstagramIcon size={24} /> },
+                  { id: 'TIKTOK', name: 'TikTok', icon: <TikTokIcon size={24} /> },
+                  { id: 'YOUTUBE', name: 'YouTube', icon: <YouTubeIcon size={24} /> },
                 ].map((plat, idx) => {
                   const account = socialAccounts.find((a) => a.platform === plat.id);
                   const isConnected = account?.connected;
@@ -1597,7 +1760,7 @@ export default function CreatorPortalPage() {
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                        <div style={{ fontSize: '24px' }}>{plat.icon}</div>
+                        <div>{plat.icon}</div>
                         <div>
                           <div style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A' }}>
                             {plat.name}
@@ -1681,9 +1844,9 @@ export default function CreatorPortalPage() {
 
               <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '14px', overflow: 'hidden' }}>
                 {[
-                  { id: 'X', name: 'X (Twitter)', icon: '✖️' },
-                  { id: 'twitch', name: 'Twitch', icon: '👾' },
-                  { id: 'pinterest', name: 'Pinterest', icon: '📌' },
+                  { id: 'X', name: 'X (Twitter)', icon: <XIcon size={20} /> },
+                  { id: 'twitch', name: 'Twitch', icon: <TwitchIcon size={20} /> },
+                  { id: 'pinterest', name: 'Pinterest', icon: <PinterestIcon size={20} /> },
                 ].map((item, idx) => (
                   <div
                     key={item.id}
@@ -1696,7 +1859,7 @@ export default function CreatorPortalPage() {
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <div style={{ fontSize: '18px' }}>{item.icon}</div>
+                      <div>{item.icon}</div>
                       <span style={{ fontSize: '14px', fontWeight: 700, color: '#0F172A' }}>
                         {item.name}
                       </span>
@@ -1908,5 +2071,13 @@ export default function CreatorPortalPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function CreatorPortalPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '40px', textAlign: 'center', color: '#64748B' }}>Loading Creator Portal...</div>}>
+      <CreatorPortalContent />
+    </Suspense>
   );
 }
