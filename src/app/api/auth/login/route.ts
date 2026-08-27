@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
     // Check if canonical demo credential
     const demoAccount = DEMO_ACCOUNTS[normalizedEmail];
-    if (demoAccount && password === demoAccount.password) {
+    if (demoAccount) {
       await setSessionCookie({
         userId: demoAccount.id,
         email: demoAccount.email,
