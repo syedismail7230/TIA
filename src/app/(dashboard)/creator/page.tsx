@@ -148,6 +148,22 @@ function SparklesIcon({ size = 13, color = '#0052FF' }: { size?: number; color?:
   );
 }
 
+function SlidersIcon({ size = 14, color = 'currentColor' }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="21" x2="4" y2="14" />
+      <line x1="4" y1="10" x2="4" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12" y2="3" />
+      <line x1="20" y1="21" x2="20" y2="16" />
+      <line x1="20" y1="12" x2="20" y2="3" />
+      <line x1="1" y1="14" x2="7" y2="14" />
+      <line x1="9" y1="8" x2="15" y2="8" />
+      <line x1="17" y1="16" x2="23" y2="16" />
+    </svg>
+  );
+}
+
 function InfoCircleIcon({ size = 13, color = '#D97706' }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -202,6 +218,7 @@ function CreatorPortalContent() {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
@@ -722,11 +739,19 @@ function CreatorPortalContent() {
       return 0;
     });
 
+  const activeFiltersCount =
+    (selectedCategory !== 'ALL' ? 1 : 0) +
+    (selectedCountry !== 'ALL' ? 1 : 0) +
+    (selectedCommercialType !== 'ALL' ? 1 : 0) +
+    (sortBy !== 'success_rate' ? 1 : 0) +
+    (searchQuery.trim() !== '' ? 1 : 0);
+
   const hasActiveFilters =
     searchQuery.trim() !== '' ||
     selectedCategory !== 'ALL' ||
     selectedCountry !== 'ALL' ||
-    selectedCommercialType !== 'ALL';
+    selectedCommercialType !== 'ALL' ||
+    sortBy !== 'success_rate';
 
   const resetFilters = () => {
     setSearchQuery('');
@@ -2272,21 +2297,50 @@ function CreatorPortalContent() {
               </div>
             )}
 
-            {/* Search, Filter & Sort Toolbar (Clean, Cardless) */}
+            {/* Embedded CSS for seamless desktop/mobile filter responsiveness */}
+            <style>{`
+              @media (max-width: 768px) {
+                .tia-filter-desktop-group {
+                  display: none !important;
+                }
+                .tia-filter-desktop-chips {
+                  display: none !important;
+                }
+                .tia-filter-btn-mobile {
+                  display: inline-flex !important;
+                }
+              }
+              @media (min-width: 769px) {
+                .tia-filter-desktop-group {
+                  display: flex !important;
+                }
+                .tia-filter-desktop-chips {
+                  display: flex !important;
+                }
+                .tia-filter-btn-mobile {
+                  display: none !important;
+                }
+                .tia-filter-mobile-panel {
+                  display: none !important;
+                }
+              }
+            `}</style>
+
+            {/* Search, Filter & Sort Toolbar (Clean, Responsive) */}
             <div
               style={{
-                marginBottom: '24px',
+                marginBottom: '20px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '12px',
+                gap: '10px',
               }}
             >
-              {/* Row 1: Search Input + Select Dropdowns */}
+              {/* Row 1: Search Input + Mobile Filter Button + Desktop Select Dropdowns */}
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
+                  gap: '8px',
                   flexWrap: 'wrap',
                 }}
               >
@@ -2294,8 +2348,8 @@ function CreatorPortalContent() {
                 <div
                   style={{
                     position: 'relative',
-                    flex: '1 1 240px',
-                    minWidth: '200px',
+                    flex: '1 1 220px',
+                    minWidth: '180px',
                   }}
                 >
                   <svg
@@ -2359,199 +2413,254 @@ function CreatorPortalContent() {
                   )}
                 </div>
 
-                {/* Custom Country Filter Dropdown with Real Flag SVGs */}
-                <div id="country-filter-dropdown-container" style={{ position: 'relative' }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCountryDropdownOpen(!countryDropdownOpen);
-                      setCountrySearchQuery('');
-                    }}
+                {/* Mobile Filter Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+                  className="tia-filter-btn-mobile"
+                  style={{
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '9px 12px',
+                    fontSize: '12.5px',
+                    fontWeight: 600,
+                    color: activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#334155',
+                    backgroundColor: activeFiltersCount > 0 || mobileFilterOpen ? '#EFF6FF' : '#FFFFFF',
+                    border: activeFiltersCount > 0 || mobileFilterOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                    transition: 'all 0.15s ease',
+                    flexShrink: 0,
+                  }}
+                >
+                  <SlidersIcon size={14} color={activeFiltersCount > 0 || mobileFilterOpen ? '#0052FF' : '#64748B'} />
+                  <span>Filters</span>
+                  {activeFiltersCount > 0 && (
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '18px',
+                        height: '18px',
+                        fontSize: '10.5px',
+                        fontWeight: 700,
+                        color: '#FFFFFF',
+                        backgroundColor: '#0052FF',
+                        borderRadius: '50%',
+                        marginLeft: '2px',
+                      }}
+                    >
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </button>
+
+                {/* Desktop-Only Filter Group */}
+                <div
+                  className="tia-filter-desktop-group"
+                  style={{
+                    alignItems: 'center',
+                    gap: '8px',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {/* Custom Country Filter Dropdown with Real Flag SVGs */}
+                  <div id="country-filter-dropdown-container" style={{ position: 'relative' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCountryDropdownOpen(!countryDropdownOpen);
+                        setCountrySearchQuery('');
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: selectedCountry === 'ALL' ? '4px' : '8px',
+                        padding: '8px 12px',
+                        fontSize: '12.5px',
+                        fontWeight: 600,
+                        color: '#334155',
+                        backgroundColor: '#FFFFFF',
+                        border: countryDropdownOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        outline: 'none',
+                        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                        transition: 'all 0.15s ease',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {selectedCountry !== 'ALL' && <CountryFlag code={selectedCountry} size={17} />}
+                      <span>
+                        {filterCountries.find((c) => c.code === selectedCountry)?.label || 'All Countries'}
+                      </span>
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#94A3B8"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{
+                          transform: countryDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          transition: 'transform 0.15s ease',
+                          marginLeft: '2px',
+                        }}
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {countryDropdownOpen && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 4px)',
+                          left: 0,
+                          width: '230px',
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '10px',
+                          boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
+                          border: '1px solid #E2E8F0',
+                          padding: '6px',
+                          zIndex: 100,
+                        }}
+                      >
+                        {/* Search box inside dropdown */}
+                        <div style={{ padding: '2px 4px 6px 4px', borderBottom: '1px solid #F1F5F9', marginBottom: '4px' }}>
+                          <input
+                            type="text"
+                            value={countrySearchQuery}
+                            onChange={(e) => setCountrySearchQuery(e.target.value)}
+                            placeholder="Search country..."
+                            autoFocus
+                            style={{
+                              width: '100%',
+                              padding: '6px 8px',
+                              fontSize: '12px',
+                              color: '#0F172A',
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              borderRadius: '6px',
+                              outline: 'none',
+                            }}
+                          />
+                        </div>
+
+                        <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
+                          {filterCountries
+                            .filter((c) =>
+                              c.label.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
+                              c.code.toLowerCase().includes(countrySearchQuery.toLowerCase())
+                            )
+                            .map((c) => {
+                              const isSelected = selectedCountry === c.code;
+                              return (
+                                <button
+                                  key={c.code}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedCountry(c.code);
+                                    setCountryDropdownOpen(false);
+                                    setCountrySearchQuery('');
+                                  }}
+                                  style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '8px',
+                                    padding: '7px 8px',
+                                    fontSize: '12px',
+                                    fontWeight: isSelected ? 700 : 500,
+                                    color: isSelected ? '#0052FF' : '#334155',
+                                    backgroundColor: isSelected ? '#EFF6FF' : 'transparent',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                    transition: 'background-color 0.1s ease',
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: c.code === 'ALL' ? '0px' : '8px' }}>
+                                    {c.code !== 'ALL' && <CountryFlag code={c.code} size={17} />}
+                                    <span>{c.label}</span>
+                                  </div>
+                                  {isSelected && (
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                      <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                  )}
+                                </button>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Commercial Type Filter */}
+                  <select
+                    value={selectedCommercialType}
+                    onChange={(e) => setSelectedCommercialType(e.target.value)}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: selectedCountry === 'ALL' ? '4px' : '8px',
-                      padding: '8px 12px',
+                      padding: '9px 12px',
                       fontSize: '12.5px',
                       fontWeight: 600,
                       color: '#334155',
                       backgroundColor: '#FFFFFF',
-                      border: countryDropdownOpen ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                      border: '1px solid #CBD5E1',
                       borderRadius: '8px',
                       cursor: 'pointer',
                       outline: 'none',
                       boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                      transition: 'all 0.15s ease',
-                      whiteSpace: 'nowrap',
                     }}
                   >
-                    {selectedCountry !== 'ALL' && <CountryFlag code={selectedCountry} size={17} />}
-                    <span>
-                      {filterCountries.find((c) => c.code === selectedCountry)?.label || 'All Countries'}
-                    </span>
-                    <svg
-                      width="10"
-                      height="10"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#94A3B8"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      style={{
-                        transform: countryDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        transition: 'transform 0.15s ease',
-                        marginLeft: '2px',
-                      }}
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
+                    <option value="ALL">All Deal Types</option>
+                    <option value="COMMISSION">Commission %</option>
+                    <option value="FLAT_FEE">Flat Fee Guaranteed</option>
+                  </select>
 
-                  {/* Dropdown Menu */}
-                  {countryDropdownOpen && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: 'calc(100% + 4px)',
-                        left: 0,
-                        width: '230px',
-                        backgroundColor: '#FFFFFF',
-                        borderRadius: '10px',
-                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
-                        border: '1px solid #E2E8F0',
-                        padding: '6px',
-                        zIndex: 100,
-                      }}
-                    >
-                      {/* Search box inside dropdown */}
-                      <div style={{ padding: '2px 4px 6px 4px', borderBottom: '1px solid #F1F5F9', marginBottom: '4px' }}>
-                        <input
-                          type="text"
-                          value={countrySearchQuery}
-                          onChange={(e) => setCountrySearchQuery(e.target.value)}
-                          placeholder="Search country..."
-                          autoFocus
-                          style={{
-                            width: '100%',
-                            padding: '6px 8px',
-                            fontSize: '12px',
-                            color: '#0F172A',
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #E2E8F0',
-                            borderRadius: '6px',
-                            outline: 'none',
-                          }}
-                        />
-                      </div>
-
-                      <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
-                        {filterCountries
-                          .filter((c) =>
-                            c.label.toLowerCase().includes(countrySearchQuery.toLowerCase()) ||
-                            c.code.toLowerCase().includes(countrySearchQuery.toLowerCase())
-                          )
-                          .map((c) => {
-                            const isSelected = selectedCountry === c.code;
-                            return (
-                              <button
-                                key={c.code}
-                                type="button"
-                                onClick={() => {
-                                  setSelectedCountry(c.code);
-                                  setCountryDropdownOpen(false);
-                                  setCountrySearchQuery('');
-                                }}
-                                style={{
-                                  width: '100%',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between',
-                                  gap: '8px',
-                                  padding: '7px 8px',
-                                  fontSize: '12px',
-                                  fontWeight: isSelected ? 700 : 500,
-                                  color: isSelected ? '#0052FF' : '#334155',
-                                  backgroundColor: isSelected ? '#EFF6FF' : 'transparent',
-                                  border: 'none',
-                                  borderRadius: '6px',
-                                  cursor: 'pointer',
-                                  textAlign: 'left',
-                                  transition: 'background-color 0.1s ease',
-                                }}
-                                onMouseEnter={(e) => {
-                                  if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
-                                }}
-                                onMouseLeave={(e) => {
-                                  if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
-                                }}
-                              >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: c.code === 'ALL' ? '0px' : '8px' }}>
-                                  {c.code !== 'ALL' && <CountryFlag code={c.code} size={17} />}
-                                  <span>{c.label}</span>
-                                </div>
-                                {isSelected && (
-                                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                  </svg>
-                                )}
-                              </button>
-                            );
-                          })}
-                      </div>
-                    </div>
-                  )}
+                  {/* Sort By Dropdown */}
+                  <select
+                    value={sortBy}
+                    onChange={(e: any) => setSortBy(e.target.value)}
+                    style={{
+                      padding: '9px 12px',
+                      fontSize: '12.5px',
+                      fontWeight: 600,
+                      color: '#334155',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                    }}
+                  >
+                    <option value="success_rate">Sort: Highest Match</option>
+                    <option value="applicants">Sort: Most Popular</option>
+                    <option value="newest">Sort: Newest</option>
+                  </select>
                 </div>
-
-                {/* Commercial Type Filter */}
-                <select
-                  value={selectedCommercialType}
-                  onChange={(e) => setSelectedCommercialType(e.target.value)}
-                  style={{
-                    padding: '9px 12px',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    color: '#334155',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                  }}
-                >
-                  <option value="ALL">All Deal Types</option>
-                  <option value="COMMISSION">Commission %</option>
-                  <option value="FLAT_FEE">Flat Fee Guaranteed</option>
-                </select>
-
-                {/* Sort By Dropdown */}
-                <select
-                  value={sortBy}
-                  onChange={(e: any) => setSortBy(e.target.value)}
-                  style={{
-                    padding: '9px 12px',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    color: '#334155',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    outline: 'none',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                  }}
-                >
-                  <option value="success_rate">Sort: Highest Match</option>
-                  <option value="applicants">Sort: Most Popular</option>
-                  <option value="newest">Sort: Newest</option>
-                </select>
               </div>
 
-              {/* Row 2: Category Quick Chips */}
+              {/* Row 2: Category Quick Chips (Desktop Only) */}
               <div
+                className="tia-filter-desktop-chips"
                 style={{
-                  display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
                   overflowX: 'auto',
@@ -2605,6 +2714,209 @@ function CreatorPortalContent() {
                   </button>
                 )}
               </div>
+
+              {/* Mobile Filter Collapsible Panel (Rendered only on Mobile when toggled) */}
+              {mobileFilterOpen && (
+                <div
+                  className="tia-filter-mobile-panel"
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #CBD5E1',
+                    borderRadius: '12px',
+                    padding: '14px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
+                  }}
+                >
+                  {/* Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <SlidersIcon size={14} color="#0052FF" />
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>Filters & Sorting</span>
+                      {activeFiltersCount > 0 && (
+                        <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 7px', borderRadius: '10px' }}>
+                          {activeFiltersCount} active
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      {hasActiveFilters && (
+                        <button
+                          type="button"
+                          onClick={resetFilters}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            color: '#EF4444',
+                            fontSize: '11.5px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            padding: '2px',
+                          }}
+                        >
+                          Reset all
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setMobileFilterOpen(false)}
+                        style={{
+                          background: '#F1F5F9',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '24px',
+                          height: '24px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#64748B',
+                          fontSize: '12px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Dropdowns Row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    {/* Deal Type */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '4px' }}>
+                        Deal Type
+                      </label>
+                      <select
+                        value={selectedCommercialType}
+                        onChange={(e) => setSelectedCommercialType(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '8px 10px',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: '#334155',
+                          backgroundColor: '#F8FAFC',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '8px',
+                          outline: 'none',
+                        }}
+                      >
+                        <option value="ALL">All Deals</option>
+                        <option value="COMMISSION">Commission %</option>
+                        <option value="FLAT_FEE">Flat Fee</option>
+                      </select>
+                    </div>
+
+                    {/* Sort By */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '4px' }}>
+                        Sort By
+                      </label>
+                      <select
+                        value={sortBy}
+                        onChange={(e: any) => setSortBy(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '8px 10px',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: '#334155',
+                          backgroundColor: '#F8FAFC',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '8px',
+                          outline: 'none',
+                        }}
+                      >
+                        <option value="success_rate">Highest Match</option>
+                        <option value="applicants">Most Popular</option>
+                        <option value="newest">Newest</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Country Selector */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '4px' }}>
+                      Country ({filterCountries.length} Countries)
+                    </label>
+                    <select
+                      value={selectedCountry}
+                      onChange={(e) => setSelectedCountry(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '8px 10px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        color: '#334155',
+                        backgroundColor: '#F8FAFC',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        outline: 'none',
+                      }}
+                    >
+                      {filterCountries.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Categories / Niches */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, color: '#64748B', marginBottom: '6px' }}>
+                      Niche / Category
+                    </label>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {filterCategories.map((cat) => {
+                        const isSelected = selectedCategory === cat.id;
+                        return (
+                          <button
+                            key={cat.id}
+                            type="button"
+                            onClick={() => setSelectedCategory(cat.id)}
+                            style={{
+                              padding: '5px 11px',
+                              fontSize: '11px',
+                              fontWeight: isSelected ? 700 : 500,
+                              color: isSelected ? '#0052FF' : '#64748B',
+                              backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
+                              border: isSelected ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
+                              borderRadius: '16px',
+                              cursor: 'pointer',
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            {cat.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Apply Button */}
+                  <button
+                    type="button"
+                    onClick={() => setMobileFilterOpen(false)}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      marginTop: '4px',
+                    }}
+                  >
+                    View Results ({filteredCampaigns.length})
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Section Heading + Count */}
