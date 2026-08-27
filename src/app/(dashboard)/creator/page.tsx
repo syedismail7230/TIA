@@ -216,6 +216,7 @@ function CreatorPortalContent() {
       categories: ['Sustainability', 'Cooking', 'Food', '+5'],
       isNew: true,
       postedAt: 'Aug 27, 2026 • 10:45 AM',
+      projectTimeline: 'Sep 1 – Sep 15, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Australia',
@@ -242,6 +243,7 @@ function CreatorPortalContent() {
       categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
       isNew: true,
       postedAt: 'Aug 27, 2026 • 1:15 PM',
+      projectTimeline: 'Sep 5 – Sep 20, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'Italy',
@@ -268,6 +270,7 @@ function CreatorPortalContent() {
       categories: ['Entrepreneurship', 'Supplements'],
       isNew: true,
       postedAt: 'Aug 26, 2026 • 4:20 PM',
+      projectTimeline: 'Sep 10 – Oct 05, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United States',
@@ -294,6 +297,7 @@ function CreatorPortalContent() {
       categories: ['Technology', 'Gadgets', 'AI', '+3'],
       isNew: true,
       postedAt: 'Aug 26, 2026 • 11:00 AM',
+      projectTimeline: 'Sep 15 – Oct 10, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'India',
@@ -320,6 +324,7 @@ function CreatorPortalContent() {
       categories: ['Fitness', 'Running', 'Athleisure'],
       isNew: true,
       postedAt: 'Aug 25, 2026 • 3:30 PM',
+      projectTimeline: 'Sep 01 – Sep 25, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'United Kingdom',
@@ -346,6 +351,7 @@ function CreatorPortalContent() {
       categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
       isNew: true,
       postedAt: 'Aug 24, 2026 • 9:15 AM',
+      projectTimeline: 'Sep 12 – Sep 30, 2026',
       requirementLabel: 'Requirement not met',
       language: 'English',
       country: 'France',
@@ -1737,6 +1743,14 @@ function CreatorPortalContent() {
                           </div>
                         </div>
 
+                        {/* Project Timeline */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ color: '#94A3B8' }}>Project timeline</span>
+                          <span style={{ fontWeight: 600, color: '#0F172A' }}>
+                            {camp.projectTimeline || 'Sep 1 – Sep 15, 2026'}
+                          </span>
+                        </div>
+
                         {/* Socials - No Card Box, Clean Theme Icons */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ color: '#94A3B8' }}>Socials</span>
@@ -2332,14 +2346,18 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* Intelligence Metrics in Modal */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', textAlign: 'center' }}>
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', textAlign: 'center' }}>
                   <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Profile Success Rate</div>
-                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Success Rate</div>
+                    <div style={{ fontSize: '14px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Project Timeline</div>
+                    <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#0F172A', marginTop: '3px' }}>{selectedCampaign.projectTimeline || 'Sep 1 – Sep 15'}</div>
                   </div>
                   <div>
                     <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Applicants</div>
-                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied}</div>
+                    <div style={{ fontSize: '14px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>{selectedCampaign.creatorsApplied}</div>
                   </div>
                 </div>
 
