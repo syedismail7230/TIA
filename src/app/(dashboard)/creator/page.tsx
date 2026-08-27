@@ -1129,11 +1129,7 @@ function CreatorPortalContent() {
                           <span style={{ fontWeight: 700, color: '#0284C7' }}>{camp.eligibilityRate}%</span>
                         </div>
 
-                        {/* Acceptance Chance */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Acceptance chance</span>
-                          <span style={{ fontWeight: 700, color: '#059669' }}>{camp.acceptanceChance}%</span>
-                        </div>
+
 
                         {/* Creators Applied */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1508,14 +1504,10 @@ function CreatorPortalContent() {
                 </div>
 
                 {/* Intelligence Metrics in Modal */}
-                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', textAlign: 'center' }}>
+                <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '12px', marginBottom: '16px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px', textAlign: 'center' }}>
                   <div>
                     <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Your Profile Success Rate</div>
                     <div style={{ fontSize: '15px', fontWeight: 900, color: '#0284C7', marginTop: '2px' }}>{selectedCampaign.eligibilityRate}%</div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Acceptance Chance</div>
-                    <div style={{ fontSize: '15px', fontWeight: 900, color: '#059669', marginTop: '2px' }}>{selectedCampaign.acceptanceChance}%</div>
                   </div>
                   <div>
                     <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 600 }}>Applicants</div>
