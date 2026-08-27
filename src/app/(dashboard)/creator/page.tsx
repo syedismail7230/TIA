@@ -174,6 +174,22 @@ function CreatorPortalContent() {
   const [selectedCampaign, setSelectedCampaign] = useState<any | null>(null);
   const [applySuccess, setApplySuccess] = useState(false);
   const [claimSuccess, setClaimSuccess] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#user-profile-dropdown-container')) {
+        setProfileDropdownOpen(false);
+      }
+    };
+    if (profileDropdownOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [profileDropdownOpen]);
 
   // Application Credits & Free Applies State (1 Free Apply initially, ₹99/credit thereafter)
   const [applyCredits, setApplyCredits] = useState<number>(1);
@@ -1280,53 +1296,173 @@ function CreatorPortalContent() {
               <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-              <div
+            {/* User Profile Dropdown */}
+            <div id="user-profile-dropdown-container" style={{ position: 'relative', flexShrink: 0 }}>
+              <button
+                type="button"
+                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                 style={{
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: '50%',
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #DBEAFE',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#0052FF',
-                  flexShrink: 0,
+                  gap: '6px',
+                  backgroundColor: profileDropdownOpen ? '#F1F5F9' : 'transparent',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '4px 6px',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  transition: 'background-color 0.15s ease',
                 }}
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                {/* Clean user profile icon (No card box) */}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#475569"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ flexShrink: 0 }}
+                >
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
-              </div>
-              <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
-              </span>
-              <BlueCheckBadge size={13} title="Verified Creator" />
-            </div>
 
-            <button
-              type="button"
-              onClick={async () => {
-                await fetch('/api/auth/logout', { method: 'POST' });
-                router.push('/login');
-              }}
-              style={{
-                fontSize: '11.5px',
-                color: '#64748B',
-                backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                fontWeight: 500,
-                padding: '3px 6px',
-                borderRadius: '4px',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-            >
-              Logout
-            </button>
+                <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
+                </span>
+                
+                <BlueCheckBadge size={13} title="Verified Creator" />
+
+                {/* Subtle Caret */}
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#94A3B8"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.15s ease',
+                    flexShrink: 0,
+                  }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              {/* Floating Dropdown Menu */}
+              {profileDropdownOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 'calc(100% + 6px)',
+                    right: 0,
+                    width: '210px',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
+                    border: '1px solid #E2E8F0',
+                    padding: '6px',
+                    zIndex: 1000,
+                  }}
+                >
+                  {/* User info Header */}
+                  <div style={{ padding: '8px 10px', borderBottom: '1px solid #F1F5F9', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      @{currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
+                      {currentUser?.email || 'creator@tia.agency'}
+                    </div>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '5px', backgroundColor: '#EFF6FF', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 700, color: '#0052FF' }}>
+                      <span>✓</span> Verified Creator
+                    </div>
+                  </div>
+
+                  {/* Settings / Account Option */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setProfileDropdownOpen(false);
+                      handleTabChange('settings');
+                    }}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px 10px',
+                      fontSize: '12.5px',
+                      fontWeight: 600,
+                      color: '#334155',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'background-color 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <SettingsIcon size={14} color="#64748B" />
+                    <span>Account Settings</span>
+                  </button>
+
+                  <div style={{ height: '1px', backgroundColor: '#F1F5F9', margin: '4px 0' }}></div>
+
+                  {/* Logout Option */}
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      setProfileDropdownOpen(false);
+                      await fetch('/api/auth/logout', { method: 'POST' });
+                      router.push('/login');
+                    }}
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '8px 10px',
+                      fontSize: '12.5px',
+                      fontWeight: 600,
+                      color: '#DC2626',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'background-color 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FEF2F2')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#DC2626"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span>Log Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
