@@ -2941,7 +2941,7 @@ function CreatorPortalContent() {
 
                           {/* Text & Meta */}
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px', marginBottom: '2px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px', marginBottom: '4px' }}>
                               <span
                                 style={{
                                   fontSize: '12px',
@@ -2964,17 +2964,6 @@ function CreatorPortalContent() {
                                 />
                               )}
                             </div>
-
-                            <p
-                              style={{
-                                fontSize: '11.5px',
-                                color: '#64748B',
-                                margin: '0 0 6px 0',
-                                lineHeight: 1.4,
-                              }}
-                            >
-                              {notif.message}
-                            </p>
 
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -9629,15 +9618,14 @@ function CreatorPortalContent() {
             {liveToast.type === 'ESCROW' ? '🛡️' : liveToast.type === 'MATCH' ? '⭐' : liveToast.type === 'CREDIT' ? '⚡' : liveToast.type === 'PROPOSAL' ? '📝' : '🔔'}
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A', marginBottom: '2px' }}>
+            <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A', marginBottom: liveToast.actionLabel ? '3px' : '0' }}>
               {liveToast.title}
             </div>
-            <div style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.35, marginBottom: '6px' }}>
-              {liveToast.message}
-            </div>
-            <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF' }}>
-              {liveToast.actionLabel || 'View Details →'}
-            </div>
+            {liveToast.actionLabel && (
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF' }}>
+                {liveToast.actionLabel}
+              </div>
+            )}
           </div>
           <button
             type="button"
