@@ -188,6 +188,7 @@ function CreatorPortalContent() {
       id: 'camp-1',
       title: 'EcoVibe Sustainable Living Challenge',
       brandName: 'EcoVibe Global',
+      partnerLogo: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
       commercialType: 'COMMISSION',
@@ -210,6 +211,7 @@ function CreatorPortalContent() {
       id: 'camp-2',
       title: 'Festive Season Artisan Gourmet Unboxing',
       brandName: 'Nectar Bites Gourmet',
+      partnerLogo: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
       commercialType: 'COMMISSION',
@@ -232,6 +234,7 @@ function CreatorPortalContent() {
       id: 'camp-3',
       title: 'Bio-Active Herbal Vitality Booster Launch',
       brandName: 'PureBotanics Laboratory',
+      partnerLogo: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
       commercialType: 'COMMISSION',
@@ -254,6 +257,7 @@ function CreatorPortalContent() {
       id: 'camp-4',
       title: 'Nexus X1 Ultra 4K Camera Showcase',
       brandName: 'Nexus Tech Global',
+      partnerLogo: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
       commercialType: 'COMMISSION',
@@ -276,6 +280,7 @@ function CreatorPortalContent() {
       id: 'camp-5',
       title: 'Velocity Pro Marathon Performance Shoe',
       brandName: 'Stride Athletics',
+      partnerLogo: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
       commercialType: 'COMMISSION',
@@ -298,6 +303,7 @@ function CreatorPortalContent() {
       id: 'camp-6',
       title: 'LuxeDerm Anti-Aging Night Serum',
       brandName: 'LuxeDerm Skin Labs',
+      partnerLogo: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=200&q=80',
       bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
       avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
       commercialType: 'FLAT_FEE',
@@ -1030,7 +1036,7 @@ function CreatorPortalContent() {
                       <span>{camp.commercialLabel}</span>
                     </div>
 
-                    {/* Smooth Rounded Metallic Avatar (Overlapping Boundary) */}
+                    {/* Smooth Rounded Avatar Box with Blurred Partner Logo */}
                     <div
                       style={{
                         position: 'absolute',
@@ -1038,13 +1044,29 @@ function CreatorPortalContent() {
                         left: '16px',
                         width: '48px',
                         height: '48px',
-                        background: camp.avatarGradient,
+                        backgroundColor: '#FFFFFF',
                         border: '2.5px solid #FFFFFF',
                         borderRadius: '12px',
                         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
                         zIndex: 3,
+                        overflow: 'hidden',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
-                    />
+                    >
+                      <img
+                        src={camp.partnerLogo}
+                        alt="Partner Brand"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          filter: 'blur(3.5px)',
+                          transform: 'scale(1.25)',
+                        }}
+                      />
+                    </div>
                   </div>
 
                   {/* Card Content Body */}
