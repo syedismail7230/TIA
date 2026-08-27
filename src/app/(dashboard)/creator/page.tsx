@@ -868,8 +868,10 @@ function CreatorPortalContent() {
     setSortBy('success_rate');
   };
 
-  // PDF Generation State
+  // PDF Generation & Payout Claim States
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isClaimingPayoutId, setIsClaimingPayoutId] = useState<string | null>(null);
+  const [claimedSuccessTx, setClaimedSuccessTx] = useState<any>(null);
 
   // Collabs & Inbox Threads
   const [collabs, setCollabs] = useState<any[]>([
@@ -1883,41 +1885,47 @@ function CreatorPortalContent() {
       return;
     }
 
-    const targetTx = payments.find((p) => p.id === txId);
-    const gross = targetTx?.grossAmount || 25000;
-    const fee = targetTx?.platformFee ?? Math.round(gross * 0.05);
-    const tds = targetTx?.tdsDeduction ?? Math.round(gross * 0.01);
-    const net = targetTx?.netAmount ?? (gross - fee - tds);
+    setIsClaimingPayoutId(txId);
 
-    const updatedTx = {
-      ...targetTx,
-      status: 'PAID',
-      statusLabel: 'Paid',
-      disbursedAt: 'Just now',
-      platformFee: fee,
-      tdsDeduction: tds,
-      netAmount: net,
-      utrNumber: targetTx?.utrNumber || `HDFC${Math.floor(1000000000 + Math.random() * 9000000000)}`,
-    };
+    setTimeout(() => {
+      setIsClaimingPayoutId(null);
+      const targetTx = payments.find((p) => p.id === txId);
+      const gross = targetTx?.grossAmount || 25000;
+      const fee = targetTx?.platformFee ?? Math.round(gross * 0.05);
+      const tds = targetTx?.tdsDeduction ?? Math.round(gross * 0.01);
+      const net = targetTx?.netAmount ?? (gross - fee - tds);
+      const utrNum = targetTx?.utrNumber || `HDFC${Math.floor(1000000000 + Math.random() * 9000000000)}`;
 
-    setPayments((prev) =>
-      prev.map((p) => (p.id === txId ? updatedTx : p))
-    );
-    setSelectedReceiptTx(updatedTx);
-    setClaimSuccess(true);
-    setTimeout(() => setClaimSuccess(false), 4000);
+      const updatedTx = {
+        ...targetTx,
+        status: 'PAID',
+        statusLabel: 'Paid',
+        disbursedAt: 'Just now',
+        platformFee: fee,
+        tdsDeduction: tds,
+        netAmount: net,
+        utrNumber: utrNum,
+      };
 
-    triggerRealtimeNotification({
-      type: 'PAYMENT',
-      category: 'PAYMENTS',
-      title: 'Payout Disbursement Initiated',
-      message: `Direct payout of ${targetTx?.amount || 'funds'} successfully transferred to ${bankAccount.bankName} (•••• ${bankAccount.accountNumber.slice(-4)}).`,
-      actionTab: 'payments',
-      actionLabel: 'View Receipt →',
-      badgeText: 'Disbursed',
-      badgeBg: '#F0FDF4',
-      badgeColor: '#16A34A',
-    });
+      setPayments((prev) =>
+        prev.map((p) => (p.id === txId ? updatedTx : p))
+      );
+
+      // Open dedicated Claim Verification Success Dialog
+      setClaimedSuccessTx(updatedTx);
+
+      triggerRealtimeNotification({
+        type: 'PAYMENT',
+        category: 'PAYMENTS',
+        title: 'Payout Disbursement Verified & Settled',
+        message: `₹${net.toLocaleString('en-IN')}.00 successfully credited to ${bankAccount.bankName} (•••• ${bankAccount.accountNumber.slice(-4)}) with UTR ${utrNum}.`,
+        actionTab: 'payments',
+        actionLabel: 'View Voucher →',
+        badgeText: 'Disbursed',
+        badgeBg: '#F0FDF4',
+        badgeColor: '#16A34A',
+      });
+    }, 1100);
   };
 
   const handleSendMessage = (customText?: string) => {
@@ -7650,37 +7658,98 @@ function CreatorPortalContent() {
                         </div>
                       </div>
 
+                      {/* Settlement Verification Callout if Paid */}
+                      {isPaid && (
+                        <div
+                          style={{
+                            backgroundColor: '#ECFDF5',
+                            border: '1px solid #A7F3D0',
+                            borderRadius: '12px',
+                            padding: '12px 14px',
+                            marginBottom: '14px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: '24px',
+                              height: '24px',
+                              borderRadius: '50%',
+                              backgroundColor: '#059669',
+                              color: '#FFFFFF',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontWeight: 900,
+                              fontSize: '13px',
+                              flexShrink: 0,
+                            }}
+                          >
+                            ✓
+                          </div>
+                          <div>
+                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#065F46' }}>
+                              Claim Verified & Disbursed
+                            </div>
+                            <div style={{ fontSize: '10.5px', color: '#047857', marginTop: '1px' }}>
+                              Credited to {bankAccount?.bankName || 'HDFC Bank'} (•••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '0482'}) • UTR: {selectedInvoice.utrNumber || 'HDFC9821049219'}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Bottom Primary Action Button */}
                       {!isPaid ? (
                         <button
                           type="button"
+                          disabled={isClaimingPayoutId === selectedInvoice.id}
                           onClick={() => handleClaimPayout(selectedInvoice.id)}
                           style={{
                             width: '100%',
                             padding: '13px',
-                            backgroundColor: '#0052FF',
+                            backgroundColor: isClaimingPayoutId === selectedInvoice.id ? '#94A3B8' : '#0052FF',
                             color: '#FFFFFF',
                             border: 'none',
                             borderRadius: '12px',
                             fontSize: '13px',
                             fontWeight: 800,
-                            cursor: 'pointer',
+                            cursor: isClaimingPayoutId === selectedInvoice.id ? 'wait' : 'pointer',
                             transition: 'all 0.15s ease',
-                            boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                            boxShadow: isClaimingPayoutId === selectedInvoice.id ? 'none' : '0 4px 14px rgba(0, 82, 255, 0.25)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '6px',
+                            gap: '8px',
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = '#0040D6';
+                            if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0040D6';
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = '#0052FF';
+                            if (isClaimingPayoutId !== selectedInvoice.id) e.currentTarget.style.backgroundColor = '#0052FF';
                           }}
                         >
-                          <span>⚡</span>
-                          <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
+                          {isClaimingPayoutId === selectedInvoice.id ? (
+                            <>
+                              <div
+                                style={{
+                                  width: '14px',
+                                  height: '14px',
+                                  border: '2px solid #FFFFFF',
+                                  borderTopColor: 'transparent',
+                                  borderRadius: '50%',
+                                  animation: 'spin 0.8s linear infinite',
+                                }}
+                              />
+                              <span>Verifying & Disbursing Funds...</span>
+                            </>
+                          ) : (
+                            <>
+                              <span>⚡</span>
+                              <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
+                            </>
+                          )}
                         </button>
                       ) : (
                         <button
@@ -7718,7 +7787,7 @@ function CreatorPortalContent() {
                             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                             <rect x="6" y="14" width="12" height="8" />
                           </svg>
-                          <span>Download Tax Invoice / Slip</span>
+                          <span>View Disbursal Slip / Voucher</span>
                         </button>
                       )}
                     </div>
@@ -9109,20 +9178,218 @@ function CreatorPortalContent() {
         </div>
       )}
 
-      {/* Floating Live Realtime Toast Popup */}
+      {/* Payout Claim Verification & Disbursal Success Modal */}
+      {claimedSuccessTx && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.7)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1050,
+            padding: '16px',
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setClaimedSuccessTx(null);
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              width: '100%',
+              maxWidth: '540px',
+              maxHeight: '92vh',
+              overflowY: 'auto',
+              borderRadius: '24px',
+              padding: '32px 28px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+              border: '1px solid #E2E8F0',
+              textAlign: 'center',
+              position: 'relative',
+            }}
+          >
+            {/* Animated Green Checkmark Seal */}
+            <div
+              style={{
+                width: '72px',
+                height: '72px',
+                borderRadius: '50%',
+                backgroundColor: '#ECFDF5',
+                border: '3px solid #A7F3D0',
+                color: '#059669',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '36px',
+                margin: '0 auto 16px auto',
+                boxShadow: '0 10px 25px rgba(5, 150, 105, 0.25)',
+              }}
+            >
+              ✓
+            </div>
+
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#EFF6FF', color: '#0052FF', border: '1px solid #BFDBFE', padding: '4px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '10px' }}>
+              <span>⚡</span>
+              <span>IMPS Direct Wire Settled</span>
+            </div>
+
+            <h3 style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+              Payout Claim Verified & Completed!
+            </h3>
+            <p style={{ fontSize: '13px', color: '#64748B', margin: '0 0 20px 0', lineHeight: 1.45 }}>
+              Your funds have been successfully disbursed by <strong>The Influencers Agency (TIA) Financial Gateway</strong> directly to your linked bank account.
+            </p>
+
+            {/* Net Amount Disbursed Hero Card */}
+            <div
+              style={{
+                backgroundColor: '#F8FAFC',
+                border: '2px solid #0052FF',
+                borderRadius: '16px',
+                padding: '20px',
+                marginBottom: '20px',
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                Net Amount Disbursed into Bank
+              </div>
+              <div style={{ fontSize: '32px', fontWeight: 900, color: '#0052FF', letterSpacing: '-0.03em' }}>
+                ₹{(claimedSuccessTx.netAmount || 17390).toLocaleString('en-IN')}.00
+              </div>
+              <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '4px' }}>
+                ✓ 100% Milestone Settled • Zero Holding Period
+              </div>
+            </div>
+
+            {/* Breakdown & Bank Transfer Details */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '14px',
+                padding: '16px',
+                marginBottom: '22px',
+                textAlign: 'left',
+                fontSize: '12px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                <span>Campaign:</span>
+                <span style={{ fontWeight: 700, color: '#0F172A' }}>{claimedSuccessTx.campaign}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                <span>Brand Client:</span>
+                <span style={{ fontWeight: 700, color: '#0F172A' }}>{claimedSuccessTx.mediaName}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
+                <span>Gross Deal Total:</span>
+                <span style={{ fontWeight: 700, color: '#0F172A' }}>{claimedSuccessTx.amount}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#EA580C' }}>
+                <span>TIA Platform Fee (5% Commission):</span>
+                <span style={{ fontWeight: 700 }}>-₹{(claimedSuccessTx.platformFee || ((claimedSuccessTx.grossAmount || 0) * 0.05) || 925).toLocaleString('en-IN')}.00</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#DC2626' }}>
+                <span>TDS Deducted u/s 194J (1%):</span>
+                <span style={{ fontWeight: 700 }}>-₹{(claimedSuccessTx.tdsDeduction || ((claimedSuccessTx.grossAmount || 0) * 0.01) || 185).toLocaleString('en-IN')}.00</span>
+              </div>
+              <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ fontWeight: 600, color: '#475569' }}>Credited Beneficiary:</span>
+                <span style={{ fontWeight: 800, color: '#0F172A' }}>
+                  {bankAccount?.accountHolderName || 'Sarah Jenkins'} ({bankAccount?.bankName || 'HDFC Bank'} •••• {bankAccount?.accountNumber ? bankAccount.accountNumber.slice(-4) : '0482'})
+                </span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontWeight: 600, color: '#475569' }}>Bank Settlement UTR:</span>
+                <span style={{ fontFamily: 'monospace', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '2px 8px', borderRadius: '4px' }}>
+                  {claimedSuccessTx.utrNumber}
+                </span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="button"
+                disabled={isGeneratingPdf}
+                onClick={() => handleDownloadDisbursalSlip(claimedSuccessTx)}
+                style={{
+                  flex: 1,
+                  backgroundColor: isGeneratingPdf ? '#94A3B8' : '#0052FF',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '13px 18px',
+                  fontSize: '13px',
+                  fontWeight: 800,
+                  cursor: isGeneratingPdf ? 'wait' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                {isGeneratingPdf ? (
+                  <span>Downloading PDF...</span>
+                ) : (
+                  <>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    <span>Download Disbursal Slip (PDF)</span>
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setClaimedSuccessTx(null)}
+                style={{
+                  backgroundColor: '#F1F5F9',
+                  color: '#475569',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '13px 20px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Live Realtime Toast Popup (Fixed Top-Right) */}
       {liveToast && (
         <div
           onClick={() => handleNotificationClick(liveToast)}
           style={{
             position: 'fixed',
-            bottom: '24px',
+            top: '24px',
             right: '24px',
             backgroundColor: '#FFFFFF',
-            borderRadius: '12px',
-            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08)',
+            borderRadius: '14px',
+            boxShadow: '0 16px 36px rgba(0, 0, 0, 0.18), 0 4px 14px rgba(0, 0, 0, 0.08)',
             border: '1px solid #E2E8F0',
-            padding: '14px 16px',
-            maxWidth: '360px',
+            padding: '16px 18px',
+            maxWidth: '380px',
             zIndex: 9999,
             display: 'flex',
             alignItems: 'flex-start',
