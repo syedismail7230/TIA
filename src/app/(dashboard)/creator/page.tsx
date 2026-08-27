@@ -964,8 +964,31 @@ function CreatorPortalContent() {
             </Link>
           </div>
 
-          {/* User Profile & Sign Out on Right */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          {/* User Profile, Remaining Credits & Sign Out on Right */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {/* Remaining Credits Badge next to Profile */}
+            <button
+              type="button"
+              onClick={() => handleTabChange('payments')}
+              title="Click to view & top up Application Credits"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                padding: '4px 10px',
+                backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
+                border: applyCredits > 0 ? '1px solid #BFDBFE' : '1px solid #FDE68A',
+                borderRadius: '8px',
+                fontSize: '11.5px',
+                fontWeight: 700,
+                color: applyCredits > 0 ? '#0052FF' : '#B45309',
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+            >
+              <span>⚡ {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
+            </button>
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
               <span style={{ fontSize: '12.5px', color: '#1E293B', fontWeight: 600 }}>
                 {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
@@ -1300,56 +1323,6 @@ function CreatorPortalContent() {
                   <option value="applicants">Sort: Most Popular</option>
                   <option value="newest">Sort: Newest</option>
                 </select>
-
-                {/* Application Credits Widget */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginLeft: 'auto',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <div
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '8px 12px',
-                      backgroundColor: applyCredits > 0 ? '#EFF6FF' : '#FEF3C7',
-                      border: applyCredits > 0 ? '1px solid #BFDBFE' : '1px solid #FDE68A',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: applyCredits > 0 ? '#0052FF' : '#B45309',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    <span>⚡ {applyCredits} {applyCredits === 1 ? 'Free Apply' : 'Credits'} Remaining</span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleTabChange('payments')}
-                    style={{
-                      padding: '8px 14px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      whiteSpace: 'nowrap',
-                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.2)',
-                    }}
-                  >
-                    <span>+ Buy Credits</span>
-                  </button>
-                </div>
               </div>
 
               {/* Row 2: Category Quick Chips */}
