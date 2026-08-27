@@ -246,6 +246,60 @@ function CreatorPortalContent() {
   const [showApplyModal, setShowApplyModal] = useState<boolean>(false);
   const [bidSubmittedSuccess, setBidSubmittedSuccess] = useState<boolean>(false);
 
+  // Dynamic Time-Aware Personalized Greeting
+  const [dynamicGreeting, setDynamicGreeting] = useState<{ title: string; subtitle: string }>({
+    title: 'Welcome back, Creator!',
+    subtitle: 'Explore the latest hand-picked brand deals tailored for you.',
+  });
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    const name = currentUser?.name ? currentUser.name.split(' ')[0] : 'Creator';
+
+    let timeTitle = '';
+    let pool: string[] = [];
+
+    if (hour >= 5 && hour < 12) {
+      timeTitle = `Good morning, ${name}!`;
+      pool = [
+        "Here are today's fresh brand sponsorships ready for your pitch.",
+        "Start your morning with high-paying verified brand opportunities.",
+        "Exciting campaigns just dropped in your niche today.",
+        "Brands are actively seeking creative partners this morning.",
+      ];
+    } else if (hour >= 12 && hour < 17) {
+      timeTitle = `Good afternoon, ${name}!`;
+      pool = [
+        "Take a look at newly verified brand deals waiting for you.",
+        "Great time to submit your proposals and lock in new sponsorships.",
+        "Discover the top brand opportunities matched to your audience.",
+        "New campaigns have been added to your personalized feed.",
+      ];
+    } else if (hour >= 17 && hour < 22) {
+      timeTitle = `Good evening, ${name}!`;
+      pool = [
+        "Wrap up your day by exploring top-paying brand collaborations.",
+        "Check out high-converting campaigns open for bids tonight.",
+        "New brand briefs match your content style and audience demographic.",
+        "Review the latest verified campaigns and submit your bids.",
+      ];
+    } else {
+      timeTitle = `Good night, ${name}!`;
+      pool = [
+        "Explore night-owl campaign drops and get ahead of the applicant queue.",
+        "Plan tomorrow's sponsorships with these verified brand opportunities.",
+        "Midnight opportunities matched directly to your profile.",
+        "Discover handpicked brand collaborations ready for your pitch.",
+      ];
+    }
+
+    const randomSubtitle = pool[Math.floor(Math.random() * pool.length)];
+    setDynamicGreeting({
+      title: timeTitle,
+      subtitle: randomSubtitle,
+    });
+  }, [currentUser]);
+
   // Proposal & Bid State for Full-Page Project View (Freelancer.com Inspiration)
   const [bidAmount, setBidAmount] = useState<string>('700');
   const [bidDays, setBidDays] = useState<string>('14');
@@ -2768,13 +2822,15 @@ function CreatorPortalContent() {
               )}
             </div>
 
-            {/* Section Heading + Count */}
-            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '16px' }}>🎁</span>
-                <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                  Keep growing, and these could be yours soon!
+            {/* Dynamic Time-Aware Personalized Greeting Header */}
+            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+              <div>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0' }}>
+                  {dynamicGreeting.title}
                 </h3>
+                <p style={{ fontSize: '12.5px', color: '#64748B', margin: 0, fontWeight: 500 }}>
+                  {dynamicGreeting.subtitle}
+                </p>
               </div>
               <span style={{ fontSize: '12px', fontWeight: 600, color: '#64748B' }}>
                 Showing {filteredCampaigns.length} of {campaigns.length} opportunities
