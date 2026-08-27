@@ -1115,248 +1115,248 @@ function CreatorPortalContent() {
     },
   ]);
 
-  // Financial Ledger & Invoices
+  // Financial Ledger & Invoices (TIA Creator Collabs SaaS Model)
   const [payments, setPayments] = useState<any[]>([
     {
       id: 'tx-101',
-      invoiceCode: 'FP-0192',
-      mediaName: 'Figma Pro',
-      initials: 'FP',
-      logoBg: '#0ACF83',
-      email: 'figma.enterprise@gmail.com',
-      campaign: 'Figma Pro - March 25',
-      deliverableDesc: 'Figma - March Design System Brief',
-      amount: '$100.00',
-      priceFormatted: '$100.00',
-      grossAmount: 100,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 100,
-      authorizedAt: '8 Mar 2025',
-      dueDate: '8 Mar 2025',
+      invoiceCode: 'INV-PHA-0192',
+      mediaName: 'Paul Homes Apparel',
+      initials: 'PH',
+      logoBg: '#2563EB',
+      email: 'partnerships@paulhomes.in',
+      campaign: 'Winter Fashion 2026 Lookbook Reel',
+      deliverableDesc: '1x Dedicated 4K Reel + 2x Story Highlights',
+      amount: '₹25,000.00',
+      priceFormatted: '₹25,000.00',
+      grossAmount: 25000,
+      tdsDeduction: 250,
+      platformFee: 0,
+      netAmount: 24750,
+      authorizedAt: '20 Aug 2026',
+      dueDate: '20 Aug 2026',
       status: 'UNCLAIMED',
       statusLabel: 'Unpaid',
       utrNumber: 'HDFC9821049219',
-      invoiceNumber: 'INV-FP-2025-0192',
-      billedTo: 'Figma.Inc',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
+      invoiceNumber: 'INV-PHA-2026-0192',
+      billedTo: 'Paul Homes Retail India Pvt Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
     },
     {
       id: 'tx-102',
-      invoiceCode: 'BK-2931',
-      mediaName: 'Sketch',
-      initials: 'SK',
-      logoBg: '#FDB300',
-      email: 'sketch.corp@gmail.com',
-      campaign: 'Sketch Toolkit Q1',
-      deliverableDesc: 'Sketch Vector Assets Integration',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '8 Mar 2025',
-      dueDate: '8 Mar 2025',
+      invoiceCode: 'INV-NCS-2931',
+      mediaName: 'Nathalie Case Swimwear',
+      initials: 'NC',
+      logoBg: '#DB2777',
+      email: 'collabs@nathaliecase.in',
+      campaign: 'Beach Collection Summer Reel',
+      deliverableDesc: '1x Feature Showcase Reel + Link in Bio',
+      amount: '₹32,800.00',
+      priceFormatted: '₹32,800.00',
+      grossAmount: 32800,
+      tdsDeduction: 328,
+      platformFee: 0,
+      netAmount: 32472,
+      authorizedAt: '18 Aug 2026',
+      dueDate: '18 Aug 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC8821938210',
-      invoiceNumber: 'INV-BK-2025-2931',
-      billedTo: 'Sketch.Inc',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '8 Mar 2025 - 04:15 PM',
+      invoiceNumber: 'INV-NCS-2026-2931',
+      billedTo: 'Nathalie Case India Brand Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '19 Aug 2026 - 11:30 AM',
     },
     {
       id: 'tx-103',
-      invoiceCode: 'NT-2910',
-      mediaName: 'Netflix',
-      initials: 'NF',
-      logoBg: '#E50914',
-      email: 'netflix.partnerships@gmail.com',
-      campaign: 'Netflix Original Series Promo',
-      deliverableDesc: 'Netflix Series Reaction Post',
-      amount: '$100.00',
-      priceFormatted: '$100.00',
-      grossAmount: 100,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 100,
-      authorizedAt: '8 Mar 2025',
-      dueDate: '8 Mar 2025',
+      invoiceCode: 'INV-NSA-2910',
+      mediaName: 'NovaSound Audio',
+      initials: 'NS',
+      logoBg: '#7C3AED',
+      email: 'influencers@novasound.in',
+      campaign: 'Active ANC Earbuds Launch Review',
+      deliverableDesc: '1x Dedicated YouTube Review & Unboxing',
+      amount: '₹55,000.00',
+      priceFormatted: '₹55,000.00',
+      grossAmount: 55000,
+      tdsDeduction: 550,
+      platformFee: 0,
+      netAmount: 54450,
+      authorizedAt: '15 Aug 2026',
+      dueDate: '15 Aug 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC7721839201',
-      invoiceNumber: 'INV-NT-2025-2910',
-      billedTo: 'Netflix India',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '8 Mar 2025 - 01:20 PM',
+      invoiceNumber: 'INV-NSA-2026-2910',
+      billedTo: 'NovaSound Electronics Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '15 Aug 2026 - 04:20 PM',
     },
     {
       id: 'tx-104',
-      invoiceCode: 'SF-1293',
-      mediaName: 'Spotify',
-      initials: 'SP',
-      logoBg: '#1DB954',
-      email: 'spotify.creators@gmail.com',
-      campaign: 'Spotify Playlist Curator',
-      deliverableDesc: 'Spotify Music Highlights',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '6 Mar 2025',
-      dueDate: '10 Mar 2025',
+      invoiceCode: 'INV-UB-1293',
+      mediaName: 'UrbanBotanics Skincare',
+      initials: 'UB',
+      logoBg: '#059669',
+      email: 'partnerships@urbanbotanics.in',
+      campaign: 'Natural Glow Serum Routine',
+      deliverableDesc: '2x Instagram Reels + 3x Stories',
+      amount: '₹18,500.00',
+      priceFormatted: '₹18,500.00',
+      grossAmount: 18500,
+      tdsDeduction: 185,
+      platformFee: 0,
+      netAmount: 18315,
+      authorizedAt: '12 Aug 2026',
+      dueDate: '12 Aug 2026',
       status: 'UNCLAIMED',
       statusLabel: 'Unpaid',
       utrNumber: 'HDFC6621049219',
-      invoiceNumber: 'INV-SF-2025-1293',
-      billedTo: 'Spotify AB',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
+      invoiceNumber: 'INV-UB-2026-1293',
+      billedTo: 'UrbanBotanics Wellness Pvt Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
     },
     {
       id: 'tx-105',
-      invoiceCode: 'BT-3933',
-      mediaName: 'Bithumb',
-      initials: 'BT',
-      logoBg: '#FF5A00',
-      email: 'bithumb.global@gmail.com',
-      campaign: 'Bithumb Crypto Security Review',
-      deliverableDesc: 'Bithumb Setup & Security Integration',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '4 Mar 2025',
-      dueDate: '4 Mar 2025',
+      invoiceCode: 'INV-ZT-3933',
+      mediaName: 'Zebronics Tech',
+      initials: 'ZT',
+      logoBg: '#EA580C',
+      email: 'campaigns@zebronics.in',
+      campaign: 'RGB Gaming Headset Showcase',
+      deliverableDesc: '1x Integration Segment in Gaming Stream',
+      amount: '₹22,000.00',
+      priceFormatted: '₹22,000.00',
+      grossAmount: 22000,
+      tdsDeduction: 220,
+      platformFee: 0,
+      netAmount: 21780,
+      authorizedAt: '08 Aug 2026',
+      dueDate: '08 Aug 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC5521948210',
-      invoiceNumber: 'INV-BT-2025-3933',
-      billedTo: 'Bithumb Global',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '4 Mar 2025 - 05:40 PM',
+      invoiceNumber: 'INV-ZT-2026-3933',
+      billedTo: 'Zebronics India Pvt Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '09 Aug 2026 - 02:15 PM',
     },
     {
       id: 'tx-106',
-      invoiceCode: 'DC-8585',
-      mediaName: 'Docker',
-      initials: 'DK',
-      logoBg: '#2496ED',
-      email: 'docker.team@gmail.com',
-      campaign: 'Docker Containerization Guide',
-      deliverableDesc: 'Docker Local Sandbox Tutorial',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '4 Mar 2025',
-      dueDate: '4 Mar 2025',
+      invoiceCode: 'INV-CF-8585',
+      mediaName: 'CultFit India',
+      initials: 'CF',
+      logoBg: '#E11D48',
+      email: 'creatorgrowth@cultfit.in',
+      campaign: 'Fit-at-Home 30 Day Challenge',
+      deliverableDesc: '1x Dedicated Fitness Vlog + Referral Promo',
+      amount: '₹35,000.00',
+      priceFormatted: '₹35,000.00',
+      grossAmount: 35000,
+      tdsDeduction: 350,
+      platformFee: 0,
+      netAmount: 34650,
+      authorizedAt: '04 Aug 2026',
+      dueDate: '04 Aug 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC4492019482',
-      invoiceNumber: 'INV-DC-2025-8585',
-      billedTo: 'Docker.Inc',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '4 Mar 2025 - 02:45 PM',
+      invoiceNumber: 'INV-CF-2026-8585',
+      billedTo: 'Curefit Healthcare Pvt Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '05 Aug 2026 - 10:45 AM',
     },
     {
       id: 'tx-107',
-      invoiceCode: 'DO-8849',
-      mediaName: 'Digital Ocean',
-      initials: 'DO',
-      logoBg: '#0080FF',
-      email: 'digitalocean.corp@gmail.com',
-      campaign: 'Digital Ocean Cloud Droplets',
-      deliverableDesc: 'Droplets Architecture Video',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '3 Mar 2025',
-      dueDate: '3 Mar 2025',
+      invoiceCode: 'INV-MS-8849',
+      mediaName: 'Minimalist Skincare',
+      initials: 'MS',
+      logoBg: '#475569',
+      email: 'affiliates@beminimalist.co',
+      campaign: 'Niacinamide Science Breakdown',
+      deliverableDesc: '1x Educational Reel + Ingredient Deep-Dive',
+      amount: '₹28,000.00',
+      priceFormatted: '₹28,000.00',
+      grossAmount: 28000,
+      tdsDeduction: 280,
+      platformFee: 0,
+      netAmount: 27720,
+      authorizedAt: '01 Aug 2026',
+      dueDate: '01 Aug 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC3392019482',
-      invoiceNumber: 'INV-DO-2025-8849',
-      billedTo: 'Digital Ocean LLC',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '3 Mar 2025 - 11:15 AM',
+      invoiceNumber: 'INV-MS-2026-8849',
+      billedTo: 'Uprising Science Pvt Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '01 Aug 2026 - 05:30 PM',
     },
     {
       id: 'tx-108',
-      invoiceCode: 'SF-3940',
-      mediaName: 'Shopify',
-      initials: 'SH',
-      logoBg: '#96BF48',
-      email: 'shopify.partners@gmail.com',
-      campaign: 'Shopify Commerce Setup',
-      deliverableDesc: 'Shopify Store Walkthrough',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '3 Mar 2025',
-      dueDate: '3 Mar 2025',
+      invoiceCode: 'INV-BM-3940',
+      mediaName: 'boAt Lifestyle',
+      initials: 'BT',
+      logoBg: '#DC2626',
+      email: 'creator.hub@boat-lifestyle.com',
+      campaign: 'Wireless ANC Festival Launch',
+      deliverableDesc: '1x Music Festival Reel + Bio Link',
+      amount: '₹42,000.00',
+      priceFormatted: '₹42,000.00',
+      grossAmount: 42000,
+      tdsDeduction: 420,
+      platformFee: 0,
+      netAmount: 41580,
+      authorizedAt: '28 Jul 2026',
+      dueDate: '28 Jul 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC2292019482',
-      invoiceNumber: 'INV-SF-2025-3940',
-      billedTo: 'Shopify.Inc',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '3 Mar 2025 - 09:30 AM',
+      invoiceNumber: 'INV-BM-2026-3940',
+      billedTo: 'Imagine Marketing Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '29 Jul 2026 - 12:15 PM',
     },
     {
       id: 'tx-109',
-      invoiceCode: 'SF-2811',
-      mediaName: 'Shopify',
-      initials: 'SH',
-      logoBg: '#96BF48',
-      email: 'shopify.merchants@gmail.com',
-      campaign: 'Shopify Checkout Optimization',
-      deliverableDesc: 'Shopify 1-Click Checkout Demo',
-      amount: '$16.89',
-      priceFormatted: '$16.89',
-      grossAmount: 16.89,
-      discountAmount: 0,
-      tdsDeduction: 0,
-      netAmount: 16.89,
-      authorizedAt: '24 Feb 2025',
-      dueDate: '24 Feb 2025',
+      invoiceCode: 'INV-MG-2811',
+      mediaName: 'Mamaearth Organics',
+      initials: 'ME',
+      logoBg: '#16A34A',
+      email: 'brandteam@mamaearth.in',
+      campaign: 'Onion Hair Oil Routine Reel',
+      deliverableDesc: '1x Hair Transformation Story Series + Reel',
+      amount: '₹30,000.00',
+      priceFormatted: '₹30,000.00',
+      grossAmount: 30000,
+      tdsDeduction: 300,
+      platformFee: 0,
+      netAmount: 29700,
+      authorizedAt: '24 Jul 2026',
+      dueDate: '24 Jul 2026',
       status: 'PAID',
       statusLabel: 'Paid',
       utrNumber: 'HDFC1192019482',
-      invoiceNumber: 'INV-SF-2025-2811',
-      billedTo: 'Shopify.Inc',
-      currency: 'USD - Dollar',
-      fromName: 'Payfast',
-      fromEmail: 'payfast.corp@gmail.com',
-      disbursedAt: '24 Feb 2025 - 06:10 PM',
+      invoiceNumber: 'INV-MG-2026-2811',
+      billedTo: 'Honasa Consumer Ltd',
+      currency: 'INR (₹ Indian Rupee)',
+      fromName: 'TIA Financial Engine',
+      fromEmail: 'billing@theinfluencealliance.com',
+      disbursedAt: '25 Jul 2026 - 03:50 PM',
     },
   ]);
 
@@ -6063,9 +6063,16 @@ function CreatorPortalContent() {
             return matchesSearch;
           });
 
+          // Dynamic metric totals
+          const totalInvoicedGross = payments.reduce((acc, curr) => acc + (curr.grossAmount || 0), 0);
+          const totalPaidGross = payments.filter((p) => p.status === 'PAID').reduce((acc, curr) => acc + (curr.grossAmount || 0), 0);
+          const totalUnpaidGross = payments.filter((p) => p.status === 'UNCLAIMED').reduce((acc, curr) => acc + (curr.grossAmount || 0), 0);
+          const paidCount = payments.filter((p) => p.status === 'PAID').length;
+          const unpaidCount = payments.filter((p) => p.status === 'UNCLAIMED').length;
+
           return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {/* TOP ROW: 3 STATS CARDS (Exact match to reference design) */}
+              {/* TOP ROW: 3 STATS CARDS (Exact match to reference design with TIA SaaS INR metrics) */}
               <div
                 style={{
                   display: 'grid',
@@ -6105,10 +6112,10 @@ function CreatorPortalContent() {
                     </button>
                   </div>
                   <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
-                    $32,872.99
+                    ₹{totalInvoicedGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>Invoices this month</span>
+                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>Invoices this financial cycle</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6161,10 +6168,10 @@ function CreatorPortalContent() {
                     </button>
                   </div>
                   <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
-                    $31,200.65
+                    ₹{totalPaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from 13 invoices this month</span>
+                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from {paidCount} brand deals disbursed</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6217,10 +6224,10 @@ function CreatorPortalContent() {
                     </button>
                   </div>
                   <div style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: '14px 0 10px 0', letterSpacing: '-0.02em' }}>
-                    $672.24
+                    ₹{totalUnpaidGross.toLocaleString('en-IN')}.00
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from 8 invoices this month</span>
+                    <span style={{ fontSize: '12px', color: '#94A3B8' }}>from {unpaidCount} completed deals ready</span>
                     <span
                       style={{
                         fontSize: '11px',
@@ -6590,7 +6597,7 @@ function CreatorPortalContent() {
                                 />
                               </td>
                               <td style={{ padding: '12px', fontWeight: 600, color: '#334155' }}>
-                                {invoice.invoiceCode || invoice.invoiceNumber?.slice(-7) || 'FP-0192'}
+                                {invoice.invoiceCode || invoice.invoiceNumber?.slice(-7) || 'INV-PHA-0192'}
                               </td>
                               <td style={{ padding: '12px', fontWeight: 700, color: '#0F172A' }}>
                                 {invoice.mediaName}
@@ -6671,20 +6678,20 @@ function CreatorPortalContent() {
                               width: '28px',
                               height: '28px',
                               borderRadius: '7px',
-                              backgroundColor: '#0F172A',
+                              backgroundColor: '#0052FF',
                               color: '#FFFFFF',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '12px',
+                              fontSize: '11px',
                               fontWeight: 900,
                             }}
                           >
-                            ✢
+                            TIA
                           </div>
                           <div>
-                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>{selectedInvoice.fromName || 'Payfast'}</div>
-                            <div style={{ fontSize: '10px', color: '#94A3B8' }}>{selectedInvoice.fromEmail || 'payfast.corp@gmail.com'}</div>
+                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>{selectedInvoice.fromName || 'TIA Financial Engine'}</div>
+                            <div style={{ fontSize: '10px', color: '#94A3B8' }}>{selectedInvoice.fromEmail || 'billing@theinfluencealliance.com'}</div>
                           </div>
                         </div>
                       </div>
@@ -6698,20 +6705,24 @@ function CreatorPortalContent() {
                               width: '28px',
                               height: '28px',
                               borderRadius: '7px',
-                              backgroundColor: selectedInvoice.logoBg || '#0ACF83',
+                              backgroundColor: selectedInvoice.logoBg || '#2563EB',
                               color: '#FFFFFF',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '12px',
+                              fontSize: '11px',
                               fontWeight: 900,
                             }}
                           >
-                            {selectedInvoice.initials || 'FP'}
+                            {selectedInvoice.initials || 'PH'}
                           </div>
                           <div>
-                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>{selectedInvoice.mediaName}</div>
-                            <div style={{ fontSize: '10px', color: '#94A3B8' }}>{selectedInvoice.email || 'figma@gmail.com'}</div>
+                            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '110px' }}>
+                              {selectedInvoice.mediaName}
+                            </div>
+                            <div style={{ fontSize: '10px', color: '#94A3B8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '110px' }}>
+                              {selectedInvoice.email || 'brand@paulhomes.in'}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -6742,11 +6753,13 @@ function CreatorPortalContent() {
                       </div>
                       <div>
                         <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Billed to</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedInvoice.billedTo || selectedInvoice.mediaName}</div>
+                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {selectedInvoice.billedTo || selectedInvoice.mediaName}
+                        </div>
                       </div>
                       <div>
                         <div style={{ color: '#94A3B8', fontSize: '10px', fontWeight: 600 }}>Currency</div>
-                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedInvoice.currency || 'USD - Dollar'}</div>
+                        <div style={{ fontWeight: 700, color: '#0F172A', marginTop: '2px' }}>{selectedInvoice.currency || 'INR (₹ Indian Rupee)'}</div>
                       </div>
                     </div>
 
@@ -6770,7 +6783,9 @@ function CreatorPortalContent() {
 
                       {/* Line Item */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', color: '#334155', marginBottom: '12px' }}>
-                        <span style={{ fontWeight: 600 }}>{selectedInvoice.deliverableDesc || selectedInvoice.campaign}</span>
+                        <span style={{ fontWeight: 600, maxWidth: '180px', lineHeight: 1.35 }}>
+                          {selectedInvoice.deliverableDesc || selectedInvoice.campaign}
+                        </span>
                         <div style={{ display: 'flex', gap: '20px' }}>
                           <span>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
                           <span style={{ fontWeight: 700, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
@@ -6780,20 +6795,24 @@ function CreatorPortalContent() {
                       {/* Summary Lines */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', borderTop: '1px solid #E2E8F0', paddingTop: '10px', fontSize: '11.5px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>Subtotal</span>
+                          <span>Gross Contract Total</span>
                           <span style={{ fontWeight: 600, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>Discount %</span>
-                          <span style={{ fontWeight: 600, color: '#0F172A' }}>$0</span>
+                          <span>TDS Deducted (1% Sec 194J)</span>
+                          <span style={{ fontWeight: 600, color: '#DC2626' }}>
+                            -₹{selectedInvoice.tdsDeduction?.toLocaleString('en-IN') || '250'}.00
+                          </span>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', color: '#64748B' }}>
-                          <span>Total</span>
-                          <span style={{ fontWeight: 700, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
+                          <span>Platform Fee</span>
+                          <span style={{ fontWeight: 600, color: '#059669' }}>₹0.00 (Covered by Brand)</span>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '12.5px' }}>
-                          <span style={{ fontWeight: 800, color: '#0F172A' }}>Amount due</span>
-                          <span style={{ fontWeight: 900, color: '#0F172A' }}>{selectedInvoice.priceFormatted || selectedInvoice.amount}</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #E2E8F0', paddingTop: '8px', marginTop: '2px', fontSize: '13px' }}>
+                          <span style={{ fontWeight: 800, color: '#0F172A' }}>Net Payout Due</span>
+                          <span style={{ fontWeight: 900, color: '#0052FF' }}>
+                            ₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')}.00
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -6815,6 +6834,10 @@ function CreatorPortalContent() {
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
                           boxShadow: '0 4px 12px rgba(15, 23, 42, 0.2)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = '#0052FF';
@@ -6823,7 +6846,7 @@ function CreatorPortalContent() {
                           e.currentTarget.style.backgroundColor = '#0F172A';
                         }}
                       >
-                        Paid Now
+                        <span>Claim Payout to Bank (₹{(selectedInvoice.netAmount || 24750).toLocaleString('en-IN')})</span>
                       </button>
                     ) : (
                       <button
@@ -6850,7 +6873,7 @@ function CreatorPortalContent() {
                           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                           <rect x="6" y="14" width="12" height="8" />
                         </svg>
-                        <span>Download Invoice PDF</span>
+                        <span>Download Tax Invoice PDF</span>
                       </button>
                     )}
                   </div>
@@ -8202,7 +8225,7 @@ function CreatorPortalContent() {
           onClick={() => handleNotificationClick(liveToast)}
           style={{
             position: 'fixed',
-            top: '84px',
+            bottom: '24px',
             right: '24px',
             backgroundColor: '#FFFFFF',
             borderRadius: '12px',
