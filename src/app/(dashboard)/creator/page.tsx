@@ -1455,7 +1455,7 @@ function CreatorPortalContent() {
                           <span>Posted {selectedCampaign.postedAt} • Ends in 18 days</span>
                         </span>
                       </div>
-                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
+                      <h1 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: '0 0 6px 0', lineHeight: 1.3, letterSpacing: '-0.02em', filter: 'blur(3.5px)', userSelect: 'none' }}>
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#64748B', flexWrap: 'wrap' }}>
@@ -2672,6 +2672,8 @@ function CreatorPortalContent() {
                             fontSize: '11.5px',
                             fontWeight: 700,
                             color: '#64748B',
+                            filter: 'blur(3.5px)',
+                            userSelect: 'none',
                           }}
                         >
                           {camp.brandName}
@@ -2716,6 +2718,8 @@ function CreatorPortalContent() {
                                 fontSize: '13.5px',
                                 fontWeight: 700,
                                 color: '#0F172A',
+                                filter: 'blur(3.5px)',
+                                userSelect: 'none',
                               }}
                             >
                               {camp.title}
