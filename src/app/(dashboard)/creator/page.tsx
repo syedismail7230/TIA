@@ -201,7 +201,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$750 – $1,500',
+      payoutAmount: '$1,100',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '2 Reels • 3 Stories • 1 Post',
       creatorsApplied: 18,
       acceptanceChance: 86,
       eligibilityRate: 94,
@@ -224,7 +226,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$600 – $950',
+      payoutAmount: '$700',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '7 Posts • 7 Stories • 7 Reels',
       creatorsApplied: 24,
       acceptanceChance: 92,
       eligibilityRate: 98,
@@ -247,7 +251,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$1,200 – $2,400',
+      payoutAmount: '$1,800',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '1 Video • 3 Stories • 2 Reels',
       creatorsApplied: 31,
       acceptanceChance: 78,
       eligibilityRate: 88,
@@ -270,7 +276,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$2,000 – $3,500',
+      payoutAmount: '$2,750',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '1 Dedicated Video • 2 Shorts',
       creatorsApplied: 42,
       acceptanceChance: 64,
       eligibilityRate: 75,
@@ -293,7 +301,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
       commercialType: 'COMMISSION',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$800 – $1,400',
+      payoutAmount: '$1,100',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '3 Reels • 5 Stories',
       creatorsApplied: 15,
       acceptanceChance: 89,
       eligibilityRate: 91,
@@ -316,7 +326,9 @@ function CreatorPortalContent() {
       avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
       commercialType: 'FLAT_FEE',
       commercialLabel: 'Payment verified by brand',
-      payoutAmount: '$500 Fixed',
+      payoutAmount: '$500',
+      payType: 'Fixed Pay',
+      deliverablesSummary: '1 Review Reel • 2 Stories',
       creatorsApplied: 27,
       acceptanceChance: 82,
       eligibilityRate: 85,
@@ -1500,60 +1512,85 @@ function CreatorPortalContent() {
                         ))}
                       </div>
 
-                      {/* Row 2: Blurred Title + "New" Sparkle Capsule Badge */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                        <span
-                          style={{
-                            fontSize: '13px',
-                            fontWeight: 700,
-                            color: '#0F172A',
-                            filter: 'blur(3.5px)',
-                            userSelect: 'none',
-                          }}
-                        >
-                          Anonymized campaign name
-                        </span>
+                      {/* Middle Section: Left (Title + Status) & Right (Pricing + Requirements Details) */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          gap: '12px',
+                          marginBottom: '14px',
+                        }}
+                      >
+                        {/* Left: Campaign Name + Eligibility */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          {/* Title + "New" Sparkle Capsule Badge */}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                            <span
+                              style={{
+                                fontSize: '13.5px',
+                                fontWeight: 700,
+                                color: '#0F172A',
+                                filter: 'blur(3.5px)',
+                                userSelect: 'none',
+                              }}
+                            >
+                              Anonymized campaign name
+                            </span>
 
-                        {camp.isNew && (
-                          <span
+                            {camp.isNew && (
+                              <span
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  color: '#0052FF',
+                                  backgroundColor: '#EFF6FF',
+                                  border: '1px solid #BFDBFE',
+                                  padding: '2px 8px',
+                                  borderRadius: '12px',
+                                }}
+                              >
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                                New
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Status Badge */}
+                          <div
                             style={{
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '4px',
-                              fontSize: '11px',
+                              gap: '6px',
+                              color: '#059669',
+                              fontSize: '12px',
                               fontWeight: 700,
-                              color: '#0052FF',
-                              backgroundColor: '#EFF6FF',
-                              border: '1px solid #BFDBFE',
-                              padding: '2px 8px',
-                              borderRadius: '12px',
                             }}
                           >
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                              <polyline points="22 4 12 14.01 9 11.01" />
                             </svg>
-                            New
-                          </span>
-                        )}
-                      </div>
+                            <span>You are eligible</span>
+                          </div>
+                        </div>
 
-                      {/* Row 3: Status Badge */}
-                      <div style={{ marginBottom: '14px' }}>
-                        <div
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            color: '#059669',
-                            fontSize: '12px',
-                            fontWeight: 700,
-                          }}
-                        >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                            <polyline points="22 4 12 14.01 9 11.01" />
-                          </svg>
-                          <span>You are eligible</span>
+                        {/* Right: Pricing & Requirements Details */}
+                        <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                          <div style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+                            {camp.payoutAmount}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, marginTop: '3px' }}>
+                            {camp.payType || 'Fixed Pay'}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 500, marginTop: '2px', whiteSpace: 'nowrap' }}>
+                            {camp.deliverablesSummary || '7 Posts • 7 Stories • 7 Reels'}
+                          </div>
                         </div>
                       </div>
 
