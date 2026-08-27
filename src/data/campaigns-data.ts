@@ -63,4594 +63,7604 @@ export interface CampaignItem {
 }
 
 export const INITIAL_CAMPAIGNS: CampaignItem[] = [
-  // 1. EcoVibe Sustainable Living Challenge (Australia)
-  {
-    id: 'camp-1',
-    title: 'EcoVibe Sustainable Living Challenge',
-    brandName: 'EcoVibe Global',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #C2B39B 0%, #8E7A62 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: 'A$1,650',
-    currencySymbol: 'A$',
-    currencyCode: 'AUD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Reels • 3 Stories • 1 Post',
-    creatorsApplied: 18,
-    acceptanceChance: 86,
-    eligibilityRate: 94,
-    categories: ['Sustainability', 'Cooking', 'Food', '+5'],
-    isNew: true,
-    postedAt: 'Aug 27, 2026 • 10:45 AM',
-    projectTimeline: 'Sep 1 – Sep 15, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'Australia',
-    countryCode: 'AU',
-    countryFlag: '🇦🇺',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.',
-    scopeOfWork: [
-      { title: 'Zero-Waste Cooking Reel', detail: 'Produce native 9:16 vertical 4K video showing low-waste meal prep or sustainable kitchen hack with engaging voiceover in first 3 seconds.' },
-      { title: 'Compost & Storage Routine Reel', detail: 'Aesthetic 60fps vertical reel demonstrating eco-friendly food storage containers and home pantry organization.' },
-      { title: 'Interactive Story Sequence', detail: '3-part Instagram Story sequence with interactive audience Q&A sticker and dedicated link-in-bio campaign tracking.' },
-      { title: 'Pantry Swap Carousel Post', detail: 'Multi-slide photo guide detailing sustainable pantry swap essentials and practical zero-waste tips.' },
-    ],
-    contentDirections: {
-      tone: 'Authentic, mindful, approachable, and educational. Emphasize sustainable everyday lifestyle without preaching.',
-      videoSetup: 'Warm natural daylight, clean eco-kitchen aesthetics, macro food textures, and compost prep shots.',
-      hashtags: 'Include #ZeroWasteKitchen, #SustainableLiving2026, and #EcoCollab in caption.',
-      audio: 'Gentle acoustic / lo-fi ambient track mixed at -18dB with crisp, clear narration. Subtitles mandatory.',
-    },
-    milestones: [
-      '1. Storyboard & Angle Outline: Due within 4 days of contract acceptance.',
-      '2. Draft Rough Cut Review: Client will review and provide feedback within 48 hours.',
-      '3. Content Publication: Live posting during peak engagement hours (Sep 5 – Sep 12, 2026).',
-      '4. Analytics Verification: Submit 7-day reach & engagement report for final settlement.',
-    ],
-    proposals: [
-      { handle: '@green_culinary', country: 'Australia', flag: '🇦🇺', bid: 'A$1,650', days: '12', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Specialized in zero-waste plant-based recipes with 8.9% engagement rate. 4K kitchen studio ready to shoot.' },
-      { handle: '@eco_earthling', country: 'New Zealand', flag: '🇳🇿', bid: 'A$1,550', days: '10', rating: '4.9', reviews: 64, er: '7.8', pitch: 'Sustainable lifestyle creator with 140k mindful followers.' },
-    ],
-    otherJobs: [
-      { title: 'Eco-Home Plastic Free Bathroom Review', payout: 'A$1,200 Fixed Pay' },
-      { title: 'Organic Farmers Market Vlog Series', payout: 'A$2,200 Fixed Pay' },
-    ],
-  },
-
-  // 2. Festive Season Artisan Gourmet Unboxing (Italy)
-  {
-    id: 'camp-2',
-    title: 'Festive Season Artisan Gourmet Unboxing',
-    brandName: 'Nectar Bites Gourmet',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€650',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '7 Posts • 7 Stories • 7 Reels',
-    creatorsApplied: 24,
-    acceptanceChance: 92,
-    eligibilityRate: 98,
-    categories: ['Festivals', 'Food', 'Lifestyle', '+2'],
-    isNew: true,
-    postedAt: 'Aug 27, 2026 • 1:15 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Italian / English',
-    country: 'Italy',
-    countryCode: 'IT',
-    countryFlag: '🇮🇹',
-    socials: ['INSTAGRAM', 'PINTEREST', 'YOUTUBE'],
-    description: 'Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.',
-    scopeOfWork: [
-      { title: 'Artisan Hamper Unboxing Reel', detail: 'High-energy celebratory unboxing showing luxury packaging details, ribbon unwrapping, and gift presentation.' },
-      { title: 'Gourmet Tasting & Pairing Short', detail: 'Honest taste reaction and holiday snack pairing ideas with crisp voiceover and subtitle overlays.' },
-    ],
-    contentDirections: {
-      tone: 'Festive, warm, indulgent, and joyful. Highlight holiday gifting excitement and sensory tasting reactions.',
-      videoSetup: 'Cozy warm indoor lighting, holiday ambient background bokeh, macro closeup of artisanal treats.',
-      hashtags: 'Include #HolidayGourmet, #FestiveSeason2026, and #GourmetGiftGuide in caption.',
-      audio: 'Upbeat holiday acoustic or festive jazz score at -18dB with energetic voiceover.',
-    },
-    milestones: [
-      '1. Product Delivery & Concept Check: Confirm delivery within 3 days.',
-      '2. Unboxing Rough Cut Review: Client review within 48 hours.',
-      '3. Phased Holiday Posting: Phased publication across holiday timeline.',
-    ],
-    proposals: [
-      { handle: '@aria_lifestyle', country: 'Italy', flag: '🇮🇹', bid: '€650', days: '14', rating: '5.0', reviews: 98, er: '8.7', pitch: 'Specializing in luxury holiday tablescapes and Italian gourmet unboxings.' },
-    ],
-    otherJobs: [
-      { title: 'Autumn Truffle & Wine Hamper Reel', payout: '€800 Fixed Pay' },
-    ],
-  },
-
-  // 3. Bio-Active Herbal Vitality Booster Launch (USA)
-  {
-    id: 'camp-3',
-    title: 'Bio-Active Herbal Vitality Booster Launch',
-    brandName: 'PureBotanics Laboratory',
-    partnerLogo: '/logos/redbull-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #B58D67 0%, #7C5A3E 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '$1,800',
-    currencySymbol: '$',
-    currencyCode: 'USD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Video • 3 Stories • 2 Reels',
-    creatorsApplied: 31,
-    acceptanceChance: 78,
-    eligibilityRate: 88,
-    categories: ['Entrepreneurship', 'Supplements'],
-    isNew: true,
-    postedAt: 'Aug 26, 2026 • 4:20 PM',
-    projectTimeline: 'Sep 10 – Oct 05, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United States',
-    countryCode: 'US',
-    countryFlag: '🇺🇸',
-    socials: ['INSTAGRAM', 'X'],
-    description: '30-day morning routine vlog integration featuring clean herbal extracts and lab-tested purity certificates.',
-    scopeOfWork: [
-      { title: 'Morning Routine Long-Form Integration', detail: '60-90s dedicated integration within daily morning routine vlog covering herbal extract purity.' },
-    ],
-    contentDirections: {
-      tone: 'Science-backed, confident, energizing, and authentic.',
-      videoSetup: 'Crisp morning natural sunlight, modern home office or fitness background.',
-      hashtags: 'Include #MorningVitality, #HerbalScience2026 in caption.',
-      audio: 'Uplifting electronic beat with confident, crisp voiceover.',
-    },
-    milestones: ['1. Script & Compliance Outline', '2. Video Rough Cut Review', '3. Scheduled Release'],
-    proposals: [
-      { handle: '@dr_vitality', country: 'United States', flag: '🇺🇸', bid: '$1,800', days: '15', rating: '5.0', reviews: 142, er: '9.8', pitch: 'Holistic wellness educator with 210k followers.' },
-    ],
-    otherJobs: [{ title: 'Sleep Cycle Herbal Elixir Launch', payout: '$1,400 Fixed Pay' }],
-  },
-
-  // 4. Nexus X1 Ultra 4K Camera Showcase (India)
-  {
-    id: 'camp-4',
-    title: 'Nexus X1 Ultra 4K Camera Showcase',
-    brandName: 'Nexus Tech Global',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #38BDF8 0%, #0284C7 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹2,25,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Dedicated Video • 2 Shorts',
-    creatorsApplied: 42,
-    acceptanceChance: 64,
-    eligibilityRate: 75,
-    categories: ['Technology', 'Gadgets', 'AI', '+3'],
-    isNew: true,
-    postedAt: 'Aug 26, 2026 • 11:00 AM',
-    projectTimeline: 'Sep 15 – Oct 10, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Dedicated 8-10 minute review emphasizing low-light camera sensor performance and AI editing capabilities.',
-    scopeOfWork: [
-      { title: '8-10 Min Review Video', detail: 'In-depth breakdown covering low-light sensor performance, dynamic range, and workflow comparison.' },
-    ],
-    contentDirections: {
-      tone: 'Tech-savvy, authoritative, cinematic, and detailed.',
-      videoSetup: 'High-end RGB studio lighting, dark neon urban night shoots.',
-      hashtags: '#NexusX1Ultra #Cinematography2026 #TechReview',
-      audio: 'Cinematic soundtrack with crystal-clear shotgun microphone voiceover.',
-    },
-    milestones: ['1. Benchmark Test Plan', '2. Video Rough Cut', '3. Global Launch Publication'],
-    proposals: [{ handle: '@tech_cinematics', country: 'India', flag: '🇮🇳', bid: '₹2,25,000', days: '16', rating: '5.0', reviews: 180, er: '10.5', pitch: 'Professional DP & gear reviewer with 320k tech creators audience.' }],
-    otherJobs: [{ title: 'Cinema Prime Lens Set Showcase', payout: '₹2,60,000 Fixed Pay' }],
-  },
-
-  // 5. Velocity Pro Marathon Performance Shoe (UK)
-  {
-    id: 'camp-5',
-    title: 'Velocity Pro Marathon Performance Shoe',
-    brandName: 'Stride Athletics',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '£950',
-    currencySymbol: '£',
-    currencyCode: 'GBP',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '3 Reels • 5 Stories',
-    creatorsApplied: 15,
-    acceptanceChance: 89,
-    eligibilityRate: 91,
-    categories: ['Fitness', 'Running', 'Athleisure'],
-    isNew: true,
-    postedAt: 'Aug 25, 2026 • 3:30 PM',
-    projectTimeline: 'Sep 01 – Sep 25, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United Kingdom',
-    countryCode: 'GB',
-    countryFlag: '🇬🇧',
-    socials: ['INSTAGRAM', 'X'],
-    description: 'High-energy running montage with direct swipe-up discount code for community followers.',
-    scopeOfWork: [{ title: 'Long-Run Wear Test Reel', detail: 'High-energy 60s Reel taking viewers through an 18-mile training session.' }],
-    contentDirections: {
-      tone: 'Inspiring, high-octane, athletic, and authentic.',
-      videoSetup: 'Golden hour track runs, scenic urban bridges.',
-      hashtags: '#VelocityProRunner #MarathonTraining2026',
-      audio: 'High-BPM motivating bassline synced with footsteps.',
-    },
-    milestones: ['1. Route & Storyboard Plan', '2. Reel Edits Submission', '3. Race Season Publication'],
-    proposals: [{ handle: '@marathon_marcus', country: 'United Kingdom', flag: '🇬🇧', bid: '£950', days: '14', rating: '5.0', reviews: 85, er: '9.3', pitch: 'Sub-3 marathoner with 85k verified runners.' }],
-    otherJobs: [{ title: 'Hydration Running Vest Review', payout: '£650 Fixed Pay' }],
-  },
-
-  // 6. LuxeDerm Anti-Aging Night Serum (France)
-  {
-    id: 'camp-6',
-    title: 'LuxeDerm Anti-Aging Night Serum',
-    brandName: 'LuxeDerm Skin Labs',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #D4B08C 0%, #A07850 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€480',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Review Reel • 2 Stories',
-    creatorsApplied: 27,
-    acceptanceChance: 82,
-    eligibilityRate: 85,
-    categories: ['Beauty', 'Skincare', 'Cosmetics', '+2'],
-    isNew: true,
-    postedAt: 'Aug 24, 2026 • 9:15 AM',
-    projectTimeline: 'Sep 12 – Sep 30, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'French / English',
-    country: 'France',
-    countryCode: 'FR',
-    countryFlag: '🇫🇷',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: '7-day nighttime skin transformation diary with macro camera closeups.',
-    scopeOfWork: [{ title: '7-Day Transformation Reel', detail: 'Intimate night skincare ritual showing product texture and absorption.' }],
-    contentDirections: {
-      tone: 'Soothing, luxurious, personal, and glowing.',
-      videoSetup: 'Warm vanity lighting, soft golden hour bedroom light.',
-      hashtags: '#NightSkincareRitual #LuxeGlow2026',
-      audio: 'Soothing ASMR skincare sounds with soft ambient chill music.',
-    },
-    milestones: ['1. Skin Check & Plan', '2. Draft Video Review', '3. Scheduled Night Posting'],
-    proposals: [{ handle: '@charlotte_skinglow', country: 'France', flag: '🇫🇷', bid: '€480', days: '10', rating: '5.0', reviews: 110, er: '9.6', pitch: 'Esthetician & skincare creator with 110k beauty lovers.' }],
-    otherJobs: [{ title: 'Daytime SPF 50 Hydrating Fluid Review', payout: '€400 Fixed Pay' }],
-  },
-
-  // ------------------------------------------------------------------------------------------------
-  // 50 NEW DIVERSE CAMPAIGNS (90% FROM INDIA - 45 INDIA, 5 INTERNATIONAL)
-  // ------------------------------------------------------------------------------------------------
-
-  // 7. boAt Rockerz ANC Headphone Bass Campaign (India)
-  {
-    id: 'camp-7',
-    title: 'boAt Rockerz ANC Next-Gen Bass Drop',
-    brandName: 'boAt Lifestyle',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EF4444 0%, #991B1B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹55,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Reel • 2 Stories',
-    creatorsApplied: 38,
-    acceptanceChance: 88,
-    eligibilityRate: 95,
-    categories: ['Technology', 'Music', 'Gadgets'],
-    isNew: true,
-    postedAt: 'Aug 27, 2026 • 2:30 PM',
-    projectTimeline: 'Sep 5 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'High-energy bass reaction Reel and noise cancellation test in crowded urban spots across Indian metro cities.',
-    scopeOfWork: [
-      { title: 'Metro Commute ANC Test Reel', detail: 'Filming in bustling commute spots demonstrating instant noise cancellation switch with bass drop beat sync.' },
-      { title: 'Battery Life Weekend Story', detail: 'Story documenting 48-hour continuous battery playback test with interactive link.' },
-    ],
-    contentDirections: {
-      tone: 'Trendy, energetic, youth-centric, and punchy. Bold colors and head-bobbing music sync.',
-      videoSetup: 'Vibrant neon street lighting, Mumbai/Delhi metro transit shots, cinematic headphone closeups.',
-      hashtags: '#DoWhatFloatsYourboAt #RockerzANC2026 #boAtAudio',
-      audio: 'Trending hard-hitting trap or desi hip-hop beat synced on drop.',
-    },
-    milestones: ['1. Audio track sync storyboard', '2. Video rough cut submission', '3. Peak festive release'],
-    proposals: [{ handle: '@rohit_techbeats', country: 'India', flag: '🇮🇳', bid: '₹55,000', days: '8', rating: '5.0', reviews: 62, er: '11.4', pitch: 'Music producer & tech creator with 240k Gen-Z Indian followers.' }],
-    otherJobs: [{ title: 'boAt Smartwatch Fitness Tracker Launch', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 8. Mamaearth Rice Water Glass Skin Glow (India)
-  {
-    id: 'camp-8',
-    title: 'Mamaearth Rice Water Glass Skin Glow Ritual',
-    brandName: 'Mamaearth',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Reel • 3 Stories',
-    creatorsApplied: 44,
-    acceptanceChance: 91,
-    eligibilityRate: 97,
-    categories: ['Beauty', 'Skincare', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 27, 2026 • 11:20 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Aesthetic morning skincare routine featuring fermented rice water face wash and serum for glowing skin.',
-    scopeOfWork: [
-      { title: 'Glass Skin 3-Step Routine Reel', detail: 'Clean aesthetic vanity routine demonstrating wash, tone, and moisture steps with no-makeup skin finish.' },
-      { title: 'Before-After Texture Stories', detail: '3 stories highlighting 10-day hydration level comparison and discount promo.' },
-    ],
-    contentDirections: {
-      tone: 'Clean, radiant, natural, toxin-free aesthetic. Emphasize cruelty-free and natural extracts.',
-      videoSetup: 'Soft morning window sunlight, white and pastel ceramic vanity decor, water splash macro shots.',
-      hashtags: '#MamaearthGlassSkin #RiceWaterGlow #CleanBeautyIndia',
-      audio: 'Soft lo-fi indie acoustic melody with gentle, soothing voiceover.',
-    },
-    milestones: ['1. Skin check & routine concept', '2. Reel rough draft review', '3. Live publication'],
-    proposals: [{ handle: '@ananya_skincare', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '7', rating: '4.9', reviews: 115, er: '8.3', pitch: 'Certified skincare enthusiast focusing on natural ingredient reviews.' }],
-    otherJobs: [{ title: 'Mamaearth Onion Hair Oil Anti-Hairfall Campaign', payout: '₹42,000 Fixed Pay' }],
-  },
-
-  // 9. Swiggy Gourmet Curated Chef Special Series (India)
-  {
-    id: 'camp-9',
-    title: 'Swiggy Gourmet Chef-Curated Dining Review',
-    brandName: 'Swiggy Gourmet',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F97316 0%, #EA580C 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Reel • 2 Stories • 1 Carousel',
-    creatorsApplied: 29,
-    acceptanceChance: 85,
-    eligibilityRate: 90,
-    categories: ['Food', 'Lifestyle', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 27, 2026 • 3:00 PM',
-    projectTimeline: 'Sep 6 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Order from premium 5-star kitchens via Swiggy Gourmet and create an exquisite luxury dinner date at home.',
-    scopeOfWork: [
-      { title: 'Fine Dining At Home Reel', detail: 'Cinematic unboxing of restaurant-grade plating and tasting gourmet artisanal dishes.' },
-      { title: 'Plating & Pairing Carousel', detail: '5-slide guide on elevating takeout meals into luxury restaurant dining table setups.' },
-    ],
-    contentDirections: {
-      tone: 'Indulgent, appetizing, premium, and sophisticated. Food-first cinematography with close-up sizzles.',
-      videoSetup: 'Warm candlelit ambiance, elegant dinnerware, macro steam and cheese pulls.',
-      hashtags: '#SwiggyGourmet #FineDiningAtHome #FoodiesOfIndia',
-      audio: 'Classy jazz lounge music with authentic food crunch foley sounds.',
-    },
-    milestones: ['1. Restaurant selection & menu approval', '2. Plating reel review', '3. Weekend evening live release'],
-    proposals: [{ handle: '@delhi_foodchronicles', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '6', rating: '5.0', reviews: 92, er: '9.7', pitch: 'Food blogger exploring fine dining and culinary gems across India.' }],
-    otherJobs: [{ title: 'Swiggy Instamart 10-Min Snack Challenge', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 10. Tata CLiQ Luxury Autumn Designer Wardrobe (India)
-  {
-    id: 'camp-10',
-    title: 'Tata CLiQ Luxury Autumn Designer Collection',
-    brandName: 'Tata CLiQ Luxury',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹95,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Lookbook Reels • 4 Stories',
-    creatorsApplied: 19,
-    acceptanceChance: 74,
-    eligibilityRate: 88,
-    categories: ['Fashion', 'Luxury', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 26, 2026 • 5:10 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Style 3 luxury transitional looks featuring authenticated international designer labels from Tata CLiQ Luxury.',
-    scopeOfWork: [
-      { title: 'Designer Lookbook Reel 1', detail: 'Editorial-grade runway walks and outfit transitions highlighting fine craftsmanship and fabrics.' },
-      { title: 'Luxury Unboxing & Packaging Reel', detail: 'Detailing the signature black-box delivery and authenticity certificate.' },
-    ],
-    contentDirections: {
-      tone: 'Opulent, editorial, refined, high-fashion aesthetic.',
-      videoSetup: 'Modern architecture backgrounds, minimalist luxury interiors, 4K 60fps tracking camera.',
-      hashtags: '#TataCLiQLuxury #LuxuryFashionIndia #DesignerWardrobe2026',
-      audio: 'High-tempo fashion runway electronic beat with crisp visual cuts.',
-    },
-    milestones: ['1. Outfit moodboard approval', '2. First cut editorial edit review', '3. Synchronized launch day post'],
-    proposals: [{ handle: '@mumbai_stylist', country: 'India', flag: '🇮🇳', bid: '₹95,000', days: '14', rating: '5.0', reviews: 140, er: '7.9', pitch: 'Fashion stylist with luxury brand campaigns portfolio.' }],
-    otherJobs: [{ title: 'Tata CLiQ Luxury Watch Trunk Show', payout: '₹1,25,000 Fixed Pay' }],
-  },
-
-  // 11. Cult.fit 30-Day Strength Transformation (India)
-  {
-    id: 'camp-11',
-    title: 'Cult.fit 30-Day Home Strength Transformation',
-    brandName: 'Cult.fit',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #DC2626 0%, #7F1D1D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹62,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Reels • 4 Stories',
-    creatorsApplied: 33,
-    acceptanceChance: 86,
-    eligibilityRate: 92,
-    categories: ['Fitness', 'Health', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 26, 2026 • 9:40 AM',
-    projectTimeline: 'Sep 10 – Oct 10, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Document an authentic 30-day HIIT and strength conditioning challenge using Cult.fit app home workout series.',
-    scopeOfWork: [
-      { title: 'Day 1 vs Day 30 Strength Reel', detail: 'Side-by-side progression reel tracking form improvement, stamina, and workout consistency.' },
-      { title: 'Cult App Trainer Feature Reel', detail: 'Showcasing real-time audio cues, heart rate tracking, and leaderboard gamification.' },
-    ],
-    contentDirections: {
-      tone: 'Inspiring, sweaty, determined, and real. Focus on discipline over perfection.',
-      videoSetup: 'Bright home gym/living room lighting, dynamic wide-angle fitness lenses.',
-      hashtags: '#CultFitChallenge #BeBetterEveryday #FitnessMotivationIndia',
-      audio: 'High-energy motivational gym soundtrack with clear voiceover coaching.',
-    },
-    milestones: ['1. Workout plan & baseline metrics', '2. Mid-point progress check', '3. Final transformation video'],
-    proposals: [{ handle: '@vikram_fitlife', country: 'India', flag: '🇮🇳', bid: '₹62,000', days: '30', rating: '5.0', reviews: 104, er: '10.2', pitch: 'Fitness coach and athlete with 180k daily active followers.' }],
-    otherJobs: [{ title: 'Cult.sport Breathable Activewear Review', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 12. Nykaa Festive Beauty Masterclass (India)
-  {
-    id: 'camp-12',
-    title: 'Nykaa Festive Glamour Makeup Masterclass',
-    brandName: 'Nykaa Beauty',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹50,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Full Tutorial Reel • 3 Stories',
-    creatorsApplied: 52,
-    acceptanceChance: 89,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Festivals', 'Cosmetics'],
-    isNew: true,
-    postedAt: 'Aug 25, 2026 • 6:15 PM',
-    projectTimeline: 'Sep 3 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Step-by-step festive Indian makeup look featuring high-pigment eyeshadow palettes, transfer-proof lipsticks, and dewy base.',
-    scopeOfWork: [
-      { title: 'Diwali Glam Step-by-Step Reel', detail: 'Transition from bare face to stunning traditional festive makeup with product swatches.' },
-      { title: 'Shade Matching Story Sequence', detail: 'Color swatches on diverse Indian skin tones with direct Nykaa shop link.' },
-    ],
-    contentDirections: {
-      tone: 'Glamorous, festive, instructional, and warm.',
-      videoSetup: 'Ring light studio setup, macro eye makeup closeups, traditional jewellery accent.',
-      hashtags: '#NykaaFestiveGlow #IndianBeauty2026 #DiwaliMakeupLook',
-      audio: 'Festive Bollywood fusion acoustic or trending dance remix.',
-    },
-    milestones: ['1. Makeup shade palette selection', '2. Tutorial rough cut review', '3. Festive season release'],
-    proposals: [{ handle: '@priyanka_glam', country: 'India', flag: '🇮🇳', bid: '₹50,000', days: '7', rating: '5.0', reviews: 210, er: '9.1', pitch: 'Bridal and festive makeup artist with 310k beauty followers.' }],
-    otherJobs: [{ title: 'Nykaa SkinRX Serum Routine Showcase', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 13. Zerodha Varsity Personal Finance Guide (India)
-  {
-    id: 'camp-13',
-    title: 'Zerodha Varsity Gen-Z Smart Investing Guide',
-    brandName: 'Zerodha Varsity',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹75,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 1 Carousel • 2 Stories',
-    creatorsApplied: 26,
-    acceptanceChance: 77,
-    eligibilityRate: 89,
-    categories: ['Finance', 'Education', 'Entrepreneurship'],
-    isNew: true,
-    postedAt: 'Aug 25, 2026 • 12:00 PM',
-    projectTimeline: 'Sep 7 – Sep 25, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE', 'X'],
-    description: 'Break down index funds, SIPs, and compounding fundamentals in simple visual analogies for young professionals.',
-    scopeOfWork: [
-      { title: 'Index Funds in 60 Seconds Reel', detail: 'Visual sketch animation and whiteboard breakdown of risk vs return and compounding math.' },
-      { title: 'Financial Roadmap Carousel', detail: '6-slide beginner roadmap to building a ₹1 Crore corpus with discipline.' },
-    ],
-    contentDirections: {
-      tone: 'Educational, trustworthy, clear, unbiased. Strictly no stock tips or speculative advice.',
-      videoSetup: 'Clean minimal study desk, crisp text overlays, high-contrast infographics.',
-      hashtags: '#ZerodhaVarsity #SmartInvestingIndia #FinancialLiteracy',
-      audio: 'Subtle clean electronic ambient with crisp, engaging microphone speech.',
-    },
-    milestones: ['1. Script compliance & SEBI disclaimer check', '2. Infographic layout review', '3. Mid-week morning release'],
-    proposals: [{ handle: '@fincalc_ayush', country: 'India', flag: '🇮🇳', bid: '₹75,000', days: '10', rating: '5.0', reviews: 98, er: '8.8', pitch: 'CA and financial educator creating simplified personal finance content.' }],
-    otherJobs: [{ title: 'Zerodha Coin Mutual Funds Deep Dive', payout: '₹65,000 Fixed Pay' }],
-  },
-
-  // 14. Lenskart Air Lightweight Frames Campaign (India)
-  {
-    id: 'camp-14',
-    title: 'Lenskart Air Featherweight Eyewear Challenge',
-    brandName: 'Lenskart',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0EA5E9 0%, #0369A1 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Try-on Reel • 3 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 90,
-    eligibilityRate: 94,
-    categories: ['Fashion', 'Lifestyle', 'Accessories'],
-    isNew: true,
-    postedAt: 'Aug 24, 2026 • 4:45 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Showcase how Lenskart Air ultra-light frames feel weightless during full workday laptop sessions and casual outings.',
-    scopeOfWork: [
-      { title: '5 Frames 5 Outfits Try-On Reel', detail: 'Rapid transitions matching 5 different frame styles with work, casual, party, and reading outfits.' },
-    ],
-    contentDirections: {
-      tone: 'Trendy, playful, relatable, and stylish.',
-      videoSetup: 'Crisp natural light, head-level eye focus, aesthetic urban café backdrop.',
-      hashtags: '#LenskartAir #DoMoreWithLenskart #GlassesStyling',
-      audio: 'Upbeat pop track with snappy snap-finger transition cuts.',
-    },
-    milestones: ['1. Frame selection & sizing', '2. Try-on edit review', '3. Synchronized weekend release'],
-    proposals: [{ handle: '@styleby_karan', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '8', rating: '4.9', reviews: 88, er: '8.4', pitch: 'Menswear & lifestyle creator featuring eyewear lookbooks.' }],
-    otherJobs: [{ title: 'Lenskart Blu Anti-Glare Screen Glasses Review', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 15. Wakefit Orthopedic Memory Foam Mattress (India)
-  {
-    id: 'camp-15',
-    title: 'Wakefit 100-Night Sleep Revolution Challenge',
-    brandName: 'Wakefit Innovations',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1540518614846-7ede433c4570?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #6366F1 0%, #4338CA 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹58,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Unboxing Reel • 1 Sleep Diary Video • 2 Stories',
-    creatorsApplied: 21,
-    acceptanceChance: 81,
-    eligibilityRate: 87,
-    categories: ['Home', 'Lifestyle', 'Health'],
-    isNew: true,
-    postedAt: 'Aug 24, 2026 • 2:10 PM',
-    projectTimeline: 'Sep 10 – Oct 02, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Unbox the vacuum-sealed mattress and document orthopedic spine support after 14 continuous nights.',
-    scopeOfWork: [
-      { title: 'Mattress In A Box Unboxing Reel', detail: 'Satisfying unrolling and expansion timelapse with glass-of-water motion test.' },
-    ],
-    contentDirections: {
-      tone: 'Cozy, authentic, comforting, relatable.',
-      videoSetup: 'Warm aesthetic bedroom, soft morning lighting, clean white cotton linen.',
-      hashtags: '#WakefitSleep #SleepBetterIndia #HomeMakeover2026',
-      audio: 'Gentle acoustic morning music with cheerful narration.',
-    },
-    milestones: ['1. Delivery & unboxing schedule', '2. Sleep feedback review', '3. Live publish'],
-    proposals: [{ handle: '@home_with_tanya', country: 'India', flag: '🇮🇳', bid: '₹58,000', days: '14', rating: '5.0', reviews: 74, er: '9.2', pitch: 'Home decor and interior lifestyle creator with 120k aesthetic living audience.' }],
-    otherJobs: [{ title: 'Wakefit Ergonomic Office Chair Test', payout: '₹45,000 Fixed Pay' }],
-  },
-
-  // 16. Sleepy Owl Cold Brew Coffee Routine (India)
-  {
-    id: 'camp-16',
-    title: 'Sleepy Owl Real Cold Brew Morning Boost',
-    brandName: 'Sleepy Owl Coffee',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #78350F 0%, #451A03 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹35,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 ASMR Recipe Reel • 2 Stories',
-    creatorsApplied: 36,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Food', 'Cooking', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 24, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'ASMR brewing video showing overnight steeped cold brew over ice, condensed milk swirl, and vanilla froth.',
-    scopeOfWork: [
-      { title: 'ASMR Iced Cold Brew Pour Reel', detail: 'Crisp audio recording of ice cubes clinking, coffee pouring, and milk swirling in macro 4K.' },
-    ],
-    contentDirections: {
-      tone: 'Aesthetic, sensory, refreshing, minimalist.',
-      videoSetup: 'Clean marble countertop, natural glass tumbler, morning sunshine casting shadows.',
-      hashtags: '#SleepyOwlCoffee #ColdBrewRoutine #CoffeeLoversIndia',
-      audio: 'Pure ASMR sound design mixed with subtle lo-fi chill hop.',
-    },
-    milestones: ['1. Recipe storyboard', '2. ASMR cut review', '3. Morning 8 AM release'],
-    proposals: [{ handle: '@the_coffee_diaries', country: 'India', flag: '🇮🇳', bid: '₹35,000', days: '6', rating: '5.0', reviews: 130, er: '12.1', pitch: 'Specialty coffee creator with 90k devoted coffee lovers.' }],
-    otherJobs: [{ title: 'Sleepy Owl Premium French Press Launch', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 17. Sugar Cosmetics Bold Matte Transferproof Lipsticks (India)
-  {
-    id: 'camp-17',
-    title: 'Sugar Cosmetics Smudge-Proof 16-Hour Wear',
-    brandName: 'Sugar Cosmetics',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F43F5E 0%, #9F1239 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Reel • 3 Stories',
-    creatorsApplied: 48,
-    acceptanceChance: 87,
-    eligibilityRate: 94,
-    categories: ['Beauty', 'Cosmetics', 'Fashion'],
-    isNew: true,
-    postedAt: 'Aug 23, 2026 • 7:00 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Food & water test testing the transfer-proof hold of Sugar Smudge Me Not liquid lipsticks throughout a busy day.',
-    scopeOfWork: [
-      { title: 'Biryani & Coffee Transfer Test Reel', detail: 'Eating oily spicy food and sipping coffee to prove 0% transfer on white cups and tissue.' },
-    ],
-    contentDirections: {
-      tone: 'Bold, sassy, confident, energetic.',
-      videoSetup: 'High-key studio beauty lighting, crisp lips macro shots.',
-      hashtags: '#SugarCosmetics #SmudgeProofLipstick #BoldIndianBeauty',
-      audio: 'Trendy pop beat with fast-paced snappy voiceover.',
-    },
-    milestones: ['1. Shade swatch plan', '2. Food test reel review', '3. Live publish'],
-    proposals: [{ handle: '@simran_beauty', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '7', rating: '4.9', reviews: 165, er: '8.7', pitch: 'Beauty influencer with high-converting lipstick swatch series.' }],
-    otherJobs: [{ title: 'Sugar Kohl of Honour Eye Challenge', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 18. Minimalist Skincare Active Niacinamide Serum (India)
-  {
-    id: 'camp-18',
-    title: 'Minimalist Niacinamide 10% Blemish Defense',
-    brandName: 'Be Minimalist',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1608248597359-21b8c04ec4dc?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #475569 0%, #1E293B 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹50,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 2 Stories',
-    creatorsApplied: 39,
-    acceptanceChance: 83,
-    eligibilityRate: 91,
-    categories: ['Beauty', 'Skincare', 'Education'],
-    isNew: true,
-    postedAt: 'Aug 23, 2026 • 1:30 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Ingredient science breakdown explaining how 10% Niacinamide & Zinc reduces oiliness, dark spots, and texture.',
-    scopeOfWork: [
-      { title: 'The Science of Active Serums Reel', detail: 'Visual breakdown showing how active molecules penetrate pores without barrier damage.' },
-    ],
-    contentDirections: {
-      tone: 'Clinical, transparent, science-first, authentic.',
-      videoSetup: 'Monochrome minimalist studio, scientific graphics and percentage callouts.',
-      hashtags: '#BeMinimalist #Niacinamide10 #ActiveSkincareIndia',
-      audio: 'Subtle clean synthesizer backdrop with clear conversational narration.',
-    },
-    milestones: ['1. Script compliance check', '2. Animation draft review', '3. Publication'],
-    proposals: [{ handle: '@skin_science_riya', country: 'India', flag: '🇮🇳', bid: '₹50,000', days: '9', rating: '5.0', reviews: 105, er: '9.4', pitch: 'Biochemist & skincare creator debunking beauty myths.' }],
-    otherJobs: [{ title: 'Minimalist Salicylic Acid Body Wash Launch', payout: '₹45,000 Fixed Pay' }],
-  },
-
-  // 19. Snitch Men's Contemporary Streetwear (India)
-  {
-    id: 'camp-19',
-    title: 'Snitch Contemporary Urban Streetwear Drop',
-    brandName: 'Snitch',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #18181B 0%, #09090B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹52,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Outfit Reels • 4 Stories',
-    creatorsApplied: 41,
-    acceptanceChance: 85,
-    eligibilityRate: 93,
-    categories: ['Fashion', 'Streetwear', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 23, 2026 • 11:15 AM',
-    projectTimeline: 'Sep 4 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Style oversized boxy tees, cargo joggers, and textured linen shirts for the modern Indian guy.',
-    scopeOfWork: [
-      { title: 'Gen-Z Streetwear Lookbook Reel', detail: 'Rapid cinematic cuts between monochrome streetwear, relaxed casual, and weekend night-out fits.' },
-    ],
-    contentDirections: {
-      tone: 'Edgy, effortless, confident, urban.',
-      videoSetup: 'Concrete brutalist architecture, parking garage neon lighting, 35mm film aesthetic.',
-      hashtags: '#SnitchStreetwear #MensFashionIndia #UrbanStyle2026',
-      audio: 'Heavy hip-hop 808 beat with seamless speed ramps.',
-    },
-    milestones: ['1. Outfit moodboard review', '2. Cinematic cut submission', '3. Weekend evening drop'],
-    proposals: [{ handle: '@arjun_streetstyle', country: 'India', flag: '🇮🇳', bid: '₹52,000', days: '10', rating: '5.0', reviews: 140, er: '10.8', pitch: 'Mens fashion creator with 220k urban youth following.' }],
-    otherJobs: [{ title: 'Snitch Linen Resort Wear Collection', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 20. The Whole Truth Foods Clean Protein Bars (India)
-  {
-    id: 'camp-20',
-    title: 'The Whole Truth 100% Clean Ingredient Review',
-    brandName: 'The Whole Truth Foods',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #166534 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Back-of-Pack Reel • 2 Stories',
-    creatorsApplied: 30,
-    acceptanceChance: 88,
-    eligibilityRate: 95,
-    categories: ['Fitness', 'Food', 'Supplements'],
-    isNew: true,
-    postedAt: 'Aug 22, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Read the back of package ingredients and expose hidden palm oil, artificial sweeteners, and fake marketing claims.',
-    scopeOfWork: [
-      { title: 'No Hidden BS Back-of-Pack Reel', detail: 'Side-by-side comparison of ordinary snack bars vs Whole Truth 5-ingredient cocoa bar.' },
-    ],
-    contentDirections: {
-      tone: 'Honest, punchy, educational, no-nonsense.',
-      videoSetup: 'Bright, clean kitchen background, macro reading of food labels with magnifying glass.',
-      hashtags: '#TheWholeTruthFoods #CleanEatingIndia #NoHiddenSugar',
-      audio: 'Brisk, direct conversational voiceover with upbeat acoustic bass.',
-    },
-    milestones: ['1. Script angle review', '2. Reel rough draft review', '3. Live publish'],
-    proposals: [{ handle: '@fit_foodie_tanvi', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '8', rating: '5.0', reviews: 90, er: '9.6', pitch: 'Nutrition coach exposing misleading food label claims.' }],
-    otherJobs: [{ title: 'The Whole Truth Whey Isolate Taste Test', payout: '₹55,000 Fixed Pay' }],
-  },
-
-  // 21. Mokobara Japanese Hard-Shell Luggage (India)
-  {
-    id: 'camp-21',
-    title: 'Mokobara The Transit Cabin Luggage Travel Diary',
-    brandName: 'Mokobara',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EA580C 0%, #C2410C 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹68,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Travel Reel • 3 Airport Stories • 1 Carousel',
-    creatorsApplied: 25,
-    acceptanceChance: 80,
-    eligibilityRate: 88,
-    categories: ['Travel', 'Lifestyle', 'Fashion'],
-    isNew: true,
-    postedAt: 'Aug 22, 2026 • 2:40 PM',
-    projectTimeline: 'Sep 10 – Oct 05, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Feature the indestructible German polycarbonate shell, whisper-silent Hinomoto wheels, and built-in laundry bag.',
-    scopeOfWork: [
-      { title: 'Airport Transit 48-Hour Pack Reel', detail: 'Packing 7 outfits into the carry-on using compression cubes with smooth 360 wheel spin in airport terminal.' },
-    ],
-    contentDirections: {
-      tone: 'Wanderlust, aesthetic, effortless, premium.',
-      videoSetup: 'Modern airport terminals, scenic resort check-ins, macro textured polycarbonate shots.',
-      hashtags: '#MokobaraTransit #TravelInStyle2026 #WanderlustIndia',
-      audio: 'Dreamy indie pop or chill electronic travel track.',
-    },
-    milestones: ['1. Packing & travel concept', '2. Video rough cut review', '3. Live publish'],
-    proposals: [{ handle: '@tarun_travels', country: 'India', flag: '🇮🇳', bid: '₹68,000', days: '14', rating: '5.0', reviews: 110, er: '10.1', pitch: 'Travel documentary filmmaker with 190k globe-trotting community.' }],
-    otherJobs: [{ title: 'Mokobara Daily Work Backpack Review', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 22. Country Delight 100% Pure Milk & Desi Ghee (India)
-  {
-    id: 'camp-22',
-    title: 'Country Delight Pure Farm-To-Table Morning Milk',
-    brandName: 'Country Delight',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Purity Test Reel • 2 Stories',
-    creatorsApplied: 32,
-    acceptanceChance: 92,
-    eligibilityRate: 96,
-    categories: ['Food', 'Health', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 22, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Demonstrate home lactometer purity testing showing 0% adulteration and naturally sweet buffalo milk.',
-    scopeOfWork: [
-      { title: 'Free Home Purity Kit Test Reel', detail: 'Using the test strips live on camera to check milk purity against local loose dairy milk.' },
-    ],
-    contentDirections: {
-      tone: 'Trustworthy, wholesome, family-friendly, relatable.',
-      videoSetup: 'Bright traditional Indian home kitchen, steaming hot morning chai brew.',
-      hashtags: '#CountryDelight #NaturallyPureMilk #HealthyFamilyIndia',
-      audio: 'Warm Indian acoustic flute & guitar background with friendly voiceover.',
-    },
-    milestones: ['1. Test kit storyboard', '2. Draft review', '3. Morning 7 AM release'],
-    proposals: [{ handle: '@shalini_kitchen', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '6', rating: '5.0', reviews: 88, er: '8.9', pitch: 'Homemaker and food creator with 140k engaged Indian mothers audience.' }],
-    otherJobs: [{ title: 'Country Delight A2 Cow Desi Ghee Halwa Series', payout: '₹42,000 Fixed Pay' }],
-  },
-
-  // 23. Noise ColorFit Pro 5 Smartwatch (India)
-  {
-    id: 'camp-23',
-    title: 'Noise ColorFit Pro 5 AMOLED Smartwatch',
-    brandName: 'Noise',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹48,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Unboxing Reel • 1 Bluetooth Calling Short',
-    creatorsApplied: 40,
-    acceptanceChance: 86,
-    eligibilityRate: 92,
-    categories: ['Technology', 'Gadgets', 'Fitness'],
-    isNew: true,
-    postedAt: 'Aug 21, 2026 • 6:10 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Highlight the 1.96-inch AMOLED display, single-chip Bluetooth calling, and 100+ sports tracking modes.',
-    scopeOfWork: [
-      { title: 'ColorFit Pro 5 Daily Routine Reel', detail: 'Outdoor jog, taking calls on wrist while commuting, and sleep stage analysis.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, tech-savvy, sporty, active.',
-      videoSetup: 'Outdoor sunlight display brightness test, macro screen tap response.',
-      hashtags: '#NoiseSmartwatch #ColorFitPro5 #ListenToTheNoiseWithin',
-      audio: 'Punchy electronic beat with crisp vocal review.',
-    },
-    milestones: ['1. Feature selection plan', '2. Video rough cut', '3. Launch day release'],
-    proposals: [{ handle: '@tech_guy_rahul', country: 'India', flag: '🇮🇳', bid: '₹48,000', days: '8', rating: '4.9', reviews: 120, er: '9.8', pitch: 'Gadgets unboxer and wearable tech reviewer.' }],
-    otherJobs: [{ title: 'Noise Buds VS104 Max ANC Wireless Earbuds', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 24. BlissClub Ultimate 2.0 Flare Flare Pants (India)
-  {
-    id: 'camp-24',
-    title: 'BlissClub The Ultimate Pocket Flare Pants',
-    brandName: 'BlissClub',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #A855F7 0%, #7E22CE 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Move-All-Day Reel • 3 Stories',
-    creatorsApplied: 37,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Fitness', 'Fashion', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 21, 2026 • 3:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Demonstrate the squat-proof, buttery-soft cloud fabric with 4 deep pockets that hold phone, keys, and lip balm with 0 sag.',
-    scopeOfWork: [
-      { title: 'The 4-Deep-Pocket Squat Test Reel', detail: 'Jumping, squatting, and desk-sitting to show zero slip waist and pocket capacity.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, joyful, body-positive, comfortable.',
-      videoSetup: 'Yoga studio, home work station, outdoor walking path.',
-      hashtags: '#BlissClub #MoveInBliss #WomensActivewearIndia',
-      audio: 'Upbeat pop indie track with energetic voiceover.',
-    },
-    milestones: ['1. Sizing and color selection', '2. Edit review', '3. Weekend publish'],
-    proposals: [{ handle: '@neha_wellness', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '7', rating: '5.0', reviews: 95, er: '10.3', pitch: 'Yoga instructor and body-positivity creator.' }],
-    otherJobs: [{ title: 'BlissClub Everyday Bamboo Cotton Tee Launch', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 25. Blue Tokai Specialty Coffee Tasting Flight (India)
-  {
-    id: 'camp-25',
-    title: 'Blue Tokai Single-Origin Roast Masterclass',
-    brandName: 'Blue Tokai Coffee Roasters',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E3A8A 0%, #172554 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Pour-Over Reel • 2 Stories',
-    creatorsApplied: 28,
-    acceptanceChance: 86,
-    eligibilityRate: 91,
-    categories: ['Food', 'Lifestyle', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 21, 2026 • 11:00 AM',
-    projectTimeline: 'Sep 7 – Sep 25, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Brewing Attikan Estate single-origin medium dark roast using V60 pour-over technique.',
-    scopeOfWork: [
-      { title: 'V60 Pour-Over Coffee Bloom Reel', detail: 'Close up of coffee grounds blooming, extraction flow, and tasting notes breakdown.' },
-    ],
-    contentDirections: {
-      tone: 'Artisanal, cozy, mindful, refined.',
-      videoSetup: 'Ceramic kettle, goose-neck pour, morning sun through linen blinds.',
-      hashtags: '#BlueTokaiCoffee #SpecialtyCoffeeIndia #PourOverCoffee',
-      audio: 'Lo-fi jazz coffee shop vibes with warm voiceover.',
-    },
-    milestones: ['1. Brew method concept', '2. Video rough cut', '3. Live publish'],
-    proposals: [{ handle: '@manan_brews', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '8', rating: '5.0', reviews: 80, er: '11.5', pitch: 'Specialty coffee brewer and lifestyle photographer.' }],
-    otherJobs: [{ title: 'Blue Tokai Easy Pour Drip Bags Travel Review', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 26. Ather Energy 450X Gen 4 Smart Electric Scooter (India)
-  {
-    id: 'camp-26',
-    title: 'Ather 450X Gen 4 Warp Mode City Sprint',
-    brandName: 'Ather Energy',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #065F46 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹1,25,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Cinematic Test-Drive Reel • 1 YouTube Short',
-    creatorsApplied: 22,
-    acceptanceChance: 72,
-    eligibilityRate: 85,
-    categories: ['Automobile', 'Technology', 'Sustainability'],
-    isNew: true,
-    postedAt: 'Aug 20, 2026 • 5:40 PM',
-    projectTimeline: 'Sep 12 – Oct 10, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Test-drive the instantaneous Warp mode acceleration, Google Maps touchscreen dashboard, and Ather Grid fast-charging.',
-    scopeOfWork: [
-      { title: 'Warp Mode Acceleration Reel', detail: '0-40 km/h acceleration test on open tarmac with chest-mounted GoPro footage and dashboard UI.' },
-    ],
-    contentDirections: {
-      tone: 'Futuristic, high-adrenaline, tech-forward, sustainable.',
-      videoSetup: 'Golden hour drone flyovers, night city neon lights reflecting off scooter bodywork.',
-      hashtags: '#Ather450X #WarpMode #ElectricVehicleIndia #FutureOfMobility',
-      audio: 'High-tech synthwave soundtrack mixed with pure electric motor whine.',
-    },
-    milestones: ['1. Route and permit approval', '2. 4K edit submission', '3. Coordinated launch release'],
-    proposals: [{ handle: '@ev_rider_india', country: 'India', flag: '🇮🇳', bid: '₹1,25,000', days: '14', rating: '5.0', reviews: 130, er: '12.0', pitch: 'Auto journalist & EV enthusiast with 350k auto followers.' }],
-    otherJobs: [{ title: 'Ather Halo Smart Helmet Sound Test', payout: '₹75,000 Fixed Pay' }],
-  },
-
-  // 27. Epigamia Greek Yogurt Protein Parfait Challenge (India)
-  {
-    id: 'camp-27',
-    title: 'Epigamia High-Protein Breakfast Parfait',
-    brandName: 'Epigamia',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹35,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Recipe Reel • 2 Stories',
-    creatorsApplied: 31,
-    acceptanceChance: 91,
-    eligibilityRate: 97,
-    categories: ['Food', 'Fitness', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 20, 2026 • 1:15 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Craft a 15g protein fruit & chia seed parfait using Alphonso Mango Greek Yogurt for quick morning fuel.',
-    scopeOfWork: [
-      { title: '3-Minute Post-Workout Parfait Reel', detail: 'Layering Greek yogurt, granola, and fresh berries with macro protein counter on screen.' },
-    ],
-    contentDirections: {
-      tone: 'Fresh, appetizing, energizing, healthy.',
-      videoSetup: 'Bright natural lighting, glass jar layering closeups.',
-      hashtags: '#EpigamiaGreekYogurt #HighProteinBreakfast #FitFoodieIndia',
-      audio: 'Upbeat indie acoustic rhythm with energetic cooking voiceover.',
-    },
-    milestones: ['1. Recipe storyboard', '2. Video rough cut', '3. Morning post'],
-    proposals: [{ handle: '@healthy_bites_diya', country: 'India', flag: '🇮🇳', bid: '₹35,000', days: '6', rating: '5.0', reviews: 75, er: '9.8', pitch: 'Nutritionist and food creator sharing daily protein meal ideas.' }],
-    otherJobs: [{ title: 'Epigamia Coconut Milk Yogurt Vegan Challenge', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 28. Heads Up For Tails Gourmet Pet Nutrition (India)
-  {
-    id: 'camp-28',
-    title: 'Heads Up For Tails Sara’s Treats Taste Test',
-    brandName: 'Heads Up For Tails',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Dog Reaction Reel • 3 Stories',
-    creatorsApplied: 29,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Pets', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 20, 2026 • 10:30 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Capture your dog’s tail-wagging excitement trying natural dehydrated chicken & berry healthy treats.',
-    scopeOfWork: [
-      { title: 'Dog Taste Test Reaction Reel', detail: 'Funny slow-mo treat catch and happy pet review with clean ingredient spotlight.' },
-    ],
-    contentDirections: {
-      tone: 'Heartwarming, joyful, cute, humorous.',
-      videoSetup: 'Living room floor level, sunny balcony play session.',
-      hashtags: '#HUFTForPets #SarasTreats #DogsOfIndia',
-      audio: 'Whimsical playful acoustic tune with dog bark sound effects.',
-    },
-    milestones: ['1. Pet intro storyboard', '2. Edit review', '3. Publication'],
-    proposals: [{ handle: '@golden_milo_adventures', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '7', rating: '5.0', reviews: 90, er: '14.2', pitch: 'Golden retriever pet influencer with high dog parents engagement.' }],
-    otherJobs: [{ title: 'HUFT Orthopedic Velvet Pet Bed Unboxing', payout: '₹45,000 Fixed Pay' }],
-  },
-
-  // 29. Dot & Key Watermelon Cooling Sunscreen (India)
-  {
-    id: 'camp-29',
-    title: 'Dot & Key Watermelon Hyaluronic Sunscreen SPF 50',
-    brandName: 'Dot & Key Skincare',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FB7185 0%, #E11D48 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Zero White Cast Reel • 2 Stories',
-    creatorsApplied: 47,
-    acceptanceChance: 89,
-    eligibilityRate: 95,
-    categories: ['Beauty', 'Skincare', 'Summer'],
-    isNew: true,
-    postedAt: 'Aug 19, 2026 • 4:20 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Prove 0% white cast, non-sticky water-light texture under harsh outdoor sunlight with UV camera test.',
-    scopeOfWork: [
-      { title: 'UV Camera & White Cast Test Reel', detail: 'Applying two finger lengths of sunscreen under UV lens to show instant invisible absorption.' },
-    ],
-    contentDirections: {
-      tone: 'Fun, refreshing, educational, vibrant.',
-      videoSetup: 'Outdoor pool or sunny balcony, macro skin texture.',
-      hashtags: '#DotAndKey #WatermelonSunscreen #NoWhiteCastSunscreen',
-      audio: 'Breezy summer pop track with upbeat voiceover.',
-    },
-    milestones: ['1. UV test concept', '2. Reel review', '3. Live publish'],
-    proposals: [{ handle: '@skinglow_swati', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '6', rating: '5.0', reviews: 104, er: '9.2', pitch: 'Skincare creator reviewing sunscreens on Indian wheatish skin tones.' }],
-    otherJobs: [{ title: 'Dot & Key Cica Calming Blemish Night Gel', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 30. Portronics Dash 12 Wireless Bluetooth Speaker (India)
-  {
-    id: 'camp-30',
-    title: 'Portronics Dash 12 60W Boombox Sound Party',
-    brandName: 'Portronics',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹32,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Outdoor Party Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 90,
-    eligibilityRate: 94,
-    categories: ['Technology', 'Gadgets', 'Music'],
-    isNew: true,
-    postedAt: 'Aug 19, 2026 • 2:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'RGB party light mode and 60W thunderous bass test at a rooftop sunset gathering.',
-    scopeOfWork: [
-      { title: 'Rooftop Sundowner Boombox Reel', detail: 'Demonstrating dual wireless stereo pairing, mic karaoke mode, and RGB disco lighting sync.' },
-    ],
-    contentDirections: {
-      tone: 'Celebratory, high-energy, friendly, youth-centric.',
-      videoSetup: 'Golden hour sunset rooftop, friends dancing, night neon light show.',
-      hashtags: '#PortronicsDash #PartySpeakerIndia #TechGadgets',
-      audio: 'Party Punjabi/EDM drop synced with RGB light flashes.',
-    },
-    milestones: ['1. Party storyboard', '2. Video rough cut', '3. Weekend evening post'],
-    proposals: [{ handle: '@gadget_vibe_kunal', country: 'India', flag: '🇮🇳', bid: '₹32,000', days: '7', rating: '4.9', reviews: 68, er: '9.5', pitch: 'Tech reviewer with party and audio gear focus.' }],
-    otherJobs: [{ title: 'Portronics 65W GaN Fast Charger Series', payout: '₹28,000 Fixed Pay' }],
-  },
-
-  // 31. Pilgrim Spanish Squalane Face Glow (India)
-  {
-    id: 'camp-31',
-    title: 'Pilgrim 24K Gold Squalane Night Elixir',
-    brandName: 'Pilgrim Beauty',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FBBF24 0%, #D97706 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Night Routine Reel • 2 Stories',
-    creatorsApplied: 38,
-    acceptanceChance: 88,
-    eligibilityRate: 93,
-    categories: ['Beauty', 'Skincare', 'Luxury'],
-    isNew: true,
-    postedAt: 'Aug 18, 2026 • 6:30 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Gold flake suspension and Spanish squalane oil for radiant morning glow without pore clogging.',
-    scopeOfWork: [
-      { title: 'Gold Flake Dropper ASMR Reel', detail: 'Aesthetic dropper application showing gold flakes dissolving smoothly into skin.' },
-    ],
-    contentDirections: {
-      tone: 'Opulent, calming, sensory, glowing.',
-      videoSetup: 'Warm candlelit night ambiance, macro dropper shots.',
-      hashtags: '#PilgrimBeauty #24KGoldGlow #SkincareSecrets',
-      audio: 'Gentle ambient harp and piano soothing score.',
-    },
-    milestones: ['1. Aesthetic moodboard', '2. Draft review', '3. Night 9 PM release'],
-    proposals: [{ handle: '@riya_glowup', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '8', rating: '5.0', reviews: 94, er: '8.8', pitch: 'Skincare blogger focusing on glow-enhancing serums.' }],
-    otherJobs: [{ title: 'Pilgrim Red Vine Anti-Aging Face Cream', payout: '₹36,000 Fixed Pay' }],
-  },
-
-  // 32. Pepperfry Solid Wood Home Makeover (India)
-  {
-    id: 'camp-32',
-    title: 'Pepperfry Living Room Solid Wood Makeover',
-    brandName: 'Pepperfry',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #B45309 0%, #78350F 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹80,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Room Transformation Reel • 1 YouTube Vlog',
-    creatorsApplied: 18,
-    acceptanceChance: 78,
-    eligibilityRate: 86,
-    categories: ['Home', 'Interior', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 18, 2026 • 12:40 PM',
-    projectTimeline: 'Sep 10 – Oct 08, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Transform an empty apartment living corner into a cozy Japandi-style teakwood reading nook.',
-    scopeOfWork: [
-      { title: 'Weekend DIY Room Makeover Reel', detail: 'Time-lapse assembling solid wood bookshelf, lounge chair, and ambient floor lamp.' },
-    ],
-    contentDirections: {
-      tone: 'Inspiring, cozy, aesthetic, transformational.',
-      videoSetup: 'Wide angle before/after room transitions, warm wooden textures.',
-      hashtags: '#PepperfryMakeover #HappyFurnitureToYou #HomeDecorIndia',
-      audio: 'Uplifting acoustic indie melody with storytelling voiceover.',
-    },
-    milestones: ['1. Furniture layout sketch', '2. Full video edit review', '3. Weekend release'],
-    proposals: [{ handle: '@arch_living_shreya', country: 'India', flag: '🇮🇳', bid: '₹80,000', days: '16', rating: '5.0', reviews: 112, er: '11.0', pitch: 'Architect & interior designer with 280k home makeover followers.' }],
-    otherJobs: [{ title: 'Pepperfry Dining Table Styling Showcase', payout: '₹65,000 Fixed Pay' }],
-  },
-
-  // 33. CRED Flash UPI & Rewards Experience (India)
-  {
-    id: 'camp-33',
-    title: 'CRED Flash Lightning Fast Scan & Pay',
-    brandName: 'CRED',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #09090B 0%, #18181B 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹90,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Cinematic Reel • 2 Stories',
-    creatorsApplied: 28,
-    acceptanceChance: 75,
-    eligibilityRate: 88,
-    categories: ['Finance', 'Technology', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 17, 2026 • 5:15 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'X'],
-    description: 'Cinematic, witty reel comparing clunky slow payments vs CRED Flash 1-tap instant cashback payment.',
-    scopeOfWork: [
-      { title: 'The 1-Second Payment Race Reel', detail: 'Creative split-screen comedy showing fast QR scan payment and unlocking mystery rewards.' },
-    ],
-    contentDirections: {
-      tone: 'Witty, sophisticated, aesthetic, tongue-in-cheek.',
-      videoSetup: 'Sleek dark mode UI capture, cinematic lighting in specialty coffee shop.',
-      hashtags: '#CREDUPI #NotEveryoneGetsIt #CREDRewards',
-      audio: 'Retro French electro or classical suspense synth drop.',
-    },
-    milestones: ['1. Script & comedy angle check', '2. Edit submission', '3. Coordinated release'],
-    proposals: [{ handle: '@varun_visuals', country: 'India', flag: '🇮🇳', bid: '₹90,000', days: '10', rating: '5.0', reviews: 155, er: '12.4', pitch: 'Cinematic comedy sketch creator with 450k high-income tech audience.' }],
-    otherJobs: [{ title: 'CRED Garage Vehicle Management Demo', payout: '₹85,000 Fixed Pay' }],
-  },
-
-  // 34. Fi Money Neo-Bank AI Expense Analyzer (India)
-  {
-    id: 'camp-34',
-    title: 'Fi Money Smart AI Spending & Automatic Savings',
-    brandName: 'Fi Money',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹55,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 2 Stories',
-    creatorsApplied: 34,
-    acceptanceChance: 84,
-    eligibilityRate: 90,
-    categories: ['Finance', 'Technology', 'Education'],
-    isNew: true,
-    postedAt: 'Aug 17, 2026 • 2:20 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Set smart automated saving rules on the Fi App (e.g. Save ₹50 every time I order food) and view spending analytics.',
-    scopeOfWork: [
-      { title: 'The Auto-Save Hack for Impulsive Spenders', detail: 'Demonstrating smart rules live on screen and seeing savings jar grow automatically.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, practical, clever, motivating.',
-      videoSetup: 'Home desk, clean screen recordings, modern typography graphics.',
-      hashtags: '#FiMoney #MoneyHacksIndia #SmartSavings',
-      audio: 'Bouncy electronic pop with energetic commentary.',
-    },
-    milestones: ['1. Screen demo plan', '2. Video review', '3. Payday week release'],
-    proposals: [{ handle: '@moneywith_kartik', country: 'India', flag: '🇮🇳', bid: '₹55,000', days: '8', rating: '5.0', reviews: 92, er: '9.7', pitch: 'Fintech creator helping young corporate workers manage money.' }],
-    otherJobs: [{ title: 'Fi Money Zero Forex Debit Card Travel Guide', payout: '₹65,000 Fixed Pay' }],
-  },
-
-  // 35. mCaffeine Naked & Raw Coffee Body Scrub (India)
-  {
-    id: 'camp-35',
-    title: 'mCaffeine Exfoliating Coffee Body Polishing',
-    brandName: 'mCaffeine',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1519735777090-ec97162dc266?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #78350F 0%, #451A03 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Shower Routine Reel • 2 Stories',
-    creatorsApplied: 43,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Skincare', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 17, 2026 • 11:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Shower ASMR reel showing coarse coffee granule exfoliation, tan removal, and smooth coconut oil finish.',
-    scopeOfWork: [
-      { title: 'Sunday Self-Care Body Scrub Reel', detail: 'ASMR water droplets and scrubbing texture on elbows and arms showing glowing results.' },
-    ],
-    contentDirections: {
-      tone: 'Sensory, indulgent, energizing, clean.',
-      videoSetup: 'Aesthetic shower glass, warm water mist, macro scrub granule texture.',
-      hashtags: '#mCaffeine #AddictedToGood #CoffeeBodyScrub',
-      audio: 'ASMR water splashes and scrubbing sounds with relaxing lo-fi music.',
-    },
-    milestones: ['1. Shower storyboard', '2. Edit review', '3. Weekend publish'],
-    proposals: [{ handle: '@ishita_selfcare', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '5.0', reviews: 110, er: '9.9', pitch: 'Self-care & body care creator with aesthetic shower routines.' }],
-    otherJobs: [{ title: 'mCaffeine Green Tea Face Detox Serum Review', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 36. Urban Company Salon Luxe At Home (India)
-  {
-    id: 'camp-36',
-    title: 'Urban Company Luxury Salon & Spa At Home',
-    brandName: 'Urban Company',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0F172A 0%, #0284C7 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹55,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Experience Reel • 3 Stories',
-    creatorsApplied: 31,
-    acceptanceChance: 87,
-    eligibilityRate: 93,
-    categories: ['Lifestyle', 'Beauty', 'Services'],
-    isNew: true,
-    postedAt: 'Aug 16, 2026 • 4:40 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Document a 100% hygienic luxury facial and manicure session delivered right into your living room.',
-    scopeOfWork: [
-      { title: 'Living Room Turned 5-Star Spa Reel', detail: 'Showing sanitized mono-dose kits, zero cleanup required, and ultimate relaxing experience.' },
-    ],
-    contentDirections: {
-      tone: 'Relaxing, pampering, convenient, hygienic.',
-      videoSetup: 'Warm cozy living room, soothing lighting, closeups of glowing post-facial skin.',
-      hashtags: '#UrbanCompanySalon #SpaAtHome #SalonSpree2026',
-      audio: 'Calm ambient spa music with genuine personal recommendation.',
-    },
-    milestones: ['1. Service booking confirmation', '2. Video rough cut', '3. Weekend release'],
-    proposals: [{ handle: '@delhi_diva_anushka', country: 'India', flag: '🇮🇳', bid: '₹55,000', days: '8', rating: '5.0', reviews: 125, er: '9.1', pitch: 'Lifestyle creator highlighting home convenience services.' }],
-    otherJobs: [{ title: 'Urban Company AC Deep Power Jet Cleaning Test', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 37. Plum Goodness Green Tea Pore Cleansing Mask (India)
-  {
-    id: 'camp-37',
-    title: 'Plum Goodness Green Tea Oil-Control Clay Mask',
-    brandName: 'Plum Goodness',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #166534 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Masking Reel • 2 Stories',
-    creatorsApplied: 45,
-    acceptanceChance: 90,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Skincare'],
-    isNew: true,
-    postedAt: 'Aug 16, 2026 • 1:10 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Show clay mask application, soothing cooling effect on active acne, and gentle pore detox.',
-    scopeOfWork: [
-      { title: '10-Minute Acne Detox Routine Reel', detail: 'Applying green tea clay mask, drying timelapse, and wiping off to show matte oil-free skin.' },
-    ],
-    contentDirections: {
-      tone: 'Clean, vegan, cruelty-free, refreshing.',
-      videoSetup: 'Clean mirror setup, botanical green aesthetic.',
-      hashtags: '#PlumGoodness #GreenTeaClayMask #CleanSkincareIndia',
-      audio: 'Gentle upbeat acoustic melody with skincare advice.',
-    },
-    milestones: ['1. Concept review', '2. Video rough cut', '3. Live publish'],
-    proposals: [{ handle: '@meera_skindiary', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '5.0', reviews: 80, er: '8.9', pitch: 'Vegan & cruelty-free beauty advocate.' }],
-    otherJobs: [{ title: 'Plum 15% Vitamin C Face Serum Glow Challenge', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 38. Fire-Boltt Gladiator Rugged Smartwatch (India)
-  {
-    id: 'camp-38',
-    title: 'Fire-Boltt Gladiator 1.96 Shockproof Smartwatch',
-    brandName: 'Fire-Boltt',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EA580C 0%, #9A3412 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Durability Test Reel • 2 Stories',
-    creatorsApplied: 37,
-    acceptanceChance: 88,
-    eligibilityRate: 92,
-    categories: ['Technology', 'Gadgets', 'Fitness'],
-    isNew: true,
-    postedAt: 'Aug 16, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Subject the zinc-alloy rugged body to water submergence, drop test, and rough outdoor hiking.',
-    scopeOfWork: [
-      { title: 'Extreme Toughness & Water Test Reel', detail: 'Submerging in river stream, dropping on gravel, and demonstrating flawless touch response.' },
-    ],
-    contentDirections: {
-      tone: 'Rugged, adventurous, bold, heavy-duty.',
-      videoSetup: 'Outdoor rocky trails, splash macro shots in slow-motion.',
-      hashtags: '#FireBolttGladiator #ToughSmartwatch #FitnessTechIndia',
-      audio: 'Intense rock/electronic action score.',
-    },
-    milestones: ['1. Test concept check', '2. Action cut review', '3. Launch date post'],
-    proposals: [{ handle: '@outdoor_tech_suraj', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '7', rating: '4.9', reviews: 78, er: '10.5', pitch: 'Trekking & outdoor adventure creator.' }],
-    otherJobs: [{ title: 'Fire-Boltt Talk Pro Bluetooth Calling Test', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 39. Myntra Big Fashion Festival Lookbook (India)
-  {
-    id: 'camp-39',
-    title: 'Myntra Big Fashion Festival 5 Festive Looks',
-    brandName: 'Myntra',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #9D174D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹85,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Festive Lookbook Reels • 5 Stories',
-    creatorsApplied: 64,
-    acceptanceChance: 82,
-    eligibilityRate: 91,
-    categories: ['Fashion', 'Festivals', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 15, 2026 • 7:30 PM',
-    projectTimeline: 'Sep 10 – Oct 05, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Curate 5 ethnic fusion and Indo-Western festive looks for Diwali parties and family celebrations under budget.',
-    scopeOfWork: [
-      { title: 'Myntra Festive Haul Try-on Reel', detail: 'Rapid seamless transitions between Kurta jackets, lehengas, and contemporary fusion outfits.' },
-    ],
-    contentDirections: {
-      tone: 'Vibrant, festive, energetic, stylish.',
-      videoSetup: 'Festive fairy lights, marigold floral backdrop, smooth twirl transitions.',
-      hashtags: '#MyntraBFF2026 #FestiveFashionIndia #MyntraHaul',
-      audio: 'Trending upbeat Bollywood festive track.',
-    },
-    milestones: ['1. Outfits unboxing & approval', '2. Reel cuts review', '3. Sale day live release'],
-    proposals: [{ handle: '@festive_styling_sneha', country: 'India', flag: '🇮🇳', bid: '₹85,000', days: '12', rating: '5.0', reviews: 230, er: '11.8', pitch: 'Fashion stylist specializing in festive ethnic lookbooks.' }],
-    otherJobs: [{ title: 'Myntra Luxe Designer Handbag Collection', payout: '₹1,10,000 Fixed Pay' }],
-  },
-
-  // 40. Zomato Gold Dining Experience (India)
-  {
-    id: 'camp-40',
-    title: 'Zomato Gold 1+1 Dining Experience Series',
-    brandName: 'Zomato',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Restaurant Visit Reel • 2 Stories',
-    creatorsApplied: 46,
-    acceptanceChance: 89,
-    eligibilityRate: 95,
-    categories: ['Food', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 15, 2026 • 2:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Visit top-rated rooftop cafe, redeem Zomato Gold discount on the spot, and showcase bill savings.',
-    scopeOfWork: [
-      { title: 'The Ultimate Date Night On A Budget Reel', detail: 'Food tasting, ambient dining shots, and scanning Zomato Gold for instant bill deduction.' },
-    ],
-    contentDirections: {
-      tone: 'Lively, appetizing, fun, budget-smart.',
-      videoSetup: 'Rooftop cafe evening lighting, sizzling appetizers.',
-      hashtags: '#ZomatoGold #DiningOutIndia #FoodLovers',
-      audio: 'Fun energetic pop track with conversational commentary.',
-    },
-    milestones: ['1. Restaurant shortlist', '2. Video review', '3. Friday evening release'],
-    proposals: [{ handle: '@bangalore_bites', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '7', rating: '5.0', reviews: 115, er: '10.4', pitch: 'Bangalore cafe explorer with 160k food community.' }],
-    otherJobs: [{ title: 'Zomato Everyday Home-Style Meal Review', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 41. Dubai Tourism Luxury Desert Escape (UAE - International)
-  {
-    id: 'camp-41',
-    title: 'Dubai Tourism Luxury Desert Stargazing Resort',
-    brandName: 'Visit Dubai Tourism',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #D97706 0%, #78350F 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: 'AED 8,200',
-    currencySymbol: 'AED ',
-    currencyCode: 'AED',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 4K Cinematic Reels • 1 YouTube Travel Vlog',
-    creatorsApplied: 19,
-    acceptanceChance: 68,
-    eligibilityRate: 80,
-    categories: ['Travel', 'Luxury', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 15, 2026 • 11:20 AM',
-    projectTimeline: 'Sep 15 – Oct 15, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Arabic / English',
-    country: 'United Arab Emirates',
-    countryCode: 'AE',
-    countryFlag: '🇦🇪',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Document an ultra-luxury dune glamping stay, sunrise hot air balloon flight, and Arabian culinary tasting.',
-    scopeOfWork: [
-      { title: 'Cinematic Arabian Desert Safari Reel', detail: 'Drone footage across golden sand dunes, sunset camel ride, and luxury dome tent.' },
-    ],
-    contentDirections: {
-      tone: 'Breathtaking, opulent, adventurous, awe-inspiring.',
-      videoSetup: '4K 60fps drone shots, golden hour desert warmth, night astrophotography.',
-      hashtags: '#VisitDubai #DesertEscape #LuxuryTravel2026',
-      audio: 'Cinematic orchestral soundtrack with ambient wind sounds.',
-    },
-    milestones: ['1. Itinerary & drone permit', '2. 4K master edit review', '3. Synchronized global campaign post'],
-    proposals: [{ handle: '@alex_nomad', country: 'United Arab Emirates', flag: '🇦🇪', bid: 'AED 8,200', days: '20', rating: '5.0', reviews: 180, er: '12.8', pitch: 'Luxury travel filmmaker based in Dubai.' }],
-    otherJobs: [{ title: 'Dubai Creek Heritage Culture Walk', payout: 'AED 5,200 Fixed Pay' }],
-  },
-
-  // 42. Singapore Airlines Premium Economy Long-Haul (Singapore - International)
-  {
-    id: 'camp-42',
-    title: 'Singapore Airlines Premium Economy Long-Haul Comfort',
-    brandName: 'Singapore Airlines',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: 'S$2,450',
-    currencySymbol: 'S$',
-    currencyCode: 'SGD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 In-Flight Experience Reel • 4 Stories',
-    creatorsApplied: 14,
-    acceptanceChance: 71,
-    eligibilityRate: 83,
-    categories: ['Travel', 'Aviation', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 14, 2026 • 3:30 PM',
-    projectTimeline: 'Sep 18 – Oct 12, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'Singapore',
-    countryCode: 'SG',
-    countryFlag: '🇸🇬',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Review Book-the-Cook gourmet dining, noise-canceling headphones, and legroom comfort on a 12-hour international route.',
-    scopeOfWork: [
-      { title: '12-Hour Long Haul Flight Diary', detail: 'From Changi lounge boarding to priority baggage claim with full seat recline review.' },
-    ],
-    contentDirections: {
-      tone: 'Sophisticated, detailed, comfortable, premium aviation standard.',
-      videoSetup: 'Cabin ambient lighting, in-flight food macro presentation.',
-      hashtags: '#SingaporeAirlines #FlySQ #PremiumEconomyReview',
-      audio: 'Soothing lo-fi lounge soundtrack with informative narration.',
-    },
-    milestones: ['1. Flight route boarding plan', '2. In-flight edit submission', '3. Publish'],
-    proposals: [{ handle: '@frequent_flyer_dan', country: 'Singapore', flag: '🇸🇬', bid: 'S$2,450', days: '15', rating: '5.0', reviews: 140, er: '11.1', pitch: 'Aviation reviewer with 260k international business & leisure travelers.' }],
-    otherJobs: [{ title: 'Changi Airport Jewel Waterfall Guide', payout: 'S$1,400 Fixed Pay' }],
-  },
-
-  // 43. Berlin Sustainable E-Bike Mobility (Germany - International)
-  {
-    id: 'camp-43',
-    title: 'VanMoof Berlin Urban Commute E-Bike Series',
-    brandName: 'VanMoof',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #334155 0%, #0F172A 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€1,200',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 City Commute Reel • 1 Tech Breakdown Short',
-    creatorsApplied: 16,
-    acceptanceChance: 76,
-    eligibilityRate: 84,
-    categories: ['Technology', 'Sustainability', 'Travel'],
-    isNew: true,
-    postedAt: 'Aug 14, 2026 • 1:00 PM',
-    projectTimeline: 'Sep 10 – Oct 01, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'German / English',
-    country: 'Germany',
-    countryCode: 'DE',
-    countryFlag: '🇩🇪',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Showcase automatic electronic gear shifting, integrated anti-theft GSM tracking, and sleek frame design.',
-    scopeOfWork: [
-      { title: 'Morning Commute Across Berlin Streets Reel', detail: 'Smooth tracking shots along historic landmarks, hill climb turbo boost test.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, minimalist, European urban lifestyle, eco-conscious.',
-      videoSetup: 'Crisp morning light across Berlin architecture, closeups of integrated frame display.',
-      hashtags: '#VanMoof #UrbanMobility #BerlinCyclist',
-      audio: 'Modern German deep house / melodic techno background.',
-    },
-    milestones: ['1. Route plan', '2. Edit review', '3. Synchronized launch post'],
-    proposals: [{ handle: '@lukas_cycling', country: 'Germany', flag: '🇩🇪', bid: '€1,200', days: '12', rating: '5.0', reviews: 96, er: '9.4', pitch: 'Urban mobility and cycling creator in Berlin.' }],
-    otherJobs: [{ title: 'Minimalist Commuter Waterproof Pannier Bag Review', payout: '€550 Fixed Pay' }],
-  },
-
-  // 44. Tokyo Matcha Artisan Tea Ceremony (Japan - International)
-  {
-    id: 'camp-44',
-    title: 'Ippodo Uji Ceremonial Grade Matcha Ceremony',
-    brandName: 'Ippodo Tea Kyoto',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #14532D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '¥125,000',
-    currencySymbol: '¥',
-    currencyCode: 'JPY',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 ASMR Whisking Reel • 2 Stories',
-    creatorsApplied: 21,
-    acceptanceChance: 82,
-    eligibilityRate: 89,
-    categories: ['Food', 'Cooking', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 14, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 8 – Sep 26, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Japanese / English',
-    country: 'Japan',
-    countryCode: 'JP',
-    countryFlag: '🇯🇵',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Traditional bamboo chasen whisking technique, emerald green froth, and iced oat milk matcha latte tutorial.',
-    scopeOfWork: [
-      { title: 'The Art of Ceremonial Matcha Whisking', detail: 'Macro 4K video showing powder sifting, 80°C water pour, and rapid W-motion whisking.' },
-    ],
-    contentDirections: {
-      tone: 'Zen, peaceful, artistic, authentic Japanese craftsmanship.',
-      videoSetup: 'Tatami or minimalist light oak wood counter, natural morning bamboo garden shadow.',
-      hashtags: '#IppodoMatcha #MatchaRitual #KyotoTeaCeremony',
-      audio: 'Traditional koto and bamboo flute melody with crisp whisking ASMR.',
-    },
-    milestones: ['1. Whisking technique plan', '2. 4K ASMR draft review', '3. Publication'],
-    proposals: [{ handle: '@hana_zenliving', country: 'Japan', flag: '🇯🇵', bid: '¥125,000', days: '10', rating: '5.0', reviews: 108, er: '11.7', pitch: 'Kyoto tea master & aesthetic lifestyle vlogger.' }],
-    otherJobs: [{ title: 'Japanese Ceramic Tea Bowl Showcase', payout: '¥80,000 Fixed Pay' }],
-  },
-
-  // 45. Toronto Maple Craft Artisan Pantry (Canada - International)
-  {
-    id: 'camp-45',
-    title: 'Escuminac Pure Canadian Grade A Dark Maple Syrup',
-    brandName: 'Escuminac Farms',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #B45309 0%, #78350F 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: 'C$880',
-    currencySymbol: 'C$',
-    currencyCode: 'CAD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Pancake Breakfast Reel • 2 Stories',
-    creatorsApplied: 18,
-    acceptanceChance: 86,
-    eligibilityRate: 91,
-    categories: ['Food', 'Cooking', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 13, 2026 • 3:00 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / French',
-    country: 'Canada',
-    countryCode: 'CA',
-    countryFlag: '🇨🇦',
-    socials: ['INSTAGRAM'],
-    description: 'Fluffy buttermilk pancake stack with rich amber maple syrup drizzle and caramelized pecan topping.',
-    scopeOfWork: [
-      { title: 'Sunday Pancake Drizzle ASMR Reel', detail: 'Slow-motion syrup pour over steaming buttered pancake stack with crispy bacon side.' },
-    ],
-    contentDirections: {
-      tone: 'Comforting, indulgent, rustic, family breakfast.',
-      videoSetup: 'Warm wooden cabin table, cast-iron skillet presentation.',
-      hashtags: '#CanadianMaple #PureMapleSyrup #PancakeSunday',
-      audio: 'Warm acoustic folk track with sizzling pan sounds.',
-    },
-    milestones: ['1. Recipe outline', '2. Video review', '3. Weekend morning release'],
-    proposals: [{ handle: '@montreal_eats', country: 'Canada', flag: '🇨🇦', bid: 'C$880', days: '8', rating: '5.0', reviews: 85, er: '9.2', pitch: 'Canadian food stylist and brunch creator.' }],
-    otherJobs: [{ title: 'Artisan Maple Mustard Salad Dressing Series', payout: 'C$600 Fixed Pay' }],
-  },
-
-  // 46. Wow Skin Science Apple Cider Vinegar Face Wash (India)
-  {
-    id: 'camp-46',
-    title: 'Wow Skin Science ACV Foam Cleanser Deep Pore Clean',
-    brandName: 'WOW Skin Science',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1556228722-d0b5d0383b19?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹32,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Built-In Brush Demo Reel • 2 Stories',
-    creatorsApplied: 39,
-    acceptanceChance: 92,
-    eligibilityRate: 97,
-    categories: ['Beauty', 'Skincare'],
-    isNew: true,
-    postedAt: 'Aug 13, 2026 • 11:30 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Demonstrate soft silicone brush exfoliating stubborn blackheads and balancing skin pH without dryness.',
-    scopeOfWork: [
-      { title: 'Deep Pore Foam Cleansing Routine', detail: 'Pumping foaming cleanser and massaging with silicone brush to remove pollution buildup.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, satisfying, clear, natural.',
-      videoSetup: 'Clean bathroom mirror, foaming brush closeups.',
-      hashtags: '#WOWSkinScience #ACVFaceWash #PoreCleanserIndia',
-      audio: 'Breezy pop beat with step-by-step skincare guide.',
-    },
-    milestones: ['1. Concept check', '2. Rough cut review', '3. Live publish'],
-    proposals: [{ handle: '@simran_beauty_hacks', country: 'India', flag: '🇮🇳', bid: '₹32,000', days: '6', rating: '4.9', reviews: 92, er: '8.7', pitch: 'Skincare tips & product reviewer.' }],
-    otherJobs: [{ title: 'Wow Onion Black Seed Oil Hair Spa', payout: '₹36,000 Fixed Pay' }],
-  },
-
-  // 47. Zepto 10-Minute Grocery Delivery Magic (India)
-  {
-    id: 'camp-47',
-    title: 'Zepto Midnight Ice Cream & Snack Craving Rush',
-    brandName: 'Zepto',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 10-Minute Timer Reel • 2 Stories',
-    creatorsApplied: 44,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Lifestyle', 'Food', 'Technology'],
-    isNew: true,
-    postedAt: 'Aug 12, 2026 • 8:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Set a live stopwatch on phone to test if Zepto delivers midnight dessert before timer reaches 10 minutes.',
-    scopeOfWork: [
-      { title: 'The 10-Minute Delivery Stopwatch Race', detail: 'Ordering ice cream at 11 PM, live clock countdown, doorbell ringing at 7:42.' },
-    ],
-    contentDirections: {
-      tone: 'Fast-paced, humorous, exciting, genuine.',
-      videoSetup: 'Living room couch, split screen with running stopwatch.',
-      hashtags: '#Zepto10Minutes #ZeptoFast #MidnightCravings',
-      audio: 'Ticking clock sound into fast upbeat celebratory beat.',
-    },
-    milestones: ['1. Order plan', '2. Edit review', '3. Evening publication'],
-    proposals: [{ handle: '@rahul_comedy_vlogs', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '5', rating: '5.0', reviews: 140, er: '11.9', pitch: 'Humour & lifestyle video creator with 300k followers.' }],
-    otherJobs: [{ title: 'Zepto Cafe Hot Coffee & Croissant Test', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 48. Beardo Godfather Beard Oil & Grooming (India)
-  {
-    id: 'camp-48',
-    title: 'Beardo Godfather Beard Growth & Styling Regime',
-    brandName: 'Beardo',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Beard Grooming Reel • 2 Stories',
-    creatorsApplied: 33,
-    acceptanceChance: 89,
-    eligibilityRate: 94,
-    categories: ['Men Grooming', 'Lifestyle', 'Fashion'],
-    isNew: true,
-    postedAt: 'Aug 12, 2026 • 2:15 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Transform scruffy unkempt beard into a sharp, glossy, scented gentleman beard in 3 easy steps.',
-    scopeOfWork: [
-      { title: 'The 3-Minute Beard Grooming Transformation', detail: 'Washing, applying Godfather oil, and shaping with wooden comb for a sleek salon-finish look.' },
-    ],
-    contentDirections: {
-      tone: 'Confident, masculine, sharp, stylish.',
-      videoSetup: 'Warm barbershop or minimalist bathroom vanity lighting.',
-      hashtags: '#Beardo #GodfatherBeardOil #MensGroomingIndia',
-      audio: 'Deep bass hip-hop beat with confident baritone voiceover.',
-    },
-    milestones: ['1. Routine concept', '2. Edit review', '3. Live publish'],
-    proposals: [{ handle: '@karan_gentleman', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '7', rating: '5.0', reviews: 88, er: '9.3', pitch: 'Mens styling & grooming influencer.' }],
-    otherJobs: [{ title: 'Beardo Dark Side Perfume Long-Lasting Scent Test', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 49. Boat Wave Elevate Smartwatch Bluetooth Calls (India)
-  {
-    id: 'camp-49',
-    title: 'boAt Wave Elevate Metal Body Smartwatch',
-    brandName: 'boAt Lifestyle',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Unboxing Reel • 2 Stories',
-    creatorsApplied: 40,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Technology', 'Gadgets', 'Fitness'],
-    isNew: true,
-    postedAt: 'Aug 12, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Highlight the ocean band strap, crown navigation rotary dial, and crystal clear call mic.',
-    scopeOfWork: [
-      { title: 'Premium Metal Smartwatch on a Budget Reel', detail: 'Comparing metal finish, dial navigation speed, and 500 nits sunlight readability.' },
-    ],
-    contentDirections: {
-      tone: 'Trendy, functional, tech-forward, stylish.',
-      videoSetup: 'Studio tabletop rotating riser, wrist styling with casual outfits.',
-      hashtags: '#boAtWaveElevate #SmartwatchReview #TechIndia',
-      audio: 'High-energy electronic beats with snappy voiceover.',
-    },
-    milestones: ['1. Feature list check', '2. Video review', '3. Live publish'],
-    proposals: [{ handle: '@ankit_tech_unbox', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '6', rating: '4.9', reviews: 104, er: '9.6', pitch: 'Tech unboxer with 210k followers.' }],
-    otherJobs: [{ title: 'boAt Airdopes 141 ANC Earbuds Review', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 50. Tata Tea Premium Desh Ki Chai (India)
-  {
-    id: 'camp-50',
-    title: 'Tata Tea Premium Kadak Masala Chai Secret',
-    brandName: 'Tata Tea',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #166534 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹50,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Rainy Day Chai Reel • 2 Stories',
-    creatorsApplied: 50,
-    acceptanceChance: 94,
-    eligibilityRate: 98,
-    categories: ['Food', 'Cooking', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 11, 2026 • 5:00 PM',
-    projectTimeline: 'Sep 4 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Brewing authentic ginger cardamom kadak chai during a monsoon rain evening with hot onion pakodas.',
-    scopeOfWork: [
-      { title: 'Monsoon Rain & Kadak Chai ASMR Reel', detail: 'Crushing fresh ginger in mortar pestle, rolling boiling tea, straining into earthen kulhad cup.' },
-    ],
-    contentDirections: {
-      tone: 'Nostalgic, warm, aromatic, quintessential Indian home.',
-      videoSetup: 'Balcony rain view, brass saucepan boiling milk tea, earthen kulhad.',
-      hashtags: '#TataTeaPremium #DeshKiChai #MonsoonChaiRitual',
-      audio: 'Gentle raindrops falling mixed with boiling tea bubbles and acoustic sitar melody.',
-    },
-    milestones: ['1. Recipe storyboard', '2. ASMR video review', '3. Monsoon season release'],
-    proposals: [{ handle: '@rasoi_se_ruchika', country: 'India', flag: '🇮🇳', bid: '₹50,000', days: '7', rating: '5.0', reviews: 160, er: '11.2', pitch: 'Traditional Indian culinary creator with 290k chai lovers.' }],
-    otherJobs: [{ title: 'Tata Tea Gold Care 5 Natural Ingredients Reel', payout: '₹45,000 Fixed Pay' }],
-  },
-
-  // 51. Mamaearth Onion Anti-Hair Fall Shampoo (India)
-  {
-    id: 'camp-51',
-    title: 'Mamaearth Onion Shampoo 30-Day Hair Fall Reduction',
-    brandName: 'Mamaearth',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Hair Wash Routine Reel • 3 Stories',
-    creatorsApplied: 46,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Hair Care', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 11, 2026 • 1:20 PM',
-    projectTimeline: 'Sep 5 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Document reduced hair fall in comb over 3 weeks using toxin-free onion and plant keratin formulation.',
-    scopeOfWork: [
-      { title: 'Hair Fall Reality Check & Wash Day Routine', detail: 'Showing before-after comb test and shiny, smooth hair post-blow dry.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, genuine, educational, natural.',
-      videoSetup: 'Clean modern bathroom, healthy hair shine camera movement.',
-      hashtags: '#MamaearthOnionShampoo #GoodnessInside #HairCareIndia',
-      audio: 'Upbeat gentle melody with honest review narration.',
-    },
-    milestones: ['1. Hair routine concept', '2. Video review', '3. Live publish'],
-    proposals: [{ handle: '@divya_haircare', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '8', rating: '5.0', reviews: 110, er: '9.4', pitch: 'Haircare creator helping followers restore healthy hair.' }],
-    otherJobs: [{ title: 'Mamaearth Rosemary Hair Growth Serum Review', payout: '₹46,000 Fixed Pay' }],
-  },
-
-  // 52. Fastrack Reflex Play Smartwatch (India)
-  {
-    id: 'camp-52',
-    title: 'Fastrack Reflex Play Gen-Z AMOLED Calling',
-    brandName: 'Fastrack',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Fast-Cut Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Technology', 'Fashion', 'Gadgets'],
-    isNew: true,
-    postedAt: 'Aug 11, 2026 • 9:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Bold colorful watch faces matched to campus college outfits and active sports tracking.',
-    scopeOfWork: [
-      { title: 'Campus Outfit & Watchface Match Reel', detail: 'Tapping AMOLED screen to instantly sync watchface color to sneakers and hoodie.' },
-    ],
-    contentDirections: {
-      tone: 'Youthful, energetic, colorful, trendy.',
-      videoSetup: 'Vibrant college campus, sneaker transitions, sunny sports ground.',
-      hashtags: '#FastrackReflex #PlayYourWay #SmartwatchForYouth',
-      audio: 'High-BPM electronic dance beat with quick cuts.',
-    },
-    milestones: ['1. Outfits pairing plan', '2. Video review', '3. Publication'],
-    proposals: [{ handle: '@yash_sneakerhead', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '4.9', reviews: 84, er: '10.8', pitch: 'Campus fashion & sneakers creator with 180k Gen-Z fans.' }],
-    otherJobs: [{ title: 'Fastrack Limitless FS1 Calling Watch Demo', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 53. Sugar Pop Matte Kajal Smudge Test (India)
-  {
-    id: 'camp-53',
-    title: 'Sugar POP Intense Black Kajal 24-Hr Waterproof Test',
-    brandName: 'SUGAR POP',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹28,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Water Splash Test Reel • 2 Stories',
-    creatorsApplied: 42,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Beauty', 'Cosmetics'],
-    isNew: true,
-    postedAt: 'Aug 10, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Splash water on eyes and rub vigorously on camera to prove zero smudging and jet black pigment.',
-    scopeOfWork: [
-      { title: 'The Ultimate Water Splash Kajal Test', detail: 'Applying wing and waterline, splashing water over sink, and wiping with tissue with zero smudge.' },
-    ],
-    contentDirections: {
-      tone: 'Fun, punchy, convincing, colorful.',
-      videoSetup: 'High-contrast studio ring light, macro eye closeups.',
-      hashtags: '#SugarPOPKajal #WaterproofKajal #BeautyHacksIndia',
-      audio: 'Fun bubbly pop soundtrack with expressive reactions.',
-    },
-    milestones: ['1. Test outline', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@glam_with_pooja', country: 'India', flag: '🇮🇳', bid: '₹28,000', days: '5', rating: '5.0', reviews: 90, er: '9.1', pitch: 'Budget beauty creator testing long-lasting makeup.' }],
-    otherJobs: [{ title: 'Sugar POP Matte Lip Color 12 Shades Swatch', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 54. Mokobara The Overnighter Duffle Bag (India)
-  {
-    id: 'camp-54',
-    title: 'Mokobara The Overnighter Gym & Weekend Duffle',
-    brandName: 'Mokobara',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #475569 0%, #1E293B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹48,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 What’s In My Bag Reel • 2 Stories',
-    creatorsApplied: 27,
-    acceptanceChance: 86,
-    eligibilityRate: 91,
-    categories: ['Lifestyle', 'Travel', 'Fitness'],
-    isNew: true,
-    postedAt: 'Aug 10, 2026 • 12:00 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Seamless packing from morning corporate meetings to evening gym workout with dedicated shoe compartment.',
-    scopeOfWork: [
-      { title: 'Work to Workout 1-Bag Pack Reel', detail: 'Laptop, gym shoes in vented pouch, shaker bottle, and spare change of clothes packed effortlessly.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, organized, urban, modern professional.',
-      videoSetup: 'Modern loft apartment, minimalist aesthetic, macro zipper and vegan leather detail.',
-      hashtags: '#MokobaraDuffle #WorkToWorkout #EverydayCarry',
-      audio: 'Sophisticated deep house track with clean voiceover.',
-    },
-    milestones: ['1. Packing plan', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@aditya_lifestyle', country: 'India', flag: '🇮🇳', bid: '₹48,000', days: '8', rating: '5.0', reviews: 102, er: '10.1', pitch: 'Urban lifestyle & fitness creator.' }],
-    otherJobs: [{ title: 'Mokobara Leather Passport Wallet Review', payout: '₹28,000 Fixed Pay' }],
-  },
-
-  // 55. Country Delight Tender Coconut Water (India)
-  {
-    id: 'camp-55',
-    title: 'Country Delight Pre-Punched Fresh Tender Coconut',
-    brandName: 'Country Delight',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹30,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Unbox & Sip Reel • 2 Stories',
-    creatorsApplied: 36,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Food', 'Health', 'Summer'],
-    isNew: true,
-    postedAt: 'Aug 10, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Popping the easy-pull tab to drink 100% natural sweet tender coconut water with 0 mess and 0 machete cutting.',
-    scopeOfWork: [
-      { title: 'The Easiest Coconut Sip Reel', detail: 'Pulling the tab with one finger, inserting bamboo straw, and drinking fresh coconut water after morning run.' },
-    ],
-    contentDirections: {
-      tone: 'Refreshing, hydrating, natural, satisfying.',
-      videoSetup: 'Post-workout balcony garden, sunny morning glow, macro splash.',
-      hashtags: '#CountryDelightCoconut #NaturallyHydrating #MorningPostWorkout',
-      audio: 'Upbeat acoustic tropical beat with refreshing sip sounds.',
-    },
-    milestones: ['1. Concept plan', '2. Video review', '3. Post'],
-    proposals: [{ handle: '@fit_life_kabir', country: 'India', flag: '🇮🇳', bid: '₹30,000', days: '5', rating: '5.0', reviews: 76, er: '9.8', pitch: 'Fitness enthusiast sharing clean natural hydration tips.' }],
-    otherJobs: [{ title: 'Country Delight Fresh Buffalo Paneer Softness Test', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 56. Snitch Oversized Printed Graphic Tees (India)
-  {
-    id: 'camp-56',
-    title: 'Snitch Heavyweight Graphic Oversized Tees',
-    brandName: 'Snitch',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #18181B 0%, #27272A 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Style Transitions Reel • 3 Stories',
-    creatorsApplied: 48,
-    acceptanceChance: 87,
-    eligibilityRate: 94,
-    categories: ['Fashion', 'Streetwear'],
-    isNew: true,
-    postedAt: 'Aug 09, 2026 • 4:30 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Style 240 GSM heavy cotton anime and typography graphic tees with baggy denim and clean sneakers.',
-    scopeOfWork: [
-      { title: '3 Ways to Style Oversized Tees Reel', detail: 'Layering with denim jackets, tucking into wide-leg trousers, and casual everyday streetwear.' },
-    ],
-    contentDirections: {
-      tone: 'Trendy, energetic, effortless, stylish.',
-      videoSetup: 'Urban street graffiti backdrop, skatepark transitions.',
-      hashtags: '#SnitchTees #StreetwearIndia2026 #OversizedFashion',
-      audio: 'High-energy phonk / trap beat with snappy shoe transitions.',
-    },
-    milestones: ['1. T-shirt styles selection', '2. Edit review', '3. Weekend release'],
-    proposals: [{ handle: '@ayush_fits', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '7', rating: '5.0', reviews: 110, er: '11.3', pitch: 'Mens fashion and sneaker creator.' }],
-    otherJobs: [{ title: 'Snitch Relaxed Fit Cargo Pants Collection', payout: '₹50,000 Fixed Pay' }],
-  },
-
-  // 57. Ola S1 Pro Gen 3 Hyper Mode Speed Sprint (India)
-  {
-    id: 'camp-57',
-    title: 'Ola S1 Pro Gen 3 Hyper Mode Urban Sprint',
-    brandName: 'Ola Electric',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹1,10,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Reel • 1 YouTube Short • 3 Stories',
-    creatorsApplied: 31,
-    acceptanceChance: 78,
-    eligibilityRate: 89,
-    categories: ['Automobile', 'Technology', 'Sustainability'],
-    isNew: true,
-    postedAt: 'Aug 09, 2026 • 2:00 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Experience 0-40 km/h in 2.6 seconds with MoveOS party mode, hill hold assist, and Ola Hypercharger sprint test.',
-    scopeOfWork: [
-      { title: 'Hyper Mode Acceleration Test', detail: 'Chest mount camera capturing instantaneous torque, digital speedometer, and turn indicators.' },
-    ],
-    contentDirections: {
-      tone: 'Thrilling, high-tech, futuristic, eco-friendly.',
-      videoSetup: 'Early morning clear highway, sunset neon city streets.',
-      hashtags: '#OlaS1Pro #HyperMode #EndICEAge #ElectricMobilityIndia',
-      audio: 'High-octane electronic cyberpunk synthwave.',
-    },
-    milestones: ['1. Route & filming plan', '2. 4K edit submission', '3. Launch release'],
-    proposals: [{ handle: '@ev_explorer_raj', country: 'India', flag: '🇮🇳', bid: '₹1,10,000', days: '10', rating: '5.0', reviews: 92, er: '11.0', pitch: 'EV reviewer with 240k two-wheeler enthusiasts.' }],
-    otherJobs: [{ title: 'Ola MoveOS Party Mode Light Show Reel', payout: '₹60,000 Fixed Pay' }],
-  },
-
-  // 58. Foxtale Daily Glow Vitamin C Serum Test (India)
-  {
-    id: 'camp-58',
-    title: 'Foxtale 15% Vitamin C Glow Serum Rapid Dark Spot Fade',
-    brandName: 'Foxtale',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #B45309 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Routine Reel • 2 Stories',
-    creatorsApplied: 44,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Beauty', 'Skincare'],
-    isNew: true,
-    postedAt: 'Aug 09, 2026 • 11:15 AM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Stabilized L-Ascorbic Vitamin C application showing zero oxidation, fast absorption, and glow under sunlight.',
-    scopeOfWork: [
-      { title: 'Morning Antioxidant Glow Routine', detail: 'Dropper application, macro skin glow absorption, and layer with sunscreen.' },
-    ],
-    contentDirections: {
-      tone: 'Radiant, honest, educational, aesthetic.',
-      videoSetup: 'Warm sunlit bathroom mirror, golden morning sun rays.',
-      hashtags: '#FoxtaleVitaminC #GlowWithFoxtale #SkincareIndia',
-      audio: 'Cheerful acoustic rhythm with genuine voiceover review.',
-    },
-    milestones: ['1. Skin test plan', '2. Draft review', '3. Post live'],
-    proposals: [{ handle: '@priya_skinglow', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '6', rating: '5.0', reviews: 85, er: '9.2', pitch: 'Skincare educator focusing on antioxidant serum routines.' }],
-    otherJobs: [{ title: 'Foxtale Hydrating Ceramide Cleanser Demo', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 59. The Derma Co 2% Salicylic Acid Face Serum (India)
-  {
-    id: 'camp-59',
-    title: 'The Derma Co 2% Salicylic Acid Active Acne Defense',
-    brandName: 'The Derma Co',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 2 Stories',
-    creatorsApplied: 39,
-    acceptanceChance: 89,
-    eligibilityRate: 94,
-    categories: ['Beauty', 'Skincare', 'Education'],
-    isNew: true,
-    postedAt: 'Aug 08, 2026 • 5:00 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Dermatologist-designed breakdown of BHA salicylic acid unclogging congested pores and clearing active blackheads.',
-    scopeOfWork: [
-      { title: 'The Acne Unclogging Science Reel', detail: 'Graphics explaining oil solubility of BHA and application on T-zone areas.' },
-    ],
-    contentDirections: {
-      tone: 'Clinical, supportive, evidence-based, transparent.',
-      videoSetup: 'Clean white medical/studio aesthetic, high clarity macro shots.',
-      hashtags: '#TheDermaCo #SalicylicAcid #AcneCareIndia',
-      audio: 'Calm ambient tech beats with informative voiceover.',
-    },
-    milestones: ['1. Script compliance', '2. Video review', '3. Publication'],
-    proposals: [{ handle: '@dermat_insights', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '8', rating: '5.0', reviews: 104, er: '9.8', pitch: 'Medical student and skincare science reviewer.' }],
-    otherJobs: [{ title: 'The Derma Co 1% Hyaluronic Sunscreen Aqua Gel', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 60. Aqualogica Radiance+ Dewy Watermelon Sunscreen (India)
-  {
-    id: 'camp-60',
-    title: 'Aqualogica Dewy Sunscreen SPF 50 Water Glow',
-    brandName: 'Aqualogica',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FB7185 0%, #E11D48 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹35,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Dewy Skin Reel • 2 Stories',
-    creatorsApplied: 48,
-    acceptanceChance: 92,
-    eligibilityRate: 97,
-    categories: ['Beauty', 'Skincare'],
-    isNew: true,
-    postedAt: 'Aug 08, 2026 • 1:30 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Blend watermelon extracts & hyaluronic acid for that glass-skin dewy finish under makeup with 0 stickiness.',
-    scopeOfWork: [
-      { title: 'Under-Makeup Dewy Sunscreen Prep', detail: 'Showing smooth primer effect and glossy skin without oiliness.' },
-    ],
-    contentDirections: {
-      tone: 'Playful, refreshing, youthful, dewy.',
-      videoSetup: 'Pastel backdrop, natural window light, macro water splash.',
-      hashtags: '#Aqualogica #WatermelonDewy #GlassSkinSunscreen',
-      audio: 'Trendy pop acoustic tune with upbeat commentary.',
-    },
-    milestones: ['1. Makeup prep concept', '2. Edit review', '3. Publish'],
-    proposals: [{ handle: '@tanya_glowdiaries', country: 'India', flag: '🇮🇳', bid: '₹35,000', days: '5', rating: '5.0', reviews: 78, er: '9.0', pitch: 'Beauty creator with dewy makeup focus.' }],
-    otherJobs: [{ title: 'Aqualogica Hydrate+ Smoothie Face Wash Demo', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 61. Dr. Sheth’s Kesar & Kojic Acid Dark Spot Corrector (India)
-  {
-    id: 'camp-61',
-    title: 'Dr. Sheth’s Kesar & Kojic Acid Pigmentation Defense',
-    brandName: 'Dr. Sheth’s for Indian Skin',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #D97706 0%, #92400E 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 2 Stories',
-    creatorsApplied: 36,
-    acceptanceChance: 88,
-    eligibilityRate: 93,
-    categories: ['Beauty', 'Skincare'],
-    isNew: true,
-    postedAt: 'Aug 08, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Formulated specifically for melanin-rich Indian skin tones to fade stubborn hyperpigmentation and post-acne marks.',
-    scopeOfWork: [
-      { title: 'Indian Skin Pigmentation Guide', detail: 'Explaining why Indian skin produces more melanin and how kojic acid + kesar safely inhibits tyrosinase.' },
-    ],
-    contentDirections: {
-      tone: 'Empathetic, authentic, dermatologically sound.',
-      videoSetup: 'Warm earth-toned setting, high resolution texture camera.',
-      hashtags: '#DrSheths #ForIndianSkin #PigmentationSolution',
-      audio: 'Soft soothing sitar fusion with clear expert advice.',
-    },
-    milestones: ['1. Topic angle approval', '2. Rough cut review', '3. Live publish'],
-    proposals: [{ handle: '@dr_anita_skin', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '7', rating: '5.0', reviews: 96, er: '9.4', pitch: 'Dermatology resident addressing Indian skin pigmentation.' }],
-    otherJobs: [{ title: 'Dr. Sheth’s Haldi & Hyaluronic Sleeping Mask', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 62. Kapiva Ayurvedic Shilajit Gold Stamina Booster (India)
-  {
-    id: 'camp-62',
-    title: 'Kapiva Himalayan Shilajit Resin Purity & Stamina',
-    brandName: 'Kapiva Ayurveda',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #78350F 0%, #451A03 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹60,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Purity Burn Test Reel • 2 Stories',
-    creatorsApplied: 28,
-    acceptanceChance: 84,
-    eligibilityRate: 90,
-    categories: ['Health', 'Supplements', 'Ayurveda'],
-    isNew: true,
-    postedAt: 'Aug 07, 2026 • 4:45 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Perform authentic Himalayan resin fire & water test showing 100% natural dissolution and pure fulvic acid boost.',
-    scopeOfWork: [
-      { title: 'The Shilajit Purity Test Reel', detail: 'Dissolving pea-sized resin in warm water with lab NABL certificate transparency.' },
-    ],
-    contentDirections: {
-      tone: 'Energetic, disciplined, traditional wellness meets modern science.',
-      videoSetup: 'Clean gym workout station, warm morning kitchen counter.',
-      hashtags: '#KapivaShilajit #AyurvedicStamina #PureAyurveda',
-      audio: 'Confident, powerful percussion beats with clear narration.',
-    },
-    milestones: ['1. Test plan', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@rahul_fitness_yogi', country: 'India', flag: '🇮🇳', bid: '₹60,000', days: '8', rating: '5.0', reviews: 115, er: '10.5', pitch: 'Fitness coach and holistic athlete.' }],
-    otherJobs: [{ title: 'Kapiva Organic Aloe Vera Juice Cleanse', payout: '₹40,000 Fixed Pay' }],
-  },
-
-  // 63. Bombay Shaving Company Precision 6-Blade Razor (India)
-  {
-    id: 'camp-63',
-    title: 'Bombay Shaving Company Defender 6-Blade Smooth Shave',
-    brandName: 'Bombay Shaving Company',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Smooth Shave Reel • 2 Stories',
-    creatorsApplied: 37,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Men Grooming', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 07, 2026 • 1:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Experience 1-stroke clean shave with sensitive anti-friction safety blades and turmeric shaving foam.',
-    scopeOfWork: [
-      { title: 'The 2-Minute Zero-Cut Morning Shave', detail: 'Lathering foam, 1-glide clean pass on jawline, and aloe soothing post-shave balm.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, sharp, crisp, satisfying.',
-      videoSetup: 'Modern tiled bathroom, macro blade glide in 4K 60fps.',
-      hashtags: '#BombayShavingCo #CleanShaveLook #SmoothShaveIndia',
-      audio: 'Satisfying crisp ASMR blade glide sounds with smooth lounge background.',
-    },
-    milestones: ['1. Shave routine concept', '2. Edit review', '3. Morning publish'],
-    proposals: [{ handle: '@kunal_grooming', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '4.9', reviews: 88, er: '8.8', pitch: 'Mens grooming reviewer with high male viewer engagement.' }],
-    otherJobs: [{ title: 'BSC Charcoal Face De-Tan Scrub Test', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 64. Bummer Micro-Modal Cloud Soft Underwear (India)
-  {
-    id: 'camp-64',
-    title: 'Bummer Ultra-Soft MicroModal Loungewear Challenge',
-    brandName: 'Bummer',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Fun Comfort Reel • 3 Stories',
-    creatorsApplied: 32,
-    acceptanceChance: 87,
-    eligibilityRate: 93,
-    categories: ['Fashion', 'Lifestyle', 'Comfort'],
-    isNew: true,
-    postedAt: 'Aug 07, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Humorous, vibrant video showing why beechwood micro-modal fabric feels 3x softer than cotton on hot humid days.',
-    scopeOfWork: [
-      { title: 'The Ultimate Couch Potato Stretch Test', detail: 'Showing 4-way stretch, quirky printed patterns, and extreme breathable softness.' },
-    ],
-    contentDirections: {
-      tone: 'Funky, quirky, humorous, candid.',
-      videoSetup: 'Colorful home living room, cozy bed stretch shots.',
-      hashtags: '#InBummer #SoftestUnderwear #ComfyVibes',
-      audio: 'Fun bubbly viral track with comedic acting.',
-    },
-    milestones: ['1. Comedy sketch script', '2. Edit review', '3. Publish'],
-    proposals: [{ handle: '@fun_with_adit', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '7', rating: '5.0', reviews: 120, er: '11.8', pitch: 'Comedy & lifestyle creator.' }],
-    otherJobs: [{ title: 'Bummer Matching Couples Pajama Set Reel', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 65. Neeman’s Merino Wool Breathable Sneakers (India)
-  {
-    id: 'camp-65',
-    title: 'Neeman’s Wool Classic All-Day Sock-Free Comfort',
-    brandName: 'Neeman’s',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #475569 0%, #334155 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹50,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 10,000 Steps Walk Reel • 2 Stories',
-    creatorsApplied: 29,
-    acceptanceChance: 86,
-    eligibilityRate: 92,
-    categories: ['Fashion', 'Sustainability', 'Footwear'],
-    isNew: true,
-    postedAt: 'Aug 06, 2026 • 5:10 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Walk 10,000 steps without socks to demonstrate natural odor resistance, temperature regulation, and machine washability.',
-    scopeOfWork: [
-      { title: 'The 10,000 Steps Sock-Free Test Reel', detail: 'Walking through airport, metro, and office, then taking shoe off to test smell and comfort.' },
-    ],
-    contentDirections: {
-      tone: 'Active, practical, sustainable, modern casual.',
-      videoSetup: 'Urban street walk, step counter smartwatch overlay.',
-      hashtags: '#NeemansEcoShoes #WearYourValues #SockFreeComfort',
-      audio: 'Upbeat travel hop beat synced to steps.',
-    },
-    milestones: ['1. Walk test concept', '2. Edit review', '3. Publish'],
-    proposals: [{ handle: '@urban_walker_sam', country: 'India', flag: '🇮🇳', bid: '₹50,000', days: '8', rating: '5.0', reviews: 90, er: '9.6', pitch: 'Urban mobility and minimalist fashion creator.' }],
-    otherJobs: [{ title: 'Neeman’s Relive Knit Recycled Bottle Slip-On Review', payout: '₹42,000 Fixed Pay' }],
-  },
-
-  // 66. True Elements 100% Whole Grain Rolled Oats (India)
-  {
-    id: 'camp-66',
-    title: 'True Elements 100% Certified Whole Grain Oats Breakfast',
-    brandName: 'True Elements',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹32,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Overnight Oats Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Food', 'Health', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 06, 2026 • 1:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Prepare creamy chia & peanut butter overnight oats in a mason jar with 0 added sugar or preservatives.',
-    scopeOfWork: [
-      { title: '5-Minute Prep Overnight Oats Mason Jar', detail: 'Layering jumbo rolled oats, almond milk, chia seeds, and honey drizzle.' },
-    ],
-    contentDirections: {
-      tone: 'Wholesome, healthy, appetizing, clean.',
-      videoSetup: 'Sunny breakfast table, glass jar macro texture.',
-      hashtags: '#TrueElements #OvernightOats #CleanBreakfastIndia',
-      audio: 'Gentle acoustic guitar with step-by-step recipe narration.',
-    },
-    milestones: ['1. Recipe storyboard', '2. Video review', '3. Morning post'],
-    proposals: [{ handle: '@chef_neha_fit', country: 'India', flag: '🇮🇳', bid: '₹32,000', days: '5', rating: '5.0', reviews: 82, er: '9.1', pitch: 'Healthy breakfast recipe developer.' }],
-    otherJobs: [{ title: 'True Elements 7-in-1 Super Seeds Mix Snack Series', payout: '₹28,000 Fixed Pay' }],
-  },
-
-  // 67. Slurrp Farm No-Maida Chocolate Millet Pancakes (India)
-  {
-    id: 'camp-67',
-    title: 'Slurrp Farm Zero-Maida Chocolate Millet Pancakes',
-    brandName: 'Slurrp Farm',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Kids Breakfast Reel • 2 Stories',
-    creatorsApplied: 33,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Food', 'Parenting', 'Health'],
-    isNew: true,
-    postedAt: 'Aug 06, 2026 • 9:15 AM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Wholesome breakfast pancakes made of ragi, jowar, oats, and real cocoa that kids finish in 5 minutes.',
-    scopeOfWork: [
-      { title: 'Happy Breakfast Without The Sugar Rush', detail: 'Flipping fluffy chocolate pancakes in cute animal shapes with banana toppings.' },
-    ],
-    contentDirections: {
-      tone: 'Heartwarming, joyful, mother-friendly, wholesome.',
-      videoSetup: 'Bright modern kitchen, happy toddler tasting moments.',
-      hashtags: '#SlurrpFarm #MilletMagic #ZeroMaidaGoodness',
-      audio: 'Upbeat playful tune with warm family voiceover.',
-    },
-    milestones: ['1. Storyboard review', '2. Video edit check', '3. Publish'],
-    proposals: [{ handle: '@mom_and_munchkin', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '6', rating: '5.0', reviews: 105, er: '12.4', pitch: 'Parenting and healthy kids food creator.' }],
-    otherJobs: [{ title: 'Slurrp Farm Organic Ragi Cereal Baby Food Review', payout: '₹34,000 Fixed Pay' }],
-  },
-
-  // 68. Yoga Bar Dark Chocolate Peanut Butter Crunch (India)
-  {
-    id: 'camp-68',
-    title: 'Yoga Bar 100% Roasted Dark Chocolate Peanut Butter',
-    brandName: 'Yoga Bar',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #78350F 0%, #451A03 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹35,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Peanut Butter Toast Reel • 2 Stories',
-    creatorsApplied: 41,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Fitness', 'Food', 'Cooking'],
-    isNew: true,
-    postedAt: 'Aug 05, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Thick crunchy spread on warm sourdough toast topped with sliced bananas and hemp seeds for 12g protein boost.',
-    scopeOfWork: [
-      { title: 'Sourdough Peanut Butter Spread ASMR', detail: 'Slow-motion crunch spread and crisp bite sound with macro chocolate texture.' },
-    ],
-    contentDirections: {
-      tone: 'Appetizing, energetic, crunchy, satisfying.',
-      videoSetup: 'Marble kitchen counter, rustic wooden cutting board.',
-      hashtags: '#YogaBar #PeanutButterToast #FitFoodIndia',
-      audio: 'ASMR crunch sound design with lo-fi beats.',
-    },
-    milestones: ['1. Toast recipe concept', '2. Video review', '3. Post live'],
-    proposals: [{ handle: '@protein_bites_karan', country: 'India', flag: '🇮🇳', bid: '₹35,000', days: '5', rating: '4.9', reviews: 80, er: '9.5', pitch: 'Fitness enthusiast and quick recipe creator.' }],
-    otherJobs: [{ title: 'Yoga Bar Multigrain Energy Bars Series', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 69. Suta Handwoven Mulmul Cotton Saree Draping (India)
-  {
-    id: 'camp-69',
-    title: 'Suta Handwoven Mulmul Cotton Saree Elegance',
-    brandName: 'Suta Bombay',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #E11D48 0%, #BE123C 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹48,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Aesthetic Draping Reel • 3 Stories',
-    creatorsApplied: 38,
-    acceptanceChance: 89,
-    eligibilityRate: 94,
-    categories: ['Fashion', 'Handloom', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 05, 2026 • 1:30 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Poetic 1-minute video showing the effortless drape of breathable handwoven mulmul saree with silver jhumkas.',
-    scopeOfWork: [
-      { title: 'The 60-Second Modern Saree Drape Reel', detail: 'Pleat making, pallu flow, and styling with contemporary crop top blouse.' },
-    ],
-    contentDirections: {
-      tone: 'Poetic, graceful, timeless, feminine.',
-      videoSetup: 'Heritage courtyard or sunlight filtering through linen curtains.',
-      hashtags: '#SutaSaree #MulmulLove #SareeTwitter #HandloomIndia',
-      audio: 'Nostalgic acoustic Indian classical or indie melody.',
-    },
-    milestones: ['1. Saree selection', '2. Draping video review', '3. Publish'],
-    proposals: [{ handle: '@pallu_and_poetry', country: 'India', flag: '🇮🇳', bid: '₹48,000', days: '7', rating: '5.0', reviews: 140, er: '11.5', pitch: 'Saree styling & heritage textile storyteller.' }],
-    otherJobs: [{ title: 'Suta Khadi Linen Co-ord Set Showcase', payout: '₹42,000 Fixed Pay' }],
-  },
-
-  // 70. FabIndia Pure Linen Festive Kurta Collection (India)
-  {
-    id: 'camp-70',
-    title: 'FabIndia Festive Handwoven Silk-Linen Kurtas',
-    brandName: 'FabIndia',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #92400E 0%, #78350F 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹65,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Festive Lookbook Reels • 4 Stories',
-    creatorsApplied: 27,
-    acceptanceChance: 82,
-    eligibilityRate: 90,
-    categories: ['Fashion', 'Festivals', 'Luxury'],
-    isNew: true,
-    postedAt: 'Aug 05, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 10 – Oct 02, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Celebrate Indian artisanal handcrafts with royal tussar silk Nehru jackets and breathable pastel linen kurtas.',
-    scopeOfWork: [
-      { title: 'Festive Royal Lookbook Reel', detail: 'Transitioning between daytime puja pastel kurta to evening celebration embroidered jacket.' },
-    ],
-    contentDirections: {
-      tone: 'Regal, culturally rooted, sophisticated, festive.',
-      videoSetup: 'Indian heritage arches, warm brass oil lamps and marigold garlands.',
-      hashtags: '#FabIndiaFestive #HandcraftedIndia #FestiveWear2026',
-      audio: 'Soulful Sufi or contemporary classical flute fusion.',
-    },
-    milestones: ['1. Outfits styling approval', '2. Edit submission', '3. Festive release'],
-    proposals: [{ handle: '@royal_ethnics_dev', country: 'India', flag: '🇮🇳', bid: '₹65,000', days: '10', rating: '5.0', reviews: 98, er: '10.2', pitch: 'Mens traditional fashion & lifestyle creator.' }],
-    otherJobs: [{ title: 'FabIndia Organic Pottery Tableware Setting', payout: '₹50,000 Fixed Pay' }],
-  },
-
-  // 71. Rare Rabbit Tailored Italian Collar Shirts (India)
-  {
-    id: 'camp-71',
-    title: 'Rare Rabbit Premium European Tailored Shirts',
-    brandName: 'Rare Rabbit',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E1E1E 0%, #121212 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹75,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Editorial Reel • 1 Carousel • 2 Stories',
-    creatorsApplied: 24,
-    acceptanceChance: 79,
-    eligibilityRate: 88,
-    categories: ['Fashion', 'Luxury', 'Menswear'],
-    isNew: true,
-    postedAt: 'Aug 04, 2026 • 6:30 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Precision Italian collars, subtle embossed rabbit logo, and Egyptian Giza cotton for boardroom-to-bar style.',
-    scopeOfWork: [
-      { title: 'The Modern Gentleman Silhouette Reel', detail: 'Editorial slow-motion tracking showing fabric texture, cuff links, and tailored drape.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, aspirational, minimalist, confident.',
-      videoSetup: 'Modern architecture, cocktail lounge mood lighting.',
-      hashtags: '#RareRabbit #HouseOfRare #MenswearLuxuryIndia',
-      audio: 'Deep melodic house with sharp cinematic visual transitions.',
-    },
-    milestones: ['1. Wardrobe selection', '2. Editorial cut review', '3. Publish'],
-    proposals: [{ handle: '@siddharth_style', country: 'India', flag: '🇮🇳', bid: '₹75,000', days: '10', rating: '5.0', reviews: 130, er: '9.8', pitch: 'Menswear stylist with luxury brand campaigns portfolio.' }],
-    otherJobs: [{ title: 'Rareism Womens Silk Satin Blouse Collection', payout: '₹70,000 Fixed Pay' }],
-  },
-
-  // 72. Bewakoof Oversized Anime Graphic Hoodies (India)
-  {
-    id: 'camp-72',
-    title: 'Bewakoof Official Anime Drop Heavyweight Hoodies',
-    brandName: 'Bewakoof',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Streetwear Reel • 3 Stories',
-    creatorsApplied: 46,
-    acceptanceChance: 88,
-    eligibilityRate: 95,
-    categories: ['Fashion', 'Anime', 'Streetwear'],
-    isNew: true,
-    postedAt: 'Aug 04, 2026 • 2:20 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Unbox officially licensed Jujutsu Kaisen & Naruto oversized hoodies with puff-printed sleeve graphics.',
-    scopeOfWork: [
-      { title: 'Anime Streetwear Transition Reel', detail: 'Jump-cut transitions matching anime character poses with hoodie outfit styling.' },
-    ],
-    contentDirections: {
-      tone: 'Energetic, otaku-culture, playful, trendy.',
-      videoSetup: 'Neon anime gaming room, street graffiti night shots.',
-      hashtags: '#BewakoofAnime #StreetwearIndia #AnimeFashion',
-      audio: 'Popular anime theme phonk remix.',
-    },
-    milestones: ['1. Hoodie designs check', '2. Reel edit review', '3. Publish'],
-    proposals: [{ handle: '@otaku_varun', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '6', rating: '4.9', reviews: 110, er: '13.2', pitch: 'Anime creator with 300k Gen-Z fans.' }],
-    otherJobs: [{ title: 'Bewakoof Cargo Pants Campus Styling', payout: '₹35,000 Fixed Pay' }],
-  },
-
-  // 73. Wrogn Active Stretch Performance Trackpants (India)
-  {
-    id: 'camp-73',
-    title: 'Wrogn Active 4-Way Stretch Performance Joggers',
-    brandName: 'Wrogn Active',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Workout Reel • 2 Stories',
-    creatorsApplied: 34,
-    acceptanceChance: 86,
-    eligibilityRate: 92,
-    categories: ['Fitness', 'Fashion', 'Athleisure'],
-    isNew: true,
-    postedAt: 'Aug 04, 2026 • 10:15 AM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'High-intensity agility training showing moisture-wicking quick-dry fabric and zipper pockets that secure phone.',
-    scopeOfWork: [
-      { title: 'Sprint & Plyometric Mobility Reel', detail: 'Box jumps, ladder drills, and sprints showcasing unrestricted leg flexibility.' },
-    ],
-    contentDirections: {
-      tone: 'Aggressive, high-energy, athletic, bold.',
-      videoSetup: 'Indoor turf gym, outdoor concrete sprint tracks.',
-      hashtags: '#WrognActive #StayMad #FitnessAthleisureIndia',
-      audio: 'Heavy-hitting trap workout soundtrack.',
-    },
-    milestones: ['1. Drill concept plan', '2. Video review', '3. Live publish'],
-    proposals: [{ handle: '@akshay_athlete', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '7', rating: '5.0', reviews: 94, er: '10.1', pitch: 'Calisthenics athlete and trainer.' }],
-    otherJobs: [{ title: 'Wrogn Seamless Training Tee Review', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 74. Chumbak Quirky Bohemian Home Decor Makeover (India)
-  {
-    id: 'camp-74',
-    title: 'Chumbak Boho Living Room & Balcony Makeover',
-    brandName: 'Chumbak',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹52,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 DIY Corner Transformation Reel • 2 Stories',
-    creatorsApplied: 28,
-    acceptanceChance: 85,
-    eligibilityRate: 91,
-    categories: ['Home', 'Interior', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 03, 2026 • 4:30 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Transform a boring balcony or sofa corner with handcrafted owl planters, vibrant printed cushions, and brass lanterns.',
-    scopeOfWork: [
-      { title: 'Chumbak Balcony Cozy Nook Timelapse', detail: 'Before/after transition with fairy lights, ceramic planters, and morning coffee setup.' },
-    ],
-    contentDirections: {
-      tone: 'Joyful, colorful, bohemian, artistic.',
-      videoSetup: 'Warm golden hour balcony, vibrant textile closeups.',
-      hashtags: '#ChumbakHome #WithChumbak #BohoDecorIndia',
-      audio: 'Cheerful indie folk ukulele tune.',
-    },
-    milestones: ['1. Decor moodboard', '2. Video review', '3. Weekend publish'],
-    proposals: [{ handle: '@boho_home_diaries', country: 'India', flag: '🇮🇳', bid: '₹52,000', days: '8', rating: '5.0', reviews: 112, er: '11.0', pitch: 'Home decor and balcony garden creator.' }],
-    otherJobs: [{ title: 'Chumbak Printed Travel Wallets & Tote Bags Showcase', payout: '₹36,000 Fixed Pay' }],
-  },
-
-  // 75. Chaayos Instant Chai Premix Travel Sachet Test (India)
-  {
-    id: 'camp-75',
-    title: 'Chaayos Desi Masala Chai Sachet Hot Water Test',
-    brandName: 'Chaayos',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #166534 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹30,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Travel Chai Reel • 2 Stories',
-    creatorsApplied: 42,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Food', 'Travel', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 03, 2026 • 11:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Make steaming restaurant-quality ginger adrak-elaichi chai in hotel room or office desk in 30 seconds using only hot water.',
-    scopeOfWork: [
-      { title: 'The Hotel Room Desi Chai Saver Reel', detail: 'Tearing premix sachet, stirring in hot water, and authentic taste reaction.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, comforting, travel-friendly, delicious.',
-      videoSetup: 'Scenic hotel balcony or train window desk, steaming mug.',
-      hashtags: '#ChaayosAnywhere #TravelChai #MeriWaliChai',
-      audio: 'Cozy acoustic Indian guitar with warm voiceover.',
-    },
-    milestones: ['1. Storyboard check', '2. Video review', '3. Morning post'],
-    proposals: [{ handle: '@travel_chai_lover', country: 'India', flag: '🇮🇳', bid: '₹30,000', days: '5', rating: '5.0', reviews: 88, er: '10.3', pitch: 'Travel blogger with focus on road trips and tea.' }],
-    otherJobs: [{ title: 'Chaayos Roasted Makhana & Matthi Snack Review', payout: '₹26,000 Fixed Pay' }],
-  },
-
-  // 76. Rage Coffee Irish Hazelnut Instant Turbo Blend (India)
-  {
-    id: 'camp-76',
-    title: 'Rage Coffee Irish Hazelnut Plant-Vitamins Blend',
-    brandName: 'Rage Coffee',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹34,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Iced Froth Coffee Reel • 2 Stories',
-    creatorsApplied: 37,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Food', 'Cooking', 'Fitness'],
-    isNew: true,
-    postedAt: 'Aug 02, 2026 • 5:15 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Whip 1 tsp Rage Coffee into a thick hazelnut cold froth over ice and oat milk for an instant afternoon energy spike.',
-    scopeOfWork: [
-      { title: 'Thick Hazelnut Froth ASMR Reel', detail: 'Electric frother whipping coffee foam in 10s and pouring creamy chilled milk.' },
-    ],
-    contentDirections: {
-      tone: 'Energetic, refreshing, trendy, sensory.',
-      videoSetup: 'Clean modern desk, glass tumbler macro shots.',
-      hashtags: '#RageCoffee #StayRaged #IcedCoffeeHacks',
-      audio: 'Crisp ASMR coffee frothing mixed with punchy electronic beats.',
-    },
-    milestones: ['1. Coffee recipe plan', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@nikhil_coffee_vibe', country: 'India', flag: '🇮🇳', bid: '₹34,000', days: '6', rating: '4.9', reviews: 75, er: '9.4', pitch: 'Specialty beverage and coffee creator.' }],
-    otherJobs: [{ title: 'Rage Coffee Liquid Concentrate Shots Test', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 77. Open Secret Guilt-Free Choco Nutty Cookies (India)
-  {
-    id: 'camp-77',
-    title: 'Open Secret No-Maida Roasted Almond Nutty Cookies',
-    brandName: 'Open Secret',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹32,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4 PM Snack Craving Reel • 2 Stories',
-    creatorsApplied: 36,
-    acceptanceChance: 92,
-    eligibilityRate: 97,
-    categories: ['Food', 'Health', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 02, 2026 • 1:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Satisfy 4 PM office sweet cravings with 40-50% whole almonds & cashews with zero palm oil.',
-    scopeOfWork: [
-      { title: 'Guilt-Free 4 PM Office Snack Swap', detail: 'Replacing high-sugar junk biscuits with Open Secret crunchy choco nut cookie.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, healthy, tasty, transparent.',
-      videoSetup: 'Work from home laptop desk, close-up cookie snap.',
-      hashtags: '#OpenSecret #UnjunkYourSnacks #HealthyCookiesIndia',
-      audio: 'Upbeat light pop track with crunchy cookie foley sounds.',
-    },
-    milestones: ['1. Snack story concept', '2. Edit review', '3. Afternoon publish'],
-    proposals: [{ handle: '@swati_snacksmart', country: 'India', flag: '🇮🇳', bid: '₹32,000', days: '5', rating: '5.0', reviews: 84, er: '8.9', pitch: 'Nutritionist and healthy snacking advocate.' }],
-    otherJobs: [{ title: 'Open Secret Flavoured Roasted Cashews Party Pack', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 78. Vahdam India Single-Estate Himalayan Green Tea (India)
-  {
-    id: 'camp-78',
-    title: 'Vahdam India 100% Pure Himalayan Whole Leaf Green Tea',
-    brandName: 'Vahdam India',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #15803D 0%, #14532D 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹55,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Tea Ritual Reel • 1 YouTube Short • 2 Stories',
-    creatorsApplied: 25,
-    acceptanceChance: 83,
-    eligibilityRate: 90,
-    categories: ['Food', 'Health', 'Export Quality'],
-    isNew: true,
-    postedAt: 'Aug 02, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 6 – Sep 26, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Direct-from-source single-estate whole green tea leaves uncurling in transparent teapot with zero bitterness.',
-    scopeOfWork: [
-      { title: 'Morning Detox Whole Leaf Infusion Reel', detail: 'Macro 4K timelapse of dried whole leaves unfurling and releasing golden emerald liquor.' },
-    ],
-    contentDirections: {
-      tone: 'Mindful, premium, elegant, authentic tea connoisseur.',
-      videoSetup: 'Clear glass infuser teapot, morning sunlight through greenery.',
-      hashtags: '#VahdamTeas #DrinkVahdam #WholeLeafTea #IndianEstateTea',
-      audio: 'Calm Zen meditation acoustic track with pouring water sounds.',
-    },
-    milestones: ['1. Tea brewing concept', '2. 4K master edit', '3. Post live'],
-    proposals: [{ handle: '@tarun_tea_sommelier', country: 'India', flag: '🇮🇳', bid: '₹55,000', days: '8', rating: '5.0', reviews: 92, er: '11.0', pitch: 'Certified tea sommelier and luxury beverage reviewer.' }],
-    otherJobs: [{ title: 'Vahdam Turmeric Ashwagandha Herbal Latte Series', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 79. Licious Fresh Farm Black Tiger Prawns Gourmet Feast (India)
-  {
-    id: 'camp-79',
-    title: 'Licious Fresh Black Tiger Prawns Butter Garlic Sizzle',
-    brandName: 'Licious',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹48,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Seafood Cooking Reel • 2 Stories',
-    creatorsApplied: 30,
-    acceptanceChance: 87,
-    eligibilityRate: 93,
-    categories: ['Food', 'Cooking', 'Non-Veg'],
-    isNew: true,
-    postedAt: 'Aug 01, 2026 • 6:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Cook de-veined, fresh chilled black tiger prawns with sizzling butter, garlic, parsley, and lemon wedges.',
-    scopeOfWork: [
-      { title: 'Butter Garlic Prawns Sizzle ASMR Reel', detail: 'Prawns sizzling in cast iron pan, turning pink, and succulent juicy bite.' },
-    ],
-    contentDirections: {
-      tone: 'Mouthwatering, culinary, crisp, indulgent.',
-      videoSetup: 'High-heat pan sizzle, macro steam and herb garnish.',
-      hashtags: '#LiciousFresh #SeafoodCooking #PrawnLoversIndia',
-      audio: 'High-quality pan frying foley sounds with upbeat jazz cooking beat.',
-    },
-    milestones: ['1. Seafood recipe outline', '2. Sizzle cut review', '3. Weekend publish'],
-    proposals: [{ handle: '@chef_samir_cooks', country: 'India', flag: '🇮🇳', bid: '₹48,000', days: '7', rating: '5.0', reviews: 110, er: '10.8', pitch: 'Gourmet home chef with 210k culinary audience.' }],
-    otherJobs: [{ title: 'Licious Ready-to-Cook Chicken Tikka Air Fryer Review', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 80. Blinkit 10-Minute Sunday Biryani Kit Recipe (India)
-  {
-    id: 'camp-80',
-    title: 'Blinkit 10-Minute Sunday Dum Biryani Grocery Sprint',
-    brandName: 'Blinkit',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EAB308 0%, #CA8A04 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 10-Minute Delivery & Cook Reel • 2 Stories',
-    creatorsApplied: 39,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Food', 'Cooking', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Aug 01, 2026 • 12:30 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Order whole spices, basmati rice, and saffron on Blinkit and cook a fragrant Sunday family Dum Biryani.',
-    scopeOfWork: [
-      { title: 'The 10-Min Delivery to Dum Biryani Reel', detail: 'Ordering on app, doorbell delivery, layering rice and fried onions on camera.' },
-    ],
-    contentDirections: {
-      tone: 'Appetizing, energetic, fast-paced, Sunday family cooking.',
-      videoSetup: 'Steaming biryani pot opening, saffron rice layers.',
-      hashtags: '#BlinkitDelivery #BiryaniIn10Mins #SundayCookingIndia',
-      audio: 'Lively Bollywood cooking fusion beat.',
-    },
-    milestones: ['1. Recipe storyboard', '2. Video review', '3. Sunday lunch post'],
-    proposals: [{ handle: '@biryani_diaries_hyderabad', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '6', rating: '5.0', reviews: 95, er: '11.2', pitch: 'Biryani connoisseur and culinary creator.' }],
-    otherJobs: [{ title: 'Blinkit Instant Mango Lassi Summer Kit Demo', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 81. Dunzo Daily Midnight Cravings Delivery Dash (India)
-  {
-    id: 'camp-81',
-    title: 'Dunzo Daily Late-Night Study Snack Rescue',
-    brandName: 'Dunzo Daily',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹28,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Late-Night Reel • 2 Stories',
-    creatorsApplied: 40,
-    acceptanceChance: 93,
-    eligibilityRate: 97,
-    categories: ['Lifestyle', 'Food'],
-    isNew: true,
-    postedAt: 'Jul 31, 2026 • 9:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Relatable student late-night study panic solved in minutes with instant noodles, chips, and energy drinks delivered.',
-    scopeOfWork: [
-      { title: 'The 2 AM Exam Cramming Rescue', detail: 'Ordering study snacks at 1:45 AM and having hot noodles ready at 2:05 AM.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, funny, youthful, fast.',
-      videoSetup: 'Study table lamp lighting, late-night room vibes.',
-      hashtags: '#DunzoIt #LateNightCravings #StudentLifeIndia',
-      audio: 'Fun comedic audio with fast-cut transitions.',
-    },
-    milestones: ['1. Comedy plot outline', '2. Edit review', '3. Night publish'],
-    proposals: [{ handle: '@campus_coder_sid', country: 'India', flag: '🇮🇳', bid: '₹28,000', days: '5', rating: '4.9', reviews: 74, er: '12.0', pitch: 'Student lifestyle & comedy content creator.' }],
-    otherJobs: [{ title: 'Dunzo Fresh Produce Morning Dash Demo', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 82. Jar App Daily ₹10 Micro-Savings In Digital Gold (India)
-  {
-    id: 'camp-82',
-    title: 'Jar App Daily ₹10 Digital Gold Micro-Saving Challenge',
-    brandName: 'Jar App',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #B45309 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹50,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Educational Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 86,
-    eligibilityRate: 91,
-    categories: ['Finance', 'Education', 'Technology'],
-    isNew: true,
-    postedAt: 'Jul 31, 2026 • 2:30 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Round off daily UPI chai/food spends into pure 24K digital gold and watch gold grams accumulate automatically.',
-    scopeOfWork: [
-      { title: 'The Chai-to-Gold Wealth Hack Reel', detail: 'Showing how saving just spare change of ₹15 daily built a ₹50,000 gold fund.' },
-    ],
-    contentDirections: {
-      tone: 'Motivating, simple, relatable, transparent.',
-      videoSetup: 'Clean mobile screen UI recording, daily UPI scan moment.',
-      hashtags: '#JarApp #SaveInGold #SmartHabitsIndia',
-      audio: 'Upbeat modern fintech pop with encouraging voiceover.',
-    },
-    milestones: ['1. Financial math compliance', '2. Video review', '3. Payday week post'],
-    proposals: [{ handle: '@fin_literate_rohit', country: 'India', flag: '🇮🇳', bid: '₹50,000', days: '7', rating: '5.0', reviews: 90, er: '9.8', pitch: 'Micro-savings and personal finance educator.' }],
-    otherJobs: [{ title: 'Jar App Physical Gold Coin Home Delivery Unboxing', payout: '₹55,000 Fixed Pay' }],
-  },
-
-  // 83. CoinDCX Learn Crypto Blockchain 101 Masterclass (India)
-  {
-    id: 'camp-83',
-    title: 'CoinDCX Learn Web3 & Blockchain Technology 101',
-    brandName: 'CoinDCX',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹70,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Whiteboard Educational Reel • 1 Carousel',
-    creatorsApplied: 22,
-    acceptanceChance: 77,
-    eligibilityRate: 86,
-    categories: ['Finance', 'Technology', 'Education'],
-    isNew: true,
-    postedAt: 'Jul 31, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE', 'X'],
-    description: 'Explain blockchain ledgers, cryptographic keys, and security best practices in simple visual layman terms.',
-    scopeOfWork: [
-      { title: 'How Blockchains Actually Work in 60s', detail: 'Visual animation explaining distributed ledgers without trading hype.' },
-    ],
-    contentDirections: {
-      tone: 'Academic, tech-first, cautious, educational. No price predictions or investment advice.',
-      videoSetup: 'Minimalist tech desk, clear motion graphic overlays.',
-      hashtags: '#CoinDCXLearn #BlockchainBasics #CryptoEducation',
-      audio: 'Clean electronic synth with articulate narration.',
-    },
-    milestones: ['1. Regulatory script check', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@crypto_tech_varun', country: 'India', flag: '🇮🇳', bid: '₹70,000', days: '10', rating: '5.0', reviews: 104, er: '9.2', pitch: 'Blockchain engineer and tech educator.' }],
-    otherJobs: [{ title: 'Web3 Wallet Security & 2FA Guide', payout: '₹60,000 Fixed Pay' }],
-  },
-
-  // 84. Zivame Breathable Wireless Lounge Bralette (India)
-  {
-    id: 'camp-84',
-    title: 'Zivame All-Day Comfort Wireless Bralette Experience',
-    brandName: 'Zivame',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FB7185 0%, #E11D48 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹42,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Comfort Review Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 89,
-    eligibilityRate: 94,
-    categories: ['Fashion', 'Lifestyle', 'Comfort'],
-    isNew: true,
-    postedAt: 'Jul 30, 2026 • 5:45 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Zero underwire poke, breathable cloud fabric, and invisible seamless finish under white t-shirts.',
-    scopeOfWork: [
-      { title: 'The 12-Hour Wireless Comfort Test Reel', detail: 'Work-from-home lounge to errands wear test highlighting soft band and smooth cups.' },
-    ],
-    contentDirections: {
-      tone: 'Relatable, body-positive, comfortable, candid.',
-      videoSetup: 'Warm cozy bedroom, clean aesthetic mirror.',
-      hashtags: '#ZivameComfort #WirelessBralette #EverydayLingerieIndia',
-      audio: 'Gentle upbeat acoustic indie song with relaxed voiceover.',
-    },
-    milestones: ['1. Sizing confirmation', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@rhea_bodylove', country: 'India', flag: '🇮🇳', bid: '₹42,000', days: '7', rating: '5.0', reviews: 90, er: '10.5', pitch: 'Body positivity & intimate wear stylist.' }],
-    otherJobs: [{ title: 'Zivame Active High-Impact Sports Bra Workout Review', payout: '₹46,000 Fixed Pay' }],
-  },
-
-  // 85. Plum BodyLovin Vanilla Vibes Body Mist (India)
-  {
-    id: 'camp-85',
-    title: 'Plum BodyLovin Vanilla Vibes Cupcake Fragrance',
-    brandName: 'Plum BodyLovin',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FBBF24 0%, #D97706 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Fragrance Spritz Reel • 2 Stories',
-    creatorsApplied: 44,
-    acceptanceChance: 92,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Fragrance', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Jul 30, 2026 • 2:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Smell like a freshly baked warm vanilla cupcake with long-lasting alcohol-free formulation.',
-    scopeOfWork: [
-      { title: 'The Compliment Magnet Vanilla Mist Reel', detail: 'Spritzing after shower and capturing authentic smell reactions from friends.' },
-    ],
-    contentDirections: {
-      tone: 'Sweet, gourmand, playful, cheerful.',
-      videoSetup: 'Pastel vanity table, slow-motion fine mist spray against backlight.',
-      hashtags: '#PlumBodyLovin #VanillaVibes #GourmandFragrance',
-      audio: 'Bubbly sweet pop track with enthusiastic commentary.',
-    },
-    milestones: ['1. Fragrance angle plan', '2. Video review', '3. Post'],
-    proposals: [{ handle: '@fragrance_diaries_simran', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '5.0', reviews: 102, er: '9.9', pitch: 'Fragrance reviewer and beauty creator.' }],
-    otherJobs: [{ title: 'Plum BodyLovin Hawaiian Rumba Body Butter Demo', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 86. Renee Cosmetics 5-in-1 Fab 5 Matte Pop Lipstick (India)
-  {
-    id: 'camp-86',
-    title: 'Renee Cosmetics Fab 5-in-1 Pocket Pop Lipstick',
-    brandName: 'Renee Cosmetics',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F43F5E 0%, #9F1239 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 5-Shade Swatch Reel • 2 Stories',
-    creatorsApplied: 43,
-    acceptanceChance: 90,
-    eligibilityRate: 95,
-    categories: ['Beauty', 'Cosmetics'],
-    isNew: true,
-    postedAt: 'Jul 30, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Pop and click 5 iconic nude, peach, and red matte lipstick bullet shades in one single travel stick.',
-    scopeOfWork: [
-      { title: '5 Outfits 1 Lipstick Stick Challenge', detail: 'Rapid clicking between the 5 shades matching college, work, party, and casual outfits.' },
-    ],
-    contentDirections: {
-      tone: 'Clever, fast-paced, trendy, convenient.',
-      videoSetup: 'Studio lighting, macro clicking sound and lip swatches.',
-      hashtags: '#ReneeFab5 #5in1Lipstick #BeautyHacksIndia',
-      audio: 'Trendy click sound synchronized with snappy musical cuts.',
-    },
-    milestones: ['1. Swatch concept', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@swatches_by_divya', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '5', rating: '5.0', reviews: 118, er: '10.4', pitch: 'Lipstick swatch and budget beauty creator.' }],
-    otherJobs: [{ title: 'Renee Madness PH Stick Color-Changing Lip Balm Test', payout: '₹34,000 Fixed Pay' }],
-  },
-
-  // 87. Kiro Clean Botanical Liquid Eye Liner (India)
-  {
-    id: 'camp-87',
-    title: 'Kiro Clean Beauty Precision Felt-Tip Wing Eyeliner',
-    brandName: 'Kiro Clean Beauty',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #18181B 0%, #09090B 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹34,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Perfect Wing Tutorial Reel • 2 Stories',
-    creatorsApplied: 37,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Clean Beauty', 'Cosmetics'],
-    isNew: true,
-    postedAt: 'Jul 29, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: '0.1mm micro-felt tip delivering jet black botanical argan oil eyeliner wings in 1 seamless stroke.',
-    scopeOfWork: [
-      { title: 'The 10-Second Foolproof Wing Eyeliner Hack', detail: 'Drawing sharp graphic eyeliner wing without tugging sensitive eyelids.' },
-    ],
-    contentDirections: {
-      tone: 'Sleek, instructional, clean, satisfying.',
-      videoSetup: 'Macro ring light focus on eyelid precision.',
-      hashtags: '#KiroCleanBeauty #WingedEyelinerHack #CleanMakeupIndia',
-      audio: 'Upbeat smooth pop track with instructional voiceover.',
-    },
-    milestones: ['1. Eyeliner hack concept', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@eye_art_by_pooja', country: 'India', flag: '🇮🇳', bid: '₹34,000', days: '6', rating: '5.0', reviews: 85, er: '9.6', pitch: 'Eye makeup artist and beauty educator.' }],
-    otherJobs: [{ title: 'Kiro Non-Stop Airy Matte Liquid Lipstick Review', payout: '₹36,000 Fixed Pay' }],
-  },
-
-  // 88. Paper Boat Aamras Nostalgia Taste Memory (India)
-  {
-    id: 'camp-88',
-    title: 'Paper Boat Aamras Childhood Nostalgia Taste Diary',
-    brandName: 'Paper Boat',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Storytelling Reel • 2 Stories',
-    creatorsApplied: 45,
-    acceptanceChance: 93,
-    eligibilityRate: 97,
-    categories: ['Food', 'Storytelling', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Jul 29, 2026 • 11:30 AM',
-    projectTimeline: 'Sep 4 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Heartwarming childhood memory storytelling featuring real Alphonso mango pulp juice in the iconic paper pouch.',
-    scopeOfWork: [
-      { title: 'Summer Vacations at Nani’s House Reel', detail: 'Nostalgic storytelling remembering summer holidays while sipping thick chilled Aamras.' },
-    ],
-    contentDirections: {
-      tone: 'Nostalgic, emotional, warm, wholesome.',
-      videoSetup: 'Warm afternoon sunlight, retro vintage color grading.',
-      hashtags: '#PaperBoat #MemoriesOfChildhood #AamrasLove',
-      audio: 'Nostalgic acoustic whistle and piano soundtrack.',
-    },
-    milestones: ['1. Story script review', '2. Video rough cut', '3. Publish'],
-    proposals: [{ handle: '@nostalgia_tales_amit', country: 'India', flag: '🇮🇳', bid: '₹40,000', days: '6', rating: '5.0', reviews: 140, er: '12.8', pitch: 'Visual storyteller with high emotional engagement.' }],
-    otherJobs: [{ title: 'Paper Boat Chilli Guava Spice Kick Series', payout: '₹34,000 Fixed Pay' }],
-  },
-
-  // 89. Titan Raga Viva Rose Gold Watch Styling (India)
-  {
-    id: 'camp-89',
-    title: 'Titan Raga Viva Mother-of-Pearl Rose Gold Timepiece',
-    brandName: 'Titan Raga',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹85,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Luxury Styling Reel • 3 Stories',
-    creatorsApplied: 22,
-    acceptanceChance: 80,
-    eligibilityRate: 88,
-    categories: ['Fashion', 'Luxury', 'Accessories'],
-    isNew: true,
-    postedAt: 'Jul 28, 2026 • 5:00 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English / Hindi',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'PINTEREST'],
-    description: 'Style the mother-of-pearl dial and rose gold metal bracelet with modern corporate suits and festive silk sarees.',
-    scopeOfWork: [
-      { title: 'The Statement Jewellery Watch Reel', detail: 'Wrist closeups showing light refraction on dial and seamless transitions across outfits.' },
-    ],
-    contentDirections: {
-      tone: 'Graceful, regal, empowered, luxurious.',
-      videoSetup: 'Soft luxury studio lighting, macro jewelry detail focus.',
-      hashtags: '#TitanRaga #FlauntYourFlaws #LuxuryWatchesIndia',
-      audio: 'Sophisticated contemporary instrumental score.',
-    },
-    milestones: ['1. Styling moodboard', '2. Edit submission', '3. Festive launch'],
-    proposals: [{ handle: '@anushka_luxury_style', country: 'India', flag: '🇮🇳', bid: '₹85,000', days: '10', rating: '5.0', reviews: 115, er: '10.2', pitch: 'Luxury lifestyle and jewellery stylist.' }],
-    otherJobs: [{ title: 'Titan Edge Ceramic Slimmest Watch Showcase', payout: '₹95,000 Fixed Pay' }],
-  },
-
-  // 90. Fastrack Gradient Polarized Aviator Sunglasses (India)
-  {
-    id: 'camp-90',
-    title: 'Fastrack Polarized Gradient Aviator Road Trip Series',
-    brandName: 'Fastrack Eyewear',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹32,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Road Trip Reel • 2 Stories',
-    creatorsApplied: 36,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Fashion', 'Travel', 'Accessories'],
-    isNew: true,
-    postedAt: 'Jul 28, 2026 • 1:15 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Road trip driving glare test showing polarized UV400 lens cutting harsh highway reflections with metal aviator frames.',
-    scopeOfWork: [
-      { title: 'The Highway Glare Polarized Lens Test', detail: 'Holding sunglasses in front of camera lens against windshield sunlight to show instant clarity.' },
-    ],
-    contentDirections: {
-      tone: 'Adventurous, cool, dynamic, youth road trip.',
-      videoSetup: 'Open highway convertible/car, sunny coastal backdrop.',
-      hashtags: '#FastrackEyewear #WearTheSun #RoadTripEssentials',
-      audio: 'High-energy indie rock driving anthem.',
-    },
-    milestones: ['1. Road trip concept', '2. Video review', '3. Weekend publish'],
-    proposals: [{ handle: '@road_tripper_karan', country: 'India', flag: '🇮🇳', bid: '₹32,000', days: '6', rating: '5.0', reviews: 88, er: '10.5', pitch: 'Traveler & driving enthusiast with 160k audience.' }],
-    otherJobs: [{ title: 'Fastrack Clubmaster Tortoise Shell Glasses Review', payout: '₹28,000 Fixed Pay' }],
-  },
-
-  // 91. Minimalist Redensyl 5% Hair Growth Actives (India)
-  {
-    id: 'camp-91',
-    title: 'Minimalist Redensyl 5% Hair Growth & Density Actives',
-    brandName: 'Be Minimalist',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #475569 0%, #1E293B 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹55,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Science-First Hair Reel • 2 Stories',
-    creatorsApplied: 31,
-    acceptanceChance: 85,
-    eligibilityRate: 92,
-    categories: ['Beauty', 'Hair Care', 'Education'],
-    isNew: true,
-    postedAt: 'Jul 27, 2026 • 4:30 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Evidence-based breakdown showing how 5% Redensyl + Procapil + Anagain reactivates dormant hair stem cells at follicle level.',
-    scopeOfWork: [
-      { title: 'The Science of Hair Follicle Actives Reel', detail: 'Scalp dropper application with 3D follicle graphics explaining anagen growth cycle.' },
-    ],
-    contentDirections: {
-      tone: 'Science-first, trustworthy, transparent, myth-busting.',
-      videoSetup: 'Minimalist clean laboratory backdrop, clear graphics.',
-      hashtags: '#BeMinimalist #HairGrowthActives #Redensyl5',
-      audio: 'Subtle clean electronic pulse with calm, informative voiceover.',
-    },
-    milestones: ['1. Script compliance check', '2. Animation draft review', '3. Publish'],
-    proposals: [{ handle: '@tricho_science_rahul', country: 'India', flag: '🇮🇳', bid: '₹55,000', days: '8', rating: '5.0', reviews: 104, er: '9.7', pitch: 'Trichology educator & evidence-based haircare creator.' }],
-    otherJobs: [{ title: 'Minimalist Maleic Bond Repair Hair Mask Review', payout: '₹48,000 Fixed Pay' }],
-  },
-
-  // 92. MyGlamm LIT Liquid Velvet Waterproof Lip Color (India)
-  {
-    id: 'camp-92',
-    title: 'MyGlamm LIT Velvet Matte Liquid Lipstick Wear Test',
-    brandName: 'MyGlamm',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #BE185D 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹35,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 12-Hr Wear Reel • 2 Stories',
-    creatorsApplied: 46,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Beauty', 'Cosmetics'],
-    isNew: true,
-    postedAt: 'Jul 27, 2026 • 12:00 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Non-drying velvet matte texture enriched with moringa oil that stays vibrant throughout meals without flaking.',
-    scopeOfWork: [
-      { title: 'The Non-Drying Matte Lipstick Test', detail: 'Applying bold red shade, blot test with tissue, and checking lip hydration after 8 hours.' },
-    ],
-    contentDirections: {
-      tone: 'Glamorous, sassy, relatable, colorful.',
-      videoSetup: 'Beauty vanity ring light, clean macro mouth closeups.',
-      hashtags: '#MyGlammLIT #VelvetMatteLipstick #LipstickLoversIndia',
-      audio: 'Upbeat disco pop beat with quick witty cuts.',
-    },
-    milestones: ['1. Shade swatch plan', '2. Edit review', '3. Publish'],
-    proposals: [{ handle: '@tanya_glam_studio', country: 'India', flag: '🇮🇳', bid: '₹35,000', days: '6', rating: '4.9', reviews: 92, er: '9.1', pitch: 'Makeup artist and beauty product reviewer.' }],
-    otherJobs: [{ title: 'MyGlamm Superfoods Kajal & Eyeliner Duo Showcase', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 93. D’YAVOL Luxury Streetwear Signature Hoodie (India)
-  {
-    id: 'camp-93',
-    title: 'D’YAVOL X Luxury Heavyweight Signature Hoodie',
-    brandName: 'D’YAVOL Luxury',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #000000 0%, #1A1A1A 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹1,40,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Cinematic Fashion Reel • 1 Carousel',
-    creatorsApplied: 18,
-    acceptanceChance: 65,
-    eligibilityRate: 80,
-    categories: ['Fashion', 'Luxury', 'Streetwear'],
-    isNew: true,
-    postedAt: 'Jul 26, 2026 • 6:30 PM',
-    projectTimeline: 'Sep 15 – Oct 15, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM', 'X'],
-    description: 'Ultra-exclusive 500 GSM French terry hoodie with matte black custom metal hardware and bold rebellious design.',
-    scopeOfWork: [
-      { title: 'Cinematic High-Fashion Streetwear Film', detail: '4K anamorphic lens sequence in brutalist concrete architectural spaces with dynamic lighting.' },
-    ],
-    contentDirections: {
-      tone: 'Dark, opulent, rebellious, hyper-exclusive, avant-garde.',
-      videoSetup: 'Industrial warehouse, smoke haze, anamorphic flare lighting.',
-      hashtags: '#DYAVOL #LuxuryStreetwear #LimitedEdition2026',
-      audio: 'Deep industrial techno bassline with suspenseful builds.',
-    },
-    milestones: ['1. Storyboard & location approval', '2. 4K master edit review', '3. Midnight global release'],
-    proposals: [{ handle: '@cinematic_kartik', country: 'India', flag: '🇮🇳', bid: '₹1,40,000', days: '16', rating: '5.0', reviews: 180, er: '12.4', pitch: 'Commercial director & high-fashion cinematographer.' }],
-    otherJobs: [{ title: 'D’YAVOL Luxury Aviator Sunglasses Film', payout: '₹1,20,000 Fixed Pay' }],
-  },
-
-  // 94. Roadster Heritage Denim Trucker Jacket (India)
-  {
-    id: 'camp-94',
-    title: 'Roadster Heavyweight Rugged Denim Trucker Jacket',
-    brandName: 'Roadster Life Co.',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E3A8A 0%, #172554 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹38,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Outfit Styling Reel • 2 Stories',
-    creatorsApplied: 38,
-    acceptanceChance: 89,
-    eligibilityRate: 94,
-    categories: ['Fashion', 'Denim', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Jul 26, 2026 • 2:00 PM',
-    projectTimeline: 'Sep 5 – Sep 20, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Style 100% rigid cotton washed denim trucker jacket with boots and graphic tee for vintage roadster biker look.',
-    scopeOfWork: [
-      { title: '3 Ways to Style Classic Denim Jacket', detail: 'Layering with hoodie for winter, all-black casual streetwear, and rugged boots.' },
-    ],
-    contentDirections: {
-      tone: 'Rugged, effortless, vintage, adventurous.',
-      videoSetup: 'Vintage motorcycle backdrop, rustic brick alleyways.',
-      hashtags: '#RoadsterDenim #DenimJacketStyle #EverydayStreetwearIndia',
-      audio: 'Indie rock guitar riff with dynamic style transitions.',
-    },
-    milestones: ['1. Styling concept', '2. Edit review', '3. Publish'],
-    proposals: [{ handle: '@biker_denim_dev', country: 'India', flag: '🇮🇳', bid: '₹38,000', days: '6', rating: '5.0', reviews: 88, er: '9.8', pitch: 'Mens casual style & motorcycle vlogger.' }],
-    otherJobs: [{ title: 'Roadster Washed Cargo Chinos Review', payout: '₹32,000 Fixed Pay' }],
-  },
-
-  // 95. Slurrp Farm Crunchy Millet Stars Cereal Bowl (India)
-  {
-    id: 'camp-95',
-    title: 'Slurrp Farm Crunchy Millet Stars Honey & Cocoa Bowl',
-    brandName: 'Slurrp Farm',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #10B981 0%, #047857 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹30,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Crunchy Breakfast Reel • 2 Stories',
-    creatorsApplied: 35,
-    acceptanceChance: 93,
-    eligibilityRate: 98,
-    categories: ['Food', 'Parenting', 'Health'],
-    isNew: true,
-    postedAt: 'Jul 26, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Crunchy ragi & jowar star shapes that stay crispy in cold milk without getting soggy or loaded with refined sugar.',
-    scopeOfWork: [
-      { title: 'The 5-Minute Milk Pour Crunch Test', detail: 'Pouring cold milk over millet stars, listening to crunch, and showing zero maida label.' },
-    ],
-    contentDirections: {
-      tone: 'Joyful, crunchy, clean, wholesome parenting.',
-      videoSetup: 'Sunny breakfast table, colorful ceramic bowl.',
-      hashtags: '#MilletStars #SlurrpFarm #HealthyBreakfastKids',
-      audio: 'Satisfying milk pour and crunch ASMR sounds with cheerful acoustic melody.',
-    },
-    milestones: ['1. Breakfast concept', '2. Video review', '3. Morning post'],
-    proposals: [{ handle: '@moms_healthy_plate', country: 'India', flag: '🇮🇳', bid: '₹30,000', days: '5', rating: '5.0', reviews: 92, er: '11.5', pitch: 'Nutritionist and mother of two toddlers.' }],
-    otherJobs: [{ title: 'Slurrp Farm Superfoods Jaggery Cookies Series', payout: '₹26,000 Fixed Pay' }],
-  },
-
-  // 96. Epigamia High-Protein Mango Smoothie Shake (India)
-  {
-    id: 'camp-96',
-    title: 'Epigamia Real Alphonso High-Protein Smoothie Shake',
-    brandName: 'Epigamia',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹34,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Post-Workout Shake Reel • 2 Stories',
-    creatorsApplied: 38,
-    acceptanceChance: 91,
-    eligibilityRate: 96,
-    categories: ['Fitness', 'Food', 'Supplements'],
-    isNew: true,
-    postedAt: 'Jul 25, 2026 • 4:30 PM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Grab-and-go 12g protein Greek yogurt smoothie with zero added preservatives for immediate gym muscle recovery.',
-    scopeOfWork: [
-      { title: 'Post-Workout Protein In A Bottle', detail: 'Chugging chilled mango smoothie post-HIIT session with on-screen nutritional macro breakdown.' },
-    ],
-    contentDirections: {
-      tone: 'Energizing, appetizing, active, refreshing.',
-      videoSetup: 'Gym exit or outdoor park, sunny day glow, bottle condensation droplets.',
-      hashtags: '#EpigamiaSmoothie #HighProteinRecovery #FitnessIndia',
-      audio: 'High-energy electronic workout beat.',
-    },
-    milestones: ['1. Workout angle plan', '2. Video review', '3. Post'],
-    proposals: [{ handle: '@tarun_fitcoach', country: 'India', flag: '🇮🇳', bid: '₹34,000', days: '6', rating: '5.0', reviews: 88, er: '10.2', pitch: 'Fitness coach and athlete.' }],
-    otherJobs: [{ title: 'Epigamia Sugar-Free Blueberry Greek Yogurt Series', payout: '₹30,000 Fixed Pay' }],
-  },
-
-  // 97. Country Delight Malai Paneer Softness Challenge (India)
-  {
-    id: 'camp-97',
-    title: 'Country Delight Farm Malai Paneer Melt-in-Mouth Test',
-    brandName: 'Country Delight',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹36,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Paneer Softness Reel • 2 Stories',
-    creatorsApplied: 34,
-    acceptanceChance: 92,
-    eligibilityRate: 97,
-    categories: ['Food', 'Cooking', 'Health'],
-    isNew: true,
-    postedAt: 'Jul 25, 2026 • 11:00 AM',
-    projectTimeline: 'Sep 4 – Sep 18, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Cut fresh buffalo milk malai paneer with a butter knife and cook Paneer Butter Masala with zero rubbery texture.',
-    scopeOfWork: [
-      { title: 'The Softest Paneer Knife Cut Test', detail: 'Knife slicing like butter through fresh paneer block and pan searing to golden tenderness.' },
-    ],
-    contentDirections: {
-      tone: 'Wholesome, appetizing, fresh, authentic.',
-      videoSetup: 'Kitchen cutting board, pan-frying sizzle with rich gravy.',
-      hashtags: '#CountryDelightPaneer #FreshMalaiPaneer #DesiKhana',
-      audio: 'Warm acoustic cooking melody with mouthwatering sizzle foley.',
-    },
-    milestones: ['1. Recipe storyboard', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@rasoi_magic_anjali', country: 'India', flag: '🇮🇳', bid: '₹36,000', days: '6', rating: '5.0', reviews: 112, er: '11.0', pitch: 'Home culinary creator with 180k active foodies.' }],
-    otherJobs: [{ title: 'Country Delight Desi Cow Ghee Tadka Dal Test', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 98. Urban Company Deep Sofa & Carpet Shampoo (India)
-  {
-    id: 'camp-98',
-    title: 'Urban Company Deep Sofa Injection-Extraction Cleaning',
-    brandName: 'Urban Company',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0F172A 0%, #0284C7 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '₹45,000',
-    currencySymbol: '₹',
-    currencyCode: 'INR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Deep Clean ASMR Reel • 2 Stories',
-    creatorsApplied: 29,
-    acceptanceChance: 88,
-    eligibilityRate: 94,
-    categories: ['Lifestyle', 'Home', 'Services'],
-    isNew: true,
-    postedAt: 'Jul 24, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 6 – Sep 22, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Hindi / English',
-    country: 'India',
-    countryCode: 'IN',
-    countryFlag: '🇮🇳',
-    socials: ['INSTAGRAM'],
-    description: 'Extremely satisfying video showing black dirt and water sucked out of sofa fabric using industrial vacuum extraction.',
-    scopeOfWork: [
-      { title: 'The Oddly Satisfying Deep Sofa Cleaning', detail: 'Transparent vacuum nozzle sucking out dirty foaming water showing pristine fabric restoration.' },
-    ],
-    contentDirections: {
-      tone: 'Oddly satisfying, shocking, clean, transformational.',
-      videoSetup: 'High contrast lighting, macro suction nozzle closeups in slow motion.',
-      hashtags: '#UrbanCompanyCleaning #DeepCleaningASMR #SatisfyingCleaning',
-      audio: 'Satisfying vacuum extraction foley sounds with upbeat chill electronic track.',
-    },
-    milestones: ['1. Booking schedule', '2. ASMR edit check', '3. Weekend publish'],
-    proposals: [{ handle: '@satisfying_clean_india', country: 'India', flag: '🇮🇳', bid: '₹45,000', days: '7', rating: '5.0', reviews: 140, er: '14.5', pitch: 'Home transformation & satisfying video creator.' }],
-    otherJobs: [{ title: 'Urban Company Bathroom 360 Deep Scrub Demo', payout: '₹38,000 Fixed Pay' }],
-  },
-
-  // 99. Dyson Supersonic Nural Intelligent Hair Dryer (UK - International)
-  {
-    id: 'camp-99',
-    title: 'Dyson Supersonic Nural Scalp Protect Hair Styler',
-    brandName: 'Dyson UK',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EC4899 0%, #831843 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '£1,450',
-    currencySymbol: '£',
-    currencyCode: 'GBP',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Styling Reel • 3 Stories',
-    creatorsApplied: 18,
-    acceptanceChance: 74,
-    eligibilityRate: 85,
-    categories: ['Technology', 'Beauty', 'Hair Care'],
-    isNew: true,
-    postedAt: 'Jul 24, 2026 • 1:00 PM',
-    projectTimeline: 'Sep 12 – Oct 08, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United Kingdom',
-    countryCode: 'GB',
-    countryFlag: '🇬🇧',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Demonstrate Scalp Protect sensor automatically reducing heat at 55°C to preserve natural shine and prevent thermal damage.',
-    scopeOfWork: [
-      { title: 'Salon-Grade Blowout with Scalp Sensor', detail: 'Testing distance sensing LED changing from red to orange to yellow while drying curly hair.' },
-    ],
-    contentDirections: {
-      tone: 'Futuristic, premium, high-tech beauty, luxurious.',
-      videoSetup: 'Studio vanity mirror, macro sensor LED and airflow closeup in 4K.',
-      hashtags: '#DysonSupersonicNural #DysonHair #ScalpProtection2026',
-      audio: 'Sleek electronic bassline with studio microphone voiceover.',
-    },
-    milestones: ['1. Styling concept check', '2. 4K master edit', '3. Launch date release'],
-    proposals: [{ handle: '@chloe_hairartist', country: 'United Kingdom', flag: '🇬🇧', bid: '£1,450', days: '14', rating: '5.0', reviews: 130, er: '11.2', pitch: 'London hair stylist with 220k beauty community.' }],
-    otherJobs: [{ title: 'Dyson Airwrap Multi-Styler Wet-to-Dry Curls Reel', payout: '£1,800 Fixed Pay' }],
-  },
-
-  // 100. Gymshark Seamless High-Waist Vital Gym Leggings (UK - International)
-  {
-    id: 'camp-100',
-    title: 'Gymshark Vital Seamless 2.0 Squat-Proof Leggings',
-    brandName: 'Gymshark',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '£850',
-    currencySymbol: '£',
-    currencyCode: 'GBP',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 High-Energy Gym Reels • 4 Stories',
-    creatorsApplied: 24,
-    acceptanceChance: 82,
-    eligibilityRate: 90,
-    categories: ['Fitness', 'Fashion', 'Athleisure'],
-    isNew: true,
-    postedAt: 'Jul 24, 2026 • 9:30 AM',
-    projectTimeline: 'Sep 10 – Oct 05, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United Kingdom',
-    countryCode: 'GB',
-    countryFlag: '🇬🇧',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Heavy barbell deadlifts, squats, and HIIT sprints demonstrating sweat-wicking knit and compression support.',
-    scopeOfWork: [
-      { title: 'Heavy Leg Day Squat & Sweat Test', detail: 'High-intensity workout wear test with direct Gymshark community discount code.' },
-    ],
-    contentDirections: {
-      tone: 'High-octane, intense, motivating, athletic.',
-      videoSetup: 'Dark aesthetic gym lighting, heavy weights, speed ramp tracking camera.',
-      hashtags: '#Gymshark66 #VitalSeamless #GymsharkAthlete',
-      audio: 'Heavy-bass motivational gym music synced to barbell lifts.',
-    },
-    milestones: ['1. Workout plan approval', '2. Video edits review', '3. Publish'],
-    proposals: [{ handle: '@fitt_with_emma', country: 'United Kingdom', flag: '🇬🇧', bid: '£850', days: '10', rating: '5.0', reviews: 104, er: '9.8', pitch: 'Powerlifter and fitness creator with high conversion.' }],
-    otherJobs: [{ title: 'Gymshark Oversized Heavyweight Pump Cover Hoodie', payout: '£650 Fixed Pay' }],
-  },
-
-  // 101. Glossier Cloud Paint Soft Velvet Cheek Tint (USA - International)
-  {
-    id: 'camp-101',
-    title: 'Glossier Cloud Paint Seamless Gel-Cream Blush',
-    brandName: 'Glossier New York',
-    partnerLogo: '/logos/zara-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #FB7185 0%, #F43F5E 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '$1,650',
-    currencySymbol: '$',
-    currencyCode: 'USD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Cloud Paint Blend Reel • 3 Stories',
-    creatorsApplied: 26,
-    acceptanceChance: 80,
-    eligibilityRate: 88,
-    categories: ['Beauty', 'Cosmetics', 'Clean Beauty'],
-    isNew: true,
-    postedAt: 'Jul 23, 2026 • 6:00 PM',
-    projectTimeline: 'Sep 12 – Oct 06, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United States',
-    countryCode: 'US',
-    countryFlag: '🇺🇸',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Dab a pea-sized drop on cheekbones and tap out sheer, pillowy, natural flushed glow with no harsh lines.',
-    scopeOfWork: [
-      { title: 'The Pillowy Natural Flush Tutorial', detail: 'Fingertip blending technique showing sheer buildable coverage on bare skin.' },
-    ],
-    contentDirections: {
-      tone: 'Effortless, dewy, glowing, minimalist chic.',
-      videoSetup: 'Natural golden hour window light, macro cheek tap.',
-      hashtags: '#GlossierCloudPaint #CloudPaint #NoMakeupMakeup',
-      audio: 'Dreamy bedroom pop acoustic track with calm voiceover.',
-    },
-    milestones: ['1. Shade swatch plan', '2. Video review', '3. Publish'],
-    proposals: [{ handle: '@maya_cleanbeauty', country: 'United States', flag: '🇺🇸', bid: '$1,650', days: '12', rating: '5.0', reviews: 145, er: '10.8', pitch: 'NYC clean beauty aesthetic creator.' }],
-    otherJobs: [{ title: 'Glossier Boy Brow & Generation G Matte Duo Review', payout: '$1,400 Fixed Pay' }],
-  },
-
-  // 102. Lululemon Align Ultra-Soft Yoga Set (USA - International)
-  {
-    id: 'camp-102',
-    title: 'Lululemon Align Nulu Fabric Weightless Flow',
-    brandName: 'Lululemon Athletica',
-    partnerLogo: '/logos/adidas-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '$2,200',
-    currencySymbol: '$',
-    currencyCode: 'USD',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '2 Morning Yoga Reels • 4 Stories',
-    creatorsApplied: 20,
-    acceptanceChance: 72,
-    eligibilityRate: 84,
-    categories: ['Fitness', 'Yoga', 'Athleisure'],
-    isNew: true,
-    postedAt: 'Jul 23, 2026 • 1:15 PM',
-    projectTimeline: 'Sep 15 – Oct 12, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'English',
-    country: 'United States',
-    countryCode: 'US',
-    countryFlag: '🇺🇸',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Experience the buttery-soft Nulu fabric during sunrise vinyasa flows with zero friction and second-skin stretch.',
-    scopeOfWork: [
-      { title: 'Sunrise Vinyasa Flow in Align Set', detail: 'Seamless camera transitions between morning meditation, flow poses, and iced matcha routine.' },
-    ],
-    contentDirections: {
-      tone: 'Mindful, serene, elevated, luxurious athleisure.',
-      videoSetup: 'Sun-drenched studio loft with natural oak wood floor.',
-      hashtags: '#LululemonAlign #TheSweatLife #YogaFlow2026',
-      audio: 'Peaceful ambient meditation music with soft narration.',
-    },
-    milestones: ['1. Flow choreography plan', '2. Master 4K edit', '3. Sunrise post'],
-    proposals: [{ handle: '@sophia_mindfulflow', country: 'United States', flag: '🇺🇸', bid: '$2,200', days: '14', rating: '5.0', reviews: 160, er: '11.5', pitch: 'Certified yoga instructor and mindfulness creator.' }],
-    otherJobs: [{ title: 'Lululemon Everywhere Belt Bag Daily Styling', payout: '$1,200 Fixed Pay' }],
-  },
-
-  // 103. Nespresso Vertuo Next Barista Coffee Machine (France - International)
-  {
-    id: 'camp-103',
-    title: 'Nespresso Vertuo Next Centrifusion Crema Masterclass',
-    brandName: 'Nespresso',
-    partnerLogo: '/logos/starbucks-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #78350F 0%, #451A03 100%)',
-    commercialType: 'COMMISSION',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€950',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 1-Touch Barista Reel • 2 Stories',
-    creatorsApplied: 21,
-    acceptanceChance: 81,
-    eligibilityRate: 89,
-    categories: ['Food', 'Coffee', 'Lifestyle'],
-    isNew: true,
-    postedAt: 'Jul 22, 2026 • 4:00 PM',
-    projectTimeline: 'Sep 8 – Sep 28, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'French / English',
-    country: 'France',
-    countryCode: 'FR',
-    countryFlag: '🇫🇷',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Insert barcode pod, press 1 button, and watch 4,000 RPM Centrifusion technology spin thick velvety coffee crema.',
-    scopeOfWork: [
-      { title: 'The Perfect Morning Vertuo Crema Pour', detail: 'Macro 4K video of barcode scanning, spinning extraction, and thick golden crema layer.' },
-    ],
-    contentDirections: {
-      tone: 'Sophisticated, Parisian aesthetic, sensory, luxurious.',
-      videoSetup: 'Parisian balcony or marble coffee bar, crystal glassware.',
-      hashtags: '#NespressoVertuo #BaristaAtHome #CoffeeCrema',
-      audio: 'Classy French jazz accordion & acoustic bass with brewing ASMR.',
-    },
-    milestones: ['1. Coffee recipe plan', '2. Edit review', '3. Morning publish'],
-    proposals: [{ handle: '@lucas_cafe_paris', country: 'France', flag: '🇫🇷', bid: '€950', days: '10', rating: '5.0', reviews: 98, er: '10.1', pitch: 'Parisian lifestyle & specialty coffee creator.' }],
-    otherJobs: [{ title: 'Nespresso Aeroccino 4 Cold Froth Caramel Latte Recipe', payout: '€700 Fixed Pay' }],
-  },
-
-  // 104. Rimowa Classic Cabin Aluminum Travel Suitcase (Germany - International)
-  {
-    id: 'camp-104',
-    title: 'Rimowa Classic Cabin Anodized Aluminum Travel Film',
-    brandName: 'Rimowa Germany',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #64748B 0%, #334155 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€1,850',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Cinematic Travel Reel • 1 YouTube Vlog',
-    creatorsApplied: 15,
-    acceptanceChance: 68,
-    eligibilityRate: 82,
-    categories: ['Travel', 'Luxury', 'Design'],
-    isNew: true,
-    postedAt: 'Jul 22, 2026 • 11:30 AM',
-    projectTimeline: 'Sep 15 – Oct 15, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'German / English',
-    country: 'Germany',
-    countryCode: 'DE',
-    countryFlag: '🇩🇪',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Iconic grooved aviation aluminum shell, handmade leather handles, and Multiwheel ball-bearing glide in first class.',
-    scopeOfWork: [
-      { title: 'The Timeless German Aluminum Case Film', detail: 'Cinematic tracking shot through luxury terminal, TSA lock clicks, and leather patina.' },
-    ],
-    contentDirections: {
-      tone: 'Timeless, architectural, German engineering excellence, luxury travel.',
-      videoSetup: 'First-class lounges, high-end design hotels, 4K 60fps tracking camera.',
-      hashtags: '#RimowaClassic #EngineeredForLife #TravelInLuxury',
-      audio: 'Minimalist cinematic electronic soundscape.',
-    },
-    milestones: ['1. Location & travel itinerary', '2. 4K master review', '3. Global publish'],
-    proposals: [{ handle: '@maximilian_voyage', country: 'Germany', flag: '🇩🇪', bid: '€1,850', days: '18', rating: '5.0', reviews: 140, er: '11.8', pitch: 'Luxury travel filmmaker and photographer.' }],
-    otherJobs: [{ title: 'Rimowa Never Still Canvas Flap Backpack Showcase', payout: '€1,200 Fixed Pay' }],
-  },
-
-  // 105. Le Creuset Signature Enameled Cast Iron Dutch Oven (France - International)
-  {
-    id: 'camp-105',
-    title: 'Le Creuset Volcanic Enameled Cast Iron Stew Master',
-    brandName: 'Le Creuset',
-    partnerLogo: '/logos/cocacola-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #EA580C 0%, #C2410C 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '€750',
-    currencySymbol: '€',
-    currencyCode: 'EUR',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 Slow-Cooked Stew Reel • 2 Stories',
-    creatorsApplied: 19,
-    acceptanceChance: 84,
-    eligibilityRate: 91,
-    categories: ['Food', 'Cooking', 'Kitchenware'],
-    isNew: true,
-    postedAt: 'Jul 21, 2026 • 3:45 PM',
-    projectTimeline: 'Sep 6 – Sep 24, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'French / English',
-    country: 'France',
-    countryCode: 'FR',
-    countryFlag: '🇫🇷',
-    socials: ['INSTAGRAM'],
-    description: 'Slow-simmer French Boeuf Bourguignon demonstrating even heat retention and signature flame-orange enamel finish.',
-    scopeOfWork: [
-      { title: 'The 3-Hour Slow Braise Dutch Oven Reel', detail: 'Searing beef, deglazing red wine, simmering with lid on, and unveiling rich glossy sauce.' },
-    ],
-    contentDirections: {
-      tone: 'Cozy, rustic, artisanal, indulgent gourmet cooking.',
-      videoSetup: 'Warm candlelit kitchen, wooden dining table, macro steam sizzle.',
-      hashtags: '#LeCreuset #SlowCooking #FrenchCuisine #CastIronCooking',
-      audio: 'Gentle French acoustic waltz with mouthwatering simmer sounds.',
-    },
-    milestones: ['1. Recipe storyboard', '2. Simmer edit check', '3. Weekend publish'],
-    proposals: [{ handle: '@julie_frenchtable', country: 'France', flag: '🇫🇷', bid: '€750', days: '8', rating: '5.0', reviews: 90, er: '10.5', pitch: 'French culinary stylist & slow-cooking advocate.' }],
-    otherJobs: [{ title: 'Le Creuset Cast Iron Skillet Sourdough Bread Bake', payout: '€650 Fixed Pay' }],
-  },
-
-  // 106. Sony Alpha 7C II Full-Frame Creator Vlogging Kit (Japan - International)
-  {
-    id: 'camp-106',
-    title: 'Sony Alpha 7C II 33MP Full-Frame Creator Review',
-    brandName: 'Sony Imaging Japan',
-    partnerLogo: '/logos/sony-full.svg',
-    bannerImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80',
-    avatarGradient: 'linear-gradient(135deg, #0284C7 0%, #0369A1 100%)',
-    commercialType: 'FLAT_FEE',
-    commercialLabel: 'Payment verified by brand',
-    payoutAmount: '¥240,000',
-    currencySymbol: '¥',
-    currencyCode: 'JPY',
-    payType: 'Fixed Pay',
-    deliverablesSummary: '1 4K Dedicated Camera Review • 2 Shorts',
-    creatorsApplied: 17,
-    acceptanceChance: 70,
-    eligibilityRate: 83,
-    categories: ['Technology', 'Photography', 'AI'],
-    isNew: true,
-    postedAt: 'Jul 21, 2026 • 10:00 AM',
-    projectTimeline: 'Sep 15 – Oct 10, 2026',
-    requirementLabel: 'Requirement not met',
-    language: 'Japanese / English',
-    country: 'Japan',
-    countryCode: 'JP',
-    countryFlag: '🇯🇵',
-    socials: ['INSTAGRAM', 'YOUTUBE'],
-    description: 'Review 33MP full-frame sensor, AI subject recognition autofocus, and 4K 60p compact body for solo travel filmmakers.',
-    scopeOfWork: [
-      { title: 'Tokyo Night Walk 4K 60fps Low-Light Test', detail: 'Handheld walking through Shibuya night rain showcasing 7-step in-body image stabilization.' },
-    ],
-    contentDirections: {
-      tone: 'Cinematic, technical, authoritative, visually stunning.',
-      videoSetup: 'Tokyo neon reflections, razor-sharp eye-autofocus tracking.',
-      hashtags: '#SonyAlpha7CII #SonyAlpha #CinematicTokyo #FullFrameVlog',
-      audio: 'Atmospheric lo-fi synth with crisp Japanese & English narration.',
-    },
-    milestones: ['1. Test plan approval', '2. 4K master edit review', '3. Launch date release'],
-    proposals: [{ handle: '@kenji_cinematics', country: 'Japan', flag: '🇯🇵', bid: '¥240,000', days: '14', rating: '5.0', reviews: 155, er: '12.0', pitch: 'Tokyo documentary filmmaker & Sony artisan of imagery.' }],
-    otherJobs: [{ title: 'Sony FE 24-70mm F2.8 GM II Lens Shootout', payout: '¥180,000 Fixed Pay' }],
-  },
+  {
+    "id": "camp-1",
+    "title": "Zero-Waste Sustainable Living & Kitchen Challenge",
+    "brandName": "Leading Eco-Living Enterprise (Verified)",
+    "partnerLogo": "/logos/shopify-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #059669 0%, #047857 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "A$1,650",
+    "currencySymbol": "A$",
+    "currencyCode": "AUD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "2 Reels • 3 Stories • 1 Post",
+    "creatorsApplied": 18,
+    "acceptanceChance": 86,
+    "eligibilityRate": 94,
+    "categories": [
+      "Sustainability",
+      "Cooking",
+      "Food",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "Australia",
+    "countryCode": "AU",
+    "countryFlag": "🇦🇺",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create 2x Instagram Reels showcasing zero-waste kitchen lifestyle habits and authentic sustainable cooking tips.",
+    "scopeOfWork": [
+      {
+        "title": "Zero-Waste Cooking Reel",
+        "detail": "Low-waste meal prep or sustainable kitchen hack with engaging voiceover."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, mindful, approachable, and educational.",
+      "videoSetup": "Warm natural daylight, clean eco-kitchen aesthetics, macro food textures.",
+      "hashtags": "#ZeroWasteKitchen #SustainableLiving2026 #EcoLiving #Ad",
+      "audio": "Gentle acoustic lo-fi ambient track with clear narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@green_culinary",
+        "country": "Australia",
+        "flag": "🇦🇺",
+        "bid": "A$1,650",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Sustainability Showcase Follow-up Campaign",
+        "payout": "A$1,650 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-2",
+    "title": "Festive Season Artisan Gourmet Hampers Unboxing",
+    "brandName": "Artisanal Gourmet Food Enterprise (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #475569 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€650",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "7 Posts • 7 Stories • 7 Reels",
+    "creatorsApplied": 24,
+    "acceptanceChance": 92,
+    "eligibilityRate": 98,
+    "categories": [
+      "Festivals",
+      "Food",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Italian / English",
+    "country": "Italy",
+    "countryCode": "IT",
+    "countryFlag": "🇮🇹",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST",
+      "YOUTUBE"
+    ],
+    "description": "Review artisan gift hampers and holiday snack collections with dedicated link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Artisan Hamper Unboxing Reel",
+        "detail": "High-energy celebratory unboxing showing luxury packaging and ribbon unwrapping."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Festive, warm, indulgent, and joyful.",
+      "videoSetup": "Cozy warm indoor lighting, holiday ambient background bokeh.",
+      "hashtags": "#HolidayGourmet #FestiveSeason2026 #GourmetGiftGuide #Ad",
+      "audio": "Upbeat holiday acoustic or festive jazz score."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@aria_lifestyle",
+        "country": "Italy",
+        "flag": "🇮🇹",
+        "bid": "€650",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Festivals Showcase Follow-up Campaign",
+        "payout": "€650 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-3",
+    "title": "Bio-Active Herbal Wellness & Vitality Booster Launch",
+    "brandName": "Top Clinical Wellness Brand (Verified)",
+    "partnerLogo": "/logos/redbull-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$1,800",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Dedicated Video • 2 Shorts • 3 Stories",
+    "creatorsApplied": 31,
+    "acceptanceChance": 78,
+    "eligibilityRate": 88,
+    "categories": [
+      "Health",
+      "Supplements",
+      "Fitness"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "YOUTUBE",
+      "INSTAGRAM"
+    ],
+    "description": "Explain the scientific benefits of natural adaptogens in morning wellness routines for sustained focus and energy.",
+    "scopeOfWork": [
+      {
+        "title": "Daily Adaptogen Science Routine",
+        "detail": "4K vertical video showing morning smoothie prep with adaptogen booster."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Inspirational, evidence-based, clean, and transparent.",
+      "videoSetup": "Bright modern kitchen, high-resolution nutrition macro shots.",
+      "hashtags": "#HerbalWellness #AdaptogenRoutine #DailyVitality #Ad",
+      "audio": "Upbeat chill electronic rhythm with articulate narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@holistic_david",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$1,800",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Health Showcase Follow-up Campaign",
+        "payout": "$1,800 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-4",
+    "title": "Next-Gen Flagship Smartphone 4K Low-Light Camera Showcase",
+    "brandName": "Tier-1 Smartphone Enterprise (Verified)",
+    "partnerLogo": "/logos/apple-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0052FF 0%, #002B99 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹85,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 1 YouTube Short • 3 Stories",
+    "creatorsApplied": 42,
+    "acceptanceChance": 82,
+    "eligibilityRate": 91,
+    "categories": [
+      "Technology",
+      "Mobile",
+      "Photography"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Capture low-light city nightscape footage, 100x zoom stability, and 4K 60fps cinematic video capabilities.",
+    "scopeOfWork": [
+      {
+        "title": "Nightscape 4K Cinema Video Test",
+        "detail": "Side-by-side comparison under streetlamps and low ambient light."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Sleek, futuristic, high-tech, cinematic.",
+      "videoSetup": "Urban neon night city streets, high-contrast dynamic lighting.",
+      "hashtags": "#FlagshipCamera #Cinematography2026 #TechReview #Ad",
+      "audio": "Punchy cinematic electronic beat with razor-sharp sound design."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tech_guru_karan",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹85,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Showcase Follow-up Campaign",
+        "payout": "₹85,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-5",
+    "title": "Wireless ANC Active Earbuds Deep Bass & Commute Sound Test",
+    "brandName": "Leading Audio & Wearables Brand (Verified)",
+    "partnerLogo": "/logos/bose-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹35,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 ASMR Audio Reel • 2 Stories",
+    "creatorsApplied": 50,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Technology",
+      "Music",
+      "Audio"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Test 40dB active noise cancellation in crowded metros and cafes, highlighting crystal-clear dual mic calling.",
+    "scopeOfWork": [
+      {
+        "title": "Metro Noise Cancellation Test",
+        "detail": "Turn ANC on/off in live busy metro station and capture instant silence."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Energetic, youth-centric, crisp, musical.",
+      "videoSetup": "Urban street / metro commute background, macro earbud closeups.",
+      "hashtags": "#WirelessAudio #DeepBassEarbuds #ANCReview #Ad",
+      "audio": "High-fidelity spatial audio mix demonstrating bass depth."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@audio_vibes_rohit",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹35,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Showcase Follow-up Campaign",
+        "payout": "₹35,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-6",
+    "title": "Natural 10% Niacinamide Clarifying Face Serum Routine",
+    "brandName": "Top D2C Clean Skincare Brand (Verified)",
+    "partnerLogo": "/logos/shopify.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #10B981 0%, #047857 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Routine Reel • 2 Stories",
+    "creatorsApplied": 47,
+    "acceptanceChance": 89,
+    "eligibilityRate": 95,
+    "categories": [
+      "Beauty",
+      "Skincare",
+      "Clean Beauty"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Demonstrate non-sticky watery serum absorption, rice water brightening, and daily barrier protection.",
+    "scopeOfWork": [
+      {
+        "title": "Morning Glass Skin Routine",
+        "detail": "Dropper application on bare face showing instant hydration without oiliness."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Gentle, soothing, authentic, glow-focused.",
+      "videoSetup": "Warm sunlit bathroom vanity, clean aesthetic mirror shots.",
+      "hashtags": "#CleanSkincare #NiacinamideGlow #HealthyBarrier #Ad",
+      "audio": "Relaxing ambient acoustic melody with natural voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@shreya_skintalks",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹40,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-7",
+    "title": "Urban Streetwear 240 GSM Heavyweight Graphic Tees",
+    "brandName": "Top Mens Streetwear Label (Verified)",
+    "partnerLogo": "/logos/puma-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #18181B 0%, #27272A 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹45,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Style Transitions Reel • 3 Stories",
+    "creatorsApplied": 48,
+    "acceptanceChance": 87,
+    "eligibilityRate": 94,
+    "categories": [
+      "Fashion",
+      "Streetwear",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Style 240 GSM heavy cotton anime and typography graphic tees with baggy denim and clean sneakers.",
+    "scopeOfWork": [
+      {
+        "title": "3 Ways to Style Oversized Tees Reel",
+        "detail": "Layering with denim jackets, tucking into wide-leg trousers."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Trendy, energetic, effortless, stylish.",
+      "videoSetup": "Urban street graffiti backdrop, skatepark transitions.",
+      "hashtags": "#StreetwearStyle #OversizedFashion #MensFitInspo #Ad",
+      "audio": "High-energy phonk / trap beat with snappy shoe transitions."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@ayush_fits",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹45,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹45,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-8",
+    "title": "Hyper-Mode Electric Scooter Urban Acceleration Sprint",
+    "brandName": "Top EV Mobility Enterprise (Verified)",
+    "partnerLogo": "/logos/tesla-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #10B981 0%, #047857 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹1,10,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 1 YouTube Short • 3 Stories",
+    "creatorsApplied": 31,
+    "acceptanceChance": 78,
+    "eligibilityRate": 89,
+    "categories": [
+      "Automobile",
+      "Technology",
+      "Sustainability"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Experience 0-40 km/h in 2.6 seconds with party mode lighting, hill hold assist, and hypercharging range test.",
+    "scopeOfWork": [
+      {
+        "title": "Hyper Mode Acceleration Test",
+        "detail": "Chest mount camera capturing instantaneous torque and digital speedometer."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Thrilling, high-tech, futuristic, eco-friendly.",
+      "videoSetup": "Early morning clear highway, sunset neon city streets.",
+      "hashtags": "#ElectricMobility #HyperMode #EVScooter #Ad",
+      "audio": "High-octane electronic cyberpunk synthwave."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@ev_explorer_raj",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹1,10,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Automobile Showcase Follow-up Campaign",
+        "payout": "₹1,10,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-9",
+    "title": "15% Stabilized Vitamin C Rapid Dark Spot Glow Serum",
+    "brandName": "Top Clinical Skincare Brand (Verified)",
+    "partnerLogo": "/logos/canva-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F59E0B 0%, #B45309 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹38,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Routine Reel • 2 Stories",
+    "creatorsApplied": 44,
+    "acceptanceChance": 90,
+    "eligibilityRate": 95,
+    "categories": [
+      "Beauty",
+      "Skincare"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Stabilized L-Ascorbic Vitamin C application showing zero oxidation, fast absorption, and glow under sunlight.",
+    "scopeOfWork": [
+      {
+        "title": "Morning Antioxidant Glow Routine",
+        "detail": "Dropper application, macro skin glow absorption, layer with sunscreen."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Radiant, honest, educational, aesthetic.",
+      "videoSetup": "Warm sunlit bathroom mirror, golden morning sun rays.",
+      "hashtags": "#VitaminCGlow #MorningSkincare #AntioxidantSerum #Ad",
+      "audio": "Cheerful acoustic rhythm with genuine voiceover review."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@priya_skinglow",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹38,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹38,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-10",
+    "title": "2% BHA Salicylic Acid Active Acne & Blackhead Defense",
+    "brandName": "Dermatologist-Formulated Skincare Label (Verified)",
+    "partnerLogo": "/logos/notion.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Educational Reel • 2 Stories",
+    "creatorsApplied": 39,
+    "acceptanceChance": 89,
+    "eligibilityRate": 94,
+    "categories": [
+      "Beauty",
+      "Skincare",
+      "Education"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Dermatologist-designed breakdown of BHA salicylic acid unclogging congested pores and clearing active blackheads.",
+    "scopeOfWork": [
+      {
+        "title": "The Acne Unclogging Science Reel",
+        "detail": "Graphics explaining oil solubility of BHA and application on T-zone areas."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Clinical, supportive, evidence-based, transparent.",
+      "videoSetup": "Clean white medical/studio aesthetic, high clarity macro shots.",
+      "hashtags": "#SalicylicAcid #AcneCare #DermatologyTips #Ad",
+      "audio": "Calm ambient tech beats with informative voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@dermat_insights",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-11",
+    "title": "Watermelon Glow Hydrating Sunscreen SPF 50 PA++++",
+    "brandName": "Verified D2C Beauty Label",
+    "partnerLogo": "/logos/canva.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #FB7185 0%, #E11D48 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹35,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Dewy Skin Reel • 2 Stories",
+    "creatorsApplied": 48,
+    "acceptanceChance": 92,
+    "eligibilityRate": 97,
+    "categories": [
+      "Beauty",
+      "Skincare"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Blend watermelon extracts & hyaluronic acid for that glass-skin dewy finish under makeup with 0 stickiness.",
+    "scopeOfWork": [
+      {
+        "title": "Under-Makeup Dewy Sunscreen Prep",
+        "detail": "Showing smooth primer effect and glossy skin without oiliness."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Playful, refreshing, youthful, dewy.",
+      "videoSetup": "Pastel backdrop, natural window light, macro water splash.",
+      "hashtags": "#DewySunscreen #GlassSkinRoutine #SPF50Daily #Ad",
+      "audio": "Trendy pop acoustic tune with upbeat commentary."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tanya_glowdiaries",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹35,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹35,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-12",
+    "title": "Pure Himalayan Shilajit Resin Purity & Stamina Test",
+    "brandName": "Heritage Ayurvedic Wellness Enterprise (Verified)",
+    "partnerLogo": "/logos/redbull-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #78350F 0%, #451A03 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹60,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Purity Burn Test Reel • 2 Stories",
+    "creatorsApplied": 28,
+    "acceptanceChance": 84,
+    "eligibilityRate": 90,
+    "categories": [
+      "Health",
+      "Supplements",
+      "Ayurveda"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Perform authentic Himalayan resin fire & water test showing 100% natural dissolution and pure fulvic acid boost.",
+    "scopeOfWork": [
+      {
+        "title": "The Shilajit Purity Test Reel",
+        "detail": "Dissolving pea-sized resin in warm water with lab NABL certificate transparency."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Energetic, disciplined, traditional wellness meets modern science.",
+      "videoSetup": "Clean gym workout station, warm morning kitchen counter.",
+      "hashtags": "#PureShilajit #AyurvedicStamina #NaturalEnergy #Ad",
+      "audio": "Confident, powerful percussion beats with clear narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@rahul_fitness_yogi",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹60,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Health Showcase Follow-up Campaign",
+        "payout": "₹60,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-13",
+    "title": "Ultra-Soft Beechwood MicroModal Loungewear Stretch Test",
+    "brandName": "Modern Comfort Apparel Label (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹45,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Fun Comfort Reel • 3 Stories",
+    "creatorsApplied": 32,
+    "acceptanceChance": 87,
+    "eligibilityRate": 93,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "Comfort"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Humorous, vibrant video showing why beechwood micro-modal fabric feels 3x softer than cotton on hot humid days.",
+    "scopeOfWork": [
+      {
+        "title": "The Ultimate Couch Stretch Test",
+        "detail": "Showing 4-way stretch, quirky printed patterns, and extreme breathable softness."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Funky, quirky, humorous, candid.",
+      "videoSetup": "Colorful home living room, cozy bed stretch shots.",
+      "hashtags": "#LoungewearComfort #SoftestFabric #WorkFromHomeComfort #Ad",
+      "audio": "Fun bubbly viral track with comedic acting."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@fun_with_adit",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹45,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹45,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-14",
+    "title": "100% Certified Whole Grain Rolled Oats Meal Prep",
+    "brandName": "Leading Health Foods Brand (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #16A34A 0%, #15803D 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹32,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Overnight Oats Reel • 2 Stories",
+    "creatorsApplied": 35,
+    "acceptanceChance": 93,
+    "eligibilityRate": 98,
+    "categories": [
+      "Food",
+      "Health",
+      "Cooking"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Prepare creamy chia & peanut butter overnight oats in a mason jar with 0 added sugar or preservatives.",
+    "scopeOfWork": [
+      {
+        "title": "5-Minute Prep Overnight Oats Mason Jar",
+        "detail": "Layering jumbo rolled oats, almond milk, chia seeds, and honey drizzle."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Wholesome, healthy, appetizing, clean.",
+      "videoSetup": "Sunny breakfast table, glass jar macro texture.",
+      "hashtags": "#OvernightOats #CleanBreakfast #HealthyRecipes #Ad",
+      "audio": "Gentle acoustic guitar with step-by-step recipe narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@chef_neha_fit",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹32,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹32,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-15",
+    "title": "Zero-Maida Chocolate & Ragi Millet Pancakes for Kids",
+    "brandName": "Organic Kids Nutrition Brand (Verified)",
+    "partnerLogo": "/logos/duolingo-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹38,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Kids Breakfast Reel • 2 Stories",
+    "creatorsApplied": 33,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Food",
+      "Parenting",
+      "Health"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Wholesome breakfast pancakes made of ragi, jowar, oats, and real cocoa that kids finish in 5 minutes.",
+    "scopeOfWork": [
+      {
+        "title": "Happy Breakfast Without The Sugar Rush",
+        "detail": "Flipping fluffy chocolate pancakes in cute animal shapes with banana toppings."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Heartwarming, joyful, mother-friendly, wholesome.",
+      "videoSetup": "Bright modern kitchen, happy toddler tasting moments.",
+      "hashtags": "#MilletPancakes #ZeroMaida #HealthyKidsFood #Ad",
+      "audio": "Upbeat playful tune with warm family voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@mom_and_munchkin",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹38,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹38,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-16",
+    "title": "Artisanal Handwoven Mulmul Cotton Saree Draping",
+    "brandName": "Artisanal Handloom Saree Label (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #E11D48 0%, #BE123C 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Aesthetic Draping Reel • 3 Stories",
+    "creatorsApplied": 38,
+    "acceptanceChance": 89,
+    "eligibilityRate": 94,
+    "categories": [
+      "Fashion",
+      "Handloom",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Poetic 1-minute video showing the effortless drape of breathable handwoven mulmul saree with silver jhumkas.",
+    "scopeOfWork": [
+      {
+        "title": "The 60-Second Modern Saree Drape Reel",
+        "detail": "Pleat making, pallu flow, and styling with contemporary crop top blouse."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Poetic, graceful, timeless, feminine.",
+      "videoSetup": "Heritage courtyard or sunlight filtering through linen curtains.",
+      "hashtags": "#SareeDraping #MulmulCotton #HandloomElegance #Ad",
+      "audio": "Nostalgic acoustic Indian classical or indie melody."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@pallu_and_poetry",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-17",
+    "title": "Festive Handwoven Silk-Linen Traditional Kurtas",
+    "brandName": "Heritage Indian Festive Apparel Label (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #92400E 0%, #78350F 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹65,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "2 Festive Lookbook Reels • 4 Stories",
+    "creatorsApplied": 27,
+    "acceptanceChance": 82,
+    "eligibilityRate": 90,
+    "categories": [
+      "Fashion",
+      "Festivals",
+      "Luxury"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Celebrate Indian artisanal handcrafts with royal tussar silk Nehru jackets and breathable pastel linen kurtas.",
+    "scopeOfWork": [
+      {
+        "title": "Festive Royal Lookbook Reel",
+        "detail": "Transitioning between daytime puja pastel kurta to evening celebration embroidered jacket."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Regal, culturally rooted, sophisticated, festive.",
+      "videoSetup": "Indian heritage arches, warm brass oil lamps and marigold garlands.",
+      "hashtags": "#FestiveLookbook #HandcraftedFashion #TraditionalWear #Ad",
+      "audio": "Soulful Sufi or contemporary classical flute fusion."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@royal_ethnics_dev",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹65,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹65,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-18",
+    "title": "Tailored European Collar Egyptian Giza Cotton Shirts",
+    "brandName": "Luxury Menswear Tailoring House (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #1E1E1E 0%, #121212 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹75,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Editorial Reel • 1 Carousel • 2 Stories",
+    "creatorsApplied": 24,
+    "acceptanceChance": 79,
+    "eligibilityRate": 88,
+    "categories": [
+      "Fashion",
+      "Luxury",
+      "Menswear"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English / Hindi",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Precision Italian collars, subtle embossed detailing, and Egyptian Giza cotton for boardroom-to-bar style.",
+    "scopeOfWork": [
+      {
+        "title": "The Modern Gentleman Silhouette Reel",
+        "detail": "Editorial slow-motion tracking showing fabric texture and tailored drape."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Sleek, aspirational, minimalist, confident.",
+      "videoSetup": "Modern architecture, cocktail lounge mood lighting.",
+      "hashtags": "#LuxuryMenswear #TailoredShirts #GentlemanStyle #Ad",
+      "audio": "Deep melodic house with sharp cinematic visual transitions."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@siddharth_style",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹75,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹75,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-19",
+    "title": "Desi Masala Chai Premix Instant Hot Water Taste Test",
+    "brandName": "Top Indian Tea & Beverages Enterprise (Verified)",
+    "partnerLogo": "/logos/cocacola-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #15803D 0%, #166534 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹30,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Travel Chai Reel • 2 Stories",
+    "creatorsApplied": 42,
+    "acceptanceChance": 93,
+    "eligibilityRate": 98,
+    "categories": [
+      "Food",
+      "Travel",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Make steaming restaurant-quality ginger adrak-elaichi chai in hotel room or office desk in 30 seconds using only hot water.",
+    "scopeOfWork": [
+      {
+        "title": "The Hotel Room Desi Chai Saver Reel",
+        "detail": "Tearing premix sachet, stirring in hot water, and authentic taste reaction."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Relatable, comforting, travel-friendly, delicious.",
+      "videoSetup": "Scenic hotel balcony or train window desk, steaming mug.",
+      "hashtags": "#TravelChai #InstantMasalaChai #DesiTeaLovers #Ad",
+      "audio": "Cozy acoustic Indian guitar with warm voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@travel_chai_lover",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹30,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹30,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-20",
+    "title": "100% Pure Himalayan Single-Estate Whole Leaf Green Tea",
+    "brandName": "Export-Grade Premium Tea Estate (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #15803D 0%, #14532D 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹55,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Tea Ritual Reel • 1 YouTube Short • 2 Stories",
+    "creatorsApplied": 25,
+    "acceptanceChance": 83,
+    "eligibilityRate": 90,
+    "categories": [
+      "Food",
+      "Health",
+      "Export Quality"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English / Hindi",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Direct-from-source single-estate whole green tea leaves uncurling in transparent teapot with zero bitterness.",
+    "scopeOfWork": [
+      {
+        "title": "Morning Detox Whole Leaf Infusion Reel",
+        "detail": "Macro 4K timelapse of dried whole leaves unfurling and releasing liquor."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Mindful, premium, elegant, authentic tea connoisseur.",
+      "videoSetup": "Clear glass infuser teapot, morning sunlight through greenery.",
+      "hashtags": "#WholeLeafTea #HimalayanGreenTea #TeaRitual #Ad",
+      "audio": "Calm Zen meditation acoustic track with pouring water sounds."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tarun_tea_sommelier",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹55,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹55,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-21",
+    "title": "Fresh Black Tiger Prawns Butter Garlic Pan Sizzle",
+    "brandName": "Leading Gourmet Fresh Meat & Seafood Brand (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Seafood Cooking Reel • 2 Stories",
+    "creatorsApplied": 30,
+    "acceptanceChance": 87,
+    "eligibilityRate": 93,
+    "categories": [
+      "Food",
+      "Cooking",
+      "Gourmet"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Cook de-veined, fresh chilled black tiger prawns with sizzling butter, garlic, parsley, and lemon wedges.",
+    "scopeOfWork": [
+      {
+        "title": "Butter Garlic Prawns Sizzle ASMR Reel",
+        "detail": "Prawns sizzling in cast iron pan, turning pink, and succulent juicy bite."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Mouthwatering, culinary, crisp, indulgent.",
+      "videoSetup": "High-heat pan sizzle, macro steam and herb garnish.",
+      "hashtags": "#ButterGarlicPrawns #GourmetSeafood #CookingASMR #Ad",
+      "audio": "High-quality pan frying foley sounds with upbeat jazz cooking beat."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@chef_samir_cooks",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-22",
+    "title": "10-Minute Instant Grocery Delivery Sunday Dum Biryani",
+    "brandName": "Top Quick-Commerce Unicorn (Verified)",
+    "partnerLogo": "/logos/uber-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EAB308 0%, #CA8A04 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 10-Minute Delivery & Cook Reel • 2 Stories",
+    "creatorsApplied": 39,
+    "acceptanceChance": 90,
+    "eligibilityRate": 95,
+    "categories": [
+      "Food",
+      "Cooking",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Order whole spices, basmati rice, and saffron on quick-commerce and cook a fragrant Sunday family Dum Biryani.",
+    "scopeOfWork": [
+      {
+        "title": "The 10-Min Delivery to Dum Biryani Reel",
+        "detail": "Ordering on app, doorbell delivery, layering rice and fried onions on camera."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Appetizing, energetic, fast-paced, Sunday family cooking.",
+      "videoSetup": "Steaming biryani pot opening, saffron rice layers.",
+      "hashtags": "#QuickCommerceDelivery #SundayBiryani #InstantCooking #Ad",
+      "audio": "Lively culinary fusion beat with upbeat commentary."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@biryani_diaries_hyderabad",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-23",
+    "title": "Daily ₹10 Digital Gold Automatic Micro-Saving Challenge",
+    "brandName": "Leading Fintech Micro-Savings Unicorn (Verified)",
+    "partnerLogo": "/logos/stripe-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F59E0B 0%, #B45309 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹50,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Educational Reel • 2 Stories",
+    "creatorsApplied": 35,
+    "acceptanceChance": 86,
+    "eligibilityRate": 91,
+    "categories": [
+      "Finance",
+      "Education",
+      "Technology"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Round off daily UPI chai/food spends into pure 24K digital gold and watch gold grams accumulate automatically.",
+    "scopeOfWork": [
+      {
+        "title": "The Chai-to-Gold Wealth Hack Reel",
+        "detail": "Showing how saving just spare change of ₹15 daily built a ₹50,000 gold fund."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Motivating, simple, relatable, transparent.",
+      "videoSetup": "Clean mobile screen UI recording, daily UPI scan moment.",
+      "hashtags": "#MicroSavings #DigitalGoldSavings #FinancialHabits #Ad",
+      "audio": "Upbeat modern fintech pop with encouraging voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@fin_literate_rohit",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹50,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Finance Showcase Follow-up Campaign",
+        "payout": "₹50,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-24",
+    "title": "Web3 & Blockchain Distributed Ledger Educational Masterclass",
+    "brandName": "Top Compliant Crypto Exchange (Verified)",
+    "partnerLogo": "/logos/wise-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹70,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Whiteboard Educational Reel • 1 Carousel",
+    "creatorsApplied": 22,
+    "acceptanceChance": 77,
+    "eligibilityRate": 86,
+    "categories": [
+      "Finance",
+      "Technology",
+      "Education"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE",
+      "X"
+    ],
+    "description": "Explain blockchain ledgers, cryptographic keys, and security best practices in simple visual layman terms.",
+    "scopeOfWork": [
+      {
+        "title": "How Blockchains Actually Work in 60s",
+        "detail": "Visual animation explaining distributed ledgers without trading hype."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Academic, tech-first, cautious, educational.",
+      "videoSetup": "Minimalist tech desk, clear motion graphic overlays.",
+      "hashtags": "#BlockchainBasics #CryptoEducation #TechMasterclass #Ad",
+      "audio": "Clean electronic synth with articulate narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@crypto_tech_varun",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹70,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Finance Showcase Follow-up Campaign",
+        "payout": "₹70,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-25",
+    "title": "All-Day Comfort Wireless Seamless Lounge Bralette",
+    "brandName": "Leading Intimate Wear & Loungewear Brand (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #FB7185 0%, #E11D48 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Comfort Review Reel • 2 Stories",
+    "creatorsApplied": 35,
+    "acceptanceChance": 89,
+    "eligibilityRate": 94,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "Comfort"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Zero underwire poke, breathable cloud fabric, and invisible seamless finish under white t-shirts.",
+    "scopeOfWork": [
+      {
+        "title": "The 12-Hour Wireless Comfort Test Reel",
+        "detail": "Work-from-home lounge to errands wear test highlighting soft band."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Relatable, body-positive, comfortable, candid.",
+      "videoSetup": "Warm cozy bedroom, clean aesthetic mirror.",
+      "hashtags": "#WirelessComfort #EverydayLingerie #BodyPositive #Ad",
+      "audio": "Gentle upbeat acoustic indie song with relaxed voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@rhea_bodylove",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-26",
+    "title": "Gourmand Warm Vanilla Cupcake Fine Fragrance Mist",
+    "brandName": "Top Bath & Body D2C Label (Verified)",
+    "partnerLogo": "/logos/patreon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #FBBF24 0%, #D97706 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹36,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Fragrance Spritz Reel • 2 Stories",
+    "creatorsApplied": 44,
+    "acceptanceChance": 92,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Fragrance",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Smell like a freshly baked warm vanilla cupcake with long-lasting alcohol-free formulation.",
+    "scopeOfWork": [
+      {
+        "title": "The Compliment Magnet Vanilla Mist Reel",
+        "detail": "Spritzing after shower and capturing authentic smell reactions from friends."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Sweet, gourmand, playful, cheerful.",
+      "videoSetup": "Pastel vanity table, slow-motion fine mist spray against backlight.",
+      "hashtags": "#VanillaMist #GourmandFragrance #BodyMistLovers #Ad",
+      "audio": "Bubbly sweet pop track with enthusiastic commentary."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@fragrance_diaries_simran",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹36,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹36,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-27",
+    "title": "5-in-1 Compact Click-and-Pop Matte Lipstick Wand",
+    "brandName": "Trending Color Cosmetics Brand (Verified)",
+    "partnerLogo": "/logos/figma.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F43F5E 0%, #9F1239 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹38,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 5-Shade Swatch Reel • 2 Stories",
+    "creatorsApplied": 43,
+    "acceptanceChance": 90,
+    "eligibilityRate": 95,
+    "categories": [
+      "Beauty",
+      "Cosmetics"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Pop and click 5 iconic nude, peach, and red matte lipstick bullet shades in one single travel stick.",
+    "scopeOfWork": [
+      {
+        "title": "5 Outfits 1 Lipstick Stick Challenge",
+        "detail": "Rapid clicking between the 5 shades matching college, work, and party outfits."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Clever, fast-paced, trendy, convenient.",
+      "videoSetup": "Studio lighting, macro clicking sound and lip swatches.",
+      "hashtags": "#5in1Lipstick #LipstickHacks #BeautyOnTheGo #Ad",
+      "audio": "Trendy click sound synchronized with snappy musical cuts."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@swatches_by_divya",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹38,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹38,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-28",
+    "title": "Precision 0.1mm Felt-Tip Waterproof Wing Eyeliner",
+    "brandName": "Clean Botanical Cosmetics Label (Verified)",
+    "partnerLogo": "/logos/canva.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #18181B 0%, #09090B 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹34,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Perfect Wing Tutorial Reel • 2 Stories",
+    "creatorsApplied": 37,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Clean Beauty",
+      "Cosmetics"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "0.1mm micro-felt tip delivering jet black botanical argan oil eyeliner wings in 1 seamless stroke.",
+    "scopeOfWork": [
+      {
+        "title": "The 10-Second Foolproof Wing Eyeliner Hack",
+        "detail": "Drawing sharp graphic eyeliner wing without tugging sensitive eyelids."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Sleek, instructional, clean, satisfying.",
+      "videoSetup": "Macro ring light focus on eyelid precision.",
+      "hashtags": "#WingedEyeliner #PrecisionEyeliner #CleanMakeup #Ad",
+      "audio": "Upbeat smooth pop track with instructional voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@eye_art_by_pooja",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹34,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹34,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-29",
+    "title": "Traditional 100% Real Alphonso Mango Pulp Memory Drink",
+    "brandName": "Iconic Beverage & FMCG Brand (Verified)",
+    "partnerLogo": "/logos/cocacola-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Storytelling Reel • 2 Stories",
+    "creatorsApplied": 45,
+    "acceptanceChance": 93,
+    "eligibilityRate": 97,
+    "categories": [
+      "Food",
+      "Storytelling",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Heartwarming childhood memory storytelling featuring real Alphonso mango pulp juice in the iconic paper pouch.",
+    "scopeOfWork": [
+      {
+        "title": "Summer Vacations Nostalgia Storytelling Reel",
+        "detail": "Nostalgic storytelling remembering summer holidays with chilled mango drink."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Nostalgic, emotional, warm, wholesome.",
+      "videoSetup": "Warm afternoon sunlight, retro vintage color grading.",
+      "hashtags": "#MangoMemories #ChildhoodFlavours #AuthenticDrinks #Ad",
+      "audio": "Nostalgic acoustic whistle and piano soundtrack."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@nostalgia_tales_amit",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹40,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-30",
+    "title": "Mother-of-Pearl Rose Gold Artisan Luxury Timepiece",
+    "brandName": "Top Heritage Horology House (Verified)",
+    "partnerLogo": "/logos/apple-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹85,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Luxury Styling Reel • 3 Stories",
+    "creatorsApplied": 22,
+    "acceptanceChance": 80,
+    "eligibilityRate": 88,
+    "categories": [
+      "Fashion",
+      "Luxury",
+      "Accessories"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English / Hindi",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Style the mother-of-pearl dial and rose gold metal bracelet with modern corporate suits and festive silk sarees.",
+    "scopeOfWork": [
+      {
+        "title": "The Statement Jewellery Watch Reel",
+        "detail": "Wrist closeups showing light refraction on dial and seamless transitions across outfits."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Graceful, regal, empowered, luxurious.",
+      "videoSetup": "Soft luxury studio lighting, macro jewelry detail focus.",
+      "hashtags": "#LuxuryTimepiece #RoseGoldWatch #TimelessElegance #Ad",
+      "audio": "Sophisticated contemporary instrumental score."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@anushka_luxury_style",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹85,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹85,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-31",
+    "title": "Polarized UV400 Gradient Aviator Road Trip Eyewear",
+    "brandName": "Youth Eyewear & Accessories Brand (Verified)",
+    "partnerLogo": "/logos/airbnb.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹32,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Road Trip Reel • 2 Stories",
+    "creatorsApplied": 36,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Fashion",
+      "Travel",
+      "Accessories"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Road trip driving glare test showing polarized UV400 lens cutting harsh highway reflections with metal aviator frames.",
+    "scopeOfWork": [
+      {
+        "title": "The Highway Glare Polarized Lens Test",
+        "detail": "Holding sunglasses in front of camera lens against windshield sunlight."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Adventurous, cool, dynamic, youth road trip.",
+      "videoSetup": "Open highway convertible/car, sunny coastal backdrop.",
+      "hashtags": "#PolarizedSunglasses #RoadTripStyle #SunProtection #Ad",
+      "audio": "High-energy indie rock driving anthem."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@road_tripper_karan",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹32,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹32,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-32",
+    "title": "5% Redensyl + Procapil Hair Density & Growth Actives",
+    "brandName": "Evidence-Based Active Skincare & Haircare Label (Verified)",
+    "partnerLogo": "/logos/notion-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #475569 0%, #1E293B 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹55,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Science-First Hair Reel • 2 Stories",
+    "creatorsApplied": 31,
+    "acceptanceChance": 85,
+    "eligibilityRate": 92,
+    "categories": [
+      "Beauty",
+      "Hair Care",
+      "Education"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Evidence-based breakdown showing how 5% Redensyl + Procapil + Anagain reactivates dormant hair stem cells at follicle level.",
+    "scopeOfWork": [
+      {
+        "title": "The Science of Hair Follicle Actives Reel",
+        "detail": "Scalp dropper application with 3D follicle graphics explaining anagen growth cycle."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Science-first, trustworthy, transparent, myth-busting.",
+      "videoSetup": "Minimalist clean laboratory backdrop, clear graphics.",
+      "hashtags": "#HairGrowthActives #Redensyl5 #HairDensityRoutine #Ad",
+      "audio": "Subtle clean electronic pulse with calm, informative voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tricho_science_rahul",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹55,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹55,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-33",
+    "title": "12-Hour Velvet Matte Non-Drying Liquid Lip Color",
+    "brandName": "Celebrity Glamour Cosmetics Label (Verified)",
+    "partnerLogo": "/logos/figma-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EC4899 0%, #BE185D 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹35,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 12-Hr Wear Reel • 2 Stories",
+    "creatorsApplied": 46,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Cosmetics"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Non-drying velvet matte texture enriched with moringa oil that stays vibrant throughout meals without flaking.",
+    "scopeOfWork": [
+      {
+        "title": "The Non-Drying Matte Lipstick Test",
+        "detail": "Applying bold red shade, blot test with tissue, and checking lip hydration."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Glamorous, sassy, relatable, colorful.",
+      "videoSetup": "Beauty vanity ring light, clean macro mouth closeups.",
+      "hashtags": "#VelvetMatte #LongLastingLipstick #GlamMakeup #Ad",
+      "audio": "Upbeat disco pop beat with quick witty cuts."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tanya_glam_studio",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹35,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "₹35,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-34",
+    "title": "Limited Edition 500 GSM French Terry Luxury Hoodie Film",
+    "brandName": "Ultra-Luxury Streetwear Fashion House (Verified)",
+    "partnerLogo": "/logos/nike-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #000000 0%, #1A1A1A 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹1,40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Cinematic Fashion Reel • 1 Carousel",
+    "creatorsApplied": 18,
+    "acceptanceChance": 65,
+    "eligibilityRate": 80,
+    "categories": [
+      "Fashion",
+      "Luxury",
+      "Streetwear"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "X"
+    ],
+    "description": "Ultra-exclusive 500 GSM French terry hoodie with matte black custom metal hardware and bold rebellious design.",
+    "scopeOfWork": [
+      {
+        "title": "Cinematic High-Fashion Streetwear Film",
+        "detail": "4K anamorphic lens sequence in brutalist concrete architectural spaces."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Dark, opulent, rebellious, hyper-exclusive, avant-garde.",
+      "videoSetup": "Industrial warehouse, smoke haze, anamorphic flare lighting.",
+      "hashtags": "#LuxuryStreetwear #CinematicFashion #LimitedDrop #Ad",
+      "audio": "Deep industrial techno bassline with suspenseful builds."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@cinematic_kartik",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹1,40,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹1,40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-35",
+    "title": "Heritage Heavyweight Washed Denim Trucker Jacket",
+    "brandName": "Leading Casual Denim & Outdoor Label (Verified)",
+    "partnerLogo": "/logos/adidas-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #1E3A8A 0%, #172554 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹38,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Outfit Styling Reel • 2 Stories",
+    "creatorsApplied": 38,
+    "acceptanceChance": 89,
+    "eligibilityRate": 94,
+    "categories": [
+      "Fashion",
+      "Denim",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Style 100% rigid cotton washed denim trucker jacket with boots and graphic tee for vintage biker look.",
+    "scopeOfWork": [
+      {
+        "title": "3 Ways to Style Classic Denim Jacket",
+        "detail": "Layering with hoodie for winter, all-black casual streetwear, and rugged boots."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Rugged, effortless, vintage, adventurous.",
+      "videoSetup": "Vintage motorcycle backdrop, rustic brick alleyways.",
+      "hashtags": "#DenimTrucker #VintageDenim #EverydayStreetwear #Ad",
+      "audio": "Indie rock guitar riff with dynamic style transitions."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@biker_denim_dev",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹38,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Showcase Follow-up Campaign",
+        "payout": "₹38,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-36",
+    "title": "Crunchy Whole Grain Honey & Cocoa Millet Stars Cereal",
+    "brandName": "Certified Organic Cereals Enterprise (Verified)",
+    "partnerLogo": "/logos/duolingo.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #10B981 0%, #047857 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹30,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Crunchy Breakfast Reel • 2 Stories",
+    "creatorsApplied": 35,
+    "acceptanceChance": 93,
+    "eligibilityRate": 98,
+    "categories": [
+      "Food",
+      "Parenting",
+      "Health"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Crunchy ragi & jowar star shapes that stay crispy in cold milk without getting soggy or loaded with refined sugar.",
+    "scopeOfWork": [
+      {
+        "title": "The 5-Minute Milk Pour Crunch Test",
+        "detail": "Pouring cold milk over millet stars, listening to crunch, and showing zero maida label."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Joyful, crunchy, clean, wholesome parenting.",
+      "videoSetup": "Sunny breakfast table, colorful ceramic bowl.",
+      "hashtags": "#MilletCereal #HealthyBreakfast #KidsNutrition #Ad",
+      "audio": "Satisfying milk pour and crunch ASMR sounds with cheerful acoustic melody."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@moms_healthy_plate",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹30,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹30,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-37",
+    "title": "High-Protein Real Alphonso Mango Greek Yogurt Shake",
+    "brandName": "Leading Gourmet Dairy & Fitness Brand (Verified)",
+    "partnerLogo": "/logos/nike-official.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #F59E0B 0%, #D97706 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹34,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Post-Workout Shake Reel • 2 Stories",
+    "creatorsApplied": 38,
+    "acceptanceChance": 91,
+    "eligibilityRate": 96,
+    "categories": [
+      "Fitness",
+      "Food",
+      "Supplements"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Grab-and-go 12g protein Greek yogurt smoothie with zero added preservatives for immediate gym muscle recovery.",
+    "scopeOfWork": [
+      {
+        "title": "Post-Workout Protein In A Bottle",
+        "detail": "Chugging chilled mango smoothie post-HIIT session with on-screen macro breakdown."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Energizing, appetizing, active, refreshing.",
+      "videoSetup": "Gym exit or outdoor park, sunny day glow, bottle condensation droplets.",
+      "hashtags": "#HighProteinShake #PostWorkoutRecovery #FitnessFuel #Ad",
+      "audio": "High-energy electronic workout beat."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@tarun_fitcoach",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹34,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Showcase Follow-up Campaign",
+        "payout": "₹34,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-38",
+    "title": "Farm-Fresh Malai Paneer Tender Sizzle & Softness Test",
+    "brandName": "Top Farm-to-Home Dairy Enterprise (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #059669 0%, #047857 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹36,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Paneer Softness Reel • 2 Stories",
+    "creatorsApplied": 34,
+    "acceptanceChance": 92,
+    "eligibilityRate": 97,
+    "categories": [
+      "Food",
+      "Cooking",
+      "Health"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Cut fresh buffalo milk malai paneer with a butter knife and cook Paneer Butter Masala with zero rubbery texture.",
+    "scopeOfWork": [
+      {
+        "title": "The Softest Paneer Knife Cut Test",
+        "detail": "Knife slicing like butter through fresh paneer block and pan searing to golden tenderness."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Wholesome, appetizing, fresh, authentic.",
+      "videoSetup": "Kitchen cutting board, pan-frying sizzle with rich gravy.",
+      "hashtags": "#FreshPaneer #DesiCooking #GourmetPaneer #Ad",
+      "audio": "Warm acoustic cooking melody with mouthwatering sizzle foley."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@rasoi_magic_anjali",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹36,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "₹36,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-39",
+    "title": "Deep Sofa & Upholstery Injection-Extraction ASMR Cleaning",
+    "brandName": "Leading At-Home Home Services Unicorn (Verified)",
+    "partnerLogo": "/logos/uber-official.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0F172A 0%, #0284C7 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹45,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Deep Clean ASMR Reel • 2 Stories",
+    "creatorsApplied": 29,
+    "acceptanceChance": 88,
+    "eligibilityRate": 94,
+    "categories": [
+      "Lifestyle",
+      "Home",
+      "Services"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Extremely satisfying video showing black dirt and water sucked out of sofa fabric using industrial vacuum extraction.",
+    "scopeOfWork": [
+      {
+        "title": "The Oddly Satisfying Deep Sofa Cleaning",
+        "detail": "Transparent vacuum nozzle sucking out dirty foaming water showing pristine fabric."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Oddly satisfying, shocking, clean, transformational.",
+      "videoSetup": "High contrast lighting, macro suction nozzle closeups in slow motion.",
+      "hashtags": "#DeepCleaningASMR #SatisfyingClean #HomeTransformation #Ad",
+      "audio": "Satisfying vacuum extraction foley sounds with upbeat chill electronic track."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@satisfying_clean_india",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹45,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Lifestyle Showcase Follow-up Campaign",
+        "payout": "₹45,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-40",
+    "title": "Intelligent Scalp Protection Fast Hair Dryer Showcase",
+    "brandName": "Leading British Consumer Tech Enterprise (Verified)",
+    "partnerLogo": "/logos/apple-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EC4899 0%, #831843 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "£1,450",
+    "currencySymbol": "£",
+    "currencyCode": "GBP",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Styling Reel • 3 Stories",
+    "creatorsApplied": 18,
+    "acceptanceChance": 74,
+    "eligibilityRate": 85,
+    "categories": [
+      "Technology",
+      "Beauty",
+      "Hair Care"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "countryFlag": "🇬🇧",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Demonstrate Scalp Protect sensor automatically reducing heat at 55°C to preserve natural shine and prevent thermal damage.",
+    "scopeOfWork": [
+      {
+        "title": "Salon-Grade Blowout with Scalp Sensor",
+        "detail": "Testing distance sensing LED changing from red to orange while drying curly hair."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Futuristic, premium, high-tech beauty, luxurious.",
+      "videoSetup": "Studio vanity mirror, macro sensor LED and airflow closeup in 4K.",
+      "hashtags": "#HairTech #ScalpProtection #SalonBlowout #Ad",
+      "audio": "Sleek electronic bassline with studio microphone voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@chloe_hairartist",
+        "country": "United Kingdom",
+        "flag": "🇬🇧",
+        "bid": "£1,450",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Showcase Follow-up Campaign",
+        "payout": "£1,450 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-41",
+    "title": "Vital Seamless 2.0 High-Waist Squat-Proof Gym Leggings",
+    "brandName": "Leading British Athleisure Label (Verified)",
+    "partnerLogo": "/logos/nike.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "£850",
+    "currencySymbol": "£",
+    "currencyCode": "GBP",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "2 High-Energy Gym Reels • 4 Stories",
+    "creatorsApplied": 24,
+    "acceptanceChance": 82,
+    "eligibilityRate": 90,
+    "categories": [
+      "Fitness",
+      "Fashion",
+      "Athleisure"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "countryFlag": "🇬🇧",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Heavy barbell deadlifts, squats, and HIIT sprints demonstrating sweat-wicking knit and compression support.",
+    "scopeOfWork": [
+      {
+        "title": "Heavy Leg Day Squat & Sweat Test",
+        "detail": "High-intensity workout wear test with direct audience discount code."
+      }
+    ],
+    "contentDirections": {
+      "tone": "High-octane, intense, motivating, athletic.",
+      "videoSetup": "Dark aesthetic gym lighting, heavy weights, speed ramp tracking camera.",
+      "hashtags": "#GymLeggings #SquatProof #FitnessMotivation #Ad",
+      "audio": "Heavy-bass motivational gym music synced to barbell lifts."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@fitt_with_emma",
+        "country": "United Kingdom",
+        "flag": "🇬🇧",
+        "bid": "£850",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Showcase Follow-up Campaign",
+        "payout": "£850 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-42",
+    "title": "Pillowy Gel-Cream Seamless Cheek Flush Blush Tutorial",
+    "brandName": "NYC Minimalist Beauty Label (Verified)",
+    "partnerLogo": "/logos/canva-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #FB7185 0%, #F43F5E 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$1,650",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Blend Technique Reel • 3 Stories",
+    "creatorsApplied": 26,
+    "acceptanceChance": 80,
+    "eligibilityRate": 88,
+    "categories": [
+      "Beauty",
+      "Cosmetics",
+      "Clean Beauty"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Dab a pea-sized drop on cheekbones and tap out sheer, pillowy, natural flushed glow with no harsh lines.",
+    "scopeOfWork": [
+      {
+        "title": "The Pillowy Natural Flush Tutorial",
+        "detail": "Fingertip blending technique showing sheer buildable coverage on bare skin."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Effortless, dewy, glowing, minimalist chic.",
+      "videoSetup": "Natural golden hour window light, macro cheek tap.",
+      "hashtags": "#CreamBlush #NoMakeupMakeup #DewyGlow #Ad",
+      "audio": "Dreamy bedroom pop acoustic track with calm voiceover."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@maya_cleanbeauty",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$1,650",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Showcase Follow-up Campaign",
+        "payout": "$1,650 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-43",
+    "title": "Weightless Buttery-Soft Second-Skin Yoga Flow Set",
+    "brandName": "Top Global Athleisure & Yoga Label (Verified)",
+    "partnerLogo": "/logos/puma-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$2,200",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "2 Morning Yoga Reels • 4 Stories",
+    "creatorsApplied": 20,
+    "acceptanceChance": 72,
+    "eligibilityRate": 84,
+    "categories": [
+      "Fitness",
+      "Yoga",
+      "Athleisure"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Experience the buttery-soft weightless fabric during sunrise vinyasa flows with zero friction and second-skin stretch.",
+    "scopeOfWork": [
+      {
+        "title": "Sunrise Vinyasa Flow in Active Set",
+        "detail": "Seamless camera transitions between morning meditation, flow poses, and matcha routine."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Mindful, serene, elevated, luxurious athleisure.",
+      "videoSetup": "Sun-drenched studio loft with natural oak wood floor.",
+      "hashtags": "#YogaFlow #MindfulMovement #AthleisureStyle #Ad",
+      "audio": "Peaceful ambient meditation music with soft narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@sophia_mindfulflow",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$2,200",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Showcase Follow-up Campaign",
+        "payout": "$2,200 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-44",
+    "title": "Centrifusion Rapid Crema Extraction Home Barista Masterclass",
+    "brandName": "Leading European Coffee Machine Enterprise (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #78350F 0%, #451A03 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€950",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 1-Touch Barista Reel • 2 Stories",
+    "creatorsApplied": 21,
+    "acceptanceChance": 81,
+    "eligibilityRate": 89,
+    "categories": [
+      "Food",
+      "Coffee",
+      "Lifestyle"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "French / English",
+    "country": "France",
+    "countryCode": "FR",
+    "countryFlag": "🇫🇷",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Insert barcode pod, press 1 button, and watch 4,000 RPM Centrifusion technology spin thick velvety coffee crema.",
+    "scopeOfWork": [
+      {
+        "title": "The Perfect Morning Crema Pour",
+        "detail": "Macro 4K video of barcode scanning, spinning extraction, and golden crema layer."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Sophisticated, Parisian aesthetic, sensory, luxurious.",
+      "videoSetup": "Parisian balcony or marble coffee bar, crystal glassware.",
+      "hashtags": "#HomeBarista #CoffeeCrema #MorningCoffeeRitual #Ad",
+      "audio": "Classy French jazz accordion & acoustic bass with brewing ASMR."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@lucas_cafe_paris",
+        "country": "France",
+        "flag": "🇫🇷",
+        "bid": "€950",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "€950 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-45",
+    "title": "Anodized Aviation Aluminum Cabin Suitcase Travel Film",
+    "brandName": "Heritage German Luxury Luggage House (Verified)",
+    "partnerLogo": "/logos/airbnb-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #64748B 0%, #334155 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€1,850",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Cinematic Travel Reel • 1 YouTube Vlog",
+    "creatorsApplied": 15,
+    "acceptanceChance": 68,
+    "eligibilityRate": 82,
+    "categories": [
+      "Travel",
+      "Luxury",
+      "Design"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "German / English",
+    "country": "Germany",
+    "countryCode": "DE",
+    "countryFlag": "🇩🇪",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Iconic grooved aviation aluminum shell, handmade leather handles, and Multiwheel ball-bearing glide in first class.",
+    "scopeOfWork": [
+      {
+        "title": "The Timeless Aluminum Case Film",
+        "detail": "Cinematic tracking shot through luxury terminal, TSA lock clicks, and leather patina."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Timeless, architectural, German engineering excellence, luxury travel.",
+      "videoSetup": "First-class lounges, high-end design hotels, 4K 60fps tracking camera.",
+      "hashtags": "#LuxuryTravel #EngineeredLuggage #TravelInStyle #Ad",
+      "audio": "Minimalist cinematic electronic soundscape."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@maximilian_voyage",
+        "country": "Germany",
+        "flag": "🇩🇪",
+        "bid": "€1,850",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Travel Showcase Follow-up Campaign",
+        "payout": "€1,850 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-46",
+    "title": "Enameled Cast Iron Dutch Oven Slow-Cooked Stew Master",
+    "brandName": "Heritage French Cookware Manufacturer (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #EA580C 0%, #C2410C 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€750",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 Slow-Cooked Stew Reel • 2 Stories",
+    "creatorsApplied": 19,
+    "acceptanceChance": 84,
+    "eligibilityRate": 91,
+    "categories": [
+      "Food",
+      "Cooking",
+      "Kitchenware"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "French / English",
+    "country": "France",
+    "countryCode": "FR",
+    "countryFlag": "🇫🇷",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Slow-simmer French Boeuf Bourguignon demonstrating even heat retention and signature flame-orange enamel finish.",
+    "scopeOfWork": [
+      {
+        "title": "The 3-Hour Slow Braise Dutch Oven Reel",
+        "detail": "Searing beef, deglazing red wine, simmering with lid on, and unveiling rich sauce."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Cozy, rustic, artisanal, indulgent gourmet cooking.",
+      "videoSetup": "Warm candlelit kitchen, wooden dining table, macro steam sizzle.",
+      "hashtags": "#CastIronCooking #SlowCooking #GourmetStew #Ad",
+      "audio": "Gentle French acoustic waltz with mouthwatering simmer sounds."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@julie_frenchtable",
+        "country": "France",
+        "flag": "🇫🇷",
+        "bid": "€750",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Showcase Follow-up Campaign",
+        "payout": "€750 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-47",
+    "title": "33MP Full-Frame Compact Cinema Camera Creator Review",
+    "brandName": "Top Japanese Camera & Optics Enterprise (Verified)",
+    "partnerLogo": "/logos/sony-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "¥240,000",
+    "currencySymbol": "¥",
+    "currencyCode": "JPY",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Dedicated Camera Review • 2 Shorts",
+    "creatorsApplied": 17,
+    "acceptanceChance": 70,
+    "eligibilityRate": 83,
+    "categories": [
+      "Technology",
+      "Photography",
+      "AI"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 27, 2026 • 2:30 PM",
+    "projectTimeline": "Sep 5 – Sep 25, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Japanese / English",
+    "country": "Japan",
+    "countryCode": "JP",
+    "countryFlag": "🇯🇵",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Review 33MP full-frame sensor, AI subject recognition autofocus, and 4K 60p compact body for solo travel filmmakers.",
+    "scopeOfWork": [
+      {
+        "title": "Tokyo Night Walk 4K 60fps Low-Light Test",
+        "detail": "Handheld walking through Shibuya night rain showcasing 7-step stabilization."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Cinematic, technical, authoritative, visually stunning.",
+      "videoSetup": "Tokyo neon reflections, razor-sharp eye-autofocus tracking.",
+      "hashtags": "#CinematicCamera #FullFrameVlog #LowLightVideo #Ad",
+      "audio": "Atmospheric lo-fi synth with crisp Japanese & English narration."
+    },
+    "milestones": [
+      "1. Concept & plan check",
+      "2. Video rough cut review",
+      "3. Final live publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@kenji_cinematics",
+        "country": "Japan",
+        "flag": "🇯🇵",
+        "bid": "¥240,000",
+        "days": "8",
+        "rating": "5.0",
+        "reviews": 96,
+        "er": "9.8",
+        "pitch": "Experienced content creator with strong engagement in this category."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Showcase Follow-up Campaign",
+        "payout": "¥240,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-48",
+    "title": "Relaxed Fit Linen Co-ord Set Resort Wear Lookbook",
+    "brandName": "Premium D2C Apparel Brand (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹44,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 47,
+    "acceptanceChance": 93,
+    "eligibilityRate": 95,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹44,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "₹44,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-49",
+    "title": "Peptide Lip Glaze High-Shine Hydration Test",
+    "brandName": "Clean Beauty Cosmetics Label (Verified)",
+    "partnerLogo": "/logos/canva.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹32,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 48,
+    "acceptanceChance": 82,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹32,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "₹32,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-50",
+    "title": "144Hz AMOLED Curved Display Gaming Smartphone Review",
+    "brandName": "Leading Electronics Brand (Verified)",
+    "partnerLogo": "/logos/samsung-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹72,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 49,
+    "acceptanceChance": 83,
+    "eligibilityRate": 97,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹72,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "₹72,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-51",
+    "title": "Whey Isolate Double Rich Chocolate Dissolution Test",
+    "brandName": "Certified Sports Nutrition Label (Verified)",
+    "partnerLogo": "/logos/nike-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 25,
+    "acceptanceChance": 84,
+    "eligibilityRate": 88,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-52",
+    "title": "Cold-Pressed Extra Virgin Coconut Oil Cooking Sizzle",
+    "brandName": "Organic FMCG Foods Enterprise (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹36,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 26,
+    "acceptanceChance": 85,
+    "eligibilityRate": 89,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹36,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "₹36,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-53",
+    "title": "Ultra-Lightweight Water-Resistant Weekend Duffle Bag",
+    "brandName": "Modern Travel Gear Label (Verified)",
+    "partnerLogo": "/logos/airbnb.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 27,
+    "acceptanceChance": 86,
+    "eligibilityRate": 90,
+    "categories": [
+      "Travel",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our travel campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Travel Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TravelReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_travel",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹40,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Travel reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Travel Seasonal Launch Campaign",
+        "payout": "₹40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-54",
+    "title": "Minimalist Handcrafted Ceramic Coffee Mug Sets",
+    "brandName": "Artisanal Home Decor Studio (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹30,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 28,
+    "acceptanceChance": 87,
+    "eligibilityRate": 91,
+    "categories": [
+      "Home",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our home campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Home Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#HomeReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_home",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹30,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Home reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Home Seasonal Launch Campaign",
+        "payout": "₹30,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-55",
+    "title": "Automated Zero-Commission Stock Portfolio SIP Guide",
+    "brandName": "Leading Discount Broking Unicorn (Verified)",
+    "partnerLogo": "/logos/stripe.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹80,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 29,
+    "acceptanceChance": 88,
+    "eligibilityRate": 92,
+    "categories": [
+      "Finance",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our finance campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Finance Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FinanceReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_finance",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹80,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Finance reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Finance Seasonal Launch Campaign",
+        "payout": "₹80,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-56",
+    "title": "Dual-Dashcam 4K Night Vision Parking Guard Test",
+    "brandName": "Smart Automotive Accessories Brand (Verified)",
+    "partnerLogo": "/logos/uber-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 30,
+    "acceptanceChance": 89,
+    "eligibilityRate": 93,
+    "categories": [
+      "Automobile",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our automobile campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Automobile Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#AutomobileReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_automobile",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Automobile reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Automobile Seasonal Launch Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-57",
+    "title": "Mechanical Hot-Swappable RGB Wireless Keyboard Sound Test",
+    "brandName": "Esports Gaming Peripherals Enterprise (Verified)",
+    "partnerLogo": "/logos/discord.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹50,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 31,
+    "acceptanceChance": 90,
+    "eligibilityRate": 94,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE",
+      "TWITCH"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹50,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹50,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-58",
+    "title": "Spatial Audio Hi-Res True Wireless Earphones Launch",
+    "brandName": "Premium Sound Acoustics Brand (Verified)",
+    "partnerLogo": "/logos/spotify-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹46,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 32,
+    "acceptanceChance": 91,
+    "eligibilityRate": 95,
+    "categories": [
+      "Music",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our music campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Music Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#MusicReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_music",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹46,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Music reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Music Seasonal Launch Campaign",
+        "payout": "₹46,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-59",
+    "title": "Ergonomic Standing Desk Dual-Motor Smart Setup",
+    "brandName": "Modern Workspace Tech Enterprise (Verified)",
+    "partnerLogo": "/logos/github-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$1,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 33,
+    "acceptanceChance": 92,
+    "eligibilityRate": 96,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$1,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$1,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-60",
+    "title": "Waterproof Gore-Tex Trail Hiking Shell Jacket",
+    "brandName": "Alpine Performance Outdoor Label (Verified)",
+    "partnerLogo": "/logos/adidas-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "£1,100",
+    "currencySymbol": "£",
+    "currencyCode": "GBP",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 34,
+    "acceptanceChance": 93,
+    "eligibilityRate": 97,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "countryFlag": "🇬🇧",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "United Kingdom",
+        "flag": "🇬🇧",
+        "bid": "£1,100",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "£1,100 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-61",
+    "title": "Hyaluronic Marine Hydration Serum Deep Quench",
+    "brandName": "French Thalassotherapy Skincare House (Verified)",
+    "partnerLogo": "/logos/figma.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€850",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 35,
+    "acceptanceChance": 82,
+    "eligibilityRate": 88,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "French / English",
+    "country": "France",
+    "countryCode": "FR",
+    "countryFlag": "🇫🇷",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "France",
+        "flag": "🇫🇷",
+        "bid": "€850",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "€850 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-62",
+    "title": "Low-Latency Ultralight Esports Wireless Mouse",
+    "brandName": "Pro Gaming Gear Studio (Verified)",
+    "partnerLogo": "/logos/twitch-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 36,
+    "acceptanceChance": 83,
+    "eligibilityRate": 89,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "TWITCH",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-63",
+    "title": "Single-Estate Ceremonial Grade Uji Matcha Whisking",
+    "brandName": "Kyoto Heritage Tea Producers (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "¥140,000",
+    "currencySymbol": "¥",
+    "currencyCode": "JPY",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 37,
+    "acceptanceChance": 84,
+    "eligibilityRate": 90,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Japanese / English",
+    "country": "Japan",
+    "countryCode": "JP",
+    "countryFlag": "🇯🇵",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "Japan",
+        "flag": "🇯🇵",
+        "bid": "¥140,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "¥140,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-64",
+    "title": "Cloud Collaboration AI Developer Platform Review",
+    "brandName": "Enterprise Cloud Solutions (Verified)",
+    "partnerLogo": "/logos/github.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$2,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 38,
+    "acceptanceChance": 85,
+    "eligibilityRate": 91,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "YOUTUBE",
+      "X"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$2,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$2,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-65",
+    "title": "Carbon-Plated Marathon Road Racing Shoes Test",
+    "brandName": "Performance Athletic Running Label (Verified)",
+    "partnerLogo": "/logos/nike-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "S$2,200",
+    "currencySymbol": "S$",
+    "currencyCode": "SGD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 39,
+    "acceptanceChance": 86,
+    "eligibilityRate": 92,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "countryFlag": "🇸🇬",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "Singapore",
+        "flag": "🇸🇬",
+        "bid": "S$2,200",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "S$2,200 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-66",
+    "title": "All-in-One Team Workspace & Document Sync Tour",
+    "brandName": "Productivity SaaS Platform (Verified)",
+    "partnerLogo": "/logos/notion.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹60,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 40,
+    "acceptanceChance": 87,
+    "eligibilityRate": 93,
+    "categories": [
+      "Software",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "YOUTUBE",
+      "LINKEDIN"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our software campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Software Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#SoftwareReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_software",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹60,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Software reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Software Seasonal Launch Campaign",
+        "payout": "₹60,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-67",
+    "title": "Original Anime & Cinema 4K HDR Series Streaming Watchparty",
+    "brandName": "Global Video Streaming Platform (Verified)",
+    "partnerLogo": "/logos/netflix-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹65,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 41,
+    "acceptanceChance": 88,
+    "eligibilityRate": 94,
+    "categories": [
+      "Entertainment",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our entertainment campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Entertainment Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#EntertainmentReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_entertainment",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹65,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Entertainment reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Entertainment Seasonal Launch Campaign",
+        "payout": "₹65,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-68",
+    "title": "Relaxed Fit Linen Co-ord Set Resort Wear Lookbook",
+    "brandName": "Premium D2C Apparel Brand (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹44,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 42,
+    "acceptanceChance": 89,
+    "eligibilityRate": 95,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹44,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "₹44,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-69",
+    "title": "Peptide Lip Glaze High-Shine Hydration Test",
+    "brandName": "Clean Beauty Cosmetics Label (Verified)",
+    "partnerLogo": "/logos/canva.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹32,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 43,
+    "acceptanceChance": 90,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹32,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "₹32,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-70",
+    "title": "144Hz AMOLED Curved Display Gaming Smartphone Review",
+    "brandName": "Leading Electronics Brand (Verified)",
+    "partnerLogo": "/logos/samsung-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹72,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 44,
+    "acceptanceChance": 91,
+    "eligibilityRate": 97,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": true,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹72,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "₹72,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-71",
+    "title": "Whey Isolate Double Rich Chocolate Dissolution Test",
+    "brandName": "Certified Sports Nutrition Label (Verified)",
+    "partnerLogo": "/logos/nike-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 45,
+    "acceptanceChance": 92,
+    "eligibilityRate": 88,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-72",
+    "title": "Cold-Pressed Extra Virgin Coconut Oil Cooking Sizzle",
+    "brandName": "Organic FMCG Foods Enterprise (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹36,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 46,
+    "acceptanceChance": 93,
+    "eligibilityRate": 89,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹36,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "₹36,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-73",
+    "title": "Ultra-Lightweight Water-Resistant Weekend Duffle Bag",
+    "brandName": "Modern Travel Gear Label (Verified)",
+    "partnerLogo": "/logos/airbnb.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 47,
+    "acceptanceChance": 82,
+    "eligibilityRate": 90,
+    "categories": [
+      "Travel",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our travel campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Travel Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TravelReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_travel",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹40,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Travel reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Travel Seasonal Launch Campaign",
+        "payout": "₹40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-74",
+    "title": "Minimalist Handcrafted Ceramic Coffee Mug Sets",
+    "brandName": "Artisanal Home Decor Studio (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹30,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 48,
+    "acceptanceChance": 83,
+    "eligibilityRate": 91,
+    "categories": [
+      "Home",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our home campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Home Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#HomeReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_home",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹30,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Home reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Home Seasonal Launch Campaign",
+        "payout": "₹30,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-75",
+    "title": "Automated Zero-Commission Stock Portfolio SIP Guide",
+    "brandName": "Leading Discount Broking Unicorn (Verified)",
+    "partnerLogo": "/logos/stripe.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹80,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 49,
+    "acceptanceChance": 84,
+    "eligibilityRate": 92,
+    "categories": [
+      "Finance",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our finance campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Finance Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FinanceReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_finance",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹80,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Finance reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Finance Seasonal Launch Campaign",
+        "payout": "₹80,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-76",
+    "title": "Dual-Dashcam 4K Night Vision Parking Guard Test",
+    "brandName": "Smart Automotive Accessories Brand (Verified)",
+    "partnerLogo": "/logos/uber-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 25,
+    "acceptanceChance": 85,
+    "eligibilityRate": 93,
+    "categories": [
+      "Automobile",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our automobile campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Automobile Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#AutomobileReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_automobile",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Automobile reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Automobile Seasonal Launch Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-77",
+    "title": "Mechanical Hot-Swappable RGB Wireless Keyboard Sound Test",
+    "brandName": "Esports Gaming Peripherals Enterprise (Verified)",
+    "partnerLogo": "/logos/discord.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹50,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 26,
+    "acceptanceChance": 86,
+    "eligibilityRate": 94,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE",
+      "TWITCH"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹50,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹50,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-78",
+    "title": "Spatial Audio Hi-Res True Wireless Earphones Launch",
+    "brandName": "Premium Sound Acoustics Brand (Verified)",
+    "partnerLogo": "/logos/spotify-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹46,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 27,
+    "acceptanceChance": 87,
+    "eligibilityRate": 95,
+    "categories": [
+      "Music",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our music campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Music Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#MusicReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_music",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹46,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Music reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Music Seasonal Launch Campaign",
+        "payout": "₹46,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-79",
+    "title": "Ergonomic Standing Desk Dual-Motor Smart Setup",
+    "brandName": "Modern Workspace Tech Enterprise (Verified)",
+    "partnerLogo": "/logos/github-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$1,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 28,
+    "acceptanceChance": 88,
+    "eligibilityRate": 96,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$1,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$1,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-80",
+    "title": "Waterproof Gore-Tex Trail Hiking Shell Jacket",
+    "brandName": "Alpine Performance Outdoor Label (Verified)",
+    "partnerLogo": "/logos/adidas-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "£1,100",
+    "currencySymbol": "£",
+    "currencyCode": "GBP",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 29,
+    "acceptanceChance": 89,
+    "eligibilityRate": 97,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "countryFlag": "🇬🇧",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "United Kingdom",
+        "flag": "🇬🇧",
+        "bid": "£1,100",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "£1,100 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-81",
+    "title": "Hyaluronic Marine Hydration Serum Deep Quench",
+    "brandName": "French Thalassotherapy Skincare House (Verified)",
+    "partnerLogo": "/logos/figma.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€850",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 30,
+    "acceptanceChance": 90,
+    "eligibilityRate": 88,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "French / English",
+    "country": "France",
+    "countryCode": "FR",
+    "countryFlag": "🇫🇷",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "France",
+        "flag": "🇫🇷",
+        "bid": "€850",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "€850 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-82",
+    "title": "Low-Latency Ultralight Esports Wireless Mouse",
+    "brandName": "Pro Gaming Gear Studio (Verified)",
+    "partnerLogo": "/logos/twitch-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 31,
+    "acceptanceChance": 91,
+    "eligibilityRate": 89,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "TWITCH",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-83",
+    "title": "Single-Estate Ceremonial Grade Uji Matcha Whisking",
+    "brandName": "Kyoto Heritage Tea Producers (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "¥140,000",
+    "currencySymbol": "¥",
+    "currencyCode": "JPY",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 32,
+    "acceptanceChance": 92,
+    "eligibilityRate": 90,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Japanese / English",
+    "country": "Japan",
+    "countryCode": "JP",
+    "countryFlag": "🇯🇵",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "Japan",
+        "flag": "🇯🇵",
+        "bid": "¥140,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "¥140,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-84",
+    "title": "Cloud Collaboration AI Developer Platform Review",
+    "brandName": "Enterprise Cloud Solutions (Verified)",
+    "partnerLogo": "/logos/github.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$2,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 33,
+    "acceptanceChance": 93,
+    "eligibilityRate": 91,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "YOUTUBE",
+      "X"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$2,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$2,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-85",
+    "title": "Carbon-Plated Marathon Road Racing Shoes Test",
+    "brandName": "Performance Athletic Running Label (Verified)",
+    "partnerLogo": "/logos/nike-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "S$2,200",
+    "currencySymbol": "S$",
+    "currencyCode": "SGD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 34,
+    "acceptanceChance": 82,
+    "eligibilityRate": 92,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "countryFlag": "🇸🇬",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "Singapore",
+        "flag": "🇸🇬",
+        "bid": "S$2,200",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "S$2,200 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-86",
+    "title": "All-in-One Team Workspace & Document Sync Tour",
+    "brandName": "Productivity SaaS Platform (Verified)",
+    "partnerLogo": "/logos/notion.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹60,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 35,
+    "acceptanceChance": 83,
+    "eligibilityRate": 93,
+    "categories": [
+      "Software",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "YOUTUBE",
+      "LINKEDIN"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our software campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Software Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#SoftwareReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_software",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹60,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Software reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Software Seasonal Launch Campaign",
+        "payout": "₹60,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-87",
+    "title": "Original Anime & Cinema 4K HDR Series Streaming Watchparty",
+    "brandName": "Global Video Streaming Platform (Verified)",
+    "partnerLogo": "/logos/netflix-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹65,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 36,
+    "acceptanceChance": 84,
+    "eligibilityRate": 94,
+    "categories": [
+      "Entertainment",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our entertainment campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Entertainment Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#EntertainmentReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_entertainment",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹65,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Entertainment reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Entertainment Seasonal Launch Campaign",
+        "payout": "₹65,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-88",
+    "title": "Relaxed Fit Linen Co-ord Set Resort Wear Lookbook",
+    "brandName": "Premium D2C Apparel Brand (Verified)",
+    "partnerLogo": "/logos/zara-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹44,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 37,
+    "acceptanceChance": 85,
+    "eligibilityRate": 95,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹44,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "₹44,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-89",
+    "title": "Peptide Lip Glaze High-Shine Hydration Test",
+    "brandName": "Clean Beauty Cosmetics Label (Verified)",
+    "partnerLogo": "/logos/canva.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹32,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 38,
+    "acceptanceChance": 86,
+    "eligibilityRate": 96,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹32,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "₹32,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-90",
+    "title": "144Hz AMOLED Curved Display Gaming Smartphone Review",
+    "brandName": "Leading Electronics Brand (Verified)",
+    "partnerLogo": "/logos/samsung-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹72,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 39,
+    "acceptanceChance": 87,
+    "eligibilityRate": 97,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹72,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "₹72,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-91",
+    "title": "Whey Isolate Double Rich Chocolate Dissolution Test",
+    "brandName": "Certified Sports Nutrition Label (Verified)",
+    "partnerLogo": "/logos/nike-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 40,
+    "acceptanceChance": 88,
+    "eligibilityRate": 88,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-92",
+    "title": "Cold-Pressed Extra Virgin Coconut Oil Cooking Sizzle",
+    "brandName": "Organic FMCG Foods Enterprise (Verified)",
+    "partnerLogo": "/logos/amazon-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹36,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 41,
+    "acceptanceChance": 89,
+    "eligibilityRate": 89,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹36,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "₹36,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-93",
+    "title": "Ultra-Lightweight Water-Resistant Weekend Duffle Bag",
+    "brandName": "Modern Travel Gear Label (Verified)",
+    "partnerLogo": "/logos/airbnb.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹40,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 42,
+    "acceptanceChance": 90,
+    "eligibilityRate": 90,
+    "categories": [
+      "Travel",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our travel campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Travel Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TravelReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_travel",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹40,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Travel reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Travel Seasonal Launch Campaign",
+        "payout": "₹40,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-94",
+    "title": "Minimalist Handcrafted Ceramic Coffee Mug Sets",
+    "brandName": "Artisanal Home Decor Studio (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹30,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 43,
+    "acceptanceChance": 91,
+    "eligibilityRate": 91,
+    "categories": [
+      "Home",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "PINTEREST"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our home campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Home Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#HomeReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_home",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹30,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Home reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Home Seasonal Launch Campaign",
+        "payout": "₹30,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-95",
+    "title": "Automated Zero-Commission Stock Portfolio SIP Guide",
+    "brandName": "Leading Discount Broking Unicorn (Verified)",
+    "partnerLogo": "/logos/stripe.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹80,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 44,
+    "acceptanceChance": 92,
+    "eligibilityRate": 92,
+    "categories": [
+      "Finance",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our finance campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Finance Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FinanceReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_finance",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹80,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Finance reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Finance Seasonal Launch Campaign",
+        "payout": "₹80,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-96",
+    "title": "Dual-Dashcam 4K Night Vision Parking Guard Test",
+    "brandName": "Smart Automotive Accessories Brand (Verified)",
+    "partnerLogo": "/logos/uber-raw.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹42,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 45,
+    "acceptanceChance": 93,
+    "eligibilityRate": 93,
+    "categories": [
+      "Automobile",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our automobile campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Automobile Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#AutomobileReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_automobile",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹42,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Automobile reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Automobile Seasonal Launch Campaign",
+        "payout": "₹42,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-97",
+    "title": "Mechanical Hot-Swappable RGB Wireless Keyboard Sound Test",
+    "brandName": "Esports Gaming Peripherals Enterprise (Verified)",
+    "partnerLogo": "/logos/discord.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹50,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 46,
+    "acceptanceChance": 82,
+    "eligibilityRate": 94,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE",
+      "TWITCH"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹50,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹50,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-98",
+    "title": "Spatial Audio Hi-Res True Wireless Earphones Launch",
+    "brandName": "Premium Sound Acoustics Brand (Verified)",
+    "partnerLogo": "/logos/spotify-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹46,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 47,
+    "acceptanceChance": 83,
+    "eligibilityRate": 95,
+    "categories": [
+      "Music",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our music campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Music Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#MusicReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_music",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹46,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Music reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Music Seasonal Launch Campaign",
+        "payout": "₹46,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-99",
+    "title": "Ergonomic Standing Desk Dual-Motor Smart Setup",
+    "brandName": "Modern Workspace Tech Enterprise (Verified)",
+    "partnerLogo": "/logos/github-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$1,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 48,
+    "acceptanceChance": 84,
+    "eligibilityRate": 96,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$1,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$1,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-100",
+    "title": "Waterproof Gore-Tex Trail Hiking Shell Jacket",
+    "brandName": "Alpine Performance Outdoor Label (Verified)",
+    "partnerLogo": "/logos/adidas-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "£1,100",
+    "currencySymbol": "£",
+    "currencyCode": "GBP",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 49,
+    "acceptanceChance": 85,
+    "eligibilityRate": 97,
+    "categories": [
+      "Fashion",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United Kingdom",
+    "countryCode": "GB",
+    "countryFlag": "🇬🇧",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fashion campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fashion Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FashionReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fashion",
+        "country": "United Kingdom",
+        "flag": "🇬🇧",
+        "bid": "£1,100",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fashion reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fashion Seasonal Launch Campaign",
+        "payout": "£1,100 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-101",
+    "title": "Hyaluronic Marine Hydration Serum Deep Quench",
+    "brandName": "French Thalassotherapy Skincare House (Verified)",
+    "partnerLogo": "/logos/figma.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "€850",
+    "currencySymbol": "€",
+    "currencyCode": "EUR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 25,
+    "acceptanceChance": 86,
+    "eligibilityRate": 88,
+    "categories": [
+      "Beauty",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "French / English",
+    "country": "France",
+    "countryCode": "FR",
+    "countryFlag": "🇫🇷",
+    "socials": [
+      "INSTAGRAM"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our beauty campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Beauty Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#BeautyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_beauty",
+        "country": "France",
+        "flag": "🇫🇷",
+        "bid": "€850",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Beauty reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Beauty Seasonal Launch Campaign",
+        "payout": "€850 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-102",
+    "title": "Low-Latency Ultralight Esports Wireless Mouse",
+    "brandName": "Pro Gaming Gear Studio (Verified)",
+    "partnerLogo": "/logos/twitch-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹48,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 26,
+    "acceptanceChance": 87,
+    "eligibilityRate": 89,
+    "categories": [
+      "Gaming",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "TWITCH",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our gaming campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Gaming Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#GamingReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_gaming",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹48,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Gaming reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Gaming Seasonal Launch Campaign",
+        "payout": "₹48,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-103",
+    "title": "Single-Estate Ceremonial Grade Uji Matcha Whisking",
+    "brandName": "Kyoto Heritage Tea Producers (Verified)",
+    "partnerLogo": "/logos/starbucks-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "¥140,000",
+    "currencySymbol": "¥",
+    "currencyCode": "JPY",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 27,
+    "acceptanceChance": 88,
+    "eligibilityRate": 90,
+    "categories": [
+      "Food",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Japanese / English",
+    "country": "Japan",
+    "countryCode": "JP",
+    "countryFlag": "🇯🇵",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our food campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Food Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FoodReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_food",
+        "country": "Japan",
+        "flag": "🇯🇵",
+        "bid": "¥140,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Food reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Food Seasonal Launch Campaign",
+        "payout": "¥140,000 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-104",
+    "title": "Cloud Collaboration AI Developer Platform Review",
+    "brandName": "Enterprise Cloud Solutions (Verified)",
+    "partnerLogo": "/logos/github.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "$2,500",
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 28,
+    "acceptanceChance": 89,
+    "eligibilityRate": 91,
+    "categories": [
+      "Technology",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "United States",
+    "countryCode": "US",
+    "countryFlag": "🇺🇸",
+    "socials": [
+      "YOUTUBE",
+      "X"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our technology campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Technology Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#TechnologyReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_technology",
+        "country": "United States",
+        "flag": "🇺🇸",
+        "bid": "$2,500",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Technology reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Technology Seasonal Launch Campaign",
+        "payout": "$2,500 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-105",
+    "title": "Carbon-Plated Marathon Road Racing Shoes Test",
+    "brandName": "Performance Athletic Running Label (Verified)",
+    "partnerLogo": "/logos/nike-full.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "COMMISSION",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "S$2,200",
+    "currencySymbol": "S$",
+    "currencyCode": "SGD",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 29,
+    "acceptanceChance": 90,
+    "eligibilityRate": 92,
+    "categories": [
+      "Fitness",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "English",
+    "country": "Singapore",
+    "countryCode": "SG",
+    "countryFlag": "🇸🇬",
+    "socials": [
+      "INSTAGRAM",
+      "YOUTUBE"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our fitness campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Fitness Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#FitnessReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_fitness",
+        "country": "Singapore",
+        "flag": "🇸🇬",
+        "bid": "S$2,200",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Fitness reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Fitness Seasonal Launch Campaign",
+        "payout": "S$2,200 Fixed Pay"
+      }
+    ]
+  },
+  {
+    "id": "camp-106",
+    "title": "All-in-One Team Workspace & Document Sync Tour",
+    "brandName": "Productivity SaaS Platform (Verified)",
+    "partnerLogo": "/logos/notion.svg",
+    "bannerImage": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "avatarGradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
+    "commercialType": "FLAT_FEE",
+    "commercialLabel": "Payment verified by client",
+    "payoutAmount": "₹60,000",
+    "currencySymbol": "₹",
+    "currencyCode": "INR",
+    "payType": "Fixed Pay",
+    "deliverablesSummary": "1 4K Reel • 2 Stories • 1 Post",
+    "creatorsApplied": 30,
+    "acceptanceChance": 91,
+    "eligibilityRate": 93,
+    "categories": [
+      "Software",
+      "Lifestyle",
+      "CreatorCollab"
+    ],
+    "isNew": false,
+    "postedAt": "Aug 26, 2026 • 11:15 AM",
+    "projectTimeline": "Sep 6 – Sep 28, 2026",
+    "requirementLabel": "Requirement not met",
+    "language": "Hindi / English",
+    "country": "India",
+    "countryCode": "IN",
+    "countryFlag": "🇮🇳",
+    "socials": [
+      "YOUTUBE",
+      "LINKEDIN"
+    ],
+    "description": "Create high-impact, engaging content showcasing key product features and real-world performance for our software campaign with trackable link-in-bio attribution.",
+    "scopeOfWork": [
+      {
+        "title": "Software Showcase Video",
+        "detail": "High-definition 4K video capturing product in real-world everyday usage scenario."
+      }
+    ],
+    "contentDirections": {
+      "tone": "Authentic, conversational, informative, and visually engaging.",
+      "videoSetup": "Bright natural lighting, clear audio recording, sharp macro product focus.",
+      "hashtags": "#SoftwareReview #CreatorCollab #ProductShowcase #Ad",
+      "audio": "Upbeat modern background beat mixed at -18dB with articulate voiceover."
+    },
+    "milestones": [
+      "1. Brief and storyboard approval",
+      "2. Draft edit check",
+      "3. Coordinated publication"
+    ],
+    "proposals": [
+      {
+        "handle": "@creator_software",
+        "country": "India",
+        "flag": "🇮🇳",
+        "bid": "₹60,000",
+        "days": "7",
+        "rating": "5.0",
+        "reviews": 85,
+        "er": "9.4",
+        "pitch": "Specialized in Software reviews and styling with high organic conversion."
+      }
+    ],
+    "otherJobs": [
+      {
+        "title": "Software Seasonal Launch Campaign",
+        "payout": "₹60,000 Fixed Pay"
+      }
+    ]
+  }
 ];
-

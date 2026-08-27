@@ -492,10 +492,10 @@ function CreatorPortalContent() {
   const [collabs, setCollabs] = useState<any[]>([
     {
       id: 'collab-1',
-      campaignTitle: 'Affiliation Program',
-      subject: 'Holiday Creator Campaign Partnership',
-      brandName: 'Nexus Tech Global',
-      brandInitials: 'NX',
+      campaignTitle: 'Next-Gen Smartphone Showcase',
+      subject: 'Creator Campaign Partnership',
+      brandName: 'Confidential Enterprise Client',
+      brandInitials: 'CE',
       status: 'ACCEPTED',
       appliedAt: 'Oct 26, 2026',
       proposedRate: '₹45,000',
@@ -505,7 +505,7 @@ function CreatorPortalContent() {
         {
           id: 'msg-1',
           sender: 'BRAND',
-          senderName: 'Alan W. (Brand Manager)',
+          senderName: 'Brand Campaign Manager',
           badge: 'Application Form',
           badgeColor: '#D97706',
           badgeBg: '#FEF3C7',
@@ -517,27 +517,27 @@ function CreatorPortalContent() {
           sender: 'CREATOR',
           senderName: 'You',
           date: 'Oct 27, 2026 - 02:15 PM',
-          text: 'Hi Alan, it would be a pleasure! I have reviewed the deliverable brief. My first draft will be ready by end of next week.',
+          text: 'Hi, it would be a pleasure! I have reviewed the deliverable brief. My first draft will be ready by end of next week.',
         },
         {
           id: 'msg-3',
           sender: 'BRAND',
-          senderName: 'Alan W. (Brand Manager)',
+          senderName: 'Brand Campaign Manager',
           badge: 'Product Shipment',
           badgeColor: '#059669',
           badgeBg: '#ECFDF5',
           date: 'Oct 28, 2026 - 10:40 AM',
-          text: 'Awesome! Tracking ID #NX-998241 has been dispatched. Let us know when the package arrives safely.',
+          text: 'Awesome! Package tracking ID has been dispatched. Let us know when the package arrives safely.',
         },
         {
           id: 'msg-4',
           sender: 'BRAND',
-          senderName: 'Alan W. (Brand Manager)',
+          senderName: 'Brand Campaign Manager',
           badge: 'Publication Instructions',
           badgeColor: '#0052FF',
           badgeBg: '#EFF6FF',
           date: 'Oct 30, 2026 - 04:10 PM',
-          text: 'First draft looks brilliant! Please use the tracking link in the video description and mention the launch hashtag #NexusX1Ultra.',
+          text: 'First draft looks brilliant! Please use the tracking link in the video description and mention the campaign tags #FlagshipCamera #TechReview #Ad.',
         },
       ],
     },
@@ -2633,14 +2633,14 @@ function CreatorPortalContent() {
                       <div
                         style={{
                           position: 'absolute',
-                          bottom: '-18px',
+                          bottom: '-14px',
                           left: '16px',
-                          width: '48px',
-                          height: '48px',
+                          width: '40px',
+                          height: '40px',
                           backgroundColor: '#FFFFFF',
-                          border: '2.5px solid #FFFFFF',
-                          borderRadius: '12px',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                          border: '2px solid #FFFFFF',
+                          borderRadius: '10px',
+                          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)',
                           zIndex: 3,
                           overflow: 'hidden',
                           display: 'flex',
@@ -2653,11 +2653,10 @@ function CreatorPortalContent() {
                           src={camp.partnerLogo}
                           alt="Partner Brand Logo"
                           style={{
-                            maxWidth: '100%',
-                            maxHeight: '100%',
+                            maxWidth: '65%',
+                            maxHeight: '65%',
                             objectFit: 'contain',
-                            filter: 'blur(3.5px)',
-                            transform: 'scale(1.15)',
+                            filter: 'blur(2.5px)',
                             display: 'block',
                           }}
                         />
@@ -2666,18 +2665,16 @@ function CreatorPortalContent() {
 
                     {/* Card Content Body */}
                     <div style={{ padding: '26px 16px 16px 16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      {/* Row 1: Blurred Brand + Divider + Category Capsule Pills */}
+                      {/* Row 1: Confidential Brand + Divider + Category Capsule Pills */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
                         <span
                           style={{
                             fontSize: '11.5px',
                             fontWeight: 700,
                             color: '#64748B',
-                            filter: 'blur(3.5px)',
-                            userSelect: 'none',
                           }}
                         >
-                          Anonymized brand
+                          {camp.brandName}
                         </span>
 
                         <span style={{ width: '1px', height: '11px', backgroundColor: '#E2E8F0', margin: '0 2px' }} />
@@ -2719,11 +2716,9 @@ function CreatorPortalContent() {
                                 fontSize: '13.5px',
                                 fontWeight: 700,
                                 color: '#0F172A',
-                                filter: 'blur(3.5px)',
-                                userSelect: 'none',
                               }}
                             >
-                              Anonymized campaign name
+                              {camp.title}
                             </span>
 
                             {/* Posted Time & Date (Clean, Borderless Text) */}

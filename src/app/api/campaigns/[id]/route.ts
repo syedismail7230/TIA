@@ -63,7 +63,7 @@ export async function GET(
     if (!campaign) {
       campaign = {
         id: params.id,
-        title: 'Nexus X1 Ultra Flagship Smartphone Launch Challenge',
+        title: 'Next-Gen Flagship Smartphone 4K Low-Light Camera Showcase',
         description: 'Create high-engagement unboxing, low-light camera comparison reels, and dedicated YouTube tech reviews.',
         category: 'Tech',
         objective: 'AWARENESS',
@@ -74,10 +74,10 @@ export async function GET(
         targetGeographies: JSON.stringify(['IN']),
         deliverables: JSON.stringify(['1x Dedicated YouTube Review (10-12 mins)', '2x Instagram Reels (4K 60fps)', '3x IG Story Frame Sets']),
         organization: {
-          id: 'org_nexus_india',
-          name: 'Nexus Electronics India',
-          legalName: 'Nexus Global Technologies Pvt Ltd',
-          website: 'https://nexus.example.com',
+          id: 'org_enterprise_verified',
+          name: 'Tier-1 Smartphone Enterprise (Verified)',
+          legalName: 'Confidential Client (Verified Enterprise)',
+          website: 'https://agency.example.com',
           verificationStatus: 'VERIFIED',
           reputationScore: 98,
         },
@@ -126,7 +126,7 @@ export async function GET(
                   {
                     id: 'sub_1',
                     contentUrl: 'https://cdn.tia.agency/previews/reel_demo_4k.mp4',
-                    captionText: 'Testing the game-changing night mode sensor on the new Nexus X1 Ultra #ad #NexusX1',
+                    captionText: 'Testing the game-changing night mode sensor on the flagship camera #ad #TechReview',
                     status: 'UNDER_REVIEW',
                     revisions: [],
                   },
