@@ -6166,8 +6166,59 @@ function CreatorPortalContent() {
                     )}
                   </div>
 
-                  {/* Custom Dynamic Interactive Slider Track */}
-                  <div style={{ position: 'relative', marginBottom: '38px', maxWidth: '560px' }}>
+                  {/* Custom Dynamic Interactive Slider Track matching Inspiration UI */}
+                  <div style={{ position: 'relative', marginBottom: '42px', maxWidth: '580px', paddingTop: '16px', paddingBottom: '10px' }}>
+                    {/* Background Track */}
+                    <div
+                      style={{
+                        position: 'relative',
+                        width: '100%',
+                        height: '10px',
+                        backgroundColor: '#F1F5F9',
+                        borderRadius: '999px',
+                        border: '1px solid #E2E8F0',
+                        overflow: 'visible',
+                      }}
+                    >
+                      {/* Active Blue Filled Track */}
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${((storeSliderCredits - 1) / 99) * 100}%`,
+                          backgroundColor: '#0052FF',
+                          borderRadius: '999px',
+                          transition: 'width 0.05s ease',
+                        }}
+                      />
+
+                      {/* Custom Floating Thumb Knob Pill */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: `${((storeSliderCredits - 1) / 99) * 100}%`,
+                          transform: 'translate(-50%, -50%)',
+                          backgroundColor: '#FFFFFF',
+                          border: '2px solid #0052FF',
+                          borderRadius: '24px',
+                          padding: '4px 12px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          boxShadow: '0 4px 14px rgba(0, 82, 255, 0.28), 0 2px 6px rgba(0,0,0,0.06)',
+                          pointerEvents: 'none',
+                          userSelect: 'none',
+                          zIndex: 2,
+                          whiteSpace: 'nowrap',
+                          transition: 'left 0.05s ease',
+                        }}
+                      >
+                        <span style={{ fontSize: '11px', color: '#0052FF' }}>⚡</span>
+                        <span style={{ fontSize: '13px', fontWeight: 900, color: '#0F172A' }}>{storeSliderCredits}</span>
+                      </div>
+                    </div>
+
+                    {/* Invisible full-interactive native range overlay */}
                     <input
                       type="range"
                       min="1"
@@ -6176,38 +6227,39 @@ function CreatorPortalContent() {
                       value={storeSliderCredits}
                       onChange={(e) => setStoreSliderCredits(parseInt(e.target.value, 10))}
                       style={{
+                        position: 'absolute',
+                        top: '6px',
+                        left: 0,
                         width: '100%',
-                        height: '6px',
-                        borderRadius: '6px',
-                        accentColor: '#0052FF',
+                        height: '32px',
+                        opacity: 0,
                         cursor: 'pointer',
+                        zIndex: 4,
+                        margin: 0,
                       }}
                     />
 
-                    {/* Value Indicator Pill below/near slider */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', fontSize: '12px', color: '#94A3B8', fontWeight: 600 }}>
-                      <span>1 Credit</span>
-                      <span
-                        style={{
-                          backgroundColor: '#EFF6FF',
-                          color: '#0052FF',
-                          border: '1px solid #BFDBFE',
-                          padding: '4px 14px',
-                          borderRadius: '16px',
-                          fontWeight: 800,
-                          fontSize: '12px',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                        }}
-                      >
-                        <span>⚡</span>
-                        <span>{storeSliderCredits} Credits</span>
-                        {activePricing.discountPct > 0 && (
-                          <span style={{ color: '#059669', fontWeight: 700 }}>({activePricing.discountPct}% OFF)</span>
-                        )}
-                      </span>
-                      <span>100 Credits</span>
+                    {/* Min / Max Labels below slider */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '18px', fontSize: '12px', color: '#94A3B8', fontWeight: 600 }}>
+                      <span style={{ cursor: 'pointer' }} onClick={() => setStoreSliderCredits(1)}>1 Credit</span>
+                      {activePricing.discountPct > 0 ? (
+                        <span
+                          style={{
+                            backgroundColor: '#ECFDF5',
+                            color: '#059669',
+                            border: '1px solid #A7F3D0',
+                            padding: '3px 10px',
+                            borderRadius: '12px',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                          }}
+                        >
+                          🎉 {activePricing.discountPct}% Bulk Discount Applied
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '11px', color: '#64748B' }}>Drag to customize</span>
+                      )}
+                      <span style={{ cursor: 'pointer' }} onClick={() => setStoreSliderCredits(100)}>100 Credits</span>
                     </div>
                   </div>
 
