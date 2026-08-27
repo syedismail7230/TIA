@@ -1130,9 +1130,9 @@ function CreatorPortalContent() {
                       </div>
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11.5px', color: '#475569' }}>
-                        {/* Profile Eligibility Row */}
+                        {/* Your Profile Eligibility Row */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ color: '#94A3B8' }}>Profile eligibility</span>
+                          <span style={{ color: '#94A3B8' }}>Your profile eligibility</span>
                           <span style={{ fontWeight: 700, color: '#0284C7' }}>{camp.eligibilityRate}%</span>
                         </div>
 
@@ -1499,7 +1499,7 @@ function CreatorPortalContent() {
                 {/* Intelligence Metrics in Modal */}
                 <div style={{ backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '12px', marginBottom: '14px', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
                   <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B' }}>Profile Eligibility</div>
+                    <div style={{ fontSize: '10.5px', color: '#64748B' }}>Your Profile Eligibility</div>
                     <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284C7' }}>{selectedCampaign.eligibilityRate}%</div>
                   </div>
                   <div>
