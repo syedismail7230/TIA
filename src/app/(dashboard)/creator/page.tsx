@@ -1280,7 +1280,26 @@ function CreatorPortalContent() {
               <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
             </button>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+              <div
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  backgroundColor: '#EFF6FF',
+                  border: '1px solid #DBEAFE',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#0052FF',
+                  flexShrink: 0,
+                }}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
               <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
               </span>
