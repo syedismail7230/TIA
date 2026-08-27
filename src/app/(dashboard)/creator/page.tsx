@@ -1152,7 +1152,10 @@ function CreatorPortalContent() {
                         {selectedCampaign.title}
                       </h1>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12.5px', color: '#64748B' }}>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 8px', borderRadius: '6px' }}>
+                        <span style={{ filter: 'blur(5px)', userSelect: 'none', color: '#0F172A', fontWeight: 800, display: 'inline-block' }}>
+                          {selectedCampaign.brandName}
+                        </span>
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
                           ✓ Verified Client
                         </span>
                         <span>•</span>
@@ -1535,23 +1538,17 @@ function CreatorPortalContent() {
                   <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                     About the Client
                   </h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0052FF' }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 21h18" />
-                        <path d="M5 21V7l8-4v18" />
-                        <path d="M19 21V11l-6-4" />
-                        <path d="M9 9h1" />
-                        <path d="M9 13h1" />
-                        <path d="M9 17h1" />
-                      </svg>
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontWeight: 800, fontSize: '15px', color: '#0F172A', filter: 'blur(5px)', userSelect: 'none', display: 'inline-block' }}>
+                        {selectedCampaign.brandName}
+                      </span>
+                      <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>
+                        ✓ Verified
+                      </span>
                     </div>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ fontWeight: 800, fontSize: '13.5px', color: '#0F172A' }}>Enterprise Client</span>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '1px 6px', borderRadius: '4px' }}>✓ Verified</span>
-                      </div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>{selectedCampaign.countryFlag} {selectedCampaign.country}</div>
+                    <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
+                      {selectedCampaign.countryFlag} {selectedCampaign.country}
                     </div>
                   </div>
 
@@ -1572,64 +1569,54 @@ function CreatorPortalContent() {
                   </div>
                 </div>
 
-                {/* 3. Client Verification Checklist (Clean Green Outline SVG Vector Icons) */}
+                {/* 3. Client Verification Checklist (Clean Green Outline SVG Vector Icons - NO CARDS) */}
                 <div style={{ backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                   <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                     Client Verification
                   </h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '4px 0' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '18px', padding: '4px 0' }}>
                     {/* Payment / Card Icon */}
-                    <div title="Payment Method Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                          <line x1="1" y1="10" x2="23" y2="10" />
-                        </svg>
-                      </div>
-                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Payment ✓</span>
+                    <div title="Payment Method Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', cursor: 'help' }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                        <line x1="1" y1="10" x2="23" y2="10" />
+                      </svg>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669' }}>Payment ✓</span>
                     </div>
 
                     {/* Email / Envelope Icon */}
-                    <div title="Email Address Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                          <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                      </div>
-                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Email ✓</span>
+                    <div title="Email Address Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', cursor: 'help' }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                      </svg>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669' }}>Email ✓</span>
                     </div>
 
                     {/* Identity / User Icon */}
-                    <div title="Identity Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Identity ✓</span>
+                    <div title="Identity Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', cursor: 'help' }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669' }}>Identity ✓</span>
                     </div>
 
                     {/* Phone / Handset Icon */}
-                    <div title="Phone Number Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                        </svg>
-                      </div>
-                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Phone ✓</span>
+                    <div title="Phone Number Verified" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', cursor: 'help' }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                      </svg>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669' }}>Phone ✓</span>
                     </div>
 
                     {/* Deposit / Shield Icon */}
-                    <div title="Milestone Deposit Funded" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', cursor: 'help' }}>
-                      <div style={{ width: '38px', height: '38px', borderRadius: '8px', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                          <polyline points="9 12 11 14 15 10" />
-                        </svg>
-                      </div>
-                      <span style={{ fontSize: '9.5px', fontWeight: 700, color: '#059669' }}>Deposit ✓</span>
+                    <div title="Milestone Deposit Funded" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', cursor: 'help' }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        <polyline points="9 12 11 14 15 10" />
+                      </svg>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669' }}>Deposit ✓</span>
                     </div>
                   </div>
                 </div>
