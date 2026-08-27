@@ -1409,7 +1409,7 @@ function CreatorPortalContent() {
                           top: '12px',
                           left: '12px',
                           backgroundColor: '#FFFFFF',
-                          color: '#7C3AED',
+                          color: '#059669',
                           padding: '4px 10px',
                           borderRadius: '6px',
                           fontSize: '11px',
@@ -1422,7 +1422,7 @@ function CreatorPortalContent() {
                           gap: '5px',
                         }}
                       >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                           <polyline points="9 12 11 14 15 10" />
                         </svg>
