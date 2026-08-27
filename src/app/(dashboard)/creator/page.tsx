@@ -2478,20 +2478,21 @@ function CreatorPortalContent() {
       </header>
 
       {/* Main Content Container */}
-      <main className="portal-main-wrapper" style={{ maxWidth: '1400px', margin: '0 auto', padding: '24px' }}>
-        {/* Nav Tabs (Desktop Only, Mobile uses bottom navigation) */}
-        <div className="portal-nav-segmented-container tia-desktop-only" style={{ marginBottom: '20px' }}>
+      <main className="portal-main-wrapper" style={{ maxWidth: '1400px', margin: '0 auto', padding: '16px 20px' }}>
+        {/* Nav Tabs (Responsive & Scrollable) */}
+        <div className="portal-nav-segmented-container creator-nav-tabs-wrapper" style={{ marginBottom: '20px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
           <nav
             className="portal-nav-segmented no-scrollbar"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '28px',
+              gap: '22px',
               background: 'transparent',
               padding: 0,
               border: 'none',
               borderBottom: '1px solid #E2E8F0',
               width: '100%',
+              minWidth: 'max-content',
             }}
           >
             {navTabs.map((tab) => {
@@ -4754,10 +4755,11 @@ function CreatorPortalContent() {
                   minHeight: '620px',
                   maxHeight: '840px',
                 }}
-                className="collabs-grid-layout"
+                className={`collabs-grid-layout ${mobileChatViewActive ? 'mobile-chat-open' : ''}`}
               >
                 {/* Left Panel: Conversation Threads List */}
                 <div
+                  className="collabs-left-sidebar"
                   style={{
                     backgroundColor: '#FFFFFF',
                     border: '1px solid #E2E8F0',
@@ -4941,6 +4943,7 @@ function CreatorPortalContent() {
                 {/* Right Panel: Full Interactive 2-Way Conversation Studio */}
                 {selectedCollab ? (
                   <div
+                    className="collabs-right-studio"
                     style={{
                       backgroundColor: '#FFFFFF',
                       border: '1px solid #E2E8F0',
@@ -4966,7 +4969,32 @@ function CreatorPortalContent() {
                         flexShrink: 0,
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        {/* Mobile Back to Threads Button */}
+                        <button
+                          type="button"
+                          onClick={() => setMobileChatViewActive(false)}
+                          className="collabs-mobile-back-btn"
+                          title="Back to all conversations"
+                          style={{
+                            alignItems: 'center',
+                            gap: '4px',
+                            padding: '6px 10px',
+                            backgroundColor: '#F8FAFC',
+                            color: '#0F172A',
+                            borderRadius: '8px',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            border: '1px solid #CBD5E1',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 18 9 12 15 6" />
+                          </svg>
+                          <span>Back</span>
+                        </button>
+
                         <div
                           style={{
                             width: '42px',
