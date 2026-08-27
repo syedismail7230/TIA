@@ -1503,6 +1503,7 @@ function CreatorPortalContent() {
     const netNum = tx.netAmount ?? (grossNum - feeNum - tdsNum);
     const utr = tx.utrNumber || 'HDFC9821049219';
     const isCreditTopup = tx.id?.includes('cred');
+    const logoUrl = typeof window !== 'undefined' ? `${window.location.origin}/logo-cropped.png` : '/logo-cropped.png';
 
     const numberToWords = (num: number): string => {
       const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
@@ -1714,7 +1715,14 @@ function CreatorPortalContent() {
             <table class="header-table">
               <tr>
                 <td style="width: 60%;">
-                  <div class="company-name">THE INFLUENCERS AGENCY</div>
+                  <div style="margin-bottom: 8px;">
+                    <img
+                      src="${logoUrl}"
+                      class="company-logo-img"
+                      alt="The Influencers Agency"
+                      style="height: 38px; width: auto; max-width: 175px; object-fit: contain; display: block;"
+                    />
+                  </div>
                   <div class="company-meta">
                     <strong>The Influencers Agency Private Limited</strong><br />
                     CIN: U74999DL2026PTC109281 • GSTIN: 07AAACT8819Q1Z8<br />
@@ -1874,8 +1882,20 @@ function CreatorPortalContent() {
 
           <script>
             window.onload = function() {
-              window.focus();
-              window.print();
+              const img = document.querySelector('.company-logo-img');
+              if (img && !img.complete) {
+                img.onload = function() {
+                  window.focus();
+                  window.print();
+                };
+                img.onerror = function() {
+                  window.focus();
+                  window.print();
+                };
+              } else {
+                window.focus();
+                window.print();
+              }
             };
           </script>
         </body>
@@ -9058,9 +9078,15 @@ function CreatorPortalContent() {
             {/* Receipt Header */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid #E2E8F0', paddingBottom: '16px', marginBottom: '18px' }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '18px', fontWeight: 900, color: '#0052FF' }}>TIA</span>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>Creator Disbursal Slip</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                  <img
+                    src="/logo-cropped.png"
+                    alt="The Influencers Agency"
+                    style={{ height: '24px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                  />
+                  <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748B', borderLeft: '1px solid #CBD5E1', paddingLeft: '10px' }}>
+                    Disbursal Advice Slip
+                  </span>
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748B' }}>
                   Invoice Ref: {selectedReceiptTx.invoiceNumber || 'INV-TIA-2026-0891'}
