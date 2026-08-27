@@ -584,17 +584,23 @@ function CreatorPortalContent() {
             <Link
               href="/creator"
               style={{
-                fontSize: '20px',
-                fontWeight: 900,
-                color: '#0052FF',
                 textDecoration: 'none',
-                letterSpacing: '-0.04em',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '10px',
               }}
             >
-              <span>TIA</span>
+              <img
+                src="/logo-cropped.png"
+                alt="The Influencer's Agency"
+                style={{
+                  height: '32px',
+                  width: 'auto',
+                  maxWidth: '150px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
               <span
                 style={{
                   fontSize: '11px',
