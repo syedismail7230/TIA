@@ -8385,921 +8385,531 @@ function CreatorPortalContent() {
         })()}
 
         {/* ==================================================================== */}
-        {/* TAB 4: SOCIAL MEDIA & TIA CREDIBILITY STUDIO                         */}
+        {/* TAB 4: SOCIAL MEDIA & CREATOR CREDIBILITY DOSSIER                    */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            {/* Top Header & Action Controls */}
+          <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* 1. Unified Creator Identity & Credibility Hero Card */}
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                flexWrap: 'wrap',
-                gap: '16px',
-                marginBottom: '22px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '24px 28px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
               }}
             >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <h2 style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
-                    Social Media Analytics & Credibility Profile
-                  </h2>
-                  <span
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 800,
-                      color: '#059669',
-                      backgroundColor: '#ECFDF5',
-                      border: '1px solid #A7F3D0',
-                      padding: '2px 8px',
-                      borderRadius: '12px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}
-                  >
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#059669' }} />
-                    Live API Verified
-                  </span>
-                </div>
-                <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>
-                  Official verified creator pass, live multi-channel metrics, audience demographics, and connected OAuth integrations.
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                <button
-                  type="button"
-                  disabled={isSyncingSocial}
-                  onClick={handleSyncSocialMetrics}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 14px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '10px',
-                    fontSize: '12.5px',
-                    fontWeight: 700,
-                    color: '#334155',
-                    cursor: isSyncingSocial ? 'wait' : 'pointer',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                    transition: 'all 0.15s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#94A3B8';
-                    e.currentTarget.style.backgroundColor = '#F8FAFC';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#CBD5E1';
-                    e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  }}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#0052FF"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{
-                      animation: isSyncingSocial ? 'spin 1s linear infinite' : 'none',
-                    }}
-                  >
-                    <polyline points="23 4 23 10 17 10" />
-                    <polyline points="1 20 1 14 7 14" />
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-                  </svg>
-                  <span>{isSyncingSocial ? 'Syncing...' : 'Sync Live Metrics'}</span>
-                </button>
-
-                <button
-                  type="button"
-                  disabled={isDownloadingMediaKit}
-                  onClick={handleDownloadMediaKitPdf}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 14px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '10px',
-                    fontSize: '12.5px',
-                    fontWeight: 700,
-                    color: '#0F172A',
-                    cursor: isDownloadingMediaKit ? 'wait' : 'pointer',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                    transition: 'all 0.15s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#0052FF';
-                    e.currentTarget.style.backgroundColor = '#EFF6FF';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#CBD5E1';
-                    e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>{isDownloadingMediaKit ? 'Generating PDF...' : 'Download Media Kit'}</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleCopyProfileLink}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '8px 16px',
-                    backgroundColor: '#0052FF',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '10px',
-                    fontSize: '12.5px',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
-                    transition: 'all 0.15s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#0040D6';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#0052FF';
-                    e.currentTarget.style.transform = 'none';
-                  }}
-                >
-                  {copiedProfileLink ? (
-                    <>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span>✓ Link Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                      </svg>
-                      <span>Share Profile</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Top 4-Metric Analytics KPI Cards */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '16px',
-                marginBottom: '24px',
-              }}
-            >
-              {/* Card 1: Total Verified Reach */}
               <div
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '18px 20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '20px',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        width: '26px',
-                        height: '26px',
-                        borderRadius: '7px',
-                        backgroundColor: '#EFF6FF',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#0052FF',
-                      }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
-                    </div>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Total Verified Reach</span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 6px 0', letterSpacing: '-0.02em' }}>
-                  550,000
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Across 3 live channels</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#059669', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', padding: '2px 7px', borderRadius: '10px' }}>
-                    +12.4% MoM ↗
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 2: Weighted Engagement Rate */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '18px 20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        width: '26px',
-                        height: '26px',
-                        borderRadius: '7px',
-                        backgroundColor: '#ECFDF5',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#059669',
-                      }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                      </svg>
-                    </div>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Weighted Engagement</span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 6px 0', letterSpacing: '-0.02em' }}>
-                  4.85%
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>~15.5k avg post likes</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '2px 7px', borderRadius: '10px' }}>
-                    2.4x Industry Avg
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 3: Audience Authenticity */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '18px 20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        width: '26px',
-                        height: '26px',
-                        borderRadius: '7px',
-                        backgroundColor: '#F5F3FF',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#7C3AED',
-                      }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      </svg>
-                    </div>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Audience Authenticity</span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: '12px 0 6px 0', letterSpacing: '-0.02em' }}>
-                  96 / 100
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>0% bot traffic detected</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#7C3AED', backgroundColor: '#F5F3FF', border: '1px solid #DDD6FE', padding: '2px 7px', borderRadius: '10px' }}>
-                    Grade A+ Elite
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 4: Estimated Deal Value */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  borderRadius: '16px',
-                  padding: '18px 20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div
-                      style={{
-                        width: '26px',
-                        height: '26px',
-                        borderRadius: '7px',
-                        backgroundColor: '#FFFBEB',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#D97706',
-                      }}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    </div>
-                    <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>Estimated Deal Power</span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', margin: '12px 0 6px 0', letterSpacing: '-0.02em' }}>
-                  ₹45k – ₹90k
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '11.5px', color: '#94A3B8' }}>Per campaign deliverable</span>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#D97706', backgroundColor: '#FFFBEB', border: '1px solid #FDE68A', padding: '2px 7px', borderRadius: '10px' }}>
-                    Tier 1 Creator
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Two-Column Responsive Studio Workspace */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' }}>
-              {/* LEFT COLUMN: Digital TIA Credibility Card & Trust Matrix */}
-              <div style={{ flex: '1 1 420px', minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {/* The Digital TIA Credibility Card (Ultra-Premium Obsidian Metal Finishing) */}
-                <div
-                  style={{
-                    background: 'linear-gradient(135deg, #0A0F1D 0%, #151A30 45%, #0B1120 100%)',
-                    borderRadius: '20px',
-                    padding: '26px 28px',
-                    color: '#FFFFFF',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: '0 20px 40px -12px rgba(10, 15, 29, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                  }}
-                >
-                  {/* Subtle Holographic Grid Texture Overlay */}
+                {/* Creator Profile Info */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div
                     style={{
-                      position: 'absolute',
-                      inset: 0,
-                      backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(0, 82, 255, 0.18) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.15) 0%, transparent 50%)',
-                      pointerEvents: 'none',
-                    }}
-                  />
-
-                  {/* Card Header: TIA Logo & Chip / Wave */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '22px', position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <img src="/logo-cropped.png" alt="TIA Logo" style={{ height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
-                      <div style={{ borderLeft: '1px solid rgba(255, 255, 255, 0.2)', paddingLeft: '10px' }}>
-                        <div style={{ fontSize: '12px', fontWeight: 900, letterSpacing: '0.08em', color: '#FFFFFF' }}>CREATOR PASS</div>
-                        <div style={{ fontSize: '9px', color: '#94A3B8', letterSpacing: '0.05em' }}>TIER 1 ELITE</div>
-                      </div>
-                    </div>
-
-                    {/* Holographic Chip & Contactless Wave */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <svg width="28" height="22" viewBox="0 0 32 26" fill="none">
-                        <rect x="0.5" y="0.5" width="31" height="25" rx="4.5" fill="url(#chipGrad)" stroke="#E2E8F0" strokeOpacity="0.4" />
-                        <line x1="0" y1="13" x2="32" y2="13" stroke="#CBD5E1" strokeOpacity="0.5" />
-                        <line x1="12" y1="0" x2="12" y2="26" stroke="#CBD5E1" strokeOpacity="0.5" />
-                        <line x1="20" y1="0" x2="20" y2="26" stroke="#CBD5E1" strokeOpacity="0.5" />
-                        <defs>
-                          <linearGradient id="chipGrad" x1="0" y1="0" x2="32" y2="26" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#FCD34D" />
-                            <stop offset="0.5" stopColor="#FDE68A" />
-                            <stop offset="1" stopColor="#D97706" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round">
-                        <path d="M8.5 16.5a5 5 0 0 1 0-9" />
-                        <path d="M12 19a8.5 8.5 0 0 1 0-14" />
-                        <path d="M15.5 21.5a12 12 0 0 1 0-19" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Card Body: Creator Name & Verified Identifier */}
-                  <div style={{ position: 'relative', zIndex: 1, marginBottom: '22px' }}>
-                    <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#94A3B8', marginBottom: '3px' }}>
-                      Verified Partner
-                    </div>
-                    <div style={{ fontSize: '20px', fontWeight: 900, letterSpacing: '0.04em', color: '#FFFFFF', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-                      SARAH JENKINS
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#60A5FA', fontWeight: 700 }}>
-                      @creator.official • TIA-CR-98420-IN
-                    </div>
-                  </div>
-
-                  {/* Card Footer: Credibility Score & Security Badges */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-end',
-                      position: 'relative',
-                      zIndex: 1,
-                      borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                      paddingTop: '16px',
-                    }}
-                  >
-                    <div>
-                      <div style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94A3B8' }}>
-                        TIA Credibility Score
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-                        <span style={{ fontSize: '22px', fontWeight: 900, color: '#34D399', letterSpacing: '-0.02em' }}>98</span>
-                        <span style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 700 }}>/ 100</span>
-                        <span
-                          style={{
-                            fontSize: '9.5px',
-                            fontWeight: 800,
-                            color: '#10B981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                            border: '1px solid rgba(16, 185, 129, 0.4)',
-                            padding: '1px 6px',
-                            borderRadius: '6px',
-                            marginLeft: '4px',
-                          }}
-                        >
-                          Grade A+
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#94A3B8' }}>
-                        Member Since
-                      </div>
-                      <div style={{ fontSize: '12px', fontWeight: 800, color: '#FFFFFF', marginTop: '2px' }}>
-                        AUG 2025 • VALID 12/28
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* TIA Credibility & Trust Matrix Card */}
-                <div
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    padding: '22px',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                      TIA Credibility & Safety Matrix
-                    </h3>
-                    <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
-                      100% Trust Rating
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    {/* Metric 1: Audience Authenticity */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', fontWeight: 700, marginBottom: '6px' }}>
-                        <span style={{ color: '#334155' }}>Audience Authenticity (BotShield)</span>
-                        <span style={{ color: '#0052FF', fontWeight: 800 }}>96%</span>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: '96%', height: '100%', backgroundColor: '#0052FF', borderRadius: '4px' }} />
-                      </div>
-                      <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '4px' }}>Zero fake followers or artificial engagement detected</div>
-                    </div>
-
-                    {/* Metric 2: Milestone On-Time Completion */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', fontWeight: 700, marginBottom: '6px' }}>
-                        <span style={{ color: '#334155' }}>On-Time Milestone Delivery</span>
-                        <span style={{ color: '#059669', fontWeight: 800 }}>100%</span>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: '100%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
-                      </div>
-                      <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '4px' }}>18 of 18 campaign deliverables submitted on schedule</div>
-                    </div>
-
-                    {/* Metric 3: Brand Partner Satisfaction */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', fontWeight: 700, marginBottom: '6px' }}>
-                        <span style={{ color: '#334155' }}>Brand Partner Reviews</span>
-                        <span style={{ color: '#D97706', fontWeight: 800 }}>4.9 / 5.0 ★</span>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: '98%', height: '100%', backgroundColor: '#D97706', borderRadius: '4px' }} />
-                      </div>
-                      <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '4px' }}>14 enterprise sponsor reviews with 100% positive feedback</div>
-                    </div>
-
-                    {/* Metric 4: Dispute Free Record */}
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', fontWeight: 700, marginBottom: '6px' }}>
-                        <span style={{ color: '#334155' }}>Dispute Record & Payment Compliance</span>
-                        <span style={{ color: '#059669', fontWeight: 800 }}>0.0% Disputes</span>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: '100%', height: '100%', backgroundColor: '#059669', borderRadius: '4px' }} />
-                      </div>
-                      <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '4px' }}>100% protected disbursals backed by TIA Platform Gateway</div>
-                    </div>
-                  </div>
-
-                  {/* Footnote assurance */}
-                  <div
-                    style={{
-                      marginTop: '18px',
-                      paddingTop: '14px',
-                      borderTop: '1px solid #F1F5F9',
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: '14px',
+                      background: 'linear-gradient(135deg, #0052FF 0%, #7C3AED 100%)',
+                      color: '#FFFFFF',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
-                      fontSize: '11.5px',
-                      color: '#475569',
-                      fontWeight: 600,
+                      justifyContent: 'center',
+                      fontSize: '20px',
+                      fontWeight: 900,
+                      flexShrink: 0,
+                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
                     }}
                   >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <polyline points="9 12 11 14 15 10" />
-                    </svg>
-                    <span>This credibility rating gives your bids top priority in Brand recommendations.</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT COLUMN: Multi-Channel Deep-Dive Analytics & Connected Apps Hub */}
-              <div style={{ flex: '1 1 540px', minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                {/* Channel Deep-Dive Analytics Container */}
-                <div
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    padding: '22px',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '18px' }}>
-                    <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
-                        Audience Demographics & Performance
-                      </h3>
-                      <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
-                        Real-time metrics parsed directly from authenticated social APIs
-                      </p>
-                    </div>
-
-                    {/* Platform Selector Tabs */}
-                    <div style={{ display: 'flex', backgroundColor: '#F1F5F9', padding: '3px', borderRadius: '10px', gap: '3px' }}>
-                      {[
-                        { id: 'OVERVIEW', label: 'All Channels' },
-                        { id: 'INSTAGRAM', label: 'Instagram' },
-                        { id: 'YOUTUBE', label: 'YouTube' },
-                        { id: 'X', label: 'X / Twitter' },
-                      ].map((tab) => {
-                        const isSelected = socialAnalyticsTab === tab.id;
-                        return (
-                          <button
-                            key={tab.id}
-                            type="button"
-                            onClick={() => setSocialAnalyticsTab(tab.id as any)}
-                            style={{
-                              padding: '5px 11px',
-                              borderRadius: '7px',
-                              border: 'none',
-                              fontSize: '12px',
-                              fontWeight: isSelected ? 800 : 600,
-                              color: isSelected ? '#0052FF' : '#64748B',
-                              backgroundColor: isSelected ? '#FFFFFF' : 'transparent',
-                              boxShadow: isSelected ? '0 1px 3px rgba(0,0,0,0.08)' : 'none',
-                              cursor: 'pointer',
-                              transition: 'all 0.15s ease',
-                            }}
-                          >
-                            {tab.label}
-                          </button>
-                        );
-                      })}
-                    </div>
+                    SJ
                   </div>
 
-                  {/* Demographic Breakdown Grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '20px' }}>
-                    {/* Geography Demographics */}
-                    <div style={{ backgroundColor: '#F8FAFC', borderRadius: '12px', padding: '16px', border: '1px solid #F1F5F9' }}>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span>🌍</span> Top Audience Geographies
-                      </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
-                        {[
-                          { country: 'India', pct: 68, flag: '🇮🇳', color: '#0052FF' },
-                          { country: 'United States', pct: 14, flag: '🇺🇸', color: '#3B82F6' },
-                          { country: 'United Arab Emirates', pct: 7, flag: '🇦🇪', color: '#60A5FA' },
-                          { country: 'United Kingdom', pct: 6, flag: '🇬🇧', color: '#93C5FD' },
-                          { country: 'Others', pct: 5, flag: '🌐', color: '#CBD5E1' },
-                        ].map((geo) => (
-                          <div key={geo.country}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, color: '#334155', marginBottom: '3px' }}>
-                              <span>{geo.flag} {geo.country}</span>
-                              <span style={{ color: '#0F172A', fontWeight: 800 }}>{geo.pct}%</span>
-                            </div>
-                            <div style={{ width: '100%', height: '5px', backgroundColor: '#E2E8F0', borderRadius: '3px', overflow: 'hidden' }}>
-                              <div style={{ width: `${geo.pct}%`, height: '100%', backgroundColor: geo.color, borderRadius: '3px' }} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Age & Gender Demographics */}
-                    <div style={{ backgroundColor: '#F8FAFC', borderRadius: '12px', padding: '16px', border: '1px solid #F1F5F9' }}>
-                      <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span>👥</span> Age & Gender Distribution
-                      </div>
-
-                      {/* Gender Split Bar */}
-                      <div style={{ marginBottom: '14px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, marginBottom: '4px' }}>
-                          <span style={{ color: '#7C3AED' }}>♀ Female (54%)</span>
-                          <span style={{ color: '#0052FF' }}>♂ Male (46%)</span>
-                        </div>
-                        <div style={{ display: 'flex', width: '100%', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
-                          <div style={{ width: '54%', backgroundColor: '#7C3AED' }} />
-                          <div style={{ width: '46%', backgroundColor: '#0052FF' }} />
-                        </div>
-                      </div>
-
-                      {/* Age Groups */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                        {[
-                          { range: '18–24 years', pct: 44, note: 'Primary core' },
-                          { range: '25–34 years', pct: 38, note: 'High purchasing power' },
-                          { range: '35–44 years', pct: 14, note: 'Professional' },
-                          { range: '45+ years', pct: 4, note: 'Mature' },
-                        ].map((age) => (
-                          <div key={age.range} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11.5px' }}>
-                            <span style={{ fontWeight: 600, color: '#475569' }}>{age.range}</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                              <span style={{ fontSize: '10.5px', color: '#94A3B8' }}>{age.note}</span>
-                              <span style={{ fontWeight: 800, color: '#0F172A', width: '32px', textAlign: 'right' }}>{age.pct}%</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Content Benchmark Metrics */}
-                  <div
-                    style={{
-                      borderTop: '1px solid #F1F5F9',
-                      paddingTop: '14px',
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(3, 1fr)',
-                      gap: '12px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px', borderRadius: '10px' }}>
-                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Story Views</div>
-                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A', margin: '2px 0' }}>28,400</div>
-                      <div style={{ fontSize: '10px', color: '#059669', fontWeight: 700 }}>8.8% Reach Rate</div>
-                    </div>
-
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px', borderRadius: '10px' }}>
-                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Reels / Video Views</div>
-                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A', margin: '2px 0' }}>45,200</div>
-                      <div style={{ fontSize: '10px', color: '#059669', fontWeight: 700 }}>14.1% Viral Index</div>
-                    </div>
-
-                    <div style={{ backgroundColor: '#F8FAFC', padding: '10px', borderRadius: '10px' }}>
-                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Comments / Post</div>
-                      <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A', margin: '2px 0' }}>480+</div>
-                      <div style={{ fontSize: '10px', color: '#0052FF', fontWeight: 700 }}>High Sentiment (94%)</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Connected Apps & Live API Integrations Hub */}
-                <div
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    padding: '22px',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 2px 0' }}>
-                        Connected Creator Channels & API Hub
-                      </h3>
-                      <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
-                        Official OAuth tokens synced with platform rate cards
-                      </p>
-                    </div>
-                    <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>
-                      Last Synced: <strong style={{ color: '#0F172A' }}>{lastSocialSyncTime}</strong>
-                    </span>
-                  </div>
-
-                  {/* Active Connected Platforms List */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
-                    {[
-                      { id: 'INSTAGRAM', name: 'Instagram Creator', icon: <InstagramIcon size={24} /> },
-                      { id: 'YOUTUBE', name: 'YouTube Partner Channel', icon: <YouTubeIcon size={24} /> },
-                      { id: 'X', name: 'X / Twitter Creator Account', icon: <XIcon size={24} /> },
-                    ].map((plat) => {
-                      const account = socialAccounts.find((a) => a.platform === plat.id);
-                      const isConnected = account?.connected;
-
-                      return (
-                        <div
-                          key={plat.id}
-                          style={{
-                            padding: '14px 16px',
-                            backgroundColor: isConnected ? '#F8FAFC' : '#FFFFFF',
-                            border: isConnected ? '1px solid #E2E8F0' : '1px dashed #CBD5E1',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            gap: '12px',
-                            flexWrap: 'wrap',
-                          }}
-                        >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <div style={{ flexShrink: 0 }}>{plat.icon}</div>
-                            <div>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{plat.name}</span>
-                                {isConnected && (
-                                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#059669' }} />
-                                )}
-                              </div>
-                              {isConnected ? (
-                                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
-                                  @{account.username} • <strong>{(account.audienceSize / 1000).toFixed(0)}k followers</strong> • {account.engagementRate}% ER • <span style={{ color: '#059669', fontWeight: 700 }}>Live Syncing</span>
-                                </div>
-                              ) : (
-                                <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '2px' }}>
-                                  Channel not authenticated yet
-                                </div>
-                              )}
-                            </div>
-                          </div>
-
-                          <div>
-                            {isConnected ? (
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <span
-                                  style={{
-                                    fontSize: '11px',
-                                    fontWeight: 800,
-                                    color: '#059669',
-                                    backgroundColor: '#ECFDF5',
-                                    border: '1px solid #A7F3D0',
-                                    padding: '4px 10px',
-                                    borderRadius: '8px',
-                                  }}
-                                >
-                                  ✓ Verified Active
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() => handleDisconnectSocial(plat.id, plat.name)}
-                                  title="Disconnect this channel"
-                                  style={{
-                                    backgroundColor: 'transparent',
-                                    border: 'none',
-                                    color: '#94A3B8',
-                                    fontSize: '11px',
-                                    fontWeight: 600,
-                                    cursor: 'pointer',
-                                    padding: '4px 6px',
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.color = '#DC2626';
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.color = '#94A3B8';
-                                  }}
-                                >
-                                  Disconnect
-                                </button>
-                              </div>
-                            ) : (
-                              <button
-                                type="button"
-                                onClick={() => handleConnectOAuth(plat.id)}
-                                style={{
-                                  backgroundColor: '#0052FF',
-                                  color: '#FFFFFF',
-                                  border: 'none',
-                                  borderRadius: '8px',
-                                  padding: '6px 14px',
-                                  fontSize: '12px',
-                                  fontWeight: 700,
-                                  cursor: 'pointer',
-                                  boxShadow: '0 2px 4px rgba(0, 82, 255, 0.2)',
-                                }}
-                              >
-                                Connect Channel
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Available Channels to Connect */}
                   <div>
-                    <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#334155', marginBottom: '10px' }}>
-                      Available Channels to Expand Your Reach
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <h2 style={{ fontSize: '19px', fontWeight: 900, color: '#0F172A', margin: 0, letterSpacing: '-0.02em' }}>
+                        Sarah Jenkins
+                      </h2>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          color: '#059669',
+                          backgroundColor: '#ECFDF5',
+                          border: '1px solid #A7F3D0',
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                        }}
+                      >
+                        <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#059669' }} />
+                        Verified Partner
+                      </span>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
-                      {[
-                        { id: 'TIKTOK', name: 'TikTok Creator', icon: '🎵', desc: 'Sync TikTok Creator Marketplace' },
-                        { id: 'LINKEDIN', name: 'LinkedIn Influencer', icon: '💼', desc: 'Sync B2B thought leadership' },
-                        { id: 'THREADS', name: 'Threads Feed', icon: '🧵', desc: 'Sync Meta Threads impressions' },
-                        { id: 'TWITCH', name: 'Twitch Partner', icon: '👾', desc: 'Sync live stream viewership' },
-                      ].map((item) => (
-                        <div
-                          key={item.id}
-                          style={{
-                            padding: '12px 14px',
-                            backgroundColor: '#F8FAFC',
-                            border: '1px solid #E2E8F0',
-                            borderRadius: '12px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            gap: '8px',
-                          }}
-                        >
-                          <div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>
-                              <span>{item.icon}</span>
-                              <span>{item.name}</span>
-                            </div>
-                            <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>{item.desc}</div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => handleConnectOAuth(item.id)}
-                            style={{
-                              backgroundColor: '#FFFFFF',
-                              color: '#0052FF',
-                              border: '1px solid #BFDBFE',
-                              borderRadius: '8px',
-                              padding: '5px 10px',
-                              fontSize: '11.5px',
-                              fontWeight: 700,
-                              cursor: 'pointer',
-                              transition: 'all 0.15s ease',
-                              textAlign: 'center',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = '#0052FF';
-                              e.currentTarget.style.color = '#FFFFFF';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = '#FFFFFF';
-                              e.currentTarget.style.color = '#0052FF';
-                            }}
-                          >
-                            + Connect
-                          </button>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px', fontSize: '12.5px', color: '#64748B', flexWrap: 'wrap' }}>
+                      <span style={{ color: '#0052FF', fontWeight: 700 }}>@creator.official</span>
+                      <span>•</span>
+                      <span>Tech, Fitness & Lifestyle</span>
+                      <span>•</span>
+                      <span>Mumbai, India 🇮🇳</span>
+                      <span>•</span>
+                      <span style={{ fontFamily: 'monospace', color: '#475569', fontWeight: 600 }}>TIA-CR-98420</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Score & Action Buttons */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                  {/* Credibility Score Pill */}
+                  <div
+                    style={{
+                      backgroundColor: '#F8FAFC',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '12px',
+                      padding: '10px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', fontWeight: 700 }}>
+                        Credibility Score
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                        <span style={{ fontSize: '20px', fontWeight: 900, color: '#059669' }}>98</span>
+                        <span style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 700 }}>/ 100</span>
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '10.5px',
+                        fontWeight: 800,
+                        color: '#059669',
+                        backgroundColor: '#ECFDF5',
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Grade A+
+                    </span>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <button
+                      type="button"
+                      disabled={isSyncingSocial}
+                      onClick={handleSyncSocialMetrics}
+                      title="Sync live follower and engagement statistics from social APIs"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 13px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '10px',
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        color: '#334155',
+                        cursor: isSyncingSocial ? 'wait' : 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#94A3B8';
+                        e.currentTarget.style.backgroundColor = '#F8FAFC';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#CBD5E1';
+                        e.currentTarget.style.backgroundColor = '#FFFFFF';
+                      }}
+                    >
+                      <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#0052FF"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{ animation: isSyncingSocial ? 'spin 1s linear infinite' : 'none' }}
+                      >
+                        <polyline points="23 4 23 10 17 10" />
+                        <polyline points="1 20 1 14 7 14" />
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                      </svg>
+                      <span>{isSyncingSocial ? 'Syncing...' : 'Sync'}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={isDownloadingMediaKit}
+                      onClick={handleDownloadMediaKitPdf}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 14px',
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '10px',
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        color: '#0F172A',
+                        cursor: isDownloadingMediaKit ? 'wait' : 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#0052FF';
+                        e.currentTarget.style.backgroundColor = '#EFF6FF';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#CBD5E1';
+                        e.currentTarget.style.backgroundColor = '#FFFFFF';
+                      }}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>{isDownloadingMediaKit ? 'Generating...' : 'Media Kit (PDF)'}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleCopyProfileLink}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 15px',
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '10px',
+                        fontSize: '12.5px',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
+                        transition: 'all 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#0040D6';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = '#0052FF';
+                      }}
+                    >
+                      {copiedProfileLink ? (
+                        <>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                          <span>✓ Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                          </svg>
+                          <span>Share Profile</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Connected Channel Portfolio Navigation Bar */}
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '16px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '12px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em', marginRight: '4px' }}>
+                  Channels:
+                </span>
+
+                {/* All Combined Tab */}
+                <button
+                  type="button"
+                  onClick={() => setSocialAnalyticsTab('OVERVIEW')}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: socialAnalyticsTab === 'OVERVIEW' ? '1.5px solid #0052FF' : '1px solid #E2E8F0',
+                    backgroundColor: socialAnalyticsTab === 'OVERVIEW' ? '#EFF6FF' : '#FFFFFF',
+                    color: socialAnalyticsTab === 'OVERVIEW' ? '#0052FF' : '#475569',
+                    fontSize: '12.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <span>🌐 All (Combined)</span>
+                  <span style={{ fontSize: '11px', fontWeight: 800, color: socialAnalyticsTab === 'OVERVIEW' ? '#0052FF' : '#64748B' }}>
+                    550k • 4.85%
+                  </span>
+                </button>
+
+                {/* Individual Channel Tabs */}
+                {socialAccounts.map((account) => {
+                  if (!account.connected) return null;
+                  const isSelected = socialAnalyticsTab === account.platform;
+                  return (
+                    <button
+                      key={account.platform}
+                      type="button"
+                      onClick={() => setSocialAnalyticsTab(account.platform as any)}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        border: isSelected ? '1.5px solid #0052FF' : '1px solid #E2E8F0',
+                        backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                        color: isSelected ? '#0052FF' : '#475569',
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      <span>
+                        {account.platform === 'INSTAGRAM' ? '📸' : account.platform === 'YOUTUBE' ? '▶️' : '𝕏'}
+                      </span>
+                      <span>{account.name.split(' ')[0]}</span>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: isSelected ? '#0052FF' : '#64748B' }}>
+                        {(account.audienceSize / 1000).toFixed(0)}k • {account.engagementRate}%
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Add New Channel CTA */}
+              <button
+                type="button"
+                onClick={() => handleConnectOAuth('TIKTOK')}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  border: '1px dashed #CBD5E1',
+                  backgroundColor: '#F8FAFC',
+                  color: '#0052FF',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                <span>+ Connect Channel</span>
+              </button>
+            </div>
+
+            {/* 3. Core 2-Column Intelligence Grid (Clean, Balanced & Modern) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '20px' }}>
+              {/* LEFT COLUMN: Audience Demographics & Geography */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '22px',
+                }}
+              >
+                <div>
+                  <h3 style={{ fontSize: '15.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 3px 0' }}>
+                    Audience Demographics & Reach
+                  </h3>
+                  <p style={{ fontSize: '12px', color: '#64748B', margin: 0 }}>
+                    Verified follower distribution parsed from authenticated Graph APIs
+                  </p>
+                </div>
+
+                {/* Top Countries */}
+                <div>
+                  <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#334155', marginBottom: '12px' }}>
+                    Top Geographic Markets
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {[
+                      { name: 'India', flag: '🇮🇳', pct: 68, color: '#0052FF' },
+                      { name: 'United States', flag: '🇺🇸', pct: 14, color: '#3B82F6' },
+                      { name: 'United Arab Emirates', flag: '🇦🇪', pct: 7, color: '#60A5FA' },
+                      { name: 'United Kingdom', flag: '🇬🇧', pct: 6, color: '#93C5FD' },
+                      { name: 'Other International', flag: '🌐', pct: 5, color: '#E2E8F0' },
+                    ].map((geo) => (
+                      <div key={geo.name}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                          <span style={{ fontWeight: 600, color: '#334155' }}>{geo.flag} {geo.name}</span>
+                          <span style={{ fontWeight: 800, color: '#0F172A' }}>{geo.pct}%</span>
                         </div>
-                      ))}
+                        <div style={{ width: '100%', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '3px', overflow: 'hidden' }}>
+                          <div style={{ width: `${geo.pct}%`, height: '100%', backgroundColor: geo.color, borderRadius: '3px' }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Gender & Age Breakdown */}
+                <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '18px' }}>
+                  <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>
+                    Gender & Age Distribution
+                  </div>
+
+                  {/* Gender Split Bar */}
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11.5px', fontWeight: 700, marginBottom: '5px' }}>
+                      <span style={{ color: '#7C3AED' }}>♀ Female (54%)</span>
+                      <span style={{ color: '#0052FF' }}>♂ Male (46%)</span>
+                    </div>
+                    <div style={{ display: 'flex', width: '100%', height: '7px', borderRadius: '4px', overflow: 'hidden' }}>
+                      <div style={{ width: '54%', backgroundColor: '#7C3AED' }} />
+                      <div style={{ width: '46%', backgroundColor: '#0052FF' }} />
+                    </div>
+                  </div>
+
+                  {/* Age Brackets */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                    {[
+                      { range: '18–24 yrs', pct: 44, label: 'Primary Core' },
+                      { range: '25–34 yrs', pct: 38, label: 'High Intent' },
+                      { range: '35–44 yrs', pct: 14, label: 'Established' },
+                      { range: '45+ yrs', pct: 4, label: 'Mature' },
+                    ].map((item) => (
+                      <div key={item.range} style={{ backgroundColor: '#F8FAFC', padding: '8px 10px', borderRadius: '8px', border: '1px solid #F1F5F9' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>{item.range}</span>
+                          <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A' }}>{item.pct}%</span>
+                        </div>
+                        <div style={{ fontSize: '10px', color: '#94A3B8', marginTop: '1px' }}>{item.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Performance & Trust Matrix */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* Deliverables Performance Metrics */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                  }}
+                >
+                  <h3 style={{ fontSize: '15.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 16px 0' }}>
+                    Content & Delivery Benchmarks
+                  </h3>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Story Views</div>
+                      <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: '4px 0 2px 0' }}>28.4k</div>
+                      <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700 }}>8.8% Reach Rate</div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Video Views</div>
+                      <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: '4px 0 2px 0' }}>45.2k</div>
+                      <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700 }}>14.1% Viral Index</div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg Comments</div>
+                      <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', margin: '4px 0 2px 0' }}>480+</div>
+                      <div style={{ fontSize: '10.5px', color: '#0052FF', fontWeight: 700 }}>94% Sentiment</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* TIA Trust & Credibility Standards Matrix */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                    <h3 style={{ fontSize: '15.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      TIA Trust & Verification Standards
+                    </h3>
+                    <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
+                      100% Compliance
+                    </span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', color: '#475569', fontWeight: 600 }}>Audience Quality</span>
+                        <span style={{ fontSize: '13px', fontWeight: 900, color: '#0052FF' }}>96%</span>
+                      </div>
+                      <div style={{ fontSize: '10.5px', color: '#94A3B8', marginTop: '2px' }}>Zero Bot Activity (BotShield)</div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', color: '#475569', fontWeight: 600 }}>On-Time Delivery</span>
+                        <span style={{ fontSize: '13px', fontWeight: 900, color: '#059669' }}>100%</span>
+                      </div>
+                      <div style={{ fontSize: '10.5px', color: '#94A3B8', marginTop: '2px' }}>18 of 18 Milestones on Schedule</div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', color: '#475569', fontWeight: 600 }}>Sponsor Reviews</span>
+                        <span style={{ fontSize: '13px', fontWeight: 900, color: '#D97706' }}>4.9 ★</span>
+                      </div>
+                      <div style={{ fontSize: '10.5px', color: '#94A3B8', marginTop: '2px' }}>14 Enterprise Ratings</div>
+                    </div>
+
+                    <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '10px', border: '1px solid #F1F5F9' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', color: '#475569', fontWeight: 600 }}>Dispute Record</span>
+                        <span style={{ fontSize: '13px', fontWeight: 900, color: '#059669' }}>0.0%</span>
+                      </div>
+                      <div style={{ fontSize: '10.5px', color: '#94A3B8', marginTop: '2px' }}>Clean Disbursal History</div>
                     </div>
                   </div>
                 </div>
