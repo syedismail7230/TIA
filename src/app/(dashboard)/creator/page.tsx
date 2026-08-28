@@ -4963,14 +4963,95 @@ function CreatorPortalContent() {
               )}
             </div>
 
-            {/* Dynamic Time-Aware Personalized Greeting Header */}
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
-                {dynamicGreeting.title}
-              </h3>
-              <p style={{ fontSize: '14.5px', color: '#64748B', margin: 0, fontWeight: 500, lineHeight: 1.45 }}>
-                {dynamicGreeting.subtitle}
-              </p>
+            {/* Dynamic Time-Aware Personalized Greeting Header + Low Credits Buy Button */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px', flexWrap: 'wrap', gap: '14px' }}>
+              <div>
+                <h3 style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', margin: '0 0 4px 0', letterSpacing: '-0.02em' }}>
+                  {dynamicGreeting.title}
+                </h3>
+                <p style={{ fontSize: '14.5px', color: '#64748B', margin: 0, fontWeight: 500, lineHeight: 1.45 }}>
+                  {dynamicGreeting.subtitle}
+                </p>
+              </div>
+
+              {/* Buy Credit Button in this row: Visible ONLY when application credits are low (<= 1) */}
+              {applyCredits <= 1 && (
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid #BFDBFE',
+                    borderRadius: '12px',
+                    padding: '8px 14px',
+                    boxShadow: '0 2px 8px rgba(0, 82, 255, 0.05)',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div
+                      style={{
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '6px',
+                        backgroundColor: '#EFF6FF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#0052FF',
+                      }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                      </svg>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 800, color: applyCredits === 0 ? '#DC2626' : '#1E40AF', lineHeight: 1.2 }}>
+                        {applyCredits === 0 ? '0 Credits Left' : '1 Credit Remaining'}
+                      </span>
+                      <span style={{ fontSize: '10.5px', color: '#64748B' }}>
+                        ₹99 / application
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab('payments');
+                      setShowCreditsStoreView(true);
+                      router.replace('/creator?tab=payments');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    style={{
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      padding: '6px 14px',
+                      fontSize: '12px',
+                      fontWeight: 800,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      boxShadow: '0 2px 6px rgba(0, 82, 255, 0.28)',
+                      transition: 'all 0.15s ease',
+                      whiteSpace: 'nowrap',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0040D6';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#0052FF';
+                      e.currentTarget.style.transform = 'none';
+                    }}
+                  >
+                    <span>+ Buy Credit</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Exact Reference-Matched Clean Cards Grid */}
