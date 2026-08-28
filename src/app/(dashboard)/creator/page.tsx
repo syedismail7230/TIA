@@ -2648,8 +2648,10 @@ function CreatorPortalContent() {
           {/* User Profile, Realtime Notification Bell, Buy Credit Button & Remaining Credits on Right */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
             {/* Remaining Credits Inline Indicator */}
-            <div
-              title="Application Credits Balance"
+            <button
+              type="button"
+              onClick={() => handleTabChange('payments')}
+              title="Click to view & top up Application Credits"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -2661,8 +2663,16 @@ function CreatorPortalContent() {
                 fontSize: '12px',
                 fontWeight: 700,
                 color: '#0052FF',
+                cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#DBEAFE';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#EFF6FF';
               }}
             >
               <svg
@@ -2679,48 +2689,6 @@ function CreatorPortalContent() {
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
               <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
-            </div>
-
-            {/* Buy Credit Button on Top Right */}
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('payments');
-                setShowCreditsStoreView(true);
-                router.replace('/creator?tab=payments');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              title="Buy more application credits"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '5px 12px',
-                backgroundColor: '#0052FF',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '12px',
-                fontWeight: 800,
-                cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(0, 82, 255, 0.28)',
-                transition: 'all 0.15s ease',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#0040D6';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#0052FF';
-                e.currentTarget.style.transform = 'none';
-              }}
-            >
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-              <span>+ Buy Credit</span>
             </button>
 
             {/* Realtime Notification Bell Center */}
@@ -5005,12 +4973,9 @@ function CreatorPortalContent() {
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                       </svg>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <span style={{ fontSize: '12px', fontWeight: 800, color: applyCredits === 0 ? '#DC2626' : '#1E40AF', lineHeight: 1.2 }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <span style={{ fontSize: '12.5px', fontWeight: 800, color: applyCredits === 0 ? '#DC2626' : '#1E40AF' }}>
                         {applyCredits === 0 ? '0 Credits Left' : '1 Credit Remaining'}
-                      </span>
-                      <span style={{ fontSize: '10.5px', color: '#64748B' }}>
-                        ₹99 / application
                       </span>
                     </div>
                   </div>
@@ -7389,7 +7354,7 @@ function CreatorPortalContent() {
                     {applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#64748B' }}>₹99 / application</span>
+                    <span className="payments-stat-subtext" style={{ fontSize: '11.5px', color: '#64748B' }}>Available Balance</span>
                     <button
                       type="button"
                       onClick={(e) => {
