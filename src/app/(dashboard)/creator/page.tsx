@@ -2645,32 +2645,29 @@ function CreatorPortalContent() {
             </Link>
           </div>
 
-          {/* User Profile, Realtime Notification Bell & Remaining Credits on Right */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
-            {/* Remaining Credits Inline Indicator (Clean, Borderless, SVG Icon) */}
-            <button
-              type="button"
-              onClick={() => handleTabChange('payments')}
-              title="Click to view & top up Application Credits"
+          {/* User Profile, Realtime Notification Bell, Buy Credit Button & Remaining Credits on Right */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            {/* Remaining Credits Inline Indicator */}
+            <div
+              title="Application Credits Balance"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '4px',
-                padding: '0',
-                backgroundColor: 'transparent',
-                border: 'none',
+                gap: '5px',
+                padding: '4px 9px',
+                backgroundColor: '#EFF6FF',
+                border: '1px solid #BFDBFE',
+                borderRadius: '8px',
                 fontSize: '12px',
                 fontWeight: 700,
                 color: '#0052FF',
-                cursor: 'pointer',
-                outline: 'none',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
               }}
             >
               <svg
-                width="13"
-                height="13"
+                width="12"
+                height="12"
                 viewBox="0 0 24 24"
                 fill="#0052FF"
                 stroke="#0052FF"
@@ -2682,6 +2679,48 @@ function CreatorPortalContent() {
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
               </svg>
               <span style={{ whiteSpace: 'nowrap' }}>{applyCredits} {applyCredits === 1 ? 'Credit' : 'Credits'}</span>
+            </div>
+
+            {/* Buy Credit Button on Top Right */}
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('payments');
+                setShowCreditsStoreView(true);
+                router.replace('/creator?tab=payments');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              title="Buy more application credits"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                padding: '5px 12px',
+                backgroundColor: '#0052FF',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: 800,
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0, 82, 255, 0.28)',
+                transition: 'all 0.15s ease',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#0040D6';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#0052FF';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              <span>+ Buy Credit</span>
             </button>
 
             {/* Realtime Notification Bell Center */}
