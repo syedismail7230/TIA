@@ -498,28 +498,6 @@ export default function CreatorProfilePage() {
                 background: 'radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)',
               }}
             />
-            {/* Top Right Available Badge */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '16px',
-                right: '20px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                backgroundColor: 'rgba(15, 23, 42, 0.75)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                padding: '5px 12px',
-                borderRadius: '999px',
-                color: '#FFFFFF',
-                fontSize: '11.5px',
-                fontWeight: 700,
-              }}
-            >
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
-              <span>Available for Brand Deals</span>
-            </div>
           </div>
 
           {/* Profile Identity Body */}
@@ -556,30 +534,6 @@ export default function CreatorProfilePage() {
                   >
                     SJ
                   </div>
-                  {/* Verified Check Badge on Avatar */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '4px',
-                      right: '4px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      borderRadius: '50%',
-                      width: '24px',
-                      height: '24px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '12px',
-                      fontWeight: 900,
-                      border: '2px solid #FFFFFF',
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-                    }}
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </div>
                 </div>
 
                 {/* Creator Title & Meta */}
@@ -592,25 +546,6 @@ export default function CreatorProfilePage() {
                       @creator.official
                     </span>
                     <BlueCheckBadge size={16} title="Verified TIA Creator" />
-                    <span
-                      style={{
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        color: '#059669',
-                        backgroundColor: '#ECFDF5',
-                        border: '1px solid #A7F3D0',
-                        padding: '2px 9px',
-                        borderRadius: '6px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
-                      }}
-                    >
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span>TIA Elite Verified Partner</span>
-                    </span>
                   </div>
 
                   {/* Subtitle / Tagline */}
