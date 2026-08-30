@@ -562,6 +562,17 @@ export default function BrandDashboardPage() {
   const [settingsActiveSubTab, setSettingsActiveSubTab] = useState<'profile' | 'team' | 'billing' | 'contracts' | 'notifications' | 'security'>('profile');
   const [mobileSettingsOpen, setMobileSettingsOpen] = useState<boolean>(false);
   const [settingsSavedToast, setSettingsSavedToast] = useState<boolean>(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState<boolean>(false);
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (e) {
+      console.error('Logout error:', e);
+    }
+    router.push('/login');
+    router.refresh();
+  };
 
   const handleTabChange = (tab: BrandTabType) => {
     setActiveTab(tab);
@@ -718,7 +729,7 @@ export default function BrandDashboardPage() {
     { id: 'discovery' as BrandTabType, label: 'Creator Discovery', icon: <CompassIcon size={15} /> },
     { id: 'applications' as BrandTabType, label: 'Bids & Proposals', count: applicants.filter((a) => a.status === 'AWAITING').length, icon: <UsersIcon size={15} /> },
     { id: 'workspace' as BrandTabType, label: 'Active Collabs', count: collabs.length, icon: <MessageSquareIcon size={15} /> },
-    { id: 'financials' as BrandTabType, label: 'Financials & Escrow', icon: <CreditCardIcon size={15} /> },
+    { id: 'financials' as BrandTabType, label: 'Financials & Protection', icon: <CreditCardIcon size={15} /> },
     { id: 'settings' as BrandTabType, label: 'Brand Settings', icon: <SettingsIcon size={15} /> },
   ];
 
@@ -979,6 +990,199 @@ export default function BrandDashboardPage() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Brand User Profile & Logout Dropdown */}
+            <div style={{ position: 'relative' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileDropdownOpen(!profileDropdownOpen);
+                  setNotificationsDropdownOpen(false);
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '4px 10px 4px 5px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <div
+                  style={{
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '8px',
+                    backgroundColor: '#0052FF',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '12px',
+                    fontWeight: 900,
+                  }}
+                >
+                  {orgProfile.name.substring(0, 2).toUpperCase()}
+                </div>
+                <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A', lineHeight: 1.15 }}>
+                    {orgProfile.name.split(' ')[0]}
+                  </span>
+                  <span style={{ fontSize: '10px', color: '#64748B', fontWeight: 600 }}>
+                    Admin
+                  </span>
+                </div>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              {/* Profile Dropdown Menu */}
+              {profileDropdownOpen && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '46px',
+                    right: 0,
+                    width: '270px',
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '14px',
+                    border: '1px solid #E2E8F0',
+                    boxShadow: '0 12px 30px rgba(0,0,0,0.12)',
+                    zIndex: 100,
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* User Identity Header */}
+                  <div style={{ padding: '14px 16px', borderBottom: '1px solid #F1F5F9', backgroundColor: '#F8FAFC' }}>
+                    <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>{orgProfile.name}</span>
+                      <BlueCheckBadge size={13} title="Verified" />
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>
+                      Enterprise Brand Admin
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>
+                      {orgProfile.contactEmail}
+                    </div>
+                  </div>
+
+                  {/* Navigation Links */}
+                  <div style={{ padding: '6px' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleTabChange('settings');
+                        setProfileDropdownOpen(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '9px 12px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: '#334155',
+                        fontSize: '12.5px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <SettingsIcon size={14} color="#64748B" />
+                      <span>Organization Settings</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleTabChange('financials');
+                        setProfileDropdownOpen(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '9px 12px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: '#334155',
+                        fontSize: '12.5px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <CreditCardIcon size={14} color="#64748B" />
+                      <span>Billing & Wallet (₹{walletBalance.toLocaleString('en-IN')})</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleTabChange('discovery');
+                        setProfileDropdownOpen(false);
+                      }}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '9px 12px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: '#334155',
+                        fontSize: '12.5px',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <CompassIcon size={14} color="#64748B" />
+                      <span>Creator Discovery Engine</span>
+                    </button>
+                  </div>
+
+                  {/* Logout Divider & Button */}
+                  <div style={{ padding: '6px', borderTop: '1px solid #F1F5F9' }}>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '9px 12px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        backgroundColor: '#FEF2F2',
+                        color: '#DC2626',
+                        fontSize: '12.5px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                      </svg>
+                      <span>Log Out of Brand Portal</span>
+                    </button>
                   </div>
                 </div>
               )}
