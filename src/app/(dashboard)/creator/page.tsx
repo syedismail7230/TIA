@@ -8936,8 +8936,15 @@ function CreatorPortalContent() {
 
               {/* 2-Column Responsive Layout: Horizontal Tabs on Mobile, Left Sidebar on Desktop */}
               <div className="flex flex-col md:flex-row gap-5 md:gap-6 items-start">
-                {/* Navigation (Mobile: Horizontal Scroll / Desktop: Left Vertical Sidebar) */}
-                <div className="flex flex-row md:flex-col gap-1.5 md:gap-1 overflow-x-auto w-full md:w-[200px] flex-shrink-0 pb-2 md:pb-0">
+                {/* Sub-Navigation (Single horizontal scrollable row on mobile / vertical sidebar on desktop) */}
+                <div
+                  style={{
+                    display: 'flex',
+                    overflowX: 'auto',
+                    WebkitOverflowScrolling: 'touch',
+                  }}
+                  className="flex-row md:flex-col flex-nowrap gap-2 w-full md:w-[200px] flex-shrink-0 pb-3 md:pb-0"
+                >
                   {[
                     { id: 'profile', label: 'Profile & Bio', icon: '👤' },
                     { id: 'rates', label: 'Commercial Rates', icon: '💰' },
@@ -8952,10 +8959,10 @@ function CreatorPortalContent() {
                         type="button"
                         onClick={() => setSettingsActiveSubTab(subTab.id as any)}
                         style={{
-                          display: 'flex',
+                          display: 'inline-flex',
                           alignItems: 'center',
                           gap: '8px',
-                          padding: '9px 13px',
+                          padding: '8px 14px',
                           borderRadius: '8px',
                           fontSize: '12.5px',
                           fontWeight: isActive ? 800 : 600,
@@ -8963,11 +8970,11 @@ function CreatorPortalContent() {
                           color: isActive ? '#0052FF' : '#475569',
                           border: isActive ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
                           cursor: 'pointer',
-                          textAlign: 'left',
                           whiteSpace: 'nowrap',
+                          flexShrink: 0,
                           transition: 'all 0.15s ease',
                         }}
-                        className="flex-shrink-0 md:flex-shrink md:w-full"
+                        className="md:w-full"
                       >
                         <span style={{ fontSize: '14px' }}>{subTab.icon}</span>
                         <span>{subTab.label}</span>
@@ -8982,7 +8989,7 @@ function CreatorPortalContent() {
                   {settingsActiveSubTab === 'profile' && (
                     <div className="flex flex-col gap-4">
                       {/* Avatar + Basic Row */}
-                      <div className="flex items-center gap-4 pb-4 border-b border-slate-100">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', paddingBottom: '16px', borderBottom: '1px solid #F1F5F9' }}>
                         <div
                           style={{
                             width: '52px',
