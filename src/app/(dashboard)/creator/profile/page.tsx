@@ -141,6 +141,46 @@ export default function CreatorProfilePage() {
     campaignGoals: '',
   });
 
+  // Cover Image Studio & Gallery Modal State
+  const [coverBackground, setCoverBackground] = useState<string>('linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0052FF 100%)');
+  const [tempSelectedCover, setTempSelectedCover] = useState<string>('linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0052FF 100%)');
+  const [showCoverModal, setShowCoverModal] = useState<boolean>(false);
+  const [uploadedCoverPreview, setUploadedCoverPreview] = useState<string | null>(null);
+  const [coverSavedSuccess, setCoverSavedSuccess] = useState<boolean>(false);
+
+  const galleryPresets = [
+    { id: 'p1', name: 'TIA Cobalt Cyber', value: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0052FF 100%)' },
+    { id: 'p2', name: 'Royal Cyber Purple', value: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 50%, #C084FC 100%)' },
+    { id: 'p3', name: 'Sunset Coral Flame', value: 'linear-gradient(135deg, #E11D48 0%, #F43F5E 50%, #FB923C 100%)' },
+    { id: 'p4', name: 'Electric Ocean Aura', value: 'linear-gradient(135deg, #0284C7 0%, #38BDF8 50%, #FDE047 100%)' },
+    { id: 'p5', name: 'Emerald Wave', value: 'linear-gradient(135deg, #064E3B 0%, #059669 50%, #34D399 100%)' },
+    { id: 'p6', name: 'Midnight Aurora', value: 'linear-gradient(135deg, #020617 0%, #0052FF 60%, #38BDF8 100%)' },
+  ];
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (uploadEvent) => {
+        const result = uploadEvent.target?.result as string;
+        if (result) {
+          setUploadedCoverPreview(result);
+          setTempSelectedCover(`url(${result}) center / cover no-repeat`);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveCoverImage = () => {
+    setCoverBackground(tempSelectedCover);
+    setCoverSavedSuccess(true);
+    setTimeout(() => {
+      setCoverSavedSuccess(false);
+      setShowCoverModal(false);
+    }, 800);
+  };
+
   const handleCopyProfileLink = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
@@ -486,8 +526,11 @@ export default function CreatorProfilePage() {
             style={{
               height: '180px',
               width: '100%',
-              background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0052FF 100%)',
+              background: coverBackground,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               position: 'relative',
+              transition: 'background 0.3s ease',
             }}
           >
             {/* Ambient Lighting Overlay */}
@@ -498,6 +541,42 @@ export default function CreatorProfilePage() {
                 background: 'radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)',
               }}
             />
+
+            {/* Change Cover Image Trigger Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setTempSelectedCover(coverBackground);
+                setShowCoverModal(true);
+              }}
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '20px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                backgroundColor: 'rgba(15, 23, 42, 0.75)',
+                backdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                color: '#FFFFFF',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 82, 255, 0.85)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.75)')}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+              </svg>
+              <span>Change Cover Image</span>
+            </button>
           </div>
 
           {/* Profile Identity Body */}
@@ -1575,6 +1654,199 @@ export default function CreatorProfilePage() {
                 </div>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================================== */}
+      {/* 8. UPLOAD COVER IMAGE & GALLERY MODAL                                */}
+      {/* ==================================================================== */}
+      {showCoverModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.65)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}
+          onClick={() => setShowCoverModal(false)}
+        >
+          <div
+            style={{
+              backgroundColor: '#FFFFFF',
+              borderRadius: '24px',
+              border: '1px solid #E2E8F0',
+              padding: '32px',
+              maxWidth: '480px',
+              width: '100%',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{ marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#0F172A', margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+                Upload your cover image
+              </h3>
+              <p style={{ fontSize: '13px', color: '#64748B', margin: 0 }}>
+                Choose an image that will appear everywhere in our app.
+              </p>
+            </div>
+
+            {/* Section 1: Upload New Image Dropzone */}
+            <div style={{ marginBottom: '22px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                Upload new image:
+              </label>
+
+              <label
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '28px 20px',
+                  borderRadius: '16px',
+                  border: '1.5px dashed #CBD5E1',
+                  backgroundColor: uploadedCoverPreview ? '#EFF6FF' : '#F8FAFC',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  textAlign: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#0052FF';
+                  e.currentTarget.style.backgroundColor = '#EFF6FF';
+                }}
+                onMouseLeave={(e) => {
+                  if (!uploadedCoverPreview) {
+                    e.currentTarget.style.borderColor = '#CBD5E1';
+                    e.currentTarget.style.backgroundColor = '#F8FAFC';
+                  }
+                }}
+              >
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/gif, image/svg+xml, image/webp"
+                  onChange={handleFileUpload}
+                  style={{ display: 'none' }}
+                />
+
+                {/* Folder Upload Icon */}
+                <div style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.03)' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
+                    <path d="m12 10 3 3m-3-3-3 3m3-3v7" />
+                  </svg>
+                </div>
+
+                <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>
+                  {uploadedCoverPreview ? '✓ Image Loaded — Click to replace' : 'Click or drag and drop to upload your file'}
+                </div>
+                <div style={{ fontSize: '11.5px', color: '#94A3B8' }}>
+                  PNG, JPG, PDF, GIF, SVG (Max 5 MB)
+                </div>
+              </label>
+            </div>
+
+            {/* Divider: OR */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+              <div style={{ flex: 1, height: '1px', backgroundColor: '#E2E8F0' }} />
+              <span style={{ fontSize: '11px', fontWeight: 800, color: '#94A3B8', letterSpacing: '0.06em' }}>OR</span>
+              <div style={{ flex: 1, height: '1px', backgroundColor: '#E2E8F0' }} />
+            </div>
+
+            {/* Section 2: Choose from your gallery */}
+            <div style={{ marginBottom: '26px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#0F172A', marginBottom: '10px' }}>
+                Choose from your gallery:
+              </label>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px' }}>
+                {galleryPresets.map((preset) => {
+                  const isSelected = tempSelectedCover === preset.value;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => {
+                        setUploadedCoverPreview(null);
+                        setTempSelectedCover(preset.value);
+                      }}
+                      title={preset.name}
+                      style={{
+                        aspectRatio: '1/1',
+                        width: '100%',
+                        borderRadius: '10px',
+                        background: preset.value,
+                        border: isSelected ? '3px solid #0052FF' : '2px solid transparent',
+                        boxShadow: isSelected ? '0 0 0 2px #BFDBFE, 0 4px 10px rgba(0,82,255,0.25)' : '0 1px 3px rgba(0,0,0,0.08)',
+                        cursor: 'pointer',
+                        transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                        transition: 'all 0.15s ease',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        padding: 0,
+                      }}
+                    >
+                      {isSelected && (
+                        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,82,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <button
+                type="button"
+                onClick={() => setShowCoverModal(false)}
+                style={{
+                  padding: '11px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #CBD5E1',
+                  borderRadius: '10px',
+                  fontSize: '13.5px',
+                  fontWeight: 700,
+                  color: '#334155',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.15s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSaveCoverImage}
+                style={{
+                  padding: '11px',
+                  backgroundColor: '#0052FF',
+                  border: 'none',
+                  borderRadius: '10px',
+                  fontSize: '13.5px',
+                  fontWeight: 700,
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(0, 82, 255, 0.3)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                {coverSavedSuccess ? '✓ Saved!' : 'Save image'}
+              </button>
+            </div>
           </div>
         </div>
       )}
