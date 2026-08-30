@@ -3590,36 +3590,6 @@ function CreatorPortalContent() {
                     <span>View Creator Profile →</span>
                   </Link>
 
-                  {/* Settings / Account Option */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setProfileDropdownOpen(false);
-                      handleTabChange('settings');
-                    }}
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '8px 10px',
-                      fontSize: '12.5px',
-                      fontWeight: 600,
-                      color: '#334155',
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      transition: 'background-color 0.15s ease',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#F8FAFC')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                  >
-                    <SettingsIcon size={14} color="#64748B" />
-                    <span>Account Settings</span>
-                  </button>
-
                   <div style={{ height: '1px', backgroundColor: '#F1F5F9', margin: '4px 0' }}></div>
 
                   {/* Logout Option */}
