@@ -5,6 +5,125 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 
+// ============================================================================
+// THEMED SVG ICONS (NO RAW EMOJIS - STRICT BRAND SYSTEM)
+// ============================================================================
+
+const MapPinIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const VideoCameraIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="23 7 16 12 23 17 23 7" />
+    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+  </svg>
+);
+
+const GlobeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
+const IdBadgeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <circle cx="9" cy="10" r="2" />
+    <line x1="15" y1="8" x2="17" y2="8" />
+    <line x1="15" y1="12" x2="17" y2="12" />
+    <line x1="7" y1="16" x2="17" y2="16" />
+  </svg>
+);
+
+const StarIcon: React.FC<{ size?: number; color?: string; filled?: boolean }> = ({ size = 14, color = '#F59E0B', filled = true }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : 'none'} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const ShieldCheckIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#059669' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <polyline points="9 12 11 14 15 10" />
+  </svg>
+);
+
+const ClockIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const ScaleIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#16A34A' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z" />
+    <path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z" />
+    <path d="M7 21h10" />
+    <path d="M12 3v18" />
+    <path d="M3 7h18" />
+  </svg>
+);
+
+const BarChartIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="20" x2="12" y2="10" />
+    <line x1="18" y1="20" x2="18" y2="4" />
+    <line x1="6" y1="20" x2="6" y2="16" />
+  </svg>
+);
+
+const HeadphonesIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+  </svg>
+);
+
+const SmartphoneIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+    <line x1="12" y1="18" x2="12.01" y2="18" />
+  </svg>
+);
+
+const LeafIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#059669' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
+const SpeakerIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <circle cx="12" cy="14" r="4" />
+    <line x1="12" y1="6" x2="12.01" y2="6" />
+  </svg>
+);
+
+const DumbbellIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m6.5 6.5 11 11" />
+    <path d="m21 21-1-1a5 5 0 0 0-7.07 0l-.93.93a5 5 0 0 0 0 7.07l1 1" />
+    <path d="m3 3 1 1a5 5 0 0 0 7.07 0l.93-.93a5 5 0 0 0 0-7.07l-1-1" />
+    <path d="m18 22 4-4" />
+    <path d="m2 6 4-4" />
+  </svg>
+);
+
+const ActivityIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+  </svg>
+);
+
 export default function CreatorProfilePage() {
   const router = useRouter();
   const [copiedLink, setCopiedLink] = useState(false);
@@ -51,7 +170,7 @@ export default function CreatorProfilePage() {
     {
       id: 'proj-1',
       brand: 'Nike Lifestyle India',
-      brandLogo: '👟',
+      iconType: 'ACTIVITY',
       category: 'FITNESS',
       campaign: 'Air Zoom Running Series 2026',
       deliverable: '1x YouTube Dedicated Video + 2x IG Reels',
@@ -61,15 +180,14 @@ export default function CreatorProfilePage() {
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&auto=format&fit=crop&q=80',
       rating: '5.0',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
     {
       id: 'proj-2',
       brand: 'Boat Lifestyle Audio',
-      brandLogo: '🎧',
+      iconType: 'HEADPHONES',
       category: 'TECH',
-      campaign: 'Airdopes Pro ANC Launch & Bass Test',
+      campaign: 'Airdopes Pro ANC Launch & Sound Test',
       deliverable: '3x Instagram Reels + Bio Link Placement',
       reach: '88,200 Verified Views',
       engagement: '4.9% ER',
@@ -77,29 +195,27 @@ export default function CreatorProfilePage() {
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700&auto=format&fit=crop&q=80',
       rating: '4.9',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
     {
       id: 'proj-3',
       brand: 'OnePlus India',
-      brandLogo: '📱',
+      iconType: 'SMARTPHONE',
       category: 'TECH',
-      campaign: 'Flagship 13 Pro Camera & Low-Light Breakdown',
-      deliverable: '1x YouTube Dedicated Tech Benchmark Review',
+      campaign: 'Flagship 13 Pro Camera Benchmark Test',
+      deliverable: '1x YouTube Dedicated Tech Review',
       reach: '96,400 Verified Views',
       engagement: '6.2% ER',
       payout: '₹75,000',
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700&auto=format&fit=crop&q=80',
       rating: '5.0',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
     {
       id: 'proj-4',
       brand: 'Mamaearth Organics',
-      brandLogo: '🌿',
+      iconType: 'LEAF',
       category: 'LIFESTYLE',
       campaign: 'Vitamin C Morning Routine & Skin Health',
       deliverable: '3x Instagram Story Trio + Direct Affiliate Link',
@@ -109,15 +225,14 @@ export default function CreatorProfilePage() {
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=700&auto=format&fit=crop&q=80',
       rating: '4.8',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
     {
       id: 'proj-5',
       brand: 'Sony India Audio',
-      brandLogo: '🔊',
+      iconType: 'SPEAKER',
       category: 'TECH',
-      campaign: 'WH-1000XM5 Studio Noise Cancellation Review',
+      campaign: 'WH-1000XM5 Noise Cancellation Review',
       deliverable: '1x Long-Form Video + Community Post',
       reach: '118,000 Verified Views',
       engagement: '5.8% ER',
@@ -125,15 +240,14 @@ export default function CreatorProfilePage() {
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=700&auto=format&fit=crop&q=80',
       rating: '5.0',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
     {
       id: 'proj-6',
       brand: 'Cult.fit Fitness',
-      brandLogo: '💪',
+      iconType: 'DUMBBELL',
       category: 'FITNESS',
-      campaign: '30-Day Strength & Nutrition Transformation',
+      campaign: '30-Day Strength Transformation Series',
       deliverable: '4x IG Reels + 1x Live Workout Session',
       reach: '76,500 Verified Views',
       engagement: '5.1% ER',
@@ -141,10 +255,21 @@ export default function CreatorProfilePage() {
       status: 'Completed',
       thumbnail: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=700&auto=format&fit=crop&q=80',
       rating: '4.9',
-      reviewsCount: '1 review',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
   ];
+
+  const renderBrandIcon = (type: string) => {
+    switch (type) {
+      case 'HEADPHONES': return <HeadphonesIcon size={14} color="#0052FF" />;
+      case 'SMARTPHONE': return <SmartphoneIcon size={14} color="#0052FF" />;
+      case 'LEAF': return <LeafIcon size={14} color="#059669" />;
+      case 'SPEAKER': return <SpeakerIcon size={14} color="#0052FF" />;
+      case 'DUMBBELL': return <DumbbellIcon size={14} color="#0052FF" />;
+      case 'ACTIVITY': return <ActivityIcon size={14} color="#0052FF" />;
+      default: return <SmartphoneIcon size={14} color="#0052FF" />;
+    }
+  };
 
   const filteredPortfolio = selectedPortfolioCategory === 'ALL'
     ? portfolioProjects
@@ -278,7 +403,9 @@ export default function CreatorProfilePage() {
             >
               {copiedLink ? (
                 <>
-                  <span>✓</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                   <span>Link Copied!</span>
                 </>
               ) : (
@@ -449,7 +576,9 @@ export default function CreatorProfilePage() {
                       boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
                     }}
                   >
-                    ✓
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
                   </div>
                 </div>
 
@@ -472,26 +601,44 @@ export default function CreatorProfilePage() {
                         border: '1px solid #A7F3D0',
                         padding: '2px 9px',
                         borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
                     >
-                      ✓ TIA Elite Verified Partner
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>TIA Elite Verified Partner</span>
                     </span>
                   </div>
 
                   {/* Subtitle / Tagline */}
                   <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#475569', marginTop: '4px' }}>
-                    Tech Reviewer & AI Hardware Enthusiast • 615K+ Community
+                    Tech Reviewer & AI Hardware Specialist • 615K+ Community
                   </div>
 
                   {/* Location & Quick Meta Badges */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px', fontSize: '12.5px', color: '#64748B', flexWrap: 'wrap' }}>
-                    <span>📍 Mumbai, Maharashtra, India 🇮🇳</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <MapPinIcon size={13} color="#0052FF" />
+                      <span>Mumbai, Maharashtra, India</span>
+                    </span>
                     <span style={{ color: '#CBD5E1' }}>•</span>
-                    <span>🎬 Consumer Tech, AI SaaS, Lifestyle</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <VideoCameraIcon size={13} color="#0052FF" />
+                      <span>Consumer Tech, AI SaaS, Lifestyle</span>
+                    </span>
                     <span style={{ color: '#CBD5E1' }}>•</span>
-                    <span>🌐 English, Hindi</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <GlobeIcon size={13} color="#0052FF" />
+                      <span>English, Hindi</span>
+                    </span>
                     <span style={{ color: '#CBD5E1' }}>•</span>
-                    <span style={{ fontFamily: 'monospace', color: '#475569', fontWeight: 600 }}>Card ID: TIA-CR-98420</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <IdBadgeIcon size={13} color="#0052FF" />
+                      <span style={{ fontFamily: 'monospace', color: '#475569', fontWeight: 600 }}>Card ID: TIA-CR-98420</span>
+                    </span>
                   </div>
 
                   {/* Bio Paragraph */}
@@ -522,9 +669,7 @@ export default function CreatorProfilePage() {
                     }}
                     title="Bookmark Creator to Roster"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
+                    <StarIcon size={18} color={isBookmarked ? '#F59E0B' : '#64748B'} filled={isBookmarked} />
                   </button>
 
                   <button
@@ -619,11 +764,11 @@ export default function CreatorProfilePage() {
                 }}
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                  <rect width="24" height="24" rx="6" fill="url(#igProfileGradient2)" />
+                  <rect width="24" height="24" rx="6" fill="url(#igProfileGradientSvg)" />
                   <circle cx="12" cy="12" r="4.5" stroke="#FFFFFF" strokeWidth="1.8" />
                   <circle cx="17.5" cy="6.5" r="1.2" fill="#FFFFFF" />
                   <defs>
-                    <linearGradient id="igProfileGradient2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="igProfileGradientSvg" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
                       <stop stopColor="#F58529" />
                       <stop offset="0.5" stopColor="#DD2A7B" />
                       <stop offset="1" stopColor="#8134AF" />
@@ -824,9 +969,15 @@ export default function CreatorProfilePage() {
                         border: '1px solid #A7F3D0',
                         padding: '3px 9px',
                         borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '3px',
                       }}
                     >
-                      ✓ {item.status}
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>{item.status}</span>
                     </span>
                     <span
                       style={{
@@ -837,11 +988,15 @@ export default function CreatorProfilePage() {
                         fontWeight: 700,
                         color: '#FFFFFF',
                         backgroundColor: 'rgba(15, 23, 42, 0.75)',
-                        padding: '2px 8px',
+                        padding: '3px 8px',
                         borderRadius: '4px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
                       }}
                     >
-                      {item.brandLogo} {item.brand}
+                      {renderBrandIcon(item.iconType)}
+                      <span>{item.brand}</span>
                     </span>
                   </div>
 
@@ -873,10 +1028,14 @@ export default function CreatorProfilePage() {
                       </div>
 
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
-                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
-                          <span>🛡️</span> {item.verifiedProof}
+                        <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <ShieldCheckIcon size={13} color="#059669" />
+                          <span>{item.verifiedProof}</span>
                         </span>
-                        <span style={{ fontWeight: 800, color: '#F59E0B' }}>⭐ {item.rating}</span>
+                        <span style={{ fontWeight: 800, color: '#0F172A', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                          <StarIcon size={13} color="#F59E0B" />
+                          <span>{item.rating}</span>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -895,8 +1054,8 @@ export default function CreatorProfilePage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '18px' }}>
               <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>
-                    🛡️
+                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ShieldCheckIcon size={20} color="#059669" />
                   </div>
                   <div>
                     <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>BotShield Verification</div>
@@ -910,8 +1069,8 @@ export default function CreatorProfilePage() {
 
               <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>
-                    ⏱
+                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ClockIcon size={20} color="#0052FF" />
                   </div>
                   <div>
                     <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Milestone Reliability</div>
@@ -925,8 +1084,8 @@ export default function CreatorProfilePage() {
 
               <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#F0FDF4', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>
-                    ⚖️
+                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#F0FDF4', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ScaleIcon size={20} color="#16A34A" />
                   </div>
                   <div>
                     <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Dispute & Penalty Rate</div>
@@ -941,23 +1100,31 @@ export default function CreatorProfilePage() {
 
             {/* Audience Demographics Summary Table */}
             <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: '0 0 16px 0' }}>
-                📊 Audience Geographic & Demographic Breakdown
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+                <BarChartIcon size={18} color="#0052FF" />
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  Audience Geographic & Demographic Breakdown
+                </h3>
+              </div>
               
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
                 <div>
                   <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', marginBottom: '12px' }}>Top Audience Geographies</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {[
-                      { name: 'India 🇮🇳', pct: 68 },
-                      { name: 'United States 🇺🇸', pct: 14 },
-                      { name: 'United Kingdom 🇬🇧', pct: 8 },
-                      { name: 'UAE & Middle East 🇦🇪', pct: 6 },
-                      { name: 'Other International 🌐', pct: 4 },
+                      { code: 'IN', name: 'India', pct: 68 },
+                      { code: 'US', name: 'United States', pct: 14 },
+                      { code: 'GB', name: 'United Kingdom', pct: 8 },
+                      { code: 'AE', name: 'UAE & Middle East', pct: 6 },
+                      { code: 'GL', name: 'Other International', pct: 4 },
                     ].map((g, idx) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
-                        <span style={{ fontWeight: 600, color: '#334155' }}>{g.name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px' }}>
+                            {g.code}
+                          </span>
+                          <span style={{ fontWeight: 600, color: '#334155' }}>{g.name}</span>
+                        </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <div style={{ width: '90px', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '999px', overflow: 'hidden' }}>
                             <div style={{ width: `${g.pct}%`, height: '100%', backgroundColor: '#0052FF', borderRadius: '999px' }} />
@@ -973,10 +1140,10 @@ export default function CreatorProfilePage() {
                   <div style={{ fontSize: '12px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', marginBottom: '12px' }}>Age & Gender Distribution</div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {[
-                      { range: '18–24 Years', pct: 44, note: 'Gen Z Tech Adopters' },
-                      { range: '25–34 Years', pct: 38, note: 'Young Professionals' },
-                      { range: '35–44 Years', pct: 14, note: 'Decision Makers' },
-                      { range: '45+ Years', pct: 4, note: 'General Tech' },
+                      { range: '18–24 Years', pct: 44 },
+                      { range: '25–34 Years', pct: 38 },
+                      { range: '35–44 Years', pct: 14 },
+                      { range: '45+ Years', pct: 4 },
                     ].map((a, idx) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
                         <span style={{ fontWeight: 600, color: '#334155' }}>{a.range}</span>
@@ -1017,7 +1184,7 @@ export default function CreatorProfilePage() {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '16px' }}>🛡️</span>
+                <ShieldCheckIcon size={16} color="#0052FF" />
                 <span><strong>TIA Payment Protection Policy</strong>: All rates are disbursed securely upon milestone approvals with 5% platform commission and 1% TDS compliance.</span>
               </div>
               <span style={{ fontWeight: 700, backgroundColor: '#FFFFFF', padding: '3px 8px', borderRadius: '6px', border: '1px solid #BFDBFE', fontSize: '11.5px' }}>
@@ -1087,9 +1254,13 @@ export default function CreatorProfilePage() {
                         fontWeight: 800,
                         padding: '3px 9px',
                         borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
                     >
-                      ★ MOST POPULAR PACKAGE
+                      <StarIcon size={11} color="#FFFFFF" />
+                      <span>MOST POPULAR PACKAGE</span>
                     </span>
                   )}
                   <div>
@@ -1105,11 +1276,15 @@ export default function CreatorProfilePage() {
                   </div>
 
                   <div>
-                    <div style={{ fontSize: '12px', color: '#475569', marginBottom: '6px', fontWeight: 600 }}>
-                      ⏱ Turnaround: <strong>{rate.turnaround}</strong>
+                    <div style={{ fontSize: '12px', color: '#475569', marginBottom: '6px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <ClockIcon size={13} color="#64748B" />
+                      <span>Turnaround: <strong>{rate.turnaround}</strong></span>
                     </div>
-                    <div style={{ fontSize: '12px', color: '#059669', marginBottom: '16px', fontWeight: 700 }}>
-                      ✓ {rate.revisions}
+                    <div style={{ fontSize: '12px', color: '#059669', marginBottom: '16px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      <span>{rate.revisions}</span>
                     </div>
                     <button
                       type="button"
@@ -1153,7 +1328,11 @@ export default function CreatorProfilePage() {
                   4.95
                 </div>
                 <div>
-                  <div style={{ fontSize: '18px', color: '#F59E0B' }}>⭐⭐⭐⭐⭐</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <StarIcon key={s} size={17} color="#F59E0B" />
+                    ))}
+                  </div>
                   <div style={{ fontSize: '13px', color: '#64748B', fontWeight: 600, marginTop: '3px' }}>
                     Based on 14 Enterprise Brand Endorsements
                   </div>
@@ -1161,12 +1340,16 @@ export default function CreatorProfilePage() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '12.5px', color: '#475569' }}>
-                <div>
-                  <span style={{ fontWeight: 800, color: '#059669' }}>100%</span> Positive Feedback
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span><strong style={{ color: '#059669' }}>100%</strong> Positive Feedback</span>
                 </div>
                 <div style={{ width: '1px', height: '18px', backgroundColor: '#CBD5E1' }} />
-                <div>
-                  <span style={{ fontWeight: 800, color: '#0052FF' }}>100%</span> Verified TIA Payments
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <ShieldCheckIcon size={14} color="#0052FF" />
+                  <span><strong style={{ color: '#0052FF' }}>100%</strong> Verified TIA Settlements</span>
                 </div>
               </div>
             </div>
@@ -1175,36 +1358,36 @@ export default function CreatorProfilePage() {
             {[
               {
                 brand: 'Nike Lifestyle India',
-                logo: '👟',
+                iconType: 'ACTIVITY',
                 reviewer: 'Ankit Sharma (Brand Lead)',
-                rating: '5.0 ⭐',
+                rating: '5.0',
                 comment: 'Sarah produced one of our highest-performing fitness reels this quarter. Clear communication, prompt script revisions, and finished ahead of schedule with remarkable click-through conversion.',
                 date: '2 weeks ago',
                 project: 'Air Zoom Running Series 2026',
               },
               {
                 brand: 'OnePlus India',
-                logo: '📱',
+                iconType: 'SMARTPHONE',
                 reviewer: 'Priya Mehra (Senior Campaign Manager)',
-                rating: '5.0 ⭐',
+                rating: '5.0',
                 comment: 'The camera breakdown unboxing was thorough, cinematic, and our direct retail affiliate conversion was 2.3x higher than our benchmark. Highly recommended creator for enterprise tech rollouts.',
                 date: '1 month ago',
                 project: 'Flagship 13 Pro Camera Breakdown',
               },
               {
                 brand: 'Boat Lifestyle Audio',
-                logo: '🎧',
+                iconType: 'HEADPHONES',
                 reviewer: 'Rohan Gupta (Influencer Marketing Team)',
-                rating: '4.9 ⭐',
+                rating: '4.9',
                 comment: 'Exceptional audio production quality, stylish aesthetic, and seamless integration of product noise cancellation features. Looking forward to our next quarterly campaign.',
                 date: '2 months ago',
                 project: 'Airdopes Pro ANC Launch',
               },
               {
                 brand: 'Mamaearth Organics',
-                logo: '🌿',
+                iconType: 'LEAF',
                 reviewer: 'Deepika Nair (Marketing Director)',
-                rating: '4.8 ⭐',
+                rating: '4.8',
                 comment: 'Very authentic storytelling and high swipe-up CTR on the Story series. Audience engagement was organic and positive throughout.',
                 date: '3 months ago',
                 project: 'Vitamin C Morning Routine',
@@ -1222,13 +1405,18 @@ export default function CreatorProfilePage() {
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '18px' }}>{rev.logo}</span>
+                    <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {renderBrandIcon(rev.iconType)}
+                    </div>
                     <span style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>{rev.brand}</span>
                     <span style={{ fontSize: '12.5px', color: '#64748B' }}>• {rev.reviewer}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ fontSize: '12px', color: '#94A3B8' }}>{rev.date}</span>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#059669' }}>{rev.rating}</span>
+                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                      <StarIcon size={13} color="#F59E0B" />
+                      <span>{rev.rating}</span>
+                    </span>
                   </div>
                 </div>
 
@@ -1301,7 +1489,11 @@ export default function CreatorProfilePage() {
 
             {inquirySentSuccess ? (
               <div style={{ padding: '24px 16px', textAlign: 'center' }}>
-                <div style={{ fontSize: '36px', marginBottom: '8px' }}>✓</div>
+                <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
                 <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#059669', margin: '0 0 4px 0' }}>
                   Inquiry Sent Successfully!
                 </h4>
