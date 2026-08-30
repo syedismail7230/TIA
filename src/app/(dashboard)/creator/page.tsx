@@ -8415,507 +8415,298 @@ function CreatorPortalContent() {
         })()}
 
         {/* ==================================================================== */}
-        {/* TAB 4: SOCIAL MEDIA & ANALYTICS (CLEAN & SIMPLE DESIGN)              */}
+        {/* TAB 4: SOCIAL MEDIA (ULTRA-SIMPLE & MINIMALIST)                      */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div style={{ maxWidth: '1160px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {/* Header Strip */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-              <div>
-                <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                  Social Media & Analytics
-                </h2>
-                <p style={{ fontSize: '12.5px', color: '#64748B', margin: '2px 0 0 0' }}>
-                  Connected channels, verified audience reach, and engagement insights.
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <button
-                  type="button"
-                  onClick={() => handleConnectOAuth('TIKTOK')}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    padding: '7px 13px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '8px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: '#334155',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <span>+</span>
-                  <span>Connect Channel</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleDownloadMediaKitPdf}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    padding: '7px 13px',
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #CBD5E1',
-                    borderRadius: '8px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: '#334155',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span>Export Media Kit</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleSyncSocialMetrics}
-                  disabled={isSyncingSocial}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    padding: '7px 14px',
-                    backgroundColor: '#0052FF',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    cursor: isSyncingSocial ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 2px 6px rgba(0, 82, 255, 0.22)',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <span>{isSyncingSocial ? 'Syncing...' : 'Sync APIs'}</span>
-                  <span style={{ fontSize: '12px' }}>🔄</span>
-                </button>
-              </div>
-            </div>
-
-            {/* 1. Connected Channels (4 Clean Cards in 1 Row) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '14px',
-              }}
-            >
-              {/* YouTube */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '12px',
-                  border: '1px solid #E2E8F0',
-                  padding: '16px 18px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>YouTube</span>
-                  </div>
-                  <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 7px', borderRadius: '10px' }}>
-                    ● Connected
-                  </span>
-                </div>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  185,000
-                </div>
-                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>
-                  Subscribers • 5.2% ER • @creator.official
-                </div>
-              </div>
-
-              {/* Instagram */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '12px',
-                  border: '1px solid #E2E8F0',
-                  padding: '16px 18px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <rect width="24" height="24" rx="6" fill="url(#igSimpleGrad)" />
-                      <circle cx="12" cy="12" r="4.5" stroke="#FFFFFF" strokeWidth="1.8" />
-                      <circle cx="17.5" cy="6.5" r="1.2" fill="#FFFFFF" />
-                      <defs>
-                        <linearGradient id="igSimpleGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                          <stop stopColor="#F58529" />
-                          <stop offset="0.5" stopColor="#DD2A7B" />
-                          <stop offset="1" stopColor="#8134AF" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Instagram</span>
-                  </div>
-                  <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 7px', borderRadius: '10px' }}>
-                    ● Connected
-                  </span>
-                </div>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  320,000
-                </div>
-                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>
-                  Followers • 4.8% ER • @creator.official
-                </div>
-              </div>
-
-              {/* LinkedIn */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '12px',
-                  border: '1px solid #E2E8F0',
-                  padding: '16px 18px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#0A66C2">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                    </svg>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>LinkedIn</span>
-                  </div>
-                  <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 7px', borderRadius: '10px' }}>
-                    ● Connected
-                  </span>
-                </div>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  65,000
-                </div>
-                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>
-                  Connections • 6.1% ER • Sarah Jenkins
-                </div>
-              </div>
-
-              {/* X (Twitter) */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '12px',
-                  border: '1px solid #E2E8F0',
-                  padding: '16px 18px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#0F172A">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
-                    <span style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>X (Twitter)</span>
-                  </div>
-                  <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 7px', borderRadius: '10px' }}>
-                    ● Connected
-                  </span>
-                </div>
-                <div style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  45,000
-                </div>
-                <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '3px' }}>
-                  Followers • 3.6% ER • @creator_x
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Key Metrics 4-Card Summary Strip */}
+          <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Unified Main Card */}
             <div
               style={{
                 backgroundColor: '#FFFFFF',
-                borderRadius: '14px',
+                borderRadius: '16px',
                 border: '1px solid #E2E8F0',
-                padding: '20px 24px',
+                padding: '24px 28px',
                 boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '16px',
               }}
             >
-              {/* Total Audience */}
-              <div style={{ borderRight: '1px solid #F1F5F9', paddingRight: '16px' }}>
-                <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, marginBottom: '4px' }}>
-                  Total Audience Reach
-                </div>
-                <div style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  615k+
-                </div>
-                <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '2px' }}>
-                  ↑ 8.4% this month
-                </div>
-              </div>
-
-              {/* Monthly Impressions */}
-              <div style={{ borderRight: '1px solid #F1F5F9', paddingRight: '16px' }}>
-                <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, marginBottom: '4px' }}>
-                  30-Day Impressions
-                </div>
-                <div style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.02em' }}>
-                  2.84M
-                </div>
-                <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>
-                  Cross-network views
-                </div>
-              </div>
-
-              {/* Engagement Rate */}
-              <div style={{ borderRight: '1px solid #F1F5F9', paddingRight: '16px' }}>
-                <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, marginBottom: '4px' }}>
-                  Avg. Engagement Rate
-                </div>
-                <div style={{ fontSize: '24px', fontWeight: 900, color: '#0052FF', letterSpacing: '-0.02em' }}>
-                  4.85%
-                </div>
-                <div style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, marginTop: '2px' }}>
-                  2.4x Industry Avg
-                </div>
-              </div>
-
-              {/* Audience Quality */}
-              <div>
-                <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, marginBottom: '4px' }}>
-                  Audience Authenticity
-                </div>
-                <div style={{ fontSize: '24px', fontWeight: 900, color: '#059669', letterSpacing: '-0.02em' }}>
-                  98.4%
-                </div>
-                <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '2px' }}>
-                  ✓ BotShield Verified
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Simple 2-Column Demographics Grid */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '16px',
-              }}
-            >
-              {/* Left Column: Top Audience Geographies */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '14px',
-                  border: '1px solid #E2E8F0',
-                  padding: '20px 22px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 16px 0' }}>
-                  Top Audience Locations
-                </h3>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {[
-                    { country: 'India', flag: '🇮🇳', pct: 68, count: '418,200', color: '#0052FF' },
-                    { country: 'United States', flag: '🇺🇸', pct: 14, count: '86,100', color: '#3B82F6' },
-                    { country: 'United Arab Emirates', flag: '🇦🇪', pct: 7, count: '43,050', color: '#60A5FA' },
-                    { country: 'United Kingdom', flag: '🇬🇧', pct: 6, count: '36,900', color: '#93C5FD' },
-                  ].map((geo) => (
-                    <div key={geo.country}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span style={{ fontSize: '16px' }}>{geo.flag}</span>
-                          <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>{geo.country}</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <span style={{ fontSize: '11px', color: '#94A3B8' }}>{geo.count}</span>
-                          <span style={{ fontSize: '12px', fontWeight: 800, color: '#475569', minWidth: '28px', textAlign: 'right' }}>
-                            {geo.pct}%
-                          </span>
-                        </div>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: `${geo.pct}%`, height: '100%', backgroundColor: geo.color, borderRadius: '4px' }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Column: Age Breakdown & Gender */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '14px',
-                  border: '1px solid #E2E8F0',
-                  padding: '20px 22px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                  <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                    Age & Demographics
-                  </h3>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748B' }}>
-                    58% Male • 42% Female
-                  </span>
+              {/* Header */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <div>
+                  <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                    Connected Channels
+                  </h2>
+                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: '2px 0 0 0' }}>
+                    Live synced social accounts and audience metrics
+                  </p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {[
-                    { range: '18 - 24 years', pct: 44, color: '#0052FF' },
-                    { range: '25 - 34 years', pct: 38, color: '#3B82F6' },
-                    { range: '35 - 44 years', pct: 14, color: '#60A5FA' },
-                    { range: '45+ years', pct: 4, color: '#CBD5E1' },
-                  ].map((age) => (
-                    <div key={age.range}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                        <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>{age.range}</span>
-                        <span style={{ fontSize: '12px', fontWeight: 800, color: '#475569' }}>{age.pct}%</span>
-                      </div>
-                      <div style={{ width: '100%', height: '7px', backgroundColor: '#F1F5F9', borderRadius: '4px', overflow: 'hidden' }}>
-                        <div style={{ width: `${age.pct}%`, height: '100%', backgroundColor: age.color, borderRadius: '4px' }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* 4. Recent Post Performance (Clean Minimal Table) */}
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '14px',
-                border: '1px solid #E2E8F0',
-                padding: '20px 22px',
-                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                  Recent Content Performance
-                </h3>
-
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type="text"
-                    placeholder="Search posts..."
-                    value={campaignSearchQuery}
-                    onChange={(e) => setCampaignSearchQuery(e.target.value)}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleConnectOAuth('TIKTOK')}
                     style={{
-                      padding: '6px 12px',
-                      borderRadius: '6px',
+                      padding: '7px 12px',
+                      backgroundColor: '#FFFFFF',
                       border: '1px solid #CBD5E1',
+                      borderRadius: '8px',
                       fontSize: '12px',
-                      color: '#0F172A',
-                      backgroundColor: '#F8FAFC',
-                      outline: 'none',
-                      width: '160px',
+                      fontWeight: 700,
+                      color: '#334155',
+                      cursor: 'pointer',
                     }}
-                  />
+                  >
+                    + Connect Account
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleSyncSocialMetrics}
+                    disabled={isSyncingSocial}
+                    style={{
+                      padding: '7px 14px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: isSyncingSocial ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {isSyncingSocial ? 'Syncing...' : 'Sync APIs 🔄'}
+                  </button>
                 </div>
               </div>
 
-              {/* Table */}
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12.5px' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid #F1F5F9', color: '#94A3B8', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      <th style={{ padding: '8px 10px 8px 0', fontWeight: 700 }}>Post Title</th>
-                      <th style={{ padding: '8px 10px', fontWeight: 700 }}>Channel</th>
-                      <th style={{ padding: '8px 10px', fontWeight: 700 }}>Published</th>
-                      <th style={{ padding: '8px 10px', fontWeight: 700 }}>Views / Reach</th>
-                      <th style={{ padding: '8px 0 8px 10px', fontWeight: 700, textAlign: 'right' }}>Engagement</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      {
-                        title: 'Top 5 Tech Gadgets for 2026 Productivity',
-                        channel: 'YouTube Video',
-                        date: '3 days ago',
-                        views: '48,200',
-                        er: '6.4%',
-                        icon: '▶️',
-                      },
-                      {
-                        title: 'Morning Fitness Routine + Smart Nutrition',
-                        channel: 'Instagram Reel',
-                        date: '5 days ago',
-                        views: '84,500',
-                        er: '5.8%',
-                        icon: '📸',
-                      },
-                      {
-                        title: 'Why Creator Monetization Is Shifting in 2026',
-                        channel: 'LinkedIn Article',
-                        date: '1 week ago',
-                        views: '24,600',
-                        er: '6.2%',
-                        icon: '💼',
-                      },
-                      {
-                        title: 'Unboxing the New ANC Earbuds — First Impressions',
-                        channel: 'X (Twitter)',
-                        date: '1 week ago',
-                        views: '32,100',
-                        er: '3.8%',
-                        icon: '𝕏',
-                      },
-                    ]
-                      .filter((c) =>
-                        campaignSearchQuery === ''
-                          ? true
-                          : c.title.toLowerCase().includes(campaignSearchQuery.toLowerCase()) ||
-                            c.channel.toLowerCase().includes(campaignSearchQuery.toLowerCase())
-                      )
-                      .map((item, i) => (
-                        <tr key={i} style={{ borderBottom: '1px solid #F8FAFC' }}>
-                          <td style={{ padding: '12px 10px 12px 0', fontWeight: 700, color: '#0F172A' }}>
-                            {item.title}
-                          </td>
-                          <td style={{ padding: '12px 10px', color: '#475569' }}>
-                            <span style={{ marginRight: '6px' }}>{item.icon}</span>
-                            <span>{item.channel}</span>
-                          </td>
-                          <td style={{ padding: '12px 10px', color: '#64748B' }}>
-                            {item.date}
-                          </td>
-                          <td style={{ padding: '12px 10px', fontWeight: 700, color: '#0F172A' }}>
-                            {item.views}
-                          </td>
-                          <td style={{ padding: '12px 0 12px 10px', textAlign: 'right' }}>
-                            <span
-                              style={{
-                                fontSize: '11.5px',
-                                fontWeight: 800,
-                                color: '#0052FF',
-                                backgroundColor: '#EFF6FF',
-                                padding: '2px 7px',
-                                borderRadius: '6px',
-                              }}
-                            >
-                              {item.er}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
+              {/* 4 Connected Accounts List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {[
+                  {
+                    name: 'YouTube',
+                    handle: '@creator.official',
+                    count: '185,000',
+                    label: 'Subscribers',
+                    extra: '45.2K Avg Views • 5.2% ER',
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF0000">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    name: 'Instagram',
+                    handle: '@creator.official',
+                    count: '320,000',
+                    label: 'Followers',
+                    extra: '38.4K Avg Likes • 4.8% ER',
+                    icon: (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect width="24" height="24" rx="6" fill="url(#igUltraGrad)" />
+                        <circle cx="12" cy="12" r="4.5" stroke="#FFFFFF" strokeWidth="1.8" />
+                        <circle cx="17.5" cy="6.5" r="1.2" fill="#FFFFFF" />
+                        <defs>
+                          <linearGradient id="igUltraGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#F58529" />
+                            <stop offset="0.5" stopColor="#DD2A7B" />
+                            <stop offset="1" stopColor="#8134AF" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    ),
+                  },
+                  {
+                    name: 'LinkedIn',
+                    handle: 'Sarah Jenkins',
+                    count: '65,000',
+                    label: 'Connections',
+                    extra: '92.4K Monthly Reach • 6.1% ER',
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2">
+                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    name: 'X (Twitter)',
+                    handle: '@creator_x',
+                    count: '45,000',
+                    label: 'Followers',
+                    extra: '12.1K Impr./Post • 3.6% ER',
+                    icon: (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="#0F172A">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                      </svg>
+                    ),
+                  },
+                ].map((channel, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '14px 18px',
+                      backgroundColor: '#F8FAFC',
+                      border: '1px solid #F1F5F9',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
+                        {channel.icon}
+                      </div>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
+                          <span style={{ fontSize: '12px', color: '#64748B' }}>{channel.handle}</span>
+                        </div>
+                        <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '1px' }}>
+                          {channel.extra}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
+                        <div style={{ fontSize: '10.5px', color: '#64748B' }}>{channel.label}</div>
+                      </div>
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          color: '#059669',
+                          backgroundColor: '#ECFDF5',
+                          padding: '3px 8px',
+                          borderRadius: '8px',
+                        }}
+                      >
+                        ● Connected
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Aggregated Numbers Ribbon */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '16px',
+                  marginTop: '24px',
+                  paddingTop: '20px',
+                  borderTop: '1px solid #F1F5F9',
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Total Audience</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>615,000+</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Monthly Impressions</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>2.84M</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Avg. Engagement</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px' }}>4.85%</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Audience Quality</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#059669', marginTop: '2px' }}>98.4% Real</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Simple 2-Column Section: Demographics & Recent Posts */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '16px' }}>
+              {/* Left: Demographics Overview */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px solid #E2E8F0',
+                  padding: '20px 22px',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
+                }}
+              >
+                <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+                  Audience Breakdown
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                    <span style={{ color: '#64748B' }}>🇮🇳 India</span>
+                    <span style={{ fontWeight: 800, color: '#0F172A' }}>68%</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                    <span style={{ color: '#64748B' }}>🇺🇸 United States</span>
+                    <span style={{ fontWeight: 800, color: '#0F172A' }}>14%</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                    <span style={{ color: '#64748B' }}>🇦🇪 United Arab Emirates</span>
+                    <span style={{ fontWeight: 800, color: '#0F172A' }}>7%</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                    <span style={{ color: '#64748B' }}>🇬🇧 United Kingdom</span>
+                    <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
+                  </div>
+
+                  <div style={{ marginTop: '8px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Age: <strong>18–34 yrs (82%)</strong></span>
+                    <span>Gender: <strong>58% M / 42% F</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Recent Content */}
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px solid #E2E8F0',
+                  padding: '20px 22px',
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
+                }}
+              >
+                <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+                  Recent Posts
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {[
+                    { title: 'Top 5 Tech Gadgets 2026', views: '48.2K', er: '6.4%', channel: 'YouTube' },
+                    { title: 'Morning Fitness Routine', views: '84.5K', er: '5.8%', channel: 'Instagram' },
+                    { title: 'Why Creator Monetization Shifted', views: '24.6K', er: '6.2%', channel: 'LinkedIn' },
+                    { title: 'New ANC Earbuds Unboxing', views: '32.1K', er: '3.8%', channel: 'X' },
+                  ].map((post, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: '12px',
+                        paddingBottom: '8px',
+                        borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
+                      }}
+                    >
+                      <div>
+                        <span style={{ fontWeight: 700, color: '#0F172A' }}>{post.title}</span>
+                        <span style={{ color: '#94A3B8', marginLeft: '6px' }}>• {post.channel}</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ color: '#64748B' }}>{post.views}</span>
+                        <span style={{ fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px' }}>
+                          {post.er}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
