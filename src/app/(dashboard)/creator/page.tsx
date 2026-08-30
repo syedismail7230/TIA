@@ -286,6 +286,7 @@ function CreatorPortalContent() {
     whatsappAlerts: true,
   });
   const [settingsSavedSuccess, setSettingsSavedSuccess] = useState<boolean>(false);
+  const [isSettingsMobileMenuOpen, setIsSettingsMobileMenuOpen] = useState<boolean>(false);
   const [showDeliverableModal, setShowDeliverableModal] = useState<boolean>(false);
   const [deliverableType, setDeliverableType] = useState<'DRAFT_VIDEO' | 'SCRIPT' | 'LIVE_POST'>('DRAFT_VIDEO');
   const [deliverableTitle, setDeliverableTitle] = useState<string>('');
@@ -8951,50 +8952,120 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* Mobile View: Clean Section Dropdown Selector (Zero horizontal cutoff, zero scrollbars) */}
-              <div className="block sm:hidden" style={{ marginBottom: '18px' }}>
-                <div style={{ position: 'relative' }}>
-                  <select
-                    value={settingsActiveSubTab}
-                    onChange={(e) => setSettingsActiveSubTab(e.target.value as any)}
-                    style={{
-                      width: '100%',
-                      padding: '10px 36px 10px 14px',
-                      borderRadius: '10px',
-                      border: '1.5px solid #CBD5E1',
-                      backgroundColor: '#F8FAFC',
-                      fontSize: '13.5px',
-                      fontWeight: 700,
-                      color: '#0F172A',
-                      appearance: 'none',
-                      WebkitAppearance: 'none',
-                      outline: 'none',
-                      cursor: 'pointer',
-                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                      boxSizing: 'border-box',
-                    }}
-                  >
-                    <option value="profile">👤 Profile & Bio</option>
-                    <option value="rates">💰 Commercial Rates</option>
-                    <option value="payouts">🏦 Payout & Taxes</option>
-                    <option value="notifications">🔔 Notifications</option>
-                    <option value="security">🔒 Security</option>
-                  </select>
-                  <span
-                    style={{
-                      position: 'absolute',
-                      right: '14px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      pointerEvents: 'none',
-                      fontSize: '11px',
-                      color: '#64748B',
-                      fontWeight: 900,
-                    }}
-                  >
-                    ▼
+              {/* Mobile View: Hamburger Menu Toggle & Drawer */}
+              <div className="block sm:hidden" style={{ marginBottom: '18px', position: 'relative' }}>
+                <button
+                  type="button"
+                  onClick={() => setIsSettingsMobileMenuOpen(!isSettingsMobileMenuOpen)}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '11px 14px',
+                    backgroundColor: '#F8FAFC',
+                    border: '1.5px solid #CBD5E1',
+                    borderRadius: '10px',
+                    fontSize: '13.5px',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    cursor: 'pointer',
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                    boxSizing: 'border-box',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        gap: '3px',
+                        width: '18px',
+                        height: '14px',
+                      }}
+                    >
+                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
+                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
+                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
+                    </div>
+                    <span>
+                      {settingsActiveSubTab === 'profile' && '👤 Profile & Bio'}
+                      {settingsActiveSubTab === 'rates' && '💰 Commercial Rates'}
+                      {settingsActiveSubTab === 'payouts' && '🏦 Payout & Taxes'}
+                      {settingsActiveSubTab === 'notifications' && '🔔 Notifications'}
+                      {settingsActiveSubTab === 'security' && '🔒 Security'}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 900 }}>
+                    {isSettingsMobileMenuOpen ? '▲' : '▼'}
                   </span>
-                </div>
+                </button>
+
+                {/* Hamburger Drawer Options */}
+                {isSettingsMobileMenuOpen && (
+                  <div
+                    style={{
+                      marginTop: '6px',
+                      backgroundColor: '#FFFFFF',
+                      border: '1.5px solid #CBD5E1',
+                      borderRadius: '10px',
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      zIndex: 20,
+                    }}
+                  >
+                    {[
+                      { id: 'profile', label: 'Profile & Bio', icon: '👤', desc: 'Display name, handle, bio, and social links' },
+                      { id: 'rates', label: 'Commercial Rates', icon: '💰', desc: 'Deliverable pricing, min budget, and fees' },
+                      { id: 'payouts', label: 'Payout & Taxes', icon: '🏦', desc: 'Bank account, IFSC, UPI, and PAN info' },
+                      { id: 'notifications', label: 'Notifications', icon: '🔔', desc: 'Match alerts, briefs, and WhatsApp updates' },
+                      { id: 'security', label: 'Security', icon: '🔒', desc: '2FA authentication and account passwords' },
+                    ].map((subTab, idx) => {
+                      const isActive = settingsActiveSubTab === subTab.id;
+                      return (
+                        <button
+                          key={subTab.id}
+                          type="button"
+                          onClick={() => {
+                            setSettingsActiveSubTab(subTab.id as any);
+                            setIsSettingsMobileMenuOpen(false);
+                          }}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '12px 14px',
+                            backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
+                            border: 'none',
+                            borderBottom: idx === 4 ? 'none' : '1px solid #F1F5F9',
+                            cursor: 'pointer',
+                            textAlign: 'left',
+                            transition: 'all 0.15s ease',
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <span style={{ fontSize: '16px' }}>{subTab.icon}</span>
+                            <div>
+                              <div style={{ fontSize: '13px', fontWeight: isActive ? 800 : 700, color: isActive ? '#0052FF' : '#0F172A' }}>
+                                {subTab.label}
+                              </div>
+                              <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px' }}>
+                                {subTab.desc}
+                              </div>
+                            </div>
+                          </div>
+                          {isActive && (
+                            <span style={{ color: '#0052FF', fontWeight: 800, fontSize: '14px' }}>✓</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Desktop View (>= 640px): Standard SaaS Clean Underline Tab Navigation */}
