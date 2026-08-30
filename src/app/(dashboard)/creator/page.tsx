@@ -415,13 +415,13 @@ function CreatorPortalContent() {
       id: 'notif-2',
       type: 'MATCH',
       category: 'COLLABS',
-      title: '98% Match: ₹75,000 Audio Brief',
-      message: 'New high-match campaign dropped: "Active ANC Wireless Earbuds Sound Test". Top recommendation for your tech audience.',
+      title: '98% Match: ₹75,000 Brand Collaboration',
+      message: 'New high-match collaboration: "Active ANC Wireless Earbuds Sound Test". Top recommendation for your tech audience.',
       timeAgo: '14m ago',
       timestamp: Date.now() - 1000 * 60 * 14,
       read: false,
       actionTab: 'marketplace',
-      actionLabel: 'Explore Brief →',
+      actionLabel: 'View Collaboration →',
       badgeText: 'Top Match',
       badgeBg: '#EFF6FF',
       badgeColor: '#0052FF',
@@ -566,10 +566,10 @@ function CreatorPortalContent() {
       {
         type: 'MATCH',
         category: 'COLLABS',
-        title: 'New High-Value Brief Drop',
-        message: 'A verified D2C Wellness brand just launched a ₹60,000 campaign matching your health & lifestyle profile.',
+        title: 'Brand Posted for Collaboration',
+        message: 'A verified D2C Wellness brand just posted a ₹60,000 collaboration opportunity matching your creator profile.',
         actionTab: 'marketplace',
-        actionLabel: 'View Brief →',
+        actionLabel: 'View Collaboration →',
         badgeText: 'New Opportunity',
         badgeBg: '#EFF6FF',
         badgeColor: '#0052FF',
@@ -2157,7 +2157,10 @@ function CreatorPortalContent() {
     if (applyCredits <= 0) {
       setShowApplyModal(false);
       setSelectedCampaign(null);
-      handleTabChange('payments');
+      setShowCreditsStoreView(true);
+      setActiveTab('payments');
+      router.replace('/creator?tab=payments');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -3041,7 +3044,12 @@ function CreatorPortalContent() {
             {/* Remaining Credits Inline Indicator */}
             <button
               type="button"
-              onClick={() => handleTabChange('payments')}
+              onClick={() => {
+                setShowCreditsStoreView(true);
+                setActiveTab('payments');
+                router.replace('/creator?tab=payments');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
               title="Click to view & top up Application Credits"
               style={{
                 display: 'inline-flex',
