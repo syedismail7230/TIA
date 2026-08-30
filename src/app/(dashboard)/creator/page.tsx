@@ -8445,24 +8445,6 @@ function CreatorPortalContent() {
                     type="button"
                     onClick={() => handleConnectOAuth('TIKTOK')}
                     style={{
-                      padding: '7px 12px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #CBD5E1',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: '#334155',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    + Connect Account
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handleSyncSocialMetrics}
-                    disabled={isSyncingSocial}
-                    style={{
                       padding: '7px 14px',
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
@@ -8470,10 +8452,10 @@ function CreatorPortalContent() {
                       borderRadius: '8px',
                       fontSize: '12px',
                       fontWeight: 700,
-                      cursor: isSyncingSocial ? 'not-allowed' : 'pointer',
+                      cursor: 'pointer',
                     }}
                   >
-                    {isSyncingSocial ? 'Syncing...' : 'Sync APIs 🔄'}
+                    + Connect Account
                   </button>
                 </div>
               </div>
