@@ -8951,15 +8951,63 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* Standard SaaS Clean Underline Tab Navigation */}
+              {/* Mobile View: Clean Section Dropdown Selector (Zero horizontal cutoff, zero scrollbars) */}
+              <div className="block sm:hidden" style={{ marginBottom: '18px' }}>
+                <div style={{ position: 'relative' }}>
+                  <select
+                    value={settingsActiveSubTab}
+                    onChange={(e) => setSettingsActiveSubTab(e.target.value as any)}
+                    style={{
+                      width: '100%',
+                      padding: '10px 36px 10px 14px',
+                      borderRadius: '10px',
+                      border: '1.5px solid #CBD5E1',
+                      backgroundColor: '#F8FAFC',
+                      fontSize: '13.5px',
+                      fontWeight: 700,
+                      color: '#0F172A',
+                      appearance: 'none',
+                      WebkitAppearance: 'none',
+                      outline: 'none',
+                      cursor: 'pointer',
+                      boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    <option value="profile">👤 Profile & Bio</option>
+                    <option value="rates">💰 Commercial Rates</option>
+                    <option value="payouts">🏦 Payout & Taxes</option>
+                    <option value="notifications">🔔 Notifications</option>
+                    <option value="security">🔒 Security</option>
+                  </select>
+                  <span
+                    style={{
+                      position: 'absolute',
+                      right: '14px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      pointerEvents: 'none',
+                      fontSize: '11px',
+                      color: '#64748B',
+                      fontWeight: 900,
+                    }}
+                  >
+                    ▼
+                  </span>
+                </div>
+              </div>
+
+              {/* Desktop View (>= 640px): Standard SaaS Clean Underline Tab Navigation */}
               <div
+                className="hidden sm:flex"
                 style={{
                   display: 'flex',
                   gap: '24px',
-                  overflowX: 'auto',
                   borderBottom: '1px solid #E2E8F0',
                   marginBottom: '24px',
-                  WebkitOverflowScrolling: 'touch',
+                  overflowX: 'auto',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
                 }}
               >
                 {[
