@@ -8940,13 +8940,17 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* 2-Column Vertical Layout: Left Vertical Menu + Right Content */}
+              {/* 2-Column Side-by-Side Layout: Left Vertical Menu + Right Content */}
               <div
-                className="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-6"
-                style={{ alignItems: 'flex-start' }}
+                style={{
+                  display: 'flex',
+                  gap: '24px',
+                  alignItems: 'flex-start',
+                }}
+                className="flex-col sm:flex-row"
               >
                 {/* Left Vertical Sub-Navigation */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <div style={{ width: '200px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
                   {[
                     { id: 'profile', label: 'Profile & Bio', icon: '👤' },
                     { id: 'rates', label: 'Commercial Rates', icon: '💰' },
@@ -8986,8 +8990,12 @@ function CreatorPortalContent() {
 
                 {/* Right Content Area */}
                 <div
-                  className="pl-0 md:pl-6 border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0"
-                  style={{ minWidth: 0 }}
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                    borderLeft: '1px solid #F1F5F9',
+                    paddingLeft: '24px',
+                  }}
                 >
                   {/* SUB-TAB 1: PROFILE & BIO */}
                   {settingsActiveSubTab === 'profile' && (
