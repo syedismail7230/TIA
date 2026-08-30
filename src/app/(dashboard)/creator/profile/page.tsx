@@ -10,21 +10,21 @@ import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
 // ============================================================================
 
 const MapPinIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
     <circle cx="12" cy="10" r="3" />
   </svg>
 );
 
 const VideoCameraIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <polygon points="23 7 16 12 23 17 23 7" />
-    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+    <rect x="1" y="5" width="15" height="14" />
   </svg>
 );
 
 const GlobeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <circle cx="12" cy="12" r="10" />
     <line x1="2" y1="12" x2="22" y2="12" />
     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
@@ -32,8 +32,8 @@ const GlobeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, col
 );
 
 const IdBadgeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, color = '#64748B' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="4" width="18" height="16" rx="2" />
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+    <rect x="3" y="4" width="18" height="16" />
     <circle cx="9" cy="10" r="2" />
     <line x1="15" y1="8" x2="17" y2="8" />
     <line x1="15" y1="12" x2="17" y2="12" />
@@ -42,27 +42,27 @@ const IdBadgeIcon: React.FC<{ size?: number; color?: string }> = ({ size = 14, c
 );
 
 const StarIcon: React.FC<{ size?: number; color?: string; filled?: boolean }> = ({ size = 14, color = '#F59E0B', filled = true }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : 'none'} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : 'none'} stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
   </svg>
 );
 
 const ShieldCheckIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#059669' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     <polyline points="9 12 11 14 15 10" />
   </svg>
 );
 
 const ClockIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <circle cx="12" cy="12" r="10" />
     <polyline points="12 6 12 12 16 14" />
   </svg>
 );
 
 const ScaleIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#16A34A' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z" />
     <path d="M2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1z" />
     <path d="M7 21h10" />
@@ -72,7 +72,7 @@ const ScaleIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, col
 );
 
 const BarChartIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <line x1="12" y1="20" x2="12" y2="10" />
     <line x1="18" y1="20" x2="18" y2="4" />
     <line x1="6" y1="20" x2="6" y2="16" />
@@ -80,36 +80,36 @@ const BarChartIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, 
 );
 
 const HeadphonesIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+    <path d="M21 19v2h-1v-2v-3h2zM3 19v2h1v-2v-3H3z" />
   </svg>
 );
 
 const SmartphoneIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+    <rect x="5" y="2" width="14" height="20" />
     <line x1="12" y1="18" x2="12.01" y2="18" />
   </svg>
 );
 
 const LeafIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#059669' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
     <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
   </svg>
 );
 
 const SpeakerIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="4" y="2" width="16" height="20" rx="2" />
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+    <rect x="4" y="2" width="16" height="20" />
     <circle cx="12" cy="14" r="4" />
     <line x1="12" y1="6" x2="12.01" y2="6" />
   </svg>
 );
 
 const DumbbellIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <path d="m6.5 6.5 11 11" />
     <path d="m21 21-1-1a5 5 0 0 0-7.07 0l-.93.93a5 5 0 0 0 0 7.07l1 1" />
     <path d="m3 3 1 1a5 5 0 0 0 7.07 0l.93-.93a5 5 0 0 0 0-7.07l-1-1" />
@@ -119,7 +119,7 @@ const DumbbellIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, 
 );
 
 const ActivityIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#0052FF' }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
   </svg>
 );
@@ -317,7 +317,7 @@ export default function CreatorProfilePage() {
 
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '90px', fontFamily: 'inherit', color: '#0F172A' }}>
-      {/* Design System Scoped CSS */}
+      {/* Design System Scoped CSS - NO CURVES / ZERO BORDER RADIUS */}
       <style dangerouslySetInnerHTML={{ __html: `
         .profile-container {
           max-width: 1240px;
@@ -381,7 +381,7 @@ export default function CreatorProfilePage() {
                 alignItems: 'center',
                 gap: '7px',
                 padding: '6px 12px',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 backgroundColor: '#F1F5F9',
                 color: '#334155',
                 fontSize: '12.5px',
@@ -390,7 +390,7 @@ export default function CreatorProfilePage() {
                 transition: 'all 0.15s ease',
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter">
                 <line x1="19" y1="12" x2="5" y2="12" />
                 <polyline points="12 19 5 12 12 5" />
               </svg>
@@ -412,7 +412,7 @@ export default function CreatorProfilePage() {
                   color: '#0052FF',
                   backgroundColor: '#EFF6FF',
                   padding: '2px 7px',
-                  borderRadius: '4px',
+                  borderRadius: '0px',
                   letterSpacing: '0.04em',
                 }}
               >
@@ -433,7 +433,7 @@ export default function CreatorProfilePage() {
                 padding: '7px 14px',
                 backgroundColor: copiedLink ? '#ECFDF5' : '#FFFFFF',
                 border: copiedLink ? '1px solid #A7F3D0' : '1px solid #CBD5E1',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 fontSize: '12.5px',
                 fontWeight: 700,
                 color: copiedLink ? '#059669' : '#334155',
@@ -443,14 +443,14 @@ export default function CreatorProfilePage() {
             >
               {copiedLink ? (
                 <>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   <span>Link Copied!</span>
                 </>
               ) : (
                 <>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter">
                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                   </svg>
@@ -468,14 +468,14 @@ export default function CreatorProfilePage() {
                 padding: '7px 14px',
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #CBD5E1',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 fontSize: '12.5px',
                 fontWeight: 700,
                 color: '#334155',
                 textDecoration: 'none',
               }}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
                 <path d="M12 20h9" />
                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
               </svg>
@@ -493,7 +493,7 @@ export default function CreatorProfilePage() {
                 backgroundColor: '#0052FF',
                 color: '#FFFFFF',
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 fontSize: '12.5px',
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -515,7 +515,7 @@ export default function CreatorProfilePage() {
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '20px',
+            borderRadius: '0px',
             border: '1px solid #E2E8F0',
             overflow: 'hidden',
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
@@ -556,22 +556,22 @@ export default function CreatorProfilePage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                backgroundColor: 'rgba(15, 23, 42, 0.75)',
+                backgroundColor: 'rgba(15, 23, 42, 0.85)',
                 backdropFilter: 'blur(8px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 padding: '6px 14px',
-                borderRadius: '8px',
+                borderRadius: '0px',
                 color: '#FFFFFF',
                 fontSize: '12px',
                 fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 82, 255, 0.85)')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.75)')}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 82, 255, 0.95)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.85)')}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+                <rect x="3" y="3" width="18" height="18" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
               </svg>
@@ -583,9 +583,9 @@ export default function CreatorProfilePage() {
           <div style={{ padding: '0 32px 28px 32px' }}>
             <div className="profile-hero-content" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative' }}>
               
-              {/* Left Column: Floating Avatar + Name & Bio */}
+              {/* Left Column: Floating Square Avatar + Name & Bio */}
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '22px', flex: 1 }}>
-                {/* Floating Avatar */}
+                {/* Floating Square Avatar - NO CURVES */}
                 <div
                   className="profile-avatar-wrapper"
                   style={{
@@ -598,7 +598,7 @@ export default function CreatorProfilePage() {
                     style={{
                       width: '108px',
                       height: '108px',
-                      borderRadius: '50%',
+                      borderRadius: '0px',
                       background: 'linear-gradient(135deg, #0052FF 0%, #2563EB 100%)',
                       color: '#FFFFFF',
                       display: 'flex',
@@ -671,7 +671,7 @@ export default function CreatorProfilePage() {
                     style={{
                       width: '42px',
                       height: '42px',
-                      borderRadius: '10px',
+                      borderRadius: '0px',
                       backgroundColor: '#FFFFFF',
                       border: '1px solid #CBD5E1',
                       display: 'flex',
@@ -697,14 +697,14 @@ export default function CreatorProfilePage() {
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
                       border: 'none',
-                      borderRadius: '10px',
+                      borderRadius: '0px',
                       fontSize: '13px',
                       fontWeight: 700,
                       cursor: 'pointer',
                       boxShadow: '0 3px 8px rgba(0, 82, 255, 0.25)',
                     }}
                   >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="square" strokeLinejoin="miter">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                     </svg>
                     <span>Direct Message / Inquiry</span>
@@ -716,7 +716,7 @@ export default function CreatorProfilePage() {
                   style={{
                     backgroundColor: '#F8FAFC',
                     border: '1px solid #E2E8F0',
-                    borderRadius: '12px',
+                    borderRadius: '0px',
                     padding: '10px 16px',
                     display: 'flex',
                     alignItems: 'center',
@@ -750,7 +750,7 @@ export default function CreatorProfilePage() {
                   padding: '6px 12px',
                   backgroundColor: '#EFF6FF',
                   border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
+                  borderRadius: '0px',
                   fontSize: '12.5px',
                   fontWeight: 700,
                   color: '#0052FF',
@@ -771,14 +771,14 @@ export default function CreatorProfilePage() {
                   padding: '6px 12px',
                   backgroundColor: '#EFF6FF',
                   border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
+                  borderRadius: '0px',
                   fontSize: '12.5px',
                   fontWeight: 700,
                   color: '#0052FF',
                 }}
               >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
+                  <rect x="2" y="2" width="20" height="20" />
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                   <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                 </svg>
@@ -794,7 +794,7 @@ export default function CreatorProfilePage() {
                   padding: '6px 12px',
                   backgroundColor: '#EFF6FF',
                   border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
+                  borderRadius: '0px',
                   fontSize: '12.5px',
                   fontWeight: 700,
                   color: '#0052FF',
@@ -815,7 +815,7 @@ export default function CreatorProfilePage() {
                   padding: '6px 12px',
                   backgroundColor: '#EFF6FF',
                   border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
+                  borderRadius: '0px',
                   fontSize: '12.5px',
                   fontWeight: 700,
                   color: '#0052FF',
@@ -870,12 +870,13 @@ export default function CreatorProfilePage() {
                   padding: '10px 2px 14px 2px',
                   backgroundColor: 'transparent',
                   border: 'none',
-                  borderBottom: isActive ? '2.5px solid #0052FF' : '2.5px solid transparent',
+                  borderBottom: isActive ? '3px solid #0052FF' : '3px solid transparent',
                   color: isActive ? '#0052FF' : '#64748B',
                   fontSize: '14px',
                   fontWeight: isActive ? 800 : 600,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  borderRadius: '0px',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -888,7 +889,7 @@ export default function CreatorProfilePage() {
                       color: isActive ? '#0052FF' : '#64748B',
                       backgroundColor: isActive ? '#EFF6FF' : '#F1F5F9',
                       padding: '1px 7px',
-                      borderRadius: '10px',
+                      borderRadius: '0px',
                     }}
                   >
                     {tab.count}
@@ -918,7 +919,7 @@ export default function CreatorProfilePage() {
                       padding: '5px 12px',
                       fontSize: '12px',
                       fontWeight: 700,
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       cursor: 'pointer',
                       border: isCatActive ? '1px solid #0052FF' : '1px solid #E2E8F0',
                       backgroundColor: isCatActive ? '#EFF6FF' : '#FFFFFF',
@@ -939,7 +940,7 @@ export default function CreatorProfilePage() {
                   key={item.id}
                   style={{
                     backgroundColor: '#FFFFFF',
-                    borderRadius: '16px',
+                    borderRadius: '0px',
                     border: '1px solid #E2E8F0',
                     overflow: 'hidden',
                     boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
@@ -975,13 +976,13 @@ export default function CreatorProfilePage() {
                         backgroundColor: '#ECFDF5',
                         border: '1px solid #A7F3D0',
                         padding: '3px 9px',
-                        borderRadius: '6px',
+                        borderRadius: '0px',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '3px',
                       }}
                     >
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                       <span>{item.status}</span>
@@ -994,9 +995,9 @@ export default function CreatorProfilePage() {
                         fontSize: '11px',
                         fontWeight: 700,
                         color: '#FFFFFF',
-                        backgroundColor: 'rgba(15, 23, 42, 0.75)',
+                        backgroundColor: 'rgba(15, 23, 42, 0.85)',
                         padding: '3px 8px',
-                        borderRadius: '4px',
+                        borderRadius: '0px',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '5px',
@@ -1023,7 +1024,7 @@ export default function CreatorProfilePage() {
 
                     {/* Stats Footer */}
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', backgroundColor: '#F8FAFC', borderRadius: '10px', border: '1px solid #F1F5F9', marginBottom: '12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', backgroundColor: '#F8FAFC', borderRadius: '0px', border: '1px solid #F1F5F9', marginBottom: '12px' }}>
                         <div>
                           <div style={{ fontSize: '10px', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Audience Reach</div>
                           <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0F172A' }}>{item.reach}</div>
@@ -1059,9 +1060,9 @@ export default function CreatorProfilePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
             {/* Top 3 Trust Hero Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '18px' }}>
-              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '0px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '0px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <ShieldCheckIcon size={20} color="#059669" />
                   </div>
                   <div>
@@ -1074,9 +1075,9 @@ export default function CreatorProfilePage() {
                 </p>
               </div>
 
-              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '0px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '0px', backgroundColor: '#EFF6FF', color: '#0052FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <ClockIcon size={20} color="#0052FF" />
                   </div>
                   <div>
@@ -1089,9 +1090,9 @@ export default function CreatorProfilePage() {
                 </p>
               </div>
 
-              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+              <div style={{ backgroundColor: '#FFFFFF', borderRadius: '0px', border: '1px solid #E2E8F0', padding: '22px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: '#F0FDF4', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '0px', backgroundColor: '#F0FDF4', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <ScaleIcon size={20} color="#16A34A" />
                   </div>
                   <div>
@@ -1106,7 +1107,7 @@ export default function CreatorProfilePage() {
             </div>
 
             {/* Audience Demographics Summary Table */}
-            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '0px', border: '1px solid #E2E8F0', padding: '24px 28px', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                 <BarChartIcon size={18} color="#0052FF" />
                 <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
@@ -1127,14 +1128,14 @@ export default function CreatorProfilePage() {
                     ].map((g, idx) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px' }}>
+                          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '0px' }}>
                             {g.code}
                           </span>
                           <span style={{ fontWeight: 600, color: '#334155' }}>{g.name}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <div style={{ width: '90px', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '999px', overflow: 'hidden' }}>
-                            <div style={{ width: `${g.pct}%`, height: '100%', backgroundColor: '#0052FF', borderRadius: '999px' }} />
+                          <div style={{ width: '90px', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '0px', overflow: 'hidden' }}>
+                            <div style={{ width: `${g.pct}%`, height: '100%', backgroundColor: '#0052FF', borderRadius: '0px' }} />
                           </div>
                           <span style={{ fontWeight: 800, color: '#0F172A', minWidth: '32px', textAlign: 'right' }}>{g.pct}%</span>
                         </div>
@@ -1155,8 +1156,8 @@ export default function CreatorProfilePage() {
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px' }}>
                         <span style={{ fontWeight: 600, color: '#334155' }}>{a.range}</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <div style={{ width: '90px', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '999px', overflow: 'hidden' }}>
-                            <div style={{ width: `${a.pct}%`, height: '100%', backgroundColor: '#059669', borderRadius: '999px' }} />
+                          <div style={{ width: '90px', height: '6px', backgroundColor: '#F1F5F9', borderRadius: '0px', overflow: 'hidden' }}>
+                            <div style={{ width: `${a.pct}%`, height: '100%', backgroundColor: '#059669', borderRadius: '0px' }} />
                           </div>
                           <span style={{ fontWeight: 800, color: '#0F172A', minWidth: '32px', textAlign: 'right' }}>{a.pct}%</span>
                         </div>
@@ -1179,7 +1180,7 @@ export default function CreatorProfilePage() {
               style={{
                 backgroundColor: '#EFF6FF',
                 border: '1px solid #BFDBFE',
-                borderRadius: '12px',
+                borderRadius: '0px',
                 padding: '12px 18px',
                 display: 'flex',
                 alignItems: 'center',
@@ -1194,7 +1195,7 @@ export default function CreatorProfilePage() {
                 <ShieldCheckIcon size={16} color="#0052FF" />
                 <span><strong>TIA Payment Protection Policy</strong>: All rates are disbursed securely upon milestone approvals with 5% platform commission and 1% TDS compliance.</span>
               </div>
-              <span style={{ fontWeight: 700, backgroundColor: '#FFFFFF', padding: '3px 8px', borderRadius: '6px', border: '1px solid #BFDBFE', fontSize: '11.5px' }}>
+              <span style={{ fontWeight: 700, backgroundColor: '#FFFFFF', padding: '3px 8px', borderRadius: '0px', border: '1px solid #BFDBFE', fontSize: '11.5px' }}>
                 GST Compliant Invoice
               </span>
             </div>
@@ -1239,7 +1240,7 @@ export default function CreatorProfilePage() {
                   key={i}
                   style={{
                     backgroundColor: '#FFFFFF',
-                    borderRadius: '16px',
+                    borderRadius: '0px',
                     border: rate.popular ? '2px solid #0052FF' : '1px solid #E2E8F0',
                     padding: '26px 24px',
                     boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
@@ -1260,7 +1261,7 @@ export default function CreatorProfilePage() {
                         fontSize: '11px',
                         fontWeight: 800,
                         padding: '3px 9px',
-                        borderRadius: '6px',
+                        borderRadius: '0px',
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '4px',
@@ -1288,7 +1289,7 @@ export default function CreatorProfilePage() {
                       <span>Turnaround: <strong>{rate.turnaround}</strong></span>
                     </div>
                     <div style={{ fontSize: '12px', color: '#059669', marginBottom: '16px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                       <span>{rate.revisions}</span>
@@ -1307,7 +1308,7 @@ export default function CreatorProfilePage() {
                         backgroundColor: rate.popular ? '#0052FF' : '#F1F5F9',
                         color: rate.popular ? '#FFFFFF' : '#334155',
                         border: 'none',
-                        borderRadius: '10px',
+                        borderRadius: '0px',
                         fontSize: '13px',
                         fontWeight: 700,
                         cursor: 'pointer',
@@ -1329,7 +1330,7 @@ export default function CreatorProfilePage() {
         {activeProfileTab === 'REVIEWS' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* Reviews Summary Header */}
-            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '24px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+            <div style={{ backgroundColor: '#FFFFFF', borderRadius: '0px', border: '1px solid #E2E8F0', padding: '24px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                 <div style={{ fontSize: '46px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>
                   4.95
@@ -1348,7 +1349,7 @@ export default function CreatorProfilePage() {
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '12.5px', color: '#475569' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   <span><strong style={{ color: '#059669' }}>100%</strong> Positive Feedback</span>
@@ -1404,7 +1405,7 @@ export default function CreatorProfilePage() {
                 key={i}
                 style={{
                   backgroundColor: '#FFFFFF',
-                  borderRadius: '14px',
+                  borderRadius: '0px',
                   border: '1px solid #E2E8F0',
                   padding: '20px 24px',
                   boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
@@ -1412,7 +1413,7 @@ export default function CreatorProfilePage() {
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '26px', height: '26px', borderRadius: '6px', backgroundColor: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '26px', height: '26px', borderRadius: '0px', backgroundColor: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       {renderBrandIcon(rev.iconType)}
                     </div>
                     <span style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>{rev.brand}</span>
@@ -1441,7 +1442,7 @@ export default function CreatorProfilePage() {
       </main>
 
       {/* ==================================================================== */}
-      {/* 7. INQUIRY / BOOKING MODAL                                           */}
+      {/* 7. INQUIRY / BOOKING MODAL (NO CURVES)                                */}
       {/* ==================================================================== */}
       {showInquiryModal && (
         <div
@@ -1461,7 +1462,7 @@ export default function CreatorProfilePage() {
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
+              borderRadius: '0px',
               border: '1px solid #E2E8F0',
               padding: '28px 32px',
               maxWidth: '520px',
@@ -1496,8 +1497,8 @@ export default function CreatorProfilePage() {
 
             {inquirySentSuccess ? (
               <div style={{ padding: '24px 16px', textAlign: 'center' }}>
-                <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto' }}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ width: '48px', height: '48px', borderRadius: '0px', backgroundColor: '#ECFDF5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="miter">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
@@ -1523,7 +1524,7 @@ export default function CreatorProfilePage() {
                     style={{
                       width: '100%',
                       padding: '9px 12px',
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       border: '1px solid #CBD5E1',
                       fontSize: '13px',
                       outline: 'none',
@@ -1544,7 +1545,7 @@ export default function CreatorProfilePage() {
                     style={{
                       width: '100%',
                       padding: '9px 12px',
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       border: '1px solid #CBD5E1',
                       fontSize: '13px',
                       outline: 'none',
@@ -1563,7 +1564,7 @@ export default function CreatorProfilePage() {
                       style={{
                         width: '100%',
                         padding: '9px 10px',
-                        borderRadius: '8px',
+                        borderRadius: '0px',
                         border: '1px solid #CBD5E1',
                         fontSize: '12.5px',
                         backgroundColor: '#FFFFFF',
@@ -1588,7 +1589,7 @@ export default function CreatorProfilePage() {
                       style={{
                         width: '100%',
                         padding: '9px 12px',
-                        borderRadius: '8px',
+                        borderRadius: '0px',
                         border: '1px solid #CBD5E1',
                         fontSize: '13px',
                         outline: 'none',
@@ -1609,7 +1610,7 @@ export default function CreatorProfilePage() {
                     style={{
                       width: '100%',
                       padding: '9px 12px',
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       border: '1px solid #CBD5E1',
                       fontSize: '13px',
                       outline: 'none',
@@ -1627,7 +1628,7 @@ export default function CreatorProfilePage() {
                       backgroundColor: '#F1F5F9',
                       color: '#475569',
                       border: 'none',
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       fontSize: '12.5px',
                       fontWeight: 700,
                       cursor: 'pointer',
@@ -1642,7 +1643,7 @@ export default function CreatorProfilePage() {
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
                       border: 'none',
-                      borderRadius: '8px',
+                      borderRadius: '0px',
                       fontSize: '12.5px',
                       fontWeight: 700,
                       cursor: 'pointer',
@@ -1659,7 +1660,7 @@ export default function CreatorProfilePage() {
       )}
 
       {/* ==================================================================== */}
-      {/* 8. UPLOAD COVER IMAGE & GALLERY MODAL                                */}
+      {/* 8. UPLOAD COVER IMAGE & GALLERY MODAL (NO CURVES)                    */}
       {/* ==================================================================== */}
       {showCoverModal && (
         <div
@@ -1679,7 +1680,7 @@ export default function CreatorProfilePage() {
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '24px',
+              borderRadius: '0px',
               border: '1px solid #E2E8F0',
               padding: '32px',
               maxWidth: '480px',
@@ -1711,7 +1712,7 @@ export default function CreatorProfilePage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '28px 20px',
-                  borderRadius: '16px',
+                  borderRadius: '0px',
                   border: '1.5px dashed #CBD5E1',
                   backgroundColor: uploadedCoverPreview ? '#EFF6FF' : '#F8FAFC',
                   cursor: 'pointer',
@@ -1737,8 +1738,8 @@ export default function CreatorProfilePage() {
                 />
 
                 {/* Folder Upload Icon */}
-                <div style={{ width: '42px', height: '42px', borderRadius: '10px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.03)' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ width: '42px', height: '42px', borderRadius: '0px', backgroundColor: '#FFFFFF', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.03)' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
                     <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z" />
                     <path d="m12 10 3 3m-3-3-3 3m3-3v7" />
                   </svg>
@@ -1781,7 +1782,7 @@ export default function CreatorProfilePage() {
                       style={{
                         aspectRatio: '1/1',
                         width: '100%',
-                        borderRadius: '10px',
+                        borderRadius: '0px',
                         background: preset.value,
                         border: isSelected ? '3px solid #0052FF' : '2px solid transparent',
                         boxShadow: isSelected ? '0 0 0 2px #BFDBFE, 0 4px 10px rgba(0,82,255,0.25)' : '0 1px 3px rgba(0,0,0,0.08)',
@@ -1795,7 +1796,7 @@ export default function CreatorProfilePage() {
                     >
                       {isSelected && (
                         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,82,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter">
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
                         </div>
@@ -1815,7 +1816,7 @@ export default function CreatorProfilePage() {
                   padding: '11px',
                   backgroundColor: '#FFFFFF',
                   border: '1px solid #CBD5E1',
-                  borderRadius: '10px',
+                  borderRadius: '0px',
                   fontSize: '13.5px',
                   fontWeight: 700,
                   color: '#334155',
@@ -1835,7 +1836,7 @@ export default function CreatorProfilePage() {
                   padding: '11px',
                   backgroundColor: '#0052FF',
                   border: 'none',
-                  borderRadius: '10px',
+                  borderRadius: '0px',
                   fontSize: '13.5px',
                   fontWeight: 700,
                   color: '#FFFFFF',
