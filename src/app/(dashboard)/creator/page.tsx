@@ -248,6 +248,12 @@ function CreatorPortalContent() {
   // 2-Way Collabs & Messaging Workspace State
   const [isBrandTyping, setIsBrandTyping] = useState<boolean>(false);
   const [collabSearchQuery, setCollabSearchQuery] = useState<string>('');
+  const [connectedAccounts, setConnectedAccounts] = useState<Record<string, boolean>>({
+    YouTube: true,
+    Instagram: true,
+    LinkedIn: true,
+    'X (Twitter)': true,
+  });
   const [showDeliverableModal, setShowDeliverableModal] = useState<boolean>(false);
   const [deliverableType, setDeliverableType] = useState<'DRAFT_VIDEO' | 'SCRIPT' | 'LIVE_POST'>('DRAFT_VIDEO');
   const [deliverableTitle, setDeliverableTitle] = useState<string>('');
@@ -8519,52 +8525,128 @@ function CreatorPortalContent() {
                       </svg>
                     ),
                   },
-                ].map((channel, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '14px 0',
-                      borderBottom: idx < 3 ? '1px solid #F1F5F9' : 'none',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <div style={{ width: '24px', display: 'flex', justifyContent: 'center' }}>
-                        {channel.icon}
-                      </div>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
-                          <span style={{ fontSize: '12px', color: '#64748B' }}>{channel.handle}</span>
+                ].map((channel, idx) => {
+                  const isConnected = connectedAccounts[channel.name] ?? false;
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '14px 0',
+                        borderBottom: idx < 3 ? '1px solid #F1F5F9' : 'none',
+                        opacity: isConnected ? 1 : 0.75,
+                        transition: 'all 0.2s ease',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <div style={{ width: '24px', display: 'flex', justifyContent: 'center' }}>
+                          {channel.icon}
                         </div>
-                        <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '1px' }}>
-                          {channel.extra}
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
+                            <span style={{ fontSize: '12px', color: '#64748B' }}>{channel.handle}</span>
+                          </div>
+                          <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '1px' }}>
+                            {isConnected ? channel.extra : 'Account sync paused'}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
-                        <div style={{ fontSize: '11px', color: '#64748B' }}>{channel.label}</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                        <div style={{ textAlign: 'right', opacity: isConnected ? 1 : 0.4 }}>
+                          <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
+                          <div style={{ fontSize: '11px', color: '#64748B' }}>{channel.label}</div>
+                        </div>
+
+                        {isConnected ? (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                color: '#059669',
+                                backgroundColor: '#ECFDF5',
+                                padding: '3px 8px',
+                                borderRadius: '6px',
+                              }}
+                            >
+                              ● Connected
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setConnectedAccounts((prev) => ({ ...prev, [channel.name]: false }));
+                                setLiveToast({
+                                  id: `toast-${Date.now()}`,
+                                  type: 'SYSTEM',
+                                  category: 'SYSTEM',
+                                  title: `${channel.name} Disconnected`,
+                                  message: `Disconnected ${channel.name} sync from your creator profile.`,
+                                  timeAgo: 'Just now',
+                                  timestamp: Date.now(),
+                                  read: false,
+                                });
+                              }}
+                              style={{
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                color: '#94A3B8',
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '3px 6px',
+                                borderRadius: '4px',
+                                transition: 'color 0.15s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#EF4444';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.color = '#94A3B8';
+                              }}
+                              title={`Disconnect ${channel.name}`}
+                            >
+                              Disconnect
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setConnectedAccounts((prev) => ({ ...prev, [channel.name]: true }));
+                              setLiveToast({
+                                id: `toast-${Date.now()}`,
+                                type: 'SYSTEM',
+                                category: 'SYSTEM',
+                                title: `${channel.name} Connected`,
+                                message: `Connected ${channel.name} sync with real-time analytics.`,
+                                timeAgo: 'Just now',
+                                timestamp: Date.now(),
+                                read: false,
+                              });
+                            }}
+                            style={{
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              color: '#0052FF',
+                              backgroundColor: '#EFF6FF',
+                              border: '1px solid #BFDBFE',
+                              padding: '3px 10px',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                              transition: 'all 0.15s ease',
+                            }}
+                          >
+                            + Connect
+                          </button>
+                        )}
                       </div>
-                      <span
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          color: '#059669',
-                          backgroundColor: '#ECFDF5',
-                          padding: '3px 8px',
-                          borderRadius: '6px',
-                        }}
-                      >
-                        ● Connected
-                      </span>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Aggregated Numbers Ribbon */}
