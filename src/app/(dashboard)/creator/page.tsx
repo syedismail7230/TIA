@@ -8869,7 +8869,7 @@ function CreatorPortalContent() {
             {/* ------------------------------------------------------------------ */}
             {/* 1. MOBILE VIEW (DEDICATED SUB-PAGE DRILLDOWN NAVIGATION)           */}
             {/* ------------------------------------------------------------------ */}
-            <div className="block sm:hidden">
+            <div className="settings-mobile-only">
               {mobileSettingsSubPage === null ? (
                 /* MOBILE SETTINGS DIRECTORY / MENU HOME */
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -9448,7 +9448,7 @@ function CreatorPortalContent() {
             {/* 2. DESKTOP & TABLET VIEW (STANDARD UNDERLINE TAB STRIP)             */}
             {/* ------------------------------------------------------------------ */}
             <div
-              className="hidden sm:block"
+              className="settings-desktop-only"
               style={{
                 backgroundColor: '#FFFFFF',
                 borderRadius: '16px',

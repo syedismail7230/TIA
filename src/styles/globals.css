@@ -2040,5 +2040,19 @@ table {
   .collabs-filter-mobile-dropdown {
     display: none !important;
   }
+  .settings-mobile-only {
+    display: none !important;
+  }
+  .settings-desktop-only {
+    display: block !important;
+  }
+}
+
+.settings-mobile-only {
+  display: block;
+}
+
+.settings-desktop-only {
+  display: none;
 }
 
