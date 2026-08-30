@@ -8421,22 +8421,14 @@ function CreatorPortalContent() {
         })()}
 
         {/* ==================================================================== */}
-        {/* TAB 4: SOCIAL MEDIA (ULTRA-SIMPLE & MINIMALIST)                      */}
+        {/* TAB 4: SOCIAL MEDIA (ULTRA-SIMPLE & FULLY MOBILE RESPONSIVE)         */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="max-w-[960px] mx-auto flex flex-col gap-4 sm:gap-5 px-2 sm:px-0">
             {/* 1. Main Connected Channels Card */}
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #E2E8F0',
-                padding: '24px 28px',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-              }}
-            >
+            <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
               {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                 <div>
                   <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                     Connected Channels
@@ -8450,7 +8442,7 @@ function CreatorPortalContent() {
                   type="button"
                   onClick={() => handleConnectOAuth('TIKTOK')}
                   style={{
-                    padding: '7px 14px',
+                    padding: '8px 16px',
                     backgroundColor: '#0052FF',
                     color: '#FFFFFF',
                     border: 'none',
@@ -8460,13 +8452,14 @@ function CreatorPortalContent() {
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
                   }}
+                  className="w-full sm:w-auto text-center"
                 >
                   + Connect Account
                 </button>
               </div>
 
-              {/* Connected Accounts Clean Rows (No heavy nested grey boxes) */}
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {/* Connected Accounts Clean Rows (Fully Mobile Responsive) */}
+              <div className="flex flex-col">
                 {[
                   {
                     name: 'YouTube',
@@ -8579,23 +8572,19 @@ function CreatorPortalContent() {
                   return (
                     <div
                       key={idx}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 py-3.5"
                       style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        padding: '14px 0',
                         borderBottom: idx < 3 ? '1px solid #F1F5F9' : 'none',
                         opacity: isConnected ? 1 : 0.75,
                         transition: 'all 0.2s ease',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                        <div style={{ width: '24px', display: 'flex', justifyContent: 'center' }}>
-                          {channel.icon}
-                        </div>
-                        <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
+                      {/* Left: Icon & Name */}
+                      <div className="flex items-center gap-3 min-w-0">
+                        {channel.icon}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
                             <span style={{ fontSize: '12px', color: '#64748B' }}>{channel.handle}</span>
                           </div>
                           <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '1px' }}>
@@ -8604,14 +8593,15 @@ function CreatorPortalContent() {
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <div style={{ textAlign: 'right', opacity: isConnected ? 1 : 0.4 }}>
-                          <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
+                      {/* Right: Numbers & Status / Action */}
+                      <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-5 pl-11 sm:pl-0 w-full sm:w-auto">
+                        <div className="text-left sm:text-right" style={{ opacity: isConnected ? 1 : 0.4 }}>
+                          <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', lineHeight: 1.2 }}>{channel.count}</div>
                           <div style={{ fontSize: '11px', color: '#64748B' }}>{channel.label}</div>
                         </div>
 
                         {isConnected ? (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div className="flex items-center gap-2 flex-shrink-0">
                             <span
                               style={{
                                 fontSize: '11px',
@@ -8620,6 +8610,7 @@ function CreatorPortalContent() {
                                 backgroundColor: '#ECFDF5',
                                 padding: '3px 8px',
                                 borderRadius: '6px',
+                                whiteSpace: 'nowrap',
                               }}
                             >
                               ● Connected
@@ -8649,6 +8640,7 @@ function CreatorPortalContent() {
                                 padding: '3px 6px',
                                 borderRadius: '4px',
                                 transition: 'color 0.15s ease',
+                                whiteSpace: 'nowrap',
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.color = '#EF4444';
@@ -8683,10 +8675,11 @@ function CreatorPortalContent() {
                               color: '#0052FF',
                               backgroundColor: '#EFF6FF',
                               border: '1px solid #BFDBFE',
-                              padding: '3px 10px',
+                              padding: '4px 12px',
                               borderRadius: '6px',
                               cursor: 'pointer',
                               transition: 'all 0.15s ease',
+                              whiteSpace: 'nowrap',
                             }}
                           >
                             + Connect
@@ -8698,17 +8691,8 @@ function CreatorPortalContent() {
                 })}
               </div>
 
-              {/* Aggregated Numbers Ribbon */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gap: '16px',
-                  marginTop: '16px',
-                  paddingTop: '20px',
-                  borderTop: '1px solid #F1F5F9',
-                }}
-              >
+              {/* Aggregated Numbers Ribbon (2x2 on Mobile, 4x1 on Desktop) */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-5 border-t border-slate-100">
                 <div>
                   <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Total Audience</div>
                   <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>615,000+</div>
@@ -8731,18 +8715,10 @@ function CreatorPortalContent() {
               </div>
             </div>
 
-            {/* 2. Demographics & Recent Posts (Clean 2-Column Grid) */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+            {/* 2. Demographics & Recent Posts (Clean Responsive Grid) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Left: Demographics */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '16px',
-                  border: '1px solid #E2E8F0',
-                  padding: '20px 24px',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-                }}
-              >
+              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
                 <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                   Audience Breakdown
                 </h3>
@@ -8765,7 +8741,7 @@ function CreatorPortalContent() {
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
                   </div>
 
-                  <div style={{ marginTop: '8px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ marginTop: '8px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
                     <span>Age: <strong style={{ color: '#0F172A' }}>18–34 yrs (82%)</strong></span>
                     <span>Gender: <strong style={{ color: '#0F172A' }}>58% M / 42% F</strong></span>
                   </div>
@@ -8773,15 +8749,7 @@ function CreatorPortalContent() {
               </div>
 
               {/* Right: Recent Content */}
-              <div
-                style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '16px',
-                  border: '1px solid #E2E8F0',
-                  padding: '20px 24px',
-                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-                }}
-              >
+              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
                 <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
                   Recent Posts
                 </h3>
@@ -8802,13 +8770,14 @@ function CreatorPortalContent() {
                         fontSize: '12.5px',
                         paddingBottom: '8px',
                         borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
+                        gap: '8px',
                       }}
                     >
-                      <div>
+                      <div className="min-w-0 truncate">
                         <span style={{ fontWeight: 700, color: '#0F172A' }}>{post.title}</span>
                         <span style={{ color: '#94A3B8', marginLeft: '6px' }}>• {post.channel}</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                         <span style={{ color: '#64748B', fontSize: '12px' }}>{post.views}</span>
                         <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px', fontSize: '11px' }}>
                           {post.er}
