@@ -8421,19 +8421,36 @@ function CreatorPortalContent() {
         })()}
 
         {/* ==================================================================== */}
-        {/* TAB 4: SOCIAL MEDIA (ULTRA-SIMPLE & FULLY MOBILE RESPONSIVE)         */}
+        {/* TAB 4: SOCIAL MEDIA (CLEAN, MINIMALIST & MOBILE BULLETPROOF)        */}
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
-          <div className="max-w-[960px] mx-auto flex flex-col gap-4 sm:gap-5 px-2 sm:px-0">
+          <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* 1. Main Connected Channels Card */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: '16px',
+                border: '1px solid #E2E8F0',
+                padding: '20px 24px',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+              }}
+            >
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '16px',
+                  flexWrap: 'wrap',
+                  gap: '10px',
+                }}
+              >
                 <div>
-                  <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                  <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                     Connected Channels
                   </h2>
-                  <p style={{ fontSize: '12.5px', color: '#64748B', margin: '2px 0 0 0' }}>
+                  <p style={{ fontSize: '12px', color: '#64748B', margin: '2px 0 0 0' }}>
                     Live synced social accounts and audience metrics
                   </p>
                 </div>
@@ -8442,7 +8459,7 @@ function CreatorPortalContent() {
                   type="button"
                   onClick={() => handleConnectOAuth('TIKTOK')}
                   style={{
-                    padding: '8px 16px',
+                    padding: '6px 14px',
                     backgroundColor: '#0052FF',
                     color: '#FFFFFF',
                     border: 'none',
@@ -8452,20 +8469,18 @@ function CreatorPortalContent() {
                     cursor: 'pointer',
                     transition: 'all 0.15s ease',
                   }}
-                  className="w-full sm:w-auto text-center"
                 >
                   + Connect Account
                 </button>
               </div>
 
-              {/* Connected Accounts Clean Rows (Fully Mobile Responsive) */}
-              <div className="flex flex-col">
+              {/* Connected Accounts Clean List */}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {[
                   {
                     name: 'YouTube',
                     handle: '@creator.official',
-                    count: '185,000',
-                    label: 'Subscribers',
+                    count: '185K Subs',
                     extra: '45.2K Avg Views • 5.2% ER',
                     icon: (
                       <div
@@ -8490,8 +8505,7 @@ function CreatorPortalContent() {
                   {
                     name: 'Instagram',
                     handle: '@creator.official',
-                    count: '320,000',
-                    label: 'Followers',
+                    count: '320K Followers',
                     extra: '38.4K Avg Likes • 4.8% ER',
                     icon: (
                       <div
@@ -8518,9 +8532,8 @@ function CreatorPortalContent() {
                   {
                     name: 'LinkedIn',
                     handle: 'Sarah Jenkins',
-                    count: '65,000',
-                    label: 'Connections',
-                    extra: '92.4K Monthly Reach • 6.1% ER',
+                    count: '65K Connections',
+                    extra: '92.4K Reach • 6.1% ER',
                     icon: (
                       <div
                         style={{
@@ -8544,9 +8557,8 @@ function CreatorPortalContent() {
                   {
                     name: 'X (Twitter)',
                     handle: '@creator_x',
-                    count: '45,000',
-                    label: 'Followers',
-                    extra: '12.1K Impr./Post • 3.6% ER',
+                    count: '45K Followers',
+                    extra: '12.1K Impr. • 3.6% ER',
                     icon: (
                       <div
                         style={{
@@ -8572,43 +8584,41 @@ function CreatorPortalContent() {
                   return (
                     <div
                       key={idx}
-                      className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 py-3.5"
                       style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 0',
                         borderBottom: idx < 3 ? '1px solid #F1F5F9' : 'none',
-                        opacity: isConnected ? 1 : 0.75,
-                        transition: 'all 0.2s ease',
+                        opacity: isConnected ? 1 : 0.65,
+                        gap: '10px',
                       }}
                     >
-                      {/* Left: Icon & Name */}
-                      <div className="flex items-center gap-3 min-w-0">
+                      {/* Left: Icon & Channel Info */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0, flex: 1 }}>
                         {channel.icon}
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
-                            <span style={{ fontSize: '12px', color: '#64748B' }}>{channel.handle}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{channel.name}</span>
+                            <span style={{ fontSize: '11.5px', color: '#64748B' }}>{channel.handle}</span>
                           </div>
-                          <div style={{ fontSize: '11.5px', color: '#94A3B8', marginTop: '1px' }}>
-                            {isConnected ? channel.extra : 'Account sync paused'}
+                          <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: '1px' }}>
+                            {isConnected ? `${channel.count} • ${channel.extra}` : 'Sync disconnected'}
                           </div>
                         </div>
                       </div>
 
-                      {/* Right: Numbers & Status / Action */}
-                      <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-5 pl-11 sm:pl-0 w-full sm:w-auto">
-                        <div className="text-left sm:text-right" style={{ opacity: isConnected ? 1 : 0.4 }}>
-                          <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A', lineHeight: 1.2 }}>{channel.count}</div>
-                          <div style={{ fontSize: '11px', color: '#64748B' }}>{channel.label}</div>
-                        </div>
-
+                      {/* Right: Actions */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
                         {isConnected ? (
-                          <div className="flex items-center gap-2 flex-shrink-0">
+                          <>
                             <span
                               style={{
                                 fontSize: '11px',
                                 fontWeight: 700,
                                 color: '#059669',
                                 backgroundColor: '#ECFDF5',
-                                padding: '3px 8px',
+                                padding: '3px 7px',
                                 borderRadius: '6px',
                                 whiteSpace: 'nowrap',
                               }}
@@ -8632,7 +8642,7 @@ function CreatorPortalContent() {
                               }}
                               style={{
                                 fontSize: '11px',
-                                fontWeight: 700,
+                                fontWeight: 600,
                                 color: '#94A3B8',
                                 backgroundColor: 'transparent',
                                 border: 'none',
@@ -8652,7 +8662,7 @@ function CreatorPortalContent() {
                             >
                               Disconnect
                             </button>
-                          </div>
+                          </>
                         ) : (
                           <button
                             type="button"
@@ -8675,10 +8685,9 @@ function CreatorPortalContent() {
                               color: '#0052FF',
                               backgroundColor: '#EFF6FF',
                               border: '1px solid #BFDBFE',
-                              padding: '4px 12px',
+                              padding: '3px 10px',
                               borderRadius: '6px',
                               cursor: 'pointer',
-                              transition: 'all 0.15s ease',
                               whiteSpace: 'nowrap',
                             }}
                           >
@@ -8691,57 +8700,74 @@ function CreatorPortalContent() {
                 })}
               </div>
 
-              {/* Aggregated Numbers Ribbon (2x2 on Mobile, 4x1 on Desktop) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-5 border-t border-slate-100">
+              {/* Aggregated Numbers 4-Stat Grid */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                  gap: '14px',
+                  marginTop: '14px',
+                  paddingTop: '16px',
+                  borderTop: '1px solid #F1F5F9',
+                }}
+              >
                 <div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Total Audience</div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>615,000+</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total Audience</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>615,000+</div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Monthly Impressions</div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>2.84M</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Monthly Impressions</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>2.84M</div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Avg. Engagement</div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>4.85%</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg. Engagement</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>4.85%</div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Audience Quality</div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#059669', marginTop: '2px' }}>98.4% Real</div>
+                  <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Audience Quality</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#059669', marginTop: '1px' }}>98.4% Real</div>
                 </div>
               </div>
             </div>
 
-            {/* 2. Demographics & Recent Posts (Clean Responsive Grid) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 2. Demographics & Recent Posts (Clean 2-Card Grid) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
               {/* Left: Demographics */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-                <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px solid #E2E8F0',
+                  padding: '18px 20px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                }}
+              >
+                <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
                   Audience Breakdown
                 </h3>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                     <span style={{ color: '#475569' }}>🇮🇳 India</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>68%</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                     <span style={{ color: '#475569' }}>🇺🇸 United States</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>14%</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                     <span style={{ color: '#475569' }}>🇦🇪 United Arab Emirates</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>7%</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
                     <span style={{ color: '#475569' }}>🇬🇧 United Kingdom</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
                   </div>
 
-                  <div style={{ marginTop: '8px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                  <div style={{ marginTop: '6px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', fontSize: '11px', color: '#64748B', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
                     <span>Age: <strong style={{ color: '#0F172A' }}>18–34 yrs (82%)</strong></span>
                     <span>Gender: <strong style={{ color: '#0F172A' }}>58% M / 42% F</strong></span>
                   </div>
@@ -8749,12 +8775,20 @@ function CreatorPortalContent() {
               </div>
 
               {/* Right: Recent Content */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
-                <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px solid #E2E8F0',
+                  padding: '18px 20px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                }}
+              >
+                <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
                   Recent Posts
                 </h3>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
                   {[
                     { title: 'Top 5 Tech Gadgets 2026', views: '48.2K', er: '6.4%', channel: 'YouTube' },
                     { title: 'Morning Fitness Routine', views: '84.5K', er: '5.8%', channel: 'Instagram' },
@@ -8767,19 +8801,19 @@ function CreatorPortalContent() {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        fontSize: '12.5px',
-                        paddingBottom: '8px',
+                        fontSize: '12px',
+                        paddingBottom: '6px',
                         borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
                         gap: '8px',
                       }}
                     >
-                      <div className="min-w-0 truncate">
+                      <div style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         <span style={{ fontWeight: 700, color: '#0F172A' }}>{post.title}</span>
-                        <span style={{ color: '#94A3B8', marginLeft: '6px' }}>• {post.channel}</span>
+                        <span style={{ color: '#94A3B8', marginLeft: '4px' }}>• {post.channel}</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                        <span style={{ color: '#64748B', fontSize: '12px' }}>{post.views}</span>
-                        <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px', fontSize: '11px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                        <span style={{ color: '#64748B', fontSize: '11.5px' }}>{post.views}</span>
+                        <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px', fontSize: '10.5px' }}>
                           {post.er}
                         </span>
                       </div>
