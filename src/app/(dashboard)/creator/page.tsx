@@ -8951,24 +8951,23 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* Sub-Navigation Tabs */}
+              {/* Standard SaaS Clean Underline Tab Navigation */}
               <div
                 style={{
                   display: 'flex',
-                  gap: '8px',
+                  gap: '24px',
                   overflowX: 'auto',
-                  paddingBottom: '12px',
-                  marginBottom: '20px',
-                  borderBottom: '1px solid #F1F5F9',
+                  borderBottom: '1px solid #E2E8F0',
+                  marginBottom: '24px',
                   WebkitOverflowScrolling: 'touch',
                 }}
               >
                 {[
-                  { id: 'profile', label: '👤 Profile & Bio' },
-                  { id: 'rates', label: '💰 Commercial Rates' },
-                  { id: 'payouts', label: '🏦 Payout & Taxes' },
-                  { id: 'notifications', label: '🔔 Notifications' },
-                  { id: 'security', label: '🔒 Security' },
+                  { id: 'profile', label: 'Profile & Bio', icon: '👤' },
+                  { id: 'rates', label: 'Commercial Rates', icon: '💰' },
+                  { id: 'payouts', label: 'Payout & Taxes', icon: '🏦' },
+                  { id: 'notifications', label: 'Notifications', icon: '🔔' },
+                  { id: 'security', label: 'Security', icon: '🔒' },
                 ].map((subTab) => {
                   const isActive = settingsActiveSubTab === subTab.id;
                   return (
@@ -8977,20 +8976,25 @@ function CreatorPortalContent() {
                       type="button"
                       onClick={() => setSettingsActiveSubTab(subTab.id as any)}
                       style={{
-                        padding: '7px 14px',
-                        borderRadius: '8px',
-                        fontSize: '12.5px',
-                        fontWeight: isActive ? 800 : 600,
-                        backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '10px 2px 12px 2px',
+                        fontSize: '13px',
+                        fontWeight: isActive ? 700 : 600,
                         color: isActive ? '#0052FF' : '#64748B',
-                        border: isActive ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderBottom: isActive ? '2px solid #0052FF' : '2px solid transparent',
+                        marginBottom: '-1px',
                         cursor: 'pointer',
                         whiteSpace: 'nowrap',
                         flexShrink: 0,
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      {subTab.label}
+                      <span style={{ fontSize: '14px' }}>{subTab.icon}</span>
+                      <span>{subTab.label}</span>
                     </button>
                   );
                 })}
