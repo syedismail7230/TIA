@@ -8921,83 +8921,95 @@ function CreatorPortalContent() {
               {mobileSettingsSubPage === null ? (
                 /* MOBILE SETTINGS DIRECTORY / MENU HOME */
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {/* Header Card */}
+                  {/* Modern Creator Profile Header Card */}
                   <div
                     style={{
                       backgroundColor: '#FFFFFF',
                       borderRadius: '16px',
                       border: '1px solid #E2E8F0',
-                      padding: '18px 18px',
+                      padding: '16px 18px',
                       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
                     }}
                   >
-                    <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                      Settings & Preferences
-                    </h2>
-                    <p style={{ fontSize: '12.5px', color: '#64748B', margin: '3px 0 14px 0' }}>
-                      Manage your creator profile, public rates, bank payout details, and security.
-                    </p>
-
-                    {/* Creator Profile Summary Tile */}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '12px 14px',
-                        backgroundColor: '#F8FAFC',
-                        borderRadius: '12px',
-                        border: '1px solid #E2E8F0',
-                        gap: '12px',
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+                      {/* Circular Avatar with Gradient & Verified Badge */}
+                      <div style={{ position: 'relative', flexShrink: 0 }}>
                         <div
                           style={{
-                            width: '44px',
-                            height: '44px',
-                            borderRadius: '10px',
-                            backgroundColor: '#EFF6FF',
-                            border: '1.5px solid #BFDBFE',
+                            width: '46px',
+                            height: '46px',
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, #0052FF 0%, #2563EB 100%)',
+                            color: '#FFFFFF',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color: '#0052FF',
-                            fontSize: '15px',
-                            fontWeight: 900,
-                            flexShrink: 0,
+                            fontSize: '16px',
+                            fontWeight: 800,
+                            letterSpacing: '-0.02em',
+                            boxShadow: '0 2px 8px rgba(0, 82, 255, 0.2)',
                           }}
                         >
                           SJ
                         </div>
-                        <div>
-                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
-                            {settingsProfile.displayName}
-                          </div>
-                          <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>
-                            {settingsProfile.handle}
-                          </div>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            bottom: '-1px',
+                            right: '-1px',
+                            width: '16px',
+                            height: '16px',
+                            borderRadius: '50%',
+                            backgroundColor: '#0052FF',
+                            border: '2px solid #FFFFFF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#FFFFFF',
+                            fontSize: '8px',
+                            fontWeight: 900,
+                          }}
+                        >
+                          ✓
                         </div>
                       </div>
 
-                      <Link
-                        href="/creator/profile"
-                        target="_blank"
-                        style={{
-                          padding: '5px 10px',
-                          backgroundColor: '#FFFFFF',
-                          border: '1px solid #CBD5E1',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          color: '#334155',
-                          textDecoration: 'none',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        Public ↗
-                      </Link>
+                      {/* Name & Handle */}
+                      <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                        <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {settingsProfile.displayName}
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {settingsProfile.handle}
+                        </div>
+                      </div>
                     </div>
+
+                    <Link
+                      href="/creator/profile"
+                      target="_blank"
+                      style={{
+                        padding: '6px 12px',
+                        backgroundColor: '#EFF6FF',
+                        border: '1px solid #DBEAFE',
+                        borderRadius: '8px',
+                        fontSize: '11.5px',
+                        fontWeight: 700,
+                        color: '#0052FF',
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                      }}
+                    >
+                      Public ↗
+                    </Link>
                   </div>
 
                   {/* Settings Category Navigation List */}
@@ -9535,58 +9547,63 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* Desktop Underline Tabs */}
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '24px',
-                  borderBottom: '1px solid #E2E8F0',
-                  marginBottom: '24px',
-                  overflowX: 'auto',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                }}
-              >
-                {[
-                  { id: 'profile', label: 'Profile & Bio' },
-                  { id: 'rates', label: 'Commercial Rates' },
-                  { id: 'payouts', label: 'Payout & Taxes' },
-                  { id: 'notifications', label: 'Notifications' },
-                  { id: 'security', label: 'Security' },
-                ].map((subTab) => {
-                  const isActive = settingsActiveSubTab === subTab.id;
-                  return (
-                    <button
-                      key={subTab.id}
-                      type="button"
-                      onClick={() => setSettingsActiveSubTab(subTab.id as any)}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '10px 2px 12px 2px',
-                        fontSize: '13px',
-                        fontWeight: isActive ? 700 : 600,
-                        color: isActive ? '#0052FF' : '#64748B',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        borderBottom: isActive ? '2px solid #0052FF' : '2px solid transparent',
-                        marginBottom: '-1px',
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap',
-                        flexShrink: 0,
-                        transition: 'all 0.15s ease',
-                      }}
-                    >
-                      {getSettingsSvgIcon(subTab.id, 16, isActive ? '#0052FF' : '#64748B')}
-                      <span>{subTab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
+              {/* 2-Column Settings Layout: Left Navigation + Right Content */}
+              <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
+                {/* Left Vertical Sub-Navigation Sidebar */}
+                <div
+                  style={{
+                    width: '230px',
+                    flexShrink: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    paddingRight: '16px',
+                    borderRight: '1px solid #F1F5F9',
+                  }}
+                >
+                  {[
+                    { id: 'profile', label: 'Profile & Bio' },
+                    { id: 'rates', label: 'Commercial Rates' },
+                    { id: 'payouts', label: 'Payout & Taxes' },
+                    { id: 'notifications', label: 'Notifications' },
+                    { id: 'security', label: 'Security' },
+                  ].map((subTab) => {
+                    const isActive = settingsActiveSubTab === subTab.id;
+                    return (
+                      <button
+                        key={subTab.id}
+                        type="button"
+                        onClick={() => setSettingsActiveSubTab(subTab.id as any)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '11px 14px',
+                          fontSize: '13.5px',
+                          fontWeight: isActive ? 700 : 600,
+                          color: isActive ? '#0052FF' : '#475569',
+                          backgroundColor: isActive ? '#EFF6FF' : 'transparent',
+                          border: 'none',
+                          borderRadius: '10px',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          width: '100%',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', flexShrink: 0 }}>
+                          {getSettingsSvgIcon(subTab.id, 17, isActive ? '#0052FF' : '#64748B')}
+                        </div>
+                        <span>{subTab.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
 
-              {/* SUB-TAB 1: PROFILE & BIO */}
-              {settingsActiveSubTab === 'profile' && (
+                {/* Right Form / Sub-Tab Content Area */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  {/* SUB-TAB 1: PROFILE & BIO */}
+                  {settingsActiveSubTab === 'profile' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {/* Avatar + Basic Row */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '16px', borderBottom: '1px solid #F8FAFC' }}>
@@ -10119,6 +10136,8 @@ function CreatorPortalContent() {
                   </div>
                 </div>
               )}
+                </div>
+              </div>
             </div>
           </div>
         )}
