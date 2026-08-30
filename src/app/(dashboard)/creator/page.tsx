@@ -286,7 +286,7 @@ function CreatorPortalContent() {
     whatsappAlerts: true,
   });
   const [settingsSavedSuccess, setSettingsSavedSuccess] = useState<boolean>(false);
-  const [isSettingsMobileMenuOpen, setIsSettingsMobileMenuOpen] = useState<boolean>(false);
+  const [mobileSettingsSubPage, setMobileSettingsSubPage] = useState<'profile' | 'rates' | 'payouts' | 'notifications' | 'security' | null>(null);
   const [showDeliverableModal, setShowDeliverableModal] = useState<boolean>(false);
   const [deliverableType, setDeliverableType] = useState<'DRAFT_VIDEO' | 'SCRIPT' | 'LIVE_POST'>('DRAFT_VIDEO');
   const [deliverableTitle, setDeliverableTitle] = useState<string>('');
@@ -1758,6 +1758,9 @@ function CreatorPortalContent() {
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
+    if (tab === 'settings') {
+      setMobileSettingsSubPage(null);
+    }
     router.replace(`/creator?tab=${tab}`);
   };
 
@@ -8859,12 +8862,593 @@ function CreatorPortalContent() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 5: SAAS CREATOR SETTINGS (PURE INLINE STYLED FOR 100% ACCURACY) */}
+        {/* TAB 5: SAAS CREATOR SETTINGS (MOBILE DEDICATED PAGES + DESKTOP TABS) */}
         {/* ==================================================================== */}
         {activeTab === 'settings' && (
           <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
-            {/* Main Settings Card */}
+            {/* ------------------------------------------------------------------ */}
+            {/* 1. MOBILE VIEW (DEDICATED SUB-PAGE DRILLDOWN NAVIGATION)           */}
+            {/* ------------------------------------------------------------------ */}
+            <div className="block sm:hidden">
+              {mobileSettingsSubPage === null ? (
+                /* MOBILE SETTINGS DIRECTORY / MENU HOME */
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                  {/* Header Card */}
+                  <div
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '16px',
+                      border: '1px solid #E2E8F0',
+                      padding: '18px 18px',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                    }}
+                  >
+                    <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
+                      Settings & Preferences
+                    </h2>
+                    <p style={{ fontSize: '12.5px', color: '#64748B', margin: '3px 0 14px 0' }}>
+                      Manage your creator profile, public rates, bank payout details, and security.
+                    </p>
+
+                    {/* Creator Profile Summary Tile */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '12px 14px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px solid #E2E8F0',
+                        gap: '12px',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div
+                          style={{
+                            width: '44px',
+                            height: '44px',
+                            borderRadius: '10px',
+                            backgroundColor: '#EFF6FF',
+                            border: '1.5px solid #BFDBFE',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#0052FF',
+                            fontSize: '15px',
+                            fontWeight: 900,
+                            flexShrink: 0,
+                          }}
+                        >
+                          SJ
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
+                            {settingsProfile.displayName}
+                          </div>
+                          <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>
+                            {settingsProfile.handle}
+                          </div>
+                        </div>
+                      </div>
+
+                      <Link
+                        href="/creator/profile"
+                        target="_blank"
+                        style={{
+                          padding: '5px 10px',
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          color: '#334155',
+                          textDecoration: 'none',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Public ↗
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Settings Category Navigation List */}
+                  <div
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: '16px',
+                      border: '1px solid #E2E8F0',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {[
+                      { id: 'profile', label: 'Profile & Bio', icon: '👤', desc: 'Display name, handle, bio, and social links', bg: '#EFF6FF' },
+                      { id: 'rates', label: 'Commercial Rates', icon: '💰', desc: 'Deliverable pricing, min budget, and fees', bg: '#FEF3C7' },
+                      { id: 'payouts', label: 'Payout & Taxes', icon: '🏦', desc: 'Bank account, IFSC, UPI, and PAN info', bg: '#ECFDF5' },
+                      { id: 'notifications', label: 'Notifications', icon: '🔔', desc: 'Match alerts, briefs, and WhatsApp updates', bg: '#F3E8FF' },
+                      { id: 'security', label: 'Security', icon: '🔒', desc: '2FA authentication and account passwords', bg: '#F1F5F9' },
+                    ].map((item, idx) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          setMobileSettingsSubPage(item.id as any);
+                          setSettingsActiveSubTab(item.id as any);
+                        }}
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '15px 18px',
+                          backgroundColor: '#FFFFFF',
+                          border: 'none',
+                          borderBottom: idx === 4 ? 'none' : '1px solid #F1F5F9',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          transition: 'background-color 0.15s ease',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                          <div
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '10px',
+                              backgroundColor: item.bg,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '18px',
+                              flexShrink: 0,
+                            }}
+                          >
+                            {item.icon}
+                          </div>
+                          <div>
+                            <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
+                              {item.label}
+                            </div>
+                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
+                              {item.desc}
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ fontSize: '18px', color: '#94A3B8', fontWeight: 700, paddingLeft: '8px' }}>
+                          ›
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                /* DEDICATED MOBILE SUB-PAGE WITH BACK BUTTON */
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: '16px',
+                    border: '1px solid #E2E8F0',
+                    padding: '18px 18px',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '18px',
+                  }}
+                >
+                  {/* Top Sub-Page Header */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      paddingBottom: '14px',
+                      borderBottom: '1px solid #F1F5F9',
+                      gap: '8px',
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setMobileSettingsSubPage(null)}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        padding: '6px 12px',
+                        backgroundColor: '#F8FAFC',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        color: '#334155',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ← Back
+                    </button>
+
+                    <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0, textAlign: 'center' }}>
+                      {mobileSettingsSubPage === 'profile' && '👤 Profile & Bio'}
+                      {mobileSettingsSubPage === 'rates' && '💰 Commercial Rates'}
+                      {mobileSettingsSubPage === 'payouts' && '🏦 Payout & Taxes'}
+                      {mobileSettingsSubPage === 'notifications' && '🔔 Notifications'}
+                      {mobileSettingsSubPage === 'security' && '🔒 Security'}
+                    </h3>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSettingsSavedSuccess(true);
+                        setLiveToast({
+                          id: `toast-${Date.now()}`,
+                          type: 'SYSTEM',
+                          category: 'SYSTEM',
+                          title: 'Settings Saved',
+                          message: 'Your settings have been successfully updated.',
+                          timeAgo: 'Just now',
+                          timestamp: Date.now(),
+                          read: false,
+                        });
+                        setTimeout(() => setSettingsSavedSuccess(false), 3500);
+                      }}
+                      style={{
+                        padding: '6px 14px',
+                        backgroundColor: settingsSavedSuccess ? '#059669' : '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {settingsSavedSuccess ? '✓ Saved' : 'Save'}
+                    </button>
+                  </div>
+
+                  {/* Form Component for Active Mobile SubPage */}
+                  {mobileSettingsSubPage === 'profile' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', paddingBottom: '14px', borderBottom: '1px solid #F8FAFC' }}>
+                        <div
+                          style={{
+                            width: '52px',
+                            height: '52px',
+                            borderRadius: '12px',
+                            backgroundColor: '#EFF6FF',
+                            border: '2px solid #BFDBFE',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#0052FF',
+                            fontSize: '17px',
+                            fontWeight: 900,
+                            flexShrink: 0,
+                          }}
+                        >
+                          SJ
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
+                          <div style={{ fontSize: '11px', color: '#64748B' }}>PNG, JPG or WEBP under 5MB</div>
+                          <button
+                            type="button"
+                            style={{
+                              marginTop: '5px',
+                              padding: '3px 10px',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              backgroundColor: '#F8FAFC',
+                              border: '1px solid #CBD5E1',
+                              borderRadius: '6px',
+                              color: '#334155',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            Upload Photo
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Display Name
+                        </label>
+                        <input
+                          type="text"
+                          value={settingsProfile.displayName}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, displayName: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Creator Handle / Username
+                        </label>
+                        <input
+                          type="text"
+                          value={settingsProfile.handle}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, handle: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Profile Tagline / Subtitle
+                        </label>
+                        <input
+                          type="text"
+                          value={settingsProfile.tagline}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, tagline: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          About / Bio
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={settingsProfile.bio}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, bio: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', resize: 'vertical', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Location
+                        </label>
+                        <input
+                          type="text"
+                          value={settingsProfile.location}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, location: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Content Languages
+                        </label>
+                        <input
+                          type="text"
+                          value={settingsProfile.languages}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, languages: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Collab Contact Email
+                        </label>
+                        <input
+                          type="email"
+                          value={settingsProfile.contactEmail}
+                          onChange={(e) => setSettingsProfile({ ...settingsProfile, contactEmail: e.target.value })}
+                          style={{ width: '100%', padding: '9px 12px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', outline: 'none', boxSizing: 'border-box' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {mobileSettingsSubPage === 'rates' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ padding: '12px 14px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '10px', display: 'flex', gap: '10px' }}>
+                        <span style={{ fontSize: '16px' }}>ℹ️</span>
+                        <div style={{ fontSize: '11.5px', color: '#1E3A8A', lineHeight: 1.4 }}>
+                          All campaign payouts are disbursed directly by TIA into your bank upon deliverable approval, after <strong>5% TIA fee</strong> and <strong>1% TDS</strong> (Sec 194J).
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          Minimum Campaign Budget (INR)
+                        </label>
+                        <div style={{ position: 'relative' }}>
+                          <span style={{ position: 'absolute', left: '12px', top: '9px', fontSize: '13px', fontWeight: 700, color: '#64748B' }}>₹</span>
+                          <input
+                            type="number"
+                            value={settingsRates.minCollabBudget}
+                            onChange={(e) => setSettingsRates({ ...settingsRates, minCollabBudget: Number(e.target.value) })}
+                            style={{ width: '100%', padding: '9px 12px 9px 28px', borderRadius: '8px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', fontWeight: 700, outline: 'none', boxSizing: 'border-box' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        {[
+                          { key: 'youtubeDedicated', label: 'YouTube Dedicated Review', defaultVal: settingsRates.youtubeDedicated },
+                          { key: 'youtubeIntegration', label: 'YouTube 60s Integration', defaultVal: settingsRates.youtubeIntegration },
+                          { key: 'instagramReel', label: 'Instagram Reel (60-90s)', defaultVal: settingsRates.instagramReel },
+                          { key: 'instagramStory', label: 'Instagram Story (3 Slides + Link)', defaultVal: settingsRates.instagramStory },
+                          { key: 'linkedinPost', label: 'LinkedIn Sponsored Post', defaultVal: settingsRates.linkedinPost },
+                          { key: 'twitterThread', label: 'X/Twitter Dedicated Thread', defaultVal: settingsRates.twitterThread },
+                        ].map((item) => (
+                          <div key={item.key} style={{ padding: '12px', backgroundColor: '#F8FAFC', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
+                            <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
+                              {item.label}
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                              <span style={{ position: 'absolute', left: '10px', top: '7px', fontSize: '12px', fontWeight: 700, color: '#64748B' }}>₹</span>
+                              <input
+                                type="number"
+                                value={(settingsRates as any)[item.key]}
+                                onChange={(e) => setSettingsRates({ ...settingsRates, [item.key]: Number(e.target.value) })}
+                                style={{ width: '100%', padding: '7px 10px 7px 24px', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '13px', color: '#0F172A', fontWeight: 700, outline: 'none', boxSizing: 'border-box', backgroundColor: '#FFFFFF' }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {mobileSettingsSubPage === 'payouts' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ padding: '14px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>
+                            {bankAccount?.bankName || 'HDFC Bank Ltd.'}
+                          </span>
+                          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 6px', borderRadius: '4px' }}>
+                            ● Verified
+                          </span>
+                        </div>
+                        <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '4px' }}>
+                          A/C: •••••••••••• {bankAccount?.accountNumber?.slice(-4) || '0482'} • IFSC: {bankAccount?.ifscCode || 'HDFC0000128'}
+                        </div>
+                        <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
+                          Beneficiary: {bankAccount?.accountHolderName || 'Sarah Jenkins'}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setShowBankModal(true)}
+                          style={{
+                            marginTop: '10px',
+                            width: '100%',
+                            padding: '7px 12px',
+                            backgroundColor: '#FFFFFF',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '8px',
+                            fontSize: '12px',
+                            fontWeight: 700,
+                            color: '#0052FF',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          Update Bank Details
+                        </button>
+                      </div>
+
+                      <div style={{ padding: '14px', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                        <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>PAN Number (TDS Compliance)</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '3px' }}>
+                          <span style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{bankAccount?.panNumber || 'ABCDE1234F'}</span>
+                          <span style={{ fontSize: '10px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 6px', borderRadius: '4px' }}>
+                            1% TDS (Sec 194J)
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {mobileSettingsSubPage === 'notifications' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      {[
+                        { key: 'matchEngineAlerts', title: 'Campaign Match Alerts', desc: 'Instant alert when new briefs match over 80%', checked: settingsNotifications.matchEngineAlerts },
+                        { key: 'milestonePaymentAlerts', title: 'Payment Secured Alerts', desc: 'Alerts when client deposits 100% upfront milestone', checked: settingsNotifications.milestonePaymentAlerts },
+                        { key: 'directBrandInquiries', title: 'Direct Brand Inquiries', desc: 'Allow verified marketers to send direct collab proposals', checked: settingsNotifications.directBrandInquiries },
+                        { key: 'whatsappAlerts', title: 'WhatsApp & SMS Alerts', desc: 'Urgent alerts for deliverable approvals and payouts', checked: settingsNotifications.whatsappAlerts },
+                        { key: 'weeklyPerformanceDigest', title: 'Weekly Digest', desc: 'Weekly report on profile views and match ranking', checked: settingsNotifications.weeklyPerformanceDigest },
+                      ].map((notif) => (
+                        <div key={notif.key} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #F1F5F9', gap: '12px' }}>
+                          <div>
+                            <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>{notif.title}</div>
+                            <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>{notif.desc}</div>
+                          </div>
+                          <input
+                            type="checkbox"
+                            checked={notif.checked}
+                            onChange={(e) => setSettingsNotifications({ ...settingsNotifications, [notif.key]: e.target.checked })}
+                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#0052FF', flexShrink: 0 }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {mobileSettingsSubPage === 'security' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <div style={{ padding: '14px', backgroundColor: '#F8FAFC', borderRadius: '12px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Two-Factor Auth (2FA)</div>
+                          <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>Authenticator App (TOTP) is active</div>
+                        </div>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '2px 8px', borderRadius: '6px' }}>
+                          ● Active
+                        </span>
+                      </div>
+
+                      <div style={{ padding: '14px', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Account Password</div>
+                          <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px' }}>Updated 2 weeks ago</div>
+                        </div>
+                        <button
+                          type="button"
+                          style={{ padding: '5px 10px', fontSize: '11px', fontWeight: 700, backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '6px', color: '#334155', cursor: 'pointer' }}
+                        >
+                          Change
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bottom Navigation Buttons on Mobile */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px', paddingTop: '14px', borderTop: '1px solid #F1F5F9' }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSettingsSavedSuccess(true);
+                        setLiveToast({
+                          id: `toast-${Date.now()}`,
+                          type: 'SYSTEM',
+                          category: 'SYSTEM',
+                          title: 'Settings Saved',
+                          message: 'Your settings have been successfully updated.',
+                          timeAgo: 'Just now',
+                          timestamp: Date.now(),
+                          read: false,
+                        });
+                        setTimeout(() => setSettingsSavedSuccess(false), 3500);
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '10px 16px',
+                        backgroundColor: settingsSavedSuccess ? '#059669' : '#0052FF',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {settingsSavedSuccess ? '✓ Changes Saved' : 'Save Changes'}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setMobileSettingsSubPage(null)}
+                      style={{
+                        width: '100%',
+                        padding: '8px 16px',
+                        backgroundColor: '#F8FAFC',
+                        color: '#475569',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '8px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ← Back to All Settings
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ------------------------------------------------------------------ */}
+            {/* 2. DESKTOP & TABLET VIEW (STANDARD UNDERLINE TAB STRIP)             */}
+            {/* ------------------------------------------------------------------ */}
             <div
+              className="hidden sm:block"
               style={{
                 backgroundColor: '#FFFFFF',
                 borderRadius: '16px',
@@ -8873,7 +9457,7 @@ function CreatorPortalContent() {
                 boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
               }}
             >
-              {/* Header */}
+              {/* Desktop Header */}
               <div
                 style={{
                   display: 'flex',
@@ -8895,7 +9479,7 @@ function CreatorPortalContent() {
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Link
                     href="/creator/profile"
                     target="_blank"
@@ -8952,125 +9536,8 @@ function CreatorPortalContent() {
                 </div>
               </div>
 
-              {/* Mobile View: Hamburger Menu Toggle & Drawer */}
-              <div className="block sm:hidden" style={{ marginBottom: '18px', position: 'relative' }}>
-                <button
-                  type="button"
-                  onClick={() => setIsSettingsMobileMenuOpen(!isSettingsMobileMenuOpen)}
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '11px 14px',
-                    backgroundColor: '#F8FAFC',
-                    border: '1.5px solid #CBD5E1',
-                    borderRadius: '10px',
-                    fontSize: '13.5px',
-                    fontWeight: 700,
-                    color: '#0F172A',
-                    cursor: 'pointer',
-                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
-                    boxSizing: 'border-box',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        gap: '3px',
-                        width: '18px',
-                        height: '14px',
-                      }}
-                    >
-                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
-                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
-                      <span style={{ display: 'block', height: '2px', backgroundColor: '#0052FF', borderRadius: '2px' }} />
-                    </div>
-                    <span>
-                      {settingsActiveSubTab === 'profile' && '👤 Profile & Bio'}
-                      {settingsActiveSubTab === 'rates' && '💰 Commercial Rates'}
-                      {settingsActiveSubTab === 'payouts' && '🏦 Payout & Taxes'}
-                      {settingsActiveSubTab === 'notifications' && '🔔 Notifications'}
-                      {settingsActiveSubTab === 'security' && '🔒 Security'}
-                    </span>
-                  </div>
-                  <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 900 }}>
-                    {isSettingsMobileMenuOpen ? '▲' : '▼'}
-                  </span>
-                </button>
-
-                {/* Hamburger Drawer Options */}
-                {isSettingsMobileMenuOpen && (
-                  <div
-                    style={{
-                      marginTop: '6px',
-                      backgroundColor: '#FFFFFF',
-                      border: '1.5px solid #CBD5E1',
-                      borderRadius: '10px',
-                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-                      overflow: 'hidden',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      zIndex: 20,
-                    }}
-                  >
-                    {[
-                      { id: 'profile', label: 'Profile & Bio', icon: '👤', desc: 'Display name, handle, bio, and social links' },
-                      { id: 'rates', label: 'Commercial Rates', icon: '💰', desc: 'Deliverable pricing, min budget, and fees' },
-                      { id: 'payouts', label: 'Payout & Taxes', icon: '🏦', desc: 'Bank account, IFSC, UPI, and PAN info' },
-                      { id: 'notifications', label: 'Notifications', icon: '🔔', desc: 'Match alerts, briefs, and WhatsApp updates' },
-                      { id: 'security', label: 'Security', icon: '🔒', desc: '2FA authentication and account passwords' },
-                    ].map((subTab, idx) => {
-                      const isActive = settingsActiveSubTab === subTab.id;
-                      return (
-                        <button
-                          key={subTab.id}
-                          type="button"
-                          onClick={() => {
-                            setSettingsActiveSubTab(subTab.id as any);
-                            setIsSettingsMobileMenuOpen(false);
-                          }}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '12px 14px',
-                            backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
-                            border: 'none',
-                            borderBottom: idx === 4 ? 'none' : '1px solid #F1F5F9',
-                            cursor: 'pointer',
-                            textAlign: 'left',
-                            transition: 'all 0.15s ease',
-                          }}
-                        >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <span style={{ fontSize: '16px' }}>{subTab.icon}</span>
-                            <div>
-                              <div style={{ fontSize: '13px', fontWeight: isActive ? 800 : 700, color: isActive ? '#0052FF' : '#0F172A' }}>
-                                {subTab.label}
-                              </div>
-                              <div style={{ fontSize: '11px', color: '#64748B', marginTop: '1px' }}>
-                                {subTab.desc}
-                              </div>
-                            </div>
-                          </div>
-                          {isActive && (
-                            <span style={{ color: '#0052FF', fontWeight: 800, fontSize: '14px' }}>✓</span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-
-              {/* Desktop View (>= 640px): Standard SaaS Clean Underline Tab Navigation */}
+              {/* Desktop Underline Tabs */}
               <div
-                className="hidden sm:flex"
                 style={{
                   display: 'flex',
                   gap: '24px',
