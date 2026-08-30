@@ -8419,7 +8419,7 @@ function CreatorPortalContent() {
         {/* ==================================================================== */}
         {activeTab === 'social-media' && (
           <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {/* Unified Main Card */}
+            {/* 1. Main Connected Channels Card */}
             <div
               style={{
                 backgroundColor: '#FFFFFF',
@@ -8430,7 +8430,7 @@ function CreatorPortalContent() {
               }}
             >
               {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <div>
                   <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                     Connected Channels
@@ -8440,28 +8440,27 @@ function CreatorPortalContent() {
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <button
-                    type="button"
-                    onClick={() => handleConnectOAuth('TIKTOK')}
-                    style={{
-                      padding: '7px 14px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    + Connect Account
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => handleConnectOAuth('TIKTOK')}
+                  style={{
+                    padding: '7px 14px',
+                    backgroundColor: '#0052FF',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  + Connect Account
+                </button>
               </div>
 
-              {/* 4 Connected Accounts List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {/* Connected Accounts Clean Rows (No heavy nested grey boxes) */}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {[
                   {
                     name: 'YouTube',
@@ -8483,11 +8482,11 @@ function CreatorPortalContent() {
                     extra: '38.4K Avg Likes • 4.8% ER',
                     icon: (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <rect width="24" height="24" rx="6" fill="url(#igUltraGrad)" />
+                        <rect width="24" height="24" rx="6" fill="url(#igUltraGrad2)" />
                         <circle cx="12" cy="12" r="4.5" stroke="#FFFFFF" strokeWidth="1.8" />
                         <circle cx="17.5" cy="6.5" r="1.2" fill="#FFFFFF" />
                         <defs>
-                          <linearGradient id="igUltraGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                          <linearGradient id="igUltraGrad2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
                             <stop stopColor="#F58529" />
                             <stop offset="0.5" stopColor="#DD2A7B" />
                             <stop offset="1" stopColor="#8134AF" />
@@ -8527,14 +8526,12 @@ function CreatorPortalContent() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      padding: '14px 18px',
-                      backgroundColor: '#F8FAFC',
-                      border: '1px solid #F1F5F9',
-                      borderRadius: '12px',
+                      padding: '14px 0',
+                      borderBottom: idx < 3 ? '1px solid #F1F5F9' : 'none',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <div style={{ width: '24px', display: 'flex', justifyContent: 'center' }}>
                         {channel.icon}
                       </div>
                       <div>
@@ -8548,19 +8545,19 @@ function CreatorPortalContent() {
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                       <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '16px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
-                        <div style={{ fontSize: '10.5px', color: '#64748B' }}>{channel.label}</div>
+                        <div style={{ fontSize: '15px', fontWeight: 900, color: '#0F172A' }}>{channel.count}</div>
+                        <div style={{ fontSize: '11px', color: '#64748B' }}>{channel.label}</div>
                       </div>
                       <span
                         style={{
                           fontSize: '11px',
-                          fontWeight: 800,
+                          fontWeight: 700,
                           color: '#059669',
                           backgroundColor: '#ECFDF5',
                           padding: '3px 8px',
-                          borderRadius: '8px',
+                          borderRadius: '6px',
                         }}
                       >
                         ● Connected
@@ -8576,7 +8573,7 @@ function CreatorPortalContent() {
                   display: 'grid',
                   gridTemplateColumns: 'repeat(4, 1fr)',
                   gap: '16px',
-                  marginTop: '24px',
+                  marginTop: '16px',
                   paddingTop: '20px',
                   borderTop: '1px solid #F1F5F9',
                 }}
@@ -8593,7 +8590,7 @@ function CreatorPortalContent() {
 
                 <div>
                   <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>Avg. Engagement</div>
-                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0052FF', marginTop: '2px' }}>4.85%</div>
+                  <div style={{ fontSize: '20px', fontWeight: 900, color: '#0F172A', marginTop: '2px' }}>4.85%</div>
                 </div>
 
                 <div>
@@ -8603,16 +8600,16 @@ function CreatorPortalContent() {
               </div>
             </div>
 
-            {/* Simple 2-Column Section: Demographics & Recent Posts */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '16px' }}>
-              {/* Left: Demographics Overview */}
+            {/* 2. Demographics & Recent Posts (Clean 2-Column Grid) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+              {/* Left: Demographics */}
               <div
                 style={{
                   backgroundColor: '#FFFFFF',
                   borderRadius: '16px',
                   border: '1px solid #E2E8F0',
-                  padding: '20px 22px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
+                  padding: '20px 24px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
                 }}
               >
                 <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
@@ -8621,25 +8618,25 @@ function CreatorPortalContent() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                    <span style={{ color: '#64748B' }}>🇮🇳 India</span>
+                    <span style={{ color: '#475569' }}>🇮🇳 India</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>68%</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                    <span style={{ color: '#64748B' }}>🇺🇸 United States</span>
+                    <span style={{ color: '#475569' }}>🇺🇸 United States</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>14%</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                    <span style={{ color: '#64748B' }}>🇦🇪 United Arab Emirates</span>
+                    <span style={{ color: '#475569' }}>🇦🇪 United Arab Emirates</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>7%</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px' }}>
-                    <span style={{ color: '#64748B' }}>🇬🇧 United Kingdom</span>
+                    <span style={{ color: '#475569' }}>🇬🇧 United Kingdom</span>
                     <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
                   </div>
 
-                  <div style={{ marginTop: '8px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Age: <strong>18–34 yrs (82%)</strong></span>
-                    <span>Gender: <strong>58% M / 42% F</strong></span>
+                  <div style={{ marginTop: '8px', paddingTop: '12px', borderTop: '1px solid #F1F5F9', fontSize: '11.5px', color: '#64748B', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Age: <strong style={{ color: '#0F172A' }}>18–34 yrs (82%)</strong></span>
+                    <span>Gender: <strong style={{ color: '#0F172A' }}>58% M / 42% F</strong></span>
                   </div>
                 </div>
               </div>
@@ -8650,8 +8647,8 @@ function CreatorPortalContent() {
                   backgroundColor: '#FFFFFF',
                   borderRadius: '16px',
                   border: '1px solid #E2E8F0',
-                  padding: '20px 22px',
-                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)',
+                  padding: '20px 24px',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
                 }}
               >
                 <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 14px 0' }}>
@@ -8671,7 +8668,7 @@ function CreatorPortalContent() {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        fontSize: '12px',
+                        fontSize: '12.5px',
                         paddingBottom: '8px',
                         borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
                       }}
@@ -8681,8 +8678,8 @@ function CreatorPortalContent() {
                         <span style={{ color: '#94A3B8', marginLeft: '6px' }}>• {post.channel}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ color: '#64748B' }}>{post.views}</span>
-                        <span style={{ fontWeight: 800, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px' }}>
+                        <span style={{ color: '#64748B', fontSize: '12px' }}>{post.views}</span>
+                        <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 6px', borderRadius: '4px', fontSize: '11px' }}>
                           {post.er}
                         </span>
                       </div>
