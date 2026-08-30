@@ -200,6 +200,54 @@ function CountryFlag({ code, size = 18 }: { code: string; size?: number }) {
   );
 }
 
+const getSettingsSvgIcon = (id: string | null, size = 18, color = '#0052FF') => {
+  switch (id) {
+    case 'profile':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      );
+    case 'rates':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23" />
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+      );
+    case 'payouts':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="21" x2="21" y2="21" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <polyline points="5 6 12 3 19 6" />
+          <line x1="4" y1="10" x2="4" y2="21" />
+          <line x1="20" y1="10" x2="20" y2="21" />
+          <line x1="8" y1="14" x2="8" y2="17" />
+          <line x1="12" y1="14" x2="12" y2="17" />
+          <line x1="16" y1="14" x2="16" y2="17" />
+        </svg>
+      );
+    case 'notifications':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+        </svg>
+      );
+    case 'security':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 type TabType = 'marketplace' | 'collabs' | 'payments' | 'social-media' | 'settings';
 type CollabFilter = 'awaiting' | 'accepted' | 'rejected';
 
@@ -8963,11 +9011,11 @@ function CreatorPortalContent() {
                     }}
                   >
                     {[
-                      { id: 'profile', label: 'Profile & Bio', icon: '👤', desc: 'Display name, handle, bio, and social links', bg: '#EFF6FF' },
-                      { id: 'rates', label: 'Commercial Rates', icon: '💰', desc: 'Deliverable pricing, min budget, and fees', bg: '#FEF3C7' },
-                      { id: 'payouts', label: 'Payout & Taxes', icon: '🏦', desc: 'Bank account, IFSC, UPI, and PAN info', bg: '#ECFDF5' },
-                      { id: 'notifications', label: 'Notifications', icon: '🔔', desc: 'Match alerts, briefs, and WhatsApp updates', bg: '#F3E8FF' },
-                      { id: 'security', label: 'Security', icon: '🔒', desc: '2FA authentication and account passwords', bg: '#F1F5F9' },
+                      { id: 'profile', label: 'Profile & Bio', desc: 'Display name, handle, bio, and social links' },
+                      { id: 'rates', label: 'Commercial Rates', desc: 'Deliverable pricing, min budget, and fees' },
+                      { id: 'payouts', label: 'Payout & Taxes', desc: 'Bank account, IFSC, UPI, and PAN info' },
+                      { id: 'notifications', label: 'Notifications', desc: 'Match alerts, briefs, and WhatsApp updates' },
+                      { id: 'security', label: 'Security', desc: '2FA authentication and account passwords' },
                     ].map((item, idx) => (
                       <button
                         key={item.id}
@@ -8993,18 +9041,14 @@ function CreatorPortalContent() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                           <div
                             style={{
-                              width: '40px',
-                              height: '40px',
-                              borderRadius: '10px',
-                              backgroundColor: item.bg,
+                              width: '26px',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              fontSize: '18px',
                               flexShrink: 0,
                             }}
                           >
-                            {item.icon}
+                            {getSettingsSvgIcon(item.id, 22, '#0052FF')}
                           </div>
                           <div>
                             <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
@@ -9040,11 +9084,10 @@ function CreatorPortalContent() {
                   <div
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
                       alignItems: 'center',
+                      gap: '12px',
                       paddingBottom: '14px',
                       borderBottom: '1px solid #F1F5F9',
-                      gap: '8px',
                     }}
                   >
                     <button
@@ -9062,48 +9105,22 @@ function CreatorPortalContent() {
                         fontWeight: 700,
                         color: '#334155',
                         cursor: 'pointer',
+                        flexShrink: 0,
                       }}
                     >
                       ← Back
                     </button>
 
-                    <h3 style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A', margin: 0, textAlign: 'center' }}>
-                      {mobileSettingsSubPage === 'profile' && '👤 Profile & Bio'}
-                      {mobileSettingsSubPage === 'rates' && '💰 Commercial Rates'}
-                      {mobileSettingsSubPage === 'payouts' && '🏦 Payout & Taxes'}
-                      {mobileSettingsSubPage === 'notifications' && '🔔 Notifications'}
-                      {mobileSettingsSubPage === 'security' && '🔒 Security'}
+                    <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', margin: 0, display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                      {getSettingsSvgIcon(mobileSettingsSubPage, 18, '#0052FF')}
+                      <span>
+                        {mobileSettingsSubPage === 'profile' && 'Profile & Bio'}
+                        {mobileSettingsSubPage === 'rates' && 'Commercial Rates'}
+                        {mobileSettingsSubPage === 'payouts' && 'Payout & Taxes'}
+                        {mobileSettingsSubPage === 'notifications' && 'Notifications'}
+                        {mobileSettingsSubPage === 'security' && 'Security'}
+                      </span>
                     </h3>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSettingsSavedSuccess(true);
-                        setLiveToast({
-                          id: `toast-${Date.now()}`,
-                          type: 'SYSTEM',
-                          category: 'SYSTEM',
-                          title: 'Settings Saved',
-                          message: 'Your settings have been successfully updated.',
-                          timeAgo: 'Just now',
-                          timestamp: Date.now(),
-                          read: false,
-                        });
-                        setTimeout(() => setSettingsSavedSuccess(false), 3500);
-                      }}
-                      style={{
-                        padding: '6px 14px',
-                        backgroundColor: settingsSavedSuccess ? '#059669' : '#0052FF',
-                        color: '#FFFFFF',
-                        border: 'none',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {settingsSavedSuccess ? '✓ Saved' : 'Save'}
-                    </button>
                   </div>
 
                   {/* Form Component for Active Mobile SubPage */}
@@ -9421,24 +9438,6 @@ function CreatorPortalContent() {
                     >
                       {settingsSavedSuccess ? '✓ Changes Saved' : 'Save Changes'}
                     </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setMobileSettingsSubPage(null)}
-                      style={{
-                        width: '100%',
-                        padding: '8px 16px',
-                        backgroundColor: '#F8FAFC',
-                        color: '#475569',
-                        border: '1px solid #CBD5E1',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                      }}
-                    >
-                      ← Back to All Settings
-                    </button>
                   </div>
                 </div>
               )}
@@ -9549,11 +9548,11 @@ function CreatorPortalContent() {
                 }}
               >
                 {[
-                  { id: 'profile', label: 'Profile & Bio', icon: '👤' },
-                  { id: 'rates', label: 'Commercial Rates', icon: '💰' },
-                  { id: 'payouts', label: 'Payout & Taxes', icon: '🏦' },
-                  { id: 'notifications', label: 'Notifications', icon: '🔔' },
-                  { id: 'security', label: 'Security', icon: '🔒' },
+                  { id: 'profile', label: 'Profile & Bio' },
+                  { id: 'rates', label: 'Commercial Rates' },
+                  { id: 'payouts', label: 'Payout & Taxes' },
+                  { id: 'notifications', label: 'Notifications' },
+                  { id: 'security', label: 'Security' },
                 ].map((subTab) => {
                   const isActive = settingsActiveSubTab === subTab.id;
                   return (
@@ -9579,7 +9578,7 @@ function CreatorPortalContent() {
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      <span style={{ fontSize: '14px' }}>{subTab.icon}</span>
+                      {getSettingsSvgIcon(subTab.id, 16, isActive ? '#0052FF' : '#64748B')}
                       <span>{subTab.label}</span>
                     </button>
                   );
