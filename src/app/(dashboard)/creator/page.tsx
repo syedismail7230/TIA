@@ -8858,22 +8858,14 @@ function CreatorPortalContent() {
         )}
 
         {/* ==================================================================== */}
-        {/* TAB 5: SAAS CREATOR SETTINGS (VERTICAL SIDEBAR LAYOUT)              */}
+        {/* TAB 5: SAAS CREATOR SETTINGS (FULLY MOBILE & DESKTOP RESPONSIVE)     */}
         {/* ==================================================================== */}
         {activeTab === 'settings' && (
-          <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="max-w-[960px] mx-auto flex flex-col gap-4 sm:gap-5 px-2 sm:px-0">
             {/* Main Settings Card */}
-            <div
-              style={{
-                backgroundColor: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #E2E8F0',
-                padding: '24px 28px',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
-              }}
-            >
+            <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-7 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
               {/* Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #F1F5F9', flexWrap: 'wrap', gap: '12px' }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-100">
                 <div>
                   <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0F172A', margin: 0 }}>
                     Settings & Preferences
@@ -8883,12 +8875,12 @@ function CreatorPortalContent() {
                   </p>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div className="flex items-center gap-2 w-full sm:w-auto">
                   <Link
                     href="/creator/profile"
                     target="_blank"
                     style={{
-                      padding: '7px 14px',
+                      padding: '7px 12px',
                       backgroundColor: '#FFFFFF',
                       border: '1px solid #CBD5E1',
                       borderRadius: '8px',
@@ -8898,11 +8890,12 @@ function CreatorPortalContent() {
                       textDecoration: 'none',
                       display: 'inline-flex',
                       alignItems: 'center',
+                      justifyContent: 'center',
                       gap: '4px',
-                      cursor: 'pointer',
                     }}
+                    className="flex-1 sm:flex-initial text-center"
                   >
-                    View Public Profile ↗
+                    Public Profile ↗
                   </Link>
 
                   <button
@@ -8934,23 +8927,17 @@ function CreatorPortalContent() {
                       cursor: 'pointer',
                       transition: 'all 0.15s ease',
                     }}
+                    className="flex-1 sm:flex-initial text-center"
                   >
                     {settingsSavedSuccess ? '✓ Saved!' : 'Save Changes'}
                   </button>
                 </div>
               </div>
 
-              {/* 2-Column Side-by-Side Layout: Left Vertical Menu + Right Content */}
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '24px',
-                  alignItems: 'flex-start',
-                }}
-                className="flex-col sm:flex-row"
-              >
-                {/* Left Vertical Sub-Navigation */}
-                <div style={{ width: '200px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {/* 2-Column Responsive Layout: Horizontal Tabs on Mobile, Left Sidebar on Desktop */}
+              <div className="flex flex-col md:flex-row gap-5 md:gap-6 items-start">
+                {/* Navigation (Mobile: Horizontal Scroll / Desktop: Left Vertical Sidebar) */}
+                <div className="flex flex-row md:flex-col gap-1.5 md:gap-1 overflow-x-auto w-full md:w-[200px] flex-shrink-0 pb-2 md:pb-0">
                   {[
                     { id: 'profile', label: 'Profile & Bio', icon: '👤' },
                     { id: 'rates', label: 'Commercial Rates', icon: '💰' },
@@ -8967,45 +8954,39 @@ function CreatorPortalContent() {
                         style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '10px',
-                          padding: '10px 14px',
-                          borderRadius: '10px',
-                          fontSize: '13px',
+                          gap: '8px',
+                          padding: '9px 13px',
+                          borderRadius: '8px',
+                          fontSize: '12.5px',
                           fontWeight: isActive ? 800 : 600,
-                          backgroundColor: isActive ? '#EFF6FF' : 'transparent',
+                          backgroundColor: isActive ? '#EFF6FF' : '#FFFFFF',
                           color: isActive ? '#0052FF' : '#475569',
-                          border: isActive ? '1px solid #BFDBFE' : '1px solid transparent',
+                          border: isActive ? '1px solid #BFDBFE' : '1px solid #E2E8F0',
                           cursor: 'pointer',
                           textAlign: 'left',
-                          width: '100%',
+                          whiteSpace: 'nowrap',
                           transition: 'all 0.15s ease',
                         }}
+                        className="flex-shrink-0 md:flex-shrink md:w-full"
                       >
-                        <span style={{ fontSize: '15px' }}>{subTab.icon}</span>
+                        <span style={{ fontSize: '14px' }}>{subTab.icon}</span>
                         <span>{subTab.label}</span>
                       </button>
                     );
                   })}
                 </div>
 
-                {/* Right Content Area */}
-                <div
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    borderLeft: '1px solid #F1F5F9',
-                    paddingLeft: '24px',
-                  }}
-                >
+                {/* Right Form Content Area (Full width on mobile, left-bordered on desktop) */}
+                <div className="w-full flex-1 min-w-0 md:border-l md:border-slate-100 md:pl-6 pt-2 md:pt-0">
                   {/* SUB-TAB 1: PROFILE & BIO */}
                   {settingsActiveSubTab === 'profile' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div className="flex flex-col gap-4">
                       {/* Avatar + Basic Row */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '16px', borderBottom: '1px solid #F8FAFC' }}>
+                      <div className="flex items-center gap-4 pb-4 border-b border-slate-100">
                         <div
                           style={{
-                            width: '56px',
-                            height: '56px',
+                            width: '52px',
+                            height: '52px',
                             borderRadius: '12px',
                             backgroundColor: '#EFF6FF',
                             border: '2px solid #BFDBFE',
@@ -9013,20 +8994,21 @@ function CreatorPortalContent() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             color: '#0052FF',
-                            fontSize: '18px',
+                            fontSize: '17px',
                             fontWeight: 900,
+                            flexShrink: 0,
                           }}
                         >
                           SJ
                         </div>
                         <div>
-                          <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
-                          <div style={{ fontSize: '11.5px', color: '#64748B' }}>PNG, JPG or WEBP under 5MB (400x400 recommended)</div>
+                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
+                          <div style={{ fontSize: '11px', color: '#64748B' }}>PNG, JPG or WEBP under 5MB</div>
                           <button
                             type="button"
                             style={{
-                              marginTop: '6px',
-                              padding: '4px 10px',
+                              marginTop: '5px',
+                              padding: '3px 9px',
                               fontSize: '11px',
                               fontWeight: 700,
                               backgroundColor: '#F8FAFC',
@@ -9042,9 +9024,9 @@ function CreatorPortalContent() {
                       </div>
 
                       {/* 2-Column Grid: Name & Handle */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <div>
-                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                             Display Name
                           </label>
                           <input
@@ -9053,7 +9035,7 @@ function CreatorPortalContent() {
                             onChange={(e) => setSettingsProfile({ ...settingsProfile, displayName: e.target.value })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px',
+                              padding: '8px 12px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9064,7 +9046,7 @@ function CreatorPortalContent() {
                         </div>
 
                         <div>
-                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                             Creator Handle / Username
                           </label>
                           <input
@@ -9073,7 +9055,7 @@ function CreatorPortalContent() {
                             onChange={(e) => setSettingsProfile({ ...settingsProfile, handle: e.target.value })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px',
+                              padding: '8px 12px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9086,7 +9068,7 @@ function CreatorPortalContent() {
 
                       {/* Tagline */}
                       <div>
-                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                           Profile Tagline / Subtitle
                         </label>
                         <input
@@ -9095,7 +9077,7 @@ function CreatorPortalContent() {
                           onChange={(e) => setSettingsProfile({ ...settingsProfile, tagline: e.target.value })}
                           style={{
                             width: '100%',
-                            padding: '9px 12px',
+                            padding: '8px 12px',
                             borderRadius: '8px',
                             border: '1px solid #CBD5E1',
                             fontSize: '13px',
@@ -9107,7 +9089,7 @@ function CreatorPortalContent() {
 
                       {/* Bio */}
                       <div>
-                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                           About / Bio
                         </label>
                         <textarea
@@ -9116,7 +9098,7 @@ function CreatorPortalContent() {
                           onChange={(e) => setSettingsProfile({ ...settingsProfile, bio: e.target.value })}
                           style={{
                             width: '100%',
-                            padding: '9px 12px',
+                            padding: '8px 12px',
                             borderRadius: '8px',
                             border: '1px solid #CBD5E1',
                             fontSize: '13px',
@@ -9128,9 +9110,9 @@ function CreatorPortalContent() {
                       </div>
 
                       {/* 3-Column Grid: Location, Languages, Contact Email */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px' }}>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                         <div>
-                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                             Location
                           </label>
                           <input
@@ -9139,7 +9121,7 @@ function CreatorPortalContent() {
                             onChange={(e) => setSettingsProfile({ ...settingsProfile, location: e.target.value })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px',
+                              padding: '8px 12px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9150,7 +9132,7 @@ function CreatorPortalContent() {
                         </div>
 
                         <div>
-                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                             Content Languages
                           </label>
                           <input
@@ -9159,7 +9141,7 @@ function CreatorPortalContent() {
                             onChange={(e) => setSettingsProfile({ ...settingsProfile, languages: e.target.value })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px',
+                              padding: '8px 12px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9170,7 +9152,7 @@ function CreatorPortalContent() {
                         </div>
 
                         <div>
-                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                          <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                             Collab Contact Email
                           </label>
                           <input
@@ -9179,7 +9161,7 @@ function CreatorPortalContent() {
                             onChange={(e) => setSettingsProfile({ ...settingsProfile, contactEmail: e.target.value })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px',
+                              padding: '8px 12px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9194,44 +9176,44 @@ function CreatorPortalContent() {
 
                   {/* SUB-TAB 2: COMMERCIAL RATES & RATE CARD */}
                   {settingsActiveSubTab === 'rates' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div className="flex flex-col gap-4">
                       {/* Payout & Tax Fee Banner */}
                       <div
                         style={{
-                          padding: '14px 18px',
+                          padding: '12px 16px',
                           backgroundColor: '#EFF6FF',
                           border: '1px solid #BFDBFE',
                           borderRadius: '12px',
                           display: 'flex',
                           alignItems: 'flex-start',
-                          gap: '12px',
+                          gap: '10px',
                         }}
                       >
-                        <span style={{ fontSize: '18px' }}>ℹ️</span>
+                        <span style={{ fontSize: '16px' }}>ℹ️</span>
                         <div>
-                          <div style={{ fontSize: '13px', fontWeight: 800, color: '#1E40AF' }}>
+                          <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#1E40AF' }}>
                             TIA Fee & Milestone Payout Transparency
                           </div>
-                          <div style={{ fontSize: '12px', color: '#1E3A8A', marginTop: '2px', lineHeight: 1.4 }}>
-                            All client campaign payments are disbursed directly by TIA into your verified bank account upon milestone deliverable approval, after deducting a <strong>5% platform fee</strong> and <strong>1% TDS</strong> (under Section 194J of the IT Act with verified PAN).
+                          <div style={{ fontSize: '11.5px', color: '#1E3A8A', marginTop: '2px', lineHeight: 1.4 }}>
+                            All client campaign payments are disbursed directly by TIA into your verified bank account upon milestone deliverable approval, after deducting a <strong>5% platform fee</strong> and <strong>1% TDS</strong> (under Section 194J with verified PAN).
                           </div>
                         </div>
                       </div>
 
                       {/* Minimum Collab Budget */}
                       <div style={{ maxWidth: '320px' }}>
-                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                        <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                           Minimum Campaign Budget (INR)
                         </label>
                         <div style={{ position: 'relative' }}>
-                          <span style={{ position: 'absolute', left: '12px', top: '9px', fontSize: '13px', fontWeight: 700, color: '#64748B' }}>₹</span>
+                          <span style={{ position: 'absolute', left: '12px', top: '8px', fontSize: '13px', fontWeight: 700, color: '#64748B' }}>₹</span>
                           <input
                             type="number"
                             value={settingsRates.minCollabBudget}
                             onChange={(e) => setSettingsRates({ ...settingsRates, minCollabBudget: Number(e.target.value) })}
                             style={{
                               width: '100%',
-                              padding: '9px 12px 9px 28px',
+                              padding: '8px 12px 8px 26px',
                               borderRadius: '8px',
                               border: '1px solid #CBD5E1',
                               fontSize: '13px',
@@ -9248,10 +9230,10 @@ function CreatorPortalContent() {
 
                       {/* Deliverable Rate Card Grid */}
                       <div>
-                        <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A', margin: '0 0 12px 0' }}>
+                        <h3 style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A', margin: '0 0 10px 0' }}>
                           Standard Deliverable Rates
                         </h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                           {[
                             { key: 'youtubeDedicated', label: 'YouTube Dedicated Review', defaultVal: settingsRates.youtubeDedicated },
                             { key: 'youtubeIntegration', label: 'YouTube 60s Integration', defaultVal: settingsRates.youtubeIntegration },
@@ -9261,18 +9243,18 @@ function CreatorPortalContent() {
                             { key: 'twitterThread', label: 'X/Twitter Dedicated Thread', defaultVal: settingsRates.twitterThread },
                           ].map((item) => (
                             <div key={item.key}>
-                              <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '5px' }}>
+                              <label style={{ fontSize: '12px', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '4px' }}>
                                 {item.label}
                               </label>
                               <div style={{ position: 'relative' }}>
-                                <span style={{ position: 'absolute', left: '12px', top: '9px', fontSize: '13px', fontWeight: 700, color: '#64748B' }}>₹</span>
+                                <span style={{ position: 'absolute', left: '12px', top: '8px', fontSize: '13px', fontWeight: 700, color: '#64748B' }}>₹</span>
                                 <input
                                   type="number"
                                   value={(settingsRates as any)[item.key]}
                                   onChange={(e) => setSettingsRates({ ...settingsRates, [item.key]: Number(e.target.value) })}
                                   style={{
                                     width: '100%',
-                                    padding: '9px 12px 9px 28px',
+                                    padding: '8px 12px 8px 26px',
                                     borderRadius: '8px',
                                     border: '1px solid #CBD5E1',
                                     fontSize: '13px',
@@ -9291,23 +9273,19 @@ function CreatorPortalContent() {
 
                   {/* SUB-TAB 3: PAYOUT & TAXES */}
                   {settingsActiveSubTab === 'payouts' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div className="flex flex-col gap-4">
                       {/* Bank Account Summary Card */}
                       <div
                         style={{
-                          padding: '18px 20px',
+                          padding: '16px 18px',
                           backgroundColor: '#F8FAFC',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          flexWrap: 'wrap',
-                          gap: '14px',
                         }}
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
                       >
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                             <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
                               {bankAccount?.bankName || 'HDFC Bank Ltd.'}
                             </span>
@@ -9336,7 +9314,7 @@ function CreatorPortalContent() {
                           type="button"
                           onClick={() => setShowBankModal(true)}
                           style={{
-                            padding: '7px 14px',
+                            padding: '6px 14px',
                             backgroundColor: '#FFFFFF',
                             border: '1px solid #CBD5E1',
                             borderRadius: '8px',
@@ -9344,6 +9322,7 @@ function CreatorPortalContent() {
                             fontWeight: 700,
                             color: '#0052FF',
                             cursor: 'pointer',
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           Update Bank Account
@@ -9353,14 +9332,12 @@ function CreatorPortalContent() {
                       {/* Tax & PAN Card */}
                       <div
                         style={{
-                          padding: '18px 20px',
+                          padding: '16px 18px',
                           backgroundColor: '#FFFFFF',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
-                          display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                          gap: '14px',
                         }}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-3.5"
                       >
                         <div>
                           <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>PAN Number (TDS Compliance)</div>
@@ -9374,7 +9351,7 @@ function CreatorPortalContent() {
 
                         <div>
                           <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>GST Registration Status</div>
-                          <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A', marginTop: '3px' }}>
+                          <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A', marginTop: '3px' }}>
                             Unregistered (Under ₹20 Lakhs Threshold)
                           </div>
                         </div>
@@ -9384,7 +9361,7 @@ function CreatorPortalContent() {
 
                   {/* SUB-TAB 4: NOTIFICATIONS */}
                   {settingsActiveSubTab === 'notifications' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    <div className="flex flex-col gap-3">
                       {[
                         {
                           key: 'matchEngineAlerts',
@@ -9423,13 +9400,14 @@ function CreatorPortalContent() {
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            padding: '14px 0',
+                            padding: '12px 0',
                             borderBottom: '1px solid #F1F5F9',
+                            gap: '12px',
                           }}
                         >
                           <div>
-                            <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>{notif.title}</div>
-                            <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>{notif.desc}</div>
+                            <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>{notif.title}</div>
+                            <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>{notif.desc}</div>
                           </div>
 
                           <input
@@ -9441,7 +9419,7 @@ function CreatorPortalContent() {
                                 [notif.key]: e.target.checked,
                               })
                             }
-                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#0052FF' }}
+                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#0052FF', flexShrink: 0 }}
                           />
                         </div>
                       ))}
@@ -9450,52 +9428,44 @@ function CreatorPortalContent() {
 
                   {/* SUB-TAB 5: SECURITY */}
                   {settingsActiveSubTab === 'security' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div className="flex flex-col gap-3.5">
                       <div
                         style={{
-                          padding: '16px 18px',
+                          padding: '14px 16px',
                           backgroundColor: '#F8FAFC',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          flexWrap: 'wrap',
-                          gap: '12px',
                         }}
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2"
                       >
                         <div>
-                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Two-Factor Authentication (2FA)</div>
-                          <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
+                          <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Two-Factor Authentication (2FA)</div>
+                          <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>
                             Authenticator App (TOTP) is active and protecting your creator payout account.
                           </div>
                         </div>
-                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px', whiteSpace: 'nowrap' }}>
                           ● Enabled
                         </span>
                       </div>
 
                       <div
                         style={{
-                          padding: '16px 18px',
+                          padding: '14px 16px',
                           backgroundColor: '#FFFFFF',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          flexWrap: 'wrap',
-                          gap: '12px',
                         }}
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2"
                       >
                         <div>
-                          <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Password</div>
-                          <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>Last updated 2 weeks ago</div>
+                          <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Password</div>
+                          <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '2px' }}>Last updated 2 weeks ago</div>
                         </div>
                         <button
                           type="button"
                           style={{
-                            padding: '6px 12px',
+                            padding: '5px 12px',
                             fontSize: '11.5px',
                             fontWeight: 700,
                             backgroundColor: '#F8FAFC',
@@ -9503,6 +9473,7 @@ function CreatorPortalContent() {
                             borderRadius: '6px',
                             color: '#334155',
                             cursor: 'pointer',
+                            whiteSpace: 'nowrap',
                           }}
                         >
                           Change Password
@@ -9510,9 +9481,9 @@ function CreatorPortalContent() {
                       </div>
 
                       {/* Active Sessions */}
-                      <div style={{ padding: '16px 18px', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
-                        <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Active Devices & Sessions</div>
-                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
+                      <div style={{ padding: '14px 16px', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+                        <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A' }}>Active Devices & Sessions</div>
+                        <div style={{ fontSize: '11.5px', color: '#64748B', marginTop: '4px' }}>
                           Current session: <strong>Chrome on Windows 11</strong> (IP: 103.21.244.18 • Mumbai, India)
                         </div>
                       </div>
