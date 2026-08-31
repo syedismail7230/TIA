@@ -284,6 +284,25 @@ export default function CreatorProfilePage() {
           margin: 0 auto;
           padding: 0 24px;
         }
+        .profile-tabs-nav {
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          border-bottom: 1px solid #E2E8F0;
+          padding-bottom: 2px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .profile-tabs-nav::-webkit-scrollbar {
+          display: none;
+        }
+        .tab-label-short {
+          display: none;
+        }
+        .tab-label-full {
+          display: inline;
+        }
         @media (max-width: 768px) {
           .profile-container {
             padding: 0 12px;
@@ -326,6 +345,21 @@ export default function CreatorProfilePage() {
             align-items: flex-start !important;
             padding-left: 0 !important;
             margin-top: 10px !important;
+          }
+          .tab-label-full {
+            display: none !important;
+          }
+          .tab-label-short {
+            display: inline !important;
+          }
+          .profile-tabs-nav {
+            gap: 16px !important;
+            padding-bottom: 0 !important;
+            border-bottom: 2px solid #F1F5F9 !important;
+          }
+          .profile-tab-btn {
+            padding: 8px 4px 10px 4px !important;
+            font-size: 13.5px !important;
           }
         }
         @media (max-width: 480px) {
@@ -760,20 +794,21 @@ export default function CreatorProfilePage() {
         </div>
 
         {/* ==================================================================== */}
-        {/* 2. PROFILE NAVIGATION TABS                                           */}
+        {/* 2. PROFILE NAVIGATION TABS (Mobile Responsive Horizontal Tabs)       */}
         {/* ==================================================================== */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '32px', borderBottom: '1px solid #E2E8F0', paddingBottom: '2px', overflowX: 'auto' }}>
+        <div className="profile-tabs-nav">
           {[
-            { id: 'PORTFOLIO', label: 'Past Brand Work & Portfolio', count: 6 },
-            { id: 'CREDIBILITY', label: 'Trust & BotShield Matrix', count: null },
-            { id: 'RATES', label: 'Commercial Rates & Packages', count: 4 },
-            { id: 'REVIEWS', label: 'Sponsor Endorsements', count: 14 },
+            { id: 'PORTFOLIO', fullLabel: 'Past Brand Work & Portfolio', shortLabel: 'Portfolio', count: 6 },
+            { id: 'CREDIBILITY', fullLabel: 'Trust & BotShield Matrix', shortLabel: 'Trust & BotShield', count: null },
+            { id: 'RATES', fullLabel: 'Commercial Rates & Packages', shortLabel: 'Rates & Packages', count: 4 },
+            { id: 'REVIEWS', fullLabel: 'Sponsor Endorsements', shortLabel: 'Endorsements', count: 14 },
           ].map((tab) => {
             const isActive = activeProfileTab === tab.id;
             return (
               <button
                 key={tab.id}
                 type="button"
+                className="profile-tab-btn"
                 onClick={() => setActiveProfileTab(tab.id as any)}
                 style={{
                   display: 'inline-flex',
@@ -788,10 +823,12 @@ export default function CreatorProfilePage() {
                   fontWeight: isActive ? 800 : 600,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  flexShrink: 0,
                   transition: 'all 0.15s ease',
                 }}
               >
-                <span>{tab.label}</span>
+                <span className="tab-label-full">{tab.fullLabel}</span>
+                <span className="tab-label-short">{tab.shortLabel}</span>
                 {tab.count !== null && (
                   <span
                     style={{
