@@ -779,30 +779,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   }}
                 />
 
-                {/* Owner Photo Edit Overlay Badge */}
-                {isViewingAsOwner && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '12px',
-                      left: '12px',
-                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                      backdropFilter: 'blur(6px)',
-                      color: '#FFFFFF',
-                      padding: '4px 10px',
-                      borderRadius: '8px',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                    }}
-                  >
-                    <span>✨</span>
-                    <span>AI Studio Cutout</span>
-                  </div>
-                )}
+                {/* Clean Avatar Display (No Badges) */}
               </div>
             </div>
 
