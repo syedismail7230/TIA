@@ -501,7 +501,7 @@ export default function CreatorProfilePage() {
           {/* Profile Identity Body */}
           <div style={{ padding: '0 36px 32px 36px' }}>
             <div className="profile-hero-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '28px', position: 'relative' }}>
-              {/* Floating Avatar */}
+              {/* Floating Avatar Profile Picture */}
               <div
                 className="profile-avatar-wrapper"
                 style={{
@@ -514,20 +514,24 @@ export default function CreatorProfilePage() {
                   style={{
                     width: '112px',
                     height: '112px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #0052FF 0%, #2563EB 100%)',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '36px',
-                    fontWeight: 900,
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    backgroundColor: '#0052FF',
                     border: '4px solid #FFFFFF',
-                    boxShadow: '0 10px 28px rgba(0, 82, 255, 0.25)',
-                    letterSpacing: '-0.02em',
+                    boxShadow: '0 10px 28px rgba(0, 0, 0, 0.16)',
+                    position: 'relative',
                   }}
                 >
-                  SJ
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80"
+                    alt="Sarah Jenkins"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                  />
                 </div>
               </div>
 
