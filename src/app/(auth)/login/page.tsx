@@ -64,6 +64,19 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const user = await FirebaseAuthService.signInWithGoogle('CREATOR');
+
+      // Establish server session cookie
+      await fetch('/api/auth/phone/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uid: user.uid,
+          phoneNumber: user.phoneNumber || user.email,
+          displayName: user.displayName,
+          role: user.role || 'CREATOR',
+        }),
+      });
+
       if (user.role === 'CREATOR') {
         router.push('/creator');
       } else if (user.role.startsWith('BRAND_')) {
@@ -80,8 +93,24 @@ export default function LoginPage() {
     }
   };
 
-  const handlePhoneSuccess = (user: any) => {
+  const handlePhoneSuccess = async (user: any) => {
     setPhoneModalOpen(false);
+    try {
+      // Establish server session cookie
+      await fetch('/api/auth/phone/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uid: user.uid,
+          phoneNumber: user.phoneNumber || user.email,
+          displayName: user.displayName,
+          role: user.role || 'CREATOR',
+        }),
+      });
+    } catch (e) {
+      console.warn('Session sync note:', e);
+    }
+
     if (user.role === 'CREATOR') {
       router.push('/creator');
     } else if (user.role.startsWith('BRAND_')) {

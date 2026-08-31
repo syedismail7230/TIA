@@ -155,5 +155,14 @@
     "role": "CREATOR",
     "country": "India",
     "createdAt": "2026-08-31T14:17:54.700Z"
+  },
+  {
+    "id": "usr_1788187098454_jo3ka",
+    "email": "qa_test_1788187098341@tia.agency",
+    "passwordHash": "$2a$10$StUwqQyPv5sLO7QVTYBzPuZBsaL4IozvKiur3fLmz6GIJonvD49wO",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T14:38:18.454Z"
   }
 ]

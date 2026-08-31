@@ -46,10 +46,15 @@ export async function POST(request: Request) {
     // Check if canonical demo credential
     const demoAccount = DEMO_ACCOUNTS[normalizedEmail];
     if (demoAccount) {
+      if (password !== demoAccount.password) {
+        return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+      }
+
       await setSessionCookie({
         userId: demoAccount.id,
         email: demoAccount.email,
         role: demoAccount.role,
+        name: demoAccount.name,
         creatorId: demoAccount.role === 'CREATOR' ? 'demo-creator-id' : undefined,
         organizationId: demoAccount.role.startsWith('BRAND_') ? 'demo-org-nexus-brands' : undefined,
       });
