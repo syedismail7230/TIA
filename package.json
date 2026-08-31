@@ -14,6 +14,7 @@
     "test": "tsx --test tests/unit/auth.service.test.ts tests/unit/otp.service.test.ts tests/unit/payment.service.test.ts tests/unit/submission.service.test.ts tests/unit/contract.service.test.ts tests/unit/invoice.service.test.ts tests/unit/circumvention.test.ts tests/unit/finance.test.ts tests/unit/scoring.test.ts tests/scoring-engine.test.ts"
   },
   "dependencies": {
+    "@mediapipe/selfie_segmentation": "^0.1.1675465747",
     "@prisma/client": "^5.19.1",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
