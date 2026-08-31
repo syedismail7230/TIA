@@ -1,9 +1,9 @@
 {
   "demo-brand-user-id": {
     "brandId": "demo-brand-user-id",
-    "availableBalance": 350000,
-    "committedInProtection": 200000,
-    "totalDisbursed": 400000,
+    "availableBalance": 3250000,
+    "committedInProtection": 400000,
+    "totalDisbursed": 800000,
     "currency": "INR"
   }
 }

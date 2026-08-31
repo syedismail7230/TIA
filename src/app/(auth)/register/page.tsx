@@ -3,6 +3,8 @@
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FirebaseAuthService } from '@/lib/services/firebase-auth.service';
+import { PhoneOtpModal } from '@/components/auth/PhoneOtpModal';
 
 const COUNTRY_DIAL_CODES = [
   { code: '+91', name: 'India (+91)' },

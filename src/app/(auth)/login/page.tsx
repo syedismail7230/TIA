@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { PhoneOtpModal } from '@/components/auth/PhoneOtpModal';
+import { FirebaseAuthService } from '@/lib/services/firebase-auth.service';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,6 +13,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +21,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // 1. Try Firebase Auth first
+      let firebaseUser = null;
+      try {
+        firebaseUser = await FirebaseAuthService.signInWithEmail(email, password);
+      } catch (fbErr: any) {
+        console.log('Firebase signIn note:', fbErr.message);
+      }
+
+      // 2. Local Backend Login
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,33 +37,71 @@ export default function LoginPage() {
       });
 
       const data = await res.json();
-      if (!res.ok) {
+      if (!res.ok && !firebaseUser) {
         throw new Error(data.error || 'Failed to sign in');
       }
 
-      if (data.user.role === 'CREATOR') {
+      const role = data?.user?.role || firebaseUser?.role || 'CREATOR';
+      if (role === 'CREATOR') {
         router.push('/creator');
-      } else if (data.user.role.startsWith('BRAND_')) {
+      } else if (role.startsWith('BRAND_')) {
         router.push('/brand');
-      } else if (data.user.role.startsWith('TIA_')) {
+      } else if (role.startsWith('TIA_')) {
         router.push('/admin');
       } else {
         router.push('/');
       }
       router.refresh();
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Invalid credentials');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSocialAuth = (platform: string) => {
-    window.location.href = `/api/connectors/${platform.toLowerCase()}/auth`;
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const user = await FirebaseAuthService.signInWithGoogle('CREATOR');
+      if (user.role === 'CREATOR') {
+        router.push('/creator');
+      } else if (user.role.startsWith('BRAND_')) {
+        router.push('/brand');
+      } else {
+        router.push('/');
+      }
+      router.refresh();
+    } catch (err: any) {
+      console.error('Google Sign In Error:', err);
+      setError(err.message || 'Google sign-in cancelled or failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePhoneSuccess = (user: any) => {
+    setPhoneModalOpen(false);
+    if (user.role === 'CREATOR') {
+      router.push('/creator');
+    } else if (user.role.startsWith('BRAND_')) {
+      router.push('/brand');
+    } else {
+      router.push('/');
+    }
+    router.refresh();
   };
 
   return (
     <div className="auth-viewport">
+      {/* Firebase Phone OTP Modal */}
+      <PhoneOtpModal
+        isOpen={phoneModalOpen}
+        role="CREATOR"
+        onSuccess={handlePhoneSuccess}
+        onClose={() => setPhoneModalOpen(false)}
+      />
+
       <div className="auth-card">
         {/* LEFT COLUMN: LOGIN FORM */}
         <div className="auth-form-pane">
@@ -84,11 +134,12 @@ export default function LoginPage() {
             <h1 className="auth-title">Welcome back to TIA</h1>
             <p className="auth-subtitle">Sign in to manage your creator deals, campaigns &amp; deliverables.</p>
 
-            {/* Social Auth Buttons */}
+            {/* Social & Phone Auth Buttons */}
             <div className="auth-social-stack">
               <button
                 type="button"
-                onClick={() => handleSocialAuth('google')}
+                onClick={handleGoogleSignIn}
+                disabled={loading}
                 className="auth-social-btn"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24">
@@ -102,13 +153,15 @@ export default function LoginPage() {
 
               <button
                 type="button"
-                onClick={() => handleSocialAuth('apple')}
+                onClick={() => setPhoneModalOpen(true)}
+                disabled={loading}
                 className="auth-social-btn"
+                style={{ borderColor: 'rgba(16, 185, 129, 0.4)', background: 'rgba(16, 185, 129, 0.05)' }}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.98.6-2.62 1.35-.57.65-1.06 1.72-.93 2.74 1.01.08 2.02-.51 2.63-1.24z"/>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                <span>Continue with Apple</span>
+                <span style={{ color: '#10b981', fontWeight: 600 }}>Continue with Phone OTP</span>
               </button>
             </div>
 
@@ -183,49 +236,56 @@ export default function LoginPage() {
                 disabled={loading}
                 className="auth-submit-btn"
               >
-                {loading ? 'Signing in...' : 'Sign in to Account'}
+                {loading ? (
+                  <span className="auth-btn-loader">
+                    <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : (
+                  'Sign In to Dashboard →'
+                )}
               </button>
             </form>
-
-            <div className="auth-disclaimer">
-              Protected by 256-bit encryption. By signing in, you agree to TIA <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>.
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="auth-footer">
-            <span>© 2026 The Influencer&apos;s Agency • India&apos;s Verified Network</span>
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <Link href="/legal" style={{ color: '#64748B', textDecoration: 'none' }}>Legal</Link>
-              <Link href="/pricing" style={{ color: '#64748B', textDecoration: 'none' }}>Pricing</Link>
-              <span className="auth-lang" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-                <span>ENG</span>
-              </span>
-            </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: ANIMATED ATMOSPHERIC SHOWCASE PANE */}
-        <div className="auth-showcase-pane">
-          {/* Animated Atmospheric Background Layers */}
-          <div className="auth-ambient-grid" />
-          <div className="auth-glow-orb orb-1" />
-          <div className="auth-glow-orb orb-2" />
-          <div className="auth-glow-orb orb-3" />
+        {/* RIGHT COLUMN: BRAND VALUE PROPOSITION */}
+        <div className="auth-visual-pane">
+          <div className="auth-visual-inner">
+            <div className="auth-feature-pill">
+              <span className="auth-pill-dot"></span>
+              <span>100% Payment Protection &amp; BotShield™ AI</span>
+            </div>
 
-          <div className="auth-showcase-content">
-            <h2 className="auth-showcase-title">
-              <span>Discover Top Creators.</span><br />
-              <span style={{ color: '#0052FF', fontWeight: 500 }}>Execute Protected Deals.</span>
+            <h2 className="auth-visual-headline">
+              The Intelligence Operating System for Modern Creators.
             </h2>
-            <p className="auth-showcase-desc">
-              Direct brand collaborations, audited audience insights, and smart milestone contracts with a flat 5% platform fee.
+            <p className="auth-visual-subtext">
+              Secure contracts, automated 5% commission settlement, 72h deliverable SLAs, and verified audience demographics across 500,000+ creators.
             </p>
+
+            {/* Testimonial / Stat Card */}
+            <div className="auth-stat-card">
+              <div className="auth-stat-quote">
+                &ldquo;TIA eliminated payment delays and unverified audience data completely for our team.&rdquo;
+              </div>
+              <div className="auth-stat-author">
+                <div className="auth-stat-avatar">NS</div>
+                <div className="auth-stat-info">
+                  <div className="auth-stat-name">Nexus Studios</div>
+                  <div className="auth-stat-role">Leading D2C Audio Brand</div>
+                </div>
+                <div className="auth-stat-badge">Verified Brand</div>
+              </div>
+            </div>
+
+            {/* Trust Footer */}
+            <div className="auth-trust-footer">
+              <span>Trusted by 10,000+ top creators &amp; Fortune 500 brands worldwide</span>
+            </div>
           </div>
         </div>
       </div>

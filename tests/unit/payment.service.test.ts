@@ -32,6 +32,7 @@ describe('TIA Backend - Payment Protection & Ledger Engine QA Tests', () => {
   });
 
   it('disburses net payout to creator and assigns live bank NEFT reference upon deliverable approval', async () => {
+    await PaymentService.addFunds('demo-brand-user-id', 500000);
     const grossAmount = 100000;
     const lockedTx = await PaymentService.lockMilestoneFunds({
       brandId: 'demo-brand-user-id',
