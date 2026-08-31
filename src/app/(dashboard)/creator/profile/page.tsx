@@ -601,13 +601,6 @@ export default function CreatorProfilePage() {
                     <GlobeIcon size={13} color="#0052FF" />
                     <span>English, Hindi</span>
                   </span>
-
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    <IdBadgeIcon size={13} color="#0052FF" />
-                    <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#475569' }}>Profile ID: TIA-CR-98420</span>
-                  </span>
                 </div>
 
                 {/* Bio Paragraph */}
