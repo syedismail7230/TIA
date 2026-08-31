@@ -3516,8 +3516,8 @@ function CreatorPortalContent() {
                   <circle cx="12" cy="7" r="4" />
                 </svg>
 
-                <span style={{ fontSize: '12px', color: '#1E293B', fontWeight: 600, maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
+                <span style={{ fontSize: '12.5px', color: '#1E293B', fontWeight: 700, maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {currentUser?.name || currentUser?.creatorProfile?.displayName || 'Sarah Jenkins'}
                 </span>
                 
                 <BlueCheckBadge size={13} title="Verified Creator" />
@@ -3560,11 +3560,11 @@ function CreatorPortalContent() {
                 >
                   {/* User info Header */}
                   <div style={{ padding: '8px 10px', borderBottom: '1px solid #F1F5F9', marginBottom: '4px' }}>
-                    <div style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      @{currentUser?.email ? currentUser.email.split('@')[0] : 'creator'}
+                    <div style={{ fontSize: '13px', fontWeight: 800, color: '#0F172A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {currentUser?.name || currentUser?.creatorProfile?.displayName || 'Sarah Jenkins'}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#64748B', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
-                      {currentUser?.email || 'creator@tia.agency'}
+                    <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: '1px' }}>
+                      @{currentUser?.creatorProfile?.username || (currentUser?.email ? currentUser.email.split('@')[0] : 'creator.official')}
                     </div>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', marginTop: '5px', backgroundColor: '#EFF6FF', padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: 700, color: '#0052FF' }}>
                       <span>✓</span> Verified Creator
