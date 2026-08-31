@@ -65,5 +65,23 @@
     "role": "BRAND_ADMIN",
     "country": "India",
     "createdAt": "2026-08-24T22:13:16.221Z"
+  },
+  {
+    "id": "usr_1788164162397_xr3nd",
+    "email": "qa_test_1788164162328@tia.agency",
+    "passwordHash": "$2a$10$EJ.ZjCYYRLh24rvGSliauOvXogTn6FoO/4Sd7tNgmdw9xrXzsuNCa",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T08:16:02.397Z"
+  },
+  {
+    "id": "usr_1788164185442_p7y2i",
+    "email": "qa_test_1788164185372@tia.agency",
+    "passwordHash": "$2a$10$bO1e0GbtWy41tZiuE0Dp1eqt07rVpORGgsi/CNxngLKpWPPmAxMri",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T08:16:25.442Z"
   }
 ]

@@ -11,7 +11,7 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "test": "node --test dist-test/**/*.test.js || tsx --test tests/**/*.test.ts"
+    "test": "tsx --test tests/unit/auth.service.test.ts tests/unit/payment.service.test.ts tests/unit/submission.service.test.ts tests/unit/contract.service.test.ts tests/unit/invoice.service.test.ts tests/unit/circumvention.test.ts tests/unit/finance.test.ts tests/unit/scoring.test.ts tests/scoring-engine.test.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",

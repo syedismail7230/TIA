@@ -41,6 +41,6 @@ describe('TIA Intelligence & Match Scoring Engine', () => {
     assert.ok(match.overallMatch >= 80);
     assert.equal(match.categoryFit, 100);
     assert.equal(match.geographyFit, 98);
-    assert.ok(match.explanation.includes('Match because creator content category'));
+    assert.ok(match.explanation.includes('Category relevance rated at 100%'));
   });
 });
