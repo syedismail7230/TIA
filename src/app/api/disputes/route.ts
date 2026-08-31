@@ -1,120 +1,92 @@
+// ===================================================
+// TIA BACKEND - DISPUTES & ARBITRATION API ROUTE
+// ===================================================
+
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
 import { getCurrentUser } from '@/lib/auth/session';
-import { canResolveDisputes } from '@/lib/rbac/permissions';
-import { logAuditEvent } from '@/lib/audit/logger';
+import { DisputeService } from '@/lib/services/dispute.service';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const { searchParams } = new URL(request.url);
+    const campaignId = searchParams.get('campaignId') || undefined;
+    const status = searchParams.get('status') || undefined;
 
-    const disputes = await prisma.dispute.findMany({
-      include: {
-        campaign: { select: { title: true, status: true, budget: true } },
-        initiator: { select: { name: true, role: true } },
-        evidence: true,
-      },
-      orderBy: { createdAt: 'desc' },
+    const disputes = await DisputeService.list({
+      campaignId,
+      initiatorId: user?.id,
+      status,
     });
 
-    return NextResponse.json({ disputes });
+    return NextResponse.json({ success: true, disputes });
   } catch (error: any) {
     console.error('Fetch Disputes Error:', error);
-    return NextResponse.json({ error: 'Failed to fetch disputes' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Failed to retrieve disputes' }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
-    const { campaignId, contractId, reason, description, claimedAmount, action, disputeId, decisionSummary, financialResolutionType, refundAmountMinor, releaseAmountMinor } = body;
+    const {
+      campaignId,
+      campaignTitle,
+      collabId,
+      reason,
+      disputedAmount,
+      evidenceNotes,
+      evidenceAttachments,
+    } = body;
 
-    // 1. Open Dispute
-    if (action === 'OPEN') {
-      if (!campaignId || !reason || !description) {
-        return NextResponse.json({ error: 'Campaign ID, reason, and description are required' }, { status: 400 });
-      }
-
-      const claimedAmountMinor = claimedAmount ? Math.round(Number(claimedAmount) * 100) : 0;
-
-      const dispute = await prisma.dispute.create({
-        data: {
-          campaignId,
-          contractId: contractId || null,
-          initiatorUserId: user.id,
-          initiatorRole: user.role === 'CREATOR' ? 'CREATOR' : 'BRAND',
-          reason,
-          description,
-          claimedAmount: claimedAmountMinor,
-          status: 'OPENED',
-        },
-      });
-
-      // Update campaign state to DISPUTED
-      await prisma.campaign.update({
-        where: { id: campaignId },
-        data: { status: 'DISPUTED' },
-      });
-
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'DISPUTE_OPEN',
-        entityType: 'DISPUTE',
-        entityId: dispute.id,
-      });
-
-      return NextResponse.json({ message: 'Dispute opened successfully', dispute }, { status: 201 });
+    if (!campaignId || !reason || !disputedAmount) {
+      return NextResponse.json({ success: false, error: 'Missing required dispute fields' }, { status: 400 });
     }
 
-    // 2. TIA Governance Decision
-    if (action === 'RESOLVE') {
-      if (!canResolveDisputes(user.role)) {
-        return NextResponse.json({ error: 'Forbidden. Only TIA Finance/Admin can resolve disputes.' }, { status: 403 });
-      }
+    const initiatorRole = user?.role === 'CREATOR' ? 'CREATOR' : 'BRAND';
 
-      if (!disputeId || !decisionSummary || !financialResolutionType) {
-        return NextResponse.json({ error: 'Dispute ID, decision summary, and financial resolution type are required' }, { status: 400 });
-      }
+    const dispute = await DisputeService.create({
+      campaignId,
+      campaignTitle: campaignTitle || 'Campaign Collaboration',
+      collabId: collabId || 'collab-brand-1',
+      initiatorId: user?.id || 'demo-brand-user-id',
+      initiatorRole,
+      reason,
+      disputedAmount: Number(disputedAmount),
+      evidenceNotes: evidenceNotes || '',
+      evidenceAttachments,
+    });
 
-      const dispute = await prisma.dispute.update({
-        where: { id: disputeId },
-        data: {
-          status: 'RESOLVED',
-          decisionSummary,
-          financialResolutionType,
-          refundAmount: refundAmountMinor ? Math.round(Number(refundAmountMinor)) : 0,
-          releaseAmount: releaseAmountMinor ? Math.round(Number(releaseAmountMinor)) : 0,
-          decidedByUserId: user.id,
-          decidedAt: new Date(),
-        },
-      });
-
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'DISPUTE_DECISION',
-        entityType: 'DISPUTE',
-        entityId: dispute.id,
-        metadata: { resolution: financialResolutionType },
-      });
-
-      return NextResponse.json({ message: 'Dispute resolved with recorded financial outcome', dispute });
-    }
-
-    return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+    return NextResponse.json({ success: true, dispute });
   } catch (error: any) {
-    console.error('Dispute Management Error:', error);
-    return NextResponse.json({ error: 'Failed to process dispute' }, { status: 500 });
+    console.error('Create Dispute Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Failed to file dispute' }, { status: 500 });
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const user = await getCurrentUser();
+    const body = await request.json();
+    const { disputeId, decision, arbitratorNotes } = body;
+
+    if (!disputeId || !decision) {
+      return NextResponse.json({ success: false, error: 'Dispute ID and decision are required' }, { status: 400 });
+    }
+
+    const resolved = await DisputeService.resolve(
+      disputeId,
+      decision,
+      arbitratorNotes || 'Arbitration settled by TIA Platform Operations.',
+      user?.id || 'admin-user-id'
+    );
+
+    return NextResponse.json({ success: true, dispute: resolved });
+  } catch (error: any) {
+    console.error('Resolve Dispute Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Failed to resolve dispute' }, { status: 500 });
   }
 }

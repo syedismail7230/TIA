@@ -100,6 +100,8 @@ export function findStoredUserByEmail(email: string): StoredUser | null {
   return users.find((u) => u.email.toLowerCase() === normalized) || null;
 }
 
+export const getStoredUserByEmail = findStoredUserByEmail;
+
 export function saveStoredUser(user: StoredUser): void {
   const normalized = user.email.toLowerCase().trim();
   
@@ -126,3 +128,5 @@ export function saveStoredUser(user: StoredUser): void {
     // Graceful fallback for read-only serverless
   }
 }
+
+export const createStoredUser = saveStoredUser;

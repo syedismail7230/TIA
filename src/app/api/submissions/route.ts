@@ -1,159 +1,116 @@
+// ===================================================
+// TIA BACKEND - DELIVERABLE SUBMISSIONS API ROUTE
+// ===================================================
+
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
 import { getCurrentUser } from '@/lib/auth/session';
-import { logAuditEvent } from '@/lib/audit/logger';
+import { SubmissionService } from '@/lib/services/submission.service';
+
+export const dynamic = 'force-dynamic';
+
+export async function GET(request: Request) {
+  try {
+    const user = await getCurrentUser();
+    const { searchParams } = new URL(request.url);
+    const campaignId = searchParams.get('campaignId') || undefined;
+    const collabId = searchParams.get('collabId') || undefined;
+    const status = searchParams.get('status') || undefined;
+
+    const brandId = (user?.role === 'BRAND_ADMIN' || user?.role === 'BRAND_USER') ? user.id : undefined;
+    const creatorId = user?.role === 'CREATOR' ? user.id : undefined;
+
+    const submissions = await SubmissionService.list({
+      campaignId,
+      collabId,
+      brandId,
+      creatorId,
+      status,
+    });
+
+    return NextResponse.json({ success: true, submissions });
+  } catch (error: any) {
+    console.error('Fetch Submissions Error:', error);
+    return NextResponse.json({ success: false, error: 'Failed to fetch submissions' }, { status: 500 });
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
-    const { deliverableId, fileUrl, fileName, caption, tags, notes, action, submissionId, comment } = body;
+    const {
+      action = 'SUBMIT',
+      submissionId,
+      campaignId,
+      campaignTitle,
+      collabId,
+      deliverableType,
+      title,
+      assetUrl,
+      notes,
+      milestoneStage = 2,
+      payoutTransactionId,
+      text,
+      timestampLabel,
+      requestRevision,
+    } = body;
 
-    // 1. Creator Submits Deliverable Draft
+    // Action 1: Creator Submits Deliverable Draft / Live Post
     if (action === 'SUBMIT') {
-      if (!deliverableId || !fileUrl) {
-        return NextResponse.json({ error: 'Deliverable ID and file URL required' }, { status: 400 });
+      if (!title || !assetUrl) {
+        return NextResponse.json({ success: false, error: 'Title and Asset URL are required' }, { status: 400 });
       }
 
-      const deliverable = await prisma.campaignDeliverable.findUnique({
-        where: { id: deliverableId },
-        include: { submissions: { orderBy: { version: 'desc' }, take: 1 } },
+      const submission = await SubmissionService.submit({
+        campaignId: campaignId || 'camp-101',
+        campaignTitle: campaignTitle || 'Campaign Milestone Deliverable',
+        collabId: collabId || 'collab-brand-1',
+        creatorId: user?.id || 'demo-creator-user-id',
+        creatorName: user?.name || 'Aarav Sharma',
+        brandId: 'demo-brand-user-id',
+        deliverableType: deliverableType || 'DRAFT_VIDEO',
+        title,
+        assetUrl,
+        notes,
+        milestoneStage: Number(milestoneStage),
+        payoutTransactionId,
       });
 
-      if (!deliverable) {
-        return NextResponse.json({ error: 'Deliverable not found' }, { status: 404 });
-      }
-
-      const latestVersion = deliverable.submissions[0]?.version || 0;
-      const nextVersion = latestVersion + 1;
-
-      const submission = await prisma.contentSubmission.create({
-        data: {
-          deliverableId,
-          version: nextVersion,
-          fileUrl,
-          fileName: fileName || 'campaign_deliverable_v' + nextVersion,
-          caption: caption || null,
-          tags: tags || null,
-          notes: notes || null,
-          status: 'SUBMITTED',
-        },
-      });
-
-      await prisma.campaignDeliverable.update({
-        where: { id: deliverableId },
-        data: { status: 'DRAFT_SUBMITTED' },
-      });
-
-      // Advance campaign state to CONTENT_REVIEW
-      await prisma.campaign.update({
-        where: { id: deliverable.campaignId },
-        data: { status: 'CONTENT_REVIEW' },
-      });
-
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'CONTENT_SUBMIT',
-        entityType: 'CONTENT_SUBMISSION',
-        entityId: submission.id,
-      });
-
-      return NextResponse.json({ message: 'Content submitted successfully for brand review', submission }, { status: 201 });
+      return NextResponse.json({ success: true, submission });
     }
 
-    // 2. Brand Approves Submission
-    if (action === 'APPROVE') {
-      if (!submissionId) {
-        return NextResponse.json({ error: 'Submission ID is required' }, { status: 400 });
+    // Action 2: Add Review Feedback / Revision Request
+    if (action === 'REVIEW_NOTE' && submissionId) {
+      if (!text) {
+        return NextResponse.json({ success: false, error: 'Review text is required' }, { status: 400 });
       }
 
-      const submission = await prisma.contentSubmission.findUnique({
-        where: { id: submissionId },
-        include: { deliverable: true },
+      const updated = await SubmissionService.addReviewNote({
+        submissionId,
+        authorId: user?.id || 'demo-brand-user-id',
+        authorName: user?.name || 'Brand Reviewer',
+        role: user?.role === 'CREATOR' ? 'CREATOR' : 'BRAND',
+        text,
+        timestampLabel,
+        requestRevision: Boolean(requestRevision),
       });
 
-      if (!submission) {
-        return NextResponse.json({ error: 'Submission not found' }, { status: 404 });
-      }
-
-      await prisma.contentSubmission.update({
-        where: { id: submissionId },
-        data: { status: 'APPROVED' },
-      });
-
-      await prisma.campaignDeliverable.update({
-        where: { id: submission.deliverableId },
-        data: { status: 'APPROVED', approvedAt: new Date() },
-      });
-
-      await prisma.campaign.update({
-        where: { id: submission.deliverable.campaignId },
-        data: { status: 'APPROVED' },
-      });
-
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'CONTENT_APPROVE',
-        entityType: 'CONTENT_SUBMISSION',
-        entityId: submissionId,
-      });
-
-      return NextResponse.json({ message: 'Deliverable approved successfully' });
+      return NextResponse.json({ success: true, submission: updated });
     }
 
-    // 3. Brand Requests Revision
-    if (action === 'REQUEST_REVISION') {
-      if (!submissionId || !comment) {
-        return NextResponse.json({ error: 'Submission ID and revision comment are required' }, { status: 400 });
-      }
-
-      const submission = await prisma.contentSubmission.findUnique({
-        where: { id: submissionId },
-        include: { deliverable: true },
+    // Action 3: Final Brand Approval & Automated Payout Release
+    if (action === 'APPROVE' && submissionId) {
+      const approved = await SubmissionService.approve(submissionId, user?.id || 'demo-brand-user-id');
+      return NextResponse.json({
+        success: true,
+        submission: approved,
+        message: 'Deliverable approved! TIA Payment Protection disbursement initiated to creator account.',
       });
-
-      if (!submission) {
-        return NextResponse.json({ error: 'Submission not found' }, { status: 404 });
-      }
-
-      await prisma.contentRevision.create({
-        data: {
-          submissionId,
-          requestedByUserId: user.id,
-          comment,
-        },
-      });
-
-      await prisma.contentSubmission.update({
-        where: { id: submissionId },
-        data: { status: 'REVISION_REQUESTED' },
-      });
-
-      await prisma.campaignDeliverable.update({
-        where: { id: submission.deliverableId },
-        data: { status: 'REVISION_REQUESTED' },
-      });
-
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'REVISION_REQUEST',
-        entityType: 'CONTENT_SUBMISSION',
-        entityId: submissionId,
-      });
-
-      return NextResponse.json({ message: 'Revision requested from creator' });
     }
 
-    return NextResponse.json({ error: 'Invalid submission action' }, { status: 400 });
+    return NextResponse.json({ success: false, error: 'Invalid submission action' }, { status: 400 });
   } catch (error: any) {
-    console.error('Content Submission Error:', error);
-    return NextResponse.json({ error: 'Failed to process content submission' }, { status: 500 });
+    console.error('Submission API Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Submission operation failed' }, { status: 500 });
   }
 }

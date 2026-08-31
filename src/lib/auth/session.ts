@@ -13,6 +13,7 @@ export interface SessionPayload {
   userId: string;
   email: string;
   role: string;
+  name?: string;
   creatorId?: string;
   organizationId?: string;
   orgRole?: string;
@@ -26,6 +27,8 @@ export async function createSessionToken(payload: SessionPayload): Promise<strin
     .sign(JWT_SECRET);
 }
 
+export const signJwtToken = createSessionToken;
+
 export async function verifySessionToken(token: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(token, JWT_SECRET);
@@ -34,6 +37,8 @@ export async function verifySessionToken(token: string): Promise<SessionPayload 
     return null;
   }
 }
+
+export const verifyJwtToken = verifySessionToken;
 
 export async function setSessionCookie(payload: SessionPayload) {
   const token = await createSessionToken(payload);

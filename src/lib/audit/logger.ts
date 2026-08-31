@@ -32,3 +32,21 @@ export async function logAuditEvent(params: AuditLogParams) {
     console.error('Failed to write audit log:', error);
   }
 }
+
+export interface SimpleAuditParams {
+  actorId?: string;
+  action: string;
+  targetType: string;
+  targetId: string;
+  details?: Record<string, any>;
+}
+
+export async function logAudit(params: SimpleAuditParams) {
+  return logAuditEvent({
+    userId: params.actorId,
+    action: params.action,
+    entityType: params.targetType,
+    entityId: params.targetId,
+    metadata: params.details,
+  });
+}

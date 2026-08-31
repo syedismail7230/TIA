@@ -1,96 +1,94 @@
+// ===================================================
+// TIA BACKEND - CAMPAIGN APPLICATIONS API ROUTE
+// ===================================================
+
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
 import { getCurrentUser } from '@/lib/auth/session';
-import { logAuditEvent } from '@/lib/audit/logger';
+import { ApplicationService } from '@/lib/services/application.service';
+
+export const dynamic = 'force-dynamic';
+
+export async function GET(request: Request) {
+  try {
+    const user = await getCurrentUser();
+    const { searchParams } = new URL(request.url);
+    const campaignId = searchParams.get('campaignId') || undefined;
+    const status = searchParams.get('status') || undefined;
+
+    const brandId = (user?.role === 'BRAND_ADMIN' || user?.role === 'BRAND_USER') ? user.id : undefined;
+    const creatorId = user?.role === 'CREATOR' ? user.id : undefined;
+
+    const applications = await ApplicationService.list({
+      campaignId,
+      brandId,
+      creatorId,
+      status,
+    });
+
+    return NextResponse.json({ success: true, applications });
+  } catch (error: any) {
+    console.error('Fetch Applications Error:', error);
+    return NextResponse.json({ success: false, error: 'Failed to fetch applications' }, { status: 500 });
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
-    if (!user || user.role !== 'CREATOR' || !user.creatorProfile) {
-      return NextResponse.json({ error: 'Unauthorized. Creator account required.' }, { status: 403 });
-    }
-
     const body = await request.json();
-    const { campaignId, proposedPrice, pitch, conceptNote, deliveryDays = 7 } = body;
+    const {
+      campaignId,
+      campaignTitle,
+      brandId,
+      pitch,
+      proposedRate,
+      deliverablesSummary,
+      timelineDays = 14,
+    } = body;
 
-    if (!campaignId || proposedPrice === undefined || !pitch) {
-      return NextResponse.json({ error: 'Campaign ID, proposed price, and pitch are required' }, { status: 400 });
+    if (!campaignId || !pitch || !proposedRate) {
+      return NextResponse.json({ success: false, error: 'Missing proposal requirements' }, { status: 400 });
     }
 
-    const campaign = await prisma.campaign.findUnique({
-      where: { id: campaignId },
+    const application = await ApplicationService.submit({
+      campaignId,
+      campaignTitle: campaignTitle || 'Campaign Collaboration',
+      brandId: brandId || 'demo-brand-user-id',
+      creatorId: user?.id || 'demo-creator-user-id',
+      creatorName: user?.name || 'Aarav Sharma',
+      creatorHandle: '@creator.official',
+      creatorFollowers: 520000,
+      creatorCredibility: 98,
+      pitch,
+      proposedRate: Number(proposedRate),
+      deliverablesSummary: deliverablesSummary || 'Standard deliverable package',
+      timelineDays: Number(timelineDays),
     });
 
-    if (!campaign || (campaign.status !== 'ACCEPTING_APPLICATIONS' && campaign.status !== 'PUBLISHED')) {
-      return NextResponse.json({ error: 'This campaign is not currently accepting applications' }, { status: 400 });
-    }
-
-    const proposedPriceMinor = Math.round(Number(proposedPrice) * 100);
-
-    const application = await prisma.campaignApplication.upsert({
-      where: {
-        campaignId_creatorId: {
-          campaignId,
-          creatorId: user.creatorProfile.id,
-        },
-      },
-      update: {
-        proposedPrice: proposedPriceMinor,
-        pitch,
-        conceptNote,
-        deliveryDays: Number(deliveryDays),
-        status: 'SUBMITTED',
-      },
-      create: {
-        campaignId,
-        creatorId: user.creatorProfile.id,
-        proposedPrice: proposedPriceMinor,
-        pitch,
-        conceptNote,
-        deliveryDays: Number(deliveryDays),
-        status: 'SUBMITTED',
-      },
-    });
-
-    // Also record initial CampaignBid
-    await prisma.campaignBid.create({
-      data: {
-        campaignId,
-        creatorId: user.creatorProfile.id,
-        bidAmount: proposedPriceMinor,
-        terms: pitch,
-        status: 'SUBMITTED',
-      },
-    });
-
-    // Create Message Thread for in-platform campaign communication
-    await prisma.messageThread.upsert({
-      where: {
-        campaignId_creatorId: {
-          campaignId,
-          creatorId: user.creatorProfile.id,
-        },
-      },
-      update: {},
-      create: {
-        campaignId,
-        organizationId: campaign.organizationId,
-        creatorId: user.creatorProfile.id,
-        subject: `Application: ${campaign.title}`,
-      },
-    });
-
-    await logAuditEvent({
-      userId: user.id,
-      userRole: user.role,
-      action: 'APPLICATION_SUBMIT',
-      entityType: 'CAMPAIGN_APPLICATION',
-      entityId: application.id,
-    });
-
-    return NextResponse.json({ message: 'Application submitted successfully', application }, { status: 201 });
+    return NextResponse.json({ success: true, application });
   } catch (error: any) {
-    console.error('Application Submission Error:', error);
-    return NextResponse.json({ error: 'Failed to submit application' }, { status: 500 });
+    console.error('Submit Proposal Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Failed to submit proposal' }, { status: 500 });
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { applicationId, status } = body;
+
+    if (!applicationId || !status) {
+      return NextResponse.json({ success: false, error: 'Application ID and status are required' }, { status: 400 });
+    }
+
+    const updated = await ApplicationService.updateStatus(applicationId, status);
+    if (!updated) {
+      return NextResponse.json({ success: false, error: 'Application not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, application: updated });
+  } catch (error: any) {
+    console.error('Update Application Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Failed to update application' }, { status: 500 });
   }
 }
