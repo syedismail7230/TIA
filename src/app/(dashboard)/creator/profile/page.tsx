@@ -482,26 +482,19 @@ export default function CreatorProfilePage() {
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
           }}
         >
-          {/* Cover Artwork Banner */}
+          {/* Cover Artwork Banner (Clean, no fade overlay) */}
           <div
             style={{
-              height: '200px',
+              height: '210px',
               width: '100%',
               backgroundImage: 'url("/banner.png")',
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              position: 'relative',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat',
+              backgroundColor: '#FAFAFA',
+              borderBottom: '1px solid #F1F5F9',
             }}
-          >
-            {/* Ambient Lighting Overlay */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%)',
-              }}
-            />
-          </div>
+          />
 
           {/* Profile Identity Body */}
           <div style={{ padding: '0 36px 32px 36px' }}>
