@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
@@ -195,7 +195,7 @@ interface BrandCollabThread {
   messages: BrandCollabMessage[];
 }
 
-export default function BrandDashboardPage() {
+function BrandDashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get('tab') as BrandTabType) || 'campaigns';
@@ -2878,5 +2878,13 @@ export default function BrandDashboardPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function BrandDashboardPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8FAFC', color: '#64748B', fontFamily: 'sans-serif', fontSize: '14px' }}>Loading Brand Dashboard...</div>}>
+      <BrandDashboardContent />
+    </Suspense>
   );
 }
