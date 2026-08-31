@@ -587,7 +587,7 @@ export default function CreatorProfilePage() {
                   </button>
                 </div>
 
-                {/* TIA Credibility Score Interactive Badge Card */}
+                {/* Profile Rating & Stars Badge Card */}
                 <div
                   style={{
                     background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%)',
@@ -601,59 +601,46 @@ export default function CreatorProfilePage() {
                     position: 'relative',
                   }}
                 >
-                  {/* Radial Gauge Meter */}
-                  <div style={{ position: 'relative', width: '52px', height: '52px', flexShrink: 0 }}>
-                    <svg width="52" height="52" viewBox="0 0 56 56" style={{ transform: 'rotate(-90deg)' }}>
-                      {/* Background track circle */}
-                      <circle
-                        cx="28"
-                        cy="28"
-                        r="23"
-                        fill="none"
-                        stroke="#E2E8F0"
-                        strokeWidth="4.5"
-                      />
-                      {/* Active gradient progress circle */}
-                      <defs>
-                        <linearGradient id="credibilityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#0052FF" />
-                          <stop offset="100%" stopColor="#10B981" />
-                        </linearGradient>
-                      </defs>
-                      <circle
-                        cx="28"
-                        cy="28"
-                        r="23"
-                        fill="none"
-                        stroke="url(#credibilityGradient)"
-                        strokeWidth="4.5"
-                        strokeDasharray="144.5"
-                        strokeDashoffset="2.89"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    {/* Centered Number inside gauge */}
-                    <div style={{
-                      position: 'absolute',
-                      inset: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '16px',
-                      fontWeight: 900,
-                      color: '#0F172A',
-                      letterSpacing: '-0.03em',
-                    }}>
-                      98
-                    </div>
+                  {/* Rating Numeric Badge */}
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minWidth: '50px',
+                    paddingRight: '14px',
+                    borderRight: '1px solid #E2E8F0',
+                  }}>
+                    <span style={{ fontSize: '24px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>
+                      4.9
+                    </span>
+                    <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 700, marginTop: '2px' }}>
+                      / 5.0
+                    </span>
                   </div>
 
-                  {/* Text Details & Trust Pillars */}
+                  {/* Stars Row & Verified Endorsements */}
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
-                      <span style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                        TIA Credibility Index™
-                      </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      {/* 5 Stars */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg
+                            key={star}
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="#F59E0B"
+                            stroke="#F59E0B"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                          </svg>
+                        ))}
+                      </div>
+
                       <span style={{
                         background: '#ECFDF5',
                         border: '1px solid #A7F3D0',
@@ -662,23 +649,19 @@ export default function CreatorProfilePage() {
                         fontWeight: 800,
                         padding: '1.5px 7px',
                         borderRadius: '9999px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '4px',
                       }}>
-                        <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
-                        Grade A+
+                        Top Rated ✓
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#475569' }}>
-                      <span style={{ color: '#0F172A', fontWeight: 700 }}>Top 1% Creator</span>
+                    <div style={{ fontSize: '12px', color: '#475569', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ color: '#0F172A', fontWeight: 700 }}>48 Brand Reviews</span>
                       <span style={{ color: '#CBD5E1' }}>•</span>
-                      <span style={{ color: '#059669', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                      <span style={{ color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        Audited Audience
+                        100% On-Time Delivery
                       </span>
                     </div>
                   </div>
