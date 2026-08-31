@@ -1,0 +1,38 @@
+{
+  "da7bbff6ea6724d8c9cfb4f07969146cd5d4e21bcab32e9aa6a3284816875ebf": {
+    "token": "da7bbff6ea6724d8c9cfb4f07969146cd5d4e21bcab32e9aa6a3284816875ebf",
+    "email": "kabir.tech@tia.agency",
+    "userId": "demo_creator_1788204073644_gj8d",
+    "role": "CREATOR",
+    "createdAt": "2026-08-31T19:21:13.648Z",
+    "expiresAt": "2026-09-01T19:21:13.648Z",
+    "verified": false
+  },
+  "f16b7c1a12d61a1b687b48bc7695ec4504d45b0eccb7b940cab442963a3e2024": {
+    "token": "f16b7c1a12d61a1b687b48bc7695ec4504d45b0eccb7b940cab442963a3e2024",
+    "email": "ananya.vogue@tia.agency",
+    "userId": "demo_creator_1788204074466_7yxz",
+    "role": "CREATOR",
+    "createdAt": "2026-08-31T19:21:14.469Z",
+    "expiresAt": "2026-09-01T19:21:14.469Z",
+    "verified": false
+  },
+  "5be7e72bf8ceb0158b5e0fd39f283080fd742dfe5cccaac02ffc238ce0604272": {
+    "token": "5be7e72bf8ceb0158b5e0fd39f283080fd742dfe5cccaac02ffc238ce0604272",
+    "email": "rohan.pulse@tia.agency",
+    "userId": "demo_brand_admin_1788204075062_o9tn",
+    "role": "BRAND_ADMIN",
+    "createdAt": "2026-08-31T19:21:15.064Z",
+    "expiresAt": "2026-09-01T19:21:15.064Z",
+    "verified": false
+  },
+  "c8c16a6ba0ea6e27dee46444e0ad22a3a72f4fc0fc8b63c07377e02fe6879a28": {
+    "token": "c8c16a6ba0ea6e27dee46444e0ad22a3a72f4fc0fc8b63c07377e02fe6879a28",
+    "email": "priya.zest@tia.agency",
+    "userId": "demo_brand_admin_1788204075706_bqqu",
+    "role": "BRAND_ADMIN",
+    "createdAt": "2026-08-31T19:21:15.708Z",
+    "expiresAt": "2026-09-01T19:21:15.708Z",
+    "verified": false
+  }
+}

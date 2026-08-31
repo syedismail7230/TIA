@@ -182,5 +182,62 @@
     "role": "CREATOR",
     "country": "India",
     "createdAt": "2026-08-31T14:44:22.552Z"
+  },
+  {
+    "id": "usr_1788203933103_ad5wc",
+    "email": "qa_test_1788203933023@tia.agency",
+    "passwordHash": "$2a$10$II5VwKVwYoZ9yIcoiOEVIOhZsd/pHogtur09Kgql/kR5Bo99hS05e",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T19:18:53.103Z"
+  },
+  {
+    "id": "demo_creator_1788204073644_gj8d",
+    "email": "kabir.tech@tia.agency",
+    "passwordHash": "$2a$10$OPAF3B/3deN4Mv4OfocQA.Jp1QA9IH4uokhterDsmxVxpEQ4/b7Ga",
+    "name": "Kabir Sharma",
+    "role": "CREATOR",
+    "phone": "+91 9876543211",
+    "gender": "Male",
+    "age": 26,
+    "country": "India",
+    "createdAt": "2026-08-31T19:21:13.645Z"
+  },
+  {
+    "id": "demo_creator_1788204074466_7yxz",
+    "email": "ananya.vogue@tia.agency",
+    "passwordHash": "$2a$10$1EqWxNoR.lJ7SEQIQiwWA.LcXmSRVq24KHB6B1qpFZOVkIZxHYD6u",
+    "name": "Ananya Roy",
+    "role": "CREATOR",
+    "phone": "+91 9876543212",
+    "gender": "Female",
+    "age": 24,
+    "country": "India",
+    "createdAt": "2026-08-31T19:21:14.466Z"
+  },
+  {
+    "id": "demo_brand_admin_1788204075062_o9tn",
+    "email": "rohan.pulse@tia.agency",
+    "passwordHash": "$2a$10$oA68f8SceCZBwmGLcyNJC.K1RM8T1z6msQba7BnR4M/FY5MLuwaoe",
+    "name": "Rohan Mehta",
+    "role": "BRAND_ADMIN",
+    "phone": "+91 9876543213",
+    "gender": "Male",
+    "age": 32,
+    "country": "India",
+    "createdAt": "2026-08-31T19:21:15.062Z"
+  },
+  {
+    "id": "demo_brand_admin_1788204075706_bqqu",
+    "email": "priya.zest@tia.agency",
+    "passwordHash": "$2a$10$zDitxDMgjHsWuRqX82L/bO2NNAWQwbAj497tB.Pb382c2PQ2Ar65.",
+    "name": "Priya Patel",
+    "role": "BRAND_ADMIN",
+    "phone": "+91 9876543214",
+    "gender": "Female",
+    "age": 29,
+    "country": "India",
+    "createdAt": "2026-08-31T19:21:15.706Z"
   }
 ]
