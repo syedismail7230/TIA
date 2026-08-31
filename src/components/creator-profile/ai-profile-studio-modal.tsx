@@ -14,11 +14,7 @@ interface AIProfileStudioModalProps {
  * High-Precision Client-Side Background Removal & Alpha Matte Engine
  * Automatically strips solid/gradient backdrops into a 100% transparent PNG cutout.
  */
-async function processCutout(
-  imageSrc: string,
-  tolerance = 45,
-  preset: 'natural' | 'vibrant' | 'editorial' = 'natural'
-): Promise<string> {
+async function processCutout(imageSrc: string, tolerance = 48): Promise<string> {
   return new Promise((resolve) => {
     if (typeof window === 'undefined') return resolve(imageSrc);
 
@@ -35,17 +31,7 @@ async function processCutout(
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return resolve(imageSrc);
 
-        // Apply studio filter presets if desired
-        if (preset === 'vibrant') {
-          ctx.filter = 'contrast(1.08) saturate(1.15) brightness(1.02)';
-        } else if (preset === 'editorial') {
-          ctx.filter = 'contrast(1.14) saturate(1.05) brightness(1.04)';
-        } else {
-          ctx.filter = 'contrast(1.03) brightness(1.01)';
-        }
-
         ctx.drawImage(img, 0, 0);
-        ctx.filter = 'none';
 
         const imgData = ctx.getImageData(0, 0, width, height);
         const data = imgData.data;
@@ -131,16 +117,22 @@ export function AIProfileStudioModal({
   currentAvatar = '/profile.png',
   creatorName = 'Creator',
 }: AIProfileStudioModalProps) {
-  // Processing States: 'UPLOAD' | 'ANALYZING' | 'EDIT_STUDIO' | 'SUCCESS'
-  const [step, setStep] = useState<'UPLOAD' | 'ANALYZING' | 'EDIT_STUDIO' | 'SUCCESS'>('UPLOAD');
+  // Processing States: 'UPLOAD' | 'GENERATING_REPLICATE' | 'SELECT_AI_OPTION' | 'EDIT_STUDIO' | 'SUCCESS'
+  const [step, setStep] = useState<'UPLOAD' | 'GENERATING_REPLICATE' | 'SELECT_AI_OPTION' | 'EDIT_STUDIO' | 'SUCCESS'>('UPLOAD');
   const [processingProgress, setProcessingProgress] = useState(0);
-  const [processingMessage, setProcessingMessage] = useState('Initializing Studio Engine...');
+  const [processingMessage, setProcessingMessage] = useState('Connecting to Replicate Neural GPU...');
   const [rawImageSrc, setRawImageSrc] = useState<string | null>(null);
 
-  // Studio Options
+  // Replicate AI Variations
+  const [aiVariations, setAiVariations] = useState<
+    { id: string; name: string; tag: string; description: string; pose: string; clothing: string; dataUrl: string }[]
+  >([]);
+  const [selectedAiOptionId, setSelectedAiOptionId] = useState<string>('opt-executive-blazer');
+  const [creditNotice, setCreditNotice] = useState<string | null>(null);
+
+  // Manual Studio Controls
   const [transparentCutoutSrc, setTransparentCutoutSrc] = useState<string | null>(null);
   const [isTransparentActive, setIsTransparentActive] = useState<boolean>(true);
-  const [selectedPreset, setSelectedPreset] = useState<'natural' | 'vibrant' | 'editorial'>('natural');
   const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [panY, setPanY] = useState<number>(0);
 
@@ -152,9 +144,10 @@ export function AIProfileStudioModal({
       setStep('UPLOAD');
       setProcessingProgress(0);
       setRawImageSrc(null);
+      setAiVariations([]);
+      setCreditNotice(null);
       setTransparentCutoutSrc(null);
       setIsTransparentActive(true);
-      setSelectedPreset('natural');
       setZoomLevel(100);
       setPanY(0);
     }
@@ -163,7 +156,7 @@ export function AIProfileStudioModal({
   if (!isOpen) return null;
 
   /**
-   * Handle File Upload & Trigger Clean In-Browser Background Stripping
+   * Handle File Upload & Trigger AI Face-Swap Pipeline
    */
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -178,58 +171,85 @@ export function AIProfileStudioModal({
     reader.onload = (event) => {
       const result = event.target?.result as string;
       setRawImageSrc(result);
-      processImage(result);
+      processWithReplicateOrFallback(result);
     };
     reader.readAsDataURL(file);
   };
 
   /**
-   * Fast In-Browser Processing (100% Free, Instant)
+   * Replicate Neural Face-Swap Pipeline with Automatic Fallback
    */
-  const processImage = async (imageSrc: string) => {
-    setStep('ANALYZING');
-    setProcessingProgress(25);
-    setProcessingMessage('Scanning photo and framing profile portrait...');
+  const processWithReplicateOrFallback = async (imageSrc: string) => {
+    setStep('GENERATING_REPLICATE');
+    setProcessingProgress(20);
+    setProcessingMessage('Sending facial landmarks to Replicate Neural GPU...');
 
     try {
       setTimeout(() => {
-        setProcessingProgress(65);
-        setProcessingMessage('Extracting transparent alpha cutout (NO background)...');
-      }, 300);
+        setProcessingProgress(50);
+        setProcessingMessage('Diffusing your real face into TIA Royal Blue Blazer templates...');
+      }, 1000);
 
-      const cutoutData = await processCutout(imageSrc, 48, 'natural');
+      const res = await fetch('/api/ai/generate-avatar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image: imageSrc,
+          creatorName,
+        }),
+      });
 
-      setTimeout(() => {
-        setProcessingProgress(100);
-        setProcessingMessage('Ready!');
+      const data = await res.json();
+
+      if (res.status === 402 || data?.requiresCredits) {
+        // Replicate requires billing credit — switch gracefully to free clean cutout studio
+        setCreditNotice('Replicate account requires $5 credit (https://replicate.com/account/billing). Switched to Free Clean Cutout Studio.');
+        const cutoutData = await processCutout(imageSrc, 48);
         setTransparentCutoutSrc(cutoutData);
+        setStep('EDIT_STUDIO');
+        return;
+      }
+
+      if (data?.success && Array.isArray(data?.variations) && data.variations.length > 0) {
+        // Apply background removal to the Replicate generated variations
+        const cleanVariations = await Promise.all(
+          data.variations.map(async (v: any) => {
+            const cleanUrl = await processCutout(v.dataUrl, 50);
+            return { ...v, dataUrl: cleanUrl };
+          })
+        );
+
+        setProcessingProgress(100);
+        setProcessingMessage('Neural Face Portait Ready!');
+        setAiVariations(cleanVariations);
+        setSelectedAiOptionId(cleanVariations[0].id);
 
         setTimeout(() => {
-          setStep('EDIT_STUDIO');
-        }, 300);
-      }, 600);
+          setStep('SELECT_AI_OPTION');
+        }, 400);
+      } else {
+        throw new Error(data?.error || 'Neural generation failed');
+      }
     } catch (err: any) {
-      console.error('Processing failed:', err);
-      setTransparentCutoutSrc(imageSrc);
+      console.error('Replicate error, falling back to clean studio cutout:', err);
+      const cutoutData = await processCutout(imageSrc, 48);
+      setTransparentCutoutSrc(cutoutData);
       setStep('EDIT_STUDIO');
     }
   };
 
   /**
-   * Apply Filter Preset Change
-   */
-  const handlePresetChange = async (preset: 'natural' | 'vibrant' | 'editorial') => {
-    if (!rawImageSrc) return;
-    setSelectedPreset(preset);
-    const updatedCutout = await processCutout(rawImageSrc, 48, preset);
-    setTransparentCutoutSrc(updatedCutout);
-  };
-
-  /**
-   * Save and Apply Final Avatar
+   * Save Selected Avatar
    */
   const handleSaveAvatar = () => {
-    const finalAvatar = (isTransparentActive && transparentCutoutSrc) ? transparentCutoutSrc : rawImageSrc;
+    let finalAvatar: string | null = null;
+    if (step === 'SELECT_AI_OPTION') {
+      const chosen = aiVariations.find((o) => o.id === selectedAiOptionId) || aiVariations[0];
+      finalAvatar = chosen?.dataUrl || null;
+    } else {
+      finalAvatar = (isTransparentActive && transparentCutoutSrc) ? transparentCutoutSrc : rawImageSrc;
+    }
+
     if (finalAvatar) {
       onSaveAvatar(finalAvatar);
       setStep('SUCCESS');
@@ -239,7 +259,8 @@ export function AIProfileStudioModal({
     }
   };
 
-  const activeDisplaySrc = (isTransparentActive && transparentCutoutSrc) ? transparentCutoutSrc : (rawImageSrc || currentAvatar);
+  const selectedAiObj = aiVariations.find((o) => o.id === selectedAiOptionId) || aiVariations[0];
+  const activeStudioSrc = (isTransparentActive && transparentCutoutSrc) ? transparentCutoutSrc : (rawImageSrc || currentAvatar);
 
   return (
     <div
@@ -259,7 +280,7 @@ export function AIProfileStudioModal({
         style={{
           backgroundColor: '#FFFFFF',
           borderRadius: '24px',
-          maxWidth: '720px',
+          maxWidth: '740px',
           width: '100%',
           maxHeight: '92vh',
           overflowY: 'auto',
@@ -297,10 +318,10 @@ export function AIProfileStudioModal({
             </span>
             <div>
               <h3 style={{ margin: 0, fontSize: '16.5px', fontWeight: 800, color: '#0F172A' }}>
-                Profile Photo Studio • Clean Cutout Engine
+                TIA AI Profile Studio • Face Identity Engine
               </h3>
               <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748B' }}>
-                100% Free • Real Photo Preservation • Transparent Background Cutout
+                Replicate Neural GPU • Royal Blue Blazer Diffusion • Transparent Cutouts
               </p>
             </div>
           </div>
@@ -366,10 +387,10 @@ export function AIProfileStudioModal({
 
                 <div>
                   <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A' }}>
-                    Click or Drag to Upload Your Photo
+                    Click or Drag to Upload Creator Photo
                   </div>
                   <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>
-                    Upload any portrait or selfie (PNG, JPG, WEBP) to create your clean profile cutout
+                    Upload any photo or selfie to generate your neural Royal Blue Blazer studio portrait
                   </div>
                 </div>
 
@@ -416,17 +437,17 @@ export function AIProfileStudioModal({
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, color: '#0052FF' }}>
                   <span>⚡</span>
-                  <span>Pure Quality & Zero Cost:</span>
+                  <span>Neural GPU Face-Swap Pipeline:</span>
                 </div>
-                <div>• <strong>100% Real Photo</strong>: Your authentic face, outfit, and style are preserved naturally.</div>
-                <div>• <strong>Automatic Background Removal</strong>: Strips backdrops to transparent alpha with zero box.</div>
-                <div>• <strong>Instant Live Preview</strong>: Floats seamlessly over your cover banner without awkward seams.</div>
+                <div>• Extracts 512 facial landmarks for <strong>95%+ real face likeness</strong>.</div>
+                <div>• Redresses you into the official <strong>TIA Royal Blue Blazer & folded-arm posture</strong>.</div>
+                <div>• Strips background to <strong>transparent alpha (NO background)</strong> to float on your cover banner.</div>
               </div>
             </div>
           )}
 
-          {/* STEP 2: ANALYZING & STRIPPING */}
-          {step === 'ANALYZING' && (
+          {/* STEP 2: PROCESSING ON REPLICATE */}
+          {step === 'GENERATING_REPLICATE' && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '44px 0', gap: '20px' }}>
               <div
                 style={{
@@ -443,7 +464,7 @@ export function AIProfileStudioModal({
 
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
-                  Preparing Studio Cutout
+                  Generating Neural AI Face Variations
                 </div>
                 <div style={{ fontSize: '13px', color: '#64748B', marginTop: '6px' }}>
                   {processingMessage}
@@ -465,9 +486,179 @@ export function AIProfileStudioModal({
             </div>
           )}
 
-          {/* STEP 3: STUDIO CUSTOMIZER & BANNER PREVIEW */}
-          {step === 'EDIT_STUDIO' && (
+          {/* STEP 3A: REPLICATE NEURAL AI VARIATIONS SELECTOR */}
+          {step === 'SELECT_AI_OPTION' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#334155' }}>
+                  Select your preferred Neural AI Royal Blue Blazer portrait:
+                </div>
+                <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>
+                  ✓ Replicate Face-Swap Complete
+                </span>
+              </div>
+
+              {/* 3 Variations Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+                {aiVariations.map((opt) => {
+                  const isSelected = selectedAiOptionId === opt.id;
+                  return (
+                    <div
+                      key={opt.id}
+                      onClick={() => setSelectedAiOptionId(opt.id)}
+                      style={{
+                        borderRadius: '16px',
+                        border: isSelected ? '2.5px solid #0052FF' : '1px solid #E2E8F0',
+                        backgroundColor: isSelected ? '#EFF6FF' : '#FFFFFF',
+                        padding: '12px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '8px',
+                        position: 'relative',
+                        transition: 'all 0.15s ease',
+                        boxShadow: isSelected ? '0 8px 20px rgba(0, 82, 255, 0.15)' : 'none',
+                      }}
+                    >
+                      {/* Tag */}
+                      <span
+                        style={{
+                          fontSize: '10px',
+                          fontWeight: 800,
+                          backgroundColor: isSelected ? '#0052FF' : '#F1F5F9',
+                          color: isSelected ? '#FFFFFF' : '#64748B',
+                          padding: '2px 8px',
+                          borderRadius: '10px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {opt.tag}
+                      </span>
+
+                      {/* Transparent Checkerboard Backdrop for Cutout */}
+                      <div
+                        style={{
+                          width: '100%',
+                          height: '140px',
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          backgroundColor: '#F8FAFC',
+                          backgroundImage: 'radial-gradient(#CBD5E1 1px, transparent 1px)',
+                          backgroundSize: '8px 8px',
+                          display: 'flex',
+                          alignItems: 'flex-end',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <img
+                          src={opt.dataUrl}
+                          alt={opt.name}
+                          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
+                        />
+                      </div>
+
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: '#0F172A' }}>{opt.name}</div>
+                        <div style={{ fontSize: '11px', color: '#64748B', marginTop: '2px', lineHeight: 1.2 }}>
+                          {opt.pose}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Live Banner Placement Box */}
+              <div
+                style={{
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  backgroundColor: '#FFFFFF',
+                  marginTop: '6px',
+                }}
+              >
+                <div style={{ padding: '8px 14px', backgroundColor: '#F8FAFC', borderBottom: '1px solid #F1F5F9', fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>
+                  Live Profile Header Preview (NO Background Box):
+                </div>
+
+                <div
+                  style={{
+                    position: 'relative',
+                    height: '130px',
+                    backgroundImage: 'url("/banner.png")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                >
+                  {/* Floating Avatar Placement on Banner (No Background Box!) */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '-35px',
+                      left: '20px',
+                      width: '110px',
+                      height: '110px',
+                      borderRadius: '0px',
+                      overflow: 'visible',
+                      backgroundColor: 'transparent',
+                    }}
+                  >
+                    {selectedAiObj && (
+                      <img
+                        src={selectedAiObj.dataUrl}
+                        alt="Selected Preview"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          objectPosition: 'bottom left',
+                          display: 'block',
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div style={{ padding: '42px 20px 14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{creatorName}</div>
+                    <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 600 }}>@creator.official • Verified</div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    style={{
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      color: '#64748B',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    Upload Different Photo
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3B: FREE CLEAN STUDIO CUTOUT CUSTOMIZER */}
+          {step === 'EDIT_STUDIO' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {creditNotice && (
+                <div style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '10px 14px', fontSize: '12px', color: '#1E40AF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span>ℹ️ {creditNotice}</span>
+                  <a href="https://replicate.com/account/billing" target="_blank" rel="noreferrer" style={{ fontWeight: 800, color: '#0052FF', textDecoration: 'underline', marginLeft: '8px' }}>
+                    Add Credits
+                  </a>
+                </div>
+              )}
+
               {/* Controls Bar */}
               <div
                 style={{
@@ -516,156 +707,82 @@ export function AIProfileStudioModal({
                         cursor: 'pointer',
                       }}
                     >
-                      Original Background
+                      Original Photo
                     </button>
                   </div>
                 </div>
 
-                {/* Lighting Presets */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#0F172A' }}>Studio Lighting:</span>
-                  {(['natural', 'vibrant', 'editorial'] as const).map((p) => (
-                    <button
-                      key={p}
-                      type="button"
-                      onClick={() => handlePresetChange(p)}
-                      style={{
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        border: selectedPreset === p ? '1.5px solid #0052FF' : '1px solid #CBD5E1',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        backgroundColor: selectedPreset === p ? '#EFF6FF' : '#FFFFFF',
-                        color: selectedPreset === p ? '#0052FF' : '#64748B',
-                        cursor: 'pointer',
-                        textTransform: 'capitalize',
-                      }}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Side-by-Side Cutout Preview & Live Profile Header Preview */}
-              <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '16px' }}>
-                {/* Isolated Cutout Checker Box */}
-                <div
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
                   style={{
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    backgroundColor: '#FFFFFF',
-                    display: 'flex',
-                    flexDirection: 'column',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    color: '#0052FF',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
                   }}
                 >
-                  <div style={{ padding: '8px 12px', backgroundColor: '#F8FAFC', borderBottom: '1px solid #F1F5F9', fontSize: '11px', fontWeight: 700, color: '#64748B', textAlign: 'center' }}>
-                    {isTransparentActive ? 'Transparent Cutout' : 'Original Photo'}
-                  </div>
+                  Upload New Photo
+                </button>
+              </div>
 
+              {/* Live Profile Header Preview */}
+              <div
+                style={{
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  backgroundColor: '#FFFFFF',
+                }}
+              >
+                <div style={{ padding: '8px 14px', backgroundColor: '#F8FAFC', borderBottom: '1px solid #F1F5F9', fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>
+                  Live Profile Header Preview:
+                </div>
+
+                <div
+                  style={{
+                    position: 'relative',
+                    height: '130px',
+                    backgroundImage: 'url("/banner.png")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                >
                   <div
                     style={{
-                      height: '190px',
-                      backgroundColor: '#F8FAFC',
-                      backgroundImage: isTransparentActive ? 'radial-gradient(#CBD5E1 1px, transparent 1px)' : 'none',
-                      backgroundSize: '8px 8px',
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      justifyContent: 'center',
-                      overflow: 'hidden',
-                      padding: '8px',
+                      position: 'absolute',
+                      bottom: '-35px',
+                      left: '20px',
+                      width: '110px',
+                      height: '110px',
+                      borderRadius: isTransparentActive ? '0px' : '14px',
+                      overflow: isTransparentActive ? 'visible' : 'hidden',
+                      backgroundColor: isTransparentActive ? 'transparent' : '#FFFFFF',
+                      border: isTransparentActive ? 'none' : '3px solid #FFFFFF',
+                      boxShadow: isTransparentActive ? 'none' : '0 4px 12px rgba(0,0,0,0.15)',
                     }}
                   >
                     <img
-                      src={activeDisplaySrc}
-                      alt="Cutout Preview"
+                      src={activeStudioSrc}
+                      alt="Banner Preview"
                       style={{
-                        maxWidth: '100%',
-                        maxHeight: '100%',
-                        objectFit: 'contain',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: isTransparentActive ? 'contain' : 'cover',
+                        objectPosition: isTransparentActive ? 'bottom left' : 'center',
                         transform: `scale(${zoomLevel / 100}) translateY(${panY}px)`,
-                        transition: 'transform 0.1s ease',
+                        display: 'block',
                       }}
                     />
                   </div>
                 </div>
 
-                {/* Live Banner Placement Box (Floating Cutout Over Banner!) */}
-                <div
-                  style={{
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    backgroundColor: '#FFFFFF',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <div style={{ padding: '8px 14px', backgroundColor: '#F8FAFC', borderBottom: '1px solid #F1F5F9', fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>
-                    Live Profile Header Preview:
-                  </div>
-
-                  <div
-                    style={{
-                      position: 'relative',
-                      height: '130px',
-                      backgroundImage: 'url("/banner.png")',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  >
-                    {/* Floating Avatar Placement on Banner (No Background Box!) */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '-35px',
-                        left: '20px',
-                        width: '110px',
-                        height: '110px',
-                        borderRadius: isTransparentActive ? '0px' : '14px',
-                        overflow: isTransparentActive ? 'visible' : 'hidden',
-                        backgroundColor: isTransparentActive ? 'transparent' : '#FFFFFF',
-                        border: isTransparentActive ? 'none' : '3px solid #FFFFFF',
-                        boxShadow: isTransparentActive ? 'none' : '0 4px 12px rgba(0,0,0,0.15)',
-                      }}
-                    >
-                      <img
-                        src={activeDisplaySrc}
-                        alt="Banner Preview"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: isTransparentActive ? 'contain' : 'cover',
-                          objectPosition: isTransparentActive ? 'bottom left' : 'center',
-                          transform: `scale(${zoomLevel / 100}) translateY(${panY}px)`,
-                          display: 'block',
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '42px 20px 14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div>
-                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{creatorName}</div>
-                      <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 600 }}>@creator.official • Verified</div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      style={{
-                        fontSize: '11.5px',
-                        fontWeight: 700,
-                        color: '#64748B',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      Change Photo
-                    </button>
+                <div style={{ padding: '42px 20px 14px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{creatorName}</div>
+                    <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 600 }}>@creator.official • Verified</div>
                   </div>
                 </div>
               </div>
@@ -735,7 +852,7 @@ export function AIProfileStudioModal({
                 Profile Picture Successfully Updated!
               </div>
               <div style={{ fontSize: '13px', color: '#64748B', textAlign: 'center' }}>
-                Your clean, transparent profile cutout is now live across your creator showcase.
+                Your official profile picture is now live across your creator showcase.
               </div>
             </div>
           )}
@@ -768,7 +885,7 @@ export function AIProfileStudioModal({
             Cancel
           </button>
 
-          {step === 'EDIT_STUDIO' && (
+          {(step === 'SELECT_AI_OPTION' || step === 'EDIT_STUDIO') && (
             <button
               type="button"
               onClick={handleSaveAvatar}

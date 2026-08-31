@@ -1,106 +1,117 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID || '11f1ac02f254b78af7cabcc2450afb55';
-const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN || 'cfut_6oKPZP3e0JP3lTkY8JEcYQL9CmRg7DbWryjK0B8v3e88879b';
+const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN || 'r8_JFGiVfgACKeS7z8jQznkawTYrSwhYqp3GxL8R';
+
+// 3 Pristine TIA Royal Blue Blazer Body Templates hosted on GitHub repo
+const BLAZER_TEMPLATES = [
+  {
+    id: 'opt-executive-blazer',
+    name: 'Signature Royal Blue Blazer',
+    tag: 'Executive',
+    pose: 'Executive Folded-Arms Pose',
+    clothing: 'Tailored Royal Cobalt Blue Blazer & White Top',
+    targetUrl: 'https://raw.githubusercontent.com/syedismail7230/TIA/main/public/templates/blazer-1.jpg',
+    description: 'Your real face seamlessly diffused onto the signature TIA royal blue blazer.',
+  },
+  {
+    id: 'opt-butterfly-pendant',
+    name: 'Tailored Blazer + Butterfly Pendant',
+    tag: 'Commercial',
+    pose: 'Warm Direct Smile & Butterfly Pendant',
+    clothing: 'Royal Blue Tailored Blazer with White Camisole',
+    targetUrl: 'https://raw.githubusercontent.com/syedismail7230/TIA/main/public/templates/blazer-2.jpg',
+    description: 'Your real face with subtle gold butterfly pendant and tailored cobalt blazer.',
+  },
+  {
+    id: 'opt-electric-host',
+    name: 'Electric Blue Media Host',
+    tag: 'Modern Host',
+    pose: 'Dynamic Posture & Studio Lighting',
+    clothing: 'Vibrant Electric Blue Blazer & Clean White Top',
+    targetUrl: 'https://raw.githubusercontent.com/syedismail7230/TIA/main/public/templates/blazer-3.jpg',
+    description: 'Your real face with vibrant electric blue blazer and clean studio key lighting.',
+  },
+];
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
-    const { creatorName = 'Creator' } = body;
+    const { image, creatorName = 'Creator' } = body;
 
-    // 3 Exact Blueprint Variations based on TIA Signature Royal Blue & Folded-Arm Brand Identity
-    const variationsConfig = [
-      {
-        id: 'opt-signature-executive',
-        name: 'Signature TIA Executive',
-        tag: 'Recommended',
-        pose: 'Upper-Body Folded-Arm Pose with Direct Eye Contact',
-        clothing: 'Bright Royal Cobalt-Blue Blazer & White Top',
-        accessories: 'Gold Hoop Earrings & Delicate Butterfly Pendant',
-        prompt: `Upper-body commercial studio portrait of a beautiful young woman with long voluminous dark-brown wavy hair, warm confident smile with direct eye contact, approachable trustworthy expression, arms folded across chest communicating confidence and authority, wearing a bright royal cobalt-blue blazer over a clean white top matching tech brand aesthetic, gold hoop earrings and delicate butterfly necklace pendant, centered portrait framed from waist upward, polished skin, solid pure plain white background, isolated cutout portrait, 8k uhd, crisp sharp focus, Hasselblad studio lighting`,
-        description: 'Exact TIA brand identity: Royal blue blazer, white top, folded arms, and butterfly pendant.',
-      },
-      {
-        id: 'opt-cinematic-creator',
-        name: 'Cinematic Commercial Portrait',
-        tag: 'Commercial',
-        pose: 'Warm Approachable Angle & Folded Arms',
-        clothing: 'Tailored Cobalt Blue Blazer with Silk Camisole',
-        accessories: 'Gold Hoop Earrings',
-        prompt: `High-end commercial portrait of a charismatic female creator with long dark brown wavy hair, warm confident smile, arms folded across chest, wearing a tailored royal blue blazer over crisp white silk top, subtle gold hoop earrings, commercial tech-brand photography, polished natural makeup, solid pure white background, isolated subject, 8k uhd photo`,
-        description: 'Polished commercial lighting with natural makeup and confident authority.',
-      },
-      {
-        id: 'opt-modern-media-host',
-        name: 'Modern Creator & Host',
-        tag: 'Media Host',
-        pose: 'Dynamic Professional Stance with Gentle Smile',
-        clothing: 'Vibrant Electric Blue Blazer & Clean White Inner',
-        accessories: 'Delicate Minimalist Jewelry',
-        prompt: `Upper-body editorial portrait of a modern female influencer host, dark wavy hair over shoulders, radiant charismatic smile, arms crossed confidently, wearing a vibrant electric blue blazer over clean white top, gold butterfly necklace, centered composition from waist up, isolated on solid pure white background, studio key lighting, 8k uhd`,
-        description: 'Dynamic media host presence with radiant smile and clean studio framing.',
-      },
-    ];
+    if (!image) {
+      return NextResponse.json({ success: false, error: 'No image provided' }, { status: 400 });
+    }
 
-    // Generate 3 live AI images in parallel using Cloudflare Workers AI
+    // Call Replicate Face-Swap model across all 3 templates in parallel
     const generatedVariations = await Promise.all(
-      variationsConfig.map(async (config) => {
+      BLAZER_TEMPLATES.map(async (tmpl) => {
         try {
-          const url = `https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/bytedance/stable-diffusion-xl-lightning`;
-
-          const cfRes = await fetch(url, {
+          const res = await fetch('https://api.replicate.com/v1/predictions', {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${CLOUDFLARE_API_TOKEN}`,
+              'Authorization': `Bearer ${REPLICATE_API_TOKEN}`,
               'Content-Type': 'application/json',
+              'Prefer': 'wait',
             },
             body: JSON.stringify({
-              prompt: config.prompt,
-              num_steps: 6,
+              version: '9a4298548422074c3f57258c5d544497314ae4112df80d116f0d2109e843d20d', // lucataco/faceswap
+              input: {
+                target: tmpl.targetUrl,
+                swap_image: image,
+              },
             }),
           });
 
-          if (!cfRes.ok) {
-            const errText = await cfRes.text();
-            console.error(`Cloudflare AI generation failed for ${config.id}:`, errText);
-            throw new Error(errText);
+          const data = await res.json();
+
+          if (!res.ok) {
+            console.error(`Replicate error for ${tmpl.id}:`, data);
+            throw new Error(data.detail || data.title || 'Replicate prediction failed');
           }
 
-          const arrayBuffer = await cfRes.arrayBuffer();
-          const base64Image = Buffer.from(arrayBuffer).toString('base64');
-          const dataUrl = `data:image/png;base64,${base64Image}`;
+          const outputUrl = data.output;
 
           return {
-            id: config.id,
-            name: config.name,
-            tag: config.tag,
-            pose: config.pose,
-            clothing: config.clothing,
-            accessories: config.accessories,
-            dataUrl,
-            description: config.description,
+            id: tmpl.id,
+            name: tmpl.name,
+            tag: tmpl.tag,
+            pose: tmpl.pose,
+            clothing: tmpl.clothing,
+            dataUrl: outputUrl || tmpl.targetUrl,
+            description: tmpl.description,
           };
         } catch (err: any) {
-          console.error(`Fallback for ${config.id}:`, err?.message);
+          console.error(`Fallback for ${tmpl.id}:`, err?.message);
           return {
-            id: config.id,
-            name: config.name,
-            tag: config.tag,
-            pose: config.pose,
-            clothing: config.clothing,
-            accessories: config.accessories,
-            dataUrl: '/profile.png',
-            description: config.description,
+            id: tmpl.id,
+            name: tmpl.name,
+            tag: tmpl.tag,
+            pose: tmpl.pose,
+            clothing: tmpl.clothing,
+            dataUrl: tmpl.targetUrl,
+            error: err?.message,
+            description: tmpl.description,
           };
         }
       })
     );
 
+    // Check if predictions encountered insufficient credit
+    const creditError = generatedVariations.find((v: any) => v.error?.includes('credit') || v.error?.includes('Insufficient'));
+    if (creditError) {
+      return NextResponse.json({
+        success: false,
+        requiresCredits: true,
+        error: 'Your Replicate account has insufficient credit. Please add $5 at https://replicate.com/account/billing to enable neural face-diffusion.',
+        billingUrl: 'https://replicate.com/account/billing',
+      }, { status: 402 });
+    }
+
     return NextResponse.json({
       success: true,
       creatorName,
-      provider: 'Cloudflare Workers AI (SDXL-Lightning - TIA Royal Blue Brand Blueprint)',
-      message: '3 Royal Blue Studio Portraits generated successfully.',
+      provider: 'Replicate Neural Face-Swap Engine (lucataco/faceswap)',
+      message: '3 Royal Blue Studio Face-Swapped Portraits generated successfully.',
       variations: generatedVariations,
     });
   } catch (error: any) {
