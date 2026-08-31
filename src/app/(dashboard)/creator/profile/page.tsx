@@ -480,31 +480,31 @@ export default function CreatorProfilePage() {
           </div>
 
           {/* Profile Identity Body */}
-          <div style={{ padding: '0 32px 28px 32px' }}>
-            <div className="profile-hero-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '24px', position: 'relative' }}>
+          <div style={{ padding: '0 36px 32px 36px' }}>
+            <div className="profile-hero-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '28px', position: 'relative' }}>
               {/* Floating Avatar */}
               <div
                 className="profile-avatar-wrapper"
                 style={{
                   position: 'relative',
-                  marginTop: '-54px',
+                  marginTop: '-56px',
                   flexShrink: 0,
                 }}
               >
                 <div
                   style={{
-                    width: '108px',
-                    height: '108px',
+                    width: '112px',
+                    height: '112px',
                     borderRadius: '50%',
                     background: 'linear-gradient(135deg, #0052FF 0%, #2563EB 100%)',
                     color: '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '34px',
+                    fontSize: '36px',
                     fontWeight: 900,
                     border: '4px solid #FFFFFF',
-                    boxShadow: '0 8px 24px rgba(0, 82, 255, 0.28)',
+                    boxShadow: '0 10px 28px rgba(0, 82, 255, 0.25)',
                     letterSpacing: '-0.02em',
                   }}
                 >
@@ -513,110 +513,94 @@ export default function CreatorProfilePage() {
               </div>
 
               {/* Creator Title, Rating & Meta */}
-              <div style={{ paddingTop: '10px', flex: 1 }}>
-                {/* Top Row: Name + Handle on Left, Star Rating on Right */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px', flexWrap: 'wrap' }}>
+              <div style={{ paddingTop: '8px', flex: 1 }}>
+                {/* Top Row: Name + Handle on Left, Rating Pill on Right */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px', flexWrap: 'wrap', marginBottom: '8px' }}>
                   {/* Left: Name & Handles */}
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                      <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: 0, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
-                        Sarah Jenkins
-                      </h1>
-                      <span style={{ fontSize: '14.5px', color: '#0052FF', fontWeight: 700 }}>
-                        @creator.official
-                      </span>
-                      <BlueCheckBadge size={16} title="Verified TIA Creator" />
-                    </div>
-
-                    {/* Subtitle / Tagline */}
-                    <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#475569', marginTop: '4px' }}>
-                      Tech Reviewer & AI Hardware Specialist • 615K+ Community
-                    </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                    <h1 style={{ fontSize: '26px', fontWeight: 900, color: '#0F172A', margin: 0, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                      Sarah Jenkins
+                    </h1>
+                    <span style={{ fontSize: '14px', color: '#0052FF', fontWeight: 700 }}>
+                      @creator.official
+                    </span>
+                    <BlueCheckBadge size={17} title="Verified TIA Creator" />
                   </div>
 
-                  {/* Right: Clean Star Rating Block */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '3px' }}>
-                        <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>
-                          4.9
-                        </span>
-                        <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>
-                          / 5.0
-                        </span>
-                      </div>
-
-                      {/* 5 Golden Stars */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <svg
-                            key={star}
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="#F59E0B"
-                            stroke="#F59E0B"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                          </svg>
-                        ))}
-                      </div>
-
-                      <span style={{
-                        background: '#ECFDF5',
-                        border: '1px solid #A7F3D0',
-                        color: '#047857',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        padding: '2px 8px',
-                        borderRadius: '9999px',
-                      }}>
-                        Top Rated ✓
-                      </span>
+                  {/* Right: Clean, Spacious Star Rating Strip */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      backgroundColor: '#FEF3C7',
+                      border: '1px solid #FDE68A',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                    }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#D97706" stroke="#D97706" strokeWidth="1">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                      <span style={{ fontSize: '13.5px', fontWeight: 900, color: '#92400E', lineHeight: 1 }}>4.9</span>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#B45309' }}>/ 5.0</span>
                     </div>
 
-                    {/* Subtitle Reviews & SLA Trust Line */}
-                    <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ color: '#0F172A', fontWeight: 700 }}>48 Brand Reviews</span>
-                      <span style={{ color: '#CBD5E1' }}>•</span>
-                      <span style={{ color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                        100% On-Time Delivery
-                      </span>
-                    </div>
+                    <span style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>
+                      48 Reviews
+                    </span>
+
+                    <span style={{ color: '#CBD5E1' }}>•</span>
+
+                    <span style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      backgroundColor: '#ECFDF5',
+                      border: '1px solid #A7F3D0',
+                      color: '#047857',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      padding: '3px 9px',
+                      borderRadius: '8px',
+                    }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      100% On-Time SLA
+                    </span>
                   </div>
+                </div>
+
+                {/* Subtitle / Tagline */}
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#475569', marginTop: '2px' }}>
+                  Tech Reviewer & AI Hardware Specialist • 615K+ Community
                 </div>
 
                 {/* Location & Quick Meta Badges */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '10px', fontSize: '12.5px', color: '#64748B', flexWrap: 'wrap' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
                     <MapPinIcon size={13} color="#0052FF" />
                     <span>Mumbai, Maharashtra, India</span>
-                  </span>
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  </div>
+
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
                     <VideoCameraIcon size={13} color="#0052FF" />
                     <span>Consumer Tech, AI SaaS, Lifestyle</span>
-                  </span>
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  </div>
+
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
                     <GlobeIcon size={13} color="#0052FF" />
                     <span>English, Hindi</span>
-                  </span>
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  </div>
+
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
                     <IdBadgeIcon size={13} color="#0052FF" />
-                    <span style={{ fontFamily: 'monospace', color: '#475569', fontWeight: 600 }}>Card ID: TIA-CR-98420</span>
-                  </span>
+                    <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#334155' }}>Card ID: TIA-CR-98420</span>
+                  </div>
                 </div>
 
                 {/* Bio Paragraph */}
-                <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: 1.6, margin: '14px 0 0 0', maxWidth: '880px' }}>
+                <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: 1.65, margin: '16px 0 0 0', maxWidth: '840px' }}>
                   Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools. Known for uncompromising benchmark authenticity, prompt milestone delivery, and over 550,000+ verified cross-platform community members with consistent top-tier engagement.
                 </p>
               </div>
