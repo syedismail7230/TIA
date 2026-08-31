@@ -10,6 +10,63 @@ interface AIProfileStudioModalProps {
   creatorName?: string;
 }
 
+/**
+ * Strips solid/gradient backdrop into a clean transparent PNG alpha cutout
+ */
+async function makeImageTransparent(imageSrc: string): Promise<string> {
+  return new Promise((resolve) => {
+    if (typeof window === 'undefined') return resolve(imageSrc);
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        if (!ctx) return resolve(imageSrc);
+
+        ctx.drawImage(img, 0, 0);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imgData.data;
+
+        // Sample top-left and top-right corner background colors
+        const cornerR = (data[0] + data[(canvas.width - 1) * 4]) / 2;
+        const cornerG = (data[1] + data[(canvas.width - 1) * 4 + 1]) / 2;
+        const cornerB = (data[2] + data[(canvas.width - 1) * 4 + 2]) / 2;
+
+        const tolerance = 48;
+
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+
+          // Euclidean color distance from background
+          const dist = Math.sqrt((r - cornerR) ** 2 + (g - cornerG) ** 2 + (b - cornerB) ** 2);
+
+          if (dist < tolerance) {
+            data[i + 3] = 0; // 100% Transparent
+          } else if (dist < tolerance + 30) {
+            // Smooth anti-aliased edge blend
+            const factor = (dist - tolerance) / 30;
+            data[i + 3] = Math.floor(factor * data[i + 3]);
+          }
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      } catch (err) {
+        console.error('Transparency cutout error:', err);
+        resolve(imageSrc);
+      }
+    };
+    img.onerror = () => resolve(imageSrc);
+    img.src = imageSrc;
+  });
+}
+
 export function AIProfileStudioModal({
   isOpen,
   onClose,
@@ -23,11 +80,11 @@ export function AIProfileStudioModal({
   const [processingMessage, setProcessingMessage] = useState('Initializing AI Studio Engine...');
   const [rawImageSrc, setRawImageSrc] = useState<string | null>(null);
 
-  // 3 Generated Options from Cloudflare Workers AI
+  // 3 Generated Options with transparent cutouts
   const [generatedOptions, setGeneratedOptions] = useState<
-    { id: string; name: string; tag: string; description: string; pose: string; clothing: string; dataUrl: string }[]
+    { id: string; name: string; tag: string; description: string; pose: string; clothing: string; accessories?: string; dataUrl: string }[]
   >([]);
-  const [selectedOptionId, setSelectedOptionId] = useState<string>('opt-signature-blazer');
+  const [selectedOptionId, setSelectedOptionId] = useState<string>('opt-signature-executive');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -69,20 +126,18 @@ export function AIProfileStudioModal({
   const processImageWithAI = async (imageSrc: string) => {
     setStep('ANALYZING');
     setProcessingProgress(15);
-    setProcessingMessage('Scanning photo for human face, hair & pose alignment...');
+    setProcessingMessage('Analyzing facial structure, hair & posture...');
 
     try {
-      // Progress simulation step 1
       setTimeout(() => {
         setProcessingProgress(40);
-        setProcessingMessage('Connected to Cloudflare Workers AI GPU Edge...');
+        setProcessingMessage('Cloudflare Workers AI: Rendering Royal Blue Studio Portraits...');
       }, 700);
 
-      // Progress simulation step 2
       setTimeout(() => {
-        setProcessingProgress(70);
-        setProcessingMessage('Synthesizing 3 Royal Blue Studio Portraits in parallel...');
-      }, 2000);
+        setProcessingProgress(75);
+        setProcessingMessage('Extracting transparent alpha cutout (no background box)...');
+      }, 2200);
 
       const res = await fetch('/api/ai/generate-avatar', {
         method: 'POST',
@@ -96,10 +151,21 @@ export function AIProfileStudioModal({
       const data = await res.json();
 
       if (data?.success && Array.isArray(data?.variations) && data.variations.length > 0) {
+        // Apply transparent background stripping to all 3 variations
+        const transparentVariations = await Promise.all(
+          data.variations.map(async (v: any) => {
+            const transparentDataUrl = await makeImageTransparent(v.dataUrl);
+            return {
+              ...v,
+              dataUrl: transparentDataUrl,
+            };
+          })
+        );
+
         setProcessingProgress(100);
-        setProcessingMessage('AI Studio Variations Ready!');
-        setGeneratedOptions(data.variations);
-        setSelectedOptionId(data.variations[0].id);
+        setProcessingMessage('AI Studio Transparent Cutouts Ready!');
+        setGeneratedOptions(transparentVariations);
+        setSelectedOptionId(transparentVariations[0].id);
 
         setTimeout(() => {
           setStep('SELECT_OPTION');
@@ -148,7 +214,7 @@ export function AIProfileStudioModal({
         style={{
           backgroundColor: '#FFFFFF',
           borderRadius: '24px',
-          maxWidth: '720px',
+          maxWidth: '740px',
           width: '100%',
           maxHeight: '92vh',
           overflowY: 'auto',
@@ -186,10 +252,10 @@ export function AIProfileStudioModal({
             </span>
             <div>
               <h3 style={{ margin: 0, fontSize: '16.5px', fontWeight: 800, color: '#0F172A' }}>
-                Cloudflare Workers AI Profile Studio
+                TIA AI Profile Studio • Royal Blue Cutouts
               </h3>
               <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748B' }}>
-                Live GPU edge generation • 3 Uniform Royal Blue Studio Variations
+                Uniform Royal Blue Blazer • Folded-Arm Pose • 100% Transparent Cutout
               </p>
             </div>
           </div>
@@ -258,7 +324,7 @@ export function AIProfileStudioModal({
                     Click or Drag to Upload Creator Photo
                   </div>
                   <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>
-                    Upload any photo or selfie (PNG, JPG, WEBP) to recreate your uniform studio look
+                    Upload any photo or selfie to recreate your uniform royal blue studio look
                   </div>
                 </div>
 
@@ -306,11 +372,11 @@ export function AIProfileStudioModal({
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, color: '#0052FF' }}>
                   <span>⚡</span>
-                  <span>Powered by Cloudflare Workers AI Edge GPUs (10,000 Free Daily Neurons)</span>
+                  <span>TIA Brand Portrait System:</span>
                 </div>
-                <div>1. Analyzes your facial profile and framing.</div>
-                <div>2. Recreates 3 photorealistic studio variations wearing the signature <strong>royal blue blazer</strong>.</div>
-                <div>3. Delivers crisp 8k UHD studio key lighting with high edge contrast for instant profile branding.</div>
+                <div>• Recreates your photo into a signature <strong>royal blue blazer & white top</strong>.</div>
+                <div>• Enforces the confident <strong>folded-arm executive posture</strong>.</div>
+                <div>• <strong>Strips background to transparent alpha</strong> so it floats over your cover banner seamlessly.</div>
               </div>
             </div>
           )}
@@ -333,7 +399,7 @@ export function AIProfileStudioModal({
 
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
-                  Generating Live AI Studio Variations
+                  Generating Royal Blue Studio Cutouts
                 </div>
                 <div style={{ fontSize: '13px', color: '#64748B', marginTop: '6px' }}>
                   {processingMessage}
@@ -360,10 +426,10 @@ export function AIProfileStudioModal({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#334155' }}>
-                  Select your preferred AI studio recreation:
+                  Select your preferred royal blue studio cutout:
                 </div>
                 <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>
-                  ✓ 3 Live AI Variations Generated
+                  ✓ Transparent Cutouts Ready
                 </span>
               </div>
 
@@ -405,23 +471,25 @@ export function AIProfileStudioModal({
                         {opt.tag}
                       </span>
 
-                      {/* Studio Preview */}
+                      {/* Transparent Checkerboard Backdrop for Cutout */}
                       <div
                         style={{
                           width: '100%',
                           height: '140px',
                           borderRadius: '12px',
                           overflow: 'hidden',
-                          backgroundColor: '#0F172A',
+                          backgroundColor: '#F8FAFC',
+                          backgroundImage: 'radial-gradient(#CBD5E1 1px, transparent 1px)',
+                          backgroundSize: '8px 8px',
                           display: 'flex',
-                          alignItems: 'center',
+                          alignItems: 'flex-end',
                           justifyContent: 'center',
                         }}
                       >
                         <img
                           src={opt.dataUrl}
                           alt={opt.name}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+                          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
                         />
                       </div>
 
@@ -436,7 +504,7 @@ export function AIProfileStudioModal({
                 })}
               </div>
 
-              {/* Live Banner Preview Box */}
+              {/* Live Banner Preview Box (No Box / Full Floating Cutout!) */}
               <div
                 style={{
                   border: '1px solid #E2E8F0',
@@ -459,30 +527,38 @@ export function AIProfileStudioModal({
                     backgroundPosition: 'center',
                   }}
                 >
-                  {/* Avatar Placement on Banner */}
+                  {/* Floating Avatar Placement on Banner (No Background Box!) */}
                   <div
                     style={{
                       position: 'absolute',
-                      bottom: '-25px',
+                      bottom: '-35px',
                       left: '24px',
-                      width: '90px',
-                      height: '90px',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
+                      width: '110px',
+                      height: '110px',
+                      borderRadius: '0px',
+                      overflow: 'visible',
                       backgroundColor: 'transparent',
+                      boxShadow: 'none',
+                      border: 'none',
                     }}
                   >
                     {selectedOptionObj && (
                       <img
                         src={selectedOptionObj.dataUrl}
                         alt="Selected Preview"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          objectPosition: 'bottom left',
+                          display: 'block',
+                        }}
                       />
                     )}
                   </div>
                 </div>
 
-                <div style={{ padding: '34px 20px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ padding: '42px 20px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <div style={{ fontSize: '14.5px', fontWeight: 800, color: '#0F172A' }}>{creatorName}</div>
                     <div style={{ fontSize: '11.5px', color: '#0052FF', fontWeight: 600 }}>@creator.official • Verified</div>
@@ -532,7 +608,7 @@ export function AIProfileStudioModal({
                 Profile Picture Successfully Updated!
               </div>
               <div style={{ fontSize: '13px', color: '#64748B', textAlign: 'center' }}>
-                Your new AI Studio Portrait is now live across your creator showcase.
+                Your signature royal blue studio portrait is now live.
               </div>
             </div>
           )}
