@@ -190,6 +190,11 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
   const handleTag = `@${cleanUsername}`;
 
   const isViewingAsOwner = isOwnerActual && viewMode === 'OWNER';
+  const isBrandAuthenticated = isAuthenticated && (
+    currentUser?.role === 'BRAND_ADMIN' ||
+    currentUser?.role === 'BRAND_USER' ||
+    currentUser?.role === 'BRAND'
+  );
 
   const handleCopyProfileLink = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -1637,7 +1642,88 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               </button>
             </div>
 
-            {inquirySentSuccess ? (
+            {/* CASE 1: USER NOT AUTHENTICATED AS BRAND -> REGISTRATION REQUIREMENT GATE */}
+            {!isBrandAuthenticated ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div
+                  style={{
+                    backgroundColor: '#EFF6FF',
+                    border: '1px solid #BFDBFE',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '12px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '20px' }}>🛡️</span>
+                    <span style={{ fontSize: '14.5px', fontWeight: 800, color: '#1E40AF' }}>
+                      Brand Account Required
+                    </span>
+                  </div>
+
+                  <p style={{ margin: 0, fontSize: '13px', color: '#334155', lineHeight: 1.5 }}>
+                    To protect creators and ensure guaranteed milestone escrow payments, all brand partners must register a verified Brand profile on TIA before booking deliverables.
+                  </p>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#1E3A8A', marginTop: '4px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>✓</span> <strong>100% Smart Escrow Protection</strong> (Funds locked safely until deliverable approval)
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>✓</span> <strong>Verified Social Intelligence & Live Analytics</strong>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span>✓</span> <strong>Legally-Binding Automated SLA Contracts & GST Invoicing</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <Link
+                    href={`/register?role=BRAND_ADMIN&redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      padding: '13px 0',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      borderRadius: '10px',
+                      fontSize: '14px',
+                      fontWeight: 800,
+                      textDecoration: 'none',
+                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                    }}
+                  >
+                    <span>Register as a Brand →</span>
+                  </Link>
+
+                  <Link
+                    href={`/login?redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      padding: '11px 0',
+                      backgroundColor: '#FFFFFF',
+                      color: '#334155',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '10px',
+                      fontSize: '13.5px',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span>Already have a Brand Account? Sign In</span>
+                  </Link>
+                </div>
+              </div>
+            ) : inquirySentSuccess ? (
+              /* CASE 2: INQUIRY TRANSMITTED SUCCESS */
               <div style={{ padding: '36px 12px', textAlign: 'center' }}>
                 <div
                   style={{
@@ -1663,6 +1749,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </p>
               </div>
             ) : (
+              /* CASE 3: AUTHENTICATED BRAND FORM */
               <form onSubmit={handleSendInquiry} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
@@ -1672,7 +1759,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                     type="text"
                     required
                     placeholder="e.g. Sony India, Nike, OnePlus"
-                    value={inquiryForm.brandName}
+                    value={inquiryForm.brandName || currentUser?.name || ''}
                     onChange={(e) => setInquiryForm({ ...inquiryForm, brandName: e.target.value })}
                     style={{
                       width: '100%',
@@ -1692,7 +1779,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                     type="email"
                     required
                     placeholder="marketing@yourbrand.com"
-                    value={inquiryForm.contactEmail}
+                    value={inquiryForm.contactEmail || currentUser?.email || ''}
                     onChange={(e) => setInquiryForm({ ...inquiryForm, contactEmail: e.target.value })}
                     style={{
                       width: '100%',
