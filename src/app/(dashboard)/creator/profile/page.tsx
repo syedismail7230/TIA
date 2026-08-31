@@ -581,27 +581,33 @@ export default function CreatorProfilePage() {
                   Tech Reviewer & AI Hardware Specialist • 615K+ Community
                 </div>
 
-                {/* Location & Quick Meta Badges */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '14px', flexWrap: 'wrap' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
+                {/* Location & Quick Meta Text Strip (No Cards / Boxes) */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px', fontSize: '12.5px', color: '#64748B', flexWrap: 'wrap' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <MapPinIcon size={13} color="#0052FF" />
                     <span>Mumbai, Maharashtra, India</span>
-                  </div>
+                  </span>
 
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
+                  <span style={{ color: '#CBD5E1' }}>•</span>
+
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <VideoCameraIcon size={13} color="#0052FF" />
                     <span>Consumer Tech, AI SaaS, Lifestyle</span>
-                  </div>
+                  </span>
 
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
+                  <span style={{ color: '#CBD5E1' }}>•</span>
+
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <GlobeIcon size={13} color="#0052FF" />
                     <span>English, Hindi</span>
-                  </div>
+                  </span>
 
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '4px 10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '6px', fontSize: '12px', color: '#475569' }}>
+                  <span style={{ color: '#CBD5E1' }}>•</span>
+
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <IdBadgeIcon size={13} color="#0052FF" />
-                    <span style={{ fontFamily: 'monospace', fontWeight: 700, color: '#334155' }}>Card ID: TIA-CR-98420</span>
-                  </div>
+                    <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#475569' }}>Card ID: TIA-CR-98420</span>
+                  </span>
                 </div>
 
                 {/* Bio Paragraph */}
