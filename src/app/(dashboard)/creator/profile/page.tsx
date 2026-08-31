@@ -606,7 +606,7 @@ export default function CreatorProfilePage() {
 
                   <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <IdBadgeIcon size={13} color="#0052FF" />
-                    <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#475569' }}>Card ID: TIA-CR-98420</span>
+                    <span style={{ fontFamily: 'monospace', fontWeight: 600, color: '#475569' }}>Profile ID: TIA-CR-98420</span>
                   </span>
                 </div>
 
