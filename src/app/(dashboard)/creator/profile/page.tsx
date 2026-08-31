@@ -670,14 +670,14 @@ export default function CreatorProfilePage() {
                     borderLeft: '1px solid #F1F5F9',
                   }}
                 >
-                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    Total Audience Reach
-                  </span>
-                  <div style={{ marginTop: '2px' }}>
+                  <div>
                     <span style={{ fontSize: '48px', fontWeight: 400, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.03em' }}>
                       615K+
                     </span>
                   </div>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: '4px' }}>
+                    Total Audience Reach
+                  </span>
                 </div>
               </div>
             </div>
