@@ -120,7 +120,7 @@ export default function PricingPage() {
       <section style={{
         backgroundColor: '#FAFAFA',
         borderBottom: '1px solid #E2E8F0',
-        padding: '64px clamp(20px, 4vw, 72px) 48px clamp(20px, 4vw, 72px)',
+        padding: '32px clamp(20px, 4vw, 72px) 28px clamp(20px, 4vw, 72px)',
         textAlign: 'center',
       }}>
         <div style={{ maxWidth: '880px', margin: '0 auto' }}>
@@ -130,7 +130,7 @@ export default function PricingPage() {
             backgroundColor: '#E2E8F0',
             padding: '4px',
             borderRadius: '30px',
-            marginBottom: '24px',
+            marginBottom: '0px',
             boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.06)',
           }}>
             <button
@@ -178,101 +178,6 @@ export default function PricingPage() {
               <SparklesIcon size={14} color={persona === 'creator' ? '#FFFFFF' : '#64748B'} />
               <span>For Creators & Talent</span>
             </button>
-          </div>
-
-          {/* Dynamic Headline */}
-          {persona === 'brand' ? (
-            <>
-              <h1 style={{
-                fontSize: 'clamp(32px, 4.5vw, 52px)',
-                fontWeight: 900,
-                letterSpacing: '-0.03em',
-                color: '#0F172A',
-                lineHeight: 1.12,
-                marginBottom: '16px',
-              }}>
-                One Transparent <span style={{ color: '#0052FF' }}>5% Platform Fee.</span><br />
-                No Retainers. No Markups.
-              </h1>
-              <p style={{
-                fontSize: '16.5px',
-                color: '#64748B',
-                lineHeight: 1.6,
-                maxWidth: '680px',
-                margin: '0 auto 24px auto',
-                fontWeight: 400,
-              }}>
-                Traditional agencies secretly markup creator rates by 25%–40%, and legacy platforms force $12,000/yr software subscriptions. TIA gives you full discovery, milestone budget vaults, and automated tax compliance on a pure 5% transaction ledger.
-              </p>
-            </>
-          ) : (
-            <>
-              <h1 style={{
-                fontSize: 'clamp(32px, 4.5vw, 52px)',
-                fontWeight: 900,
-                letterSpacing: '-0.03em',
-                color: '#0F172A',
-                lineHeight: 1.12,
-                marginBottom: '16px',
-              }}>
-                Keep <span style={{ color: '#0052FF' }}>95% of Every Deal.</span><br />
-                Flat 5% Platform Fee vs 25% Agency Cuts.
-              </h1>
-              <p style={{
-                fontSize: '16.5px',
-                color: '#64748B',
-                lineHeight: 1.6,
-                maxWidth: '680px',
-                margin: '0 auto 24px auto',
-                fontWeight: 400,
-              }}>
-                Never lose 25%–35% to traditional talent managers or wait 90 days for payments. Brands lock 100% of your milestone budget upfront in secure vaults, and you keep 95% of every deal upon approval.
-              </p>
-            </>
-          )}
-
-          {/* Value Proof Badges */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '24px',
-            flexWrap: 'wrap',
-            fontSize: '13px',
-            fontWeight: 600,
-            color: '#475569',
-          }}>
-            {persona === 'brand' ? (
-              <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>No Annual Subscription Lock-in</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>100% Upfront Milestone Protection</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>Automated GST Tax Invoices</span>
-                </div>
-              </>
-            ) : (
-              <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>Guaranteed 95% Net Payout to Bank</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>100% Upfront Budget Lock Before You Shoot</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <CheckIcon size={15} color="#0052FF" />
-                  <span>72-Hour Auto-Approval SLA Guarantee</span>
-                </div>
-              </>
-            )}
           </div>
         </div>
       </section>
