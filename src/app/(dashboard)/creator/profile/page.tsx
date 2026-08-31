@@ -344,7 +344,11 @@ export default function CreatorProfilePage() {
           .profile-audience-block {
             align-items: flex-start !important;
             padding-left: 0 !important;
-            margin-top: 10px !important;
+            border-left: none !important;
+            border-top: 1px solid #F1F5F9 !important;
+            padding-top: 12px !important;
+            margin-top: 14px !important;
+            width: 100% !important;
           }
           .tab-label-full {
             display: none !important;
@@ -663,21 +667,34 @@ export default function CreatorProfilePage() {
                 </p>
 
                 {/* Total Combined Followers Stat */}
-                <div className="profile-audience-block" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', flexShrink: 0, paddingLeft: '12px' }}>
+                <div
+                  className="profile-audience-block"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    paddingLeft: '28px',
+                    borderLeft: '1px solid #F1F5F9',
+                  }}
+                >
                   <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     Total Audience Reach
                   </span>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginTop: '2px' }}>
-                    <span style={{ fontSize: '28px', fontWeight: 900, color: '#0052FF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                    <span style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.02em' }}>
                       615K+
                     </span>
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                    <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0052FF' }}>
                       Followers
                     </span>
                   </div>
-                  <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '3px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
-                    Combined Across 4 Channels
+                  <div style={{ fontSize: '11.5px', color: '#059669', fontWeight: 700, marginTop: '4px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span>Combined Across 4 Channels</span>
                   </div>
                 </div>
               </div>
