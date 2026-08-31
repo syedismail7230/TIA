@@ -587,26 +587,99 @@ export default function CreatorProfilePage() {
                   </button>
                 </div>
 
-                {/* TIA Credibility Score Pill Card */}
+                {/* TIA Credibility Score Interactive Badge Card */}
                 <div
                   style={{
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
-                    borderRadius: '12px',
-                    padding: '10px 16px',
+                    background: 'linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%)',
+                    border: '1.5px solid #E2E8F0',
+                    borderRadius: '16px',
+                    padding: '12px 18px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
+                    gap: '14px',
+                    boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                    position: 'relative',
                   }}
                 >
-                  <div>
-                    <div style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      TIA Credibility Index
+                  {/* Radial Gauge Meter */}
+                  <div style={{ position: 'relative', width: '52px', height: '52px', flexShrink: 0 }}>
+                    <svg width="52" height="52" viewBox="0 0 56 56" style={{ transform: 'rotate(-90deg)' }}>
+                      {/* Background track circle */}
+                      <circle
+                        cx="28"
+                        cy="28"
+                        r="23"
+                        fill="none"
+                        stroke="#E2E8F0"
+                        strokeWidth="4.5"
+                      />
+                      {/* Active gradient progress circle */}
+                      <defs>
+                        <linearGradient id="credibilityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#0052FF" />
+                          <stop offset="100%" stopColor="#10B981" />
+                        </linearGradient>
+                      </defs>
+                      <circle
+                        cx="28"
+                        cy="28"
+                        r="23"
+                        fill="none"
+                        stroke="url(#credibilityGradient)"
+                        strokeWidth="4.5"
+                        strokeDasharray="144.5"
+                        strokeDashoffset="2.89"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    {/* Centered Number inside gauge */}
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '16px',
+                      fontWeight: 900,
+                      color: '#0F172A',
+                      letterSpacing: '-0.03em',
+                    }}>
+                      98
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginTop: '2px' }}>
-                      <span style={{ fontSize: '22px', fontWeight: 900, color: '#059669', lineHeight: 1 }}>98</span>
-                      <span style={{ fontSize: '12px', color: '#94A3B8', fontWeight: 700 }}>/ 100</span>
-                      <span style={{ fontSize: '11px', color: '#059669', fontWeight: 800, marginLeft: '4px' }}>Grade A+</span>
+                  </div>
+
+                  {/* Text Details & Trust Pillars */}
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '3px' }}>
+                      <span style={{ fontSize: '10.5px', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        TIA Credibility Index™
+                      </span>
+                      <span style={{
+                        background: '#ECFDF5',
+                        border: '1px solid #A7F3D0',
+                        color: '#047857',
+                        fontSize: '10.5px',
+                        fontWeight: 800,
+                        padding: '1.5px 7px',
+                        borderRadius: '9999px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}>
+                        <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
+                        Grade A+
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#475569' }}>
+                      <span style={{ color: '#0F172A', fontWeight: 700 }}>Top 1% Creator</span>
+                      <span style={{ color: '#CBD5E1' }}>•</span>
+                      <span style={{ color: '#059669', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Audited Audience
+                      </span>
                     </div>
                   </div>
                 </div>
