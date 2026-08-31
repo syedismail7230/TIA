@@ -514,30 +514,19 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
-                color: '#0F172A',
-                fontWeight: 800,
-                fontSize: '17px',
-                letterSpacing: '-0.02em',
               }}
             >
-              <span
+              <img
+                src="/logo-cropped.png"
+                alt="The Influencer's Agency"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '32px',
                   height: '32px',
-                  borderRadius: '8px',
-                  backgroundColor: '#0052FF',
-                  color: '#FFFFFF',
-                  fontSize: '15px',
-                  fontWeight: 900,
+                  width: 'auto',
+                  maxWidth: '160px',
+                  objectFit: 'contain',
+                  display: 'block',
                 }}
-              >
-                ⚡
-              </span>
-              <span className="header-nav-logo-group">The Influencer&apos;s Agency</span>
+              />
             </Link>
 
             <span className="header-divider-bar" style={{ color: '#CBD5E1' }}>|</span>
