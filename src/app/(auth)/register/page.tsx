@@ -89,6 +89,9 @@ function RegisterContent() {
   const [phoneCode, setPhoneCode] = useState('+91');
   const [phone, setPhone] = useState('');
   const [phoneTouched, setPhoneTouched] = useState(false);
+  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [emailDispatched, setEmailDispatched] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
@@ -185,7 +188,19 @@ function RegisterContent() {
       return;
     }
 
+    // Require SMS OTP phone verification before proceeding to Step 3
+    if (!phoneVerified) {
+      setPhoneModalOpen(true);
+      return;
+    }
+
     // Move to Step 3 (Demographics: Name, Gender, Age)
+    setStep(3);
+  };
+
+  const handlePhoneOtpSuccess = () => {
+    setPhoneVerified(true);
+    setPhoneModalOpen(false);
     setStep(3);
   };
 
@@ -228,7 +243,8 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      // Successfully registered -> move to Step 4 (Social Connect)
+      setEmailDispatched(true);
+      // Successfully registered -> move to Step 4 (Social Connect / Workspace Setup)
       setStep(4);
     } catch (err: any) {
       setError(err.message);
@@ -367,6 +383,14 @@ function RegisterContent() {
 
   return (
     <div className="auth-viewport">
+      {/* Firebase Phone SMS OTP Verification Modal */}
+      <PhoneOtpModal
+        isOpen={phoneModalOpen}
+        role={role}
+        onSuccess={handlePhoneOtpSuccess}
+        onClose={() => setPhoneModalOpen(false)}
+      />
+
       <div className="auth-card">
         {/* LEFT COLUMN: 4-STEP REGISTER FLOW */}
         <div className="auth-form-pane">
@@ -807,10 +831,42 @@ function RegisterContent() {
               {/* STEP 4: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
               {step === 4 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', color: '#0052FF', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', background: '#EFF6FF', border: '1px solid #BFDBFE', padding: '4px 12px', borderRadius: '9999px' }}>
-                      Account Registered Successfully ✓
-                    </span>
+                  {/* Email Verification Link Sent Banner */}
+                  <div style={{
+                    background: '#EFF6FF',
+                    border: '1px solid #BFDBFE',
+                    borderRadius: '12px',
+                    padding: '14px 16px',
+                    marginBottom: '18px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    textAlign: 'left',
+                  }}>
+                    <div style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '10px',
+                      background: '#DBEAFE',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#0052FF',
+                      flexShrink: 0,
+                    }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '13px', fontWeight: 700, color: '#1E3A8A' }}>
+                        Verification Link Sent to Email
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#3B82F6', marginTop: '2px' }}>
+                        We sent a secure activation link to <strong>{email}</strong>. Check your inbox to verify anytime.
+                      </div>
+                    </div>
                   </div>
 
                   <h1 className="auth-title">Link your social channels</h1>

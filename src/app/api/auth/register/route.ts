@@ -4,6 +4,7 @@ import { hashPassword } from '@/lib/auth/password';
 import { setSessionCookie } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
 import { saveStoredUser } from '@/lib/auth/local-auth-store';
+import { EmailVerificationService } from '@/lib/services/email-verification.service';
 
 export async function POST(request: Request) {
   try {
@@ -140,9 +141,21 @@ export async function POST(request: Request) {
         });
       } catch {}
 
+      // Automatically dispatch email verification link
+      try {
+        await EmailVerificationService.sendVerificationEmail({
+          email: normalizedEmail,
+          name: finalName,
+          userId: user.id,
+          role: finalRole,
+        });
+      } catch (emailErr) {
+        console.warn('Email verification dispatch note:', emailErr);
+      }
+
       return NextResponse.json(
         {
-          message: 'Account registered successfully',
+          message: 'Account registered successfully. Verification email dispatched.',
           user: { id: user.id, email: user.email, name: user.name, role: user.role },
         },
         { status: 201 }
@@ -158,9 +171,21 @@ export async function POST(request: Request) {
         role: finalRole,
       });
 
+      // Automatically dispatch email verification link in fallback
+      try {
+        await EmailVerificationService.sendVerificationEmail({
+          email: normalizedEmail,
+          name: finalName,
+          userId: fallbackUserId,
+          role: finalRole,
+        });
+      } catch (emailErr) {
+        console.warn('Email verification dispatch note:', emailErr);
+      }
+
       return NextResponse.json(
         {
-          message: 'Account registered successfully',
+          message: 'Account registered successfully. Verification email dispatched.',
           user: { id: fallbackUserId, email: normalizedEmail, name: finalName, role: finalRole },
         },
         { status: 201 }
