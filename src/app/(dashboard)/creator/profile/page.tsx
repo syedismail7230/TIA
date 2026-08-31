@@ -561,6 +561,62 @@ export default function CreatorProfilePage() {
                   </p>
                 </div>
               </div>
+
+              {/* Right Column: Clean Inline Profile Rating (Borderless / No Card) */}
+              <div style={{ paddingTop: '8px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', flexShrink: 0 }}>
+                {/* Score & Stars Row */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '22px', fontWeight: 900, color: '#0F172A', lineHeight: 1 }}>
+                    4.9
+                  </span>
+                  <span style={{ fontSize: '13px', color: '#64748B', fontWeight: 700 }}>
+                    / 5.0
+                  </span>
+
+                  {/* 5 Golden Stars */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '2px', marginLeft: '2px' }}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg
+                        key={star}
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="#F59E0B"
+                        stroke="#F59E0B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ))}
+                  </div>
+
+                  <span style={{
+                    background: '#ECFDF5',
+                    border: '1px solid #A7F3D0',
+                    color: '#047857',
+                    fontSize: '11px',
+                    fontWeight: 800,
+                    padding: '2px 8px',
+                    borderRadius: '9999px',
+                  }}>
+                    Top Rated ✓
+                  </span>
+                </div>
+
+                {/* Subtitle Reviews & SLA Trust Line */}
+                <div style={{ fontSize: '12px', color: '#64748B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ color: '#0F172A', fontWeight: 700 }}>48 Brand Reviews</span>
+                  <span style={{ color: '#CBD5E1' }}>•</span>
+                  <span style={{ color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    100% On-Time Delivery
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Verified Channels Matrix Row */}
