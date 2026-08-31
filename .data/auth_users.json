@@ -83,5 +83,32 @@
     "role": "CREATOR",
     "country": "India",
     "createdAt": "2026-08-31T08:16:25.442Z"
+  },
+  {
+    "id": "usr_1788164664338_kxis9",
+    "email": "qa_test_1788164664232@tia.agency",
+    "passwordHash": "$2a$10$jjk4hKqJIlFo.DZcMqOCIuJtnEnf8c.e/J4CYr8mG5NuBinmSB6Wa",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T08:24:24.338Z"
+  },
+  {
+    "id": "usr_1788184751403_1a6pu",
+    "email": "qa_test_1788184751298@tia.agency",
+    "passwordHash": "$2a$10$xW1UKaC9wuOBv.ma5H0HFuLFLly9Roluj35/PmNAygeZlvWR6wvma",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T13:59:11.403Z"
+  },
+  {
+    "id": "usr_1788184775794_opm7a",
+    "email": "qa_test_1788184775701@tia.agency",
+    "passwordHash": "$2a$10$tAeJlCgqnqXiizpNkUxiQOpneN.lUVj9hpB8bfBgXgSPfcc5R3txK",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-08-31T13:59:35.794Z"
   }
 ]

@@ -6,6 +6,9 @@ import crypto from 'crypto';
 
 describe('TIA Backend - Payment Protection & Ledger Engine QA Tests', () => {
   it('correctly calculates 5% TIA Platform Fee, 1% TDS, and 18% GST on fee', async () => {
+    // Top up test brand wallet
+    await PaymentService.addFunds('demo-brand-user-id', 500000);
+
     const grossAmount = 50000;
     const lockedTx = await PaymentService.lockMilestoneFunds({
       brandId: 'demo-brand-user-id',

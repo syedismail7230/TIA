@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import { signJwtToken, verifyJwtToken, SessionPayload } from '@/lib/auth/session';
 import { getStoredUserByEmail, createStoredUser, StoredUser } from '@/lib/auth/local-auth-store';
 import { logAudit } from '@/lib/audit/logger';
+import { EmailService } from './email.service';
 
 export interface RegisterInput {
   email: string;
@@ -77,6 +78,11 @@ export class AuthService {
       name: newUser.name,
     });
 
+    // Trigger transactional welcome email asynchronously
+    EmailService.sendWelcomeEmail(newUser.email, newUser.name, newUser.role).catch((err: any) => {
+      console.warn('Welcome email dispatch note:', err?.message);
+    });
+
     return {
       user: {
         id: newUser.id,
@@ -90,16 +96,16 @@ export class AuthService {
   }
 
   /**
-   * Authenticate credentials and return signed session token
+   * Login with email and password
    */
   static async login(input: LoginInput): Promise<AuthResult> {
-    const user = getStoredUserByEmail(input.email.toLowerCase().trim());
+    const user = getStoredUserByEmail(input.email);
     if (!user) {
       throw new Error('Invalid email or password.');
     }
 
-    const isMatch = bcrypt.compareSync(input.password, user.passwordHash);
-    if (!isMatch) {
+    const isValid = bcrypt.compareSync(input.password, user.passwordHash);
+    if (!isValid) {
       throw new Error('Invalid email or password.');
     }
 
@@ -108,7 +114,7 @@ export class AuthService {
       action: 'USER_LOGGED_IN',
       targetType: 'User',
       targetId: user.id,
-      details: { email: user.email },
+      details: { role: user.role, email: user.email },
     });
 
     const token = await signJwtToken({
@@ -131,9 +137,9 @@ export class AuthService {
   }
 
   /**
-   * Verify token payload
+   * Verify JWT session token
    */
   static async verifySession(token: string): Promise<SessionPayload | null> {
-    return verifyJwtToken(token);
+    return await verifyJwtToken(token);
   }
 }
