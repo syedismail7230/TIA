@@ -482,11 +482,13 @@ export default function CreatorProfilePage() {
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
           }}
         >
-          {/* Cover Artwork Banner (Clean, no fade overlay) */}
+          {/* Cover Artwork Banner (851x315 Aspect Ratio) */}
           <div
             style={{
-              height: '210px',
               width: '100%',
+              aspectRatio: '851 / 315',
+              maxHeight: '315px',
+              minHeight: '180px',
               backgroundImage: 'url("/banner.png")',
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
