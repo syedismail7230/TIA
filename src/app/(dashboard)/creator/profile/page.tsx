@@ -286,7 +286,7 @@ export default function CreatorProfilePage() {
         }
         @media (max-width: 768px) {
           .profile-container {
-            padding: 0 16px;
+            padding: 0 12px;
           }
           .header-nav-logo-group {
             display: none !important;
@@ -294,18 +294,21 @@ export default function CreatorProfilePage() {
           .header-divider-bar {
             display: none !important;
           }
-          .profile-hero-content {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 16px !important;
+          .profile-cover-banner {
+            min-height: unset !important;
+            height: auto !important;
+            aspect-ratio: 851 / 315 !important;
+            background-size: 100% 100% !important;
+            background-position: center center !important;
           }
           .profile-avatar-wrapper {
-            margin-top: -95px !important;
+            margin-top: -65px !important;
+            margin-bottom: 8px !important;
           }
           .profile-dp-container {
-            width: 150px !important;
-            height: 150px !important;
-            border-radius: 20px !important;
+            width: 120px !important;
+            height: 120px !important;
+            border-radius: 16px !important;
           }
           .profile-stats-bar {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -494,6 +497,7 @@ export default function CreatorProfilePage() {
         >
           {/* Cover Artwork Banner (851x315 Aspect Ratio) */}
           <div
+            className="profile-cover-banner"
             style={{
               width: '100%',
               aspectRatio: '851 / 315',
