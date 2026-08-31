@@ -596,10 +596,10 @@ export default function CreatorProfilePage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px', flexWrap: 'wrap', marginBottom: '8px' }}>
                 {/* Left: Name & Handles */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                  <h1 style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', margin: 0, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                  <h1 style={{ fontSize: '28px', fontWeight: 600, color: '#0F172A', margin: 0, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
                     Sarah Jenkins
                   </h1>
-                  <span style={{ fontSize: '15px', color: '#0052FF', fontWeight: 700 }}>
+                  <span style={{ fontSize: '15px', color: '#0052FF', fontWeight: 600 }}>
                     @creator.official
                   </span>
                   <BlueCheckBadge size={18} title="Verified TIA Creator" />
@@ -620,15 +620,6 @@ export default function CreatorProfilePage() {
                   <span style={{ color: '#475569', fontWeight: 600, whiteSpace: 'nowrap' }}>
                     48 Reviews
                   </span>
-
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#059669', fontWeight: 700, whiteSpace: 'nowrap' }}>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>100% On-Time SLA</span>
-                  </div>
                 </div>
               </div>
 
@@ -679,22 +670,16 @@ export default function CreatorProfilePage() {
                     borderLeft: '1px solid #F1F5F9',
                   }}
                 >
-                  <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     Total Audience Reach
                   </span>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginTop: '2px' }}>
-                    <span style={{ fontSize: '28px', fontWeight: 900, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '2px' }}>
+                    <span style={{ fontSize: '48px', fontWeight: 400, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.03em' }}>
                       615K+
                     </span>
-                    <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0052FF' }}>
+                    <span style={{ fontSize: '15px', fontWeight: 600, color: '#0052FF' }}>
                       Followers
                     </span>
-                  </div>
-                  <div style={{ fontSize: '11.5px', color: '#059669', fontWeight: 700, marginTop: '4px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span>Combined Across 4 Channels</span>
                   </div>
                 </div>
               </div>
