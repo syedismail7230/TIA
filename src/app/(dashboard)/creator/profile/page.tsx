@@ -513,7 +513,7 @@ export default function CreatorProfilePage() {
               </div>
 
               {/* Creator Title, Rating & Meta */}
-              <div style={{ paddingTop: '8px', flex: 1 }}>
+              <div style={{ paddingTop: '20px', flex: 1 }}>
                 {/* Top Row: Name + Handle on Left, Rating Pill on Right */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px', flexWrap: 'wrap', marginBottom: '8px' }}>
                   {/* Left: Name & Handles */}
@@ -527,47 +527,30 @@ export default function CreatorProfilePage() {
                     <BlueCheckBadge size={17} title="Verified TIA Creator" />
                   </div>
 
-                  {/* Right: Clean, Spacious Star Rating Strip */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      backgroundColor: '#FEF3C7',
-                      border: '1px solid #FDE68A',
-                      padding: '4px 10px',
-                      borderRadius: '8px',
-                    }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#D97706" stroke="#D97706" strokeWidth="1">
+                  {/* Right: Pure Text Star Rating Strip (No Box/Card) */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" strokeWidth="1">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
-                      <span style={{ fontSize: '13.5px', fontWeight: 900, color: '#92400E', lineHeight: 1 }}>4.9</span>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#B45309' }}>/ 5.0</span>
+                      <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '14px' }}>4.9</span>
+                      <span style={{ color: '#64748B', fontWeight: 600, fontSize: '12px' }}>/ 5.0</span>
                     </div>
 
-                    <span style={{ fontSize: '12.5px', color: '#64748B', fontWeight: 600 }}>
+                    <span style={{ color: '#CBD5E1' }}>•</span>
+
+                    <span style={{ color: '#475569', fontWeight: 600 }}>
                       48 Reviews
                     </span>
 
                     <span style={{ color: '#CBD5E1' }}>•</span>
 
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      backgroundColor: '#ECFDF5',
-                      border: '1px solid #A7F3D0',
-                      color: '#047857',
-                      fontSize: '11.5px',
-                      fontWeight: 700,
-                      padding: '3px 9px',
-                      borderRadius: '8px',
-                    }}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#059669', fontWeight: 700 }}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      100% On-Time SLA
-                    </span>
+                      <span>100% On-Time SLA</span>
+                    </div>
                   </div>
                 </div>
 
