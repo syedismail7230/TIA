@@ -288,13 +288,19 @@ export default function CreatorProfilePage() {
           .profile-container {
             padding: 0 16px;
           }
+          .header-nav-logo-group {
+            display: none !important;
+          }
+          .header-divider-bar {
+            display: none !important;
+          }
           .profile-hero-content {
             flex-direction: column !important;
             align-items: flex-start !important;
-            gap: 18px !important;
+            gap: 16px !important;
           }
           .profile-avatar-wrapper {
-            margin-top: -50px !important;
+            margin-top: -46px !important;
           }
           .profile-stats-bar {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -303,10 +309,18 @@ export default function CreatorProfilePage() {
             width: 100% !important;
             justifyContent: stretch !important;
           }
-          .profile-actions-row button, .profile-actions-row a {
-            flex: 1 !important;
-            text-align: center !important;
-            justify-content: center !important;
+          .profile-rating-strip {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            margin-top: 4px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .header-btn-label {
+            display: none !important;
+          }
+          .header-action-btn {
+            padding: 7px 10px !important;
           }
         }
       `}} />
@@ -333,13 +347,13 @@ export default function CreatorProfilePage() {
           }}
         >
           {/* Logo & Back to Dashboard */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Link
               href="/creator"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '7px',
+                gap: '6px',
                 padding: '6px 12px',
                 borderRadius: '8px',
                 backgroundColor: '#F1F5F9',
@@ -348,6 +362,7 @@ export default function CreatorProfilePage() {
                 fontWeight: 700,
                 textDecoration: 'none',
                 transition: 'all 0.15s ease',
+                whiteSpace: 'nowrap',
               }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -357,9 +372,9 @@ export default function CreatorProfilePage() {
               <span>Dashboard</span>
             </Link>
 
-            <div style={{ height: '20px', width: '1px', backgroundColor: '#E2E8F0' }} />
+            <div className="header-divider-bar" style={{ height: '20px', width: '1px', backgroundColor: '#E2E8F0' }} />
 
-            <Link href="/creator" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Link href="/creator" className="header-nav-logo-group" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <img
                 src="/logo-cropped.png"
                 alt="The Influencer's Agency"
@@ -374,6 +389,7 @@ export default function CreatorProfilePage() {
                   padding: '2px 7px',
                   borderRadius: '4px',
                   letterSpacing: '0.04em',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 PUBLIC CREATOR PROFILE
@@ -382,15 +398,16 @@ export default function CreatorProfilePage() {
           </div>
 
           {/* Right Header Actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             <button
               type="button"
               onClick={handleCopyProfileLink}
+              className="header-action-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '7px 14px',
+                padding: '7px 12px',
                 backgroundColor: copiedLink ? '#ECFDF5' : '#FFFFFF',
                 border: copiedLink ? '1px solid #A7F3D0' : '1px solid #CBD5E1',
                 borderRadius: '8px',
@@ -399,14 +416,16 @@ export default function CreatorProfilePage() {
                 color: copiedLink ? '#059669' : '#334155',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
+                whiteSpace: 'nowrap',
               }}
+              title="Share Profile Link"
             >
               {copiedLink ? (
                 <>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span>Link Copied!</span>
+                  <span className="header-btn-label">Link Copied!</span>
                 </>
               ) : (
                 <>
@@ -414,18 +433,19 @@ export default function CreatorProfilePage() {
                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                   </svg>
-                  <span>Share Profile</span>
+                  <span className="header-btn-label">Share Profile</span>
                 </>
               )}
             </button>
 
             <Link
               href="/creator?tab=settings"
+              className="header-action-btn"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '7px 14px',
+                padding: '7px 12px',
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #CBD5E1',
                 borderRadius: '8px',
@@ -433,13 +453,15 @@ export default function CreatorProfilePage() {
                 fontWeight: 700,
                 color: '#334155',
                 textDecoration: 'none',
+                whiteSpace: 'nowrap',
               }}
+              title="Edit Profile Settings"
             >
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 20h9" />
                 <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
               </svg>
-              <span>Edit Profile</span>
+              <span className="header-btn-label">Edit Profile</span>
             </Link>
           </div>
         </div>
@@ -528,8 +550,8 @@ export default function CreatorProfilePage() {
                   </div>
 
                   {/* Right: Pure Text Star Rating Strip (No Box/Card) */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <div className="profile-rating-strip" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" strokeWidth="1">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
@@ -539,13 +561,13 @@ export default function CreatorProfilePage() {
 
                     <span style={{ color: '#CBD5E1' }}>•</span>
 
-                    <span style={{ color: '#475569', fontWeight: 600 }}>
+                    <span style={{ color: '#475569', fontWeight: 600, whiteSpace: 'nowrap' }}>
                       48 Reviews
                     </span>
 
                     <span style={{ color: '#CBD5E1' }}>•</span>
 
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#059669', fontWeight: 700 }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#059669', fontWeight: 700, whiteSpace: 'nowrap' }}>
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
