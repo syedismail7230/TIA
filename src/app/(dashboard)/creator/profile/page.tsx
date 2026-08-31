@@ -485,9 +485,11 @@ export default function CreatorProfilePage() {
           {/* Cover Artwork Banner */}
           <div
             style={{
-              height: '180px',
+              height: '200px',
               width: '100%',
-              background: 'linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0052FF 100%)',
+              backgroundImage: 'url("/banner.png")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               position: 'relative',
             }}
           >
@@ -496,7 +498,7 @@ export default function CreatorProfilePage() {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 60%)',
+                background: 'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%)',
               }}
             />
           </div>
