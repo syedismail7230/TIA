@@ -485,79 +485,6 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
       `}} />
 
       {/* ==================================================================== */}
-      {/* 0. OWNER PREVIEW SWITCHER BAR (Visible only to authenticated owner)   */}
-      {/* ==================================================================== */}
-      {isOwnerActual && (
-        <div
-          style={{
-            backgroundColor: '#0F172A',
-            color: '#FFFFFF',
-            padding: '8px 24px',
-            fontSize: '12.5px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '12px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
-            <span style={{ fontWeight: 700 }}>Creator Profile Management:</span>
-            <span style={{ color: '#94A3B8' }}>{displayName} ({handleTag})</span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ color: '#94A3B8', fontSize: '12px' }}>Mode:</span>
-            <div
-              style={{
-                display: 'inline-flex',
-                backgroundColor: 'rgba(255, 255, 255, 0.12)',
-                borderRadius: '6px',
-                padding: '2px',
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setViewMode('OWNER')}
-                style={{
-                  padding: '3px 10px',
-                  borderRadius: '4px',
-                  border: 'none',
-                  fontSize: '11.5px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  backgroundColor: viewMode === 'OWNER' ? '#0052FF' : 'transparent',
-                  color: viewMode === 'OWNER' ? '#FFFFFF' : '#94A3B8',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                ✏️ Owner View (Editable)
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('PUBLIC')}
-                style={{
-                  padding: '3px 10px',
-                  borderRadius: '4px',
-                  border: 'none',
-                  fontSize: '11.5px',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  backgroundColor: viewMode === 'PUBLIC' ? '#059669' : 'transparent',
-                  color: viewMode === 'PUBLIC' ? '#FFFFFF' : '#94A3B8',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                👁️ Public / Brand Visitor
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ==================================================================== */}
       {/* HEADER NAVIGATION BAR (BRAND SYSTEM COMPLIANT)                       */}
       {/* ==================================================================== */}
       <header
@@ -667,6 +594,39 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </>
               )}
             </button>
+
+            {/* Public View Preview Toggle Icon Button (Visible for Owner) */}
+            {isOwnerActual && (
+              <button
+                type="button"
+                onClick={() => setViewMode(viewMode === 'OWNER' ? 'PUBLIC' : 'OWNER')}
+                className="header-action-btn"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 12px',
+                  backgroundColor: viewMode === 'PUBLIC' ? '#EFF6FF' : '#FFFFFF',
+                  border: viewMode === 'PUBLIC' ? '1px solid #0052FF' : '1px solid #CBD5E1',
+                  borderRadius: '8px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  color: viewMode === 'PUBLIC' ? '#0052FF' : '#334155',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  whiteSpace: 'nowrap',
+                }}
+                title={viewMode === 'OWNER' ? 'View as Public' : 'Back to Owner View'}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span className="header-btn-label">
+                  {viewMode === 'OWNER' ? 'Public View' : 'Owner View'}
+                </span>
+              </button>
+            )}
 
             {/* OWNER MODE: Edit Profile Button */}
             {isViewingAsOwner ? (
