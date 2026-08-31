@@ -300,12 +300,12 @@ export default function CreatorProfilePage() {
             gap: 16px !important;
           }
           .profile-avatar-wrapper {
-            margin-top: -55px !important;
+            margin-top: -95px !important;
           }
           .profile-dp-container {
-            width: 110px !important;
-            height: 110px !important;
-            border-radius: 18px !important;
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 20px !important;
           }
           .profile-stats-bar {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -510,13 +510,13 @@ export default function CreatorProfilePage() {
 
           {/* Profile Identity Body */}
           <div style={{ padding: '0 36px 32px 36px' }}>
-            {/* Floating Avatar Profile Picture (Positioned on Top of Text) */}
+            {/* Floating Avatar Profile Picture (Extra Large, Top of Text) */}
             <div
               className="profile-avatar-wrapper"
               style={{
                 position: 'relative',
-                marginTop: '-110px',
-                marginBottom: '10px',
+                marginTop: '-145px',
+                marginBottom: '12px',
                 zIndex: 10,
                 display: 'inline-block',
               }}
@@ -524,9 +524,9 @@ export default function CreatorProfilePage() {
               <div
                 className="profile-dp-container"
                 style={{
-                  width: '180px',
-                  height: '180px',
-                  borderRadius: '20px',
+                  width: '230px',
+                  height: '230px',
+                  borderRadius: '24px',
                   overflow: 'hidden',
                   backgroundColor: 'transparent',
                   boxShadow: 'none',
