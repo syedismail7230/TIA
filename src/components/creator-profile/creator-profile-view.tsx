@@ -1592,9 +1592,9 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.65)',
-            backdropFilter: 'blur(6px)',
-            zIndex: 50,
+            backgroundColor: 'rgba(15, 23, 42, 0.7)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 100,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -1604,260 +1604,408 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
           <div
             style={{
               backgroundColor: '#FFFFFF',
-              borderRadius: '20px',
-              maxWidth: '520px',
+              borderRadius: '24px',
+              maxWidth: '540px',
               width: '100%',
-              padding: '28px',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
-              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              border: '1px solid #E2E8F0',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             {/* Modal Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0052FF', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Direct Brand Collaboration
+            <div
+              style={{
+                padding: '22px 26px',
+                borderBottom: '1px solid #F1F5F9',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                backgroundColor: '#FFFFFF',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '12px',
+                    backgroundColor: '#EFF6FF',
+                    color: '#0052FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '18px',
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  </svg>
                 </div>
-                <h3 style={{ margin: '4px 0 0 0', fontSize: '20px', fontWeight: 900, color: '#0F172A' }}>
-                  Book Collaboration with {displayName}
-                </h3>
+                <div>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    Direct Escrow Collaboration
+                  </div>
+                  <h3 style={{ margin: '2px 0 0 0', fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
+                    Book Collaboration with {displayName}
+                  </h3>
+                </div>
               </div>
+
               <button
                 type="button"
                 onClick={() => setShowInquiryModal(false)}
                 style={{
                   backgroundColor: '#F1F5F9',
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '10px',
                   width: '32px',
                   height: '32px',
                   cursor: 'pointer',
-                  fontSize: '16px',
+                  fontSize: '15px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  color: '#64748B',
+                  transition: 'all 0.15s ease',
                 }}
               >
                 ✕
               </button>
             </div>
 
-            {/* CASE 1: USER NOT AUTHENTICATED AS BRAND -> REGISTRATION REQUIREMENT GATE */}
-            {!isBrandAuthenticated ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div
-                  style={{
-                    backgroundColor: '#EFF6FF',
-                    border: '1px solid #BFDBFE',
-                    borderRadius: '16px',
-                    padding: '20px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '20px' }}>🛡️</span>
-                    <span style={{ fontSize: '14.5px', fontWeight: 800, color: '#1E40AF' }}>
-                      Brand Account Required
-                    </span>
-                  </div>
-
-                  <p style={{ margin: 0, fontSize: '13px', color: '#334155', lineHeight: 1.5 }}>
-                    To protect creators and ensure guaranteed milestone escrow payments, all brand partners must register a verified Brand profile on TIA before booking deliverables.
+            {/* Modal Body */}
+            <div style={{ padding: '24px 26px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {/* CASE 1: USER NOT AUTHENTICATED AS BRAND -> REGISTRATION REQUIREMENT GATE */}
+              {!isBrandAuthenticated ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  {/* Explanatory Intro */}
+                  <p style={{ margin: 0, fontSize: '13.5px', color: '#475569', lineHeight: 1.55 }}>
+                    To protect creators and guarantee secure milestone escrow payments, all brand partners must register or sign in with a verified Brand profile on TIA before transmitting deliverables.
                   </p>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#1E3A8A', marginTop: '4px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span>✓</span> <strong>100% Smart Escrow Protection</strong> (Funds locked safely until deliverable approval)
+                  {/* 3 Core Trust Pillars Grid */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {/* Feature 1: Escrow */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                        padding: '12px 14px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px solid #E2E8F0',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          backgroundColor: '#EFF6FF',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px',
+                        }}
+                      >
+                        <ShieldCheckIcon size={18} color="#0052FF" />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                          100% Smart Escrow Protection
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                          Campaign funds remain locked securely in escrow and are only disbursed upon your deliverable review & approval.
+                        </div>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span>✓</span> <strong>Verified Social Intelligence & Live Analytics</strong>
+
+                    {/* Feature 2: Verified Analytics */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                        padding: '12px 14px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px solid #E2E8F0',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          backgroundColor: '#ECFDF5',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px',
+                        }}
+                      >
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                          Verified Social Intelligence & Live Analytics
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                          Real-time tracking of verified views, impressions, engagement rates, and certified audience demographics.
+                        </div>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span>✓</span> <strong>Legally-Binding Automated SLA Contracts & GST Invoicing</strong>
+
+                    {/* Feature 3: Contracts & SLA */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                        padding: '12px 14px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px solid #E2E8F0',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          backgroundColor: '#EEF2FF',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px',
+                        }}
+                      >
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="16" y1="13" x2="8" y2="13" />
+                          <line x1="16" y1="17" x2="8" y2="17" />
+                          <polyline points="10 9 9 9 8 9" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                          Automated SLA Contracts & GST Invoicing
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
+                          Legally binding digital commercial contracts with automated GST tax invoicing and guaranteed turnaround timelines.
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <Link
-                    href={`/register?role=BRAND_ADMIN&redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
+                  {/* Action Buttons */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
+                    <Link
+                      href={`/register?role=BRAND_ADMIN&redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        height: '46px',
+                        backgroundColor: '#0052FF',
+                        color: '#FFFFFF',
+                        borderRadius: '12px',
+                        fontSize: '14px',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
+                        transition: 'transform 0.15s ease, background-color 0.15s ease',
+                      }}
+                    >
+                      <span>Register as a Brand →</span>
+                    </Link>
+
+                    <Link
+                      href={`/login?redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        height: '42px',
+                        backgroundColor: '#FFFFFF',
+                        color: '#334155',
+                        border: '1px solid #CBD5E1',
+                        borderRadius: '12px',
+                        fontSize: '13.5px',
+                        fontWeight: 600,
+                        textDecoration: 'none',
+                        transition: 'background-color 0.15s ease',
+                      }}
+                    >
+                      <span>Already have a Brand Account? Sign In</span>
+                    </Link>
+                  </div>
+
+                  {/* Trust Footer */}
+                  <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '8px',
-                      padding: '13px 0',
+                      gap: '6px',
+                      fontSize: '11.5px',
+                      color: '#64748B',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <span>🔒</span>
+                    <span>TIA Trust & Escrow Shield • Zero upfront fees for brand accounts</span>
+                  </div>
+                </div>
+              ) : inquirySentSuccess ? (
+                /* CASE 2: INQUIRY TRANSMITTED SUCCESS */
+                <div style={{ padding: '36px 12px', textAlign: 'center' }}>
+                  <div
+                    style={{
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: '50%',
+                      backgroundColor: '#ECFDF5',
+                      color: '#059669',
+                      fontSize: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      margin: '0 auto 16px auto',
+                    }}
+                  >
+                    ✓
+                  </div>
+                  <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
+                    Collaboration Request Transmitted!
+                  </h4>
+                  <p style={{ margin: '8px 0 0 0', fontSize: '13px', color: '#64748B' }}>
+                    Your campaign brief has been routed directly to {displayName}&apos;s verified creator management workspace on TIA.
+                  </p>
+                </div>
+              ) : (
+                /* CASE 3: AUTHENTICATED BRAND FORM */
+                <form onSubmit={handleSendInquiry} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                      Brand / Company Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Sony India, Nike, OnePlus"
+                      value={inquiryForm.brandName || currentUser?.name || ''}
+                      onChange={(e) => setInquiryForm({ ...inquiryForm, brandName: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '13.5px',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                      Business Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="marketing@yourbrand.com"
+                      value={inquiryForm.contactEmail || currentUser?.email || ''}
+                      onChange={(e) => setInquiryForm({ ...inquiryForm, contactEmail: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '13.5px',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                      Package Deliverable
+                    </label>
+                    <select
+                      value={inquiryForm.deliverableType}
+                      onChange={(e) => setInquiryForm({ ...inquiryForm, deliverableType: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '13.5px',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    >
+                      <option value="Dedicated YouTube Review">Full Dedicated YouTube Video (₹45,000)</option>
+                      <option value="Instagram Reel + Stories">Instagram Reel + Story Blitz (₹25,000)</option>
+                      <option value="YouTube Mid-Roll Integration">YouTube Mid-Roll Segment (₹20,000)</option>
+                      <option value="Cross-Platform Omni Launch">360° Omni Launch Blitz (₹80,000)</option>
+                      <option value="Custom Campaign">Custom Campaign / Retainer</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                      Campaign Objectives / Brief
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder="Briefly describe your launch dates, product details, and deliverable expectations..."
+                      value={inquiryForm.campaignGoals}
+                      onChange={(e) => setInquiryForm({ ...inquiryForm, campaignGoals: e.target.value })}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #CBD5E1',
+                        fontSize: '13.5px',
+                        fontFamily: 'inherit',
+                      }}
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
+                    <ShieldCheckIcon size={14} color="#059669" />
+                    <span>Protected by TIA Smart Escrow & SLA Guarantee</span>
+                  </div>
+
+                  <button
+                    type="submit"
+                    style={{
+                      marginTop: '8px',
+                      padding: '12px 0',
                       backgroundColor: '#0052FF',
                       color: '#FFFFFF',
-                      borderRadius: '10px',
+                      border: 'none',
+                      borderRadius: '8px',
                       fontSize: '14px',
                       fontWeight: 800,
-                      textDecoration: 'none',
-                      boxShadow: '0 4px 12px rgba(0, 82, 255, 0.25)',
+                      cursor: 'pointer',
                     }}
                   >
-                    <span>Register as a Brand →</span>
-                  </Link>
-
-                  <Link
-                    href={`/login?redirect=${encodeURIComponent(`/creator/${cleanUsername}`)}`}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '8px',
-                      padding: '11px 0',
-                      backgroundColor: '#FFFFFF',
-                      color: '#334155',
-                      border: '1px solid #CBD5E1',
-                      borderRadius: '10px',
-                      fontSize: '13.5px',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                    }}
-                  >
-                    <span>Already have a Brand Account? Sign In</span>
-                  </Link>
-                </div>
-              </div>
-            ) : inquirySentSuccess ? (
-              /* CASE 2: INQUIRY TRANSMITTED SUCCESS */
-              <div style={{ padding: '36px 12px', textAlign: 'center' }}>
-                <div
-                  style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '50%',
-                    backgroundColor: '#ECFDF5',
-                    color: '#059669',
-                    fontSize: '24px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 16px auto',
-                  }}
-                >
-                  ✓
-                </div>
-                <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
-                  Collaboration Request Transmitted!
-                </h4>
-                <p style={{ margin: '8px 0 0 0', fontSize: '13px', color: '#64748B' }}>
-                  Your campaign brief has been routed directly to {displayName}&apos;s verified creator management workspace on TIA.
-                </p>
-              </div>
-            ) : (
-              /* CASE 3: AUTHENTICATED BRAND FORM */
-              <form onSubmit={handleSendInquiry} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    Brand / Company Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Sony India, Nike, OnePlus"
-                    value={inquiryForm.brandName || currentUser?.name || ''}
-                    onChange={(e) => setInquiryForm({ ...inquiryForm, brandName: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '13.5px',
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    Business Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="marketing@yourbrand.com"
-                    value={inquiryForm.contactEmail || currentUser?.email || ''}
-                    onChange={(e) => setInquiryForm({ ...inquiryForm, contactEmail: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '13.5px',
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    Package Deliverable
-                  </label>
-                  <select
-                    value={inquiryForm.deliverableType}
-                    onChange={(e) => setInquiryForm({ ...inquiryForm, deliverableType: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '13.5px',
-                      backgroundColor: '#FFFFFF',
-                    }}
-                  >
-                    <option value="Dedicated YouTube Review">Full Dedicated YouTube Video (₹45,000)</option>
-                    <option value="Instagram Reel + Stories">Instagram Reel + Story Blitz (₹25,000)</option>
-                    <option value="YouTube Mid-Roll Integration">YouTube Mid-Roll Segment (₹20,000)</option>
-                    <option value="Cross-Platform Omni Launch">360° Omni Launch Blitz (₹80,000)</option>
-                    <option value="Custom Campaign">Custom Campaign / Retainer</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
-                    Campaign Objectives / Brief
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Briefly describe your launch dates, product details, and deliverable expectations..."
-                    value={inquiryForm.campaignGoals}
-                    onChange={(e) => setInquiryForm({ ...inquiryForm, campaignGoals: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '10px 12px',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
-                      fontSize: '13.5px',
-                      fontFamily: 'inherit',
-                    }}
-                  />
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
-                  <ShieldCheckIcon size={14} color="#059669" />
-                  <span>Protected by TIA Smart Escrow & SLA Guarantee</span>
-                </div>
-
-                <button
-                  type="submit"
-                  style={{
-                    marginTop: '8px',
-                    padding: '12px 0',
-                    backgroundColor: '#0052FF',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                  }}
-                >
-                  Transmit Collaboration Brief →
-                </button>
-              </form>
-            )}
+                    Transmit Collaboration Brief →
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       )}
