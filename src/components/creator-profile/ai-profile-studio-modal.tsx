@@ -11,7 +11,8 @@ interface AIProfileStudioModalProps {
 }
 
 /**
- * Strips solid/gradient backdrop into a clean transparent PNG alpha cutout
+ * High-Precision Flood-Fill Background Removal Algorithm
+ * Strips all solid/gradient background pixels connected to the borders into 100% transparent alpha.
  */
 async function makeImageTransparent(imageSrc: string): Promise<string> {
   return new Promise((resolve) => {
@@ -22,36 +23,81 @@ async function makeImageTransparent(imageSrc: string): Promise<string> {
     img.onload = () => {
       try {
         const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth || img.width;
-        canvas.height = img.naturalHeight || img.height;
+        const width = img.naturalWidth || img.width;
+        const height = img.naturalHeight || img.height;
+        canvas.width = width;
+        canvas.height = height;
+
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return resolve(imageSrc);
 
         ctx.drawImage(img, 0, 0);
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, width, height);
         const data = imgData.data;
 
-        // Sample top-left and top-right corner background colors
-        const cornerR = (data[0] + data[(canvas.width - 1) * 4]) / 2;
-        const cornerG = (data[1] + data[(canvas.width - 1) * 4 + 1]) / 2;
-        const cornerB = (data[2] + data[(canvas.width - 1) * 4 + 2]) / 2;
+        // Sample border corner background colors
+        const corners = [
+          0, // top-left
+          (width - 1) * 4, // top-right
+          (height - 1) * width * 4, // bottom-left
+          ((height - 1) * width + (width - 1)) * 4, // bottom-right
+        ];
 
-        const tolerance = 48;
+        let bgR = 0, bgG = 0, bgB = 0;
+        for (const c of corners) {
+          bgR += data[c];
+          bgG += data[c + 1];
+          bgB += data[c + 2];
+        }
+        bgR = Math.round(bgR / 4);
+        bgG = Math.round(bgG / 4);
+        bgB = Math.round(bgB / 4);
 
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
+        const tolerance = 50;
+        const visited = new Uint8Array(width * height);
+        const queue: number[] = [];
 
-          // Euclidean color distance from background
-          const dist = Math.sqrt((r - cornerR) ** 2 + (g - cornerG) ** 2 + (b - cornerB) ** 2);
+        // Seed with all perimeter border pixels
+        for (let x = 0; x < width; x++) {
+          queue.push(x, 0);
+          queue.push(x, height - 1);
+        }
+        for (let y = 0; y < height; y++) {
+          queue.push(0, y);
+          queue.push(width - 1, y);
+        }
+
+        let head = 0;
+        while (head < queue.length) {
+          const x = queue[head++];
+          const y = queue[head++];
+          const idx = y * width + x;
+
+          if (x < 0 || x >= width || y < 0 || y >= height || visited[idx]) {
+            continue;
+          }
+
+          visited[idx] = 1;
+          const pIdx = idx * 4;
+          const r = data[pIdx];
+          const g = data[pIdx + 1];
+          const b = data[pIdx + 2];
+
+          // Calculate Euclidean color distance from background
+          const dist = Math.sqrt((r - bgR) ** 2 + (g - bgG) ** 2 + (b - bgB) ** 2);
 
           if (dist < tolerance) {
-            data[i + 3] = 0; // 100% Transparent
+            data[pIdx + 3] = 0; // 100% Transparent Alpha
+
+            // Flood-fill 4-way neighbors
+            if (x > 0 && !visited[y * width + (x - 1)]) queue.push(x - 1, y);
+            if (x < width - 1 && !visited[y * width + (x + 1)]) queue.push(x + 1, y);
+            if (y > 0 && !visited[(y - 1) * width + x]) queue.push(x, y - 1);
+            if (y < height - 1 && !visited[(y + 1) * width + x]) queue.push(x, y + 1);
           } else if (dist < tolerance + 30) {
-            // Smooth anti-aliased edge blend
-            const factor = (dist - tolerance) / 30;
-            data[i + 3] = Math.floor(factor * data[i + 3]);
+            // Anti-aliased feathering on edges
+            const alphaFactor = (dist - tolerance) / 30;
+            data[pIdx + 3] = Math.floor(alphaFactor * 255);
           }
         }
 
@@ -136,7 +182,7 @@ export function AIProfileStudioModal({
 
       setTimeout(() => {
         setProcessingProgress(75);
-        setProcessingMessage('Extracting transparent alpha cutout (no background box)...');
+        setProcessingMessage('Extracting transparent alpha cutout (NO background box)...');
       }, 2200);
 
       const res = await fetch('/api/ai/generate-avatar', {
@@ -255,7 +301,7 @@ export function AIProfileStudioModal({
                 TIA AI Profile Studio • Royal Blue Cutouts
               </h3>
               <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748B' }}>
-                Uniform Royal Blue Blazer • Folded-Arm Pose • 100% Transparent Cutout
+                Uniform Royal Blue Blazer • Folded-Arm Pose • 100% Transparent (No BG)
               </p>
             </div>
           </div>
@@ -324,7 +370,7 @@ export function AIProfileStudioModal({
                     Click or Drag to Upload Creator Photo
                   </div>
                   <div style={{ fontSize: '12.5px', color: '#64748B', marginTop: '4px' }}>
-                    Upload any photo or selfie to recreate your uniform royal blue studio look
+                    Upload any photo or selfie to recreate your uniform royal blue studio look (NO background)
                   </div>
                 </div>
 
@@ -376,7 +422,7 @@ export function AIProfileStudioModal({
                 </div>
                 <div>• Recreates your photo into a signature <strong>royal blue blazer & white top</strong>.</div>
                 <div>• Enforces the confident <strong>folded-arm executive posture</strong>.</div>
-                <div>• <strong>Strips background to transparent alpha</strong> so it floats over your cover banner seamlessly.</div>
+                <div>• <strong>NO background (100% transparent)</strong> so it floats over your cover banner seamlessly.</div>
               </div>
             </div>
           )}
@@ -399,7 +445,7 @@ export function AIProfileStudioModal({
 
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '16px', fontWeight: 800, color: '#0F172A' }}>
-                  Generating Royal Blue Studio Cutouts
+                  Generating Royal Blue Cutouts (NO Background)
                 </div>
                 <div style={{ fontSize: '13px', color: '#64748B', marginTop: '6px' }}>
                   {processingMessage}
@@ -429,7 +475,7 @@ export function AIProfileStudioModal({
                   Select your preferred royal blue studio cutout:
                 </div>
                 <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700, backgroundColor: '#ECFDF5', padding: '3px 8px', borderRadius: '6px' }}>
-                  ✓ Transparent Cutouts Ready
+                  ✓ Transparent (NO Background)
                 </span>
               </div>
 
@@ -515,7 +561,7 @@ export function AIProfileStudioModal({
                 }}
               >
                 <div style={{ padding: '10px 14px', backgroundColor: '#F8FAFC', borderBottom: '1px solid #F1F5F9', fontSize: '11.5px', fontWeight: 700, color: '#64748B' }}>
-                  Live Profile Header Preview:
+                  Live Profile Header Preview (NO Background Box):
                 </div>
 
                 <div
@@ -608,7 +654,7 @@ export function AIProfileStudioModal({
                 Profile Picture Successfully Updated!
               </div>
               <div style={{ fontSize: '13px', color: '#64748B', textAlign: 'center' }}>
-                Your signature royal blue studio portrait is now live.
+                Your transparent royal blue studio portrait is now live with NO background.
               </div>
             </div>
           )}
