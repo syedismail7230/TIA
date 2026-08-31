@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
+import { AIProfileStudioModal } from '@/components/creator-profile/ai-profile-studio-modal';
 
 // ============================================================================
 // THEMED SVG ICONS (NO RAW EMOJIS - STRICT BRAND SYSTEM)
@@ -147,6 +148,8 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
   const [showInquiryModal, setShowInquiryModal] = useState<boolean>(false);
   const [selectedPackageForInquiry, setSelectedPackageForInquiry] = useState<string>('Dedicated YouTube Review');
   const [inquirySentSuccess, setInquirySentSuccess] = useState<boolean>(false);
+  const [showStudioModal, setShowStudioModal] = useState<boolean>(false);
+  const [avatarUrl, setAvatarUrl] = useState<string>('/profile.png');
   const [inquiryForm, setInquiryForm] = useState({
     brandName: '',
     contactEmail: '',
@@ -751,6 +754,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
             >
               <div
                 className="profile-dp-container"
+                onClick={() => isViewingAsOwner && setShowStudioModal(true)}
                 style={{
                   width: '230px',
                   height: '230px',
@@ -760,10 +764,11 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   boxShadow: 'none',
                   border: 'none',
                   position: 'relative',
+                  cursor: isViewingAsOwner ? 'pointer' : 'default',
                 }}
               >
                 <img
-                  src="/profile.png"
+                  src={avatarUrl}
                   alt={displayName}
                   style={{
                     width: '100%',
@@ -773,6 +778,31 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                     display: 'block',
                   }}
                 />
+
+                {/* Owner Photo Edit Overlay Badge */}
+                {isViewingAsOwner && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '12px',
+                      left: '12px',
+                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
+                      backdropFilter: 'blur(6px)',
+                      color: '#FFFFFF',
+                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    <span>✨</span>
+                    <span>AI Studio Cutout</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1735,6 +1765,15 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
           </div>
         </div>
       )}
+
+      {/* AI Profile Studio Modal */}
+      <AIProfileStudioModal
+        isOpen={showStudioModal}
+        onClose={() => setShowStudioModal(false)}
+        onSaveAvatar={(newAvatar) => setAvatarUrl(newAvatar)}
+        currentAvatar={avatarUrl}
+        creatorName={displayName}
+      />
     </div>
   );
 }

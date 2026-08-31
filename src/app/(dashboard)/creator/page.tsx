@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlueCheckBadge } from '@/components/ui/blue-check-badge';
+import { AIProfileStudioModal } from '@/components/creator-profile/ai-profile-studio-modal';
 import { INITIAL_CAMPAIGNS, CampaignItem } from '@/data/campaigns-data';
 
 // ============================================================================
@@ -286,6 +287,8 @@ function CreatorPortalContent() {
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [showAiStudioModal, setShowAiStudioModal] = useState<boolean>(false);
+  const [customAvatarUrl, setCustomAvatarUrl] = useState<string>('/profile.png');
 
   const activeTabRef = useRef<TabType>(activeTab);
   activeTabRef.current = activeTab;
@@ -9119,40 +9122,46 @@ function CreatorPortalContent() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', paddingBottom: '14px', borderBottom: '1px solid #F8FAFC' }}>
                         <div
                           style={{
-                            width: '52px',
-                            height: '52px',
-                            borderRadius: '12px',
+                            width: '56px',
+                            height: '56px',
+                            borderRadius: '14px',
                             backgroundColor: '#EFF6FF',
                             border: '2px solid #BFDBFE',
+                            overflow: 'hidden',
                             display: 'flex',
-                            alignItems: 'center',
+                            alignItems: 'flex-end',
                             justifyContent: 'center',
-                            color: '#0052FF',
-                            fontSize: '17px',
-                            fontWeight: 900,
                             flexShrink: 0,
                           }}
                         >
-                          SJ
+                          <img
+                            src={customAvatarUrl}
+                            alt="Creator Avatar"
+                            style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
+                          />
                         </div>
                         <div>
                           <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
-                          <div style={{ fontSize: '11px', color: '#64748B' }}>PNG, JPG or WEBP under 5MB</div>
+                          <div style={{ fontSize: '11px', color: '#64748B' }}>AI Studio Transparent Cutout (Auto-styled)</div>
                           <button
                             type="button"
+                            onClick={() => setShowAiStudioModal(true)}
                             style={{
                               marginTop: '5px',
-                              padding: '3px 10px',
-                              fontSize: '11px',
+                              padding: '5px 12px',
+                              fontSize: '11.5px',
                               fontWeight: 700,
-                              backgroundColor: '#F8FAFC',
-                              border: '1px solid #CBD5E1',
+                              backgroundColor: '#EFF6FF',
+                              border: '1px solid #BFDBFE',
                               borderRadius: '6px',
-                              color: '#334155',
+                              color: '#0052FF',
                               cursor: 'pointer',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '5px',
                             }}
                           >
-                            Upload Photo
+                            <span>✨ Open AI Studio Uploader</span>
                           </button>
                         </div>
                       </div>
@@ -9584,43 +9593,49 @@ function CreatorPortalContent() {
                   {settingsActiveSubTab === 'profile' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   {/* Avatar + Basic Row */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '16px', borderBottom: '1px solid #F8FAFC' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '18px', borderBottom: '1px solid #F8FAFC' }}>
                     <div
                       style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '12px',
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '16px',
                         backgroundColor: '#EFF6FF',
                         border: '2px solid #BFDBFE',
+                        overflow: 'hidden',
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: 'flex-end',
                         justifyContent: 'center',
-                        color: '#0052FF',
-                        fontSize: '18px',
-                        fontWeight: 900,
                         flexShrink: 0,
                       }}
                     >
-                      SJ
+                      <img
+                        src={customAvatarUrl}
+                        alt="Creator Avatar"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
+                      />
                     </div>
                     <div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
-                      <div style={{ fontSize: '11.5px', color: '#64748B' }}>PNG, JPG or WEBP under 5MB (400x400 recommended)</div>
+                      <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
+                      <div style={{ fontSize: '12px', color: '#64748B' }}>AI Studio Transparent Cutout (Auto-styled with 3 variations)</div>
                       <button
                         type="button"
+                        onClick={() => setShowAiStudioModal(true)}
                         style={{
                           marginTop: '6px',
-                          padding: '4px 10px',
-                          fontSize: '11px',
+                          padding: '5px 14px',
+                          fontSize: '12px',
                           fontWeight: 700,
-                          backgroundColor: '#F8FAFC',
-                          border: '1px solid #CBD5E1',
-                          borderRadius: '6px',
-                          color: '#334155',
+                          backgroundColor: '#EFF6FF',
+                          border: '1px solid #BFDBFE',
+                          borderRadius: '8px',
+                          color: '#0052FF',
                           cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
                         }}
                       >
-                        Upload Photo
+                        <span>✨ Open AI Studio Uploader</span>
                       </button>
                     </div>
                   </div>
@@ -11860,6 +11875,17 @@ function CreatorPortalContent() {
           </button>
         </div>
       )}
+
+      {/* In-Browser AI Profile Studio Cutout Modal */}
+      <AIProfileStudioModal
+        isOpen={showAiStudioModal}
+        onClose={() => setShowAiStudioModal(false)}
+        onSaveAvatar={(newAvatar) => {
+          setCustomAvatarUrl(newAvatar);
+        }}
+        currentAvatar={customAvatarUrl}
+        creatorName={currentUser?.name || 'Sarah Jenkins'}
+      />
     </div>
   );
 }
