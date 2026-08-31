@@ -148,7 +148,7 @@ export default function LoginPage() {
       setConfirmationResult(confirmation);
       setPhoneStep('OTP_INPUT');
       setResendTimer(60);
-      setSuccessMsg(`SMS verification code dispatched to ${countryCode} ${phoneNumber}`);
+      setSuccessMsg(`SMS code sent to ${countryCode} ${phoneNumber}`);
 
       setTimeout(() => {
         otpInputRefs.current[0]?.focus();
@@ -306,15 +306,15 @@ export default function LoginPage() {
                 alignItems: 'center',
                 gap: '10px',
                 padding: '12px 16px',
-                background: '#ECFDF5',
-                border: '1px solid #A7F3D0',
+                background: '#EFF6FF',
+                border: '1px solid #BFDBFE',
                 borderRadius: '12px',
-                color: '#065F46',
+                color: '#1E40AF',
                 fontSize: '13px',
                 marginBottom: '16px',
                 boxSizing: 'border-box',
               }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 <span>{successMsg}</span>
@@ -353,16 +353,11 @@ export default function LoginPage() {
                     }}
                     disabled={loading}
                     className="auth-social-btn"
-                    style={{
-                      borderColor: '#10B981',
-                      background: '#F0FDF4',
-                      color: '#065F46',
-                    }}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
-                    <span style={{ fontWeight: 600 }}>Continue with Phone OTP</span>
+                    <span>Continue with Phone OTP</span>
                   </button>
                 </div>
 
@@ -456,18 +451,19 @@ export default function LoginPage() {
                     setAuthMode('EMAIL');
                   }}
                   style={{
-                    background: '#F1F5F9',
+                    background: '#F8FAFC',
                     border: '1px solid #E2E8F0',
                     borderRadius: '8px',
                     padding: '6px 12px',
                     fontSize: '12px',
                     fontWeight: 600,
-                    color: '#475569',
+                    color: '#64748B',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
                     marginBottom: '16px',
                     cursor: 'pointer',
+                    transition: 'all 0.15s ease',
                   }}
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -490,7 +486,7 @@ export default function LoginPage() {
                           style={{
                             width: '105px',
                             minWidth: '105px',
-                            background: '#F8FAFC',
+                            background: '#FFFFFF',
                             border: '1px solid #CBD5E1',
                             borderRadius: '12px',
                             padding: '12px 8px',
@@ -526,10 +522,6 @@ export default function LoginPage() {
                       type="submit"
                       disabled={loading || phoneNumber.trim().length < 6}
                       className="auth-submit-btn"
-                      style={{
-                        background: 'linear-gradient(135deg, #10B981, #059669)',
-                        boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
-                      }}
                     >
                       {loading ? (
                         <span className="auth-btn-loader">
@@ -575,7 +567,7 @@ export default function LoginPage() {
                             textAlign: 'center',
                             fontSize: '22px',
                             fontWeight: 700,
-                            background: '#F8FAFC',
+                            background: '#FFFFFF',
                             border: '1.5px solid #CBD5E1',
                             borderRadius: '12px',
                             color: '#0F172A',
@@ -591,10 +583,6 @@ export default function LoginPage() {
                       disabled={loading || otpDigits.join('').length !== 6}
                       onClick={() => handleVerifyPhoneCode()}
                       className="auth-submit-btn"
-                      style={{
-                        background: 'linear-gradient(135deg, #10B981, #059669)',
-                        boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
-                      }}
                     >
                       {loading ? (
                         <span className="auth-btn-loader">
@@ -649,7 +637,7 @@ export default function LoginPage() {
                           style={{
                             background: 'none',
                             border: 'none',
-                            color: '#10B981',
+                            color: '#0052FF',
                             fontWeight: 600,
                             cursor: 'pointer',
                             fontSize: '12.5px',
