@@ -300,7 +300,12 @@ export default function CreatorProfilePage() {
             gap: 16px !important;
           }
           .profile-avatar-wrapper {
-            margin-top: -46px !important;
+            margin-top: -55px !important;
+          }
+          .profile-dp-container {
+            width: 110px !important;
+            height: 110px !important;
+            border-radius: 18px !important;
           }
           .profile-stats-bar {
             grid-template-columns: repeat(2, 1fr) !important;
@@ -313,6 +318,11 @@ export default function CreatorProfilePage() {
             width: 100% !important;
             justify-content: flex-start !important;
             margin-top: 4px !important;
+          }
+          .profile-audience-block {
+            align-items: flex-start !important;
+            padding-left: 0 !important;
+            margin-top: 10px !important;
           }
         }
         @media (max-width: 480px) {
@@ -501,34 +511,36 @@ export default function CreatorProfilePage() {
           {/* Profile Identity Body */}
           <div style={{ padding: '0 36px 32px 36px' }}>
             <div className="profile-hero-content" style={{ display: 'flex', alignItems: 'flex-start', gap: '28px', position: 'relative' }}>
-              {/* Floating Avatar Profile Picture */}
+              {/* Floating Avatar Profile Picture (Clean, No BG, No Fade/Shadow) */}
               <div
                 className="profile-avatar-wrapper"
                 style={{
                   position: 'relative',
-                  marginTop: '-56px',
+                  marginTop: '-80px',
                   flexShrink: 0,
                 }}
               >
                 <div
+                  className="profile-dp-container"
                   style={{
-                    width: '112px',
-                    height: '112px',
+                    width: '160px',
+                    height: '160px',
                     borderRadius: '20px',
                     overflow: 'hidden',
-                    backgroundColor: '#0052FF',
-                    border: '4px solid #FFFFFF',
-                    boxShadow: '0 10px 28px rgba(0, 0, 0, 0.16)',
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
+                    border: 'none',
                     position: 'relative',
                   }}
                 >
                   <img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80"
+                    src="/profile.png"
                     alt="Sarah Jenkins"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
+                      objectPosition: 'top center',
                       display: 'block',
                     }}
                   />
@@ -604,10 +616,32 @@ export default function CreatorProfilePage() {
                   </span>
                 </div>
 
-                {/* Bio Paragraph */}
-                <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: 1.65, margin: '16px 0 0 0', maxWidth: '840px' }}>
-                  Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools. Known for uncompromising benchmark authenticity, prompt milestone delivery, and over 550,000+ verified cross-platform community members with consistent top-tier engagement.
-                </p>
+                {/* Bio Paragraph & Total Followers Combined Metric */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '32px', marginTop: '16px', flexWrap: 'wrap' }}>
+                  {/* Bio Paragraph */}
+                  <p style={{ fontSize: '13.5px', color: '#475569', lineHeight: 1.65, margin: 0, maxWidth: '720px', flex: 1, minWidth: '280px' }}>
+                    Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools. Known for uncompromising benchmark authenticity, prompt milestone delivery, and over 550,000+ verified cross-platform community members with consistent top-tier engagement.
+                  </p>
+
+                  {/* Total Combined Followers Stat */}
+                  <div className="profile-audience-block" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', flexShrink: 0, paddingLeft: '12px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      Total Audience Reach
+                    </span>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginTop: '2px' }}>
+                      <span style={{ fontSize: '28px', fontWeight: 900, color: '#0052FF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                        615K+
+                      </span>
+                      <span style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
+                        Followers
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#059669', fontWeight: 700, marginTop: '3px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#10B981', display: 'inline-block' }} />
+                      Combined Across 4 Channels
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
