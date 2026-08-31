@@ -620,6 +620,38 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               </button>
             )}
 
+            {/* Go to Dashboard Button (Visible for Owner) */}
+            {isOwnerActual && (
+              <Link
+                href="/creator"
+                className="header-action-btn"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 12px',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #CBD5E1',
+                  borderRadius: '8px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  color: '#0F172A',
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.15s ease',
+                }}
+                title="Go to Creator Dashboard"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                <span className="header-btn-label">Dashboard</span>
+              </Link>
+            )}
+
             {/* OWNER MODE: Edit Profile Button */}
             {isViewingAsOwner ? (
               <Link
