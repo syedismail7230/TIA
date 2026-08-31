@@ -190,10 +190,7 @@ export default function PricingPage() {
       }}>
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-          <span style={{ fontSize: '12px', fontWeight: 800, color: '#0052FF', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            Interactive Simulator
-          </span>
-          <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 36px)', fontWeight: 800, color: '#0F172A', marginTop: '6px', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 36px)', fontWeight: 800, color: '#0F172A', margin: '0', letterSpacing: '-0.02em' }}>
             {persona === 'brand'
               ? 'Calculate Campaign Budget & Agency Markup Savings'
               : 'Calculate Your 95% Net Payout & Earnings Boost'}
