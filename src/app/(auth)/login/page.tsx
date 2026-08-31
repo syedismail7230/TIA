@@ -21,7 +21,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // 1. Try Firebase Auth first
+      // 1. Try Firebase Auth
       let firebaseUser = null;
       try {
         firebaseUser = await FirebaseAuthService.signInWithEmail(email, password);
@@ -279,42 +279,38 @@ export default function LoginPage() {
               </button>
             </form>
           </div>
+
+          {/* Footer Links */}
+          <div className="auth-footer">
+            <Link href="/legal" style={{ color: '#64748B', textDecoration: 'none' }}>Legal</Link>
+            <Link href="/pricing" style={{ color: '#64748B', textDecoration: 'none' }}>Pricing</Link>
+            <span className="auth-lang" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span>ENG</span>
+            </span>
+          </div>
         </div>
 
-        {/* RIGHT COLUMN: BRAND VALUE PROPOSITION */}
-        <div className="auth-visual-pane">
-          <div className="auth-visual-inner">
-            <div className="auth-feature-pill">
-              <span className="auth-pill-dot"></span>
-              <span>100% Payment Protection &amp; BotShield™ AI</span>
-            </div>
+        {/* RIGHT COLUMN: DYNAMIC ANIMATED SHOWCASE PANE */}
+        <div className="auth-showcase-pane">
+          {/* Animated Atmospheric Background Layers */}
+          <div className="auth-ambient-grid" />
+          <div className="auth-glow-orb orb-1" />
+          <div className="auth-glow-orb orb-2" />
+          <div className="auth-glow-orb orb-3" />
 
-            <h2 className="auth-visual-headline">
-              The Intelligence Operating System for Modern Creators.
+          <div className="auth-showcase-content" style={{ animation: 'fadeIn 0.3s ease' }}>
+            <h2 className="auth-showcase-title">
+              <span>The Intelligence Operating System</span><br />
+              <span style={{ color: '#0052FF', fontWeight: 600 }}>for Modern Creators & Brands.</span>
             </h2>
-            <p className="auth-visual-subtext">
-              Secure contracts, automated 5% commission settlement, 72h deliverable SLAs, and verified audience demographics across 500,000+ creators.
+            <p className="auth-showcase-desc">
+              100% Payment Protection, 72h deliverable review SLAs, automated 5% commission settlement, and verified audience demographics across 500,000+ creators.
             </p>
-
-            {/* Testimonial / Stat Card */}
-            <div className="auth-stat-card">
-              <div className="auth-stat-quote">
-                &ldquo;TIA eliminated payment delays and unverified audience data completely for our team.&rdquo;
-              </div>
-              <div className="auth-stat-author">
-                <div className="auth-stat-avatar">NS</div>
-                <div className="auth-stat-info">
-                  <div className="auth-stat-name">Nexus Studios</div>
-                  <div className="auth-stat-role">Leading D2C Audio Brand</div>
-                </div>
-                <div className="auth-stat-badge">Verified Brand</div>
-              </div>
-            </div>
-
-            {/* Trust Footer */}
-            <div className="auth-trust-footer">
-              <span>Trusted by 10,000+ top creators &amp; Fortune 500 brands worldwide</span>
-            </div>
           </div>
         </div>
       </div>
