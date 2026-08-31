@@ -1358,7 +1358,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   Standard Commercial Packages
                 </h3>
                 <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#64748B' }}>
-                  Transparent rates backed by milestone escrow protection and guaranteed SLA turnaround.
+                  Transparent rates backed by verified milestone protection and guaranteed SLA turnaround.
                 </p>
               </div>
 
@@ -1515,7 +1515,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   Verified Brand Reviews & Endorsements
                 </h3>
                 <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#64748B' }}>
-                  Feedback left exclusively by verified brands upon successful escrow release.
+                  Feedback left exclusively by verified brands upon successful campaign delivery.
                 </p>
               </div>
             </div>
@@ -1646,7 +1646,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </div>
                 <div>
                   <div style={{ fontSize: '11px', fontWeight: 800, color: '#0052FF', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    Direct Escrow Collaboration
+                    Direct Brand Collaboration
                   </div>
                   <h3 style={{ margin: '2px 0 0 0', fontSize: '18px', fontWeight: 800, color: '#0F172A' }}>
                     Book Collaboration with {displayName}
@@ -1683,12 +1683,12 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   {/* Explanatory Intro */}
                   <p style={{ margin: 0, fontSize: '13.5px', color: '#475569', lineHeight: 1.55 }}>
-                    To protect creators and guarantee secure milestone escrow payments, all brand partners must register or sign in with a verified Brand profile on TIA before transmitting deliverables.
+                    To protect creators and guarantee secure milestone payouts, all brand partners must register or sign in with a verified Brand profile on TIA before transmitting deliverables.
                   </p>
 
                   {/* 3 Core Trust Pillars Grid */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {/* Feature 1: Escrow */}
+                    {/* Feature 1: Milestone Protection */}
                     <div
                       style={{
                         display: 'flex',
@@ -1717,10 +1717,10 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                       </div>
                       <div>
                         <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>
-                          100% Smart Escrow Protection
+                          100% Secure Milestone Protection
                         </div>
                         <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px', lineHeight: 1.4 }}>
-                          Campaign funds remain locked securely in escrow and are only disbursed upon your deliverable review & approval.
+                          Campaign payments remain securely protected and are only released upon your deliverable review & approval.
                         </div>
                       </div>
                     </div>
@@ -1866,7 +1866,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                     }}
                   >
                     <span>🔒</span>
-                    <span>TIA Trust & Escrow Shield • Zero upfront fees for brand accounts</span>
+                    <span>TIA Trust & Payment Shield • Zero upfront platform fees for brand accounts</span>
                   </div>
                 </div>
               ) : inquirySentSuccess ? (
@@ -1984,7 +1984,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: '#059669', fontWeight: 700 }}>
                     <ShieldCheckIcon size={14} color="#059669" />
-                    <span>Protected by TIA Smart Escrow & SLA Guarantee</span>
+                    <span>Protected by TIA Secure Milestone & SLA Guarantee</span>
                   </div>
 
                   <button
