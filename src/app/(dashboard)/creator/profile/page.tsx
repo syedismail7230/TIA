@@ -673,12 +673,9 @@ export default function CreatorProfilePage() {
                   <span style={{ fontSize: '11px', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     Total Audience Reach
                   </span>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '2px' }}>
+                  <div style={{ marginTop: '2px' }}>
                     <span style={{ fontSize: '48px', fontWeight: 400, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.03em' }}>
                       615K+
-                    </span>
-                    <span style={{ fontSize: '15px', fontWeight: 600, color: '#0052FF' }}>
-                      Followers
                     </span>
                   </div>
                 </div>
