@@ -52,6 +52,8 @@ export function OtpVerificationModal({
     return () => clearInterval(interval);
   }, [isOpen, timer]);
 
+  if (!isOpen) return null;
+
   const handleSendOtp = async () => {
     try {
       setResending(true);
@@ -63,12 +65,12 @@ export function OtpVerificationModal({
       });
       const data = await res.json();
       if (!data.success) {
-        setError(data.error || 'Failed to dispatch verification code.');
+        setError(data.error || 'Failed to send verification code. Please try again.');
       } else {
         setTimer(60);
       }
     } catch {
-      setError('Connection error. Please try again.');
+      setError('Network error. Failed to reach verification service.');
     } finally {
       setResending(false);
     }
@@ -76,7 +78,6 @@ export function OtpVerificationModal({
 
   const handleDigitChange = (index: number, value: string) => {
     if (value.length > 1) {
-      // Handle paste of full 6 digits
       const pasted = value.replace(/\D/g, '').slice(0, 6);
       if (pasted.length === 6) {
         const newDigits = pasted.split('');
@@ -96,7 +97,6 @@ export function OtpVerificationModal({
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Auto submit on last digit
     if (index === 5 && char) {
       const fullCode = newDigits.join('');
       if (fullCode.length === 6) {
@@ -143,50 +143,71 @@ export function OtpVerificationModal({
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-      <div className="relative w-full max-w-md p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+    <div className="tia-modal-backdrop">
+      <div className="tia-modal-card">
         {/* Top Accent Gradient */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-400" />
+        <div className="tia-modal-accent-line" />
 
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+          className="tia-modal-close-btn"
+          aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <X style={{ width: '18px', height: '18px' }} />
         </button>
 
-        {/* Header */}
-        <div className="text-center mt-2 mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mb-3 shadow-inner">
-            <ShieldCheck className="w-7 h-7" />
-          </div>
-          <h3 className="text-xl font-bold text-white tracking-tight">Enter Verification Code</h3>
-          <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
-            We sent a 6-digit secure OTP to <span className="text-slate-200 font-semibold">{email}</span>
-          </p>
+        {/* Header Icon */}
+        <div className="tia-modal-icon-badge">
+          <ShieldCheck style={{ width: '28px', height: '28px' }} />
         </div>
+
+        <h3 className="tia-modal-title">Enter Verification Code</h3>
+        <p className="tia-modal-desc">
+          We sent a 6-digit secure OTP to <span style={{ color: '#E2E8F0', fontWeight: 600 }}>{email}</span>
+        </p>
 
         {/* Status Messages */}
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-2.5 text-red-400 text-xs">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+          <div style={{
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            color: '#F87171',
+            fontSize: '12.5px',
+          }}>
+            <AlertCircle style={{ width: '16px', height: '16px', flexShrink: 0 }} />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2.5 text-emerald-400 text-xs">
-            <CheckCircle2 className="w-4 h-4 shrink-0" />
-            <span className="font-semibold">Email verified successfully! Redirecting...</span>
+          <div style={{
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            background: 'rgba(16, 185, 129, 0.12)',
+            border: '1px solid rgba(16, 185, 129, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            color: '#34D399',
+            fontSize: '12.5px',
+          }}>
+            <CheckCircle2 style={{ width: '16px', height: '16px', flexShrink: 0 }} />
+            <span style={{ fontWeight: 600 }}>Email verified successfully! Redirecting...</span>
           </div>
         )}
 
         {/* 6 Digit Input Boxes */}
-        <div className="flex justify-center gap-2.5 mb-6">
+        <div className="tia-otp-digit-row">
           {digits.map((digit, index) => (
             <input
               key={index}
@@ -200,47 +221,68 @@ export function OtpVerificationModal({
               disabled={loading || success}
               onChange={(e) => handleDigitChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              className="w-12 h-14 text-center text-2xl font-bold bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition disabled:opacity-50"
+              className="tia-otp-digit-input"
             />
           ))}
         </div>
 
         {/* Action Button */}
         <button
+          type="button"
           disabled={loading || digits.join('').length !== 6 || success}
           onClick={() => handleVerifyCode()}
-          className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none transition"
+          className="tia-modal-primary-btn"
         >
           {loading ? (
             <>
-              <RefreshCw className="w-4 h-4 animate-spin" />
+              <RefreshCw style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
               <span>Verifying Code...</span>
             </>
           ) : success ? (
             <>
-              <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+              <CheckCircle2 style={{ width: '16px', height: '16px', color: '#6EE7B7' }} />
               <span>Verified</span>
             </>
           ) : (
             <>
               <span>Verify & Continue</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight style={{ width: '16px', height: '16px' }} />
             </>
           )}
         </button>
 
         {/* Resend OTP Footer */}
-        <div className="mt-5 text-center text-xs text-slate-400 flex items-center justify-center gap-1.5">
+        <div style={{
+          marginTop: '20px',
+          textAlign: 'center',
+          fontSize: '12px',
+          color: '#94A3B8',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '6px',
+        }}>
           <span>Didn&apos;t receive code?</span>
           {timer > 0 ? (
-            <span className="text-slate-500 font-mono">Resend in {timer}s</span>
+            <span style={{ color: '#64748B', fontFamily: 'monospace' }}>Resend in {timer}s</span>
           ) : (
             <button
+              type="button"
               disabled={resending}
               onClick={handleSendOtp}
-              className="text-blue-400 hover:text-blue-300 font-semibold inline-flex items-center gap-1 disabled:opacity-50"
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#38BDF8',
+                fontWeight: 600,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                cursor: 'pointer',
+                fontSize: '12px',
+              }}
             >
-              {resending ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Mail className="w-3 h-3" />}
+              {resending ? <RefreshCw style={{ width: '12px', height: '12px', animation: 'spin 1s linear infinite' }} /> : <Mail style={{ width: '12px', height: '12px' }} />}
               <span>Resend OTP</span>
             </button>
           )}

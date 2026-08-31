@@ -42,12 +42,14 @@ export function PhoneOtpModal({
   }, [isOpen]);
 
   useEffect(() => {
-    if (step !== 'OTP_INPUT' || timer <= 0) return;
+    if (!isOpen || step !== 'OTP_INPUT' || timer <= 0) return;
     const interval = setInterval(() => {
       setTimer((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, [step, timer]);
+  }, [isOpen, step, timer]);
+
+  if (!isOpen) return null;
 
   const handleSendSmsOtp = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -63,7 +65,6 @@ export function PhoneOtpModal({
       setLoading(true);
       setError(null);
 
-      // Initialize Recaptcha
       const verifier = setupRecaptcha('firebase-phone-recaptcha-container');
       const confirmation = await sendPhoneOtp(fullPhoneNumber, verifier);
       setConfirmationResult(confirmation);
@@ -146,65 +147,99 @@ export function PhoneOtpModal({
     }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
-      <div className="relative w-full max-w-md p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+    <div className="tia-modal-backdrop">
+      <div className="tia-modal-card">
         {/* Invisible Recaptcha Container */}
         <div id="firebase-phone-recaptcha-container" />
 
         {/* Top Accent Gradient */}
-        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400" />
+        <div className="tia-modal-accent-line" />
 
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition"
+          className="tia-modal-close-btn"
+          aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <X style={{ width: '18px', height: '18px' }} />
         </button>
 
-        {/* Header */}
-        <div className="text-center mt-2 mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-3 shadow-inner">
-            <Phone className="w-7 h-7" />
-          </div>
-          <h3 className="text-xl font-bold text-white tracking-tight">
-            {step === 'PHONE_INPUT' ? 'Phone SMS Authentication' : 'Enter SMS Code'}
-          </h3>
-          <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
-            {step === 'PHONE_INPUT'
-              ? 'Enter your mobile phone number to receive a secure Firebase SMS OTP.'
-              : `We sent a 6-digit SMS OTP to ${countryCode} ${phoneNumber}`}
-          </p>
+        {/* Header Icon */}
+        <div className="tia-modal-icon-badge">
+          <Phone style={{ width: '28px', height: '28px' }} />
         </div>
+
+        <h3 className="tia-modal-title">
+          {step === 'PHONE_INPUT' ? 'Phone SMS Authentication' : 'Enter SMS Code'}
+        </h3>
+        <p className="tia-modal-desc">
+          {step === 'PHONE_INPUT'
+            ? 'Enter your mobile phone number to receive a secure Firebase SMS OTP.'
+            : `We sent a 6-digit SMS OTP to ${countryCode} ${phoneNumber}`}
+        </p>
 
         {/* Status Messages */}
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-2.5 text-red-400 text-xs">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+          <div style={{
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            color: '#F87171',
+            fontSize: '12.5px',
+          }}>
+            <AlertCircle style={{ width: '16px', height: '16px', flexShrink: 0 }} />
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2.5 text-emerald-400 text-xs">
-            <CheckCircle2 className="w-4 h-4 shrink-0" />
-            <span className="font-semibold">Phone verified successfully! Authenticating...</span>
+          <div style={{
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            background: 'rgba(16, 185, 129, 0.12)',
+            border: '1px solid rgba(16, 185, 129, 0.3)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            color: '#34D399',
+            fontSize: '12.5px',
+          }}>
+            <CheckCircle2 style={{ width: '16px', height: '16px', flexShrink: 0 }} />
+            <span style={{ fontWeight: 600 }}>Phone verified successfully! Authenticating...</span>
           </div>
         )}
 
         {/* STEP 1: Phone Number Input */}
         {step === 'PHONE_INPUT' && (
-          <form onSubmit={handleSendSmsOtp} className="space-y-4">
+          <form onSubmit={handleSendSmsOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">Mobile Phone Number</label>
-              <div className="flex gap-2">
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#94A3B8', marginBottom: '6px' }}>
+                Mobile Phone Number
+              </label>
+              <div style={{ display: 'flex', gap: '8px' }}>
                 <select
                   value={countryCode}
                   onChange={(e) => setCountryCode(e.target.value)}
-                  className="w-24 bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-3 text-white text-sm font-semibold outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  style={{
+                    width: '100px',
+                    background: '#020617',
+                    border: '1.5px solid #334155',
+                    borderRadius: '12px',
+                    padding: '12px 10px',
+                    color: '#FFFFFF',
+                    fontSize: '13.5px',
+                    fontWeight: 600,
+                    outline: 'none',
+                    cursor: 'pointer',
+                  }}
                 >
                   <option value="+91">🇮🇳 +91</option>
                   <option value="+1">🇺🇸 +1</option>
@@ -220,7 +255,16 @@ export function PhoneOtpModal({
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   disabled={loading}
-                  className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 disabled:opacity-50 transition"
+                  style={{
+                    flex: 1,
+                    background: '#020617',
+                    border: '1.5px solid #334155',
+                    borderRadius: '12px',
+                    padding: '12px 16px',
+                    color: '#FFFFFF',
+                    fontSize: '14px',
+                    outline: 'none',
+                  }}
                   autoFocus
                 />
               </div>
@@ -229,17 +273,17 @@ export function PhoneOtpModal({
             <button
               type="submit"
               disabled={loading || phoneNumber.trim().length < 6}
-              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none transition"
+              className="tia-modal-primary-btn"
             >
               {loading ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <RefreshCw style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
                   <span>Sending SMS OTP...</span>
                 </>
               ) : (
                 <>
                   <span>Send Verification Code</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight style={{ width: '16px', height: '16px' }} />
                 </>
               )}
             </button>
@@ -249,7 +293,7 @@ export function PhoneOtpModal({
         {/* STEP 2: 6-Digit SMS OTP Input */}
         {step === 'OTP_INPUT' && (
           <div>
-            <div className="flex justify-center gap-2.5 mb-6">
+            <div className="tia-otp-digit-row">
               {otpDigits.map((digit, index) => (
                 <input
                   key={index}
@@ -263,54 +307,81 @@ export function PhoneOtpModal({
                   disabled={loading || success}
                   onChange={(e) => handleDigitChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
-                  className="w-12 h-14 text-center text-2xl font-bold bg-slate-950 border border-slate-700 rounded-xl text-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition disabled:opacity-50"
+                  className="tia-otp-digit-input"
                 />
               ))}
             </div>
 
             <button
+              type="button"
               disabled={loading || otpDigits.join('').length !== 6 || success}
               onClick={() => handleVerifyCode()}
-              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none transition"
+              className="tia-modal-primary-btn"
             >
               {loading ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <RefreshCw style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
                   <span>Verifying SMS Code...</span>
                 </>
               ) : success ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                  <CheckCircle2 style={{ width: '16px', height: '16px', color: '#6EE7B7' }} />
                   <span>Verified</span>
                 </>
               ) : (
                 <>
                   <span>Verify & Sign In</span>
-                  <ShieldCheck className="w-4 h-4" />
+                  <ShieldCheck style={{ width: '16px', height: '16px' }} />
                 </>
               )}
             </button>
 
             {/* Resend SMS Footer */}
-            <div className="mt-5 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
+            <div style={{
+              marginTop: '20px',
+              textAlign: 'center',
+              fontSize: '12px',
+              color: '#94A3B8',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+            }}>
               <button
                 type="button"
                 onClick={() => setStep('PHONE_INPUT')}
-                className="text-slate-400 hover:text-white underline"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#94A3B8',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                }}
               >
                 Change Number
               </button>
               <span>•</span>
               {timer > 0 ? (
-                <span className="text-slate-500 font-mono">Resend SMS in {timer}s</span>
+                <span style={{ color: '#64748B', fontFamily: 'monospace' }}>Resend in {timer}s</span>
               ) : (
                 <button
                   type="button"
                   disabled={loading}
                   onClick={() => handleSendSmsOtp()}
-                  className="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1 disabled:opacity-50"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#10B981',
+                    fontWeight: 600,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                  }}
                 >
-                  <RefreshCw className="w-3 h-3" />
+                  <RefreshCw style={{ width: '12px', height: '12px' }} />
                   <span>Resend SMS OTP</span>
                 </button>
               )}
