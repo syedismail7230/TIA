@@ -441,27 +441,6 @@ export default function CreatorProfilePage() {
               </svg>
               <span>Edit Profile</span>
             </Link>
-
-            <button
-              type="button"
-              onClick={() => setShowInquiryModal(true)}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '7px 16px',
-                backgroundColor: '#0052FF',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '12.5px',
-                fontWeight: 700,
-                cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
-              }}
-            >
-              <span>Book Collaboration →</span>
-            </button>
           </div>
         </div>
       </header>
@@ -605,30 +584,6 @@ export default function CreatorProfilePage() {
                     title="Bookmark Creator to Roster"
                   >
                     <StarIcon size={18} color={isBookmarked ? '#F59E0B' : '#64748B'} filled={isBookmarked} />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowInquiryModal(true)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '7px',
-                      padding: '10px 20px',
-                      backgroundColor: '#0052FF',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '10px',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      boxShadow: '0 3px 8px rgba(0, 82, 255, 0.25)',
-                    }}
-                  >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                    <span>Direct Message / Inquiry</span>
                   </button>
                 </div>
 
