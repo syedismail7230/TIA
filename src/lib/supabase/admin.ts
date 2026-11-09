@@ -10,12 +10,8 @@ import { createClient } from '@supabase/supabase-js';
  * NEVER expose SUPABASE_SERVICE_ROLE_KEY to the browser or public client!
  */
 export function createAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-
-  if (!supabaseUrl || !serviceRoleKey) {
-    console.warn('⚠️ Supabase Admin client missing service role credentials.');
-  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://egagtpzlvtcxihuargcv.supabase.co';
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_h3cxzfhtn6D1v5FGWmcGKw_wu60eZe8';
 
   return createClient(supabaseUrl, serviceRoleKey, {
     auth: {
