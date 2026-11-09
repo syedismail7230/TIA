@@ -239,5 +239,32 @@
     "age": 29,
     "country": "India",
     "createdAt": "2026-08-31T19:21:15.706Z"
+  },
+  {
+    "id": "usr_1794252631268_a7ds7",
+    "email": "qa_test_1794252631173@tia.agency",
+    "passwordHash": "$2a$10$DF/.5.gcclsQmR7ATZ148enArZufeTOFwN/WaQ6vLcRjIJZz58T1C",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-11-09T19:30:31.268Z"
+  },
+  {
+    "id": "usr_1794252800968_edftk",
+    "email": "qa_test_1794252800817@tia.agency",
+    "passwordHash": "$2a$10$w7hIbexvUBwZlOh5EvCoDuF018qMsGEG0OOtVdTJPDd3AzoCdD02W",
+    "name": "QA Test Creator",
+    "role": "CREATOR",
+    "country": "India",
+    "createdAt": "2026-11-09T19:33:20.968Z"
+  },
+  {
+    "id": "user_1794253299177_5w2gj",
+    "email": "audit_tester_1794253296837@tia.agency",
+    "passwordHash": "$2a$12$defzgqz7n0CLVBNCuxT9qeFEfXRwOVozmeusQtUDAH/uE4wVdGXVS",
+    "name": "Audit QA Officer",
+    "role": "BRAND_ADMIN",
+    "country": "India",
+    "createdAt": "2026-11-09T19:41:39.177Z"
   }
 ]

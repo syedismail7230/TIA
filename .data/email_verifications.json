@@ -34,5 +34,14 @@
     "createdAt": "2026-08-31T19:21:15.708Z",
     "expiresAt": "2026-09-01T19:21:15.708Z",
     "verified": false
+  },
+  "1a35666b8d293c4d7fa48e0d5de0654f58941698f749fbe2cb603c80d801d0fb": {
+    "token": "1a35666b8d293c4d7fa48e0d5de0654f58941698f749fbe2cb603c80d801d0fb",
+    "email": "audit_tester_1794253296837@tia.agency",
+    "userId": "user_1794253300821_t6afp",
+    "role": "BRAND_ADMIN",
+    "createdAt": "2026-11-09T19:41:40.824Z",
+    "expiresAt": "2026-11-10T19:41:40.824Z",
+    "verified": false
   }
 }

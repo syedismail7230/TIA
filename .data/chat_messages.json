@@ -1,0 +1,32 @@
+[
+  {
+    "id": "msg-1",
+    "threadId": "thread-collab-1",
+    "senderId": "system",
+    "senderName": "TIA Platform System",
+    "senderRole": "SYSTEM",
+    "text": "Milestone 2 deposit of ₹87,500 secured in TIA Payment Protection.",
+    "type": "MILESTONE",
+    "createdAt": "2026-11-08T19:41:49.075Z"
+  },
+  {
+    "id": "msg-2",
+    "threadId": "thread-collab-1",
+    "senderId": "cr-101",
+    "senderName": "Aarav Sharma",
+    "senderRole": "CREATOR",
+    "text": "Draft video cut uploaded! Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test, 4:20 Long-distance verdict.",
+    "type": "DELIVERABLE",
+    "createdAt": "2026-11-09T17:41:49.075Z"
+  },
+  {
+    "id": "msg-1794253309086",
+    "threadId": "thread-collab-1",
+    "senderId": "demo-brand-user-id",
+    "senderName": "Brand",
+    "senderRole": "BRAND",
+    "text": "Here are the updated draft timestamps for your review.",
+    "type": "TEXT",
+    "createdAt": "2026-11-09T19:41:49.086Z"
+  }
+]

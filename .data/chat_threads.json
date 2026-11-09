@@ -1,0 +1,16 @@
+[
+  {
+    "id": "thread-collab-1",
+    "collabId": "collab-brand-1",
+    "campaignId": "camp-101",
+    "campaignTitle": "Summer 2026 Running Series & Shoe Launch",
+    "brandId": "demo-brand-user-id",
+    "brandName": "Nike India Private Limited",
+    "creatorId": "cr-101",
+    "creatorName": "Aarav Sharma",
+    "lastMessageText": "Here are the updated draft timestamps for your review.",
+    "lastMessageAt": "2026-11-09T19:41:49.086Z",
+    "unreadCountBrand": 1,
+    "unreadCountCreator": 1
+  }
+]
