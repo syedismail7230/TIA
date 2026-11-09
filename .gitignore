@@ -37,3 +37,7 @@ Thumbs.db
 .idea/
 
 .vercel
+.env*.local
+
+.data/
+scripts/deep_test_results.json

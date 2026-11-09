@@ -3,6 +3,33 @@ import prisma from '@/lib/db/prisma';
 import { getCurrentUser } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
 
+export async function GET(request: Request) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const campaignId = searchParams.get('campaignId');
+    const creatorId = searchParams.get('creatorId');
+
+    const whereClause: any = {};
+    if (campaignId) whereClause.campaignId = campaignId;
+    if (creatorId) whereClause.creatorId = creatorId;
+
+    const negotiations = await prisma.campaignNegotiation.findMany({
+      where: whereClause,
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return NextResponse.json({ success: true, negotiations });
+  } catch (error: any) {
+    console.error('Fetch Negotiations Error:', error);
+    return NextResponse.json({ error: 'Failed to retrieve negotiations' }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
