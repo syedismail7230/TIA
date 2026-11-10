@@ -315,6 +315,11 @@ model Campaign {
   metrics             CampaignMetric[]
   reviews             Review[]
   disputes            Dispute[]
+
+  @@index([organizationId])
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
 }
 
 model CampaignApplication {
@@ -335,6 +340,10 @@ model CampaignApplication {
   creator        Creator   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 
   @@unique([campaignId, creatorId])
+  @@index([campaignId])
+  @@index([creatorId])
+  @@index([status])
+  @@index([appliedAt])
 }
 
 model CampaignBid {
@@ -402,6 +411,12 @@ model CampaignContract {
   deliverableItems        CampaignDeliverable[]
   transactions            Transaction[]
   disputes                Dispute[]
+
+  @@index([campaignId])
+  @@index([organizationId])
+  @@index([creatorId])
+  @@index([status])
+  @@index([createdAt])
 }
 
 // ---------------------------------------------------
@@ -689,6 +704,10 @@ model Notification {
   createdAt DateTime @default(now())
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
 }
 
 model AuditLog {
@@ -704,4 +723,8 @@ model AuditLog {
   createdAt  DateTime @default(now())
 
   user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
 }
