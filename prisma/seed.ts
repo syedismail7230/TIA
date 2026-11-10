@@ -215,6 +215,150 @@ async function main() {
     });
   }
   console.log('Demo Campaigns Initialized: camp-101, camp-102, camp-103');
+
+  // 5. Relational Applications
+  const aarav = await prisma.creator.findUnique({ where: { username: 'aarav.fitness' } });
+  const priya = await prisma.creator.findUnique({ where: { username: 'priya.lifestyle' } });
+  const rohan = await prisma.creator.findUnique({ where: { username: 'rohan.techtalks' } });
+
+  if (aarav) {
+    await prisma.campaignApplication.upsert({
+      where: {
+        campaignId_creatorId: {
+          campaignId: 'camp-101',
+          creatorId: aarav.id,
+        },
+      },
+      update: {
+        status: 'SHORTLISTED',
+        proposedPrice: 6500000,
+      },
+      create: {
+        id: 'app-101',
+        campaignId: 'camp-101',
+        creatorId: aarav.id,
+        proposedPrice: 6500000,
+        currency: 'INR',
+        pitch: 'I will test these carbon-plated shoes over a 15km tempo run and break down the midsole foam recovery on 4K camera.',
+        deliveryDays: 14,
+        status: 'SHORTLISTED',
+      },
+    });
+
+    // 6. Contract for camp-101
+    const contract = await prisma.campaignContract.upsert({
+      where: { id: 'contract-101' },
+      update: {
+        status: 'SIGNED',
+      },
+      create: {
+        id: 'contract-101',
+        campaignId: 'camp-101',
+        organizationId: org.id,
+        creatorId: aarav.id,
+        agreedAmount: 6500000,
+        currency: 'INR',
+        commissionRate: 5.0,
+        commissionAmount: 325000,
+        creatorAllocationAmount: 6175000,
+        deliverables: JSON.stringify(['1x Dedicated YouTube Review (8-10m)', '2x IG Reels']),
+        status: 'SIGNED',
+        brandSignedAt: new Date('2026-08-28T12:00:00Z'),
+        creatorSignedAt: new Date('2026-08-28T14:30:00Z'),
+      },
+    });
+
+    // 7. Deliverables & Content Submission
+    const deliverable = await prisma.campaignDeliverable.upsert({
+      where: { id: 'deliv-101' },
+      update: {},
+      create: {
+        id: 'deliv-101',
+        campaignId: 'camp-101',
+        contractId: contract.id,
+        creatorId: aarav.id,
+        title: 'Dedicated YouTube 4K Review & Field Test',
+        type: 'VIDEO',
+        platform: 'YOUTUBE',
+        status: 'DRAFT_SUBMITTED',
+      },
+    });
+
+    await prisma.contentSubmission.upsert({
+      where: { id: 'sub-101' },
+      update: {},
+      create: {
+        id: 'sub-101',
+        deliverableId: deliverable.id,
+        version: 1,
+        fileName: 'review_draft_4k_v1.mp4',
+        fileUrl: 'https://cdn.theinfluencers.agency/content/review_draft_4k_v1.mp4',
+        caption: 'Unboxing and real-world marathon pace testing of the all-new 2026 racing flat. #NikeRunning #TempoRun',
+        status: 'SUBMITTED',
+        notes: 'First draft cut with color grading and microphone sound test.',
+      },
+    });
+
+    // 8. Notifications
+    await prisma.notification.upsert({
+      where: { id: 'notif-101' },
+      update: {},
+      create: {
+        id: 'notif-101',
+        userId: brandUser.id,
+        title: 'Deliverable Submitted for Review',
+        message: 'Aarav Sharma has uploaded draft v1 for "Summer 2026 Running Series & Shoe Launch".',
+        type: 'CONTENT_SUBMITTED',
+        actionUrl: '/campaigns/camp-101/submissions',
+      },
+    });
+  }
+
+  if (priya) {
+    await prisma.campaignApplication.upsert({
+      where: {
+        campaignId_creatorId: {
+          campaignId: 'camp-102',
+          creatorId: priya.id,
+        },
+      },
+      update: {},
+      create: {
+        id: 'app-102',
+        campaignId: 'camp-102',
+        creatorId: priya.id,
+        proposedPrice: 4200000,
+        currency: 'INR',
+        pitch: 'Aesthetic everyday carry reel demonstrating the active noise cancellation during daily commute and cafe focus sessions.',
+        deliveryDays: 10,
+        status: 'SUBMITTED',
+      },
+    });
+  }
+
+  if (rohan) {
+    await prisma.campaignApplication.upsert({
+      where: {
+        campaignId_creatorId: {
+          campaignId: 'camp-101',
+          creatorId: rohan.id,
+        },
+      },
+      update: {},
+      create: {
+        id: 'app-103',
+        campaignId: 'camp-101',
+        creatorId: rohan.id,
+        proposedPrice: 7000000,
+        currency: 'INR',
+        pitch: 'Smart wearable telemetry sync comparison while using the running shoes across treadmill and outdoor tracks.',
+        deliveryDays: 12,
+        status: 'SUBMITTED',
+      },
+    });
+  }
+
+  console.log('Demo Applications, Contracts, Deliverables & Submissions Seeded!');
 }
 
 main()

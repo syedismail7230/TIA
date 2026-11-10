@@ -101,7 +101,7 @@ function ensureDataFile() {
     if (!fs.existsSync(APPLICATIONS_FILE)) {
       fs.writeFileSync(APPLICATIONS_FILE, JSON.stringify(INITIAL_APPLICATIONS, null, 2), 'utf-8');
     }
-  } catch {}
+  } catch { }
 }
 
 function readApplications(): CampaignApplicationRecord[] {
@@ -112,7 +112,7 @@ function readApplications(): CampaignApplicationRecord[] {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     }
-  } catch {}
+  } catch { }
   return memoryApplications;
 }
 
@@ -121,7 +121,7 @@ function writeApplications(apps: CampaignApplicationRecord[]) {
   try {
     ensureDataFile();
     fs.writeFileSync(APPLICATIONS_FILE, JSON.stringify(apps, null, 2), 'utf-8');
-  } catch {}
+  } catch { }
 }
 
 export class ApplicationService {

@@ -1,10 +1,10 @@
 // ===================================================
-// TIA BACKEND - DISPUTES & ARBITRATION API ROUTE
+// TIA BACKEND - DISPUTES & ARBITRATION API ROUTE (100% REAL DATABASE)
 // ===================================================
 
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
-import { DisputeService } from '@/lib/services/dispute.service';
+import prisma from '@/lib/db/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,13 +15,43 @@ export async function GET(request: Request) {
     const campaignId = searchParams.get('campaignId') || undefined;
     const status = searchParams.get('status') || undefined;
 
-    const disputes = await DisputeService.list({
-      campaignId,
-      initiatorId: user?.id,
-      status,
+    const whereClause: any = {};
+    if (campaignId) whereClause.campaignId = campaignId;
+    if (status) whereClause.status = status;
+
+    const disputes = await prisma.dispute.findMany({
+      where: whereClause,
+      include: {
+        campaign: true,
+        contract: true,
+        initiator: true,
+        evidence: true,
+      },
+      orderBy: { createdAt: 'desc' },
     });
 
-    return NextResponse.json({ success: true, disputes });
+    const formatted = disputes.map((d) => ({
+      id: d.id,
+      campaignId: d.campaignId,
+      campaignTitle: d.campaign?.title || 'Campaign Arbitration',
+      contractId: d.contractId,
+      initiatorId: d.initiatorUserId,
+      initiatorRole: d.initiatorRole,
+      reason: d.reason,
+      disputedAmount: Math.round(d.claimedAmount / 100),
+      status: d.status,
+      evidenceNotes: d.description,
+      evidenceAttachments: d.evidence.map((e) => e.fileUrl).filter(Boolean),
+      resolution: d.decisionSummary ? {
+        decision: d.decisionSummary,
+        refundAmount: Math.round(d.refundAmount / 100),
+        releaseAmount: Math.round(d.releaseAmount / 100),
+        decidedAt: d.decidedAt?.toISOString(),
+      } : null,
+      createdAt: d.createdAt.toISOString(),
+    }));
+
+    return NextResponse.json({ success: true, disputes: formatted });
   } catch (error: any) {
     console.error('Fetch Disputes Error:', error);
     return NextResponse.json({ success: false, error: 'Failed to retrieve disputes' }, { status: 500 });
@@ -34,59 +64,56 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       campaignId,
-      campaignTitle,
-      collabId,
+      contractId,
       reason,
       disputedAmount,
       evidenceNotes,
-      evidenceAttachments,
+      evidenceAttachments = [],
     } = body;
 
     if (!campaignId || !reason || !disputedAmount) {
       return NextResponse.json({ success: false, error: 'Missing required dispute fields' }, { status: 400 });
     }
 
+    let initiatorUserId = user?.id;
+    if (!initiatorUserId) {
+      const demoUser = await prisma.user.findFirst();
+      initiatorUserId = demoUser?.id;
+    }
+
+    if (!initiatorUserId) {
+      return NextResponse.json({ success: false, error: 'User must be authenticated' }, { status: 401 });
+    }
+
     const initiatorRole = user?.role === 'CREATOR' ? 'CREATOR' : 'BRAND';
 
-    const dispute = await DisputeService.create({
-      campaignId,
-      campaignTitle: campaignTitle || 'Campaign Collaboration',
-      collabId: collabId || 'collab-brand-1',
-      initiatorId: user?.id || 'demo-brand-user-id',
-      initiatorRole,
-      reason,
-      disputedAmount: Number(disputedAmount),
-      evidenceNotes: evidenceNotes || '',
-      evidenceAttachments,
+    const dispute = await prisma.dispute.create({
+      data: {
+        campaignId,
+        contractId: contractId || undefined,
+        initiatorUserId,
+        initiatorRole,
+        reason,
+        description: evidenceNotes || 'Dispute initiated regarding campaign deliverables or terms.',
+        claimedAmount: Math.round(Number(disputedAmount) * 100), // minor units
+        status: 'OPENED',
+        evidence: {
+          create: (evidenceAttachments as string[]).map((url) => ({
+            submittedByUserId: initiatorUserId!,
+            description: 'Dispute evidence attachment',
+            fileUrl: url,
+          })),
+        },
+      },
+      include: {
+        campaign: true,
+        evidence: true,
+      },
     });
 
     return NextResponse.json({ success: true, dispute });
   } catch (error: any) {
     console.error('Create Dispute Error:', error);
     return NextResponse.json({ success: false, error: error.message || 'Failed to file dispute' }, { status: 500 });
-  }
-}
-
-export async function PATCH(request: Request) {
-  try {
-    const user = await getCurrentUser();
-    const body = await request.json();
-    const { disputeId, decision, arbitratorNotes } = body;
-
-    if (!disputeId || !decision) {
-      return NextResponse.json({ success: false, error: 'Dispute ID and decision are required' }, { status: 400 });
-    }
-
-    const resolved = await DisputeService.resolve(
-      disputeId,
-      decision,
-      arbitratorNotes || 'Arbitration settled by TIA Platform Operations.',
-      user?.id || 'admin-user-id'
-    );
-
-    return NextResponse.json({ success: true, dispute: resolved });
-  } catch (error: any) {
-    console.error('Resolve Dispute Error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Failed to resolve dispute' }, { status: 500 });
   }
 }
