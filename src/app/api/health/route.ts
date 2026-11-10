@@ -15,6 +15,7 @@ export async function GET() {
 
   let dbStatus = 'UNKNOWN';
   let dbLatencyMs = -1;
+  let dbError: string | null = null;
 
   try {
     const dbStart = Date.now();
@@ -23,6 +24,7 @@ export async function GET() {
     dbStatus = 'CONNECTED';
   } catch (dbErr: any) {
     dbStatus = 'DISCONNECTED';
+    dbError = dbErr.message;
     console.error('Database Health Check Failed:', dbErr.message);
   }
 
@@ -40,6 +42,7 @@ export async function GET() {
         status: dbStatus,
         provider: 'postgresql',
         latencyMs: dbLatencyMs,
+        error: dbError,
       },
       memory: {
         heapUsedMb: Math.round(memory.heapUsed / 1024 / 1024),
