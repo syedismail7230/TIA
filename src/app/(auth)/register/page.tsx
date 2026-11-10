@@ -387,6 +387,8 @@ function RegisterContent() {
       <PhoneOtpModal
         isOpen={phoneModalOpen}
         role={role}
+        initialPhoneNumber={phone}
+        initialCountryCode={phoneCode}
         onSuccess={handlePhoneOtpSuccess}
         onClose={() => setPhoneModalOpen(false)}
       />
@@ -398,7 +400,7 @@ function RegisterContent() {
           <div className="auth-header">
             <Link href="/" className="auth-brand">
               <img
-                src="/main-logo-cropped.png"
+                src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 className="auth-brand-logo-img"
               />

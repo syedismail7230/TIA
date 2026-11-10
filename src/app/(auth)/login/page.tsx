@@ -257,7 +257,7 @@ export default function LoginPage() {
           <div className="auth-header">
             <Link href="/" className="auth-brand">
               <img
-                src="/main-logo-cropped.png"
+                src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 className="auth-brand-logo-img"
               />
@@ -273,7 +273,7 @@ export default function LoginPage() {
           <div className="auth-body">
             <div className="auth-avatar-icon">
               <img
-                src="/main-logo-cropped.png"
+                src="/logo-cropped.png"
                 alt="The Influencer's Agency"
                 className="auth-avatar-logo-img"
               />

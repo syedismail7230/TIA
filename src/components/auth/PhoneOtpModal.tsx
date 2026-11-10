@@ -9,6 +9,8 @@ import { ConfirmationResult } from 'firebase/auth';
 interface PhoneOtpModalProps {
   isOpen: boolean;
   role?: 'CREATOR' | 'BRAND_ADMIN' | 'BRAND_USER';
+  initialPhoneNumber?: string;
+  initialCountryCode?: string;
   onSuccess: (user: any) => void;
   onClose: () => void;
 }
@@ -16,6 +18,8 @@ interface PhoneOtpModalProps {
 export function PhoneOtpModal({
   isOpen,
   role = 'CREATOR',
+  initialPhoneNumber = '',
+  initialCountryCode = '+91',
   onSuccess,
   onClose,
 }: PhoneOtpModalProps) {
@@ -33,14 +37,23 @@ export function PhoneOtpModal({
 
   useEffect(() => {
     if (!isOpen) return;
-    setStep('PHONE_INPUT');
-    setPhoneNumber('');
+    const cleanInitial = (initialPhoneNumber || '').replace(/\D/g, '');
+    const code = initialCountryCode || '+91';
+    setCountryCode(code);
+    setPhoneNumber(cleanInitial);
     setOtpDigits(['', '', '', '', '', '']);
     setError(null);
     setSuccess(false);
     setTimer(60);
     setConfirmationResult(null);
-  }, [isOpen]);
+
+    // If phone number was already provided on the registration form, immediately send SMS and advance to OTP input
+    if (cleanInitial.length >= 8) {
+      handleSendSmsOtp(undefined, `${code}${cleanInitial}`);
+    } else {
+      setStep('PHONE_INPUT');
+    }
+  }, [isOpen, initialPhoneNumber, initialCountryCode]);
 
   useEffect(() => {
     if (!isOpen || step !== 'OTP_INPUT' || timer <= 0) return;
@@ -52,15 +65,16 @@ export function PhoneOtpModal({
 
   if (!isOpen) return null;
 
-  const handleSendSmsOtp = async (e?: React.FormEvent) => {
+  const handleSendSmsOtp = async (e?: React.FormEvent, overridePhone?: string) => {
     if (e) e.preventDefault();
-    const cleanPhone = phoneNumber.replace(/\D/g, '');
-    if (cleanPhone.length < 8) {
+    const cleanDigits = (overridePhone ? overridePhone.replace(/[^\d+]/g, '') : `${countryCode}${phoneNumber.replace(/\D/g, '')}`);
+    if (cleanDigits.replace(/\D/g, '').length < 8) {
+      setStep('PHONE_INPUT');
       setError('Please enter a valid phone number (at least 8 digits).');
       return;
     }
 
-    const fullPhoneNumber = `${countryCode}${cleanPhone}`;
+    const fullPhoneNumber = cleanDigits;
 
     try {
       setLoading(true);
