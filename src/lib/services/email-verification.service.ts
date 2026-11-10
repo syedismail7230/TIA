@@ -6,6 +6,7 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { sendLiveEmail } from '@/lib/email/resend';
+import { renderPlatformEmail } from '@/lib/email/templates';
 
 export interface EmailVerificationRecord {
   token: string;
@@ -77,60 +78,28 @@ export class EmailVerificationService {
     };
     saveVerifications(records);
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.theinfluencers.agency';
     const verifyUrl = `${appUrl}/verify-email?token=${token}&email=${encodeURIComponent(email)}`;
+    const roleLabel = role === 'CREATOR' ? 'Verified Creator' : 'Brand Organization';
 
-    const roleLabel = role === 'CREATOR' ? 'Creator' : 'Brand';
-
-    const html = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; }
-          .card { max-width: 540px; margin: 0 auto; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 40px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
-          .header { text-align: center; margin-bottom: 28px; }
-          .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 12px 0 6px 0; letter-spacing: -0.02em; }
-          .subtitle { font-size: 14px; color: #64748b; margin: 0; line-height: 1.5; }
-          .btn-container { text-align: center; margin: 32px 0; }
-          .btn { display: inline-block; background-color: #0052FF; color: #ffffff !important; padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgba(0,82,255,0.3); }
-          .url-box { background: #f1f5f9; border-radius: 8px; padding: 12px; word-break: break-all; font-size: 12px; color: #475569; margin: 20px 0; }
-          .footer { border-top: 1px solid #f1f5f9; padding-top: 20px; text-align: center; font-size: 12px; color: #94a3b8; margin-top: 24px; }
-        </style>
-      </head>
-      <body>
-        <div class="card">
-          <div class="header">
-            <h1 class="title">Verify Your Email Address</h1>
-            <p class="subtitle">Welcome to The Influencer's Agency (TIA), ${name}!</p>
-          </div>
-
-          <p style="font-size: 14px; color: #334155; line-height: 1.6;">
-            Thank you for registering as a verified <strong>${roleLabel}</strong> on TIA. To activate your account, access high-paying brand campaigns, and secure 100% payment protection, please verify your email address.
-          </p>
-
-          <div class="btn-container">
-            <a href="${verifyUrl}" class="btn">Verify Email Address →</a>
-          </div>
-
-          <p style="font-size: 12px; color: #64748b; line-height: 1.5;">
-            Or copy and paste this verification link into your browser:
-          </p>
-          <div class="url-box">${verifyUrl}</div>
-
-          <p style="font-size: 11px; color: #94a3b8; margin-top: 20px;">
-            This verification link will expire in 24 hours. If you did not create a TIA account, please ignore this email.
-          </p>
-
-          <div class="footer">
-            © ${new Date().getFullYear()} The Influencer's Agency (TIA). All rights reserved.<br>
-            Automated Contract &amp; Payment Intelligence Platform.
-          </div>
+    const html = renderPlatformEmail({
+      badgeText: 'ACCOUNT ACTIVATION',
+      badgeColor: 'blue',
+      title: 'Verify Your Email Address ✉️',
+      subtitle: `Welcome to The Influencer's Agency (TIA), ${name}!`,
+      contentHtml: `
+        <p>Thank you for registering as a <strong>${roleLabel}</strong> on TIA. To activate your workspace, access campaign opportunities, and secure 100% upfront milestone protection, please verify your email address.</p>
+        <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-size: 11px; word-break: break-all; color: #60a5fa; margin: 16px 0;">
+          ${verifyUrl}
         </div>
-      </body>
-      </html>
-    `;
+      `,
+      ctaButton: {
+        label: 'Verify Email Address →',
+        url: verifyUrl,
+        color: '#2563eb',
+      },
+      footerNote: 'This verification link will expire in 24 hours. If you did not create a TIA account, please ignore this email.',
+    });
 
     const result = await sendLiveEmail({
       to: email,

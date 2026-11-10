@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
+import { EmailService } from '@/lib/services/email.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -107,6 +108,20 @@ export async function POST(request: Request) {
       },
     });
 
+    // Industry Standard: Automated Notification to Brand Admin
+    try {
+      await EmailService.sendApplicationReceivedEmail({
+        brandName: application.campaign?.title || 'Brand Partner',
+        creatorName: application.creator?.displayName || 'Verified Creator',
+        creatorHandle: `@${application.creator?.username || 'creator'}`,
+        campaignTitle: application.campaign?.title || 'Campaign',
+        proposedRate: Math.round(application.proposedPrice / 100),
+        pitch: application.pitch,
+      });
+    } catch (e) {
+      console.warn('Application email warning:', e);
+    }
+
     return NextResponse.json({ success: true, application });
   } catch (error: any) {
     console.error('Submit Proposal Error:', error);
@@ -131,6 +146,20 @@ export async function PATCH(request: Request) {
         creator: true,
       },
     });
+
+    // Industry Standard: Automated Proposal Status Update to Creator
+    try {
+      if (['SHORTLISTED', 'ACCEPTED', 'REJECTED'].includes(status)) {
+        await EmailService.sendProposalStatusEmail({
+          creatorName: updated.creator?.displayName || 'Creator',
+          campaignTitle: updated.campaign?.title || 'Campaign',
+          status: status as any,
+          rate: Math.round(updated.proposedPrice / 100),
+        });
+      }
+    } catch (e) {
+      console.warn('Proposal status email warning:', e);
+    }
 
     return NextResponse.json({ success: true, application: updated });
   } catch (error: any) {

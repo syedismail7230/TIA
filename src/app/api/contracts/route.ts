@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
+import { EmailService } from '@/lib/services/email.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -114,6 +115,18 @@ export async function POST(request: Request) {
         },
       });
 
+      // Industry Standard: Automated Contract Ready Notice
+      try {
+        await EmailService.sendContractReadyEmail({
+          recipientName: contract.creator?.displayName || 'Creator',
+          partyRole: 'CREATOR',
+          campaignTitle: contract.campaign?.title || 'Brand Agreement',
+          agreedAmount: Math.round(contract.agreedAmount / 100),
+        });
+      } catch (e) {
+        console.warn('Contract ready email warning:', e);
+      }
+
       return NextResponse.json({ success: true, contract: formatContract(contract) });
     }
 
@@ -147,6 +160,21 @@ export async function POST(request: Request) {
           creator: { include: { user: true } },
         },
       });
+
+      // Industry Standard: If bilaterally signed, dispatch execution notice
+      if (signed.status === 'SIGNED') {
+        try {
+          await EmailService.sendContractExecutedEmail({
+            creatorName: signed.creator?.displayName || 'Creator',
+            brandName: signed.organization?.name || 'Brand Partner',
+            campaignTitle: signed.campaign?.title || 'Brand Agreement',
+            contractNumber: `TIA-AGR-2026-${signed.id.slice(0, 6).toUpperCase()}`,
+            agreedAmount: Math.round(signed.agreedAmount / 100),
+          });
+        } catch (e) {
+          console.warn('Contract executed email warning:', e);
+        }
+      }
 
       return NextResponse.json({
         success: true,

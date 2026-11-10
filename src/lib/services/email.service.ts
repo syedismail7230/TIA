@@ -1,69 +1,39 @@
-// ===================================================
-// TIA BACKEND - TRANSACTIONAL EMAIL SERVICE
-// ===================================================
+// ============================================================================
+// TIA BACKEND - ENTERPRISE TRANSACTIONAL EMAIL SERVICE
+// 100% Platform UI/UX Cohesive Design (Dark Luxury, Custom Badges, Real SMTP)
+// ============================================================================
 
 import { sendLiveEmail, DEFAULT_RECIPIENT } from '@/lib/email/resend';
+import { renderPlatformEmail } from '@/lib/email/templates';
 
-function baseTemplate(title: string, content: string) {
-  return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>${title}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #030712; color: #f9fafb; margin: 0; padding: 24px; }
-    .container { max-width: 600px; margin: 0 auto; background-color: #111827; border: 1px solid #1f2937; border-radius: 12px; overflow: hidden; }
-    .header { padding: 24px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #374151; }
-    .logo { font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
-    .badge { display: inline-block; padding: 4px 10px; font-size: 11px; font-weight: 700; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 9999px; margin-left: 8px; }
-    .body { padding: 32px; color: #d1d5db; line-height: 1.6; font-size: 14px; }
-    .highlight-card { background: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
-    .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .stat-label { color: #9ca3af; }
-    .stat-val { font-weight: 700; color: #f3f4f6; }
-    .btn { display: inline-block; padding: 12px 24px; background: #2563eb; color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 8px; margin-top: 16px; }
-    .footer { padding: 20px 32px; background-color: #0b0f19; border-top: 1px solid #1f2937; text-align: center; font-size: 12px; color: #6b7280; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="logo">THE INFLUENCER'S AGENCY</span>
-      <span class="badge">TIA CORE</span>
-    </div>
-    <div class="body">
-      ${content}
-    </div>
-    <div class="footer">
-      &copy; 2026 The Influencer's Agency (TIA). All payments held under TIA Payment Protection.<br/>
-      Bengaluru • Mumbai • Singapore • London
-    </div>
-  </div>
-</body>
-</html>
-  `;
-}
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.theinfluencers.agency';
 
 export class EmailService {
   /**
-   * 1. Send Welcome Email upon registration
+   * 1. Account Welcome Email
    */
   static async sendWelcomeEmail(toEmail: string, name: string, role: string) {
-    const html = baseTemplate(
-      'Welcome to The Influencer’s Agency (TIA)',
-      `
-      <h2 style="color: #ffffff; margin-top: 0;">Welcome, ${name}! 👋</h2>
-      <p>Your <strong>${role === 'CREATOR' ? 'Creator Intelligence' : 'Brand Organization'}</strong> account is now live on TIA.</p>
-      <div class="highlight-card">
-        <div class="stat-row"><span class="stat-label">Registered Role:</span><span class="stat-val">${role}</span></div>
-        <div class="stat-row"><span class="stat-label">Security & Protection:</span><span class="stat-val">100% Upfront Fund Lock</span></div>
-        <div class="stat-row"><span class="stat-label">Deliverable SLA:</span><span class="stat-val">72-Hour Auto Approval</span></div>
-      </div>
-      <p>Access your dashboard to explore verified creators, launch milestone-protected campaigns, and audit authentic audience reach.</p>
-      <a href="http://localhost:3000/login" class="btn">Launch Dashboard</a>
-      `
-    );
+    const html = renderPlatformEmail({
+      badgeText: 'WELCOME ONBOARD',
+      badgeColor: 'blue',
+      title: `Welcome to TIA, ${name}! 👋`,
+      subtitle: `Your ${role === 'CREATOR' ? 'Creator Intelligence' : 'Brand Organization'} portal is now active.`,
+      contentHtml: `
+        <p>You have joined India's premier creator marketplace powered by 100% milestone payment protection, automated GST invoicing, and real-time audience intelligence.</p>
+      `,
+      keyValues: [
+        { label: 'Registered Role', value: role === 'CREATOR' ? 'Verified Creator' : 'Brand Organization' },
+        { label: 'Payment Protection', value: '100% Upfront Milestone Lock', color: '#60a5fa' },
+        { label: 'Review SLA', value: '72-Hour Auto Approval Guarantee', color: '#fbbf24' },
+        { label: 'Platform Fee', value: 'Fixed 5.00% Canonical', color: '#34d399' },
+      ],
+      ctaButton: {
+        label: 'Launch Your Workspace',
+        url: `${BASE_URL}/login`,
+        color: '#2563eb',
+      },
+      footerNote: 'Need help getting started? Reply directly to this email for dedicated partner support.',
+    });
 
     return await sendLiveEmail({
       to: toEmail || DEFAULT_RECIPIENT,
@@ -73,7 +43,184 @@ export class EmailService {
   }
 
   /**
-   * 2. Send Milestone Fund Locked Notification
+   * 2. New Campaign Application Received (Sent to Brand Admin)
+   */
+  static async sendApplicationReceivedEmail(params: {
+    brandEmail?: string;
+    brandName: string;
+    creatorName: string;
+    creatorHandle: string;
+    campaignTitle: string;
+    proposedRate: number;
+    pitch: string;
+    reviewUrl?: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'NEW PROPOSAL',
+      badgeColor: 'purple',
+      title: 'New Creator Proposal Received 📬',
+      subtitle: `Creator ${params.creatorName} (${params.creatorHandle}) applied to "${params.campaignTitle}".`,
+      contentHtml: `
+        <div style="background: #1e293b; border-left: 3px solid #60a5fa; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
+          <p style="margin: 0; font-style: italic; color: #f1f5f9;">"${params.pitch}"</p>
+        </div>
+      `,
+      keyValues: [
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Creator', value: `${params.creatorName} (${params.creatorHandle})` },
+        { label: 'Proposed Commercials', value: `₹${params.proposedRate.toLocaleString('en-IN')}`, color: '#34d399' },
+      ],
+      ctaButton: {
+        label: 'Review Proposal & Shortlist',
+        url: params.reviewUrl || `${BASE_URL}/brand`,
+        color: '#2563eb',
+      },
+      footerNote: 'Reviewing proposals within 24 hours increases creator commitment by 80%.',
+    });
+
+    return await sendLiveEmail({
+      to: params.brandEmail || DEFAULT_RECIPIENT,
+      subject: `[New Proposal] ${params.creatorName} applied to ${params.campaignTitle}`,
+      html,
+    });
+  }
+
+  /**
+   * 3. Proposal Status Update (Sent to Creator)
+   */
+  static async sendProposalStatusEmail(params: {
+    creatorEmail?: string;
+    creatorName: string;
+    campaignTitle: string;
+    status: 'SHORTLISTED' | 'ACCEPTED' | 'REJECTED';
+    rate?: number;
+    actionUrl?: string;
+  }) {
+    const isAccepted = params.status === 'ACCEPTED';
+    const isShortlisted = params.status === 'SHORTLISTED';
+
+    const title = isAccepted
+      ? 'Proposal Accepted! Contract Pending 🎉'
+      : isShortlisted
+      ? 'You Have Been Shortlisted! 🌟'
+      : 'Campaign Application Update';
+
+    const badgeColor = isAccepted ? 'emerald' : isShortlisted ? 'blue' : 'rose';
+
+    const html = renderPlatformEmail({
+      badgeText: `PROPOSAL ${params.status}`,
+      badgeColor,
+      title,
+      subtitle: `Update for your application on "${params.campaignTitle}".`,
+      contentHtml: isAccepted
+        ? `<p>Congratulations! The brand has approved your commercial proposal. The digital agreement has been drafted under TIA payment protection.</p>`
+        : isShortlisted
+        ? `<p>Great news! The brand team has shortlisted your application for their campaign. Keep an eye on your workspace for contract terms.</p>`
+        : `<p>Thank you for submitting your pitch. On this occasion the campaign quota has been filled, but your profile remains in the active talent pool.</p>`,
+      keyValues: [
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Application Status', value: params.status, color: isAccepted ? '#34d399' : '#60a5fa' },
+        ...(params.rate ? [{ label: 'Approved Fee', value: `₹${params.rate.toLocaleString('en-IN')}`, color: '#34d399' }] : []),
+      ],
+      ctaButton: {
+        label: 'Open Workspace',
+        url: params.actionUrl || `${BASE_URL}/creator`,
+        color: '#2563eb',
+      },
+    });
+
+    return await sendLiveEmail({
+      to: params.creatorEmail || DEFAULT_RECIPIENT,
+      subject: `[TIA Update] Your proposal for "${params.campaignTitle}" is ${params.status}`,
+      html,
+    });
+  }
+
+  /**
+   * 4. Contract Ready for Signature
+   */
+  static async sendContractReadyEmail(params: {
+    recipientEmail?: string;
+    recipientName: string;
+    partyRole: 'CREATOR' | 'BRAND';
+    campaignTitle: string;
+    agreedAmount: number;
+    contractUrl?: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'CONTRACT READY',
+      badgeColor: 'amber',
+      title: 'Digital Agreement Ready for Signature ✍️',
+      subtitle: `Legally-binding agreement prepared for "${params.campaignTitle}".`,
+      contentHtml: `
+        <p>A digital contract has been prepared under standard TIA marketplace terms. Both parties are required to digitally sign before milestone funds are locked in escrow.</p>
+      `,
+      keyValues: [
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Total Deal Value', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Platform Fee (5%)', value: `₹${Math.round(params.agreedAmount * 0.05).toLocaleString('en-IN')}` },
+        { label: 'Net Payout Allocation', value: `₹${Math.round(params.agreedAmount * 0.95).toLocaleString('en-IN')}`, color: '#60a5fa' },
+      ],
+      ctaButton: {
+        label: 'Review & Sign Contract',
+        url: params.contractUrl || `${BASE_URL}/workspace`,
+        color: '#2563eb',
+      },
+      footerNote: 'All TIA contracts feature built-in dispute arbitration and 72-hour deliverable SLAs.',
+    });
+
+    return await sendLiveEmail({
+      to: params.recipientEmail || DEFAULT_RECIPIENT,
+      subject: `[Action Required] Sign Agreement for "${params.campaignTitle}"`,
+      html,
+    });
+  }
+
+  /**
+   * 5. Bilateral Contract Fully Executed
+   */
+  static async sendContractExecutedEmail(params: {
+    creatorEmail?: string;
+    brandEmail?: string;
+    creatorName: string;
+    brandName: string;
+    campaignTitle: string;
+    contractNumber: string;
+    agreedAmount: number;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'CONTRACT SIGNED',
+      badgeColor: 'emerald',
+      title: 'Agreement Bilaterally Signed & Active 📜',
+      subtitle: `Contract #${params.contractNumber} is now legally binding.`,
+      contentHtml: `
+        <p>Both <strong>${params.brandName}</strong> and <strong>${params.creatorName}</strong> have executed their digital signatures. Work may now commence under TIA payment protection.</p>
+      `,
+      keyValues: [
+        { label: 'Contract Number', value: params.contractNumber },
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Brand Signer', value: params.brandName },
+        { label: 'Creator Signer', value: params.creatorName },
+        { label: 'Agreed Fee', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+      ],
+      ctaButton: {
+        label: 'Open Active Collaboration Desk',
+        url: `${BASE_URL}/workspace`,
+        color: '#2563eb',
+      },
+    });
+
+    // Send to both parties
+    const recipients = [params.creatorEmail, params.brandEmail].filter(Boolean) as string[];
+    return await sendLiveEmail({
+      to: recipients.length > 0 ? recipients : DEFAULT_RECIPIENT,
+      subject: `[TIA Executed] Agreement Signed for "${params.campaignTitle}" (#${params.contractNumber})`,
+      html,
+    });
+  }
+
+  /**
+   * 6. Milestone Funds Secured in TIA Protection
    */
   static async sendFundsLockedEmail(params: {
     brandName: string;
@@ -84,21 +231,27 @@ export class EmailService {
     grossAmount: number;
     transactionId: string;
   }) {
-    const html = baseTemplate(
-      'Milestone Funds Secured in TIA Payment Protection',
-      `
-      <h2 style="color: #ffffff; margin-top: 0;">₹${params.grossAmount.toLocaleString('en-IN')} Secured in TIA Payment Protection 🛡️</h2>
-      <p><strong>${params.brandName}</strong> has deposited 100% of the funds for milestone <strong>"${params.milestoneTitle}"</strong> in campaign <em>"${params.campaignTitle}"</em>.</p>
-      <div class="highlight-card">
-        <div class="stat-row"><span class="stat-label">Transaction ID:</span><span class="stat-val">${params.transactionId}</span></div>
-        <div class="stat-row"><span class="stat-label">Milestone:</span><span class="stat-val">${params.milestoneTitle}</span></div>
-        <div class="stat-row"><span class="stat-label">Secured Amount:</span><span class="stat-val">₹${params.grossAmount.toLocaleString('en-IN')}</span></div>
-        <div class="stat-row"><span class="stat-label">Status:</span><span class="stat-val" style="color: #60a5fa;">HELD_IN_PROTECTION</span></div>
-      </div>
-      <p>Creator <strong>${params.creatorName}</strong> can now begin work on this milestone with complete payment safety.</p>
-      <a href="http://localhost:3000/workspace" class="btn">Open Workspace Desk</a>
-      `
-    );
+    const html = renderPlatformEmail({
+      badgeText: 'FUNDS SECURED',
+      badgeColor: 'blue',
+      title: `₹${params.grossAmount.toLocaleString('en-IN')} Secured in TIA Protection 🛡️`,
+      subtitle: `Upfront escrow deposit confirmed for "${params.campaignTitle}".`,
+      contentHtml: `
+        <p><strong>${params.brandName}</strong> has deposited 100% of the milestone funds into TIA Payment Protection. Creator <strong>${params.creatorName}</strong> can now begin work with complete financial safety.</p>
+      `,
+      keyValues: [
+        { label: 'Transaction ID', value: params.transactionId },
+        { label: 'Milestone', value: params.milestoneTitle },
+        { label: 'Secured Balance', value: `₹${params.grossAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Escrow Status', value: 'HELD_IN_PROTECTION', color: '#60a5fa' },
+      ],
+      ctaButton: {
+        label: 'Open Workspace Desk',
+        url: `${BASE_URL}/workspace`,
+        color: '#2563eb',
+      },
+      footerNote: 'Funds are securely locked and will only be disbursed upon deliverable approval or after the 72-hour SLA expires.',
+    });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
@@ -108,7 +261,7 @@ export class EmailService {
   }
 
   /**
-   * 3. Send Deliverable Submission & 72-Hour SLA Alert to Brand
+   * 7. Deliverable Submitted (72h SLA Alert to Brand)
    */
   static async sendDeliverableSubmittedEmail(params: {
     brandEmail?: string;
@@ -117,22 +270,28 @@ export class EmailService {
     campaignTitle: string;
     deliverableTitle: string;
     assetUrl: string;
-    deadlineHours: number;
+    deadlineHours?: number;
   }) {
-    const html = baseTemplate(
-      'Deliverable Ready for Review (72h SLA Active)',
-      `
-      <h2 style="color: #ffffff; margin-top: 0;">Deliverable Cut Uploaded for Review 🎬</h2>
-      <p>Creator <strong>${params.creatorName}</strong> has submitted <strong>"${params.deliverableTitle}"</strong> for campaign <em>"${params.campaignTitle}"</em>.</p>
-      <div class="highlight-card">
-        <div class="stat-row"><span class="stat-label">Deliverable:</span><span class="stat-val">${params.deliverableTitle}</span></div>
-        <div class="stat-row"><span class="stat-label">Review Window:</span><span class="stat-val" style="color: #f59e0b;">72-Hour SLA Timer Active</span></div>
-        <div class="stat-row"><span class="stat-label">Asset Link:</span><span class="stat-val"><a href="${params.assetUrl}" style="color: #60a5fa;">Preview Cut</a></span></div>
-      </div>
-      <p style="color: #fca5a5;"><strong>Note:</strong> Under TIA guidelines, if no revisions or disputes are requested within 72 hours, the system will automatically approve the draft and disburse milestone funds.</p>
-      <a href="http://localhost:3000/workspace" class="btn">Review & Add Notes</a>
-      `
-    );
+    const html = renderPlatformEmail({
+      badgeText: 'REVIEW SLA 72H',
+      badgeColor: 'amber',
+      title: 'Deliverable Uploaded for Review 🎬',
+      subtitle: `${params.creatorName} submitted "${params.deliverableTitle}".`,
+      contentHtml: `
+        <p>Creator <strong>${params.creatorName}</strong> has uploaded the draft deliverable. Please inspect the asset and provide review approval or revision requests within the 72-hour review window.</p>
+        <p style="color: #fca5a5; font-size: 13px;"><strong>Notice:</strong> Under TIA platform rules, if no revisions or disputes are lodged within 72 hours, the submission will be automatically approved and escrow funds released.</p>
+      `,
+      keyValues: [
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Deliverable', value: params.deliverableTitle },
+        { label: 'Review SLA', value: `${params.deadlineHours || 72} Hours Active`, color: '#fbbf24' },
+      ],
+      ctaButton: {
+        label: 'Inspect Deliverable & Review',
+        url: `${BASE_URL}/workspace`,
+        color: '#2563eb',
+      },
+    });
 
     return await sendLiveEmail({
       to: params.brandEmail || DEFAULT_RECIPIENT,
@@ -142,7 +301,48 @@ export class EmailService {
   }
 
   /**
-   * 4. Send Payout Disbursement Email to Creator
+   * 8. Revision Requested (Sent to Creator)
+   */
+  static async sendRevisionRequestedEmail(params: {
+    creatorEmail?: string;
+    creatorName: string;
+    campaignTitle: string;
+    deliverableTitle: string;
+    revisionNotes: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'REVISION REQUEST',
+      badgeColor: 'rose',
+      title: 'Creative Revision Requested ✍️',
+      subtitle: `Feedback provided for "${params.deliverableTitle}".`,
+      contentHtml: `
+        <p>The brand team has reviewed your submission and requested the following adjustments:</p>
+        <div style="background: #1e293b; border-left: 3px solid #f43f5e; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
+          <p style="margin: 0; font-style: italic; color: #f1f5f9;">"${params.revisionNotes}"</p>
+        </div>
+        <p>Please revise and upload the updated asset cut to continue the milestone process.</p>
+      `,
+      keyValues: [
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Deliverable', value: params.deliverableTitle },
+        { label: 'Status', value: 'REVISION_REQUESTED', color: '#fb7185' },
+      ],
+      ctaButton: {
+        label: 'Upload Revised Cut',
+        url: `${BASE_URL}/creator`,
+        color: '#2563eb',
+      },
+    });
+
+    return await sendLiveEmail({
+      to: params.creatorEmail || DEFAULT_RECIPIENT,
+      subject: `[Revision Request] Updates needed for "${params.deliverableTitle}"`,
+      html,
+    });
+  }
+
+  /**
+   * 9. Payout Disbursed to Creator
    */
   static async sendPayoutDisbursedEmail(params: {
     creatorEmail?: string;
@@ -155,26 +355,150 @@ export class EmailService {
     netPayout: number;
     utrNumber: string;
   }) {
-    const html = baseTemplate(
-      'Milestone Payout Disbursed',
-      `
-      <h2 style="color: #34d399; margin-top: 0;">₹${params.netPayout.toLocaleString('en-IN')} Bank Payout Disbursed 💰</h2>
-      <p>Congratulations <strong>${params.creatorName}</strong>! Your deliverable for milestone <strong>"${params.milestoneTitle}"</strong> has been approved.</p>
-      <div class="highlight-card">
-        <div class="stat-row"><span class="stat-label">Gross Milestone:</span><span class="stat-val">₹${params.grossAmount.toLocaleString('en-IN')}</span></div>
-        <div class="stat-row"><span class="stat-label">TIA 5% Platform Fee:</span><span class="stat-val">- ₹${params.tiaFee.toLocaleString('en-IN')}</span></div>
-        <div class="stat-row"><span class="stat-label">1% TDS (Sec 194J):</span><span class="stat-val">- ₹${params.tds.toLocaleString('en-IN')}</span></div>
-        <hr style="border: 0; border-top: 1px solid #374151; margin: 8px 0;"/>
-        <div class="stat-row"><span class="stat-label" style="color: #34d399; font-weight: 700;">Net Bank Payout:</span><span class="stat-val" style="color: #34d399; font-size: 16px;">₹${params.netPayout.toLocaleString('en-IN')}</span></div>
-        <div class="stat-row"><span class="stat-label">NEFT Reference (UTR):</span><span class="stat-val">${params.utrNumber}</span></div>
-      </div>
-      <p>Funds have been dispatched directly to your registered bank account via NEFT settlement.</p>
-      `
-    );
+    const html = renderPlatformEmail({
+      badgeText: 'PAYOUT DISBURSED',
+      badgeColor: 'emerald',
+      title: `₹${params.netPayout.toLocaleString('en-IN')} Bank Payout Disbursed 💰`,
+      subtitle: `Milestone "${params.milestoneTitle}" approved & settled.`,
+      contentHtml: `
+        <p>Congratulations <strong>${params.creatorName}</strong>! Your deliverable has been approved and your net earnings have been dispatched to your bank account via NEFT settlement.</p>
+      `,
+      keyValues: [
+        { label: 'Gross Milestone Fee', value: `₹${params.grossAmount.toLocaleString('en-IN')}` },
+        { label: 'TIA Platform Fee (5%)', value: `- ₹${params.tiaFee.toLocaleString('en-IN')}`, color: '#94a3b8' },
+        { label: 'TDS Withholding (1%)', value: `- ₹${params.tds.toLocaleString('en-IN')}`, color: '#94a3b8' },
+        { label: 'Net Bank Payout', value: `₹${params.netPayout.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'NEFT Reference (UTR)', value: params.utrNumber, color: '#60a5fa' },
+      ],
+      ctaButton: {
+        label: 'View Wallet Statement',
+        url: `${BASE_URL}/creator`,
+        color: '#2563eb',
+      },
+    });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
       subject: `[TIA Payout] ₹${params.netPayout.toLocaleString('en-IN')} Disbursed (UTR: ${params.utrNumber})`,
+      html,
+    });
+  }
+
+  /**
+   * 10. GST Tax Invoice Issued (Sent to Brand)
+   */
+  static async sendInvoiceIssuedEmail(params: {
+    brandEmail?: string;
+    brandLegalName: string;
+    invoiceNumber: string;
+    campaignTitle: string;
+    grossAmount: number;
+    platformFee: number;
+    totalGst: number;
+    totalInvoiceAmount: number;
+    pdfUrl?: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'GST TAX INVOICE',
+      badgeColor: 'blue',
+      title: `Tax Invoice ${params.invoiceNumber} Issued 🧾`,
+      subtitle: `Official GST invoice for campaign "${params.campaignTitle}".`,
+      contentHtml: `
+        <p>Your official GST Tax Invoice has been generated in compliance with Central Goods and Services Tax rules.</p>
+      `,
+      keyValues: [
+        { label: 'Invoice Number', value: params.invoiceNumber },
+        { label: 'Issued To', value: params.brandLegalName },
+        { label: 'Taxable Platform Service', value: `₹${params.platformFee.toLocaleString('en-IN')}` },
+        { label: '18% GST (CGST + SGST)', value: `₹${params.totalGst.toLocaleString('en-IN')}` },
+        { label: 'Total Platform Invoice', value: `₹${params.totalInvoiceAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+      ],
+      ctaButton: {
+        label: 'Download Invoice PDF',
+        url: params.pdfUrl || `${BASE_URL}/brand`,
+        color: '#2563eb',
+      },
+    });
+
+    return await sendLiveEmail({
+      to: params.brandEmail || DEFAULT_RECIPIENT,
+      subject: `[TIA Tax Invoice] ${params.invoiceNumber} for "${params.campaignTitle}"`,
+      html,
+    });
+  }
+
+  /**
+   * 11. Dispute Filed Alert (Sent to Parties & Legal)
+   */
+  static async sendDisputeAlertEmail(params: {
+    recipientEmail?: string;
+    recipientName: string;
+    role: string;
+    campaignTitle: string;
+    disputeReason: string;
+    disputedAmount: number;
+    disputeId: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'ARBITRATION NOTICE',
+      badgeColor: 'rose',
+      title: 'Formal Dispute Case Opened ⚖️',
+      subtitle: `Dispute filed regarding "${params.campaignTitle}".`,
+      contentHtml: `
+        <p>A formal arbitration dispute has been submitted under reason: <strong>${params.disputeReason}</strong>. Associated milestone funds have been placed on freeze pending arbitration review.</p>
+        <p>Both parties have 48 hours to upload supporting evidence, communications, or raw deliverable files.</p>
+      `,
+      keyValues: [
+        { label: 'Dispute Reference', value: params.disputeId },
+        { label: 'Campaign', value: params.campaignTitle },
+        { label: 'Frozen Disputed Amount', value: `₹${params.disputedAmount.toLocaleString('en-IN')}`, color: '#fb7185' },
+        { label: 'Arbitration Status', value: 'UNDER_REVIEW', color: '#fbbf24' },
+      ],
+      ctaButton: {
+        label: 'Submit Evidence to Desk',
+        url: `${BASE_URL}/workspace`,
+        color: '#2563eb',
+      },
+    });
+
+    return await sendLiveEmail({
+      to: params.recipientEmail || DEFAULT_RECIPIENT,
+      subject: `[TIA Dispute Alert] Arbitration Case Opened for "${params.campaignTitle}"`,
+      html,
+    });
+  }
+
+  /**
+   * 12. Anti-Circumvention Warning Notice
+   */
+  static async sendCircumventionWarningEmail(params: {
+    recipientEmail?: string;
+    recipientName: string;
+    flaggedContent: string;
+  }) {
+    const html = renderPlatformEmail({
+      badgeText: 'SECURITY WARNING',
+      badgeColor: 'rose',
+      title: 'Platform Policy Warning: Direct Payment Leakage ⚠️',
+      subtitle: 'Circumvention attempt detected by TIA Trust & Safety engine.',
+      contentHtml: `
+        <p>Our automated integrity scanner flagged an attempt to share direct contact or external payment details:</p>
+        <div style="background: #1e293b; border-left: 3px solid #f43f5e; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
+          <p style="margin: 0; font-family: monospace; color: #fca5a5;">${params.flaggedContent}</p>
+        </div>
+        <p style="color: #cbd5e1; font-size: 13px;">Taking conversations or payments off TIA removes payment protection, eliminates automatic dispute arbitration, and constitutes a breach of Section 7 of the Platform Terms of Service.</p>
+      `,
+      ctaButton: {
+        label: 'Review Terms of Service',
+        url: `${BASE_URL}/terms`,
+        color: '#2563eb',
+      },
+      footerNote: 'Repeated policy violations may result in account suspension and escrow forfeiture.',
+    });
+
+    return await sendLiveEmail({
+      to: params.recipientEmail || DEFAULT_RECIPIENT,
+      subject: `[TIA Security Warning] Off-Platform Contact Attempt Flagged`,
       html,
     });
   }

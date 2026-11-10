@@ -1,14 +1,16 @@
 // ===================================================
-// TIA BACKEND - RESEND LIVE EMAIL CLIENT
+// TIA BACKEND - UNIFIED TRANSACTIONAL EMAIL CLIENT
+// Cloudflare Routing via Gmail SMTP + Resend Fallback
 // ===================================================
 
+import nodemailer from 'nodemailer';
 import { Resend } from 'resend';
 import fs from 'fs';
 import path from 'path';
 
-function getApiKey(): string {
-  if (process.env.RESEND_API_KEY) {
-    return process.env.RESEND_API_KEY;
+function getEnvVar(key: string, defaultValue: string = ''): string {
+  if (process.env[key]) {
+    return process.env[key]!;
   }
 
   // Load from local .env if running in test / cli mode
@@ -16,20 +18,21 @@ function getApiKey(): string {
     const envPath = path.join(process.cwd(), '.env');
     if (fs.existsSync(envPath)) {
       const content = fs.readFileSync(envPath, 'utf-8');
-      const match = content.match(/RESEND_API_KEY=(.+)/);
+      const regex = new RegExp(`^${key}=(.*)$`, 'm');
+      const match = content.match(regex);
       if (match && match[1]) {
-        return match[1].trim();
+        return match[1].trim().replace(/^["']|["']$/g, '');
       }
     }
-  } catch {
-    // ignore
-  }
+  } catch {}
 
-  return '';
+  return defaultValue;
 }
 
-export const DEFAULT_FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-export const DEFAULT_RECIPIENT = process.env.DEFAULT_NOTIFICATION_EMAIL || 'creatorsalliance.media@gmail.com';
+export const SMTP_USER = getEnvVar('SMTP_USER', 'creatorsalliance.media@gmail.com');
+export const SMTP_PASS = getEnvVar('SMTP_PASS', 'yudcqmjsedbopqxf').replace(/\s+/g, '');
+export const DEFAULT_FROM = getEnvVar('SMTP_FROM', `"The Influencer's Agency" <noreply@theinfluencers.agency>`);
+export const DEFAULT_RECIPIENT = getEnvVar('DEFAULT_NOTIFICATION_EMAIL', 'creatorsalliance.media@gmail.com');
 
 export interface SendEmailParams {
   to?: string | string[];
@@ -39,29 +42,65 @@ export interface SendEmailParams {
   replyTo?: string;
 }
 
-export async function sendLiveEmail(params: SendEmailParams) {
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    console.warn('RESEND_API_KEY is not set. Skipping live email dispatch.');
-    return { success: false, error: 'Missing RESEND_API_KEY' };
-  }
+// Singleton SMTP Transporter
+let transporter: nodemailer.Transporter | null = null;
 
-  try {
-    const resend = new Resend(apiKey);
-    const targetRecipient = DEFAULT_RECIPIENT;
-
-    const response = await resend.emails.send({
-      from: params.from || `The Influencer's Agency (TIA) <${DEFAULT_FROM}>`,
-      to: [targetRecipient],
-      subject: params.subject,
-      html: params.html,
-      replyTo: params.replyTo || 'support@tia.agency',
+function getTransporter(): nodemailer.Transporter {
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: SMTP_USER,
+        pass: SMTP_PASS,
+      },
     });
-
-    console.log('Resend Email Dispatched:', response);
-    return { success: true, data: response };
-  } catch (error: any) {
-    console.error('Resend Email Error:', error);
-    return { success: false, error: error.message };
   }
+  return transporter;
+}
+
+export async function sendLiveEmail(params: SendEmailParams) {
+  const targetRecipient = params.to || DEFAULT_RECIPIENT;
+  const fromAddress = params.from || DEFAULT_FROM;
+
+  // 1. Primary: Send via Cloudflare Routing (Gmail SMTP)
+  if (SMTP_USER && SMTP_PASS) {
+    try {
+      const transport = getTransporter();
+      const info = await transport.sendMail({
+        from: fromAddress,
+        to: targetRecipient,
+        subject: params.subject,
+        html: params.html,
+        replyTo: params.replyTo || 'support@theinfluencers.agency',
+      });
+
+      console.log('✅ SMTP Email Dispatched Successfully:', info.messageId);
+      return { success: true, messageId: info.messageId, provider: 'smtp' };
+    } catch (smtpError: any) {
+      console.warn('⚠️ SMTP Dispatch error, attempting fallback:', smtpError.message);
+    }
+  }
+
+  // 2. Fallback: Resend API if configured
+  const resendKey = getEnvVar('RESEND_API_KEY');
+  if (resendKey) {
+    try {
+      const resend = new Resend(resendKey);
+      const resendResponse = await resend.emails.send({
+        from: `The Influencer's Agency (TIA) <onboarding@resend.dev>`,
+        to: Array.isArray(targetRecipient) ? targetRecipient : [targetRecipient],
+        subject: params.subject,
+        html: params.html,
+        replyTo: params.replyTo || 'support@theinfluencers.agency',
+      });
+
+      console.log('Resend Fallback Email Dispatched:', resendResponse);
+      return { success: true, data: resendResponse, provider: 'resend' };
+    } catch (resendError: any) {
+      console.error('Resend Fallback Error:', resendError);
+      return { success: false, error: resendError.message };
+    }
+  }
+
+  return { success: false, error: 'No active email provider available' };
 }

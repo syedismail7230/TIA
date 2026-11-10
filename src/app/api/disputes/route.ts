@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
+import { EmailService } from '@/lib/services/email.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -110,6 +111,20 @@ export async function POST(request: Request) {
         evidence: true,
       },
     });
+
+    // Industry Standard: Automated Dispute Arbitration Notice
+    try {
+      await EmailService.sendDisputeAlertEmail({
+        recipientName: user?.name || (initiatorRole === 'CREATOR' ? 'Creator' : 'Brand Admin'),
+        role: initiatorRole,
+        campaignTitle: dispute.campaign?.title || 'Campaign',
+        disputeReason: reason,
+        disputedAmount: Math.round(dispute.claimedAmount / 100),
+        disputeId: dispute.id,
+      });
+    } catch (e) {
+      console.warn('Dispute email dispatch warning:', e);
+    }
 
     return NextResponse.json({ success: true, dispute });
   } catch (error: any) {

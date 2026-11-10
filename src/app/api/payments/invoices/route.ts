@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
+import { EmailService } from '@/lib/services/email.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -121,7 +122,25 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true, invoice: formatInvoice(invoice) });
+    const formatted = formatInvoice(invoice);
+
+    // Industry Standard: Automated GST Tax Invoice Delivery
+    try {
+      await EmailService.sendInvoiceIssuedEmail({
+        brandLegalName: formatted.brandLegalName,
+        invoiceNumber: formatted.invoiceNumber,
+        campaignTitle: formatted.campaignTitle,
+        grossAmount: formatted.grossCampaignAmount,
+        platformFee: formatted.taxablePlatformFee,
+        totalGst: formatted.totalGst,
+        totalInvoiceAmount: formatted.totalInvoiceAmount,
+        pdfUrl: formatted.pdfUrl,
+      });
+    } catch (e) {
+      console.warn('Invoice email dispatch warning:', e);
+    }
+
+    return NextResponse.json({ success: true, invoice: formatted });
   } catch (error: any) {
     console.error('Create Invoice Error:', error);
     return NextResponse.json({ success: false, error: error.message || 'Invoice generation failed' }, { status: 500 });

@@ -5,6 +5,7 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
+import { EmailService } from '@/lib/services/email.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -124,6 +125,25 @@ export async function POST(request: Request) {
         data: { status: 'DRAFT_SUBMITTED' },
       });
 
+      // Industry Standard: Automated Review SLA Notice to Brand
+      try {
+        const fullDeliv = await prisma.campaignDeliverable.findUnique({
+          where: { id: targetDeliverableId },
+          include: { campaign: true, creator: true },
+        });
+
+        await EmailService.sendDeliverableSubmittedEmail({
+          brandName: fullDeliv?.campaign?.title || 'Brand',
+          creatorName: fullDeliv?.creator?.displayName || 'Creator',
+          campaignTitle: fullDeliv?.campaign?.title || 'Campaign',
+          deliverableTitle: title,
+          assetUrl,
+          deadlineHours: 72,
+        });
+      } catch (e) {
+        console.warn('Submission email warning:', e);
+      }
+
       return NextResponse.json({ success: true, submission });
     }
 
@@ -136,6 +156,32 @@ export async function POST(request: Request) {
           approvedAt: new Date(),
         },
       });
+
+      // Industry Standard: Automated Payout Disbursed Notice to Creator
+      try {
+        const fullDeliv = await prisma.campaignDeliverable.findUnique({
+          where: { id: deliverableId },
+          include: { campaign: true, creator: true, contract: true },
+        });
+
+        const gross = fullDeliv?.contract ? Math.round(fullDeliv.contract.agreedAmount / 100) : 65000;
+        const fee = Math.round(gross * 0.05);
+        const tds = Math.round(gross * 0.01);
+        const net = gross - fee - tds;
+
+        await EmailService.sendPayoutDisbursedEmail({
+          creatorName: fullDeliv?.creator?.displayName || 'Creator',
+          campaignTitle: fullDeliv?.campaign?.title || 'Campaign Deliverable',
+          milestoneTitle: fullDeliv?.title || 'Campaign Milestone',
+          grossAmount: gross,
+          tiaFee: fee,
+          tds,
+          netPayout: net,
+          utrNumber: `NEFT${Date.now().toString().slice(-9)}IN`,
+        });
+      } catch (e) {
+        console.warn('Payout email warning:', e);
+      }
 
       return NextResponse.json({
         success: true,

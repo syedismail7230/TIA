@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { sendLiveEmail, DEFAULT_RECIPIENT } from '@/lib/email/resend';
+import { renderPlatformEmail } from '@/lib/email/templates';
 import { logAudit } from '@/lib/audit/logger';
 
 export interface OtpRecord {
@@ -97,48 +98,19 @@ export class OtpService {
 
     const title = purposeTitles[purpose] || 'Verification Code';
 
-    // Branded HTML Email Template
-    const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>${title} - TIA</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #030712; color: #f9fafb; margin: 0; padding: 24px; }
-    .container { max-width: 520px; margin: 0 auto; background-color: #111827; border: 1px solid #1f2937; border-radius: 12px; overflow: hidden; }
-    .header { padding: 24px 32px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border-bottom: 1px solid #374151; }
-    .logo { font-size: 18px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
-    .badge { display: inline-block; padding: 3px 8px; font-size: 10px; font-weight: 700; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 9999px; margin-left: 8px; }
-    .body { padding: 32px; color: #d1d5db; line-height: 1.6; font-size: 14px; text-align: center; }
-    .otp-box { margin: 28px auto; padding: 18px 24px; background: #1f2937; border: 2px dashed #3b82f6; border-radius: 12px; display: inline-block; }
-    .otp-code { font-size: 36px; font-weight: 800; letter-spacing: 8px; color: #60a5fa; font-family: monospace; }
-    .footer { padding: 18px 32px; background-color: #0b0f19; border-top: 1px solid #1f2937; text-align: center; font-size: 12px; color: #6b7280; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="logo">THE INFLUENCER'S AGENCY</span>
-      <span class="badge">SECURE AUTH</span>
-    </div>
-    <div class="body">
-      <h2 style="color: #ffffff; margin-top: 0;">${title}</h2>
-      <p style="color: #9ca3af;">Use the 6-digit verification code below to complete your request for <strong>${normalizedEmail}</strong>.</p>
-      
-      <div class="otp-box">
-        <div class="otp-code">${code}</div>
-      </div>
-
-      <p style="color: #9ca3af; font-size: 13px;">This code is valid for <strong>10 minutes</strong>. Do not share this OTP with anyone.</p>
-    </div>
-    <div class="footer">
-      &copy; 2026 The Influencer's Agency (TIA). All payments held under TIA Payment Protection.
-    </div>
-  </div>
-</body>
-</html>
-    `;
+    // Branded HTML Email Template matching platform UI/UX
+    const html = renderPlatformEmail({
+      badgeText: 'SECURE AUTH',
+      badgeColor: 'blue',
+      title,
+      subtitle: `Use the 6-digit verification code below to complete your request for <strong style="color: #60a5fa;">${normalizedEmail}</strong>.`,
+      contentHtml: '',
+      highlightBox: {
+        value: code,
+        style: 'dashed',
+      },
+      footerNote: 'This code is valid for <strong>10 minutes</strong>. Do not share this OTP with anyone.',
+    });
 
     await sendLiveEmail({
       to: normalizedEmail || DEFAULT_RECIPIENT,

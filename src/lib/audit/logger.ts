@@ -16,16 +16,33 @@ export interface AuditLogParams {
  */
 export async function logAuditEvent(params: AuditLogParams) {
   try {
+    let validUserId: string | null = null;
+    if (params.userId) {
+      // Validate that userId is an existing User UUID to satisfy foreign key
+      const exists = await prisma.user.findUnique({
+        where: { id: params.userId },
+        select: { id: true },
+      }).catch(() => null);
+      if (exists) {
+        validUserId = exists.id;
+      }
+    }
+
+    const metadataObj = {
+      ...(params.metadata || {}),
+      ...(validUserId ? {} : { rawActorId: params.userId }),
+    };
+
     return await prisma.auditLog.create({
       data: {
-        userId: params.userId,
+        userId: validUserId,
         userRole: params.userRole,
         action: params.action,
         entityType: params.entityType,
         entityId: params.entityId,
         ipAddress: params.ipAddress,
         userAgent: params.userAgent,
-        metadata: params.metadata ? JSON.stringify(params.metadata) : null,
+        metadata: Object.keys(metadataObj).length > 0 ? JSON.stringify(metadataObj) : null,
       },
     });
   } catch (error) {
