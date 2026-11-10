@@ -22,28 +22,37 @@ const OTP_FILE = path.join(DATA_DIR, 'email_otps.json');
 const OTP_EXPIRY_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_ATTEMPTS = 5;
 
+let memoryOtps: OtpRecord[] = [];
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(OTP_FILE)) {
-    fs.writeFileSync(OTP_FILE, JSON.stringify([], null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(OTP_FILE)) {
+      fs.writeFileSync(OTP_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readOtps(): OtpRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(OTP_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(OTP_FILE)) {
+      const raw = fs.readFileSync(OTP_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {}
+  return memoryOtps;
 }
 
 function writeOtps(otps: OtpRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(OTP_FILE, JSON.stringify(otps, null, 2), 'utf-8');
+  memoryOtps = [...otps];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(OTP_FILE, JSON.stringify(otps, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class OtpService {

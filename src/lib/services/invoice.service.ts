@@ -33,78 +33,88 @@ export interface GstInvoiceRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const INVOICES_FILE = path.join(DATA_DIR, 'gst_invoices.json');
 
+const INITIAL_INVOICES: GstInvoiceRecord[] = [
+  {
+    id: 'inv-101',
+    invoiceNumber: 'INV-TIA-2026-00842',
+    invoiceDate: new Date('2026-08-28').toISOString(),
+    brandId: 'demo-brand-user-id',
+    brandLegalName: 'Nike India Private Limited',
+    brandGstin: '29AABCN1234F1Z5',
+    brandAddress: 'Prestige Tech Park, Marathahalli, Bengaluru, KA 560103',
+    campaignTitle: 'Pro Wireless ANC Earbuds Creator Benchmark',
+    transactionId: 'TX-TIA-98214',
+    sacCode: '998371',
+    grossCampaignAmount: 45000,
+    taxableServiceValue: 2250,
+    cgstRate: 9,
+    cgstAmount: 202.5,
+    sgstRate: 9,
+    sgstAmount: 202.5,
+    igstRate: 0,
+    igstAmount: 0,
+    totalInvoiceAmount: 2655,
+    tdsDeducted194J: 450,
+    currency: 'INR',
+    status: 'PAID',
+  },
+  {
+    id: 'inv-102',
+    invoiceNumber: 'INV-TIA-2026-00791',
+    invoiceDate: new Date('2026-08-20').toISOString(),
+    brandId: 'demo-brand-user-id',
+    brandLegalName: 'Nike India Private Limited',
+    brandGstin: '29AABCN1234F1Z5',
+    brandAddress: 'Prestige Tech Park, Marathahalli, Bengaluru, KA 560103',
+    campaignTitle: 'Lifestyle Audio Ambient Launch',
+    transactionId: 'TX-TIA-97840',
+    sacCode: '998371',
+    grossCampaignAmount: 40000,
+    taxableServiceValue: 2000,
+    cgstRate: 9,
+    cgstAmount: 180,
+    sgstRate: 9,
+    sgstAmount: 180,
+    igstRate: 0,
+    igstAmount: 0,
+    totalInvoiceAmount: 2360,
+    tdsDeducted194J: 400,
+    currency: 'INR',
+    status: 'PAID',
+  },
+];
+
+let memoryInvoices: GstInvoiceRecord[] = [...INITIAL_INVOICES];
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(INVOICES_FILE)) {
-    const initial: GstInvoiceRecord[] = [
-      {
-        id: 'inv-101',
-        invoiceNumber: 'INV-TIA-2026-00842',
-        invoiceDate: new Date('2026-08-28').toISOString(),
-        brandId: 'demo-brand-user-id',
-        brandLegalName: 'Nike India Private Limited',
-        brandGstin: '29AABCN1234F1Z5',
-        brandAddress: 'Prestige Tech Park, Marathahalli, Bengaluru, KA 560103',
-        campaignTitle: 'Pro Wireless ANC Earbuds Creator Benchmark',
-        transactionId: 'TX-TIA-98214',
-        sacCode: '998371',
-        grossCampaignAmount: 45000,
-        taxableServiceValue: 2250,
-        cgstRate: 9,
-        cgstAmount: 202.5,
-        sgstRate: 9,
-        sgstAmount: 202.5,
-        igstRate: 0,
-        igstAmount: 0,
-        totalInvoiceAmount: 2655,
-        tdsDeducted194J: 450,
-        currency: 'INR',
-        status: 'PAID',
-      },
-      {
-        id: 'inv-102',
-        invoiceNumber: 'INV-TIA-2026-00791',
-        invoiceDate: new Date('2026-08-20').toISOString(),
-        brandId: 'demo-brand-user-id',
-        brandLegalName: 'Nike India Private Limited',
-        brandGstin: '29AABCN1234F1Z5',
-        brandAddress: 'Prestige Tech Park, Marathahalli, Bengaluru, KA 560103',
-        campaignTitle: 'Lifestyle Audio Ambient Launch',
-        transactionId: 'TX-TIA-97840',
-        sacCode: '998371',
-        grossCampaignAmount: 40000,
-        taxableServiceValue: 2000,
-        cgstRate: 9,
-        cgstAmount: 180,
-        sgstRate: 9,
-        sgstAmount: 180,
-        igstRate: 0,
-        igstAmount: 0,
-        totalInvoiceAmount: 2360,
-        tdsDeducted194J: 400,
-        currency: 'INR',
-        status: 'PAID',
-      },
-    ];
-    fs.writeFileSync(INVOICES_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(INVOICES_FILE)) {
+      fs.writeFileSync(INVOICES_FILE, JSON.stringify(INITIAL_INVOICES, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readInvoices(): GstInvoiceRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(INVOICES_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(INVOICES_FILE)) {
+      const raw = fs.readFileSync(INVOICES_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryInvoices;
 }
 
 function writeInvoices(invoices: GstInvoiceRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(INVOICES_FILE, JSON.stringify(invoices, null, 2), 'utf-8');
+  memoryInvoices = [...invoices];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(INVOICES_FILE, JSON.stringify(invoices, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class InvoiceService {

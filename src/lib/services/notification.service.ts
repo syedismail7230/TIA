@@ -19,60 +19,70 @@ export interface AppNotificationRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const NOTIFICATIONS_FILE = path.join(DATA_DIR, 'notifications.json');
 
+const INITIAL_NOTIFICATIONS: AppNotificationRecord[] = [
+  {
+    id: 'notif-1',
+    userId: 'demo-brand-user-id',
+    title: 'New Creator Proposal Received',
+    message: 'Aarav Sharma submitted a proposal for Summer 2026 Running Series with 98.4% verified reach.',
+    tab: 'applications',
+    read: false,
+    timeAgo: '10m ago',
+    createdAt: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'notif-2',
+    userId: 'demo-brand-user-id',
+    title: 'Draft Video Cut Ready for Review',
+    message: 'Aarav Sharma uploaded 4K draft video for boAt ANC Earbuds campaign. 72h SLA review timer active.',
+    tab: 'workspace',
+    read: false,
+    timeAgo: '2h ago',
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'notif-3',
+    userId: 'demo-brand-user-id',
+    title: 'Payment Protection Disbursement Verified',
+    message: '₹42,300 net bank payout disbursed to Aarav Sharma after 5% TIA fee & 1% TDS deduction.',
+    tab: 'financials',
+    read: true,
+    timeAgo: '1d ago',
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+let memoryNotifications: AppNotificationRecord[] = [...INITIAL_NOTIFICATIONS];
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(NOTIFICATIONS_FILE)) {
-    const initial: AppNotificationRecord[] = [
-      {
-        id: 'notif-1',
-        userId: 'demo-brand-user-id',
-        title: 'New Creator Proposal Received',
-        message: 'Aarav Sharma submitted a proposal for Summer 2026 Running Series with 98.4% verified reach.',
-        tab: 'applications',
-        read: false,
-        timeAgo: '10m ago',
-        createdAt: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 'notif-2',
-        userId: 'demo-brand-user-id',
-        title: 'Draft Video Cut Ready for Review',
-        message: 'Aarav Sharma uploaded 4K draft video for boAt ANC Earbuds campaign. 72h SLA review timer active.',
-        tab: 'workspace',
-        read: false,
-        timeAgo: '2h ago',
-        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 'notif-3',
-        userId: 'demo-brand-user-id',
-        title: 'Payment Protection Disbursement Verified',
-        message: '₹42,300 net bank payout disbursed to Aarav Sharma after 5% TIA fee & 1% TDS deduction.',
-        tab: 'financials',
-        read: true,
-        timeAgo: '1d ago',
-        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-      },
-    ];
-    fs.writeFileSync(NOTIFICATIONS_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(NOTIFICATIONS_FILE)) {
+      fs.writeFileSync(NOTIFICATIONS_FILE, JSON.stringify(INITIAL_NOTIFICATIONS, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readNotifications(): AppNotificationRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(NOTIFICATIONS_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(NOTIFICATIONS_FILE)) {
+      const raw = fs.readFileSync(NOTIFICATIONS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryNotifications;
 }
 
 function writeNotifications(notifications: AppNotificationRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(NOTIFICATIONS_FILE, JSON.stringify(notifications, null, 2), 'utf-8');
+  memoryNotifications = [...notifications];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(NOTIFICATIONS_FILE, JSON.stringify(notifications, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class NotificationService {

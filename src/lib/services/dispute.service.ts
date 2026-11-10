@@ -26,28 +26,37 @@ export interface DisputeRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const DISPUTES_FILE = path.join(DATA_DIR, 'disputes.json');
 
+let memoryDisputes: DisputeRecord[] = [];
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(DISPUTES_FILE)) {
-    fs.writeFileSync(DISPUTES_FILE, JSON.stringify([], null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(DISPUTES_FILE)) {
+      fs.writeFileSync(DISPUTES_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readDisputes(): DisputeRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(DISPUTES_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(DISPUTES_FILE)) {
+      const raw = fs.readFileSync(DISPUTES_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {}
+  return memoryDisputes;
 }
 
 function writeDisputes(disputes: DisputeRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(DISPUTES_FILE, JSON.stringify(disputes, null, 2), 'utf-8');
+  memoryDisputes = [...disputes];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(DISPUTES_FILE, JSON.stringify(disputes, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class DisputeService {

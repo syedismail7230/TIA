@@ -107,27 +107,36 @@ const INITIAL_CARDS: KanbanCreatorCard[] = [
   },
 ];
 
+let memoryCards: KanbanCreatorCard[] = [...INITIAL_CARDS];
+
 function ensureFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(KANBAN_FILE)) {
-    fs.writeFileSync(KANBAN_FILE, JSON.stringify(INITIAL_CARDS, null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(KANBAN_FILE)) {
+      fs.writeFileSync(KANBAN_FILE, JSON.stringify(INITIAL_CARDS, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readCards(): KanbanCreatorCard[] {
   ensureFile();
   try {
-    return JSON.parse(fs.readFileSync(KANBAN_FILE, 'utf-8'));
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(KANBAN_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(KANBAN_FILE, 'utf-8'));
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryCards;
 }
 
 function writeCards(cards: KanbanCreatorCard[]) {
-  ensureFile();
-  fs.writeFileSync(KANBAN_FILE, JSON.stringify(cards, null, 2), 'utf-8');
+  memoryCards = [...cards];
+  try {
+    ensureFile();
+    fs.writeFileSync(KANBAN_FILE, JSON.stringify(cards, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class KanbanCRMService {

@@ -39,107 +39,121 @@ export interface CampaignRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const CAMPAIGNS_FILE = path.join(DATA_DIR, 'campaigns.json');
 
+const INITIAL_CAMPAIGNS: CampaignRecord[] = [
+  {
+    id: 'camp-101',
+    brandId: 'demo-brand-user-id',
+    brandName: 'Nike India Private Limited',
+    title: 'Summer 2026 Running Series & Shoe Launch',
+    category: 'Fitness & Athletics',
+    budget: 350000,
+    spent: 175000,
+    status: 'IN_PROGRESS',
+    deliverables: '1x Dedicated YouTube Review + 2x IG Reels',
+    deadline: 'Sep 15, 2026',
+    objectives: 'Product Awareness & Click-through conversions',
+    targetNiches: 'Running, Marathon, Fitness',
+    stage: 2,
+    stageLabel: 'Draft Video Review',
+    applicationsCount: 14,
+    acceptedCount: 2,
+    milestones: [
+      { stage: 1, name: 'Milestone 1: Script & Storyboard', percentage: 25, amount: 87500, status: 'APPROVED' },
+      { stage: 2, name: 'Milestone 2: Rough Video Cut', percentage: 25, amount: 87500, status: 'IN_REVIEW' },
+      { stage: 3, name: 'Milestone 3: Final Render & Captions', percentage: 25, amount: 87500, status: 'LOCKED_IN_PROTECTION' },
+      { stage: 4, name: 'Milestone 4: Live Verification & Reach Audit', percentage: 25, amount: 87500, status: 'PENDING' },
+    ],
+    createdAt: new Date('2026-08-15').toISOString(),
+    updatedAt: new Date('2026-08-28').toISOString(),
+  },
+  {
+    id: 'camp-102',
+    brandId: 'demo-brand-user-id',
+    brandName: 'Nike India Private Limited',
+    title: 'Pro Wireless ANC Earbuds Creator Benchmark',
+    category: 'Consumer Tech',
+    budget: 250000,
+    spent: 187500,
+    status: 'CONTENT_REVIEW',
+    deliverables: '3x Instagram Reels + Bio Link Placement',
+    deadline: 'Sep 20, 2026',
+    objectives: 'Audio quality benchmark and unboxing',
+    targetNiches: 'Tech, Gadgets, Lifestyle',
+    stage: 3,
+    stageLabel: 'Deliverable Approval',
+    applicationsCount: 22,
+    acceptedCount: 3,
+    milestones: [
+      { stage: 1, name: 'Milestone 1: Brief Acceptance', percentage: 20, amount: 50000, status: 'APPROVED' },
+      { stage: 2, name: 'Milestone 2: Script & Audio Test', percentage: 30, amount: 75000, status: 'APPROVED' },
+      { stage: 3, name: 'Milestone 3: Final Reels Render', percentage: 25, amount: 62500, status: 'IN_REVIEW' },
+      { stage: 4, name: 'Milestone 4: Live Verification', percentage: 25, amount: 62500, status: 'LOCKED_IN_PROTECTION' },
+    ],
+    createdAt: new Date('2026-08-18').toISOString(),
+    updatedAt: new Date('2026-08-29').toISOString(),
+  },
+  {
+    id: 'camp-103',
+    brandId: 'demo-brand-user-id',
+    brandName: 'Nike India Private Limited',
+    title: 'Monsoon Fitness & Hydration Routine Series',
+    category: 'Health & Wellness',
+    budget: 180000,
+    spent: 0,
+    status: 'PUBLISHED',
+    deliverables: 'Story Trio + Link Sticker + Community Post',
+    deadline: 'Oct 05, 2026',
+    objectives: 'Hydration bottle awareness & lifestyle integration',
+    targetNiches: 'Wellness, Yoga, Daily Fitness',
+    stage: 1,
+    stageLabel: 'Creator Bidding Open',
+    applicationsCount: 8,
+    acceptedCount: 0,
+    milestones: [
+      { stage: 1, name: 'Milestone 1: Creative Concept', percentage: 30, amount: 54000, status: 'PENDING' },
+      { stage: 2, name: 'Milestone 2: Storyboard & Frames', percentage: 35, amount: 63000, status: 'PENDING' },
+      { stage: 3, name: 'Milestone 3: Live Post Deployment', percentage: 35, amount: 63000, status: 'PENDING' },
+    ],
+    createdAt: new Date('2026-08-25').toISOString(),
+    updatedAt: new Date('2026-08-25').toISOString(),
+  },
+];
+
+let memoryCampaigns: CampaignRecord[] = [...INITIAL_CAMPAIGNS];
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(CAMPAIGNS_FILE)) {
-    const initial: CampaignRecord[] = [
-      {
-        id: 'camp-101',
-        brandId: 'demo-brand-user-id',
-        brandName: 'Nike India Private Limited',
-        title: 'Summer 2026 Running Series & Shoe Launch',
-        category: 'Fitness & Athletics',
-        budget: 350000,
-        spent: 175000,
-        status: 'IN_PROGRESS',
-        deliverables: '1x Dedicated YouTube Review + 2x IG Reels',
-        deadline: 'Sep 15, 2026',
-        objectives: 'Product Awareness & Click-through conversions',
-        targetNiches: 'Running, Marathon, Fitness',
-        stage: 2,
-        stageLabel: 'Draft Video Review',
-        applicationsCount: 14,
-        acceptedCount: 2,
-        milestones: [
-          { stage: 1, name: 'Milestone 1: Script & Storyboard', percentage: 25, amount: 87500, status: 'APPROVED' },
-          { stage: 2, name: 'Milestone 2: Rough Video Cut', percentage: 25, amount: 87500, status: 'IN_REVIEW' },
-          { stage: 3, name: 'Milestone 3: Final Render & Captions', percentage: 25, amount: 87500, status: 'LOCKED_IN_PROTECTION' },
-          { stage: 4, name: 'Milestone 4: Live Verification & Reach Audit', percentage: 25, amount: 87500, status: 'PENDING' },
-        ],
-        createdAt: new Date('2026-08-15').toISOString(),
-        updatedAt: new Date('2026-08-28').toISOString(),
-      },
-      {
-        id: 'camp-102',
-        brandId: 'demo-brand-user-id',
-        brandName: 'Nike India Private Limited',
-        title: 'Pro Wireless ANC Earbuds Creator Benchmark',
-        category: 'Consumer Tech',
-        budget: 250000,
-        spent: 187500,
-        status: 'CONTENT_REVIEW',
-        deliverables: '3x Instagram Reels + Bio Link Placement',
-        deadline: 'Sep 20, 2026',
-        objectives: 'Audio quality benchmark and unboxing',
-        targetNiches: 'Tech, Gadgets, Lifestyle',
-        stage: 3,
-        stageLabel: 'Deliverable Approval',
-        applicationsCount: 22,
-        acceptedCount: 3,
-        milestones: [
-          { stage: 1, name: 'Milestone 1: Brief Acceptance', percentage: 20, amount: 50000, status: 'APPROVED' },
-          { stage: 2, name: 'Milestone 2: Script & Audio Test', percentage: 30, amount: 75000, status: 'APPROVED' },
-          { stage: 3, name: 'Milestone 3: Final Reels Render', percentage: 25, amount: 62500, status: 'IN_REVIEW' },
-          { stage: 4, name: 'Milestone 4: Live Verification', percentage: 25, amount: 62500, status: 'LOCKED_IN_PROTECTION' },
-        ],
-        createdAt: new Date('2026-08-18').toISOString(),
-        updatedAt: new Date('2026-08-29').toISOString(),
-      },
-      {
-        id: 'camp-103',
-        brandId: 'demo-brand-user-id',
-        brandName: 'Nike India Private Limited',
-        title: 'Monsoon Fitness & Hydration Routine Series',
-        category: 'Health & Wellness',
-        budget: 180000,
-        spent: 0,
-        status: 'PUBLISHED',
-        deliverables: 'Story Trio + Link Sticker + Community Post',
-        deadline: 'Oct 05, 2026',
-        objectives: 'Hydration bottle awareness & lifestyle integration',
-        targetNiches: 'Wellness, Yoga, Daily Fitness',
-        stage: 1,
-        stageLabel: 'Creator Bidding Open',
-        applicationsCount: 8,
-        acceptedCount: 0,
-        milestones: [
-          { stage: 1, name: 'Milestone 1: Creative Concept', percentage: 30, amount: 54000, status: 'PENDING' },
-          { stage: 2, name: 'Milestone 2: Storyboard & Frames', percentage: 35, amount: 63000, status: 'PENDING' },
-          { stage: 3, name: 'Milestone 3: Live Post Deployment', percentage: 35, amount: 63000, status: 'PENDING' },
-        ],
-        createdAt: new Date('2026-08-25').toISOString(),
-        updatedAt: new Date('2026-08-25').toISOString(),
-      },
-    ];
-    fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(initial, null, 2), 'utf-8');
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(CAMPAIGNS_FILE)) {
+      fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(INITIAL_CAMPAIGNS, null, 2), 'utf-8');
+    }
+  } catch {
+    // In serverless / read-only runtime (Vercel), ignore filesystem write failures
   }
 }
 
 function readCampaigns(): CampaignRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(CAMPAIGNS_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(CAMPAIGNS_FILE)) {
+      const raw = fs.readFileSync(CAMPAIGNS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryCampaigns;
 }
 
 function writeCampaigns(campaigns: CampaignRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(campaigns, null, 2), 'utf-8');
+  memoryCampaigns = [...campaigns];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(campaigns, null, 2), 'utf-8');
+  } catch {
+    // Graceful fallback to memory on read-only environments
+  }
 }
 
 export class CampaignService {

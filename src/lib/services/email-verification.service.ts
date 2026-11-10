@@ -20,28 +20,34 @@ export interface EmailVerificationRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const VERIFICATION_FILE = path.join(DATA_DIR, 'email_verifications.json');
 
+let memoryVerifications: Record<string, EmailVerificationRecord> = {};
+
 function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+  } catch {}
 }
 
 function loadVerifications(): Record<string, EmailVerificationRecord> {
   ensureDataDir();
-  if (!fs.existsSync(VERIFICATION_FILE)) {
-    return {};
-  }
   try {
-    const raw = fs.readFileSync(VERIFICATION_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return {};
-  }
+    if (fs.existsSync(VERIFICATION_FILE)) {
+      const raw = fs.readFileSync(VERIFICATION_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') return parsed;
+    }
+  } catch {}
+  return memoryVerifications;
 }
 
 function saveVerifications(data: Record<string, EmailVerificationRecord>) {
-  ensureDataDir();
-  fs.writeFileSync(VERIFICATION_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  memoryVerifications = { ...data };
+  try {
+    ensureDataDir();
+    fs.writeFileSync(VERIFICATION_FILE, JSON.stringify(data, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class EmailVerificationService {

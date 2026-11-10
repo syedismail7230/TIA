@@ -41,46 +41,61 @@ const DATA_DIR = path.join(process.cwd(), '.data');
 const LEDGER_FILE = path.join(DATA_DIR, 'financial_ledger.json');
 const WALLETS_FILE = path.join(DATA_DIR, 'brand_wallets.json');
 
+let memoryLedger: ProtectionTransaction[] = [];
+let memoryWallets: Record<string, BrandWallet> = {};
+
 function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(LEDGER_FILE)) {
-    fs.writeFileSync(LEDGER_FILE, JSON.stringify([], null, 2), 'utf-8');
-  }
-  if (!fs.existsSync(WALLETS_FILE)) {
-    fs.writeFileSync(WALLETS_FILE, JSON.stringify({}, null, 2), 'utf-8');
-  }
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(LEDGER_FILE)) {
+      fs.writeFileSync(LEDGER_FILE, JSON.stringify([], null, 2), 'utf-8');
+    }
+    if (!fs.existsSync(WALLETS_FILE)) {
+      fs.writeFileSync(WALLETS_FILE, JSON.stringify({}, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readLedger(): ProtectionTransaction[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(LEDGER_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(LEDGER_FILE)) {
+      const raw = fs.readFileSync(LEDGER_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {}
+  return memoryLedger;
 }
 
 function writeLedger(ledger: ProtectionTransaction[]) {
-  ensureDataFile();
-  fs.writeFileSync(LEDGER_FILE, JSON.stringify(ledger, null, 2), 'utf-8');
+  memoryLedger = [...ledger];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(LEDGER_FILE, JSON.stringify(ledger, null, 2), 'utf-8');
+  } catch {}
 }
 
 function readWallets(): Record<string, BrandWallet> {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(WALLETS_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return {};
-  }
+    if (fs.existsSync(WALLETS_FILE)) {
+      const raw = fs.readFileSync(WALLETS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object') return parsed;
+    }
+  } catch {}
+  return memoryWallets;
 }
 
 function writeWallets(wallets: Record<string, BrandWallet>) {
-  ensureDataFile();
-  fs.writeFileSync(WALLETS_FILE, JSON.stringify(wallets, null, 2), 'utf-8');
+  memoryWallets = { ...wallets };
+  try {
+    ensureDataFile();
+    fs.writeFileSync(WALLETS_FILE, JSON.stringify(wallets, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class PaymentService {

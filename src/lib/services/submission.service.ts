@@ -44,61 +44,71 @@ export interface DeliverableSubmissionRecord {
 const DATA_DIR = path.join(process.cwd(), '.data');
 const SUBMISSIONS_FILE = path.join(DATA_DIR, 'deliverable_submissions.json');
 
-function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(SUBMISSIONS_FILE)) {
-    const initial: DeliverableSubmissionRecord[] = [
+const INITIAL_SUBMISSIONS: DeliverableSubmissionRecord[] = [
+  {
+    id: 'sub-101',
+    campaignId: 'camp-101',
+    campaignTitle: 'Summer 2026 Running Series & Shoe Launch',
+    collabId: 'collab-brand-1',
+    creatorId: 'cr-101',
+    creatorName: 'Aarav Sharma',
+    brandId: 'demo-brand-user-id',
+    deliverableType: 'DRAFT_VIDEO',
+    title: 'Draft Video Cut 4K - 15km Tempo Test & Cushion Verdict',
+    assetUrl: 'https://storage.tia.agency/deliverables/demo-draft-cut.mp4',
+    previewThumbnailUrl: 'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80',
+    notes: 'Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test, 4:20 Long-distance verdict.',
+    milestoneStage: 2,
+    payoutTransactionId: 'TX-TIA-98102',
+    status: 'PENDING_REVIEW',
+    revisionCount: 0,
+    submittedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    autoApprovalDeadline: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(),
+    reviewNotes: [
       {
-        id: 'sub-101',
-        campaignId: 'camp-101',
-        campaignTitle: 'Summer 2026 Running Series & Shoe Launch',
-        collabId: 'collab-brand-1',
-        creatorId: 'cr-101',
-        creatorName: 'Aarav Sharma',
-        brandId: 'demo-brand-user-id',
-        deliverableType: 'DRAFT_VIDEO',
-        title: 'Draft Video Cut 4K - 15km Tempo Test & Cushion Verdict',
-        assetUrl: 'https://storage.tia.agency/deliverables/demo-draft-cut.mp4',
-        previewThumbnailUrl: 'https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80',
-        notes: 'Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test, 4:20 Long-distance verdict.',
-        milestoneStage: 2,
-        payoutTransactionId: 'TX-TIA-98102',
-        status: 'PENDING_REVIEW',
-        revisionCount: 0,
-        submittedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-        autoApprovalDeadline: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // 48h remaining of 72h
-        reviewNotes: [
-          {
-            id: 'rn-1',
-            authorId: 'demo-brand-user-id',
-            authorName: 'Nike Brand Lead',
-            role: 'BRAND',
-            timestampLabel: '01:45',
-            text: 'Ensure the shoe logo on the tongue is clearly visible during the slow-motion stride sequence.',
-            createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
-          },
-        ],
+        id: 'rn-1',
+        authorId: 'demo-brand-user-id',
+        authorName: 'Nike Brand Lead',
+        role: 'BRAND',
+        timestampLabel: '01:45',
+        text: 'Ensure the shoe logo on the tongue is clearly visible during the slow-motion stride sequence.',
+        createdAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
       },
-    ];
-    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-  }
+    ],
+  },
+];
+
+let memorySubmissions: DeliverableSubmissionRecord[] = [...INITIAL_SUBMISSIONS];
+
+function ensureDataFile() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(SUBMISSIONS_FILE)) {
+      fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(INITIAL_SUBMISSIONS, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readSubmissions(): DeliverableSubmissionRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(SUBMISSIONS_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(SUBMISSIONS_FILE)) {
+      const raw = fs.readFileSync(SUBMISSIONS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memorySubmissions;
 }
 
 function writeSubmissions(submissions: DeliverableSubmissionRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf-8');
+  memorySubmissions = [...submissions];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class SubmissionService {

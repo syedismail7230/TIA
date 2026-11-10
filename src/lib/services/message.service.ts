@@ -40,85 +40,101 @@ const DATA_DIR = path.join(process.cwd(), '.data');
 const MESSAGES_FILE = path.join(DATA_DIR, 'chat_messages.json');
 const THREADS_FILE = path.join(DATA_DIR, 'chat_threads.json');
 
-function ensureDataFile() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(THREADS_FILE)) {
-    const initialThreads: ChatThreadRecord[] = [
-      {
-        id: 'thread-collab-1',
-        collabId: 'collab-brand-1',
-        campaignId: 'camp-101',
-        campaignTitle: 'Summer 2026 Running Series & Shoe Launch',
-        brandId: 'demo-brand-user-id',
-        brandName: 'Nike India Private Limited',
-        creatorId: 'cr-101',
-        creatorName: 'Aarav Sharma',
-        lastMessageText: 'Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test.',
-        lastMessageAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-        unreadCountBrand: 1,
-        unreadCountCreator: 0,
-      },
-    ];
-    fs.writeFileSync(THREADS_FILE, JSON.stringify(initialThreads, null, 2), 'utf-8');
-  }
+const INITIAL_THREADS: ChatThreadRecord[] = [
+  {
+    id: 'thread-collab-1',
+    collabId: 'collab-brand-1',
+    campaignId: 'camp-101',
+    campaignTitle: 'Summer 2026 Running Series & Shoe Launch',
+    brandId: 'demo-brand-user-id',
+    brandName: 'Nike India Private Limited',
+    creatorId: 'cr-101',
+    creatorName: 'Aarav Sharma',
+    lastMessageText: 'Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test.',
+    lastMessageAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    unreadCountBrand: 1,
+    unreadCountCreator: 0,
+  },
+];
 
-  if (!fs.existsSync(MESSAGES_FILE)) {
-    const initialMessages: ChatMessageRecord[] = [
-      {
-        id: 'msg-1',
-        threadId: 'thread-collab-1',
-        senderId: 'system',
-        senderName: 'TIA Platform System',
-        senderRole: 'SYSTEM',
-        text: 'Milestone 2 deposit of ₹87,500 secured in TIA Payment Protection.',
-        type: 'MILESTONE',
-        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-      },
-      {
-        id: 'msg-2',
-        threadId: 'thread-collab-1',
-        senderId: 'cr-101',
-        senderName: 'Aarav Sharma',
-        senderRole: 'CREATOR',
-        text: 'Draft video cut uploaded! Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test, 4:20 Long-distance verdict.',
-        type: 'DELIVERABLE',
-        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      },
-    ];
-    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(initialMessages, null, 2), 'utf-8');
-  }
+const INITIAL_MESSAGES: ChatMessageRecord[] = [
+  {
+    id: 'msg-1',
+    threadId: 'thread-collab-1',
+    senderId: 'system',
+    senderName: 'TIA Platform System',
+    senderRole: 'SYSTEM',
+    text: 'Milestone 2 deposit of ₹87,500 secured in TIA Payment Protection.',
+    type: 'MILESTONE',
+    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'msg-2',
+    threadId: 'thread-collab-1',
+    senderId: 'cr-101',
+    senderName: 'Aarav Sharma',
+    senderRole: 'CREATOR',
+    text: 'Draft video cut uploaded! Color grading completed. Timestamps: 0:00 Intro, 1:45 Midsole Cushion Test, 4:20 Long-distance verdict.',
+    type: 'DELIVERABLE',
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+let memoryThreads: ChatThreadRecord[] = [...INITIAL_THREADS];
+let memoryMessages: ChatMessageRecord[] = [...INITIAL_MESSAGES];
+
+function ensureDataFile() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(THREADS_FILE)) {
+      fs.writeFileSync(THREADS_FILE, JSON.stringify(INITIAL_THREADS, null, 2), 'utf-8');
+    }
+    if (!fs.existsSync(MESSAGES_FILE)) {
+      fs.writeFileSync(MESSAGES_FILE, JSON.stringify(INITIAL_MESSAGES, null, 2), 'utf-8');
+    }
+  } catch {}
 }
 
 function readThreads(): ChatThreadRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(THREADS_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(THREADS_FILE)) {
+      const raw = fs.readFileSync(THREADS_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryThreads;
 }
 
 function writeThreads(threads: ChatThreadRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(THREADS_FILE, JSON.stringify(threads, null, 2), 'utf-8');
+  memoryThreads = [...threads];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(THREADS_FILE, JSON.stringify(threads, null, 2), 'utf-8');
+  } catch {}
 }
 
 function readMessages(): ChatMessageRecord[] {
   ensureDataFile();
   try {
-    const raw = fs.readFileSync(MESSAGES_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
+    if (fs.existsSync(MESSAGES_FILE)) {
+      const raw = fs.readFileSync(MESSAGES_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {}
+  return memoryMessages;
 }
 
 function writeMessages(messages: ChatMessageRecord[]) {
-  ensureDataFile();
-  fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
+  memoryMessages = [...messages];
+  try {
+    ensureDataFile();
+    fs.writeFileSync(MESSAGES_FILE, JSON.stringify(messages, null, 2), 'utf-8');
+  } catch {}
 }
 
 export class MessageService {
