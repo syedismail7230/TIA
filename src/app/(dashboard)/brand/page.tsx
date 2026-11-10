@@ -201,17 +201,53 @@ function BrandDashboardContent() {
   const initialTab = (searchParams.get('tab') as BrandTabType) || 'campaigns';
 
   const [activeTab, setActiveTab] = useState<BrandTabType>(initialTab);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const [orgProfile, setOrgProfile] = useState({
-    name: 'Nike India Private Limited',
-    handle: '@nike.india',
-    industry: 'Sportswear, Lifestyle & Athletics',
-    website: 'https://nike.com/in',
-    contactEmail: 'campaigns@nike.co.in',
-    hqLocation: 'Bengaluru, Karnataka, India',
+    name: 'Brand Workspace',
+    handle: '@brand',
+    industry: 'Consumer Goods & Lifestyle',
+    website: 'https://theinfluencers.agency',
+    contactEmail: '',
+    hqLocation: 'Mumbai, Maharashtra, India',
     gstin: '29AAAAA0000A1Z5',
     panNumber: 'AAACN1234F',
     verified: true,
   });
+
+  // Load Brand Workspace Session
+  useEffect(() => {
+    async function loadBrandSession() {
+      try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.user) {
+            const user = data.user;
+            setCurrentUser(user);
+            const orgMembership = user.orgMemberships?.[0];
+            const org = orgMembership?.organization;
+            const bProfile = org?.brandProfile;
+
+            const finalOrgName = org?.name || bProfile?.companyName || user.name || 'Brand Workspace';
+            const finalHandle = `@${finalOrgName.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+
+            setOrgProfile((prev) => ({
+              ...prev,
+              name: finalOrgName,
+              handle: finalHandle,
+              industry: bProfile?.industry || org?.businessCategory || prev.industry,
+              website: bProfile?.website || prev.website,
+              contactEmail: user.email,
+              hqLocation: bProfile?.location || user.country || 'India',
+            }));
+          }
+        }
+      } catch (err) {
+        console.warn('Brand session load note:', err);
+      }
+    }
+    loadBrandSession();
+  }, []);
 
   // Notifications State
   const [notificationsDropdownOpen, setNotificationsDropdownOpen] = useState(false);

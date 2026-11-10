@@ -823,7 +823,9 @@ function CreatorPortalContent() {
 
   const handleCopyProfileLink = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText('https://theinfluencersagency.com/c/sarah-jenkins');
+      const handle = currentUser?.creatorProfile?.username || (currentUser?.email ? currentUser.email.split('@')[0] : 'me');
+      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://www.theinfluencers.agency';
+      navigator.clipboard.writeText(`${origin}/creator/${handle}`);
     }
     setCopiedProfileLink(true);
     setTimeout(() => setCopiedProfileLink(false), 2500);
@@ -1774,7 +1776,30 @@ function CreatorPortalContent() {
         const res = await fetch('/api/auth/me');
         if (res.ok) {
           const data = await res.json();
-          setCurrentUser(data.user);
+          if (data?.user) {
+            setCurrentUser(data.user);
+            const user = data.user;
+            const cProfile = user.creatorProfile;
+            const finalName = user.name || cProfile?.displayName || 'Creator';
+            const username = cProfile?.username || (user.email ? user.email.split('@')[0] : 'creator');
+            const finalHandle = `@${username}`;
+
+            setSettingsProfile((prev) => ({
+              ...prev,
+              displayName: finalName,
+              handle: finalHandle,
+              contactEmail: user.email,
+              location: user.country || 'India',
+              bio: cProfile?.bio || prev.bio,
+              tagline: `${finalName} • Verified Creator`,
+            }));
+
+            setBankAccount((prev: any) => ({
+              ...prev,
+              accountHolderName: finalName,
+              upiId: `${username}@okhdfcbank`,
+            }));
+          }
         }
       } catch (err) {
         console.warn('Session load note:', err);

@@ -169,7 +169,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
             setIsAuthenticated(true);
             setCurrentUser(data.user);
             const userHandle = data.user.creatorProfile?.username || data.user.email?.split('@')[0];
-            const isSelf = userHandle === cleanUsername || cleanUsername === 'creator.official' || cleanUsername === 'profile';
+            const isSelf = userHandle === cleanUsername || cleanUsername === 'profile' || cleanUsername === 'me';
             setIsOwnerActual(isSelf);
             setViewMode(isSelf ? 'OWNER' : 'PUBLIC');
             return;
@@ -185,11 +185,15 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
     checkAuth();
   }, [cleanUsername]);
 
-  const isSarah = cleanUsername === 'creator.official' || cleanUsername === 'sarahjenkins' || cleanUsername === 'profile';
-  const displayName = isSarah ? 'Sarah Jenkins' : cleanUsername.replace(/[._-]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-  const handleTag = `@${cleanUsername}`;
-
   const isViewingAsOwner = isOwnerActual && viewMode === 'OWNER';
+  const ownerName = currentUser?.name || currentUser?.creatorProfile?.displayName;
+  const isSarah = !isViewingAsOwner && (cleanUsername === 'creator.official' || cleanUsername === 'sarahjenkins');
+  const displayName = isViewingAsOwner && ownerName
+    ? ownerName
+    : (isSarah ? 'Sarah Jenkins' : cleanUsername.replace(/[._-]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()));
+  const handleTag = isViewingAsOwner && (currentUser?.creatorProfile?.username || currentUser?.email)
+    ? `@${currentUser.creatorProfile?.username || currentUser.email.split('@')[0]}`
+    : `@${cleanUsername}`;
   const isBrandAuthenticated = isAuthenticated && (
     currentUser?.role === 'BRAND_ADMIN' ||
     currentUser?.role === 'BRAND_USER' ||
@@ -855,21 +859,23 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
 
               {/* Subtitle / Tagline */}
               <div style={{ fontSize: '14.5px', fontWeight: 600, color: '#475569', marginTop: '2px' }}>
-                Tech Reviewer & AI Hardware Specialist • 615K+ Community
+                {isViewingAsOwner
+                  ? `${displayName} • Verified TIA Creator`
+                  : 'Tech Reviewer & AI Hardware Specialist • 615K+ Community'}
               </div>
 
               {/* Location & Quick Meta Text Strip (No Cards / Boxes) */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px', fontSize: '12.5px', color: '#64748B', flexWrap: 'wrap' }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <MapPinIcon size={13} color="#0052FF" />
-                  <span>Mumbai, Maharashtra, India</span>
+                  <span>{currentUser?.country || 'India'}</span>
                 </span>
 
                 <span style={{ color: '#CBD5E1' }}>•</span>
 
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                   <VideoCameraIcon size={13} color="#0052FF" />
-                  <span>Consumer Tech, AI SaaS, Lifestyle</span>
+                  <span>Verified Creator Hub</span>
                 </span>
 
                 <span style={{ color: '#CBD5E1' }}>•</span>
@@ -884,7 +890,10 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '32px', marginTop: '16px', flexWrap: 'wrap' }}>
                 {/* Bio Paragraph */}
                 <p style={{ fontSize: '14px', color: '#475569', lineHeight: 1.65, margin: 0, maxWidth: '800px', flex: 1, minWidth: '280px' }}>
-                  Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools. Known for uncompromising benchmark authenticity, prompt milestone delivery, and over 550,000+ verified cross-platform community members with consistent top-tier engagement.
+                  {currentUser?.creatorProfile?.bio ||
+                    (isViewingAsOwner
+                      ? 'Welcome to your verified creator profile on The Influencer’s Agency. Connect your official social channels to showcase audited live audience engagement, publish commercial rate cards, and receive protected milestone inquiries directly from top brands.'
+                      : 'Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools. Known for uncompromising benchmark authenticity, prompt milestone delivery, and over 550,000+ verified cross-platform community members with consistent top-tier engagement.')}
                 </p>
 
                 {/* Total Combined Followers Stat */}
