@@ -6,7 +6,9 @@
 import { sendLiveEmail, DEFAULT_RECIPIENT } from '@/lib/email/resend';
 import { renderPlatformEmail } from '@/lib/email/templates';
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://www.theinfluencers.agency';
+const BASE_URL = (process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes('localhost'))
+  ? process.env.NEXT_PUBLIC_APP_URL
+  : 'https://www.theinfluencers.agency';
 
 export class EmailService {
   /**

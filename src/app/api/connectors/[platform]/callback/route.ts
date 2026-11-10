@@ -16,7 +16,7 @@ export async function GET(
   const stateRaw = url.searchParams.get('state');
   const platform = params.platform.toUpperCase();
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.theinfluencers.agency';
 
   if (error || !code) {
     console.warn(`OAuth error from ${platform}:`, error);
