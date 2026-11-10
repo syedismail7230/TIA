@@ -94,6 +94,13 @@ const SmartphoneIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15
   </svg>
 );
 
+const BriefcaseIcon: React.FC<{ size?: number; color?: string }> = ({ size = 16, color = '#0052FF' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+
 const LeafIcon: React.FC<{ size?: number; color?: string }> = ({ size = 15, color = '#059669' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
@@ -194,6 +201,14 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
   const handleTag = isViewingAsOwner && (currentUser?.creatorProfile?.username || currentUser?.email)
     ? `@${currentUser.creatorProfile?.username || currentUser.email.split('@')[0]}`
     : `@${cleanUsername}`;
+
+  const initials = displayName
+    .split(' ')
+    .map((w: string) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || 'CR';
   const isBrandAuthenticated = isAuthenticated && (
     currentUser?.role === 'BRAND_ADMIN' ||
     currentUser?.role === 'BRAND_USER' ||
@@ -225,7 +240,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
     }, 2000);
   };
 
-  const portfolioProjects = [
+  const portfolioProjects = isSarah ? [
     {
       id: 'proj-1',
       brand: 'Nike Lifestyle India',
@@ -316,13 +331,13 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
       rating: '4.9',
       verifiedProof: 'Full Milestone Disbursed via TIA',
     },
-  ];
+  ] : [];
 
   const filteredProjects = selectedPortfolioCategory === 'ALL'
     ? portfolioProjects
     : portfolioProjects.filter((p) => p.category === selectedPortfolioCategory);
 
-  const commercialPackages = [
+  const commercialPackages = isSarah ? [
     {
       id: 'pkg-1',
       title: 'Full Dedicated Video Review',
@@ -392,7 +407,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
       ],
       popular: false,
     },
-  ];
+  ] : [];
 
   return (
     <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', paddingBottom: '80px' }}>
@@ -771,11 +786,11 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               aspectRatio: '851 / 315',
               maxHeight: '315px',
               minHeight: '180px',
-              backgroundImage: 'url("/banner.png")',
+              backgroundImage: isSarah ? 'url("/banner.png")' : 'linear-gradient(135deg, #0052FF 0%, #1E3A8A 50%, #0F172A 100%)',
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
               backgroundRepeat: 'no-repeat',
-              backgroundColor: '#FAFAFA',
+              backgroundColor: '#0052FF',
               borderBottom: '1px solid #F1F5F9',
             }}
           />
@@ -801,26 +816,33 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   height: '230px',
                   borderRadius: '24px',
                   overflow: 'hidden',
-                  backgroundColor: 'transparent',
-                  boxShadow: 'none',
-                  border: 'none',
+                  backgroundColor: isSarah ? 'transparent' : '#0052FF',
+                  boxShadow: isSarah ? 'none' : '0 10px 25px -5px rgba(0, 82, 255, 0.35)',
+                  border: isSarah ? 'none' : '4px solid #FFFFFF',
                   position: 'relative',
                   cursor: isViewingAsOwner ? 'pointer' : 'default',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                <img
-                  src={avatarUrl}
-                  alt={displayName}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    objectPosition: 'bottom left',
-                    display: 'block',
-                  }}
-                />
-
-                {/* Clean Avatar Display (No Badges) */}
+                {isSarah ? (
+                  <img
+                    src={avatarUrl}
+                    alt={displayName}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                      objectPosition: 'bottom left',
+                      display: 'block',
+                    }}
+                  />
+                ) : (
+                  <span style={{ fontSize: '64px', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+                    {initials}
+                  </span>
+                )}
               </div>
             </div>
 
@@ -839,21 +861,28 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                   <BlueCheckBadge size={18} title="Verified TIA Creator" />
                 </div>
 
-                {/* Right: Pure Text Star Rating Strip (No Box/Card) */}
+                {/* Right: Star Rating Strip */}
                 <div className="profile-rating-strip" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" strokeWidth="1">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                    <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '14px' }}>4.9</span>
-                    <span style={{ color: '#64748B', fontWeight: 600, fontSize: '12px' }}>/ 5.0</span>
-                  </div>
-
-                  <span style={{ color: '#CBD5E1' }}>•</span>
-
-                  <span style={{ color: '#475569', fontWeight: 600, whiteSpace: 'nowrap' }}>
-                    48 Reviews
-                  </span>
+                  {isSarah ? (
+                    <>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', whiteSpace: 'nowrap' }}>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" stroke="#F59E0B" strokeWidth="1">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        <span style={{ fontWeight: 800, color: '#0F172A', fontSize: '14px' }}>4.9</span>
+                        <span style={{ color: '#64748B', fontWeight: 600, fontSize: '12px' }}>/ 5.0</span>
+                      </div>
+                      <span style={{ color: '#CBD5E1' }}>•</span>
+                      <span style={{ color: '#475569', fontWeight: 600, whiteSpace: 'nowrap' }}>
+                        48 Reviews
+                      </span>
+                    </>
+                  ) : (
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', padding: '4px 10px', borderRadius: '12px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 700, color: '#0052FF' }}>★ New Verified Creator</span>
+                      <span style={{ color: '#64748B', fontSize: '11px', fontWeight: 600 }}>(0 Reviews)</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -911,7 +940,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 >
                   <div>
                     <span style={{ fontSize: '48px', fontWeight: 400, color: '#0F172A', lineHeight: 1, letterSpacing: '-0.03em' }}>
-                      615K+
+                      {isSarah ? '615K+' : '0'}
                     </span>
                   </div>
                   <span style={{ fontSize: '11px', fontWeight: 600, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: '4px' }}>
@@ -925,91 +954,116 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '24px', flexWrap: 'wrap', paddingTop: '18px', borderTop: '1px solid #F1F5F9' }}>
               <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>Verified Live Channels:</span>
 
-              {/* YouTube */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  padding: '6px 12px',
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
-                  color: '#0052FF',
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#0052FF">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-                <span>185K Subscribers</span>
-              </div>
+              {isSarah ? (
+                <>
+                  {/* YouTube */}
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      padding: '6px 12px',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#0052FF',
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#0052FF">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    <span>185K Subscribers</span>
+                  </div>
 
-              {/* Instagram */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  padding: '6px 12px',
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
-                  color: '#0052FF',
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-                <span>320K Followers</span>
-              </div>
+                  {/* Instagram */}
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      padding: '6px 12px',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#0052FF',
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0052FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                    <span>320K Followers</span>
+                  </div>
 
-              {/* X / Twitter */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  padding: '6px 12px',
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
-                  color: '#0052FF',
-                }}
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="#0052FF">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                <span>45K Followers</span>
-              </div>
+                  {/* X / Twitter */}
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      padding: '6px 12px',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#0052FF',
+                    }}
+                  >
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="#0052FF">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span>45K Followers</span>
+                  </div>
 
-              {/* LinkedIn */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  padding: '6px 12px',
-                  backgroundColor: '#EFF6FF',
-                  border: '1px solid #BFDBFE',
-                  borderRadius: '8px',
-                  fontSize: '12.5px',
-                  fontWeight: 700,
-                  color: '#0052FF',
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#0052FF">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                </svg>
-                <span>65K Connections</span>
-              </div>
+                  {/* LinkedIn */}
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      padding: '6px 12px',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#0052FF',
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#0052FF">
+                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                    </svg>
+                    <span>65K Connections</span>
+                  </div>
+                </>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '12.5px', color: '#64748B' }}>No live channels connected yet.</span>
+                  {isViewingAsOwner && (
+                    <Link
+                      href="/creator?tab=social-media"
+                      style={{
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        color: '#0052FF',
+                        textDecoration: 'none',
+                        background: '#EFF6FF',
+                        border: '1px solid #BFDBFE',
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      + Connect Social Channels
+                    </Link>
+                  )}
+                </div>
+              )}
 
               <Link
                 href={isViewingAsOwner ? "/creator?tab=social-media" : "#"}
@@ -1042,10 +1096,10 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
         {/* ==================================================================== */}
         <div className="profile-tabs-nav">
           {[
-            { id: 'PORTFOLIO', fullLabel: 'Past Brand Work & Portfolio', shortLabel: 'Portfolio', count: 6 },
+            { id: 'PORTFOLIO', fullLabel: 'Past Brand Work & Portfolio', shortLabel: 'Portfolio', count: isSarah ? 6 : 0 },
             { id: 'CREDIBILITY', fullLabel: 'Trust & BotShield Matrix', shortLabel: 'Trust & BotShield', count: null },
-            { id: 'RATES', fullLabel: 'Commercial Rates & Packages', shortLabel: 'Rates & Packages', count: 4 },
-            { id: 'REVIEWS', fullLabel: 'Sponsor Endorsements', shortLabel: 'Endorsements', count: 14 },
+            { id: 'RATES', fullLabel: 'Commercial Rates & Packages', shortLabel: 'Rates & Packages', count: isSarah ? 4 : 0 },
+            { id: 'REVIEWS', fullLabel: 'Sponsor Endorsements', shortLabel: 'Endorsements', count: isSarah ? 14 : 0 },
           ].map((tab) => {
             const isActive = activeProfileTab === tab.id;
             return (
@@ -1144,6 +1198,61 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
             </div>
 
             {/* Grid of Verified Project Cards */}
+            {filteredProjects.length === 0 ? (
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px dashed #CBD5E1',
+                  padding: '48px 24px',
+                  textAlign: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '12px',
+                    backgroundColor: '#EFF6FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 12px auto',
+                    color: '#0052FF',
+                  }}
+                >
+                  <BriefcaseIcon size={24} color="#0052FF" />
+                </div>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                  No Past Collaborations Published Yet
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748B', maxWidth: '420px', margin: '0 auto 16px auto', lineHeight: 1.5 }}>
+                  {isViewingAsOwner
+                    ? 'Apply to campaigns in the marketplace to complete brand deals and showcase verified deliverables on your public portfolio.'
+                    : 'This creator has not published any verified brand collaborations yet.'}
+                </div>
+                {isViewingAsOwner && (
+                  <Link
+                    href="/creator?tab=marketplace"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 18px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span>Explore Marketplace Briefs</span>
+                    <span>→</span>
+                  </Link>
+                )}
+              </div>
+            ) : (
             <div
               style={{
                 display: 'grid',
@@ -1248,6 +1357,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </div>
               ))}
             </div>
+            )}
           </div>
         )}
 
@@ -1392,6 +1502,61 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               )}
             </div>
 
+            {commercialPackages.length === 0 ? (
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px dashed #CBD5E1',
+                  padding: '48px 24px',
+                  textAlign: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '12px',
+                    backgroundColor: '#EFF6FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 12px auto',
+                    color: '#0052FF',
+                  }}
+                >
+                  <BriefcaseIcon size={24} color="#0052FF" />
+                </div>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                  No Commercial Packages Published Yet
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748B', maxWidth: '420px', margin: '0 auto 16px auto', lineHeight: 1.5 }}>
+                  {isViewingAsOwner
+                    ? 'Configure your rate card in Settings to showcase standardized deliverables to prospective brands.'
+                    : 'This creator has not published standard commercial packages yet.'}
+                </div>
+                {isViewingAsOwner && (
+                  <Link
+                    href="/creator?tab=settings"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 18px',
+                      backgroundColor: '#0052FF',
+                      color: '#FFFFFF',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span>Configure Commercial Rates</span>
+                    <span>→</span>
+                  </Link>
+                )}
+              </div>
+            ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '20px' }}>
               {commercialPackages.map((pkg) => (
                 <div
@@ -1510,6 +1675,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </div>
               ))}
             </div>
+            )}
           </div>
         )}
 
@@ -1529,6 +1695,41 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
               </div>
             </div>
 
+            {!isSarah ? (
+              <div
+                style={{
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: '16px',
+                  border: '1px dashed #CBD5E1',
+                  padding: '48px 24px',
+                  textAlign: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '12px',
+                    backgroundColor: '#EFF6FF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 12px auto',
+                    color: '#0052FF',
+                  }}
+                >
+                  <StarIcon size={24} color="#0052FF" />
+                </div>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>
+                  No Verified Brand Endorsements Yet
+                </div>
+                <div style={{ fontSize: '13px', color: '#64748B', maxWidth: '420px', margin: '0 auto', lineHeight: 1.5 }}>
+                  {isViewingAsOwner
+                    ? 'When brand partners disburse funded milestones for your completed campaigns, their verified ratings and reviews will appear here.'
+                    : 'This creator has not completed verified brand campaigns on TIA yet.'}
+                </div>
+              </div>
+            ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {[
                 {
@@ -1588,6 +1789,7 @@ export function CreatorProfileView({ username = 'creator.official', initialProfi
                 </div>
               ))}
             </div>
+            )}
           </div>
         )}
 

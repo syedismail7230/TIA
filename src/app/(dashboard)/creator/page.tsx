@@ -288,7 +288,8 @@ function CreatorPortalContent() {
   const [countrySearchQuery, setCountrySearchQuery] = useState('');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [showAiStudioModal, setShowAiStudioModal] = useState<boolean>(false);
-  const [customAvatarUrl, setCustomAvatarUrl] = useState<string>('/profile.png');
+  const [customAvatarUrl, setCustomAvatarUrl] = useState<string>('');
+  const [isDemoUser, setIsDemoUser] = useState<boolean>(false);
 
   const activeTabRef = useRef<TabType>(activeTab);
   activeTabRef.current = activeTab;
@@ -300,24 +301,24 @@ function CreatorPortalContent() {
   const [isBrandTyping, setIsBrandTyping] = useState<boolean>(false);
   const [collabSearchQuery, setCollabSearchQuery] = useState<string>('');
   const [connectedAccounts, setConnectedAccounts] = useState<Record<string, boolean>>({
-    YouTube: true,
-    Instagram: true,
-    LinkedIn: true,
-    'X (Twitter)': true,
+    YouTube: false,
+    Instagram: false,
+    LinkedIn: false,
+    'X (Twitter)': false,
   });
 
   // Settings Tab State & Preferences
   const [settingsActiveSubTab, setSettingsActiveSubTab] = useState<'profile' | 'rates' | 'payouts' | 'notifications' | 'security'>('profile');
   const [settingsProfile, setSettingsProfile] = useState({
-    displayName: 'Sarah Jenkins',
-    handle: '@sarahjenkins',
-    tagline: 'Tech Reviewer & AI Hardware Enthusiast | 615K+ Community',
-    bio: 'Creating cinematic, deep-dive reviews and benchmark tests for consumer electronics, smartphones, audio gear, and emerging AI hardware tools.',
-    primaryNiches: ['Consumer Tech', 'AI Tools & SaaS', 'Smartphones & Audio', 'Productivity'],
+    displayName: 'Creator',
+    handle: '@creator',
+    tagline: 'Verified TIA Content Creator',
+    bio: 'Verified Content Creator on The Influencer’s Agency.',
+    primaryNiches: ['Consumer Tech', 'AI Tools & SaaS', 'Lifestyle'],
     languages: 'English, Hindi',
-    location: 'Mumbai, Maharashtra, India',
-    contactEmail: 'sarah.jenkins@creator.official',
-    website: 'https://sarahjenkins.tech',
+    location: 'India',
+    contactEmail: '',
+    website: '',
   });
   const [settingsRates, setSettingsRates] = useState({
     minCollabBudget: 25000,
@@ -358,27 +359,17 @@ function CreatorPortalContent() {
     panNumber: string;
     verified: boolean;
     verifiedAt: string;
-  } | null>({
-    accountHolderName: 'Sarah Jenkins',
-    bankName: 'HDFC Bank Ltd.',
-    accountNumber: '50100482910482',
-    ifscCode: 'HDFC0000128',
-    accountType: 'SAVINGS',
-    upiId: 'sarah.jenkins@okhdfcbank',
-    panNumber: 'ABCDE1234F',
-    verified: true,
-    verifiedAt: 'Aug 15, 2026',
-  });
+  } | null>(null);
   const [showBankModal, setShowBankModal] = useState<boolean>(false);
   const [bankForm, setBankForm] = useState({
-    accountHolderName: 'Sarah Jenkins',
-    bankName: 'HDFC Bank Ltd.',
-    accountNumber: '50100482910482',
-    confirmAccountNumber: '50100482910482',
-    ifscCode: 'HDFC0000128',
+    accountHolderName: '',
+    bankName: '',
+    accountNumber: '',
+    confirmAccountNumber: '',
+    ifscCode: '',
     accountType: 'SAVINGS' as 'SAVINGS' | 'CURRENT',
-    upiId: 'sarah.jenkins@okhdfcbank',
-    panNumber: 'ABCDE1234F',
+    upiId: '',
+    panNumber: '',
   });
   const [isVerifyingBank, setIsVerifyingBank] = useState<boolean>(false);
   const [bankVerificationSuccess, setBankVerificationSuccess] = useState<string | null>(null);
@@ -1276,7 +1267,7 @@ function CreatorPortalContent() {
   const [claimedSuccessTx, setClaimedSuccessTx] = useState<any>(null);
 
   // Collabs & Inbox Threads
-  const [collabs, setCollabs] = useState<any[]>([
+  const DEMO_COLLABS: any[] = [
     {
       id: 'collab-1',
       campaignTitle: 'Next-Gen Smartphone Showcase',
@@ -1522,10 +1513,11 @@ function CreatorPortalContent() {
         },
       ],
     },
-  ]);
+  ];
+  const [collabs, setCollabs] = useState<any[]>([]);
 
   // Financial Ledger & Invoices (TIA Creator Collabs SaaS Model with 5% Platform Commission)
-  const [payments, setPayments] = useState<any[]>([
+  const DEMO_PAYMENTS: any[] = [
     {
       id: 'tx-101',
       invoiceCode: 'INV-PHA-0192',
@@ -1767,7 +1759,20 @@ function CreatorPortalContent() {
       fromEmail: 'billing@theinfluencersagency.com',
       disbursedAt: '25 Jul 2026 - 03:50 PM',
     },
-  ]);
+  ];
+  const [payments, setPayments] = useState<any[]>([]);
+
+  const DEMO_BANK = {
+    accountHolderName: 'Sarah Jenkins',
+    bankName: 'HDFC Bank Ltd.',
+    accountNumber: '50100482910482',
+    ifscCode: 'HDFC0000128',
+    accountType: 'SAVINGS' as const,
+    upiId: 'sarah.jenkins@okhdfcbank',
+    panNumber: 'ABCDE1234F',
+    verified: true,
+    verifiedAt: 'Aug 15, 2026',
+  };
 
   // Load User Session
   useEffect(() => {
@@ -1784,20 +1789,61 @@ function CreatorPortalContent() {
             const username = cProfile?.username || (user.email ? user.email.split('@')[0] : 'creator');
             const finalHandle = `@${username}`;
 
+            const isDemo = user.email === 'demo@creator.com' || username === 'creator.official';
+            setIsDemoUser(isDemo);
+
+            if (isDemo) {
+              setCollabs(DEMO_COLLABS);
+              setPayments(DEMO_PAYMENTS);
+              setCustomAvatarUrl('/profile.png');
+              setBankAccount(DEMO_BANK);
+              setBankForm({
+                accountHolderName: DEMO_BANK.accountHolderName,
+                bankName: DEMO_BANK.bankName,
+                accountNumber: DEMO_BANK.accountNumber,
+                confirmAccountNumber: DEMO_BANK.accountNumber,
+                ifscCode: DEMO_BANK.ifscCode,
+                accountType: DEMO_BANK.accountType,
+                upiId: DEMO_BANK.upiId,
+                panNumber: DEMO_BANK.panNumber,
+              });
+              setConnectedAccounts({
+                YouTube: true,
+                Instagram: true,
+                LinkedIn: true,
+                'X (Twitter)': true,
+              });
+            } else {
+              setCollabs([]);
+              setPayments([]);
+              setCustomAvatarUrl(user.avatarUrl || '');
+              setBankAccount(null);
+              setBankForm({
+                accountHolderName: finalName,
+                bankName: '',
+                accountNumber: '',
+                confirmAccountNumber: '',
+                ifscCode: '',
+                accountType: 'SAVINGS' as 'SAVINGS' | 'CURRENT',
+                upiId: '',
+                panNumber: '',
+              });
+              setConnectedAccounts({
+                YouTube: false,
+                Instagram: false,
+                LinkedIn: false,
+                'X (Twitter)': false,
+              });
+            }
+
             setSettingsProfile((prev) => ({
               ...prev,
               displayName: finalName,
               handle: finalHandle,
               contactEmail: user.email,
               location: user.country || 'India',
-              bio: cProfile?.bio || prev.bio,
+              bio: cProfile?.bio || (isDemo ? prev.bio : 'Verified Creator on The Influencer’s Agency.'),
               tagline: `${finalName} • Verified Creator`,
-            }));
-
-            setBankAccount((prev: any) => ({
-              ...prev,
-              accountHolderName: finalName,
-              upiId: `${username}@okhdfcbank`,
             }));
           }
         }
@@ -7988,83 +8034,104 @@ function CreatorPortalContent() {
                         </tr>
                       </thead>
                       <tbody>
-                        {filteredInvoices.map((invoice) => {
-                          const isSelected = selectedInvoice?.id === invoice.id;
-                          const isChecked = selectedCheckboxIds.includes(invoice.id);
-                          const isPaid = invoice.status === 'PAID';
+                        {filteredInvoices.length === 0 ? (
+                          <tr>
+                            <td colSpan={6} style={{ textAlign: 'center', padding: '48px 20px', color: '#94A3B8' }}>
+                              <div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px auto', color: '#64748B' }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <circle cx="12" cy="12" r="10" />
+                                  <line x1="12" y1="8" x2="12" y2="12" />
+                                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
+                              </div>
+                              <div style={{ fontSize: '14px', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>No Transactions Found</div>
+                              <div style={{ fontSize: '12px' }}>Complete brand collaborations to earn payouts and track disbursements here.</div>
+                            </td>
+                          </tr>
+                        ) : (
+                          filteredInvoices.map((invoice) => {
+                            const isSelected = selectedInvoice?.id === invoice.id;
+                            const isChecked = selectedCheckboxIds.includes(invoice.id);
+                            const isPaid = invoice.status === 'PAID';
 
-                          return (
-                            <tr
-                              key={invoice.id}
-                              onClick={() => {
-                                setSelectedInvoiceId(invoice.id);
-                                setInvoiceDetailOpen(true);
-                              }}
-                              style={{
-                                borderBottom: '1px solid #F8FAFC',
-                                fontSize: '12.5px',
-                                backgroundColor: isSelected ? '#F0F7FF' : 'transparent',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.12s ease',
-                              }}
-                              onMouseEnter={(e) => {
-                                if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
-                              }}
-                              onMouseLeave={(e) => {
-                                if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
-                              }}
-                            >
-                              <td style={{ padding: '12px', width: '32px' }} onClick={(e) => e.stopPropagation()}>
-                                <input
-                                  type="checkbox"
-                                  checked={isChecked}
-                                  onChange={(e) => {
-                                    if (e.target.checked) {
-                                      setSelectedCheckboxIds([...selectedCheckboxIds, invoice.id]);
-                                    } else {
-                                      setSelectedCheckboxIds(selectedCheckboxIds.filter((id) => id !== invoice.id));
-                                    }
-                                  }}
-                                  style={{ accentColor: '#0052FF', cursor: 'pointer' }}
-                                />
-                              </td>
-                              <td style={{ padding: '12px', fontWeight: 600, color: '#334155' }}>
-                                {invoice.invoiceCode || invoice.invoiceNumber?.slice(-7) || 'INV-PHA-0192'}
-                              </td>
-                              <td style={{ padding: '12px', fontWeight: 700, color: '#0F172A' }}>
-                                {invoice.mediaName}
-                              </td>
-                              <td style={{ padding: '12px', color: '#64748B' }}>
-                                {invoice.authorizedAt}
-                              </td>
-                              <td style={{ padding: '12px' }}>
-                                <span
-                                  style={{
-                                    fontSize: '11px',
-                                    fontWeight: 700,
-                                    padding: '3px 10px',
-                                    borderRadius: '6px',
-                                    backgroundColor: isPaid ? '#ECFDF5' : '#FFF7ED',
-                                    color: isPaid ? '#059669' : '#EA580C',
-                                    border: isPaid ? '1px solid #D1FAE5' : '1px solid #FFEDD5',
-                                  }}
-                                >
-                                  {isPaid ? 'Paid' : 'Unpaid'}
-                                </span>
-                              </td>
-                              <td style={{ padding: '12px', textAlign: 'right', fontWeight: 700, color: '#0F172A' }}>
-                                {invoice.priceFormatted || invoice.amount}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                            return (
+                              <tr
+                                key={invoice.id}
+                                onClick={() => {
+                                  setSelectedInvoiceId(invoice.id);
+                                  setInvoiceDetailOpen(true);
+                                }}
+                                style={{
+                                  borderBottom: '1px solid #F8FAFC',
+                                  fontSize: '12.5px',
+                                  backgroundColor: isSelected ? '#F0F7FF' : 'transparent',
+                                  cursor: 'pointer',
+                                  transition: 'background-color 0.12s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (!isSelected) e.currentTarget.style.backgroundColor = '#F8FAFC';
+                                }}
+                                onMouseLeave={(e) => {
+                                  if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+                                }}
+                              >
+                                <td style={{ padding: '12px', width: '32px' }} onClick={(e) => e.stopPropagation()}>
+                                  <input
+                                    type="checkbox"
+                                    checked={isChecked}
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        setSelectedCheckboxIds([...selectedCheckboxIds, invoice.id]);
+                                      } else {
+                                        setSelectedCheckboxIds(selectedCheckboxIds.filter((id) => id !== invoice.id));
+                                      }
+                                    }}
+                                    style={{ accentColor: '#0052FF', cursor: 'pointer' }}
+                                  />
+                                </td>
+                                <td style={{ padding: '12px', fontWeight: 600, color: '#334155' }}>
+                                  {invoice.invoiceCode || invoice.invoiceNumber?.slice(-7) || 'INV-PHA-0192'}
+                                </td>
+                                <td style={{ padding: '12px', fontWeight: 700, color: '#0F172A' }}>
+                                  {invoice.mediaName}
+                                </td>
+                                <td style={{ padding: '12px', color: '#64748B' }}>
+                                  {invoice.authorizedAt}
+                                </td>
+                                <td style={{ padding: '12px' }}>
+                                  <span
+                                    style={{
+                                      fontSize: '11px',
+                                      fontWeight: 700,
+                                      padding: '3px 10px',
+                                      borderRadius: '6px',
+                                      backgroundColor: isPaid ? '#ECFDF5' : '#FFF7ED',
+                                      color: isPaid ? '#059669' : '#EA580C',
+                                      border: isPaid ? '1px solid #D1FAE5' : '1px solid #FFEDD5',
+                                    }}
+                                  >
+                                    {isPaid ? 'Paid' : 'Unpaid'}
+                                  </span>
+                                </td>
+                                <td style={{ padding: '12px', textAlign: 'right', fontWeight: 700, color: '#0F172A' }}>
+                                  {invoice.priceFormatted || invoice.amount}
+                                </td>
+                              </tr>
+                            );
+                          })
+                        )}
                       </tbody>
                     </table>
                   </div>
 
                   {/* NATIVE MOBILE TRANSACTIONS FEED (<= 768px) */}
                   <div className="mobile-list-view">
-                    {filteredInvoices.map((invoice) => {
+                    {filteredInvoices.length === 0 ? (
+                      <div style={{ textAlign: 'center', padding: '36px 16px', color: '#94A3B8', fontSize: '12.5px' }}>
+                        No transactions yet. Complete brand deals to track payouts.
+                      </div>
+                    ) : (
+                      filteredInvoices.map((invoice) => {
                       const isSelected = selectedInvoice?.id === invoice.id;
                       const isPaid = invoice.status === 'PAID';
                       const isCredit = invoice.id?.includes('cred');
@@ -8148,7 +8215,7 @@ function CreatorPortalContent() {
                           </div>
                         </div>
                       );
-                    })}
+                    }))}
                   </div>
                 </div>
 
@@ -8156,8 +8223,8 @@ function CreatorPortalContent() {
                 {invoiceDetailOpen && selectedInvoice && (() => {
                   const isCreditPurchase = selectedInvoice.id?.includes('cred');
                   const isPaid = selectedInvoice.status === 'PAID';
-                  const creatorName = currentUser?.name || 'Sarah Jenkins';
-                  const creatorEmail = currentUser?.email || 'sarah.jenkins@gmail.com';
+                  const creatorName = currentUser?.name || 'Creator';
+                  const creatorEmail = currentUser?.email || 'creator@example.com';
 
                   return (
                     <div
@@ -8569,9 +8636,9 @@ function CreatorPortalContent() {
                 {[
                   {
                     name: 'YouTube',
-                    handle: '@creator.official',
-                    count: '185K Subs',
-                    extra: '45.2K Avg Views • 5.2% ER',
+                    handle: connectedAccounts['YouTube'] ? (isDemoUser ? '@creator.official' : `@${settingsProfile.handle.replace('@', '')}`) : 'Not connected',
+                    count: connectedAccounts['YouTube'] ? (isDemoUser ? '185K Subs' : 'Live Synced') : '—',
+                    extra: connectedAccounts['YouTube'] ? (isDemoUser ? '45.2K Avg Views • 5.2% ER' : 'Synced') : 'Sync disconnected',
                     icon: (
                       <div
                         style={{
@@ -8594,9 +8661,9 @@ function CreatorPortalContent() {
                   },
                   {
                     name: 'Instagram',
-                    handle: '@creator.official',
-                    count: '320K Followers',
-                    extra: '38.4K Avg Likes • 4.8% ER',
+                    handle: connectedAccounts['Instagram'] ? (isDemoUser ? '@creator.official' : `@${settingsProfile.handle.replace('@', '')}`) : 'Not connected',
+                    count: connectedAccounts['Instagram'] ? (isDemoUser ? '320K Followers' : 'Live Synced') : '—',
+                    extra: connectedAccounts['Instagram'] ? (isDemoUser ? '38.4K Avg Likes • 4.8% ER' : 'Synced') : 'Sync disconnected',
                     icon: (
                       <div
                         style={{
@@ -8621,9 +8688,9 @@ function CreatorPortalContent() {
                   },
                   {
                     name: 'LinkedIn',
-                    handle: 'Sarah Jenkins',
-                    count: '65K Connections',
-                    extra: '92.4K Reach • 6.1% ER',
+                    handle: connectedAccounts['LinkedIn'] ? (isDemoUser ? 'Sarah Jenkins' : settingsProfile.displayName) : 'Not connected',
+                    count: connectedAccounts['LinkedIn'] ? (isDemoUser ? '65K Connections' : 'Live Synced') : '—',
+                    extra: connectedAccounts['LinkedIn'] ? (isDemoUser ? '92.4K Reach • 6.1% ER' : 'Synced') : 'Sync disconnected',
                     icon: (
                       <div
                         style={{
@@ -8646,9 +8713,9 @@ function CreatorPortalContent() {
                   },
                   {
                     name: 'X (Twitter)',
-                    handle: '@creator_x',
-                    count: '45K Followers',
-                    extra: '12.1K Impr. • 3.6% ER',
+                    handle: connectedAccounts['X (Twitter)'] ? (isDemoUser ? '@creator_x' : `@${settingsProfile.handle.replace('@', '')}`) : 'Not connected',
+                    count: connectedAccounts['X (Twitter)'] ? (isDemoUser ? '45K Followers' : 'Live Synced') : '—',
+                    extra: connectedAccounts['X (Twitter)'] ? (isDemoUser ? '12.1K Impr. • 3.6% ER' : 'Synced') : 'Sync disconnected',
                     icon: (
                       <div
                         style={{
@@ -8803,22 +8870,30 @@ function CreatorPortalContent() {
               >
                 <div>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Total Audience</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>615,000+</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>
+                    {isDemoUser ? '615,000+' : (Object.values(connectedAccounts).some(Boolean) ? 'Live Synced' : '0')}
+                  </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Monthly Impressions</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>2.84M</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>
+                    {isDemoUser ? '2.84M' : (Object.values(connectedAccounts).some(Boolean) ? 'Live Synced' : '0')}
+                  </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Avg. Engagement</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>4.85%</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#0F172A', marginTop: '1px' }}>
+                    {isDemoUser ? '4.85%' : (Object.values(connectedAccounts).some(Boolean) ? 'Live Synced' : '0.0%')}
+                  </div>
                 </div>
 
                 <div>
                   <div style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Audience Quality</div>
-                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#059669', marginTop: '1px' }}>98.4% Real</div>
+                  <div style={{ fontSize: '18px', fontWeight: 900, color: '#059669', marginTop: '1px' }}>
+                    {isDemoUser ? '98.4% Real' : '100% Real'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -8839,29 +8914,35 @@ function CreatorPortalContent() {
                   Audience Breakdown
                 </h3>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                    <span style={{ color: '#475569' }}>🇮🇳 India</span>
-                    <span style={{ fontWeight: 800, color: '#0F172A' }}>68%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                    <span style={{ color: '#475569' }}>🇺🇸 United States</span>
-                    <span style={{ fontWeight: 800, color: '#0F172A' }}>14%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                    <span style={{ color: '#475569' }}>🇦🇪 United Arab Emirates</span>
-                    <span style={{ fontWeight: 800, color: '#0F172A' }}>7%</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                    <span style={{ color: '#475569' }}>🇬🇧 United Kingdom</span>
-                    <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
-                  </div>
+                {isDemoUser ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
+                      <span style={{ color: '#475569' }}>🇮🇳 India</span>
+                      <span style={{ fontWeight: 800, color: '#0F172A' }}>68%</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
+                      <span style={{ color: '#475569' }}>🇺🇸 United States</span>
+                      <span style={{ fontWeight: 800, color: '#0F172A' }}>14%</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
+                      <span style={{ color: '#475569' }}>🇦🇪 United Arab Emirates</span>
+                      <span style={{ fontWeight: 800, color: '#0F172A' }}>7%</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
+                      <span style={{ color: '#475569' }}>🇬🇧 United Kingdom</span>
+                      <span style={{ fontWeight: 800, color: '#0F172A' }}>6%</span>
+                    </div>
 
-                  <div style={{ marginTop: '6px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', fontSize: '11px', color: '#64748B', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-                    <span>Age: <strong style={{ color: '#0F172A' }}>18–34 yrs (82%)</strong></span>
-                    <span>Gender: <strong style={{ color: '#0F172A' }}>58% M / 42% F</strong></span>
+                    <div style={{ marginTop: '6px', paddingTop: '10px', borderTop: '1px solid #F1F5F9', fontSize: '11px', color: '#64748B', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                      <span>Age: <strong style={{ color: '#0F172A' }}>18–34 yrs (82%)</strong></span>
+                      <span>Gender: <strong style={{ color: '#0F172A' }}>58% M / 42% F</strong></span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div style={{ textAlign: 'center', padding: '24px 12px', color: '#94A3B8', fontSize: '12.5px' }}>
+                    Connect a social account above to view verified audience demographics and geographic distribution.
+                  </div>
+                )}
               </div>
 
               {/* Right: Recent Content */}
@@ -8878,38 +8959,44 @@ function CreatorPortalContent() {
                   Recent Posts
                 </h3>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
-                  {[
-                    { title: 'Top 5 Tech Gadgets 2026', views: '48.2K', er: '6.4%', channel: 'YouTube' },
-                    { title: 'Morning Fitness Routine', views: '84.5K', er: '5.8%', channel: 'Instagram' },
-                    { title: 'Why Creator Monetization Shifted', views: '24.6K', er: '6.2%', channel: 'LinkedIn' },
-                    { title: 'New ANC Earbuds Unboxing', views: '32.1K', er: '3.8%', channel: 'X' },
-                  ].map((post, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        fontSize: '12px',
-                        paddingBottom: '6px',
-                        borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
-                        gap: '8px',
-                      }}
-                    >
-                      <div style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        <span style={{ fontWeight: 700, color: '#0F172A' }}>{post.title}</span>
-                        <span style={{ color: '#94A3B8', marginLeft: '4px' }}>• {post.channel}</span>
+                {isDemoUser ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
+                    {[
+                      { title: 'Top 5 Tech Gadgets 2026', views: '48.2K', er: '6.4%', channel: 'YouTube' },
+                      { title: 'Morning Fitness Routine', views: '84.5K', er: '5.8%', channel: 'Instagram' },
+                      { title: 'Why Creator Monetization Shifted', views: '24.6K', er: '6.2%', channel: 'LinkedIn' },
+                      { title: 'New ANC Earbuds Unboxing', views: '32.1K', er: '3.8%', channel: 'X' },
+                    ].map((post, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          fontSize: '12px',
+                          paddingBottom: '6px',
+                          borderBottom: idx < 3 ? '1px solid #F8FAFC' : 'none',
+                          gap: '8px',
+                        }}
+                      >
+                        <div style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <span style={{ fontWeight: 700, color: '#0F172A' }}>{post.title}</span>
+                          <span style={{ color: '#94A3B8', marginLeft: '4px' }}>• {post.channel}</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
+                          <span style={{ color: '#64748B', fontSize: '11.5px' }}>{post.views}</span>
+                          <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px', fontSize: '10.5px' }}>
+                            {post.er}
+                          </span>
+                        </div>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-                        <span style={{ color: '#64748B', fontSize: '11.5px' }}>{post.views}</span>
-                        <span style={{ fontWeight: 700, color: '#0052FF', backgroundColor: '#EFF6FF', padding: '1px 5px', borderRadius: '4px', fontSize: '10.5px' }}>
-                          {post.er}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: 'center', padding: '24px 12px', color: '#94A3B8', fontSize: '12.5px' }}>
+                    No recent synced posts. Connect your channels to display live content analytics and engagement.
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -9150,20 +9237,31 @@ function CreatorPortalContent() {
                             width: '56px',
                             height: '56px',
                             borderRadius: '14px',
-                            backgroundColor: '#EFF6FF',
+                            backgroundColor: customAvatarUrl ? '#EFF6FF' : '#0052FF',
                             border: '2px solid #BFDBFE',
                             overflow: 'hidden',
                             display: 'flex',
-                            alignItems: 'flex-end',
+                            alignItems: 'center',
                             justifyContent: 'center',
                             flexShrink: 0,
+                            color: '#FFFFFF',
+                            fontWeight: 800,
+                            fontSize: '18px',
                           }}
                         >
-                          <img
-                            src={customAvatarUrl}
-                            alt="Creator Avatar"
-                            style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
-                          />
+                          {customAvatarUrl ? (
+                            <img
+                              src={customAvatarUrl}
+                              alt="Creator Avatar"
+                              style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
+                            />
+                          ) : (
+                            <span>
+                              {settingsProfile.displayName
+                                ? settingsProfile.displayName.split(' ').map((w: string) => w[0]).filter(Boolean).slice(0, 2).join('').toUpperCase()
+                                : 'CR'}
+                            </span>
+                          )}
                         </div>
                         <div>
                           <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
@@ -9624,20 +9722,39 @@ function CreatorPortalContent() {
                         width: '60px',
                         height: '60px',
                         borderRadius: '16px',
-                        backgroundColor: '#EFF6FF',
+                        backgroundColor: customAvatarUrl ? '#EFF6FF' : '#0052FF',
                         border: '2px solid #BFDBFE',
                         overflow: 'hidden',
                         display: 'flex',
-                        alignItems: 'flex-end',
+                        alignItems: customAvatarUrl ? 'flex-end' : 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
                       }}
                     >
-                      <img
-                        src={customAvatarUrl}
-                        alt="Creator Avatar"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
-                      />
+                      {customAvatarUrl ? (
+                        <img
+                          src={customAvatarUrl}
+                          alt="Creator Avatar"
+                          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom center' }}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            color: '#FFFFFF',
+                            fontSize: '20px',
+                            fontWeight: 800,
+                            letterSpacing: '-0.02em',
+                          }}
+                        >
+                          {(currentUser?.name || settingsProfile.displayName || 'Creator')
+                            .split(' ')
+                            .map((w: string) => w[0])
+                            .filter(Boolean)
+                            .slice(0, 2)
+                            .join('')
+                            .toUpperCase()}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>Creator Profile Photo</div>
@@ -9925,64 +10042,120 @@ function CreatorPortalContent() {
               {/* SUB-TAB 3: PAYOUT & TAXES */}
               {settingsActiveSubTab === 'payouts' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-                  {/* Bank Account Summary Card */}
-                  <div
-                    style={{
-                      padding: '18px 20px',
-                      backgroundColor: '#F8FAFC',
-                      borderRadius: '12px',
-                      border: '1px solid #E2E8F0',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexWrap: 'wrap',
-                      gap: '14px',
-                    }}
-                  >
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
-                          {bankAccount?.bankName || 'HDFC Bank Ltd.'}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: '11px',
-                            fontWeight: 800,
-                            color: '#059669',
-                            backgroundColor: '#ECFDF5',
-                            padding: '2px 8px',
-                            borderRadius: '6px',
-                          }}
-                        >
-                          ● Verified & Active
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
-                        Account Number: •••••••••••• {bankAccount?.accountNumber?.slice(-4) || '0482'} • IFSC: {bankAccount?.ifscCode || 'HDFC0000128'}
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
-                        Beneficiary: {bankAccount?.accountHolderName || 'Sarah Jenkins'} • UPI: {bankAccount?.upiId || 'sarah.jenkins@okhdfcbank'}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setShowBankModal(true)}
+                  {bankAccount ? (
+                    <div
                       style={{
-                        padding: '7px 14px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #CBD5E1',
-                        borderRadius: '8px',
-                        fontSize: '12px',
-                        fontWeight: 700,
-                        color: '#0052FF',
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap',
+                        padding: '18px 20px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px solid #E2E8F0',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: '14px',
                       }}
                     >
-                      Update Bank Account
-                    </button>
-                  </div>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>
+                            {bankAccount.bankName}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: '11px',
+                              fontWeight: 800,
+                              color: '#059669',
+                              backgroundColor: '#ECFDF5',
+                              padding: '2px 8px',
+                              borderRadius: '6px',
+                            }}
+                          >
+                            ● Verified & Active
+                          </span>
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '4px' }}>
+                          Account Number: •••••••••••• {bankAccount.accountNumber?.slice(-4) || '****'} • IFSC: {bankAccount.ifscCode}
+                        </div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '2px' }}>
+                          Beneficiary: {bankAccount.accountHolderName} • UPI: {bankAccount.upiId || 'Not registered'}
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => setShowBankModal(true)}
+                        style={{
+                          padding: '7px 14px',
+                          backgroundColor: '#FFFFFF',
+                          border: '1px solid #CBD5E1',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          color: '#0052FF',
+                          cursor: 'pointer',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Update Bank Account
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        padding: '28px 24px',
+                        backgroundColor: '#F8FAFC',
+                        borderRadius: '12px',
+                        border: '1px dashed #CBD5E1',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        gap: '12px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '12px',
+                          backgroundColor: '#EFF6FF',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#0052FF',
+                        }}
+                      >
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>No Bank Account Linked</div>
+                        <div style={{ fontSize: '12px', color: '#64748B', marginTop: '3px', maxWidth: '380px', lineHeight: 1.5 }}>
+                          Add your bank account details and PAN to receive 100% direct payouts for approved brand collaborations.
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setShowBankModal(true)}
+                        style={{
+                          padding: '8px 18px',
+                          backgroundColor: '#0052FF',
+                          color: '#FFFFFF',
+                          border: 'none',
+                          borderRadius: '8px',
+                          fontSize: '12.5px',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          boxShadow: '0 2px 6px rgba(0, 82, 255, 0.25)',
+                        }}
+                      >
+                        + Add Bank Account
+                      </button>
+                    </div>
+                  )}
 
                   {/* Tax & PAN Card */}
                   <div
@@ -9998,18 +10171,24 @@ function CreatorPortalContent() {
                   >
                     <div>
                       <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>PAN Number (TDS Compliance)</div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '3px' }}>
-                        <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{bankAccount?.panNumber || 'ABCDE1234F'}</span>
-                        <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 6px', borderRadius: '4px' }}>
-                          1% TDS (Sec 194J)
-                        </span>
-                      </div>
+                      {bankAccount?.panNumber ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '3px' }}>
+                          <span style={{ fontSize: '14px', fontWeight: 800, color: '#0F172A' }}>{bankAccount.panNumber}</span>
+                          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#059669', backgroundColor: '#ECFDF5', padding: '1px 6px', borderRadius: '4px' }}>
+                            1% TDS (Sec 194J)
+                          </span>
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: '13px', color: '#94A3B8', fontWeight: 600, marginTop: '3px' }}>
+                          Not Registered
+                        </div>
+                      )}
                     </div>
 
                     <div>
                       <div style={{ fontSize: '11.5px', color: '#64748B', fontWeight: 600 }}>GST Registration Status</div>
-                      <div style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A', marginTop: '3px' }}>
-                        Unregistered (Under ₹20 Lakhs Threshold)
+                      <div style={{ fontSize: '13px', fontWeight: 700, color: bankAccount ? '#0F172A' : '#94A3B8', marginTop: '3px' }}>
+                        {bankAccount ? 'Unregistered (Under ₹20 Lakhs Threshold)' : 'Not Registered'}
                       </div>
                     </div>
                   </div>
