@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Building2, Sparkles, ArrowRight } from 'lucide-react';
 import {
   GlobeIcon,
   ArrowRightIcon,
@@ -33,6 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<'product' | 'resources' | null>(null);
+  const [getStartedOpen, setGetStartedOpen] = useState(false);
 
   const navContainerRef = useRef<HTMLElement>(null);
 
@@ -40,6 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
     await fetch('/api/auth/logout', { method: 'POST' });
     setMobileMenuOpen(false);
     setActiveDropdown(null);
+    setGetStartedOpen(false);
     router.push('/login');
     router.refresh();
   };
@@ -47,6 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const closeMenu = () => {
     setMobileMenuOpen(false);
     setActiveDropdown(null);
+    setGetStartedOpen(false);
   };
 
   // Close dropdown on outside click
@@ -54,6 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
         setActiveDropdown(null);
+        setGetStartedOpen(false);
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
@@ -291,25 +296,171 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 >
                   Log In
                 </Link>
-                <Link
-                  href="/register"
-                  style={{
-                    padding: '9px 20px',
-                    fontSize: '13.5px',
-                    fontWeight: 700,
-                    color: '#FFFFFF',
-                    backgroundColor: '#0052FF',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    borderRadius: '4px',
-                    boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
-                  }}
-                >
-                  <span>Get Started</span>
-                  <ArrowRightIcon size={13} color="#FFFFFF" />
-                </Link>
+                <div style={{ position: 'relative' }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setGetStartedOpen((prev) => !prev);
+                    }}
+                    style={{
+                      padding: '9px 18px',
+                      fontSize: '13.5px',
+                      fontWeight: 700,
+                      color: '#FFFFFF',
+                      backgroundColor: '#0052FF',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 8px rgba(0, 82, 255, 0.25)',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#0045D8')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0052FF')}
+                  >
+                    <span>Get Started</span>
+                    <ChevronDownIcon
+                      size={12}
+                      color="#FFFFFF"
+                      style={{
+                        transform: getStartedOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
+                      }}
+                    />
+                  </button>
+
+                  {getStartedOpen && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        right: 0,
+                        paddingTop: '6px',
+                        zIndex: 1000,
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div
+                        style={{
+                          width: '320px',
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '16px',
+                          border: '1px solid #E2E8F0',
+                          boxShadow: '0 20px 40px -10px rgba(0, 82, 255, 0.18), 0 10px 20px -5px rgba(0, 0, 0, 0.05)',
+                          padding: '12px',
+                          animation: 'fadeInMotion 0.15s ease',
+                        }}
+                      >
+                        <div style={{ padding: '6px 10px 10px 10px', borderBottom: '1px solid #F1F5F9' }}>
+                          <p style={{ margin: 0, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B' }}>
+                            Select Your Role to Onboard
+                          </p>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '10px' }}>
+                          <Link
+                            href="/register?role=BRAND_ADMIN"
+                            onClick={() => setGetStartedOpen(false)}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: '12px',
+                              padding: '12px 14px',
+                              borderRadius: '12px',
+                              textDecoration: 'none',
+                              background: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = '#EFF6FF';
+                              e.currentTarget.style.borderColor = '#BFDBFE';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = '#F8FAFC';
+                              e.currentTarget.style.borderColor = '#E2E8F0';
+                            }}
+                          >
+                            <div style={{
+                              width: '38px',
+                              height: '38px',
+                              borderRadius: '10px',
+                              background: '#EFF6FF',
+                              border: '1.5px solid #BFDBFE',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#0052FF',
+                              flexShrink: 0,
+                            }}>
+                              <Building2 style={{ width: '20px', height: '20px', color: '#0052FF' }} />
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A' }}>I'm a Brand / Agency</span>
+                                <ArrowRight style={{ width: '14px', height: '14px', color: '#0052FF' }} />
+                              </div>
+                              <p style={{ margin: '3px 0 0 0', fontSize: '11.5px', color: '#64748B', lineHeight: 1.35 }}>
+                                Hire creators, manage campaigns &amp; escrow milestones
+                              </p>
+                            </div>
+                          </Link>
+
+                          <Link
+                            href="/register?role=CREATOR"
+                            onClick={() => setGetStartedOpen(false)}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              gap: '12px',
+                              padding: '12px 14px',
+                              borderRadius: '12px',
+                              textDecoration: 'none',
+                              background: '#F8FAFC',
+                              border: '1px solid #E2E8F0',
+                              transition: 'all 0.15s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = '#EFF6FF';
+                              e.currentTarget.style.borderColor = '#BFDBFE';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = '#F8FAFC';
+                              e.currentTarget.style.borderColor = '#E2E8F0';
+                            }}
+                          >
+                            <div style={{
+                              width: '38px',
+                              height: '38px',
+                              borderRadius: '10px',
+                              background: '#EFF6FF',
+                              border: '1.5px solid #BFDBFE',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#0052FF',
+                              flexShrink: 0,
+                            }}>
+                              <Sparkles style={{ width: '20px', height: '20px', color: '#0052FF' }} />
+                            </div>
+                            <div style={{ flex: 1 }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <span style={{ fontSize: '13.5px', fontWeight: 700, color: '#0F172A' }}>I'm a Creator / Talent</span>
+                                <ArrowRight style={{ width: '14px', height: '14px', color: '#0052FF' }} />
+                              </div>
+                              <p style={{ margin: '3px 0 0 0', fontSize: '11.5px', color: '#64748B', lineHeight: 1.35 }}>
+                                Connect socials, audited rates &amp; direct brand sponsorships
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -922,8 +1073,13 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
                   <Link href="/login" onClick={closeMenu} className="tia-btn-secondary" style={{ textAlign: 'center', padding: '12px' }}>
                     Log In
                   </Link>
-                  <Link href="/register" onClick={closeMenu} className="tia-btn-primary" style={{ textAlign: 'center', padding: '12px' }}>
-                    Get Started
+                  <Link href="/register?role=BRAND_ADMIN" onClick={closeMenu} className="tia-btn-primary" style={{ textAlign: 'center', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <Building2 size={16} color="#FFFFFF" />
+                    <span>Join as Brand / Agency</span>
+                  </Link>
+                  <Link href="/register?role=CREATOR" onClick={closeMenu} className="tia-btn-secondary" style={{ textAlign: 'center', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: '#0052FF', borderColor: '#BFDBFE', background: '#EFF6FF' }}>
+                    <Sparkles size={16} color="#0052FF" />
+                    <span>Join as Creator / Talent</span>
                   </Link>
                 </div>
               </div>

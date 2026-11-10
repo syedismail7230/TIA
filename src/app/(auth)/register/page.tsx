@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Building2, Sparkles, ArrowRight, ShieldCheck, Check, Mail, Lock, Phone as PhoneIcon, Eye, EyeOff } from 'lucide-react';
 import { FirebaseAuthService } from '@/lib/services/firebase-auth.service';
 import { PhoneOtpModal } from '@/components/auth/PhoneOtpModal';
 
@@ -77,36 +78,48 @@ const COUNTRY_DIAL_CODES = [
 function RegisterContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialRole = searchParams.get('role') === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
+  const roleParam = searchParams.get('role');
+  const initialRole = roleParam === 'CREATOR' ? 'CREATOR' : 'BRAND_ADMIN';
 
-  // 4-Step State
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  // Role & Step State (Starts directly on credentials step)
   const [role, setRole] = useState<'CREATOR' | 'BRAND_ADMIN'>(initialRole);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
 
-  // Step 2 Form State (Credentials & Phone)
+  // Sync role with searchParams if updated externally
+  useEffect(() => {
+    if (roleParam === 'CREATOR') setRole('CREATOR');
+    else if (roleParam === 'BRAND_ADMIN') setRole('BRAND_ADMIN');
+  }, [roleParam]);
+
+  // Step 1: Credentials & Phone State
   const [email, setEmail] = useState('');
-  const [emailTouched, setEmailTouched] = useState(false);
   const [phoneCode, setPhoneCode] = useState('+91');
   const [phone, setPhone] = useState('');
-  const [phoneTouched, setPhoneTouched] = useState(false);
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
   const [phoneVerified, setPhoneVerified] = useState(false);
-  const [emailDispatched, setEmailDispatched] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [optInPromo, setOptInPromo] = useState(false);
 
-  // Step 3 Form State (Name & Demographics)
-  const [name, setName] = useState('');
+  // Step 2: Role-Specific Profile Details
+  // Brand Profile
+  const [companyName, setCompanyName] = useState('');
+  const [businessCategory, setBusinessCategory] = useState('Fashion & Apparel');
+  const [contactName, setContactName] = useState('');
+  const [campaignBudget, setCampaignBudget] = useState('₹50,000 - ₹2,00,000');
+
+  // Creator Profile
+  const [creatorName, setCreatorName] = useState('');
+  const [contentNiche, setContentNiche] = useState('Tech & AI');
   const [gender, setGender] = useState<string>('Male');
   const [age, setAge] = useState<string>('24');
 
-  // Status State
+  // Status & Loading State
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Step 4 Direct Social Connection State
+  // Step 3 (Creator Social Connect) State
   const [connectedSocials, setConnectedSocials] = useState<{ [key: string]: { handle: string; verified: boolean; audience: string; engagement: string } | null }>({
     instagram: null,
     youtube: null,
@@ -115,24 +128,19 @@ function RegisterContent() {
   });
   const [connectingPlatform, setConnectingPlatform] = useState<string | null>(null);
 
-  // Real-time Validation Computations
+  // Validation
   const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
-
   const isValidPhone = (val: string, code: string) => {
     const digitsOnly = val.replace(/\D/g, '');
-    if (code === '+91' || code === '+1') {
-      return digitsOnly.length === 10;
-    }
-    // International standard (7 to 15 digits)
+    if (code === '+91' || code === '+1') return digitsOnly.length === 10;
     return digitsOnly.length >= 7 && digitsOnly.length <= 15;
   };
 
-  // Password Rules
+  // Password Strength
   const hasMinLength = password.length >= 8;
   const hasUpperLower = /[a-z]/.test(password) && /[A-Z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
   const hasSpecial = /[^a-zA-Z0-9]/.test(password);
-
   const passwordScore = [hasMinLength, hasUpperLower, hasNumber, hasSpecial].filter(Boolean).length;
 
   const getPasswordStrengthMeta = () => {
@@ -145,97 +153,102 @@ function RegisterContent() {
 
   const strengthMeta = getPasswordStrengthMeta();
 
-  const handleStep1Continue = () => {
+  /**
+   * Handle Step 1 Submit (Credentials -> Phone OTP -> Step 2)
+   */
+  const handleStep1Submit = (e: React.FormEvent) => {
+    e.preventDefault();
     setError('');
-    setStep(2);
-  };
 
-  const handleStep2Continue = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    setError('');
-    setEmailTouched(true);
-    setPhoneTouched(true);
-
-    // Email validation
     if (!email || !isValidEmail(email)) {
-      setError('Please enter a valid email address (e.g. name@company.com).');
+      setError(role === 'BRAND_ADMIN' ? 'Please enter a valid work email (e.g. name@brand.com).' : 'Please enter a valid email address.');
       return;
     }
 
-    // Phone validation
     if (!phone || !isValidPhone(phone, phoneCode)) {
-      if (phoneCode === '+91' || phoneCode === '+1') {
-        setError('Please enter a valid 10-digit mobile number.');
-      } else {
-        setError(`Please enter a valid phone number for ${phoneCode}.`);
-      }
+      setError(phoneCode === '+91' || phoneCode === '+1' ? 'Please enter a valid 10-digit mobile number.' : `Please enter a valid mobile number for ${phoneCode}.`);
       return;
     }
 
-    // Password validation
-    if (!password) {
-      setError('Please create a secure password.');
-      return;
-    }
-
-    if (passwordScore < 2 || !hasMinLength) {
-      setError('Password must be at least 8 characters and meet password security criteria.');
+    if (!password || passwordScore < 2 || !hasMinLength) {
+      setError('Password must be at least 8 characters and meet strength criteria.');
       return;
     }
 
     if (!agreedTerms) {
-      setError('You must agree to the Terms of Service and Privacy Policy.');
+      setError('You must agree to the Terms of Service and Privacy Policy to proceed.');
       return;
     }
 
-    // Require SMS OTP phone verification before proceeding to Step 3
+    // Trigger Phone OTP verification before proceeding
     if (!phoneVerified) {
       setPhoneModalOpen(true);
       return;
     }
 
-    // Move to Step 3 (Demographics: Name, Gender, Age)
-    setStep(3);
+    setStep(2);
   };
 
   const handlePhoneOtpSuccess = () => {
     setPhoneVerified(true);
     setPhoneModalOpen(false);
-    setStep(3);
+    setStep(2);
   };
 
-  const handleStep3Submit = async (e: React.FormEvent) => {
+  /**
+   * Handle Step 2 Submit (Profile Details -> Finalize Account Registration)
+   */
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (!name || name.trim().length < 2) {
-      setError('Please enter your legal name or organization name.');
-      return;
-    }
-
-    const ageNum = parseInt(age, 10);
-    if (isNaN(ageNum) || ageNum < 18) {
-      setError('You must be at least 18 years old to enter commercial advertising agreements.');
-      return;
+    if (role === 'BRAND_ADMIN') {
+      if (!companyName || companyName.trim().length < 2) {
+        setError('Please enter your Company or Organization Name.');
+        return;
+      }
+      if (!contactName || contactName.trim().length < 2) {
+        setError('Please enter the contact person name.');
+        return;
+      }
+    } else {
+      if (!creatorName || creatorName.trim().length < 2) {
+        setError('Please enter your Creator / Stage Name.');
+        return;
+      }
+      const ageNum = parseInt(age, 10);
+      if (isNaN(ageNum) || ageNum < 18) {
+        setError('You must be at least 18 years old to execute advertising agreements.');
+        return;
+      }
     }
 
     setLoading(true);
 
     try {
       const fullPhone = `${phoneCode} ${phone.trim()}`;
+      const payload: any = {
+        email: email.toLowerCase().trim(),
+        phone: fullPhone,
+        password,
+        role,
+        country: 'India',
+      };
+
+      if (role === 'BRAND_ADMIN') {
+        payload.name = contactName.trim();
+        payload.organizationName = companyName.trim();
+        payload.businessCategory = businessCategory;
+      } else {
+        payload.name = creatorName.trim();
+        payload.gender = gender;
+        payload.age = parseInt(age, 10);
+      }
+
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          phone: fullPhone,
-          password,
-          name,
-          role,
-          gender,
-          age: ageNum,
-          organizationName: role === 'BRAND_ADMIN' ? name : undefined,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -243,9 +256,13 @@ function RegisterContent() {
         throw new Error(data.error || 'Failed to create account');
       }
 
-      setEmailDispatched(true);
-      // Successfully registered -> move to Step 4 (Social Connect / Workspace Setup)
-      setStep(4);
+      // If Creator, proceed to Step 3 for social channel linking; if Brand, direct to workspace
+      if (role === 'CREATOR') {
+        setStep(3);
+      } else {
+        router.push('/brand');
+        router.refresh();
+      }
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -253,20 +270,18 @@ function RegisterContent() {
     }
   };
 
+  /**
+   * Direct Social Linking in Step 3 for Creators
+   */
   const handleDirectConnectPlatform = async (platform: string) => {
     if (connectedSocials[platform]) {
-      // If already connected, disconnect it cleanly
-      setConnectedSocials((prev) => ({
-        ...prev,
-        [platform]: null,
-      }));
+      setConnectedSocials((prev) => ({ ...prev, [platform]: null }));
       return;
     }
 
     setConnectingPlatform(platform);
     const targetPlatform = platform === 'twitter' ? 'x' : platform;
 
-    // 1. Set up listener for real OAuth popup callback message
     const handleAuthMessage = (event: MessageEvent) => {
       if (event.data?.type === 'TIA_SOCIAL_CONNECTED') {
         const { platform: retPlatform, profile } = event.data;
@@ -297,93 +312,24 @@ function RegisterContent() {
 
     window.addEventListener('message', handleAuthMessage);
 
-    // 2. Open secure OAuth verification window to real API connectors
     const authEndpoint = `/api/connectors/${targetPlatform}/auth?flow=onboarding&role=${role}`;
-    const popupWidth = 600;
-    const popupHeight = 720;
-    const left = window.screenX + (window.outerWidth - popupWidth) / 2;
-    const top = window.screenY + (window.outerHeight - popupHeight) / 2;
-    const popup = window.open(
-      authEndpoint,
-      `tia_verify_${targetPlatform}`,
-      `width=${popupWidth},height=${popupHeight},left=${left},top=${top},status=yes,scrollbars=yes`
-    );
+    const popup = window.open(authEndpoint, `tia_verify_${targetPlatform}`, 'width=600,height=720');
 
-    // 3. Fallback verification if popup is blocked or closed
-    if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-      try {
-        const baseName = name ? name.toLowerCase().replace(/[^a-z0-9]/g, '') : 'creator';
-        const verifyRes = await fetch('/api/connectors/verify-handle', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            platform: targetPlatform,
-            handle: baseName,
-          }),
-        });
-        const verifyData = await verifyRes.json();
-        const audienceCount = verifyData.audienceSize || 100000;
-        const formattedAudience =
-          audienceCount >= 1000000
-            ? `${(audienceCount / 1000000).toFixed(1)}M Followers`
-            : `${(audienceCount / 1000).toFixed(0)}K Followers`;
-
-        setConnectedSocials((prev) => ({
-          ...prev,
-          [platform]: {
-            handle: verifyData.username,
-            verified: true,
-            audience: formattedAudience,
-            engagement: `${verifyData.engagementRate || 4.5}% ER`,
-            profileImageUrl: verifyData.profileImageUrl,
-            verifiedBy: verifyData.verifiedBy || `${platform.toUpperCase()} Official API`,
-          },
-        }));
-      } catch (err) {
-        console.error('Direct handle verification error:', err);
-      } finally {
-        setConnectingPlatform(null);
-      }
+    if (!popup || popup.closed) {
+      setConnectingPlatform(null);
     }
   };
 
-  const handleFinish = async () => {
-    try {
-      const activeSocials = Object.entries(connectedSocials).filter(([_, val]) => !!val);
-      if (activeSocials.length > 0) {
-        await fetch('/api/creators/profile', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            socialAccounts: activeSocials.map(([plat, val]) => ({
-              platform: plat.toUpperCase(),
-              username: val?.handle?.replace(/^@/, '') || 'creator',
-              audienceSize: val?.audience
-                ? parseInt(val.audience.replace(/[^0-9]/g, ''), 10) * (val.audience.includes('M') ? 1000000 : val.audience.includes('K') ? 1000 : 1)
-                : 100000,
-            })),
-          }),
-        });
-      }
-    } catch (e) {
-      console.warn('Social accounts finish sync note:', e);
-    }
-
-    if (role === 'CREATOR') {
-      router.push('/creator');
-    } else {
-      router.push('/brand');
-    }
+  const handleFinishCreator = () => {
+    router.push('/creator');
     router.refresh();
   };
 
-  const handleSocialOAuth = (platform: string) => {
-    window.location.href = `/api/connectors/${platform.toLowerCase()}/auth?role=${role}`;
-  };
+  const totalSteps = role === 'CREATOR' ? 3 : 2;
 
   return (
     <div className="auth-viewport">
-      {/* Firebase Phone SMS OTP Verification Modal */}
+      {/* Phone SMS OTP Modal */}
       <PhoneOtpModal
         isOpen={phoneModalOpen}
         role={role}
@@ -394,7 +340,7 @@ function RegisterContent() {
       />
 
       <div className="auth-card">
-        {/* LEFT COLUMN: 4-STEP REGISTER FLOW */}
+        {/* LEFT COLUMN: ONBOARDING ENGINE */}
         <div className="auth-form-pane">
           {/* Header */}
           <div className="auth-header">
@@ -414,221 +360,117 @@ function RegisterContent() {
 
           <div className="auth-body">
             <div className="auth-step-viewport">
-              {/* Left Navigation Arrow */}
-              {step > 1 && (
-                <button
-                  type="button"
-                  onClick={() => setStep((prev) => (prev > 1 ? ((prev - 1) as 1 | 2 | 3 | 4) : prev))}
-                  className="auth-nav-arrow nav-prev"
-                  aria-label="Previous step"
-                  title="Previous step"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
-              )}
-
-              {/* Right Navigation Arrow */}
-              {step < 4 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (step === 1) handleStep1Continue();
-                    else if (step === 2) handleStep2Continue();
-                    else if (step === 3) {
-                      const formElem = document.querySelector('.auth-form-step3') as HTMLFormElement;
-                      if (formElem) formElem.requestSubmit();
-                    }
-                  }}
-                  className="auth-nav-arrow nav-next"
-                  aria-label="Next step"
-                  title="Next step"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
-              )}
-
-              {/* Modern 4-Step Stepper Progress Bar (Pure TIA Blue) */}
-              <div className="auth-stepper-container">
-                <div className="auth-stepper-bars">
-                  <div className={`auth-stepper-segment ${step >= 1 ? (step === 1 ? 'active' : 'completed') : ''}`} />
-                  <div className={`auth-stepper-segment ${step >= 2 ? (step === 2 ? 'active' : 'completed') : ''}`} />
-                  <div className={`auth-stepper-segment ${step >= 3 ? (step === 3 ? 'active' : 'completed') : ''}`} />
-                  <div className={`auth-stepper-segment ${step >= 4 ? 'active' : ''}`} />
+              {/* Stepper Progress Bar (Centered) */}
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', gap: '8px', width: role === 'CREATOR' ? '240px' : '160px' }}>
+                  <div
+                    style={{
+                      flex: 1,
+                      height: '4px',
+                      borderRadius: '9999px',
+                      background: step >= 1 ? '#0052FF' : '#E2E8F0',
+                      boxShadow: step === 1 ? '0 0 8px rgba(0, 82, 255, 0.35)' : 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                  <div
+                    style={{
+                      flex: 1,
+                      height: '4px',
+                      borderRadius: '9999px',
+                      background: step >= 2 ? '#0052FF' : '#E2E8F0',
+                      boxShadow: step === 2 ? '0 0 8px rgba(0, 82, 255, 0.35)' : 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                  />
+                  {role === 'CREATOR' && (
+                    <div
+                      style={{
+                        flex: 1,
+                        height: '4px',
+                        borderRadius: '9999px',
+                        background: step >= 3 ? '#0052FF' : '#E2E8F0',
+                        boxShadow: step === 3 ? '0 0 8px rgba(0, 82, 255, 0.35)' : 'none',
+                        transition: 'all 0.3s ease',
+                      }}
+                    />
+                  )}
                 </div>
               </div>
 
-              {/* STEP 1: ROLE SELECTION (STREAMLINED MINIMALIST SEGMENTED CONTROL) */}
-              {step === 1 && (
-                <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <h1 className="auth-title">Choose your account type</h1>
-                  <p className="auth-subtitle">Select how you want to use TIA to personalize your workspace.</p>
-
-                  {/* Sleek Segmented Switcher (Zero Bulky Cards) */}
-                  <div className="auth-role-segmented">
-                    <button
-                      type="button"
-                      className={`auth-role-pill-btn ${role === 'BRAND_ADMIN' ? 'active' : ''}`}
-                      onClick={() => setRole('BRAND_ADMIN')}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                      </svg>
-                      <span>Brand / Agency</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className={`auth-role-pill-btn ${role === 'CREATOR' ? 'active' : ''}`}
-                      onClick={() => setRole('CREATOR')}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                        <circle cx="12" cy="13" r="4"/>
-                      </svg>
-                      <span>Creator / Talent</span>
-                    </button>
-                  </div>
-
-                  {/* Role Highlights */}
-                  <div className="auth-role-feature-preview">
-                    {role === 'BRAND_ADMIN' ? (
-                      <>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Discover &amp; contract verified creators with zero agency markups</span>
-                        </div>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Audited audience analytics &amp; automated milestone releases</span>
-                        </div>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Transparent flat 5% platform fee on all deliverables</span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Direct brand inbound deals with zero agency revenue cuts</span>
-                        </div>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Automated commercial contracts &amp; guaranteed milestone payouts</span>
-                        </div>
-                        <div className="auth-role-feature-item">
-                          <span className="auth-role-feature-check">✓</span>
-                          <span>Verified creator badge with synced live channel statistics</span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleStep1Continue}
-                    className="auth-submit-btn"
-                  >
-                    Continue to Credentials →
-                  </button>
+              {/* Error Message Box */}
+              {error && (
+                <div className="auth-error-box" style={{ marginBottom: '16px' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                  <span>{error}</span>
                 </div>
               )}
 
-              {/* STEP 2: CREDENTIALS, VALIDATED PHONE & STRONG ANIMATED PASSWORD */}
-              {step === 2 && (
+              {/* ============================================================== */}
+              {/* STEP 1: CREDENTIALS (BRAND OR CREATOR) */}
+              {/* ============================================================== */}
+              {step === 1 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <h1 className="auth-title">Create your credentials</h1>
-                  <p className="auth-subtitle">Enter your email, mobile number, and password to secure your account.</p>
+                  <h1 className="auth-title">
+                    {role === 'BRAND_ADMIN' ? 'Create Your Brand Workspace' : 'Join as a Verified Creator'}
+                  </h1>
+                  <p className="auth-subtitle">
+                    {role === 'BRAND_ADMIN'
+                      ? 'Access 50,000+ audited creators with 100% upfront milestone payment protection.'
+                      : 'Connect your channels, showcase audited analytics & get direct brand deals with 0% cuts.'}
+                  </p>
 
-                  {/* Social OAuth Buttons */}
-                  <div className="auth-social-stack">
-                    <button
-                      type="button"
-                      onClick={() => handleSocialOAuth('google')}
-                      className="auth-social-btn"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-                      </svg>
-                      <span>Continue with Google</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleSocialOAuth('apple')}
-                      className="auth-social-btn"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.98.6-2.62 1.35-.57.65-1.06 1.72-.93 2.74 1.01.08 2.02-.51 2.63-1.24z"/>
-                      </svg>
-                      <span>Continue with Apple</span>
-                    </button>
-                  </div>
-
-                  <div className="auth-divider">
-                    <span className="auth-divider-text">Or register with credentials</span>
-                  </div>
-
-                  {error && (
-                    <div className="auth-error-box">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                      </svg>
-                      <span>{error}</span>
-                    </div>
-                  )}
-
-                  <form onSubmit={handleStep2Continue} className="auth-form">
-                    {/* Email Input with Validation Icon */}
+                  <form onSubmit={handleStep1Submit} className="auth-form">
+                    {/* Email Input */}
                     <div className="auth-input-group">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Work Email' : 'Email Address'}</label>
-                        {emailTouched && email && (
-                          <span style={{ fontSize: '11px', fontWeight: 600, color: isValidEmail(email) ? '#0052FF' : '#EF4444' }}>
-                            {isValidEmail(email) ? 'Valid email ✓' : 'Invalid email format'}
-                          </span>
-                        )}
-                      </div>
+                      <label className="auth-label">
+                        {role === 'BRAND_ADMIN' ? 'Work Email Address' : 'Email Address'}
+                      </label>
                       <input
                         type="email"
                         required
-                        placeholder="name@company.com"
+                        placeholder={role === 'BRAND_ADMIN' ? 'name@company.com' : 'you@creator.com'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        onBlur={() => setEmailTouched(true)}
                         className="auth-input"
-                        style={emailTouched && email && !isValidEmail(email) ? { borderColor: '#FCA5A5' } : {}}
+                        autoFocus
                       />
                     </div>
 
-                    {/* Phone Number Input with Real-time Format Validation */}
+                    {/* Phone Input with Country Code */}
                     <div className="auth-input-group">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                         <label className="auth-label">Mobile Phone Number</label>
-                        {phoneTouched && phone && (
-                          <span style={{ fontSize: '11px', fontWeight: 600, color: isValidPhone(phone, phoneCode) ? '#0052FF' : '#EF4444' }}>
-                            {isValidPhone(phone, phoneCode) ? 'Valid number ✓' : (phoneCode === '+91' || phoneCode === '+1' ? 'Enter 10-digit number' : 'Invalid number')}
+                        {phoneVerified && (
+                          <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                            <Check size={12} /> Verified
                           </span>
                         )}
                       </div>
-                      <div className="auth-phone-row">
+                      <div style={{ display: 'flex', gap: '8px' }}>
                         <select
-                          className="auth-phone-code"
                           value={phoneCode}
                           onChange={(e) => setPhoneCode(e.target.value)}
+                          className="auth-phone-code"
+                          style={{
+                            width: '105px',
+                            minWidth: '105px',
+                            background: '#FFFFFF',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '12px',
+                            padding: '12px 8px',
+                            fontSize: '13px',
+                            fontWeight: 600,
+                            color: '#0F172A',
+                            cursor: 'pointer',
+                          }}
                         >
                           {COUNTRY_DIAL_CODES.map((c) => (
-                            <option key={`${c.code}-${c.name}`} value={c.code}>
+                            <option key={c.code} value={c.code}>
                               {c.name}
                             </option>
                           ))}
@@ -636,22 +478,21 @@ function RegisterContent() {
                         <input
                           type="tel"
                           required
-                          placeholder={phoneCode === '+91' ? '98765 43210' : 'Mobile number'}
+                          placeholder="98765 43210"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          onBlur={() => setPhoneTouched(true)}
                           className="auth-input"
-                          style={{ flex: 1, ...(phoneTouched && phone && !isValidPhone(phone, phoneCode) ? { borderColor: '#FCA5A5' } : {}) }}
+                          style={{ flex: 1 }}
                         />
                       </div>
                     </div>
 
-                    {/* Password Input with Animated Strength Bar & Instructions */}
+                    {/* Password Input */}
                     <div className="auth-input-group">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <label className="auth-label">Create Secure Password</label>
                         {password && (
-                          <span className="auth-pwd-meter-score" style={{ color: strengthMeta.color, fontSize: '11px' }}>
+                          <span style={{ color: strengthMeta.color, fontSize: '11px', fontWeight: 600 }}>
                             {strengthMeta.label}
                           </span>
                         )}
@@ -673,52 +514,22 @@ function RegisterContent() {
                           className="auth-password-toggle"
                           aria-label={showPassword ? 'Hide password' : 'Show password'}
                         >
-                          {showPassword ? (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                              <line x1="1" y1="1" x2="23" y2="23" />
-                            </svg>
-                          ) : (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                              <circle cx="12" cy="12" r="3" />
-                            </svg>
-                          )}
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </button>
                       </div>
 
-                      {/* Animated Password Strength Bar */}
-                      <div className="auth-pwd-strength-box">
+                      {/* Criteria Grid */}
+                      <div className="auth-pwd-strength-box" style={{ marginTop: '8px' }}>
                         <div className="auth-pwd-meter-bars">
                           <div className={`auth-pwd-bar-segment ${passwordScore >= 1 ? strengthMeta.levelClass : ''}`} />
                           <div className={`auth-pwd-bar-segment ${passwordScore >= 2 ? strengthMeta.levelClass : ''}`} />
                           <div className={`auth-pwd-bar-segment ${passwordScore >= 3 ? strengthMeta.levelClass : ''}`} />
                           <div className={`auth-pwd-bar-segment ${passwordScore >= 4 ? strengthMeta.levelClass : ''}`} />
                         </div>
-
-                        {/* Animated Password Criteria Checklist */}
-                        <div className="auth-pwd-rules-grid">
-                          <div className={`auth-pwd-rule-item ${hasMinLength ? 'valid' : ''}`}>
-                            <div className="auth-pwd-rule-dot">✓</div>
-                            <span>8+ Characters</span>
-                          </div>
-                          <div className={`auth-pwd-rule-item ${hasUpperLower ? 'valid' : ''}`}>
-                            <div className="auth-pwd-rule-dot">✓</div>
-                            <span>Upper &amp; Lowercase</span>
-                          </div>
-                          <div className={`auth-pwd-rule-item ${hasNumber ? 'valid' : ''}`}>
-                            <div className="auth-pwd-rule-dot">✓</div>
-                            <span>Number (0-9)</span>
-                          </div>
-                          <div className={`auth-pwd-rule-item ${hasSpecial ? 'valid' : ''}`}>
-                            <div className="auth-pwd-rule-dot">✓</div>
-                            <span>Special Symbol (!@#$)</span>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
-                    {/* Legal Checkbox */}
+                    {/* Terms Checkbox */}
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '4px' }}>
                       <input
                         type="checkbox"
@@ -732,154 +543,216 @@ function RegisterContent() {
                       </label>
                     </div>
 
-                    {/* Promotional Opt-in Checkbox */}
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginTop: '8px' }}>
-                      <input
-                        type="checkbox"
-                        id="promo-optin-check"
-                        checked={optInPromo}
-                        onChange={(e) => setOptInPromo(e.target.checked)}
-                        style={{ marginTop: '3px', cursor: 'pointer', accentColor: '#0052FF' }}
-                      />
-                      <label htmlFor="promo-optin-check" style={{ fontSize: '11.5px', color: '#64748B', lineHeight: 1.45, cursor: 'pointer' }}>
-                        Opt in to receive promotional updates, exclusive deal alerts, and platform news via WhatsApp, SMS, or email.
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="auth-submit-btn"
-                    >
-                      Continue to Profile Details →
+                    <button type="submit" className="auth-submit-btn" style={{ marginTop: '12px' }}>
+                      {role === 'BRAND_ADMIN' ? 'Continue to Company Details →' : 'Continue to Creator Profile →'}
                     </button>
                   </form>
                 </div>
               )}
 
-              {/* STEP 3: NAME, AGE & GENDER */}
-              {step === 3 && (
+              {/* ============================================================== */}
+              {/* STEP 2: PROFILE DETAILS (BRAND OR CREATOR) */}
+              {/* ============================================================== */}
+              {step === 2 && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  <h1 className="auth-title">Personal &amp; Demographics</h1>
-                  <p className="auth-subtitle">Enter your name, gender, and age to complete verified compliance.</p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      style={{ background: 'none', border: 'none', color: '#0052FF', fontSize: '12px', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                    >
+                      ← Back to Credentials
+                    </button>
+                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#64748B' }}>
+                      Step 2 of {totalSteps}
+                    </span>
+                  </div>
 
-                  {error && (
-                    <div className="auth-error-box">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                      </svg>
-                      <span>{error}</span>
-                    </div>
-                  )}
+                  <h1 className="auth-title">
+                    {role === 'BRAND_ADMIN' ? 'Brand & Organization Profile' : 'Creator Identity & Niche'}
+                  </h1>
+                  <p className="auth-subtitle">
+                    {role === 'BRAND_ADMIN'
+                      ? 'Tell us about your brand to customize campaign workflows & creator matchmaking.'
+                      : 'Set up your public creator portfolio to showcase to top hiring brands.'}
+                  </p>
 
-                  <form onSubmit={handleStep3Submit} className="auth-form auth-form-step3">
-                    {/* Name */}
-                    <div className="auth-input-group">
-                      <label className="auth-label">{role === 'BRAND_ADMIN' ? 'Brand / Organization Name' : 'Full Legal Name'}</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder={role === 'BRAND_ADMIN' ? 'Acme Corp / Agency' : 'Your Legal Name'}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="auth-input"
-                      />
-                    </div>
+                  <form onSubmit={handleStep2Submit} className="auth-form">
+                    {role === 'BRAND_ADMIN' ? (
+                      <>
+                        {/* Brand Name */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Brand / Organization Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Nike India, Acme Studio, Zomato"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                            className="auth-input"
+                            autoFocus
+                          />
+                        </div>
 
-                    {/* Gender Selector */}
-                    <div className="auth-input-group">
-                      <label className="auth-label">Gender</label>
-                      <div className="auth-gender-segmented">
-                        {['Male', 'Female', 'Non-Binary', 'Other'].map((g) => (
-                          <button
-                            key={g}
-                            type="button"
-                            className={`auth-gender-btn ${gender === g ? 'active' : ''}`}
-                            onClick={() => setGender(g)}
+                        {/* Industry / Category */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Business Industry / Category</label>
+                          <select
+                            value={businessCategory}
+                            onChange={(e) => setBusinessCategory(e.target.value)}
+                            className="auth-input"
+                            style={{ cursor: 'pointer', background: '#FFFFFF' }}
                           >
-                            {g}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                            <option value="Fashion & Apparel">Fashion &amp; Apparel</option>
+                            <option value="Beauty & Personal Care">Beauty &amp; Personal Care</option>
+                            <option value="Tech & Consumer Electronics">Tech &amp; Electronics</option>
+                            <option value="FMCG, Food & Beverage">FMCG &amp; Food Beverage</option>
+                            <option value="Fitness, Sports & Wellness">Fitness &amp; Wellness</option>
+                            <option value="FinTech & Web3">FinTech &amp; Financial Services</option>
+                            <option value="Gaming & Esports">Gaming &amp; Esports</option>
+                            <option value="E-Commerce & Retail">E-Commerce &amp; Direct-to-Consumer</option>
+                            <option value="Media & Entertainment">Media &amp; Entertainment</option>
+                            <option value="General Enterprise">General Enterprise</option>
+                          </select>
+                        </div>
 
-                    {/* Age */}
-                    <div className="auth-input-group">
-                      <label className="auth-label">Age (18+ Required for Commercial Contracts)</label>
-                      <input
-                        type="number"
-                        min="18"
-                        max="100"
-                        required
-                        placeholder="24"
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        className="auth-input"
-                      />
-                    </div>
+                        {/* Contact Person */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Contact Person Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Priya Sharma (Marketing Lead)"
+                            value={contactName}
+                            onChange={(e) => setContactName(e.target.value)}
+                            className="auth-input"
+                          />
+                        </div>
 
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="auth-submit-btn"
-                    >
-                      {loading ? 'Creating Account...' : 'Create Account & Continue →'}
-                    </button>
+                        {/* Campaign Budget Range */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Typical Monthly Campaign Budget</label>
+                          <select
+                            value={campaignBudget}
+                            onChange={(e) => setCampaignBudget(e.target.value)}
+                            className="auth-input"
+                            style={{ cursor: 'pointer', background: '#FFFFFF' }}
+                          >
+                            <option value="₹25,000 - ₹50,000">₹25,000 – ₹50,000 (Emerging)</option>
+                            <option value="₹50,000 - ₹2,00,000">₹50,000 – ₹2,00,000 (Growth)</option>
+                            <option value="₹2,00,000 - ₹10,00,000">₹2,00,000 – ₹10,00,000 (Scale)</option>
+                            <option value="₹10,00,000+">₹10,00,000+ (Enterprise Tier-1)</option>
+                          </select>
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          className="auth-submit-btn"
+                          style={{ marginTop: '12px' }}
+                        >
+                          {loading ? 'Activating Brand Workspace...' : 'Complete & Launch Brand Workspace →'}
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {/* Creator Stage Name */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Creator / Channel Display Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Rohan Tech, Ananya Vlogs"
+                            value={creatorName}
+                            onChange={(e) => setCreatorName(e.target.value)}
+                            className="auth-input"
+                            autoFocus
+                          />
+                        </div>
+
+                        {/* Content Niche */}
+                        <div className="auth-input-group">
+                          <label className="auth-label">Primary Content Niche</label>
+                          <select
+                            value={contentNiche}
+                            onChange={(e) => setContentNiche(e.target.value)}
+                            className="auth-input"
+                            style={{ cursor: 'pointer', background: '#FFFFFF' }}
+                          >
+                            <option value="Tech & AI">Tech &amp; Consumer AI</option>
+                            <option value="Fashion & Lifestyle">Fashion &amp; Lifestyle</option>
+                            <option value="Beauty & Skincare">Beauty &amp; Skincare</option>
+                            <option value="Fitness & Health">Fitness &amp; Sports</option>
+                            <option value="Gaming & Esports">Gaming &amp; Esports</option>
+                            <option value="Food & Travel">Food &amp; Travel</option>
+                            <option value="Finance & Business">Finance &amp; Business</option>
+                            <option value="Comedy & Entertainment">Comedy &amp; Entertainment</option>
+                          </select>
+                        </div>
+
+                        {/* Gender & Age Row */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                          <div className="auth-input-group">
+                            <label className="auth-label">Gender</label>
+                            <select
+                              value={gender}
+                              onChange={(e) => setGender(e.target.value)}
+                              className="auth-input"
+                              style={{ cursor: 'pointer', background: '#FFFFFF' }}
+                            >
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Non-Binary">Non-Binary</option>
+                              <option value="Other">Other</option>
+                            </select>
+                          </div>
+
+                          <div className="auth-input-group">
+                            <label className="auth-label">Age (18+ Required)</label>
+                            <input
+                              type="number"
+                              min="18"
+                              max="100"
+                              required
+                              placeholder="24"
+                              value={age}
+                              onChange={(e) => setAge(e.target.value)}
+                              className="auth-input"
+                            />
+                          </div>
+                        </div>
+
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          className="auth-submit-btn"
+                          style={{ marginTop: '12px' }}
+                        >
+                          {loading ? 'Saving Profile...' : 'Continue to Social Accounts →'}
+                        </button>
+                      </>
+                    )}
                   </form>
                 </div>
               )}
 
-              {/* STEP 4: CONNECT SOCIAL CHANNELS (SKIPPABLE) */}
-              {step === 4 && (
+              {/* ============================================================== */}
+              {/* STEP 3: CREATOR SOCIAL CHANNELS (CREATORS ONLY) */}
+              {/* ============================================================== */}
+              {step === 3 && role === 'CREATOR' && (
                 <div style={{ width: '100%', animation: 'fadeIn 0.2s ease' }}>
-                  {/* Email Verification Link Sent Banner */}
-                  <div style={{
-                    background: '#EFF6FF',
-                    border: '1px solid #BFDBFE',
-                    borderRadius: '12px',
-                    padding: '14px 16px',
-                    marginBottom: '18px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    textAlign: 'left',
-                  }}>
-                    <div style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '10px',
-                      background: '#DBEAFE',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#0052FF',
-                      flexShrink: 0,
-                    }}>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                      </svg>
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: '13px', fontWeight: 700, color: '#1E3A8A' }}>
-                        Verification Link Sent to Email
-                      </div>
-                      <div style={{ fontSize: '12px', color: '#3B82F6', marginTop: '2px' }}>
-                        We sent a secure activation link to <strong>{email}</strong>. Check your inbox to verify anytime.
-                      </div>
-                    </div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '11.5px', fontWeight: 600, color: '#0052FF' }}>
+                      Step 3 of 3 • Channel Verification
+                    </span>
                   </div>
 
                   <h1 className="auth-title">Link your social channels</h1>
                   <p className="auth-subtitle">
-                    {role === 'CREATOR'
-                      ? 'Connect your public profiles to verify engagement, sync analytics, and land higher-paying campaigns.'
-                      : 'Connect brand accounts for social campaign monitoring and audience demographic alignment.'}
+                    Connect your public profiles to verify engagement, sync live analytics, and land higher-paying campaigns.
                   </p>
 
-                  {/* Unified Single List (Direct Platform Linking) */}
-                  <div className="auth-social-unified-list">
+                  <div className="auth-social-unified-list" style={{ marginTop: '16px' }}>
                     {/* Instagram */}
                     <div className={`auth-social-row ${connectedSocials['instagram'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
@@ -900,7 +773,7 @@ function RegisterContent() {
                           <div className="auth-social-subtitle">
                             {connectedSocials['instagram']
                               ? `${connectedSocials['instagram'].handle} • ${connectedSocials['instagram'].audience}`
-                              : 'Audience & Stories Reach'}
+                              : 'Reels & Story Analytics'}
                           </div>
                         </div>
                       </div>
@@ -910,17 +783,7 @@ function RegisterContent() {
                         className={`auth-social-action-btn ${connectedSocials['instagram'] ? 'is-connected' : ''}`}
                         onClick={() => handleDirectConnectPlatform('instagram')}
                       >
-                        {connectingPlatform === 'instagram' ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                            <svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="12" r="10" strokeOpacity="0.25"/>
-                              <path d="M12 2a10 10 0 0 1 10 10" strokeOpacity="0.75"/>
-                            </svg>
-                            <span>Verifying...</span>
-                          </span>
-                        ) : (
-                          connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'
-                        )}
+                        {connectedSocials['instagram'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
 
@@ -929,7 +792,7 @@ function RegisterContent() {
                       <div className="auth-social-info">
                         <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#FF0000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                           </svg>
                         </div>
                         <div>
@@ -942,7 +805,7 @@ function RegisterContent() {
                           <div className="auth-social-subtitle">
                             {connectedSocials['youtube']
                               ? `${connectedSocials['youtube'].handle} • ${connectedSocials['youtube'].audience}`
-                              : 'Subscribers & Long-form'}
+                              : 'Subscribers & Video Views'}
                           </div>
                         </div>
                       </div>
@@ -952,24 +815,14 @@ function RegisterContent() {
                         className={`auth-social-action-btn ${connectedSocials['youtube'] ? 'is-connected' : ''}`}
                         onClick={() => handleDirectConnectPlatform('youtube')}
                       >
-                        {connectingPlatform === 'youtube' ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                            <svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="12" r="10" strokeOpacity="0.25"/>
-                              <path d="M12 2a10 10 0 0 1 10 10" strokeOpacity="0.75"/>
-                            </svg>
-                            <span>Verifying...</span>
-                          </span>
-                        ) : (
-                          connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'
-                        )}
+                        {connectedSocials['youtube'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
 
                     {/* X (Twitter) */}
                     <div className={`auth-social-row ${connectedSocials['twitter'] ? 'connected' : ''}`}>
                       <div className="auth-social-info">
-                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#000000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
+                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF', flexShrink: 0 }}>
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                           </svg>
@@ -984,7 +837,7 @@ function RegisterContent() {
                           <div className="auth-social-subtitle">
                             {connectedSocials['twitter']
                               ? `${connectedSocials['twitter'].handle} • ${connectedSocials['twitter'].audience}`
-                              : 'Engagement & Threads'}
+                              : 'Audience & Engagement'}
                           </div>
                         </div>
                       </div>
@@ -994,36 +847,27 @@ function RegisterContent() {
                         className={`auth-social-action-btn ${connectedSocials['twitter'] ? 'is-connected' : ''}`}
                         onClick={() => handleDirectConnectPlatform('twitter')}
                       >
-                        {connectingPlatform === 'twitter' ? (
-                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                            <svg className="animate-spin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="12" r="10" strokeOpacity="0.25"/>
-                              <path d="M12 2a10 10 0 0 1 10 10" strokeOpacity="0.75"/>
-                            </svg>
-                            <span>Verifying...</span>
-                          </span>
-                        ) : (
-                          connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'
-                        )}
+                        {connectedSocials['twitter'] ? 'Connected ✓' : 'Connect'}
                       </button>
                     </div>
                   </div>
 
                   <button
                     type="button"
-                    onClick={handleFinish}
+                    onClick={handleFinishCreator}
                     className="auth-submit-btn"
+                    style={{ marginTop: '20px' }}
                   >
-                    Complete Setup &amp; Go to Dashboard →
+                    Complete &amp; Launch Creator Portal →
                   </button>
 
-                  <div style={{ textAlign: 'center' }}>
+                  <div style={{ textAlign: 'center', marginTop: '10px' }}>
                     <button
                       type="button"
-                      onClick={handleFinish}
+                      onClick={handleFinishCreator}
                       className="auth-skip-btn"
                     >
-                      Skip for Now
+                      Skip for now
                     </button>
                   </div>
                 </div>
@@ -1037,21 +881,12 @@ function RegisterContent() {
             <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <Link href="/legal" style={{ color: '#64748B', textDecoration: 'none' }}>Legal</Link>
               <Link href="/pricing" style={{ color: '#64748B', textDecoration: 'none' }}>Pricing</Link>
-              <span className="auth-lang" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-                <span>ENG</span>
-              </span>
             </div>
           </div>
         </div>
 
-        {/* RIGHT COLUMN: DYNAMIC ANIMATED SHOWCASE PANE */}
+        {/* RIGHT COLUMN: DYNAMIC SHOWCASE PANE */}
         <div className="auth-showcase-pane">
-          {/* Animated Atmospheric Background Layers */}
           <div className="auth-ambient-grid" />
           <div className="auth-glow-orb orb-1" />
           <div className="auth-glow-orb orb-2" />
@@ -1062,20 +897,20 @@ function RegisterContent() {
               <>
                 <h2 className="auth-showcase-title">
                   <span>Monetize Your Influence.</span><br />
-                  <span style={{ color: '#0052FF', fontWeight: 500 }}>Land High-Paying Deals.</span>
+                  <span style={{ color: '#0052FF', fontWeight: 600 }}>Get Direct Brand Deals.</span>
                 </h2>
                 <p className="auth-showcase-desc">
-                  Direct collaborations with verified premium brands, guaranteed milestone payouts, and automated contracts with only a 5% fee.
+                  Direct brand collaborations, 100% upfront milestone payment protection, and automated GST contracts with zero agency commission cuts.
                 </p>
               </>
             ) : (
               <>
                 <h2 className="auth-showcase-title">
-                  <span>Discover Top Creators.</span><br />
-                  <span style={{ color: '#0052FF', fontWeight: 500 }}>Execute Protected Deals.</span>
+                  <span>Discover Audited Creators.</span><br />
+                  <span style={{ color: '#0052FF', fontWeight: 600 }}>Execute Protected Deals.</span>
                 </h2>
                 <p className="auth-showcase-desc">
-                  Direct brand collaborations, audited audience insights, and smart milestone contracts with a flat 5% platform fee.
+                  Direct creator contracts, authentic audience metrics, automated milestone escrow, and a flat 5% platform fee with zero agency markups.
                 </p>
               </>
             )}
