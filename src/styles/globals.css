@@ -1551,7 +1551,7 @@ table {
   width: 100%;
   padding: 13px 18px;
   border-radius: 12px;
-  background: #0F172A;
+  background: #0052FF;
   color: #FFFFFF;
   font-size: 14px;
   font-weight: 600;
@@ -1559,13 +1559,13 @@ table {
   cursor: pointer;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   margin-top: 6px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 82, 255, 0.28);
 }
 
 .auth-submit-btn:hover {
-  background: #0052FF;
+  background: #0045D8;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.4);
 }
 
 .auth-disclaimer {
@@ -2086,17 +2086,17 @@ table {
 }
 
 .tia-modal-card {
-  background: #0F172A;
-  border: 1px solid #1E293B;
-  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
   width: 100%;
   max-width: 440px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 82, 255, 0.12), 0 10px 25px -5px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 32px 28px;
-  color: #FFFFFF;
+  padding: 34px 30px;
+  color: #0F172A;
   animation: tiaSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2110,8 +2110,8 @@ table {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #10B981, #06B6D4, #0052FF);
+  height: 3.5px;
+  background: linear-gradient(90deg, #0052FF 0%, #3B82F6 100%);
 }
 
 .tia-modal-close-btn {
@@ -2120,10 +2120,10 @@ table {
   right: 16px;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94A3B8;
+  border-radius: 9px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  color: #64748B;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2132,17 +2132,18 @@ table {
 }
 
 .tia-modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: #CBD5E1;
 }
 
 .tia-modal-icon-badge {
   width: 56px;
   height: 56px;
   border-radius: 16px;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  color: #10B981;
+  background: #EFF6FF;
+  border: 1.5px solid #BFDBFE;
+  color: #0052FF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2150,17 +2151,17 @@ table {
 }
 
 .tia-modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #FFFFFF;
+  font-size: 21px;
+  font-weight: 800;
+  color: #0F172A;
   text-align: center;
   letter-spacing: -0.02em;
   margin: 0 0 6px 0;
 }
 
 .tia-modal-desc {
-  font-size: 13px;
-  color: #94A3B8;
+  font-size: 13.5px;
+  color: #64748B;
   text-align: center;
   line-height: 1.5;
   margin: 0 0 24px 0;
@@ -2179,24 +2180,25 @@ table {
   text-align: center;
   font-size: 24px;
   font-weight: 700;
-  background: #020617;
-  border: 1.5px solid #334155;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
   border-radius: 12px;
-  color: #FFFFFF;
+  color: #0F172A;
   outline: none;
   transition: all 0.15s ease;
   box-sizing: border-box;
 }
 
 .tia-otp-digit-input:focus {
-  border-color: #10B981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  border-color: #0052FF;
+  box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.15);
+  background: #FFFFFF;
 }
 
 .tia-modal-primary-btn {
   width: 100%;
   padding: 13px 20px;
-  background: linear-gradient(135deg, #10B981, #059669);
+  background: #0052FF;
   color: #FFFFFF;
   font-size: 14px;
   font-weight: 600;
@@ -2207,18 +2209,20 @@ table {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 8px 20px -4px rgba(0, 82, 255, 0.35);
   transition: all 0.15s ease;
 }
 
 .tia-modal-primary-btn:hover:not(:disabled) {
+  background: #0045D8;
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 10px 24px -4px rgba(0, 82, 255, 0.45);
 }
 
 .tia-modal-primary-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: not-allowed;
+  transform: none;
 }
 
 

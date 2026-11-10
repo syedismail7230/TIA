@@ -135,7 +135,7 @@ function VerifyEmailContent() {
               style={{
                 width: '100%',
                 padding: '14px 20px',
-                background: '#0F172A',
+                background: '#0052FF',
                 color: '#FFFFFF',
                 fontSize: '14px',
                 fontWeight: 600,
@@ -146,11 +146,11 @@ function VerifyEmailContent() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
-                boxShadow: '0 4px 14px rgba(15, 23, 42, 0.2)',
+                boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
                 transition: 'all 0.15s ease',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = '#0052FF')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = '#0F172A')}
+              onMouseEnter={(e) => (e.currentTarget.style.background = '#0045D8')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = '#0052FF')}
             >
               <span>Go to {targetRole === 'CREATOR' ? 'Creator' : 'Brand'} Dashboard</span>
               <ArrowRight style={{ width: '16px', height: '16px' }} />
@@ -188,7 +188,7 @@ function VerifyEmailContent() {
                 style={{
                   width: '100%',
                   padding: '12px 20px',
-                  background: '#0F172A',
+                  background: '#0052FF',
                   color: '#FFFFFF',
                   fontSize: '14px',
                   fontWeight: 600,
@@ -196,6 +196,7 @@ function VerifyEmailContent() {
                   textDecoration: 'none',
                   display: 'inline-block',
                   boxSizing: 'border-box',
+                  boxShadow: '0 4px 14px rgba(0, 82, 255, 0.25)',
                 }}
               >
                 Sign In to TIA
