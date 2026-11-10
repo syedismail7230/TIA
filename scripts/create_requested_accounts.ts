@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// Native global fetch is used (Node 18+)
 import prisma from '../src/lib/db/prisma';
 import { hashPassword } from '../src/lib/auth/password';
 import { saveStoredUser } from '../src/lib/auth/local-auth-store';
