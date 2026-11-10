@@ -43,9 +43,9 @@ export interface SendEmailParams {
 }
 
 // Singleton SMTP Transporter
-let transporter: nodemailer.Transporter | null = null;
+let transporter: any = null;
 
-function getTransporter(): nodemailer.Transporter {
+function getTransporter(): any {
   if (!transporter) {
     transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -68,6 +68,7 @@ export async function sendLiveEmail(params: SendEmailParams) {
       const transport = getTransporter();
       const info = await transport.sendMail({
         from: fromAddress,
+        sender: 'noreply@theinfluencers.agency',
         to: targetRecipient,
         subject: params.subject,
         html: params.html,

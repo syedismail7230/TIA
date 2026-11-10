@@ -89,7 +89,7 @@ export class EmailVerificationService {
       subtitle: `Welcome to The Influencer's Agency (TIA), ${name}!`,
       contentHtml: `
         <p>Thank you for registering as a <strong>${roleLabel}</strong> on TIA. To activate your workspace, access campaign opportunities, and secure 100% upfront milestone protection, please verify your email address.</p>
-        <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 12px; font-size: 11px; word-break: break-all; color: #60a5fa; margin: 16px 0;">
+        <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px; font-size: 11.5px; word-break: break-all; color: #0052FF; margin: 16px 0; font-family: monospace;">
           ${verifyUrl}
         </div>
       `,

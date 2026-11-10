@@ -44,7 +44,7 @@ export async function GET(request: Request) {
       creatorId: app.creatorId,
       creatorName: app.creator?.displayName || app.creator?.user?.name || 'Creator',
       creatorHandle: `@${app.creator?.username || 'creator'}`,
-      creatorFollowers: app.creator?.socialAccounts?.[0]?.followersCount || 520000,
+      creatorFollowers: app.creator?.socialAccounts?.[0]?.audienceSize || 520000,
       creatorCredibility: app.creator?.reputationScore || 98,
       pitch: app.pitch,
       proposedRate: Math.round(app.proposedPrice / 100),

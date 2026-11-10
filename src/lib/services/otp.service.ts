@@ -103,7 +103,7 @@ export class OtpService {
       badgeText: 'SECURE AUTH',
       badgeColor: 'blue',
       title,
-      subtitle: `Use the 6-digit verification code below to complete your request for <strong style="color: #60a5fa;">${normalizedEmail}</strong>.`,
+      subtitle: `Use the 6-digit verification code below to complete your request for <strong style="color: #0052FF;">${normalizedEmail}</strong>.`,
       contentHtml: '',
       highlightBox: {
         value: code,
@@ -114,7 +114,7 @@ export class OtpService {
 
     await sendLiveEmail({
       to: normalizedEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Verification] Your ${title} Code is ${code}`,
+      subject: `Your ${title} Code is ${code}`,
       html,
     });
 

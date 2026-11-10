@@ -23,14 +23,14 @@ export class EmailService {
       `,
       keyValues: [
         { label: 'Registered Role', value: role === 'CREATOR' ? 'Verified Creator' : 'Brand Organization' },
-        { label: 'Payment Protection', value: '100% Upfront Milestone Lock', color: '#60a5fa' },
-        { label: 'Review SLA', value: '72-Hour Auto Approval Guarantee', color: '#fbbf24' },
-        { label: 'Platform Fee', value: 'Fixed 5.00% Canonical', color: '#34d399' },
+        { label: 'Payment Protection', value: '100% Upfront Milestone Lock', color: '#0052FF' },
+        { label: 'Review SLA', value: '72-Hour Auto Approval Guarantee', color: '#D97706' },
+        { label: 'Platform Fee', value: 'Fixed 5.00% Canonical', color: '#059669' },
       ],
       ctaButton: {
         label: 'Launch Your Workspace',
         url: `${BASE_URL}/login`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
       footerNote: 'Need help getting started? Reply directly to this email for dedicated partner support.',
     });
@@ -61,26 +61,26 @@ export class EmailService {
       title: 'New Creator Proposal Received 📬',
       subtitle: `Creator ${params.creatorName} (${params.creatorHandle}) applied to "${params.campaignTitle}".`,
       contentHtml: `
-        <div style="background: #1e293b; border-left: 3px solid #60a5fa; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
-          <p style="margin: 0; font-style: italic; color: #f1f5f9;">"${params.pitch}"</p>
+        <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-left: 3px solid #0052FF; padding: 14px 18px; border-radius: 6px; margin: 14px 0;">
+          <p style="margin: 0; font-style: italic; color: #1E293B;">"${params.pitch}"</p>
         </div>
       `,
       keyValues: [
         { label: 'Campaign', value: params.campaignTitle },
         { label: 'Creator', value: `${params.creatorName} (${params.creatorHandle})` },
-        { label: 'Proposed Commercials', value: `₹${params.proposedRate.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Proposed Commercials', value: `₹${params.proposedRate.toLocaleString('en-IN')}`, color: '#059669' },
       ],
       ctaButton: {
         label: 'Review Proposal & Shortlist',
         url: params.reviewUrl || `${BASE_URL}/brand`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
       footerNote: 'Reviewing proposals within 24 hours increases creator commitment by 80%.',
     });
 
     return await sendLiveEmail({
       to: params.brandEmail || DEFAULT_RECIPIENT,
-      subject: `[New Proposal] ${params.creatorName} applied to ${params.campaignTitle}`,
+      subject: `New Proposal: ${params.creatorName} applied to ${params.campaignTitle}`,
       html,
     });
   }
@@ -119,19 +119,19 @@ export class EmailService {
         : `<p>Thank you for submitting your pitch. On this occasion the campaign quota has been filled, but your profile remains in the active talent pool.</p>`,
       keyValues: [
         { label: 'Campaign', value: params.campaignTitle },
-        { label: 'Application Status', value: params.status, color: isAccepted ? '#34d399' : '#60a5fa' },
-        ...(params.rate ? [{ label: 'Approved Fee', value: `₹${params.rate.toLocaleString('en-IN')}`, color: '#34d399' }] : []),
+        { label: 'Application Status', value: params.status, color: isAccepted ? '#059669' : '#0052FF' },
+        ...(params.rate ? [{ label: 'Approved Fee', value: `₹${params.rate.toLocaleString('en-IN')}`, color: '#059669' }] : []),
       ],
       ctaButton: {
         label: 'Open Workspace',
         url: params.actionUrl || `${BASE_URL}/creator`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Update] Your proposal for "${params.campaignTitle}" is ${params.status}`,
+      subject: `Proposal Update: "${params.campaignTitle}" is ${params.status}`,
       html,
     });
   }
@@ -157,21 +157,21 @@ export class EmailService {
       `,
       keyValues: [
         { label: 'Campaign', value: params.campaignTitle },
-        { label: 'Total Deal Value', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Total Deal Value', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#059669' },
         { label: 'Platform Fee (5%)', value: `₹${Math.round(params.agreedAmount * 0.05).toLocaleString('en-IN')}` },
-        { label: 'Net Payout Allocation', value: `₹${Math.round(params.agreedAmount * 0.95).toLocaleString('en-IN')}`, color: '#60a5fa' },
+        { label: 'Net Payout Allocation', value: `₹${Math.round(params.agreedAmount * 0.95).toLocaleString('en-IN')}`, color: '#0052FF' },
       ],
       ctaButton: {
         label: 'Review & Sign Contract',
         url: params.contractUrl || `${BASE_URL}/workspace`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
       footerNote: 'All TIA contracts feature built-in dispute arbitration and 72-hour deliverable SLAs.',
     });
 
     return await sendLiveEmail({
       to: params.recipientEmail || DEFAULT_RECIPIENT,
-      subject: `[Action Required] Sign Agreement for "${params.campaignTitle}"`,
+      subject: `Action Required: Sign Agreement for "${params.campaignTitle}"`,
       html,
     });
   }
@@ -201,12 +201,12 @@ export class EmailService {
         { label: 'Campaign', value: params.campaignTitle },
         { label: 'Brand Signer', value: params.brandName },
         { label: 'Creator Signer', value: params.creatorName },
-        { label: 'Agreed Fee', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Agreed Fee', value: `₹${params.agreedAmount.toLocaleString('en-IN')}`, color: '#059669' },
       ],
       ctaButton: {
         label: 'Open Active Collaboration Desk',
         url: `${BASE_URL}/workspace`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
@@ -214,7 +214,7 @@ export class EmailService {
     const recipients = [params.creatorEmail, params.brandEmail].filter(Boolean) as string[];
     return await sendLiveEmail({
       to: recipients.length > 0 ? recipients : DEFAULT_RECIPIENT,
-      subject: `[TIA Executed] Agreement Signed for "${params.campaignTitle}" (#${params.contractNumber})`,
+      subject: `Agreement Executed: "${params.campaignTitle}" (#${params.contractNumber})`,
       html,
     });
   }
@@ -242,20 +242,20 @@ export class EmailService {
       keyValues: [
         { label: 'Transaction ID', value: params.transactionId },
         { label: 'Milestone', value: params.milestoneTitle },
-        { label: 'Secured Balance', value: `₹${params.grossAmount.toLocaleString('en-IN')}`, color: '#34d399' },
-        { label: 'Escrow Status', value: 'HELD_IN_PROTECTION', color: '#60a5fa' },
+        { label: 'Secured Balance', value: `₹${params.grossAmount.toLocaleString('en-IN')}`, color: '#059669' },
+        { label: 'Escrow Status', value: 'HELD_IN_PROTECTION', color: '#0052FF' },
       ],
       ctaButton: {
         label: 'Open Workspace Desk',
         url: `${BASE_URL}/workspace`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
       footerNote: 'Funds are securely locked and will only be disbursed upon deliverable approval or after the 72-hour SLA expires.',
     });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Protection] ₹${params.grossAmount.toLocaleString('en-IN')} Secured for ${params.milestoneTitle}`,
+      subject: `Payment Protection Active: ₹${params.grossAmount.toLocaleString('en-IN')} Secured for ${params.milestoneTitle}`,
       html,
     });
   }
@@ -289,13 +289,13 @@ export class EmailService {
       ctaButton: {
         label: 'Inspect Deliverable & Review',
         url: `${BASE_URL}/workspace`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.brandEmail || DEFAULT_RECIPIENT,
-      subject: `[Review SLA] ${params.creatorName} submitted ${params.deliverableTitle} (72h Timer Active)`,
+      subject: `Deliverable Under Review: ${params.creatorName} submitted ${params.deliverableTitle} (72h SLA Active)`,
       html,
     });
   }
@@ -317,8 +317,8 @@ export class EmailService {
       subtitle: `Feedback provided for "${params.deliverableTitle}".`,
       contentHtml: `
         <p>The brand team has reviewed your submission and requested the following adjustments:</p>
-        <div style="background: #1e293b; border-left: 3px solid #f43f5e; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
-          <p style="margin: 0; font-style: italic; color: #f1f5f9;">"${params.revisionNotes}"</p>
+        <div style="background-color: #FFF1F2; border: 1px solid #FECDD3; border-left: 3px solid #E11D48; padding: 14px 18px; border-radius: 6px; margin: 14px 0;">
+          <p style="margin: 0; font-style: italic; color: #9F1239;">"${params.revisionNotes}"</p>
         </div>
         <p>Please revise and upload the updated asset cut to continue the milestone process.</p>
       `,
@@ -330,13 +330,13 @@ export class EmailService {
       ctaButton: {
         label: 'Upload Revised Cut',
         url: `${BASE_URL}/creator`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
-      subject: `[Revision Request] Updates needed for "${params.deliverableTitle}"`,
+      subject: `Revision Requested: Updates needed for "${params.deliverableTitle}"`,
       html,
     });
   }
@@ -365,21 +365,21 @@ export class EmailService {
       `,
       keyValues: [
         { label: 'Gross Milestone Fee', value: `₹${params.grossAmount.toLocaleString('en-IN')}` },
-        { label: 'TIA Platform Fee (5%)', value: `- ₹${params.tiaFee.toLocaleString('en-IN')}`, color: '#94a3b8' },
-        { label: 'TDS Withholding (1%)', value: `- ₹${params.tds.toLocaleString('en-IN')}`, color: '#94a3b8' },
-        { label: 'Net Bank Payout', value: `₹${params.netPayout.toLocaleString('en-IN')}`, color: '#34d399' },
-        { label: 'NEFT Reference (UTR)', value: params.utrNumber, color: '#60a5fa' },
+        { label: 'TIA Platform Fee (5%)', value: `- ₹${params.tiaFee.toLocaleString('en-IN')}`, color: '#64748B' },
+        { label: 'TDS Withholding (1%)', value: `- ₹${params.tds.toLocaleString('en-IN')}`, color: '#64748B' },
+        { label: 'Net Bank Payout', value: `₹${params.netPayout.toLocaleString('en-IN')}`, color: '#059669' },
+        { label: 'NEFT Reference (UTR)', value: params.utrNumber, color: '#0052FF' },
       ],
       ctaButton: {
         label: 'View Wallet Statement',
         url: `${BASE_URL}/creator`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.creatorEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Payout] ₹${params.netPayout.toLocaleString('en-IN')} Disbursed (UTR: ${params.utrNumber})`,
+      subject: `Bank Payout Disbursed: ₹${params.netPayout.toLocaleString('en-IN')} (UTR: ${params.utrNumber})`,
       html,
     });
   }
@@ -411,18 +411,18 @@ export class EmailService {
         { label: 'Issued To', value: params.brandLegalName },
         { label: 'Taxable Platform Service', value: `₹${params.platformFee.toLocaleString('en-IN')}` },
         { label: '18% GST (CGST + SGST)', value: `₹${params.totalGst.toLocaleString('en-IN')}` },
-        { label: 'Total Platform Invoice', value: `₹${params.totalInvoiceAmount.toLocaleString('en-IN')}`, color: '#34d399' },
+        { label: 'Total Platform Invoice', value: `₹${params.totalInvoiceAmount.toLocaleString('en-IN')}`, color: '#059669' },
       ],
       ctaButton: {
         label: 'Download Invoice PDF',
         url: params.pdfUrl || `${BASE_URL}/brand`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.brandEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Tax Invoice] ${params.invoiceNumber} for "${params.campaignTitle}"`,
+      subject: `Tax Invoice ${params.invoiceNumber} for "${params.campaignTitle}"`,
       html,
     });
   }
@@ -457,13 +457,13 @@ export class EmailService {
       ctaButton: {
         label: 'Submit Evidence to Desk',
         url: `${BASE_URL}/workspace`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
     });
 
     return await sendLiveEmail({
       to: params.recipientEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Dispute Alert] Arbitration Case Opened for "${params.campaignTitle}"`,
+      subject: `Arbitration Notice: Formal Dispute Opened for "${params.campaignTitle}"`,
       html,
     });
   }
@@ -483,22 +483,22 @@ export class EmailService {
       subtitle: 'Circumvention attempt detected by TIA Trust & Safety engine.',
       contentHtml: `
         <p>Our automated integrity scanner flagged an attempt to share direct contact or external payment details:</p>
-        <div style="background: #1e293b; border-left: 3px solid #f43f5e; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
-          <p style="margin: 0; font-family: monospace; color: #fca5a5;">${params.flaggedContent}</p>
+        <div style="background-color: #FFF1F2; border: 1px solid #FECDD3; border-left: 3px solid #E11D48; padding: 14px 18px; border-radius: 6px; margin: 14px 0;">
+          <p style="margin: 0; font-family: monospace; color: #9F1239; font-weight: 600;">${params.flaggedContent}</p>
         </div>
-        <p style="color: #cbd5e1; font-size: 13px;">Taking conversations or payments off TIA removes payment protection, eliminates automatic dispute arbitration, and constitutes a breach of Section 7 of the Platform Terms of Service.</p>
+        <p style="color: #475569; font-size: 13.5px;">Taking conversations or payments off TIA removes payment protection, eliminates automatic dispute arbitration, and constitutes a breach of Section 7 of the Platform Terms of Service.</p>
       `,
       ctaButton: {
         label: 'Review Terms of Service',
         url: `${BASE_URL}/terms`,
-        color: '#2563eb',
+        color: '#0052FF',
       },
       footerNote: 'Repeated policy violations may result in account suspension and escrow forfeiture.',
     });
 
     return await sendLiveEmail({
       to: params.recipientEmail || DEFAULT_RECIPIENT,
-      subject: `[TIA Security Warning] Off-Platform Contact Attempt Flagged`,
+      subject: `Security Warning: Off-Platform Contact Attempt Flagged`,
       html,
     });
   }

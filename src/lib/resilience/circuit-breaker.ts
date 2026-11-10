@@ -102,3 +102,4 @@ export const circuitBreakers = {
   youtubeApi: new CircuitBreaker('YouTubeDataAPI', { failureThreshold: 5, timeoutMs: 10000 }),
   aiAvatar: new CircuitBreaker('AIAvatarEngine', { failureThreshold: 3, timeoutMs: 15000 }),
 };
+
