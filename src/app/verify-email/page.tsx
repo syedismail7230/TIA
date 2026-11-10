@@ -76,9 +76,9 @@ function VerifyEmailContent() {
       }}>
         <div style={{ marginBottom: '24px' }}>
           <img
-            src="/main-logo-cropped.png"
+            src="/logo-cropped.png"
             alt="The Influencer's Agency"
-            style={{ height: '40px', width: 'auto', display: 'inline-block' }}
+            style={{ height: '36px', width: 'auto', display: 'inline-block' }}
           />
         </div>
 

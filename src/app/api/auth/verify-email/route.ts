@@ -1,5 +1,6 @@
 // ===================================================
 // TIA BACKEND - VERIFY EMAIL API ROUTE
+// Serverless-Safe Asynchronous Verification Handler
 // ===================================================
 
 import { NextResponse } from 'next/server';
@@ -19,12 +20,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ success: false, error: 'Token is required' }, { status: 400 });
   }
 
-  const result = EmailVerificationService.verifyToken(token, email || undefined);
+  const result = await EmailVerificationService.verifyToken(token, email || undefined);
   if (!result.success || !result.record) {
-    return NextResponse.json({ success: false, error: result.error }, { status: 400 });
+    return NextResponse.json({ success: false, error: result.error || 'Invalid or expired verification link.' }, { status: 400 });
   }
 
-  const userEmail = result.record.email;
+  const userEmail = result.record.email.toLowerCase().trim();
 
   try {
     // 1. Update Prisma User if exists
@@ -33,6 +34,11 @@ export async function GET(request: Request) {
     });
 
     if (user) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emailVerified: true },
+      });
+
       if (user.role === 'CREATOR') {
         await prisma.creator.updateMany({
           where: { userId: user.id },
@@ -46,17 +52,26 @@ export async function GET(request: Request) {
         role: user.role,
         name: user.name || undefined,
       });
+    } else {
+      // Set session cookie for verified user
+      await setSessionCookie({
+        userId: result.record.userId || `user_${Date.now()}`,
+        email: userEmail,
+        role: result.record.role,
+      });
     }
 
     // 2. Update Firestore if user profile exists
     if (result.record.userId) {
-      await FirestoreService.saveUser({
-        id: result.record.userId,
-        email: userEmail,
-        displayName: user?.name || 'Verified TIA User',
-        role: result.record.role,
-        authProvider: 'password',
-      });
+      try {
+        await FirestoreService.saveUser({
+          id: result.record.userId,
+          email: userEmail,
+          displayName: user?.name || 'Verified TIA User',
+          role: result.record.role,
+          authProvider: 'password',
+        });
+      } catch {}
     }
   } catch (err) {
     console.warn('Database sync note in verify-email:', err);
