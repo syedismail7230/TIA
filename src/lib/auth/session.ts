@@ -7,6 +7,8 @@ const JWT_SECRET = new TextEncoder().encode(
 );
 
 const SESSION_COOKIE_NAME = 'tia_session_token';
+const IMPERSONATOR_COOKIE_NAME = 'tia_admin_impersonator';
+const IMPERSONATION_META_COOKIE = 'tia_impersonation_meta';
 const SESSION_EXPIRATION_SECONDS = 60 * 60 * 24 * 7; // 7 days
 
 export interface SessionPayload {
@@ -55,6 +57,61 @@ export async function setSessionCookie(payload: SessionPayload) {
 export function clearSessionCookie() {
   const cookieStore = cookies();
   cookieStore.delete(SESSION_COOKIE_NAME);
+}
+
+export async function setImpersonationState(
+  adminPayload: SessionPayload,
+  targetPayload: SessionPayload
+) {
+  const cookieStore = cookies();
+  const adminToken = await createSessionToken(adminPayload);
+
+  // Store original admin session
+  cookieStore.set(IMPERSONATOR_COOKIE_NAME, adminToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 12, // 12 hours max impersonation window
+    path: '/',
+  });
+
+  // Client-readable metadata for immediate UI banners without extra roundtrips
+  cookieStore.set(
+    IMPERSONATION_META_COOKIE,
+    JSON.stringify({
+      adminEmail: adminPayload.email,
+      targetEmail: targetPayload.email,
+      targetName: targetPayload.name || targetPayload.email.split('@')[0],
+      targetRole: targetPayload.role,
+    }),
+    {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 12,
+      path: '/',
+    }
+  );
+
+  // Now set the active session cookie to target user
+  await setSessionCookie(targetPayload);
+}
+
+export async function getImpersonatorSession(): Promise<SessionPayload | null> {
+  try {
+    const cookieStore = cookies();
+    const token = cookieStore.get(IMPERSONATOR_COOKIE_NAME)?.value;
+    if (!token) return null;
+    return await verifySessionToken(token);
+  } catch {
+    return null;
+  }
+}
+
+export function clearImpersonationState() {
+  const cookieStore = cookies();
+  cookieStore.delete(IMPERSONATOR_COOKIE_NAME);
+  cookieStore.delete(IMPERSONATION_META_COOKIE);
 }
 
 export async function getCurrentUser(): Promise<{

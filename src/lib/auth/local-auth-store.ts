@@ -109,6 +109,11 @@ export function findStoredUserByEmail(email: string): StoredUser | null {
   return users.find((u) => u.email.toLowerCase() === normalized) || null;
 }
 
+export function findStoredUserById(id: string): StoredUser | null {
+  const users = getAllStoredUsers();
+  return users.find((u) => u.id === id) || null;
+}
+
 export const getStoredUserByEmail = findStoredUserByEmail;
 
 export function saveStoredUser(user: StoredUser): void {

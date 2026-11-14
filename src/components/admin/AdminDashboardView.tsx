@@ -264,6 +264,32 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
     }
   };
 
+  const [impersonatingId, setImpersonatingId] = useState<string | null>(null);
+
+  const handleImpersonate = async (userId?: string, email?: string) => {
+    if (!userId && !email) {
+      showToast('No user identity provided for direct dashboard access', 'error');
+      return;
+    }
+    const targetKey = userId || email || 'unknown';
+    setImpersonatingId(targetKey);
+    showToast('Initializing direct dashboard access...', 'success');
+    try {
+      const res = await fetch('/api/admin/impersonate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, email }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to access user dashboard');
+      showToast(`Redirecting to ${data.targetUser?.name || 'user'} dashboard...`);
+      window.location.href = data.redirectUrl || '/creator';
+    } catch (err: any) {
+      showToast(err.message, 'error');
+      setImpersonatingId(null);
+    }
+  };
+
   const handleSaveCreator = async (e: React.FormEvent) => {
     e.preventDefault();
     setModalLoading(true);
@@ -842,9 +868,32 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
                         <div style={{ fontSize: '13px', fontWeight: 700, color: '#0F172A' }}>{u.name}</div>
                         <div style={{ fontSize: '11.5px', color: '#64748B' }}>{u.email}</div>
                       </div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, background: '#EFF6FF', color: '#0052FF', padding: '2px 8px', borderRadius: '6px' }}>
-                        {u.role}
-                      </span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, background: '#EFF6FF', color: '#0052FF', padding: '2px 8px', borderRadius: '6px' }}>
+                          {u.role}
+                        </span>
+                        <button
+                          onClick={() => handleImpersonate(u.id, u.email)}
+                          disabled={impersonatingId === u.id}
+                          title="Direct Access to User Dashboard"
+                          style={{
+                            background: '#FFFFFF',
+                            border: '1px solid #CBD5E1',
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '11px',
+                            fontWeight: 600,
+                            color: '#0F172A',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                          }}
+                        >
+                          <ExternalLink size={11} />
+                          {impersonatingId === u.id ? 'Loading...' : 'Access'}
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -992,6 +1041,27 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
                       </td>
                       <td style={{ padding: '14px 16px', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
+                          <button
+                            onClick={() => handleImpersonate(u.id, u.email)}
+                            disabled={impersonatingId === u.id}
+                            title="Direct Access to User Dashboard"
+                            style={{
+                              background: '#EFF6FF',
+                              border: '1px solid #BFDBFE',
+                              padding: '6px 10px',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                              color: '#1D4ED8',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              fontSize: '12px',
+                              fontWeight: 600,
+                            }}
+                          >
+                            <ExternalLink size={12} />
+                            <span>{impersonatingId === u.id ? 'Accessing...' : 'Access'}</span>
+                          </button>
                           <button
                             onClick={() => {
                               setModalData({ id: u.id, name: u.name, email: u.email, role: u.role, country: u.country || 'India', emailVerified: u.emailVerified });
@@ -1143,6 +1213,27 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
                       <td style={{ padding: '14px 16px', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
                           <button
+                            onClick={() => handleImpersonate(c.userId, c.user?.email)}
+                            disabled={impersonatingId === c.userId}
+                            title="Direct Access to Creator Dashboard"
+                            style={{
+                              background: '#EFF6FF',
+                              border: '1px solid #BFDBFE',
+                              padding: '6px 10px',
+                              borderRadius: '6px',
+                              cursor: 'pointer',
+                              color: '#1D4ED8',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              fontSize: '12px',
+                              fontWeight: 600,
+                            }}
+                          >
+                            <ExternalLink size={12} />
+                            <span>{impersonatingId === c.userId ? 'Accessing...' : 'View Portal'}</span>
+                          </button>
+                          <button
                             onClick={() => {
                               setModalData(c);
                               setModalType('CREATOR');
@@ -1252,6 +1343,29 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
                       </td>
                       <td style={{ padding: '14px 16px', textAlign: 'right' }}>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
+                          {o.members?.[0]?.user && (
+                            <button
+                              onClick={() => handleImpersonate(o.members[0].user.id, o.members[0].user.email)}
+                              disabled={impersonatingId === o.members[0].user.id}
+                              title={`Direct Access to ${o.name} Brand Portal`}
+                              style={{
+                                background: '#EFF6FF',
+                                border: '1px solid #BFDBFE',
+                                padding: '6px 10px',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                color: '#1D4ED8',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                fontSize: '12px',
+                                fontWeight: 600,
+                              }}
+                            >
+                              <ExternalLink size={12} />
+                              <span>{impersonatingId === o.members[0].user.id ? 'Accessing...' : 'Brand Portal'}</span>
+                            </button>
+                          )}
                           <button
                             onClick={() => {
                               setModalData(o);
@@ -1823,21 +1937,47 @@ export function AdminDashboardView({ initialUser }: AdminDashboardViewProps) {
                 </label>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '12px' }}>
-                <button
-                  type="button"
-                  onClick={() => setModalType(null)}
-                  style={{ background: '#F1F5F9', border: 'none', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, color: '#475569', cursor: 'pointer' }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={modalLoading}
-                  style={{ background: '#0052FF', border: 'none', padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 700, color: '#FFFFFF', cursor: 'pointer' }}
-                >
-                  {modalLoading ? 'Saving...' : 'Save User'}
-                </button>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
+                {modalData.id ? (
+                  <button
+                    type="button"
+                    onClick={() => handleImpersonate(modalData.id, modalData.email)}
+                    disabled={impersonatingId === modalData.id}
+                    style={{
+                      background: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      padding: '10px 14px',
+                      borderRadius: '8px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#1D4ED8',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                    }}
+                  >
+                    <ExternalLink size={14} />
+                    {impersonatingId === modalData.id ? 'Connecting...' : 'Access Dashboard Directly'}
+                  </button>
+                ) : <div />}
+
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    type="button"
+                    onClick={() => setModalType(null)}
+                    style={{ background: '#F1F5F9', border: 'none', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600, color: '#475569', cursor: 'pointer' }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={modalLoading}
+                    style={{ background: '#0052FF', border: 'none', padding: '10px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: 700, color: '#FFFFFF', cursor: 'pointer' }}
+                  >
+                    {modalLoading ? 'Saving...' : 'Save User'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

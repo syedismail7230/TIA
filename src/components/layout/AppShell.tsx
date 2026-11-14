@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { ImpersonationBanner } from '@/components/admin/ImpersonationBanner';
 
 interface AppShellProps {
   user: any;
@@ -23,11 +24,17 @@ export function AppShell({ user, children }: AppShellProps) {
     pathname.startsWith('/workspace');
 
   if (isDashboardOrPortal) {
-    return <main style={{ minHeight: '100vh', width: '100%' }}>{children}</main>;
+    return (
+      <main style={{ minHeight: '100vh', width: '100%' }}>
+        <ImpersonationBanner />
+        {children}
+      </main>
+    );
   }
 
   return (
     <>
+      <ImpersonationBanner />
       <Navbar user={user} />
       <main style={{ flex: 1 }}>{children}</main>
       <Footer />
