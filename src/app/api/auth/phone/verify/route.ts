@@ -1,5 +1,5 @@
 // ===================================================
-// TIA BACKEND - FIREBASE PHONE OTP SESSION VERIFY API
+// TIA BACKEND - FIREBASE / OAUTH SESSION VERIFY API
 // ===================================================
 
 import { NextResponse } from 'next/server';
@@ -11,39 +11,40 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { uid, phoneNumber, displayName, role = 'CREATOR' } = body;
+    const { uid, phoneNumber, email: rawEmail, displayName, role = 'CREATOR' } = body;
 
-    if (!uid || !phoneNumber) {
-      return NextResponse.json({ success: false, error: 'UID and Phone Number are required' }, { status: 400 });
+    if (!uid && !rawEmail && !phoneNumber) {
+      return NextResponse.json({ success: false, error: 'UID, Email, or Phone Number is required' }, { status: 400 });
     }
 
-    const email = `${phoneNumber.replace(/\D/g, '')}@phone.tia.agency`;
-    const resolvedName = displayName || `User ${phoneNumber.slice(-4)}`;
+    const resolvedUid = uid || `oauth_${Date.now()}`;
+    const email = rawEmail || (phoneNumber ? `${phoneNumber.replace(/\D/g, '')}@phone.tia.agency` : `${resolvedUid}@auth.tia.agency`);
+    const resolvedName = displayName || (email ? email.split('@')[0] : `User`);
 
     await setSessionCookie({
-      userId: uid,
+      userId: resolvedUid,
       email,
       role,
       name: resolvedName,
-      creatorId: role === 'CREATOR' ? `creator_${uid}` : undefined,
-      organizationId: role.startsWith('BRAND_') ? `org_${uid}` : undefined,
+      creatorId: role === 'CREATOR' ? `creator_${resolvedUid}` : undefined,
+      organizationId: role.startsWith('BRAND_') ? `org_${resolvedUid}` : undefined,
     });
 
     try {
       await logAuditEvent({
-        userId: uid,
+        userId: resolvedUid,
         userRole: role,
-        action: 'PHONE_OTP_LOGIN',
+        action: 'OAUTH_LOGIN',
         entityType: 'USER',
-        entityId: uid,
+        entityId: resolvedUid,
       });
     } catch {}
 
     return NextResponse.json({
       success: true,
-      message: 'Phone session established',
+      message: 'Session established',
       user: {
-        id: uid,
+        id: resolvedUid,
         email,
         name: resolvedName,
         role,
@@ -51,7 +52,7 @@ export async function POST(request: Request) {
       },
     });
   } catch (error: any) {
-    console.error('Phone Session API Error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Failed to establish phone session' }, { status: 500 });
+    console.error('Session Verify API Error:', error);
+    return NextResponse.json({ success: false, error: error.message || 'Failed to establish session' }, { status: 500 });
   }
 }

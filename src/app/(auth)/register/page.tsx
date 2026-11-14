@@ -3,77 +3,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Building2, Sparkles, ArrowRight, ShieldCheck, Check, Mail, Lock, Phone as PhoneIcon, Eye, EyeOff } from 'lucide-react';
+import { Building2, Sparkles, ArrowRight, ShieldCheck, Check, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { FirebaseAuthService } from '@/lib/services/firebase-auth.service';
-import { PhoneOtpModal } from '@/components/auth/PhoneOtpModal';
-
-const COUNTRY_DIAL_CODES = [
-  { code: '+91', name: 'India (+91)' },
-  { code: '+1', name: 'USA / Canada (+1)' },
-  { code: '+44', name: 'UK (+44)' },
-  { code: '+971', name: 'UAE (+971)' },
-  { code: '+65', name: 'Singapore (+65)' },
-  { code: '+61', name: 'Australia (+61)' },
-  { code: '+49', name: 'Germany (+49)' },
-  { code: '+33', name: 'France (+33)' },
-  { code: '+966', name: 'Saudi Arabia (+966)' },
-  { code: '+974', name: 'Qatar (+974)' },
-  { code: '+968', name: 'Oman (+968)' },
-  { code: '+965', name: 'Kuwait (+965)' },
-  { code: '+973', name: 'Bahrain (+973)' },
-  { code: '+60', name: 'Malaysia (+60)' },
-  { code: '+62', name: 'Indonesia (+62)' },
-  { code: '+63', name: 'Philippines (+63)' },
-  { code: '+66', name: 'Thailand (+66)' },
-  { code: '+84', name: 'Vietnam (+84)' },
-  { code: '+880', name: 'Bangladesh (+880)' },
-  { code: '+94', name: 'Sri Lanka (+94)' },
-  { code: '+977', name: 'Nepal (+977)' },
-  { code: '+92', name: 'Pakistan (+92)' },
-  { code: '+27', name: 'South Africa (+27)' },
-  { code: '+234', name: 'Nigeria (+234)' },
-  { code: '+254', name: 'Kenya (+254)' },
-  { code: '+20', name: 'Egypt (+20)' },
-  { code: '+81', name: 'Japan (+81)' },
-  { code: '+82', name: 'South Korea (+82)' },
-  { code: '+852', name: 'Hong Kong (+852)' },
-  { code: '+886', name: 'Taiwan (+886)' },
-  { code: '+55', name: 'Brazil (+55)' },
-  { code: '+52', name: 'Mexico (+52)' },
-  { code: '+54', name: 'Argentina (+54)' },
-  { code: '+34', name: 'Spain (+34)' },
-  { code: '+39', name: 'Italy (+39)' },
-  { code: '+31', name: 'Netherlands (+31)' },
-  { code: '+41', name: 'Switzerland (+41)' },
-  { code: '+46', name: 'Sweden (+46)' },
-  { code: '+47', name: 'Norway (+47)' },
-  { code: '+45', name: 'Denmark (+45)' },
-  { code: '+353', name: 'Ireland (+353)' },
-  { code: '+64', name: 'New Zealand (+64)' },
-  { code: '+90', name: 'Turkey (+90)' },
-  { code: '+7', name: 'Kazakhstan / Russia (+7)' },
-  { code: '+48', name: 'Poland (+48)' },
-  { code: '+32', name: 'Belgium (+32)' },
-  { code: '+43', name: 'Austria (+43)' },
-  { code: '+351', name: 'Portugal (+351)' },
-  { code: '+30', name: 'Greece (+30)' },
-  { code: '+420', name: 'Czech Republic (+420)' },
-  { code: '+36', name: 'Hungary (+36)' },
-  { code: '+40', name: 'Romania (+40)' },
-  { code: '+380', name: 'Ukraine (+380)' },
-  { code: '+972', name: 'Israel (+972)' },
-  { code: '+962', name: 'Jordan (+962)' },
-  { code: '+961', name: 'Lebanon (+961)' },
-  { code: '+212', name: 'Morocco (+212)' },
-  { code: '+216', name: 'Tunisia (+216)' },
-  { code: '+233', name: 'Ghana (+233)' },
-  { code: '+255', name: 'Tanzania (+255)' },
-  { code: '+256', name: 'Uganda (+256)' },
-  { code: '+56', name: 'Chile (+56)' },
-  { code: '+57', name: 'Colombia (+57)' },
-  { code: '+51', name: 'Peru (+51)' },
-  { code: '+58', name: 'Venezuela (+58)' },
-];
 
 function RegisterContent() {
   const router = useRouter();
@@ -91,12 +22,8 @@ function RegisterContent() {
     else if (roleParam === 'BRAND_ADMIN') setRole('BRAND_ADMIN');
   }, [roleParam]);
 
-  // Step 1: Credentials & Phone State
+  // Step 1: Credentials State
   const [email, setEmail] = useState('');
-  const [phoneCode, setPhoneCode] = useState('+91');
-  const [phone, setPhone] = useState('');
-  const [phoneModalOpen, setPhoneModalOpen] = useState(false);
-  const [phoneVerified, setPhoneVerified] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [agreedTerms, setAgreedTerms] = useState(false);
@@ -130,11 +57,6 @@ function RegisterContent() {
 
   // Validation
   const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
-  const isValidPhone = (val: string, code: string) => {
-    const digitsOnly = val.replace(/\D/g, '');
-    if (code === '+91' || code === '+1') return digitsOnly.length === 10;
-    return digitsOnly.length >= 7 && digitsOnly.length <= 15;
-  };
 
   // Password Strength
   const hasMinLength = password.length >= 8;
@@ -154,7 +76,7 @@ function RegisterContent() {
   const strengthMeta = getPasswordStrengthMeta();
 
   /**
-   * Handle Step 1 Submit (Credentials -> Phone OTP -> Step 2)
+   * Handle Step 1 Submit (Credentials -> Step 2)
    */
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,11 +84,6 @@ function RegisterContent() {
 
     if (!email || !isValidEmail(email)) {
       setError(role === 'BRAND_ADMIN' ? 'Please enter a valid work email (e.g. name@brand.com).' : 'Please enter a valid email address.');
-      return;
-    }
-
-    if (!phone || !isValidPhone(phone, phoneCode)) {
-      setError(phoneCode === '+91' || phoneCode === '+1' ? 'Please enter a valid 10-digit mobile number.' : `Please enter a valid mobile number for ${phoneCode}.`);
       return;
     }
 
@@ -180,18 +97,6 @@ function RegisterContent() {
       return;
     }
 
-    // Trigger Phone OTP verification before proceeding
-    if (!phoneVerified) {
-      setPhoneModalOpen(true);
-      return;
-    }
-
-    setStep(2);
-  };
-
-  const handlePhoneOtpSuccess = () => {
-    setPhoneVerified(true);
-    setPhoneModalOpen(false);
     setStep(2);
   };
 
@@ -226,10 +131,8 @@ function RegisterContent() {
     setLoading(true);
 
     try {
-      const fullPhone = `${phoneCode} ${phone.trim()}`;
       const payload: any = {
         email: email.toLowerCase().trim(),
-        phone: fullPhone,
         password,
         role,
         country: 'India',
@@ -329,16 +232,6 @@ function RegisterContent() {
 
   return (
     <div className="auth-viewport">
-      {/* Phone SMS OTP Modal */}
-      <PhoneOtpModal
-        isOpen={phoneModalOpen}
-        role={role}
-        initialPhoneNumber={phone}
-        initialCountryCode={phoneCode}
-        onSuccess={handlePhoneOtpSuccess}
-        onClose={() => setPhoneModalOpen(false)}
-      />
-
       <div className="auth-card">
         {/* LEFT COLUMN: ONBOARDING ENGINE */}
         <div className="auth-form-pane">
@@ -439,52 +332,6 @@ function RegisterContent() {
                         className="auth-input"
                         autoFocus
                       />
-                    </div>
-
-                    {/* Phone Input with Country Code */}
-                    <div className="auth-input-group">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                        <label className="auth-label">Mobile Phone Number</label>
-                        {phoneVerified && (
-                          <span style={{ fontSize: '11px', fontWeight: 700, color: '#0052FF', display: 'flex', alignItems: 'center', gap: '3px' }}>
-                            <Check size={12} /> Verified
-                          </span>
-                        )}
-                      </div>
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <select
-                          value={phoneCode}
-                          onChange={(e) => setPhoneCode(e.target.value)}
-                          className="auth-phone-code"
-                          style={{
-                            width: '105px',
-                            minWidth: '105px',
-                            background: '#FFFFFF',
-                            border: '1px solid #CBD5E1',
-                            borderRadius: '12px',
-                            padding: '12px 8px',
-                            fontSize: '13px',
-                            fontWeight: 600,
-                            color: '#0F172A',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          {COUNTRY_DIAL_CODES.map((c) => (
-                            <option key={c.code} value={c.code}>
-                              {c.name}
-                            </option>
-                          ))}
-                        </select>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="98765 43210"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className="auth-input"
-                          style={{ flex: 1 }}
-                        />
-                      </div>
                     </div>
 
                     {/* Password Input */}

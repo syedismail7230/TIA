@@ -1,16 +1,17 @@
 import { PrismaClient } from '@prisma/client';
 
 const DEFAULT_DATABASE_URL =
-  'postgresql://postgres:MqNHANcIaE6Vu23g@db.egagtpzlvtcxihuargcv.supabase.co:5432/postgres?sslmode=require';
+  'postgresql://postgres.egagtpzlvtcxihuargcv:MqNHANcIaE6Vu23g@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require';
+
+const rawUrl = process.env.DATABASE_URL;
+const isDirectIpv6Supabase = rawUrl && rawUrl.includes('db.egagtpzlvtcxihuargcv.supabase.co');
 
 const dbUrl =
-  process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith('postgres')
-    ? process.env.DATABASE_URL
+  rawUrl && rawUrl.startsWith('postgres') && !isDirectIpv6Supabase
+    ? rawUrl
     : DEFAULT_DATABASE_URL;
 
-if (!process.env.DATABASE_URL || !process.env.DATABASE_URL.startsWith('postgres')) {
-  process.env.DATABASE_URL = DEFAULT_DATABASE_URL;
-}
+process.env.DATABASE_URL = dbUrl;
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
