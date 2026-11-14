@@ -20,12 +20,19 @@ const DEMO_ACCOUNTS: Record<string, { id: string; email: string; name: string; r
     role: 'CREATOR',
     password: 'Password@123',
   },
+  'admin@theinfluencers.agency': {
+    id: 'admin-super-id-2026',
+    email: 'admin@theinfluencers.agency',
+    name: 'TIA Super Admin',
+    role: 'TIA_SUPER_ADMIN',
+    password: 'Admin@TIA#2026!SecureKey',
+  },
   'admin@tia.agency': {
     id: 'demo-admin-user-id',
     email: 'admin@tia.agency',
     name: 'TIA Super Admin',
     role: 'TIA_SUPER_ADMIN',
-    password: 'Password@123',
+    password: 'Admin@TIA#2026!SecureKey',
   },
 };
 
