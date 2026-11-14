@@ -7,7 +7,7 @@ export interface StoredUser {
   email: string;
   passwordHash: string;
   name: string;
-  role: 'CREATOR' | 'BRAND_ADMIN' | 'BRAND_USER' | 'TIA_SUPER_ADMIN';
+  role: 'CREATOR' | 'BRAND_ADMIN' | 'BRAND_USER' | 'TIA_SUPER_ADMIN' | 'TIA_SUPPORT' | 'TIA_FINANCE' | 'TIA_MODERATOR' | string;
   phone?: string;
   gender?: string;
   age?: number;
@@ -130,3 +130,13 @@ export function saveStoredUser(user: StoredUser): void {
 }
 
 export const createStoredUser = saveStoredUser;
+
+export function deleteStoredUser(idOrEmail: string): void {
+  const normalized = idOrEmail.toLowerCase().trim();
+  memoryUsers = memoryUsers.filter((u) => u.id !== idOrEmail && u.email.toLowerCase() !== normalized);
+  try {
+    ensureFileExists();
+    const users = getAllStoredUsers().filter((u) => u.id !== idOrEmail && u.email.toLowerCase() !== normalized);
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+  } catch (err) {}
+}
