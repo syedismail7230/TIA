@@ -1,0 +1,21 @@
+{
+  "name": "The Influencer's Agency",
+  "short_name": "TIA",
+  "description": "Global Creator Intelligence, Influencer Marketplace & Escrow Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0052FF",
+  "icons": [
+    {
+      "src": "/main-logo-cropped.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/main-logo-cropped.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

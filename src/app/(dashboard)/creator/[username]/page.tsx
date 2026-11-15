@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const pageTitle = `${displayName} (@${cleanUsername}) • TIA Verified Creator Profile & Commercial Rates`;
   const pageDescription = `Explore verified audience reach (615K+), YouTube & Instagram analytics, commercial rates, BotShield™ trust score, and portfolio for ${displayName} (@${cleanUsername}) on The Influencer’s Agency.`;
-  const canonicalUrl = `https://theinfluencersagency.com/creator/${cleanUsername}`;
+  const canonicalUrl = `https://www.theinfluencers.agency/creator/${cleanUsername}`;
 
   return {
     title: pageTitle,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'profile',
       images: [
         {
-          url: 'https://theinfluencersagency.com/banner.png',
+          url: 'https://www.theinfluencers.agency/banner.png',
           width: 851,
           height: 315,
           alt: `${displayName} - TIA Verified Creator Cover Banner`,
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: `${displayName} (@${cleanUsername}) • TIA Creator`,
       description: pageDescription,
-      images: ['https://theinfluencersagency.com/banner.png'],
+      images: ['https://www.theinfluencers.agency/banner.png'],
       creator: `@${cleanUsername}`,
     },
     robots: {
@@ -81,8 +81,8 @@ export default function DynamicCreatorProfilePage({ params }: Props) {
       alternateName: `@${cleanUsername}`,
       jobTitle: 'Content Creator & Tech Specialist',
       description: `Verified creator on The Influencer's Agency with 615K+ combined audience reach.`,
-      image: 'https://theinfluencersagency.com/profile.png',
-      url: `https://theinfluencersagency.com/creator/${cleanUsername}`,
+      image: 'https://www.theinfluencers.agency/main-logo-cropped.png',
+      url: `https://www.theinfluencers.agency/creator/${cleanUsername}`,
       sameAs: [
         `https://www.youtube.com/@${cleanUsername}`,
         `https://www.instagram.com/${cleanUsername}`,

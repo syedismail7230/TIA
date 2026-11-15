@@ -7,6 +7,7 @@ import { FeatureCardsSwiper } from '@/components/home/FeatureCardsSwiper';
 import { BrandLogos } from '@/components/home/BrandLogos';
 import { CreatorSpotlightSection } from '@/components/home/CreatorSpotlightSection';
 import { BusinessBentoSection } from '@/components/home/BusinessBentoSection';
+import { HomeFaqSection } from '@/components/home/HomeFaqSection';
 
 export default function HomePage() {
   return (
@@ -151,6 +152,9 @@ export default function HomePage() {
 
       {/* Business Bento Grid Section */}
       <BusinessBentoSection />
+
+      {/* SEO & Frequently Asked Questions Authority Section */}
+      <HomeFaqSection />
 
       {/* Razorpay-Style Sticky Mobile Bottom Bar */}
       <div className="mobile-sticky-bottom-bar" style={{
