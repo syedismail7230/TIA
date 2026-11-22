@@ -2006,8 +2006,28 @@ function CreatorPortalContent() {
           });
         },
         prefill: {
-          name: currentUser?.name || 'Creator',
-          email: currentUser?.email || 'creator@tia.agency',
+          name: currentUser?.name || currentUser?.creatorProfile?.displayName || 'Creator',
+          email: currentUser?.email || 'user1@theinfluencers.agency',
+          contact: currentUser?.phone?.replace(/[^0-9]/g, '').slice(-10) || '9876543210',
+          method: 'upi',
+        },
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: 'Pay instantly via UPI (GPay, PhonePe, Paytm, QR)',
+                instruments: [
+                  {
+                    method: 'upi',
+                  },
+                ],
+              },
+            },
+            sequence: ['block.upi'],
+            preferences: {
+              show_default_blocks: true,
+            },
+          },
         },
         theme: {
           color: '#0052FF',

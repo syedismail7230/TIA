@@ -809,6 +809,26 @@ function BrandDashboardContent() {
         prefill: {
           name: 'Brand Admin',
           email: 'brand@theinfluencers.agency',
+          contact: '9876543210',
+          method: 'upi',
+        },
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: 'Pay instantly via UPI (GPay, PhonePe, Paytm, QR)',
+                instruments: [
+                  {
+                    method: 'upi',
+                  },
+                ],
+              },
+            },
+            sequence: ['block.upi'],
+            preferences: {
+              show_default_blocks: true,
+            },
+          },
         },
         theme: {
           color: '#0052FF',
