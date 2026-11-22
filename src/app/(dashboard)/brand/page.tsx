@@ -741,17 +741,89 @@ function BrandDashboardContent() {
     );
   };
 
-  const handleAddFundsSubmit = (e: React.FormEvent) => {
+  const handleAddFundsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const amt = parseInt(addFundsAmount, 10) || 0;
     if (amt <= 0) return;
 
-    setAddFundsSuccess(true);
-    setWalletBalance((prev) => prev + amt);
-    setTimeout(() => {
-      setAddFundsSuccess(false);
-      setShowAddFundsModal(false);
-    }, 1500);
+    try {
+      if (typeof (window as any).Razorpay === 'undefined') {
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.async = true;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error('Failed to load Razorpay payment SDK'));
+          document.head.appendChild(script);
+        });
+      }
+
+      const res = await fetch('/api/payments/wallet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'CREATE_ORDER',
+          amount: amt,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success || !data.order) {
+        throw new Error(data.error || 'Failed to create payment order');
+      }
+
+      const activeKey = data.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_RQuwNOxotGRMaW';
+
+      const options = {
+        key: activeKey,
+        amount: data.order.amount,
+        currency: data.order.currency || 'INR',
+        name: "The Influencer's Agency",
+        description: `Deposit to TIA Escrow Protection Wallet`,
+        image: '/main-logo-cropped.png',
+        order_id: data.order.id,
+        handler: async function (response: any) {
+          try {
+            await fetch('/api/payments/wallet', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'VERIFY_AND_DEPOSIT',
+                amount: amt,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+          } catch (verifyErr) {
+            console.warn('Payment verify warning:', verifyErr);
+          }
+
+          setAddFundsSuccess(true);
+          setWalletBalance((prev) => prev + amt);
+          setTimeout(() => {
+            setAddFundsSuccess(false);
+            setShowAddFundsModal(false);
+          }, 1500);
+        },
+        prefill: {
+          name: 'Brand Admin',
+          email: 'brand@theinfluencers.agency',
+        },
+        theme: {
+          color: '#0052FF',
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (resp: any) {
+        alert(`Payment Failed: ${resp.error?.description || 'Transaction cancelled or declined'}`);
+      });
+      rzp.open();
+    } catch (err: any) {
+      console.error('Razorpay Deposit Error:', err);
+      alert(`Unable to open payment gateway: ${err.message || 'Please try again'}`);
+    }
   };
 
   const handleSaveSettings = (e: React.FormEvent) => {

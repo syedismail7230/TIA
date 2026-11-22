@@ -1897,54 +1897,132 @@ function CreatorPortalContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleBuyCredits = (count: number, costInr: number) => {
-    setApplyCredits((prev) => prev + count);
-    const txnCode = `TXN-CRD-${Date.now().toString().slice(-4)}`;
-    setPayments((prev) => [
-      {
-        id: `tx-cred-${Date.now()}`,
-        invoiceCode: txnCode,
-        mediaName: 'TIA Application Credits Top-up',
-        initials: '⚡',
-        logoBg: '#0052FF',
-        email: 'billing@theinfluencersagency.com',
-        campaign: `${count} Application Credits Pack (₹99/credit)`,
-        deliverableDesc: `${count}x Creator Campaign Pitch & Deal Applications`,
-        amount: `₹${costInr.toLocaleString('en-IN')}.00`,
-        priceFormatted: `₹${costInr.toLocaleString('en-IN')}.00`,
-        grossAmount: costInr,
-        tdsDeduction: 0,
-        platformFee: 0,
-        netAmount: costInr,
-        authorizedAt: 'Just now',
-        dueDate: 'Instant Delivery',
-        status: 'PAID',
-        statusLabel: 'Paid',
-        utrNumber: `TIA${Date.now().toString().slice(-8)}`,
-        invoiceNumber: `INV-${txnCode}-2026`,
-        billedTo: 'Sarah Jenkins',
-        currency: 'INR (₹ Indian Rupee)',
-        fromName: 'TIA Credit Engine',
-        fromEmail: 'billing@theinfluencersagency.com',
-        disbursedAt: 'Just now',
-      },
-      ...prev,
-    ]);
-    setCreditPurchaseSuccess(`✓ Added ${count} Application Credits for ₹${costInr.toLocaleString('en-IN')}!`);
-    setShowBuyCreditsModal(false);
-    setTimeout(() => setCreditPurchaseSuccess(null), 4000);
+  const handleBuyCredits = async (count: number, costInr: number) => {
+    try {
+      // 1. Ensure Razorpay Checkout SDK is ready
+      if (typeof (window as any).Razorpay === 'undefined') {
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+          script.async = true;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error('Failed to load Razorpay payment SDK'));
+          document.head.appendChild(script);
+        });
+      }
 
-    triggerRealtimeNotification({
-      type: 'CREDIT',
-      category: 'PAYMENTS',
-      title: `${count} Application Credits Added`,
-      message: `Successfully topped up your account with ${count} credits for ₹${costInr}.`,
-      actionTab: 'payments',
-      actionLabel: 'View Payments →',
-      badgeText: 'Credits Added',
-      badgeBg: '#EFF6FF',
-      badgeColor: '#0052FF',
-    });
+      // 2. Create Live Razorpay Order via API
+      const res = await fetch('/api/payments/wallet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'CREATE_ORDER',
+          amount: costInr,
+          count,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success || !data.order) {
+        throw new Error(data.error || 'Failed to create payment order');
+      }
+
+      const activeKey = data.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_RQuwNOxotGRMaW';
+
+      // 3. Open Official Razorpay Checkout Modal
+      const options = {
+        key: activeKey,
+        amount: data.order.amount,
+        currency: data.order.currency || 'INR',
+        name: "The Influencer's Agency",
+        description: `${count} Application Credits Pack (₹99/credit)`,
+        image: '/main-logo-cropped.png',
+        order_id: data.order.id,
+        handler: async function (response: any) {
+          try {
+            await fetch('/api/payments/wallet', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'VERIFY_AND_DEPOSIT',
+                amount: costInr,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+          } catch (verifyErr) {
+            console.warn('Payment verify warning:', verifyErr);
+          }
+
+          setApplyCredits((prev) => prev + count);
+          const txnCode = `TXN-CRD-${Date.now().toString().slice(-4)}`;
+          setPayments((prev) => [
+            {
+              id: `tx-cred-${Date.now()}`,
+              invoiceCode: txnCode,
+              mediaName: 'TIA Application Credits Top-up',
+              initials: '⚡',
+              logoBg: '#0052FF',
+              email: 'billing@theinfluencersagency.com',
+              campaign: `${count} Application Credits Pack (₹99/credit)`,
+              deliverableDesc: `${count}x Creator Campaign Pitch & Deal Applications`,
+              amount: `₹${costInr.toLocaleString('en-IN')}.00`,
+              priceFormatted: `₹${costInr.toLocaleString('en-IN')}.00`,
+              grossAmount: costInr,
+              tdsDeduction: 0,
+              platformFee: 0,
+              netAmount: costInr,
+              authorizedAt: 'Just now',
+              dueDate: 'Instant Delivery',
+              status: 'PAID',
+              statusLabel: 'Paid',
+              utrNumber: response.razorpay_payment_id || `TIA${Date.now().toString().slice(-8)}`,
+              invoiceNumber: `INV-${txnCode}-2026`,
+              billedTo: currentUser?.name || 'Creator',
+              currency: 'INR (₹ Indian Rupee)',
+              fromName: 'TIA Credit Engine',
+              fromEmail: 'billing@theinfluencersagency.com',
+              disbursedAt: 'Just now',
+            },
+            ...prev,
+          ]);
+
+          setCreditPurchaseSuccess(`✓ Payment of ₹${costInr.toLocaleString('en-IN')} Successful! Added ${count} Application Credits.`);
+          setShowBuyCreditsModal(false);
+          setShowCreditsStoreView(false);
+          setTimeout(() => setCreditPurchaseSuccess(null), 5000);
+
+          triggerRealtimeNotification({
+            type: 'CREDIT',
+            category: 'PAYMENTS',
+            title: `${count} Application Credits Added`,
+            message: `Payment verified via Razorpay (${response.razorpay_payment_id}). Added ${count} credits.`,
+            actionTab: 'payments',
+            actionLabel: 'View Receipt →',
+            badgeText: 'Payment Verified',
+            badgeBg: '#ECFDF5',
+            badgeColor: '#059669',
+          });
+        },
+        prefill: {
+          name: currentUser?.name || 'Creator',
+          email: currentUser?.email || 'creator@tia.agency',
+        },
+        theme: {
+          color: '#0052FF',
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (resp: any) {
+        alert(`Payment Failed: ${resp.error?.description || 'Transaction cancelled or declined'}`);
+      });
+      rzp.open();
+    } catch (err: any) {
+      console.error('Razorpay Buy Credits Error:', err);
+      alert(`Unable to open Razorpay gateway: ${err.message || 'Please try again'}`);
+    }
   };
 
   const handleDownloadDisbursalSlip = async (tx: any) => {

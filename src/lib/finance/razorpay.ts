@@ -7,7 +7,7 @@ import crypto from 'crypto';
 
 const key_id = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_RQuwNOxotGRMaW';
 const key_secret = process.env.RAZORPAY_KEY_SECRET || 'YvHSA69PHkq4SvDj1Fr8VmuN';
-const webhook_secret = process.env.RAZORPAY_WEBHOOK_SECRET || '3ef54778bead13e6398b16e4db45389658cd96a6be26f582c0fa0f5b84293f0b';
+const webhook_secret = process.env.RAZORPAY_WEBHOOK_SECRET || 'tia_live_webhook_secret_2026';
 
 export const razorpayClient = new Razorpay({
   key_id,
