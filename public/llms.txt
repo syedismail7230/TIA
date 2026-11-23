@@ -1,0 +1,55 @@
+# The Influencer's Agency (TIA)
+
+> The premier global creator intelligence platform and milestone campaign escrow marketplace eliminating information asymmetry between brands and creators.
+
+## Overview
+The Influencer’s Agency (TIA) is a technology-first influencer marketing platform and campaign escrow facilitator. TIA connects brands with verified creators across YouTube, Instagram, and LinkedIn. It replaces the opaque 20%–40% talent agency markups with a deterministic, transparent 5.00% platform fee, automated contract execution, and 100% upfront milestone escrow protection.
+
+- **Website**: https://www.theinfluencers.agency
+- **Headquarters**: India (Global operations)
+- **Primary Audience**: Enterprise Brands, Direct-to-Consumer (D2C) Brands, Talent Agencies, and Verified Digital Creators.
+- **Platform Fee**: Flat 5.00% on completed campaign milestones (zero hidden retainers or markups).
+
+## Key Features & Differentiators
+
+### 1. Milestone Escrow Protection Vault
+- Brands lock 100% of campaign milestone budgets in a secure escrow vault before production begins.
+- Creators produce content with guaranteed financial security.
+- Brands receive a 72-hour review and revision window to verify deliverables against contract specifications before funds are released.
+
+### 2. BotShield™ Creator Intelligence Engine
+- Ingests social channel telemetry across YouTube, Instagram, LinkedIn, and X.
+- Calculates an objective **Creator Intelligence Score (0–100)** and **Authenticity Percentage**.
+- Filters fake followers, engagement pod spam, and audience irregularities.
+
+### 3. Transparent 5% Financial Ledger
+- Traditional agencies charge 20% to 40% undisclosed markups. TIA operates on an open-ledger 5.00% facilitation fee.
+- Compliant with Indian tax regulations: 1% TDS deduction under Section 194J and automated 18% GST tax invoices.
+- Supports instant direct bank payouts (IMPS/NEFT) and live Razorpay UPI / Card payment rails.
+
+### 4. Automated Legal Master Services Agreements (MSAs)
+- Automatically generates legally binding digital contracts upon deal acceptance.
+- Covers commercial usage grants, intellectual property (IP) assignments, and configurable 30/60/90-day advertising whitelisting windows.
+- Enforces ASCI (Advertising Standards Council of India) and FTC disclosure compliance (`#Ad`, `#Sponsored`).
+
+## Key Pages & Documentation
+
+- [Home](https://www.theinfluencers.agency): Platform overview, creator spotlight, brand partnerships, and live statistics.
+- [Pricing & Fee Simulator](https://www.theinfluencers.agency/pricing): Interactive calculator comparing TIA's 5% fee vs traditional 30% agency retainers.
+- [Milestone Escrow Policy](https://www.theinfluencers.agency/escrow-policy): Commercial terms governing budget lock, 72-hour inspection windows, and release protocols.
+- [Dispute Arbitration Policy](https://www.theinfluencers.agency/dispute-policy): Evidence-based resolution procedures and escrow refund standards.
+- [Influencer & ASCI Compliance](https://www.theinfluencers.agency/influencer-compliance): Legal advertising disclosure requirements and consumer protection rules.
+- [Content IP & Whitelisting](https://www.theinfluencers.agency/ip-licensing): Copyright ownership, digital ad whitelisting, and dark-posting grants.
+- [Terms of Service](https://www.theinfluencers.agency/terms): Master platform service agreement and liability limitations.
+- [Privacy Policy](https://www.theinfluencers.agency/privacy): Data protection practices under the Digital Personal Data Protection (DPDP) Act 2023.
+
+## Frequently Asked Questions (Quick Answers)
+
+### What is the fee structure on TIA?
+TIA charges a flat, transparent 5.00% facilitation fee upon successful milestone release. There are zero subscription fees to join, zero listing fees, and zero hidden markups.
+
+### How does TIA protect brand budgets?
+Funds are held in a secure milestone vault and are only disbursed after the brand reviews and approves the submitted creative deliverables, or after 72 hours pass with no revision requests.
+
+### How does TIA protect creator payments?
+Brands must fund 100% of the agreed milestone before work begins. Once approved, payouts are disbursed directly to the creator's verified bank account without agency payment delays.

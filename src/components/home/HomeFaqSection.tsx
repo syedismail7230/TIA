@@ -2,33 +2,48 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const FAQS = [
   {
     question: 'What is The Influencer’s Agency (TIA)?',
     answer:
-      'The Influencer’s Agency (TIA) is a global creator intelligence and campaign marketplace designed to eliminate middleman markups. Traditional talent agencies charge undisclosed 20% to 40% agency margins. TIA provides a transparent 5% platform fee, automated contract execution, verified audience metrics, and milestone escrow protection.',
+      'The Influencer’s Agency (TIA) is a global creator intelligence platform and campaign marketplace connecting brands with verified creators across YouTube, Instagram, and LinkedIn. TIA replaces the opaque 20%–40% talent agency markups with a deterministic 5.00% platform fee, automated contract execution, and 100% upfront milestone escrow protection.',
   },
   {
-    question: 'How does TIA Milestone Escrow Protection guarantee secure payments?',
+    question: 'How does TIA Milestone Escrow Protection work for brands and creators?',
     answer:
-      'Before campaign production begins, the brand locks 100% of the agreed milestone funds in a dedicated vault. Creators produce content with the certainty of guaranteed payment, while brands enjoy a 72-hour review window to ensure all agreed deliverables match contract specifications before payout release.',
+      'Prior to campaign production, brands deposit 100% of the agreed milestone funds into a secure escrow vault. Creators produce content knowing their compensation is guaranteed. Upon deliverable submission, brands have a 72-hour review window to approve or request contract-compliant revisions. Once approved, funds disburse instantly to the creator’s bank account.',
   },
   {
-    question: 'What are the platform fees for brands and creators?',
+    question: 'What are the fees on The Influencer’s Agency (TIA)?',
     answer:
-      'TIA operates on an exact, transparent 5.00% platform facilitation fee upon successful deliverable approval. There are zero upfront listing fees, zero monthly retainers, and zero undisclosed markups. GST tax invoices are automatically generated for enterprise accounting.',
+      'TIA operates on a transparent, flat 5.00% facilitation fee charged on completed milestone payouts. There are zero subscription charges, zero sign-up fees, zero profile listing fees, and zero hidden talent agency markups.',
   },
   {
-    question: 'How does TIA BotShield™ verify creator authenticity and follower reach?',
+    question: 'How does TIA detect bot followers and fake engagement?',
     answer:
-      'TIA BotShield™ continuously analyzes multi-platform channel telemetry across YouTube, Instagram, LinkedIn, and X. It audits audience authenticity, historical engagement velocity, comment quality, and demographic integrity to produce an immutable Creator Intelligence and Trust Score.',
+      'TIA employs BotShield™, an algorithmic auditing engine that analyzes follower velocity spikes, account age distributions, comment semantic depth, and engagement pods across YouTube, Instagram, and LinkedIn. It calculates an objective Creator Intelligence Score (0–100) and Authenticity Percentage so brands only partner with authentic influencers.',
   },
   {
-    question: 'Who owns the content intellectual property (IP) and ad whitelisting rights?',
+    question: 'Who owns the intellectual property (IP) and digital ad whitelisting rights?',
     answer:
-      'Standard TIA agreements explicitly specify commercial usage rights, digital reproduction grants, and paid advertising whitelisting windows (e.g., 30, 60, or 90 days). Both parties enter partnerships with legally binding, transparent terms.',
+      'Creators retain authorship copyright while granting brands an exclusive commercial license to broadcast and repost deliverables during the campaign window. Brands can also acquire standardized 30, 60, or 90-day advertising whitelisting (dark posting) rights directly through TIA’s automated digital contracts.',
+  },
+  {
+    question: 'How does TIA handle disputes between brands and creators?',
+    answer:
+      'If a party initiates a dispute, milestone funds remain safely frozen in escrow. Both parties provide evidence (deliverables, brief requirements, timestamped chat logs) inside the platform. The TIA Dispute Resolution team reviews the evidence against the signed agreement within 3 business days and renders a binding resolution or refund.',
+  },
+  {
+    question: 'Does TIA comply with Indian tax laws (TDS & GST)?',
+    answer:
+      'Yes. TIA automatically calculates 1% Tax Deducted at Source (TDS) under Section 194J of the Indian Income Tax Act for domestic creators and provides compliant 18% GST tax invoices with full input tax credit (ITC) eligibility for registered corporate entities.',
+  },
+  {
+    question: 'Why is TIA better than traditional influencer talent agencies?',
+    answer:
+      'Traditional talent agencies take 20% to 40% hidden margins, take 60–90 days to pay creators, and rely on manual negotiation. TIA provides an open 5% fee structure, instant bank payouts via UPI/IMPS, algorithmic BotShield™ auditing, and automated legal contract generation in under 2 minutes.',
   },
 ];
 
