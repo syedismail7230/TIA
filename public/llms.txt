@@ -35,6 +35,7 @@ The Influencer’s Agency (TIA) is a technology-first influencer marketing platf
 ## Key Pages & Documentation
 
 - [Home](https://www.theinfluencers.agency): Platform overview, creator spotlight, brand partnerships, and live statistics.
+- [About Us](https://www.theinfluencers.agency/about): Company mission, executive leadership, Indian and global headquarters, and transparency pledge.
 - [Pricing & Fee Simulator](https://www.theinfluencers.agency/pricing): Interactive calculator comparing TIA's 5% fee vs traditional 30% agency retainers.
 - [Milestone Escrow Policy](https://www.theinfluencers.agency/escrow-policy): Commercial terms governing budget lock, 72-hour inspection windows, and release protocols.
 - [Dispute Arbitration Policy](https://www.theinfluencers.agency/dispute-policy): Evidence-based resolution procedures and escrow refund standards.

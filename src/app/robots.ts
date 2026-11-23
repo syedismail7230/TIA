@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -46,6 +47,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Googlebot',
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -73,6 +75,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: ['GPTBot', 'ChatGPT-User'],
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -99,6 +102,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'PerplexityBot',
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -125,6 +129,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: ['ClaudeBot', 'anthropic-ai'],
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -151,6 +156,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Google-Extended',
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -177,6 +183,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Bingbot',
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',
@@ -203,6 +210,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: ['Applebot', 'Applebot-Extended'],
         allow: [
           '/',
+          '/about',
           '/pricing',
           '/legal',
           '/terms',

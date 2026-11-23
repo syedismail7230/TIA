@@ -28,6 +28,7 @@
 | Entity / Page | Canonical URL | Primary Purpose |
 | :--- | :--- | :--- |
 | **Homepage** | `https://www.theinfluencers.agency` | Marketplace discovery, platform features, verified creator spotlight, live statistics |
+| **About Us** | `https://www.theinfluencers.agency/about` | Company mission, leadership, headquarters, regulatory compliance |
 | **Pricing & Fee Simulator** | `https://www.theinfluencers.agency/pricing` | Transparent 5% fee calculator vs. traditional 30% agency model comparison |
 | **Milestone Escrow Policy** | `https://www.theinfluencers.agency/escrow-policy` | Governing rules on budget lock, deliverable approval, and release windows |
 | **Dispute Resolution Policy** | `https://www.theinfluencers.agency/dispute-policy` | Evidence-based mediation, arbitration protocols, and escrow refund workflows |

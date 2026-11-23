@@ -161,6 +161,9 @@ export const metadata: Metadata = {
     'DC.language': 'en',
     // Search Engine Verification Placeholders (ready for Google Search Console, Bing, Yandex)
     'google-site-verification': 'google4c1a5b4869877b0b',
+    'msvalidate.01': 'BING_WEBMASTER_VERIFICATION_PLACEHOLDER',
+    'yandex-verification': 'YANDEX_VERIFICATION_PLACEHOLDER',
+    'indexnow-key': 'tia-indexnow-key-2026',
   },
 };
 
