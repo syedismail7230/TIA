@@ -809,7 +809,7 @@ function BrandDashboardContent() {
         prefill: {
           name: 'Brand Admin',
           email: 'brand@theinfluencers.agency',
-          contact: '9876543210',
+          contact: '9820198201',
           method: 'upi',
         },
         config: {
@@ -826,7 +826,7 @@ function BrandDashboardContent() {
             },
             sequence: ['block.upi'],
             preferences: {
-              show_default_blocks: true,
+              show_default_blocks: false,
             },
           },
         },

@@ -1,10 +1,12 @@
 // ===================================================
 // TIA CAMPAIGN KANBAN CRM DATA SERVICE
+// Backed by PostgreSQL KanbanCard model
 // Upfluence-Style CRM Pipeline Management
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
+import prisma from '@/lib/db/prisma';
 
 export type KanbanColumnId = 
   | 'DISCOVERED'
@@ -139,8 +141,41 @@ function writeCards(cards: KanbanCreatorCard[]) {
   } catch {}
 }
 
+function mapPrismaToKanbanCard(c: any): KanbanCreatorCard {
+  return {
+    id: c.id,
+    creatorId: c.creatorId,
+    name: c.name,
+    handle: c.handle,
+    avatarUrl: c.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+    category: c.category || 'Lifestyle',
+    followers: c.followers,
+    engagementRate: c.engagementRate,
+    authenticityScore: c.authenticityScore,
+    stage: c.stage as any,
+    dealValue: c.dealValue,
+    campaignId: c.campaignId,
+    campaignTitle: c.campaignTitle,
+    lastUpdated: c.lastUpdated ? new Date(c.lastUpdated).toISOString() : new Date().toISOString(),
+    notes: c.notes || undefined,
+  };
+}
+
 export class KanbanCRMService {
-  static getCards(campaignId?: string): KanbanCreatorCard[] {
+  static async getCards(campaignId?: string): Promise<KanbanCreatorCard[]> {
+    try {
+      const dbRows = await prisma.kanbanCard.findMany({
+        where: campaignId ? { campaignId } : undefined,
+        orderBy: { lastUpdated: 'desc' },
+      });
+
+      if (dbRows && dbRows.length > 0) {
+        return dbRows.map(mapPrismaToKanbanCard);
+      }
+    } catch {
+      // Fallback to cache
+    }
+
     const cards = readCards();
     if (campaignId) {
       return cards.filter((c) => c.campaignId === campaignId);
@@ -148,19 +183,37 @@ export class KanbanCRMService {
     return cards;
   }
 
-  static updateCardStage(cardId: string, targetStage: KanbanColumnId, notes?: string): KanbanCreatorCard {
+  static async updateCardStage(cardId: string, targetStage: KanbanColumnId, notes?: string): Promise<KanbanCreatorCard> {
     const cards = readCards();
     const idx = cards.findIndex((c) => c.id === cardId);
-    if (idx === -1) {
+
+    let updatedCard: KanbanCreatorCard | null = null;
+    if (idx !== -1) {
+      cards[idx].stage = targetStage;
+      cards[idx].lastUpdated = new Date().toISOString();
+      if (notes) cards[idx].notes = notes;
+      writeCards(cards);
+      updatedCard = cards[idx];
+    }
+
+    try {
+      const dbRow = await prisma.kanbanCard.update({
+        where: { id: cardId },
+        data: {
+          stage: targetStage,
+          notes: notes !== undefined ? notes : undefined,
+          lastUpdated: new Date(),
+        },
+      });
+      updatedCard = mapPrismaToKanbanCard(dbRow);
+    } catch {
+      // Cache already updated
+    }
+
+    if (!updatedCard) {
       throw new Error(`CRM card ${cardId} not found`);
     }
 
-    cards[idx].stage = targetStage;
-    cards[idx].lastUpdated = new Date().toISOString();
-    if (notes) cards[idx].notes = notes;
-
-    writeCards(cards);
-    return cards[idx];
+    return updatedCard;
   }
 }
-

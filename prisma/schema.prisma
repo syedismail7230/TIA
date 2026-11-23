@@ -22,6 +22,7 @@ model User {
   email            String               @unique
   passwordHash     String
   name             String
+  phone            String?
   role             String               @default("CREATOR") // CREATOR, BRAND_USER, BRAND_ADMIN, TIA_SUPPORT, TIA_MODERATOR, TIA_FINANCE, TIA_SUPER_ADMIN
   emailVerified    Boolean              @default(false)
   avatarUrl        String?
@@ -103,6 +104,7 @@ model Creator {
   userId             String                @unique
   displayName        String
   username           String                @unique
+  phone              String?
   bio                String?
   country            String?
   region             String?
@@ -110,10 +112,15 @@ model Creator {
   timezone           String?               @default("UTC")
   languages          String?               // JSON array of strings e.g. ["English", "Hindi"]
   categories         String?               // JSON array of strings e.g. ["Tech", "Lifestyle"]
+  category           String?               @default("All")
   verificationStatus String                @default("UNVERIFIED") // UNVERIFIED, EMAIL_VERIFIED, IDENTITY_VERIFIED, SOCIAL_CONNECTED, VERIFIED_CREATOR
   intelligenceScore  Int                   @default(0) // 0 - 100
   reputationScore    Int                   @default(100) // 0 - 100
   brandSafetyScore   Int                   @default(100) // 0 - 100
+  credibilityScore   Int?                  @default(95)
+  botShieldAuthenticity Float?             @default(98.0)
+  baseRate           Int?                  @default(45000)
+  verifiedPartner    Boolean?              @default(true)
   availabilityStatus String                @default("AVAILABLE") // AVAILABLE, BUSY, UNAVAILABLE
   createdAt          DateTime              @default(now())
   updatedAt          DateTime              @updatedAt
@@ -446,22 +453,36 @@ model CampaignDeliverable {
 }
 
 model ContentSubmission {
-  id            String            @id @default(uuid())
-  deliverableId String
-  version       Int               @default(1)
-  fileUrl       String
-  fileKey       String?
-  fileName      String?
-  fileSizeBytes Int               @default(0)
-  mimeType      String?
-  caption       String?
-  tags          String?
-  status        String            @default("SUBMITTED") // SUBMITTED, REVISION_REQUESTED, APPROVED, PUBLISHED
-  notes         String?
-  submittedAt   DateTime          @default(now())
+  id                  String               @id @default(uuid())
+  deliverableId       String?
+  campaignId          String?
+  campaignTitle       String?
+  collabId            String?
+  creatorId           String?
+  creatorName         String?
+  brandId             String?
+  deliverableType     String?              @default("DRAFT_VIDEO")
+  title               String?
+  previewThumbnailUrl String?
+  milestoneStage      Int?                 @default(1)
+  payoutTransactionId String?
+  version             Int                  @default(1)
+  fileUrl             String
+  fileKey             String?
+  fileName            String?
+  fileSizeBytes       Int                  @default(0)
+  mimeType            String?
+  caption             String?
+  tags                String?
+  status              String               @default("SUBMITTED") // SUBMITTED, REVISION_REQUESTED, APPROVED, PUBLISHED
+  notes               String?
+  autoApprovalDeadline DateTime?
+  reviewNotes         String?              // JSON array of SubmissionReviewNote
+  submittedAt         DateTime             @default(now())
+  approvedAt          DateTime?
 
-  deliverable   CampaignDeliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
-  revisions     ContentRevision[]
+  deliverable         CampaignDeliverable? @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
+  revisions           ContentRevision[]
 }
 
 model ContentRevision {
@@ -503,6 +524,7 @@ model Message {
   senderUserId               String
   senderRole                 String        // BRAND, CREATOR, SYSTEM, MODERATOR
   content                    String
+  type                       String        @default("TEXT") // TEXT, DELIVERABLE, MILESTONE, APPROVAL
   attachmentUrls             String?       // JSON array
   containsFlaggedContactInfo Boolean       @default(false)
   flaggedReason              String?
@@ -547,6 +569,33 @@ model Transaction {
   invoice                 Invoice?
 }
 
+model Wallet {
+  id                String        @id @default(uuid())
+  ownerId           String        @unique // user id or organization id
+  ownerType         String        @default("BRAND") // BRAND, CREATOR
+  availableBalance  Int           @default(0) // Minor currency units (paise)
+  committedInEscrow Int           @default(0) // Minor currency units (paise)
+  totalDisbursed    Int           @default(0) // Minor currency units (paise)
+  currency          String        @default("INR")
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  ledgerEntries     LedgerEntry[]
+}
+
+model LedgerEntry {
+  id           String   @id @default(uuid())
+  walletId     String
+  amount       Int      // Positive for credits, negative for debits (paise)
+  type         String   // DEPOSIT, ESCROW_LOCK, ESCROW_RELEASE, PAYOUT, COMMISSION, REFUND
+  referenceId  String?  // Razorpay payment ID, contract ID, or transaction ID
+  description  String
+  balanceAfter Int      // Balance snapshot in paise
+  createdAt    DateTime @default(now())
+
+  wallet       Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+}
+
 model CommissionConfig {
   id                String   @id @default(uuid())
   name              String
@@ -577,21 +626,32 @@ model PayoutRecord {
 }
 
 model Invoice {
-  id                String       @id @default(uuid())
-  transactionId     String       @unique
-  invoiceNumber     String       @unique
-  issuedToOrgId     String
-  issuedToCreatorId String?
-  totalAmount       Int          // Minor units
-  commissionAmount  Int          // Minor units
-  netAmount         Int          // Minor units
-  currency          String       @default("INR")
-  pdfUrl            String?
-  status            String       @default("ISSUED") // ISSUED, PAID, CANCELLED
-  issuedAt          DateTime     @default(now())
+  id                  String       @id @default(uuid())
+  transactionId       String?      @unique
+  invoiceNumber       String       @unique
+  issuedToOrgId       String
+  issuedToCreatorId   String?
+  brandLegalName      String?
+  brandGstin          String?
+  brandAddress        String?
+  campaignTitle       String?
+  sacCode             String?      @default("998371")
+  grossCampaignAmount Int?         @default(0)
+  taxableServiceValue Int?         @default(0)
+  cgstAmount          Int?         @default(0)
+  sgstAmount          Int?         @default(0)
+  igstAmount          Int?         @default(0)
+  tdsDeducted194J     Int?         @default(0)
+  totalAmount         Int          // Minor units
+  commissionAmount    Int          // Minor units
+  netAmount           Int          // Minor units
+  currency            String       @default("INR")
+  pdfUrl              String?
+  status              String       @default("ISSUED") // ISSUED, PAID, CANCELLED
+  issuedAt            DateTime     @default(now())
 
-  transaction       Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  organization      Organization @relation(fields: [issuedToOrgId], references: [id], onDelete: Cascade)
+  transaction         Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  organization        Organization @relation(fields: [issuedToOrgId], references: [id], onDelete: Cascade)
 }
 
 // ---------------------------------------------------
@@ -653,12 +713,17 @@ model Review {
 model Dispute {
   id                     String            @id @default(uuid())
   campaignId             String
+  campaignTitle          String?
+  collabId               String?
   contractId             String?
   initiatorUserId        String
   initiatorRole          String            // BRAND, CREATOR
   reason                 String            // PAYMENT, DELIVERABLES, QUALITY, DEADLINES, CONTRACT_TERMS, CANCELLATION, MISREPRESENTATION
   description            String
   claimedAmount          Int               @default(0) // Minor units
+  disputedAmount         Int?              @default(0)
+  evidenceNotes          String?
+  arbitratorNotes        String?
   currency               String            @default("INR")
   status                 String            @default("OPENED") // OPENED, EVIDENCE_SUBMITTED, UNDER_REVIEW, DECIDED, RESOLVED, CLOSED
   decisionSummary        String?
@@ -698,6 +763,7 @@ model Notification {
   userId    String
   title     String
   message   String
+  tab       String?  // campaigns, discovery, applications, workspace, financials, settings
   actionUrl String?
   type      String   @default("INFO") // CAMPAIGN_INVITE, APPLICATION_RECEIVED, BID_ACCEPTED, CONTRACT_READY, PAYMENT_HELD, CONTENT_SUBMITTED, REVISION_REQUESTED, APPROVED, COMPLETED, DISPUTE
   isRead    Boolean  @default(false)
@@ -727,4 +793,26 @@ model AuditLog {
   @@index([userId])
   @@index([action])
   @@index([createdAt])
+}
+
+model KanbanCard {
+  id                String   @id @default(uuid())
+  creatorId         String
+  name              String
+  handle            String
+  avatarUrl         String?
+  category          String?
+  followers         Int      @default(0)
+  engagementRate    Float    @default(0.0)
+  authenticityScore Int      @default(90)
+  stage             String   // DISCOVERED, APPLIED, SHORTLISTED, NEGOTIATING, BUDGET_LOCKED, CONTENT_REVIEW, COMPLETED_PAID
+  dealValue         Int      @default(0)
+  campaignId        String
+  campaignTitle     String
+  notes             String?
+  lastUpdated       DateTime @default(now())
+  createdAt         DateTime @default(now())
+
+  @@index([campaignId])
+  @@index([stage])
 }

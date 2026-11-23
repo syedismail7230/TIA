@@ -2008,7 +2008,7 @@ function CreatorPortalContent() {
         prefill: {
           name: currentUser?.name || currentUser?.creatorProfile?.displayName || 'Creator',
           email: currentUser?.email || 'user1@theinfluencers.agency',
-          contact: currentUser?.phone?.replace(/[^0-9]/g, '').slice(-10) || '9876543210',
+          contact: (currentUser?.phone || (typeof window !== 'undefined' ? localStorage.getItem('tia_user_phone') : null) || '9820198201').replace(/[^0-9]/g, '').slice(-10),
           method: 'upi',
         },
         config: {
@@ -2025,7 +2025,7 @@ function CreatorPortalContent() {
             },
             sequence: ['block.upi'],
             preferences: {
-              show_default_blocks: true,
+              show_default_blocks: false,
             },
           },
         },

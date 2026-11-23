@@ -1,11 +1,13 @@
 // ===================================================
 // TIA BACKEND - SUBMISSION & 72H SLA REVIEW SERVICE
+// Backed by PostgreSQL ContentSubmission & ContentRevision models
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
 import { logAudit } from '@/lib/audit/logger';
 import { PaymentService } from '@/lib/services/payment.service';
+import prisma from '@/lib/db/prisma';
 
 export interface SubmissionReviewNote {
   id: string;
@@ -111,6 +113,42 @@ function writeSubmissions(submissions: DeliverableSubmissionRecord[]) {
   } catch {}
 }
 
+function mapPrismaToSubmissionRecord(row: any): DeliverableSubmissionRecord {
+  let reviewNotes: SubmissionReviewNote[] = [];
+  if (row.reviewNotes) {
+    try {
+      reviewNotes = typeof row.reviewNotes === 'string' ? JSON.parse(row.reviewNotes) : row.reviewNotes;
+    } catch {
+      reviewNotes = [];
+    }
+  }
+
+  return {
+    id: row.id,
+    campaignId: row.campaignId || '',
+    campaignTitle: row.campaignTitle || '',
+    collabId: row.collabId || '',
+    creatorId: row.creatorId || '',
+    creatorName: row.creatorName || 'Creator',
+    brandId: row.brandId || '',
+    deliverableType: (row.deliverableType || 'DRAFT_VIDEO') as any,
+    title: row.title || row.caption || 'Submission',
+    assetUrl: row.fileUrl,
+    previewThumbnailUrl: row.previewThumbnailUrl || undefined,
+    notes: row.notes || undefined,
+    milestoneStage: row.milestoneStage || 1,
+    payoutTransactionId: row.payoutTransactionId || undefined,
+    status: (row.status || 'PENDING_REVIEW') as any,
+    revisionCount: row.version ? Math.max(0, row.version - 1) : 0,
+    submittedAt: row.submittedAt ? new Date(row.submittedAt).toISOString() : new Date().toISOString(),
+    autoApprovalDeadline: row.autoApprovalDeadline
+      ? new Date(row.autoApprovalDeadline).toISOString()
+      : new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString(),
+    reviewNotes,
+    approvedAt: row.approvedAt ? new Date(row.approvedAt).toISOString() : undefined,
+  };
+}
+
 export class SubmissionService {
   static async list(filters?: {
     campaignId?: string;
@@ -119,23 +157,32 @@ export class SubmissionService {
     brandId?: string;
     status?: string;
   }): Promise<DeliverableSubmissionRecord[]> {
-    let list = readSubmissions();
+    try {
+      const whereClause: any = {};
+      if (filters?.campaignId) whereClause.campaignId = filters.campaignId;
+      if (filters?.collabId) whereClause.collabId = filters.collabId;
+      if (filters?.creatorId) whereClause.creatorId = filters.creatorId;
+      if (filters?.brandId) whereClause.brandId = filters.brandId;
+      if (filters?.status && filters.status !== 'ALL') whereClause.status = filters.status;
 
-    if (filters?.campaignId) {
-      list = list.filter((s) => s.campaignId === filters.campaignId);
+      const dbRows = await prisma.contentSubmission.findMany({
+        where: whereClause,
+        orderBy: { submittedAt: 'desc' },
+      });
+
+      if (dbRows && dbRows.length > 0) {
+        return dbRows.map(mapPrismaToSubmissionRecord);
+      }
+    } catch {
+      // Fallback to local cache if PostgreSQL is unreachable or table empty
     }
-    if (filters?.collabId) {
-      list = list.filter((s) => s.collabId === filters.collabId);
-    }
-    if (filters?.creatorId) {
-      list = list.filter((s) => s.creatorId === filters.creatorId);
-    }
-    if (filters?.brandId) {
-      list = list.filter((s) => s.brandId === filters.brandId);
-    }
-    if (filters?.status && filters.status !== 'ALL') {
-      list = list.filter((s) => s.status === filters.status);
-    }
+
+    let list = readSubmissions();
+    if (filters?.campaignId) list = list.filter((s) => s.campaignId === filters.campaignId);
+    if (filters?.collabId) list = list.filter((s) => s.collabId === filters.collabId);
+    if (filters?.creatorId) list = list.filter((s) => s.creatorId === filters.creatorId);
+    if (filters?.brandId) list = list.filter((s) => s.brandId === filters.brandId);
+    if (filters?.status && filters.status !== 'ALL') list = list.filter((s) => s.status === filters.status);
 
     return list.sort((a, b) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
   }
@@ -154,12 +201,12 @@ export class SubmissionService {
     milestoneStage: number;
     payoutTransactionId?: string;
   }): Promise<DeliverableSubmissionRecord> {
-    const list = readSubmissions();
     const now = new Date();
-    const deadline = new Date(now.getTime() + 72 * 60 * 60 * 1000); // 72 hours
+    const deadline = new Date(now.getTime() + 72 * 60 * 60 * 1000); // 72 hours SLA
+    const id = `sub-${Date.now()}`;
 
-    const newSub: DeliverableSubmissionRecord = {
-      id: `sub-${Date.now()}`,
+    let createdRecord: DeliverableSubmissionRecord = {
+      id,
       campaignId: input.campaignId,
       campaignTitle: input.campaignTitle,
       collabId: input.collabId,
@@ -179,18 +226,46 @@ export class SubmissionService {
       reviewNotes: [],
     };
 
-    list.unshift(newSub);
+    try {
+      const dbRow = await prisma.contentSubmission.create({
+        data: {
+          id,
+          campaignId: input.campaignId,
+          campaignTitle: input.campaignTitle,
+          collabId: input.collabId,
+          creatorId: input.creatorId,
+          creatorName: input.creatorName,
+          brandId: input.brandId,
+          deliverableType: input.deliverableType,
+          title: input.title,
+          fileUrl: input.assetUrl,
+          notes: input.notes || null,
+          milestoneStage: input.milestoneStage,
+          payoutTransactionId: input.payoutTransactionId || null,
+          status: 'PENDING_REVIEW',
+          submittedAt: now,
+          autoApprovalDeadline: deadline,
+          reviewNotes: JSON.stringify([]),
+        },
+      });
+      createdRecord = mapPrismaToSubmissionRecord(dbRow);
+    } catch {
+      // Persisted to cache below
+    }
+
+    const list = readSubmissions();
+    list.unshift(createdRecord);
     writeSubmissions(list);
 
     logAudit({
       actorId: input.creatorId,
       action: 'DELIVERABLE_SUBMITTED',
       targetType: 'DeliverableSubmission',
-      targetId: newSub.id,
+      targetId: createdRecord.id,
       details: { type: input.deliverableType, title: input.title },
     });
 
-    return newSub;
+    return createdRecord;
   }
 
   static async addReviewNote(input: {
@@ -204,9 +279,7 @@ export class SubmissionService {
   }): Promise<DeliverableSubmissionRecord | null> {
     const list = readSubmissions();
     const idx = list.findIndex((s) => s.id === input.submissionId);
-    if (idx === -1) return null;
 
-    const sub = list[idx];
     const newNote: SubmissionReviewNote = {
       id: `rn-${Date.now()}`,
       authorId: input.authorId,
@@ -217,30 +290,72 @@ export class SubmissionService {
       createdAt: new Date().toISOString(),
     };
 
-    sub.reviewNotes.push(newNote);
-
-    if (input.requestRevision) {
-      sub.status = 'REVISION_REQUESTED';
-      sub.revisionCount += 1;
+    let targetSub: DeliverableSubmissionRecord | null = null;
+    if (idx !== -1) {
+      targetSub = list[idx];
+      targetSub.reviewNotes.push(newNote);
+      if (input.requestRevision) {
+        targetSub.status = 'REVISION_REQUESTED';
+        targetSub.revisionCount += 1;
+      }
+      writeSubmissions(list);
     }
 
-    writeSubmissions(list);
-    return sub;
+    try {
+      const existing = await prisma.contentSubmission.findUnique({
+        where: { id: input.submissionId },
+      });
+
+      if (existing) {
+        let existingNotes: SubmissionReviewNote[] = [];
+        try {
+          existingNotes = existing.reviewNotes ? JSON.parse(existing.reviewNotes) : [];
+        } catch {}
+        existingNotes.push(newNote);
+
+        const updated = await prisma.contentSubmission.update({
+          where: { id: input.submissionId },
+          data: {
+            reviewNotes: JSON.stringify(existingNotes),
+            status: input.requestRevision ? 'REVISION_REQUESTED' : existing.status,
+            version: input.requestRevision ? existing.version + 1 : existing.version,
+          },
+        });
+        targetSub = mapPrismaToSubmissionRecord(updated);
+      }
+    } catch {
+      // Local cache already updated
+    }
+
+    return targetSub;
   }
 
   static async approve(submissionId: string, approvedBy: string): Promise<DeliverableSubmissionRecord | null> {
     const list = readSubmissions();
     const idx = list.findIndex((s) => s.id === submissionId);
-    if (idx === -1) return null;
+    let sub: DeliverableSubmissionRecord | null = idx !== -1 ? list[idx] : null;
 
-    const sub = list[idx];
-    sub.status = 'APPROVED';
-    sub.approvedAt = new Date().toISOString();
+    if (sub) {
+      sub.status = 'APPROVED';
+      sub.approvedAt = new Date().toISOString();
+      writeSubmissions(list);
+    }
 
-    writeSubmissions(list);
+    try {
+      const updated = await prisma.contentSubmission.update({
+        where: { id: submissionId },
+        data: {
+          status: 'APPROVED',
+          approvedAt: new Date(),
+        },
+      });
+      sub = mapPrismaToSubmissionRecord(updated);
+    } catch {
+      // Local cache already updated
+    }
 
-    // If transaction ID is attached, disburse funds automatically
-    if (sub.payoutTransactionId) {
+    // Disburse funds automatically if milestone transaction is attached
+    if (sub?.payoutTransactionId) {
       try {
         await PaymentService.disbursePayout(sub.payoutTransactionId);
       } catch (err) {

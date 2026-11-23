@@ -1,11 +1,13 @@
 // ===================================================
 // TIA BACKEND - MESSAGING & CIRCUMVENTION SERVICE
+// Backed by PostgreSQL MessageThread & Message models
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
 import { scanForCircumvention } from '@/lib/circumvention/detector';
 import { logAudit } from '@/lib/audit/logger';
+import prisma from '@/lib/db/prisma';
 
 export interface ChatMessageRecord {
   id: string;
@@ -137,13 +139,88 @@ function writeMessages(messages: ChatMessageRecord[]) {
   } catch {}
 }
 
+function mapPrismaToMessageRecord(m: any): ChatMessageRecord {
+  return {
+    id: m.id,
+    threadId: m.threadId,
+    senderId: m.senderUserId,
+    senderName: m.sender?.name || 'User',
+    senderRole: (m.senderRole || 'SYSTEM') as any,
+    text: m.content,
+    type: (m.type || 'TEXT') as any,
+    attachmentUrl: m.attachmentUrls ? JSON.parse(m.attachmentUrls)[0] : undefined,
+    flaggedForCircumvention: m.containsFlaggedContactInfo,
+    circumventionReasons: m.flaggedReason ? [m.flaggedReason] : undefined,
+    createdAt: m.createdAt ? new Date(m.createdAt).toISOString() : new Date().toISOString(),
+  };
+}
+
 export class MessageService {
   static async getThreadsForUser(userId: string): Promise<ChatThreadRecord[]> {
+    try {
+      const dbThreads = await prisma.messageThread.findMany({
+        where: {
+          OR: [
+            { creator: { userId } },
+            { creatorId: userId },
+            { organization: { members: { some: { userId } } } },
+            { organizationId: userId },
+          ],
+        },
+        include: {
+          campaign: true,
+          organization: true,
+          creator: { include: { user: true } },
+          messages: {
+            orderBy: { createdAt: 'desc' },
+            take: 1,
+          },
+        },
+        orderBy: { updatedAt: 'desc' },
+      });
+
+      if (dbThreads && dbThreads.length > 0) {
+        return dbThreads.map((t) => {
+          const lastMsg = t.messages[0];
+          return {
+            id: t.id,
+            collabId: t.id,
+            campaignId: t.campaignId,
+            campaignTitle: t.campaign?.title || 'Active Collaboration',
+            brandId: t.organizationId,
+            brandName: t.organization?.name || 'Brand Partner',
+            creatorId: t.creatorId,
+            creatorName: t.creator?.displayName || t.creator?.user?.name || 'Creator',
+            lastMessageText: lastMsg?.content || 'Conversation initiated',
+            lastMessageAt: lastMsg?.createdAt ? new Date(lastMsg.createdAt).toISOString() : new Date(t.createdAt).toISOString(),
+            unreadCountBrand: 0,
+            unreadCountCreator: 0,
+          };
+        });
+      }
+    } catch {
+      // Fallback to cache if PostgreSQL is unreachable
+    }
+
     const threads = readThreads();
     return threads.filter((t) => t.brandId === userId || t.creatorId === userId);
   }
 
   static async getMessages(threadId: string): Promise<ChatMessageRecord[]> {
+    try {
+      const dbMessages = await prisma.message.findMany({
+        where: { threadId },
+        include: { sender: true },
+        orderBy: { createdAt: 'asc' },
+      });
+
+      if (dbMessages && dbMessages.length > 0) {
+        return dbMessages.map(mapPrismaToMessageRecord);
+      }
+    } catch {
+      // Fallback to cache
+    }
+
     const messages = readMessages();
     return messages
       .filter((m) => m.threadId === threadId)
@@ -173,9 +250,9 @@ export class MessageService {
       );
     }
 
-    const messages = readMessages();
-    const newMsg: ChatMessageRecord = {
-      id: `msg-${Date.now()}`,
+    const id = `msg-${Date.now()}`;
+    let newMsg: ChatMessageRecord = {
+      id,
       threadId: input.threadId,
       senderId: input.senderId,
       senderName: input.senderName,
@@ -186,10 +263,31 @@ export class MessageService {
       createdAt: new Date().toISOString(),
     };
 
+    try {
+      const created = await prisma.message.create({
+        data: {
+          id,
+          threadId: input.threadId,
+          senderUserId: input.senderId,
+          senderRole: input.senderRole,
+          content: input.text.trim(),
+          type: 'TEXT',
+          attachmentUrls: input.attachmentUrl ? JSON.stringify([input.attachmentUrl]) : null,
+          containsFlaggedContactInfo: false,
+          isSystemMessage: false,
+        },
+        include: { sender: true },
+      });
+      newMsg = mapPrismaToMessageRecord(created);
+    } catch {
+      // Local cache updated below
+    }
+
+    const messages = readMessages();
     messages.push(newMsg);
     writeMessages(messages);
 
-    // Update thread snippet
+    // Update thread snippet in memory
     const threads = readThreads();
     const tIdx = threads.findIndex((t) => t.id === input.threadId);
     if (tIdx >= 0) {

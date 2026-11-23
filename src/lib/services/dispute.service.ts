@@ -1,10 +1,12 @@
 // ===================================================
 // TIA BACKEND - DISPUTE RESOLUTION SERVICE
+// Backed by PostgreSQL Dispute & DisputeEvidence models
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
 import { logAudit } from '@/lib/audit/logger';
+import prisma from '@/lib/db/prisma';
 
 export interface DisputeRecord {
   id: string;
@@ -59,14 +61,56 @@ function writeDisputes(disputes: DisputeRecord[]) {
   } catch {}
 }
 
+function mapPrismaToDisputeRecord(row: any): DisputeRecord {
+  let evidenceAttachments: string[] = [];
+  if (row.evidence && Array.isArray(row.evidence)) {
+    evidenceAttachments = row.evidence.map((e: any) => e.fileUrl).filter(Boolean);
+  }
+
+  return {
+    id: row.id,
+    campaignId: row.campaignId,
+    campaignTitle: row.campaignTitle || 'Campaign Dispute',
+    collabId: row.collabId || '',
+    initiatorId: row.initiatorUserId,
+    initiatorRole: row.initiatorRole as any,
+    reason: row.reason,
+    disputedAmount: row.disputedAmount || Math.round(row.claimedAmount / 100),
+    evidenceNotes: row.evidenceNotes || row.description,
+    evidenceAttachments,
+    status: (row.status || 'OPEN') as any,
+    arbitratorNotes: row.arbitratorNotes || row.decisionSummary || undefined,
+    resolvedAt: row.decidedAt ? new Date(row.decidedAt).toISOString() : undefined,
+    createdAt: row.createdAt ? new Date(row.createdAt).toISOString() : new Date().toISOString(),
+  };
+}
+
 export class DisputeService {
   static async list(filters?: {
     campaignId?: string;
     initiatorId?: string;
     status?: string;
   }): Promise<DisputeRecord[]> {
-    let list = readDisputes();
+    try {
+      const whereClause: any = {};
+      if (filters?.campaignId) whereClause.campaignId = filters.campaignId;
+      if (filters?.initiatorId) whereClause.initiatorUserId = filters.initiatorId;
+      if (filters?.status && filters.status !== 'ALL') whereClause.status = filters.status;
 
+      const dbRows = await prisma.dispute.findMany({
+        where: whereClause,
+        include: { evidence: true },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (dbRows && dbRows.length > 0) {
+        return dbRows.map(mapPrismaToDisputeRecord);
+      }
+    } catch {
+      // Fallback to cache if PostgreSQL is unreachable or table empty
+    }
+
+    let list = readDisputes();
     if (filters?.campaignId) {
       list = list.filter((d) => d.campaignId === filters.campaignId);
     }
@@ -91,10 +135,9 @@ export class DisputeService {
     evidenceNotes: string;
     evidenceAttachments?: string[];
   }): Promise<DisputeRecord> {
-    const list = readDisputes();
     const id = `DSP-TIA-${Math.floor(1000 + Math.random() * 9000)}`;
 
-    const newDispute: DisputeRecord = {
+    let newDispute: DisputeRecord = {
       id,
       campaignId: input.campaignId,
       campaignTitle: input.campaignTitle,
@@ -109,6 +152,39 @@ export class DisputeService {
       createdAt: new Date().toISOString(),
     };
 
+    try {
+      const dbRow = await prisma.dispute.create({
+        data: {
+          id,
+          campaignId: input.campaignId,
+          campaignTitle: input.campaignTitle,
+          collabId: input.collabId,
+          initiatorUserId: input.initiatorId,
+          initiatorRole: input.initiatorRole,
+          reason: input.reason,
+          description: input.evidenceNotes,
+          claimedAmount: Math.round(input.disputedAmount * 100), // Minor currency units (paise)
+          disputedAmount: input.disputedAmount,
+          evidenceNotes: input.evidenceNotes,
+          status: 'OPEN',
+          evidence: input.evidenceAttachments && input.evidenceAttachments.length > 0
+            ? {
+                create: input.evidenceAttachments.map((url) => ({
+                  submittedByUserId: input.initiatorId,
+                  description: 'Dispute evidentiary artifact',
+                  fileUrl: url,
+                })),
+              }
+            : undefined,
+        },
+        include: { evidence: true },
+      });
+      newDispute = mapPrismaToDisputeRecord(dbRow);
+    } catch {
+      // Persisted to cache below
+    }
+
+    const list = readDisputes();
     list.unshift(newDispute);
     writeDisputes(list);
 
@@ -131,13 +207,32 @@ export class DisputeService {
   ): Promise<DisputeRecord | null> {
     const list = readDisputes();
     const idx = list.findIndex((d) => d.id === id);
-    if (idx === -1) return null;
 
-    list[idx].status = decision;
-    list[idx].arbitratorNotes = arbitratorNotes;
-    list[idx].resolvedAt = new Date().toISOString();
+    let updatedRecord: DisputeRecord | null = null;
+    if (idx !== -1) {
+      list[idx].status = decision;
+      list[idx].arbitratorNotes = arbitratorNotes;
+      list[idx].resolvedAt = new Date().toISOString();
+      writeDisputes(list);
+      updatedRecord = list[idx];
+    }
 
-    writeDisputes(list);
+    try {
+      const dbRow = await prisma.dispute.update({
+        where: { id },
+        data: {
+          status: decision,
+          arbitratorNotes,
+          decisionSummary: arbitratorNotes,
+          decidedByUserId: decidedBy,
+          decidedAt: new Date(),
+        },
+        include: { evidence: true },
+      });
+      updatedRecord = mapPrismaToDisputeRecord(dbRow);
+    } catch {
+      // Local cache already updated
+    }
 
     logAudit({
       actorId: decidedBy,
@@ -147,6 +242,6 @@ export class DisputeService {
       details: { decision, notes: arbitratorNotes },
     });
 
-    return list[idx];
+    return updatedRecord;
   }
 }

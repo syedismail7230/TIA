@@ -1,9 +1,11 @@
 // ===================================================
 // TIA BACKEND - CONTRACT & DIGITAL SIGNATURE SERVICE
+// Enterprise PostgreSQL Integration via Prisma
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
+import prisma from '@/lib/db/prisma';
 import { logAudit } from '@/lib/audit/logger';
 
 export interface CampaignContractRecord {
@@ -92,11 +94,95 @@ function writeContracts(contracts: CampaignContractRecord[]) {
 
 export class ContractService {
   static async getById(id: string): Promise<CampaignContractRecord | null> {
+    try {
+      const dbContract = await prisma.campaignContract.findUnique({
+        where: { id },
+        include: {
+          campaign: true,
+          organization: true,
+          creator: { include: { user: true } },
+        },
+      });
+
+      if (dbContract) {
+        return {
+          id: dbContract.id,
+          campaignId: dbContract.campaignId,
+          campaignTitle: dbContract.campaign?.title || 'Brand Agreement',
+          brandId: dbContract.organizationId,
+          brandName: dbContract.organization?.name || 'Brand Organization',
+          creatorId: dbContract.creatorId,
+          creatorName: dbContract.creator?.displayName || 'Creator',
+          agreedAmount: Math.round(dbContract.agreedAmount / 100),
+          currency: 'INR',
+          platformCommissionRate: dbContract.commissionRate,
+          tdsRate: 1.0,
+          deliverableScope: dbContract.deliverables || 'Standard Deliverables',
+          milestoneStagesCount: 3,
+          revisionRoundsAllowed: 2,
+          slaAutoApprovalHours: 72,
+          brandSignedAt: dbContract.brandSignedAt?.toISOString(),
+          creatorSignedAt: dbContract.creatorSignedAt?.toISOString(),
+          status: (dbContract.status as any) || 'PENDING_SIGNATURES',
+          contractPdfUrl: (dbContract as any).pdfUrl || undefined,
+          createdAt: dbContract.createdAt.toISOString(),
+        };
+      }
+    } catch (e: any) {
+      console.warn('PostgreSQL contract get fallback notice:', e.message);
+    }
+
     const list = readContracts();
     return list.find((c) => c.id === id) || null;
   }
 
   static async listByParty(partyId: string): Promise<CampaignContractRecord[]> {
+    try {
+      const dbContracts = await prisma.campaignContract.findMany({
+        where: {
+          OR: [
+            { organizationId: partyId },
+            { creatorId: partyId },
+            { creator: { userId: partyId } },
+            { organization: { members: { some: { userId: partyId } } } },
+          ],
+        },
+        include: {
+          campaign: true,
+          organization: true,
+          creator: { include: { user: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (dbContracts.length > 0) {
+        return dbContracts.map((dbContract) => ({
+          id: dbContract.id,
+          campaignId: dbContract.campaignId,
+          campaignTitle: dbContract.campaign?.title || 'Brand Agreement',
+          brandId: dbContract.organizationId,
+          brandName: dbContract.organization?.name || 'Brand Organization',
+          creatorId: dbContract.creatorId,
+          creatorName: dbContract.creator?.displayName || 'Creator',
+          agreedAmount: Math.round(dbContract.agreedAmount / 100),
+          currency: 'INR',
+          platformCommissionRate: dbContract.commissionRate,
+          tdsRate: 1.0,
+          deliverableScope: dbContract.deliverables || 'Standard Deliverables',
+          milestoneStagesCount: 3,
+          revisionRoundsAllowed: 2,
+          slaAutoApprovalHours: 72,
+          brandSignedAt: dbContract.brandSignedAt?.toISOString(),
+          creatorSignedAt: dbContract.creatorSignedAt?.toISOString(),
+          status: (dbContract.status as any) || 'PENDING_SIGNATURES',
+          contractPdfUrl: (dbContract as any).pdfUrl || undefined,
+          createdAt: dbContract.createdAt.toISOString(),
+        }));
+      }
+    } catch (e: any) {
+      console.warn('PostgreSQL contract list fallback notice:', e.message);
+    }
+
     const list = readContracts();
     return list.filter((c) => c.brandId === partyId || c.creatorId === partyId);
   }
@@ -111,7 +197,6 @@ export class ContractService {
     agreedAmount: number;
     deliverableScope: string;
   }): Promise<CampaignContractRecord> {
-    const list = readContracts();
     const id = `CTR-TIA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
     const newContract: CampaignContractRecord = {
@@ -134,6 +219,29 @@ export class ContractService {
       createdAt: new Date().toISOString(),
     };
 
+    // Try PostgreSQL creation
+    try {
+      const minorAmount = Math.round(input.agreedAmount * 100);
+      const commissionAmount = Math.round(minorAmount * 0.05);
+      await prisma.campaignContract.create({
+        data: {
+          id,
+          campaignId: input.campaignId,
+          organizationId: input.brandId,
+          creatorId: input.creatorId,
+          agreedAmount: minorAmount,
+          commissionRate: 5.0,
+          commissionAmount,
+          creatorAllocationAmount: minorAmount - commissionAmount,
+          deliverables: input.deliverableScope,
+          status: 'PENDING_SIGNATURES',
+        },
+      });
+    } catch (e: any) {
+      console.warn('PostgreSQL contract creation fallback notice:', e.message);
+    }
+
+    const list = readContracts();
     list.unshift(newContract);
     writeContracts(list);
 
@@ -153,17 +261,44 @@ export class ContractService {
     party: 'BRAND' | 'CREATOR',
     signerId: string
   ): Promise<CampaignContractRecord | null> {
+    const now = new Date();
+
+    // Try PostgreSQL update
+    try {
+      const updateData: any = {};
+      if (party === 'BRAND') {
+        updateData.brandSignedAt = now;
+      } else {
+        updateData.creatorSignedAt = now;
+      }
+
+      const existing = await prisma.campaignContract.findUnique({ where: { id: contractId } });
+      if (existing) {
+        if ((party === 'BRAND' && existing.creatorSignedAt) || (party === 'CREATOR' && existing.brandSignedAt)) {
+          updateData.status = 'ACTIVE';
+          updateData.whitelistingActivatedAt = now;
+        }
+
+        await prisma.campaignContract.update({
+          where: { id: contractId },
+          data: updateData,
+        });
+      }
+    } catch (e: any) {
+      console.warn('PostgreSQL contract sign fallback notice:', e.message);
+    }
+
     const list = readContracts();
     const idx = list.findIndex((c) => c.id === contractId);
     if (idx === -1) return null;
 
     const contract = list[idx];
-    const now = new Date().toISOString();
+    const nowIso = now.toISOString();
 
     if (party === 'BRAND') {
-      contract.brandSignedAt = now;
+      contract.brandSignedAt = nowIso;
     } else {
-      contract.creatorSignedAt = now;
+      contract.creatorSignedAt = nowIso;
     }
 
     if (contract.brandSignedAt && contract.creatorSignedAt) {

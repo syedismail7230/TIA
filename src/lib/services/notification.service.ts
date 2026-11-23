@@ -1,9 +1,11 @@
 // ===================================================
 // TIA BACKEND - NOTIFICATION SERVICE
+// Backed by PostgreSQL Notification model
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
+import prisma from '@/lib/db/prisma';
 
 export interface AppNotificationRecord {
   id: string;
@@ -85,8 +87,47 @@ function writeNotifications(notifications: AppNotificationRecord[]) {
   } catch {}
 }
 
+function calculateTimeAgo(dateStr: string | Date): string {
+  const diffMs = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diffMs / (60 * 1000));
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
+function mapPrismaToNotificationRecord(n: any): AppNotificationRecord {
+  return {
+    id: n.id,
+    userId: n.userId,
+    title: n.title,
+    message: n.message,
+    tab: (n.tab || 'campaigns') as any,
+    read: n.isRead,
+    timeAgo: calculateTimeAgo(n.createdAt),
+    createdAt: n.createdAt ? new Date(n.createdAt).toISOString() : new Date().toISOString(),
+  };
+}
+
 export class NotificationService {
   static async getForUser(userId: string): Promise<AppNotificationRecord[]> {
+    try {
+      const dbRows = await prisma.notification.findMany({
+        where: {
+          OR: [{ userId }, { userId: 'all' }],
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (dbRows && dbRows.length > 0) {
+        return dbRows.map(mapPrismaToNotificationRecord);
+      }
+    } catch {
+      // Fallback to cache if database is unreachable
+    }
+
     const list = readNotifications();
     return list
       .filter((n) => n.userId === userId || n.userId === 'all')
@@ -99,9 +140,9 @@ export class NotificationService {
     message: string;
     tab: AppNotificationRecord['tab'];
   }): Promise<AppNotificationRecord> {
-    const list = readNotifications();
-    const newNotif: AppNotificationRecord = {
-      id: `notif-${Date.now()}`,
+    const id = `notif-${Date.now()}`;
+    let newNotif: AppNotificationRecord = {
+      id,
       userId: input.userId,
       title: input.title,
       message: input.message,
@@ -111,12 +152,41 @@ export class NotificationService {
       createdAt: new Date().toISOString(),
     };
 
+    try {
+      const dbRow = await prisma.notification.create({
+        data: {
+          id,
+          userId: input.userId,
+          title: input.title,
+          message: input.message,
+          tab: input.tab,
+          isRead: false,
+          type: 'INFO',
+        },
+      });
+      newNotif = mapPrismaToNotificationRecord(dbRow);
+    } catch {
+      // Local cache updated below
+    }
+
+    const list = readNotifications();
     list.unshift(newNotif);
     writeNotifications(list);
     return newNotif;
   }
 
   static async markAllAsRead(userId: string): Promise<boolean> {
+    try {
+      await prisma.notification.updateMany({
+        where: {
+          OR: [{ userId }, { userId: 'all' }],
+        },
+        data: { isRead: true },
+      });
+    } catch {
+      // Local cache updated below
+    }
+
     const list = readNotifications();
     for (const n of list) {
       if (n.userId === userId || n.userId === 'all') {

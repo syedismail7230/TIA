@@ -1,9 +1,11 @@
 // ===================================================
 // TIA BACKEND - CAMPAIGN SERVICE
+// Enterprise PostgreSQL Integration via Prisma
 // ===================================================
 
 import fs from 'fs';
 import path from 'path';
+import prisma from '@/lib/db/prisma';
 import { logAudit } from '@/lib/audit/logger';
 
 export interface CampaignMilestone {
@@ -129,9 +131,7 @@ function ensureDataFile() {
     if (!fs.existsSync(CAMPAIGNS_FILE)) {
       fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(INITIAL_CAMPAIGNS, null, 2), 'utf-8');
     }
-  } catch {
-    // In serverless / read-only runtime (Vercel), ignore filesystem write failures
-  }
+  } catch {}
 }
 
 function readCampaigns(): CampaignRecord[] {
@@ -151,9 +151,7 @@ function writeCampaigns(campaigns: CampaignRecord[]) {
   try {
     ensureDataFile();
     fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(campaigns, null, 2), 'utf-8');
-  } catch {
-    // Graceful fallback to memory on read-only environments
-  }
+  } catch {}
 }
 
 export class CampaignService {
@@ -163,6 +161,60 @@ export class CampaignService {
     status?: string;
     search?: string;
   }): Promise<CampaignRecord[]> {
+    // 1. Try PostgreSQL query
+    try {
+      const where: any = {};
+      if (filters?.brandId) where.organizationId = filters.brandId;
+      if (filters?.status && filters.status !== 'ALL') where.status = filters.status;
+      if (filters?.category && filters.category !== 'ALL') where.category = { contains: filters.category, mode: 'insensitive' };
+      if (filters?.search) {
+        where.OR = [
+          { title: { contains: filters.search, mode: 'insensitive' } },
+          { category: { contains: filters.search, mode: 'insensitive' } },
+        ];
+      }
+
+      const dbCampaigns = await prisma.campaign.findMany({
+        where,
+        include: {
+          organization: true,
+          applications: true,
+          contracts: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      if (dbCampaigns.length > 0) {
+        return dbCampaigns.map((c) => ({
+          id: c.id,
+          brandId: c.organizationId,
+          brandName: c.organization?.name || 'Brand',
+          title: c.title,
+          category: c.category || 'General',
+          budget: Math.round(c.budget / 100),
+          spent: (c as any).spent ? Math.round((c as any).spent / 100) : 0,
+          status: (c.status as any) || 'PUBLISHED',
+          deliverables: c.deliverables || '',
+          deadline: c.applicationDeadline ? c.applicationDeadline.toDateString() : 'Flexible',
+          objectives: c.objective || undefined,
+          stage: 1,
+          stageLabel: 'Active Campaign',
+          applicationsCount: c.applications.length,
+          acceptedCount: c.contracts.length,
+          milestones: [
+            { stage: 1, name: 'Milestone 1: Brief Acceptance', percentage: 30, amount: Math.round(c.budget * 0.003), status: 'PENDING' },
+            { stage: 2, name: 'Milestone 2: Content Creation', percentage: 35, amount: Math.round(c.budget * 0.0035), status: 'PENDING' },
+            { stage: 3, name: 'Milestone 3: Final Deployment', percentage: 35, amount: Math.round(c.budget * 0.0035), status: 'PENDING' },
+          ],
+          createdAt: c.createdAt.toISOString(),
+          updatedAt: c.updatedAt.toISOString(),
+        }));
+      }
+    } catch (e: any) {
+      console.warn('PostgreSQL campaign getAll fallback notice:', e.message);
+    }
+
+    // 2. Fallback to local store
     let list = readCampaigns();
 
     if (filters?.brandId) {
@@ -183,6 +235,42 @@ export class CampaignService {
   }
 
   static async getById(id: string): Promise<CampaignRecord | null> {
+    try {
+      const c = await prisma.campaign.findUnique({
+        where: { id },
+        include: { organization: true, applications: true, contracts: true },
+      });
+
+      if (c) {
+        return {
+          id: c.id,
+          brandId: c.organizationId,
+          brandName: c.organization?.name || 'Brand',
+          title: c.title,
+          category: c.category || 'General',
+          budget: Math.round(c.budget / 100),
+          spent: (c as any).spent ? Math.round((c as any).spent / 100) : 0,
+          status: (c.status as any) || 'PUBLISHED',
+          deliverables: c.deliverables || '',
+          deadline: c.applicationDeadline ? c.applicationDeadline.toDateString() : 'Flexible',
+          objectives: c.objective || undefined,
+          stage: 1,
+          stageLabel: 'Active Campaign',
+          applicationsCount: c.applications.length,
+          acceptedCount: c.contracts.length,
+          milestones: [
+            { stage: 1, name: 'Milestone 1: Concept', percentage: 30, amount: Math.round(c.budget * 0.003), status: 'PENDING' },
+            { stage: 2, name: 'Milestone 2: Production', percentage: 35, amount: Math.round(c.budget * 0.0035), status: 'PENDING' },
+            { stage: 3, name: 'Milestone 3: Release', percentage: 35, amount: Math.round(c.budget * 0.0035), status: 'PENDING' },
+          ],
+          createdAt: c.createdAt.toISOString(),
+          updatedAt: c.updatedAt.toISOString(),
+        };
+      }
+    } catch (e: any) {
+      console.warn('PostgreSQL campaign getById fallback notice:', e.message);
+    }
+
     const list = readCampaigns();
     return list.find((c) => c.id === id) || null;
   }
@@ -198,7 +286,6 @@ export class CampaignService {
     objectives?: string;
     targetNiches?: string;
   }): Promise<CampaignRecord> {
-    const list = readCampaigns();
     const id = `camp-${Date.now()}`;
 
     const newCamp: CampaignRecord = {
@@ -227,6 +314,26 @@ export class CampaignService {
       updatedAt: new Date().toISOString(),
     };
 
+    // Try PostgreSQL creation
+    try {
+      await prisma.campaign.create({
+        data: {
+          id,
+          organizationId: input.brandId,
+          title: input.title.trim(),
+          description: input.deliverables || input.title.trim(),
+          category: input.category,
+          budget: Math.round(input.budget * 100),
+          deliverables: input.deliverables,
+          objective: input.objectives || 'AWARENESS',
+          status: 'PUBLISHED',
+        },
+      });
+    } catch (e: any) {
+      console.warn('PostgreSQL campaign creation fallback notice:', e.message);
+    }
+
+    const list = readCampaigns();
     list.unshift(newCamp);
     writeCampaigns(list);
 
@@ -242,6 +349,21 @@ export class CampaignService {
   }
 
   static async update(id: string, updates: Partial<CampaignRecord>): Promise<CampaignRecord | null> {
+    try {
+      const updateData: any = {};
+      if (updates.title) updateData.title = updates.title;
+      if (updates.category) updateData.category = updates.category;
+      if (updates.status) updateData.status = updates.status;
+      if (updates.budget) updateData.budget = Math.round(updates.budget * 100);
+
+      await prisma.campaign.updateMany({
+        where: { id },
+        data: updateData,
+      });
+    } catch (e: any) {
+      console.warn('PostgreSQL campaign update fallback notice:', e.message);
+    }
+
     const list = readCampaigns();
     const idx = list.findIndex((c) => c.id === id);
     if (idx === -1) return null;
@@ -257,6 +379,14 @@ export class CampaignService {
   }
 
   static async delete(id: string, brandId: string): Promise<boolean> {
+    try {
+      await prisma.campaign.deleteMany({
+        where: { id, organizationId: brandId },
+      });
+    } catch (e: any) {
+      console.warn('PostgreSQL campaign delete fallback notice:', e.message);
+    }
+
     const list = readCampaigns();
     const filtered = list.filter((c) => !(c.id === id && c.brandId === brandId));
     if (filtered.length === list.length) return false;

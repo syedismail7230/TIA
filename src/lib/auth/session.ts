@@ -16,6 +16,7 @@ export interface SessionPayload {
   email: string;
   role: string;
   name?: string;
+  phone?: string;
   creatorId?: string;
   organizationId?: string;
   orgRole?: string;
@@ -119,6 +120,7 @@ export async function getCurrentUser(): Promise<{
   userId: string;
   email: string;
   name: string;
+  phone?: string;
   role: string;
   creatorProfile: any | null;
   orgMemberships: any[];
@@ -168,6 +170,7 @@ export async function getCurrentUser(): Promise<{
         userId: payload.userId,
         email: payload.email,
         name: derivedName,
+        phone: (payload as any).phone || '',
         role: payload.role,
         creatorProfile: payload.role === 'CREATOR'
           ? {
@@ -193,11 +196,14 @@ export async function getCurrentUser(): Promise<{
       };
     }
 
+    const userPhone = (user as any).phone || user.creatorProfile?.phone || '';
+
     return {
       id: user.id,
       userId: user.id,
       email: user.email,
       name: user.name,
+      phone: userPhone,
       role: user.role,
       creatorProfile: user.creatorProfile,
       orgMemberships: user.orgMemberships,
