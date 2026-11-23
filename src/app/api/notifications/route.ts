@@ -1,5 +1,5 @@
 // ===================================================
-// TIA BACKEND - NOTIFICATIONS API ROUTE (100% REAL DATABASE)
+// TIA BACKEND - NOTIFICATIONS API ROUTE
 // ===================================================
 
 import { NextResponse } from 'next/server';
@@ -11,8 +11,12 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
     const notifications = await prisma.notification.findMany({
-      where: user?.id ? { userId: user.id } : undefined,
+      where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
       take: 50,
     });
@@ -37,26 +41,25 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { action, notificationId } = body;
 
-    let userId = user?.id;
-    if (!userId) {
-      const demoUser = await prisma.user.findFirst();
-      userId = demoUser?.id;
-    }
-
-    if (action === 'MARK_ALL_READ' && userId) {
+    if (action === 'MARK_ALL_READ') {
       await prisma.notification.updateMany({
-        where: { userId },
+        where: { userId: user.id },
         data: { isRead: true },
       });
       return NextResponse.json({ success: true, message: 'All notifications marked as read' });
     }
 
     if (action === 'MARK_READ' && notificationId) {
-      await prisma.notification.update({
-        where: { id: notificationId },
+      // Tenant Isolation: Only allow marking user's own notification as read
+      await prisma.notification.updateMany({
+        where: { id: notificationId, userId: user.id },
         data: { isRead: true },
       });
       return NextResponse.json({ success: true, message: 'Notification marked as read' });

@@ -119,7 +119,7 @@ export class PaymentService {
     if (!wallets[brandId]) {
       wallets[brandId] = {
         brandId,
-        availableBalance: 450000,
+        availableBalance: 0,
         committedInProtection: 0,
         totalDisbursed: 0,
         currency: 'INR',
@@ -177,7 +177,7 @@ export class PaymentService {
     const wallets = readWallets();
     const wallet = wallets[input.brandId] || {
       brandId: input.brandId,
-      availableBalance: 450000,
+      availableBalance: 0,
       committedInProtection: 0,
       totalDisbursed: 0,
       currency: 'INR',

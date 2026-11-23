@@ -1,11 +1,18 @@
 // ============================================================================
 // TIA EDGE MIDDLEWARE
-// Covers: #1 Rate Limiting, #4 Reverse Proxy Headers, #5 API Gateway,
-// #60 Distributed Tracing (x-request-id), #76 CORS, #77 CSRF
+// Covers: Authentication Route Guarding, Rate Limiting, Reverse Proxy Headers,
+// Distributed Tracing (x-request-id), CORS, and Security Headers
 // ============================================================================
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { jwtVerify } from 'jose';
+
+const JWT_SECRET = new TextEncoder().encode(
+  process.env.JWT_SECRET || 'tia_production_grade_jwt_secret_key_minimum_32_characters_long_entropy_secure_2026'
+);
+
+const SESSION_COOKIE_NAME = 'tia_session_token';
 
 // ----------------------------------------------------------------------------
 // In-Memory Token Bucket Rate Limiter (Edge Compatible)
@@ -30,7 +37,6 @@ function isRateLimited(key: string, capacity: number = RATE_LIMIT_CAPACITY): { l
     return { limited: false, remaining: capacity - 1 };
   }
 
-  // Refill tokens based on time elapsed
   const elapsedSeconds = (now - bucket.lastRefill) / 1000;
   bucket.tokens = Math.min(capacity, bucket.tokens + elapsedSeconds * REFILL_RATE_PER_SECOND);
   bucket.lastRefill = now;
@@ -57,10 +63,46 @@ export async function middleware(request: NextRequest) {
   const origin = request.headers.get('origin') || '';
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '127.0.0.1';
 
-  // Generate unique trace ID (#60 Distributed Tracing)
+  // Generate unique trace ID
   const requestId = request.headers.get('x-request-id') || `req_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-  // Handle CORS Preflight (#76 CORS)
+  // 1. Edge-Level Protected Route Guarding
+  const isProtectedDashboard =
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/brand') ||
+    pathname.startsWith('/creator') ||
+    pathname.startsWith('/workspace');
+
+  if (isProtectedDashboard) {
+    const sessionToken = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+
+    if (!sessionToken) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    try {
+      const { payload } = await jwtVerify(sessionToken, JWT_SECRET);
+
+      // Admin route RBAC check
+      if (pathname.startsWith('/admin')) {
+        const userRole = typeof payload.role === 'string' ? payload.role : '';
+        if (!userRole.startsWith('TIA_') && userRole !== 'TIA_SUPER_ADMIN') {
+          return NextResponse.redirect(new URL('/login?error=forbidden', request.url));
+        }
+      }
+    } catch {
+      // Invalid or expired token -> redirect to login
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', pathname);
+      const redirectResponse = NextResponse.redirect(loginUrl);
+      redirectResponse.cookies.delete(SESSION_COOKIE_NAME);
+      return redirectResponse;
+    }
+  }
+
+  // 2. Handle CORS Preflight
   if (request.method === 'OPTIONS') {
     const isAllowed = ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV !== 'production';
     const response = new NextResponse(null, { status: 204 });
@@ -77,13 +119,13 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  // Rate Limiting (#1 Rate Limiting)
+  // 3. Rate Limiting for API routes
   if (pathname.startsWith('/api/')) {
     const isStrictRoute = pathname.includes('/auth/') || pathname.includes('/payments/');
     const limitCapacity = isStrictRoute ? STRICT_AUTH_CAPACITY : RATE_LIMIT_CAPACITY;
     const rateKey = `${ip}:${isStrictRoute ? 'strict' : 'general'}`;
 
-    const { limited, remaining } = isRateLimited(rateKey, limitCapacity);
+    const { limited } = isRateLimited(rateKey, limitCapacity);
 
     if (limited) {
       return NextResponse.json(
@@ -106,10 +148,9 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Forward request with normalized headers
+  // Forward request with normalized security & tracing headers
   const response = NextResponse.next();
 
-  // Attach Security Headers (#4 Reverse Proxies, #74 WAF/Security)
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'SAMEORIGIN');
   response.headers.set('X-XSS-Protection', '1; mode=block');
@@ -123,7 +164,6 @@ export async function middleware(request: NextRequest) {
     response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   }
 
-  // Attach Tracing & CORS headers to response
   response.headers.set('x-request-id', requestId);
   if (ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV !== 'production') {
     if (origin) {
@@ -143,4 +183,3 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
-

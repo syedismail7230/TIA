@@ -59,6 +59,15 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required to create campaigns' }, { status: 401 });
+    }
+
+    // Role check: Creators cannot create brand campaigns
+    if (user.role === 'CREATOR') {
+      return NextResponse.json({ success: false, error: 'Forbidden: Creators cannot post brand campaigns' }, { status: 403 });
+    }
+
     const body = await request.json();
     const {
       title,
@@ -68,37 +77,37 @@ export async function POST(request: Request) {
       objectives = 'Brand Awareness & Performance',
     } = body;
 
-    if (!title) {
-      return NextResponse.json({ success: false, error: 'Campaign title is required' }, { status: 400 });
+    if (!title || typeof title !== 'string' || title.trim().length === 0) {
+      return NextResponse.json({ success: false, error: 'Valid campaign title is required' }, { status: 400 });
     }
 
-    let orgId = user?.orgMemberships?.[0]?.organizationId;
+    // Resolve or create user's OWN organization (never hijack another brand's organization)
+    let orgId = user.orgMemberships?.[0]?.organizationId;
     if (!orgId) {
-      const defaultOrg = await prisma.organization.findFirst({
-        orderBy: { createdAt: 'asc' },
-      });
-      orgId = defaultOrg?.id;
-    }
-
-    if (!orgId) {
-      const createdOrg = await prisma.organization.create({
+      const org = await prisma.organization.create({
         data: {
-          name: user?.name ? `${user.name} Organization` : 'Default Brand Organization',
-          country: 'India',
-          verificationStatus: 'VERIFIED',
+          name: user.name ? `${user.name} Organization` : 'Brand Organization',
+          country: (user as any).country || 'India',
+          verificationStatus: 'PENDING',
+          members: {
+            create: {
+              userId: user.id,
+              role: 'OWNER',
+            },
+          },
         },
       });
-      orgId = createdOrg.id;
+      orgId = org.id;
     }
 
     const campaign = await prisma.campaign.create({
       data: {
         organizationId: orgId,
-        title,
+        title: title.trim(),
         description: objectives,
         objective: objectives,
         category,
-        budget: Math.round(Number(budget) * 100),
+        budget: Math.round(Number(budget) * 100), // minor currency units (paise)
         currency: 'INR',
         deliverables: typeof deliverables === 'string' ? deliverables : JSON.stringify(deliverables),
         status: 'PUBLISHED',
@@ -108,20 +117,18 @@ export async function POST(request: Request) {
       },
     });
 
-    if (user?.id) {
-      try {
-        await logAuditEvent({
-          userId: user.id,
-          action: 'CAMPAIGN_CREATED',
-          entityType: 'Campaign',
-          entityId: campaign.id,
-        });
-      } catch {}
-    }
+    try {
+      await logAuditEvent({
+        userId: user.id,
+        action: 'CAMPAIGN_CREATED',
+        entityType: 'Campaign',
+        entityId: campaign.id,
+      });
+    } catch {}
 
     return NextResponse.json({ success: true, campaign });
   } catch (error: any) {
     console.error('Create Campaign Error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to create campaign' }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message || 'Failed to create campaign' }, { status: 500 });
   }
 }

@@ -5,37 +5,6 @@ import { setSessionCookie } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
 import { findStoredUserByEmail } from '@/lib/auth/local-auth-store';
 
-const DEMO_ACCOUNTS: Record<string, { id: string; email: string; name: string; role: string; password: string }> = {
-  'brand@tia.agency': {
-    id: 'demo-brand-user-id',
-    email: 'brand@tia.agency',
-    name: 'Nexus Brand Manager',
-    role: 'BRAND_ADMIN',
-    password: 'Password@123',
-  },
-  'creator@tia.agency': {
-    id: 'demo-creator-user-id',
-    email: 'creator@tia.agency',
-    name: 'Aarav Sharma',
-    role: 'CREATOR',
-    password: 'Password@123',
-  },
-  'admin@theinfluencers.agency': {
-    id: 'admin-super-id-2026',
-    email: 'admin@theinfluencers.agency',
-    name: 'TIA Super Admin',
-    role: 'TIA_SUPER_ADMIN',
-    password: 'Admin@TIA#2026!SecureKey',
-  },
-  'admin@tia.agency': {
-    id: 'demo-admin-user-id',
-    email: 'admin@tia.agency',
-    name: 'TIA Super Admin',
-    role: 'TIA_SUPER_ADMIN',
-    password: 'Admin@TIA#2026!SecureKey',
-  },
-};
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -50,34 +19,69 @@ export async function POST(request: Request) {
 
     const normalizedEmail = email.toLowerCase().trim();
 
-    // Check if canonical demo credential
-    const demoAccount = DEMO_ACCOUNTS[normalizedEmail];
-    if (demoAccount) {
-      if (password !== demoAccount.password) {
-        return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    // 1. Primary: Database lookup via Prisma
+    let user = null;
+    try {
+      user = await prisma.user.findUnique({
+        where: { email: normalizedEmail },
+        include: {
+          creatorProfile: true,
+          orgMemberships: {
+            include: {
+              organization: true,
+            },
+          },
+        },
+      });
+    } catch (dbErr: any) {
+      console.warn('Database login query note:', dbErr.message);
+    }
+
+    if (user) {
+      const isValid = await verifyPassword(password, user.passwordHash);
+      if (!isValid) {
+        return NextResponse.json(
+          { error: 'Invalid email or password' },
+          { status: 401 }
+        );
       }
 
+      const primaryOrg = user.orgMemberships?.[0];
+
       await setSessionCookie({
-        userId: demoAccount.id,
-        email: demoAccount.email,
-        role: demoAccount.role,
-        name: demoAccount.name,
-        creatorId: demoAccount.role === 'CREATOR' ? 'demo-creator-id' : undefined,
-        organizationId: demoAccount.role.startsWith('BRAND_') ? 'demo-org-nexus-brands' : undefined,
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        name: user.name,
+        creatorId: user.creatorProfile?.id,
+        organizationId: primaryOrg?.organizationId,
+        orgRole: primaryOrg?.role,
       });
+
+      try {
+        await logAuditEvent({
+          userId: user.id,
+          userRole: user.role,
+          action: 'LOGIN',
+          entityType: 'USER',
+          entityId: user.id,
+        });
+      } catch {}
 
       return NextResponse.json({
         message: 'Login successful',
         user: {
-          id: demoAccount.id,
-          email: demoAccount.email,
-          name: demoAccount.name,
-          role: demoAccount.role,
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+          creatorProfile: user.creatorProfile,
+          organization: primaryOrg?.organization,
         },
       });
     }
 
-    // Check stored users (persistent file/memory store)
+    // 2. Fallback: Check stored users (persistent hashed store)
     const storedUser = findStoredUserByEmail(normalizedEmail);
     if (storedUser) {
       const isMatch = await verifyPassword(password, storedUser.passwordHash);
@@ -87,6 +91,7 @@ export async function POST(request: Request) {
           userId: storedUser.id,
           email: storedUser.email,
           role: storedUser.role,
+          name: storedUser.name,
           creatorId: storedUser.role === 'CREATOR' ? `creator_${storedUser.id}` : undefined,
           organizationId: storedUser.role.startsWith('BRAND_') ? `org_${storedUser.id}` : undefined,
         });
@@ -113,73 +118,10 @@ export async function POST(request: Request) {
       }
     }
 
-    // Database lookup
-    let user = null;
-    try {
-      user = await prisma.user.findUnique({
-        where: { email: normalizedEmail },
-        include: {
-          creatorProfile: true,
-          orgMemberships: {
-            include: {
-              organization: true,
-            },
-          },
-        },
-      });
-    } catch (dbErr: any) {
-      console.warn('Database login query note:', dbErr.message);
-    }
-
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    const isValid = await verifyPassword(password, user.passwordHash);
-    if (!isValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    const primaryOrg = user.orgMemberships?.[0];
-
-    await setSessionCookie({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-      creatorId: user.creatorProfile?.id,
-      organizationId: primaryOrg?.organizationId,
-      orgRole: primaryOrg?.role,
-    });
-
-    try {
-      await logAuditEvent({
-        userId: user.id,
-        userRole: user.role,
-        action: 'LOGIN',
-        entityType: 'USER',
-        entityId: user.id,
-      });
-    } catch {
-      // audit log failure should not block login
-    }
-
-    return NextResponse.json({
-      message: 'Login successful',
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        creatorProfile: user.creatorProfile,
-        organization: primaryOrg?.organization,
-      },
-    });
+    return NextResponse.json(
+      { error: 'Invalid email or password' },
+      { status: 401 }
+    );
   } catch (error: any) {
     console.error('Login Error:', error);
     return NextResponse.json(

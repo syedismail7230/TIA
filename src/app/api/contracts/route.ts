@@ -1,5 +1,5 @@
 // ===================================================
-// TIA BACKEND - CONTRACTS & SIGNATURES API ROUTE (100% REAL DATABASE)
+// TIA BACKEND - CONTRACTS & SIGNATURES API ROUTE
 // ===================================================
 
 import { NextResponse } from 'next/server';
@@ -12,15 +12,23 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const contractId = searchParams.get('id');
+    const isAdmin = user.role.startsWith('TIA_') || user.role === 'TIA_SUPER_ADMIN';
 
+    // 1. Fetch single contract with tenant authorization check
     if (contractId) {
       const contract = await prisma.campaignContract.findUnique({
         where: { id: contractId },
         include: {
           campaign: true,
-          organization: true,
+          organization: {
+            include: { members: true },
+          },
           creator: {
             include: { user: true },
           },
@@ -31,13 +39,42 @@ export async function GET(request: Request) {
         return NextResponse.json({ success: false, error: 'Contract not found' }, { status: 404 });
       }
 
+      // Verify caller is a party to the contract or platform administrator
+      const isCreatorParty = contract.creator?.userId === user.id || contract.creatorId === user.creatorProfile?.id;
+      const isBrandParty = contract.organization?.members?.some((m) => m.userId === user.id);
+
+      if (!isAdmin && !isCreatorParty && !isBrandParty) {
+        return NextResponse.json({ success: false, error: 'Forbidden: Access to this contract is restricted' }, { status: 403 });
+      }
+
       return NextResponse.json({
         success: true,
         contract: formatContract(contract),
       });
     }
 
+    // 2. Multi-tenant scoped contracts query
+    let whereClause: any = {};
+
+    if (!isAdmin) {
+      if (user.role === 'CREATOR') {
+        whereClause = {
+          OR: [
+            { creator: { userId: user.id } },
+            { creatorId: user.creatorProfile?.id || '__none__' },
+          ],
+        };
+      } else {
+        // Brand user / admin
+        const orgIds = user.orgMemberships?.map((m) => m.organizationId) || [];
+        whereClause = {
+          organizationId: { in: orgIds },
+        };
+      }
+    }
+
     const contracts = await prisma.campaignContract.findMany({
+      where: whereClause,
       include: {
         campaign: true,
         organization: true,
@@ -61,6 +98,10 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
     const body = await request.json();
     const {
       action = 'CREATE',
@@ -71,6 +112,8 @@ export async function POST(request: Request) {
       deliverableScope,
     } = body;
 
+    const isAdmin = user.role.startsWith('TIA_') || user.role === 'TIA_SUPER_ADMIN';
+
     // Action 1: Generate Standard TIA Contract
     if (action === 'CREATE') {
       if (!campaignId || !agreedAmount) {
@@ -79,10 +122,17 @@ export async function POST(request: Request) {
 
       const campaign = await prisma.campaign.findUnique({
         where: { id: campaignId },
+        include: { organization: { include: { members: true } } },
       });
 
       if (!campaign) {
         return NextResponse.json({ success: false, error: 'Campaign not found' }, { status: 404 });
+      }
+
+      // Authorization: Caller must belong to the campaign's organization or be admin
+      const isOrgMember = campaign.organization?.members?.some((m) => m.userId === user.id);
+      if (!isAdmin && !isOrgMember) {
+        return NextResponse.json({ success: false, error: 'Forbidden: You do not own this campaign' }, { status: 403 });
       }
 
       // Minor units calculations (5% platform fee)
@@ -132,26 +182,44 @@ export async function POST(request: Request) {
 
     // Action 2: Digital Signature Execution
     if (action === 'SIGN' && contractId) {
-      const isCreator = user?.role === 'CREATOR';
-      const updateData: any = {};
+      const isCreator = user.role === 'CREATOR';
+      const existing = await prisma.campaignContract.findUnique({
+        where: { id: contractId },
+        include: {
+          organization: { include: { members: true } },
+          creator: true,
+        },
+      });
 
+      if (!existing) {
+        return NextResponse.json({ success: false, error: 'Contract not found' }, { status: 404 });
+      }
+
+      // Verify signing party identity
+      if (isCreator && existing.creator?.userId !== user.id && existing.creatorId !== user.creatorProfile?.id && !isAdmin) {
+        return NextResponse.json({ success: false, error: 'Forbidden: You cannot sign on behalf of this creator' }, { status: 403 });
+      }
+
+      if (!isCreator && !isAdmin) {
+        const isMember = existing.organization?.members?.some((m) => m.userId === user.id);
+        if (!isMember) {
+          return NextResponse.json({ success: false, error: 'Forbidden: You cannot sign on behalf of this brand' }, { status: 403 });
+        }
+      }
+
+      const updateData: any = {};
       if (isCreator) {
         updateData.creatorSignedAt = new Date();
       } else {
         updateData.brandSignedAt = new Date();
       }
 
-      // Check if other party already signed
-      const existing = await prisma.campaignContract.findUnique({ where: { id: contractId } });
-      if (!existing) {
-        return NextResponse.json({ success: false, error: 'Contract not found' }, { status: 404 });
-      }
-
       if ((isCreator && existing.brandSignedAt) || (!isCreator && existing.creatorSignedAt)) {
-        updateData.status = 'SIGNED';
+        updateData.status = 'ACTIVE';
+        updateData.whitelistingActivatedAt = new Date();
       }
 
-      const signed = await prisma.campaignContract.update({
+      const updated = await prisma.campaignContract.update({
         where: { id: contractId },
         data: updateData,
         include: {
@@ -161,70 +229,31 @@ export async function POST(request: Request) {
         },
       });
 
-      // Industry Standard: If bilaterally signed, dispatch execution notice
-      if (signed.status === 'SIGNED') {
-        try {
-          await EmailService.sendContractExecutedEmail({
-            creatorName: signed.creator?.displayName || 'Creator',
-            brandName: signed.organization?.name || 'Brand Partner',
-            campaignTitle: signed.campaign?.title || 'Brand Agreement',
-            contractNumber: `TIA-AGR-2026-${signed.id.slice(0, 6).toUpperCase()}`,
-            agreedAmount: Math.round(signed.agreedAmount / 100),
-          });
-        } catch (e) {
-          console.warn('Contract executed email warning:', e);
-        }
-      }
-
-      return NextResponse.json({
-        success: true,
-        contract: formatContract(signed),
-        message: `Contract digitally signed by ${isCreator ? 'Creator' : 'Brand'}.`,
-      });
+      return NextResponse.json({ success: true, contract: formatContract(updated) });
     }
 
-    return NextResponse.json({ success: false, error: 'Invalid contract action' }, { status: 400 });
+    return NextResponse.json({ success: false, error: 'Invalid action specified' }, { status: 400 });
   } catch (error: any) {
-    console.error('Contract API Error:', error);
+    console.error('Contract Action Error:', error);
     return NextResponse.json({ success: false, error: error.message || 'Contract operation failed' }, { status: 500 });
   }
 }
 
 function formatContract(contract: any) {
-  let deliverables: string[] = [];
-  try {
-    deliverables = typeof contract.deliverables === 'string' ? JSON.parse(contract.deliverables) : contract.deliverables;
-  } catch {
-    deliverables = [contract.deliverables || 'Standard Deliverables'];
-  }
-
   return {
     id: contract.id,
-    contractNumber: `TIA-AGR-2026-${contract.id.slice(0, 6).toUpperCase()}`,
     campaignId: contract.campaignId,
-    campaignTitle: contract.campaign?.title || 'Brand Partnership',
-    brandId: contract.organizationId,
-    brandName: contract.organization?.name || 'Nike India Private Limited',
-    creatorId: contract.creatorId,
-    creatorName: contract.creator?.displayName || contract.creator?.user?.name || 'Creator',
-    creatorHandle: `@${contract.creator?.username || 'creator'}`,
-    agreedAmount: Math.round(contract.agreedAmount / 100),
-    platformFeeRate: contract.commissionRate,
-    platformFeeAmount: Math.round(contract.commissionAmount / 100),
+    campaignTitle: contract.campaign?.title || 'Brand Agreement',
+    brandName: contract.organization?.name || 'Enterprise Brand',
+    creatorName: contract.creator?.displayName || 'Verified Creator',
+    creatorHandle: contract.creator?.username || 'creator',
+    creatorEmail: contract.creator?.user?.email || 'creator@tia.agency',
+    totalAgreedAmount: Math.round(contract.agreedAmount / 100),
+    tiaCommissionAmount: Math.round(contract.commissionAmount / 100),
     netCreatorPayout: Math.round(contract.creatorAllocationAmount / 100),
-    deliverables,
-    revisionRoundsAllowed: contract.revisionLimit,
     status: contract.status,
-    brandSignature: {
-      signed: Boolean(contract.brandSignedAt),
-      timestamp: contract.brandSignedAt ? contract.brandSignedAt.toISOString() : null,
-      signerName: contract.organization?.name || 'Brand Signer',
-    },
-    creatorSignature: {
-      signed: Boolean(contract.creatorSignedAt),
-      timestamp: contract.creatorSignedAt ? contract.creatorSignedAt.toISOString() : null,
-      signerName: contract.creator?.displayName || 'Creator Signer',
-    },
-    createdAt: contract.createdAt.toISOString(),
+    brandSigned: Boolean(contract.brandSignedAt),
+    creatorSigned: Boolean(contract.creatorSignedAt),
+    createdAt: contract.createdAt?.toISOString(),
   };
 }

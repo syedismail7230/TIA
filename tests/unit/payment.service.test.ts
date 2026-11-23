@@ -87,10 +87,10 @@ describe('TIA Backend - Payment Protection & Ledger Engine QA Tests', () => {
       .update(rawPayload)
       .digest('hex');
 
-    const isWebhookValid = verifyWebhookSignature(rawPayload, validWebhookSig);
+    const isWebhookValid = verifyWebhookSignature(rawPayload, validWebhookSig, webhookSecret);
     assert.equal(isWebhookValid, true);
 
-    const isWebhookInvalid = verifyWebhookSignature(rawPayload, 'invalid_sig');
+    const isWebhookInvalid = verifyWebhookSignature(rawPayload, 'invalid_sig', webhookSecret);
     assert.equal(isWebhookInvalid, false);
   });
 });

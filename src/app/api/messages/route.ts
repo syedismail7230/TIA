@@ -11,11 +11,24 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
-    const userId = user?.id || 'demo-brand-user-id';
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
+    const userId = user.id;
     const { searchParams } = new URL(request.url);
     const threadId = searchParams.get('threadId');
+    const isAdmin = user.role.startsWith('TIA_') || user.role === 'TIA_SUPER_ADMIN';
 
     if (threadId) {
+      // Security Check: Verify caller is a member of the requested thread
+      const threads = await MessageService.getThreadsForUser(userId);
+      const isMember = threads.some((t) => t.id === threadId);
+
+      if (!isMember && !isAdmin) {
+        return NextResponse.json({ success: false, error: 'Forbidden: You are not a participant in this conversation' }, { status: 403 });
+      }
+
       const messages = await MessageService.getMessages(threadId);
       return NextResponse.json({ success: true, messages });
     }
@@ -31,6 +44,10 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { threadId, text, attachmentUrl } = body;
 
@@ -38,9 +55,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Thread ID and message text are required' }, { status: 400 });
     }
 
-    const senderId = user?.id || 'demo-brand-user-id';
-    const senderName = user?.name || 'Nike Brand Manager';
-    const senderRole = user?.role === 'CREATOR' ? 'CREATOR' : 'BRAND';
+    const isAdmin = user.role.startsWith('TIA_') || user.role === 'TIA_SUPER_ADMIN';
+
+    // Security Check: Verify sender belongs to this conversation thread
+    const userThreads = await MessageService.getThreadsForUser(user.id);
+    const belongsToThread = userThreads.some((t) => t.id === threadId);
+
+    if (!belongsToThread && !isAdmin) {
+      return NextResponse.json({ success: false, error: 'Forbidden: You cannot send messages to this thread' }, { status: 403 });
+    }
+
+    const senderId = user.id;
+    const senderName = user.name || (user.role === 'CREATOR' ? 'Creator' : 'Brand Manager');
+    const senderRole = user.role === 'CREATOR' ? 'CREATOR' : 'BRAND';
 
     const message = await MessageService.sendMessage({
       threadId,

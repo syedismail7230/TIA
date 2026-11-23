@@ -12,8 +12,11 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
-    const brandId = user?.id || 'demo-brand-user-id';
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
 
+    const brandId = user.id;
     const wallet = await PaymentService.getWallet(brandId);
     const ledger = await PaymentService.getLedger({ brandId });
 
@@ -27,9 +30,13 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
-    const brandId = user?.id || 'demo-brand-user-id';
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+    }
+
+    const brandId = user.id;
     const body = await request.json();
-    const { action = 'DEPOSIT', amount, razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
+    const { action, amount, razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
 
     // 1. Create Live Razorpay Order
     if (action === 'CREATE_ORDER') {
@@ -47,16 +54,21 @@ export async function POST(request: Request) {
 
     // 2. Verify Razorpay Payment Signature & Credit Wallet
     if (action === 'VERIFY_AND_DEPOSIT') {
-      if (razorpay_order_id && razorpay_payment_id && razorpay_signature) {
-        const isValid = verifyPaymentSignature({
-          orderId: razorpay_order_id,
-          paymentId: razorpay_payment_id,
-          signature: razorpay_signature,
-        });
+      if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        return NextResponse.json(
+          { success: false, error: 'Missing required Razorpay verification credentials' },
+          { status: 400 }
+        );
+      }
 
-        if (!isValid) {
-          return NextResponse.json({ success: false, error: 'Invalid Razorpay payment signature' }, { status: 400 });
-        }
+      const isValid = verifyPaymentSignature({
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id,
+        signature: razorpay_signature,
+      });
+
+      if (!isValid) {
+        return NextResponse.json({ success: false, error: 'Invalid Razorpay payment signature' }, { status: 400 });
       }
 
       const updatedWallet = await PaymentService.addFunds(brandId, Number(amount));
@@ -64,17 +76,14 @@ export async function POST(request: Request) {
         success: true,
         wallet: updatedWallet,
         message: `₹${Number(amount).toLocaleString('en-IN')} successfully verified and deposited to TIA Protected Wallet.`,
-        transactionRef: razorpay_payment_id || `PAY-RZP-${Date.now()}`,
+        transactionRef: razorpay_payment_id,
       });
     }
 
-    // Direct deposit
-    const updatedWallet = await PaymentService.addFunds(brandId, Number(amount));
-    return NextResponse.json({
-      success: true,
-      wallet: updatedWallet,
-      message: `₹${Number(amount).toLocaleString('en-IN')} successfully deposited to TIA Protected Wallet.`,
-    });
+    return NextResponse.json(
+      { success: false, error: 'Invalid action. Only verified payment operations are permitted.' },
+      { status: 400 }
+    );
   } catch (error: any) {
     console.error('Wallet Action Error:', error);
     return NextResponse.json({ success: false, error: error.message || 'Payment operation failed' }, { status: 500 });

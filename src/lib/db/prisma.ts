@@ -1,17 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-const DEFAULT_DATABASE_URL =
-  'postgresql://postgres.egagtpzlvtcxihuargcv:MqNHANcIaE6Vu23g@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require';
+const rawUrl = process.env.DATABASE_URL || process.env.DIRECT_URL;
 
-const rawUrl = process.env.DATABASE_URL;
-const isDirectIpv6Supabase = rawUrl && rawUrl.includes('db.egagtpzlvtcxihuargcv.supabase.co');
+if (!rawUrl) {
+  console.warn('WARNING: DATABASE_URL is not set in environment variables. Database operations will fail.');
+}
 
-const dbUrl =
-  rawUrl && rawUrl.startsWith('postgres') && !isDirectIpv6Supabase
-    ? rawUrl
-    : DEFAULT_DATABASE_URL;
-
-process.env.DATABASE_URL = dbUrl;
+const dbUrl = rawUrl || '';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;

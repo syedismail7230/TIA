@@ -69,11 +69,12 @@ export function verifyPaymentSignature(params: {
 /**
  * Verifies the authenticity of incoming Razorpay Webhook payloads
  */
-export function verifyWebhookSignature(rawBody: string, signature: string): boolean {
-  if (!webhook_secret) return true;
+export function verifyWebhookSignature(rawBody: string, signature: string, secret?: string): boolean {
+  const secretToUse = secret || webhook_secret;
+  if (!secretToUse) return true;
 
   const expectedSignature = crypto
-    .createHmac('sha256', webhook_secret)
+    .createHmac('sha256', secretToUse)
     .update(rawBody)
     .digest('hex');
 
