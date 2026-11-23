@@ -41,3 +41,6 @@ Thumbs.db
 
 .data/
 scripts/deep_test_results.json
+.github/
+tsconfig.tsbuildinfo
+
