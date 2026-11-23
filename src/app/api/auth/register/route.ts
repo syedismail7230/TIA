@@ -1,3 +1,8 @@
+// ===================================================
+// TIA BACKEND - AUTHENTICATION REGISTRATION API
+// Secured with Rate Limiting, Zod Validation & Centralized Error Handling
+// ===================================================
+
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db/prisma';
 import { hashPassword } from '@/lib/auth/password';
@@ -5,24 +10,32 @@ import { setSessionCookie } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
 import { saveStoredUser } from '@/lib/auth/local-auth-store';
 import { EmailVerificationService } from '@/lib/services/email-verification.service';
+import { handleApiError, ConflictError, ValidationError } from '@/lib/errors/api-error';
+import { enforceRateLimit, getClientIp, RATE_LIMIT_TIERS } from '@/lib/security/rate-limiter';
+import { validateRequest, registerSchema } from '@/lib/validations';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { email, password, phone, gender, age, country, organizationName, businessCategory } = body;
-    const finalName = body.name || body.contactName || body.companyName || body.organizationName || (email ? email.split('@')[0] : 'User');
-    const rawRole = body.role || 'CREATOR';
-    const finalRole = (rawRole === 'BRAND' || rawRole === 'BRAND_ADMIN') ? 'BRAND_ADMIN' : 'CREATOR';
+    // 1. Rate limiting (10 attempts / min per IP)
+    const clientIp = getClientIp(request);
+    await enforceRateLimit(clientIp, RATE_LIMIT_TIERS.AUTH);
 
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      );
-    }
+    // 2. Strict Zod Schema Validation
+    const rawBody = await request.json();
+    const finalName = rawBody.name || rawBody.contactName || rawBody.companyName || rawBody.organizationName || (rawBody.email ? rawBody.email.split('@')[0] : 'User');
+    const rawRole = rawBody.role || 'CREATOR';
+    const finalRole = (rawRole === 'BRAND' || rawRole === 'BRAND_ADMIN' || rawRole === 'BRAND_USER') ? 'BRAND_ADMIN' : 'CREATOR';
 
-    const normalizedEmail = email.toLowerCase().trim();
-    const passwordHash = await hashPassword(password);
+    const validated = validateRequest(registerSchema, {
+      ...rawBody,
+      name: finalName,
+      role: finalRole,
+    });
+
+    const normalizedEmail = validated.email.toLowerCase().trim();
+    const { phone, gender, age, country, organizationName, businessCategory } = rawBody;
+
+    const passwordHash = await hashPassword(validated.password);
 
     // Save in local auth store for immediate and reliable login persistence
     saveStoredUser({
@@ -45,10 +58,7 @@ export async function POST(request: Request) {
       });
 
       if (existing) {
-        return NextResponse.json(
-          { error: 'An account with this email address already exists' },
-          { status: 409 }
-        );
+        throw new ConflictError('An account with this email address already exists');
       }
 
       // Transactional registration for atomic data creation
@@ -60,6 +70,7 @@ export async function POST(request: Request) {
             name: finalName,
             role: finalRole,
             country: country || 'India',
+            phone: phone || null,
           },
         });
 
@@ -70,6 +81,7 @@ export async function POST(request: Request) {
               userId: newUser.id,
               displayName: finalName,
               username,
+              phone: phone || null,
               country: country || 'India',
               verificationStatus: 'EMAIL_VERIFIED',
               bio: `Demographics: ${gender || 'Not specified'}, Age: ${age || '18+'}${phone ? ` • Phone: ${phone}` : ''}`,
@@ -129,6 +141,7 @@ export async function POST(request: Request) {
         userId: user.id,
         email: user.email,
         role: user.role,
+        phone: phone || undefined,
       });
 
       try {
@@ -155,12 +168,14 @@ export async function POST(request: Request) {
 
       return NextResponse.json(
         {
+          success: true,
           message: 'Account registered successfully. Verification email dispatched.',
           user: { id: user.id, email: user.email, name: user.name, role: user.role },
         },
         { status: 201 }
       );
     } catch (dbError: any) {
+      if (dbError instanceof ConflictError) throw dbError;
       console.warn('Database registration fallback:', dbError.message);
 
       // Fallback session creation in case of external DB downtime
@@ -169,9 +184,9 @@ export async function POST(request: Request) {
         userId: fallbackUserId,
         email: normalizedEmail,
         role: finalRole,
+        phone: phone || undefined,
       });
 
-      // Automatically dispatch email verification link in fallback
       try {
         await EmailVerificationService.sendVerificationEmail({
           email: normalizedEmail,
@@ -185,17 +200,14 @@ export async function POST(request: Request) {
 
       return NextResponse.json(
         {
+          success: true,
           message: 'Account registered successfully. Verification email dispatched.',
           user: { id: fallbackUserId, email: normalizedEmail, name: finalName, role: finalRole },
         },
         { status: 201 }
       );
     }
-  } catch (error: any) {
-    console.error('Registration Error:', error);
-    return NextResponse.json(
-      { error: 'An unexpected error occurred during registration' },
-      { status: 500 }
-    );
+  } catch (error) {
+    return handleApiError(error, 'POST /api/auth/register');
   }
 }

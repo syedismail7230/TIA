@@ -1,11 +1,14 @@
 // ===================================================
 // TIA BACKEND - CONTRACTS & SIGNATURES API ROUTE
+// Secured with Rate Limiting, Multi-Tenant Isolation & Centralized Error Handling
 // ===================================================
 
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import prisma from '@/lib/db/prisma';
 import { EmailService } from '@/lib/services/email.service';
+import { handleApiError, AuthenticationError, ForbiddenError, NotFoundError, ValidationError } from '@/lib/errors/api-error';
+import { enforceRateLimit, getClientIp, RATE_LIMIT_TIERS } from '@/lib/security/rate-limiter';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +16,10 @@ export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to view contracts');
     }
+
+    await enforceRateLimit(user.id || getClientIp(request), RATE_LIMIT_TIERS.STANDARD);
 
     const { searchParams } = new URL(request.url);
     const contractId = searchParams.get('id');
@@ -36,7 +41,7 @@ export async function GET(request: Request) {
       });
 
       if (!contract) {
-        return NextResponse.json({ success: false, error: 'Contract not found' }, { status: 404 });
+        throw new NotFoundError('Contract');
       }
 
       // Verify caller is a party to the contract or platform administrator
@@ -44,7 +49,7 @@ export async function GET(request: Request) {
       const isBrandParty = contract.organization?.members?.some((m) => m.userId === user.id);
 
       if (!isAdmin && !isCreatorParty && !isBrandParty) {
-        return NextResponse.json({ success: false, error: 'Forbidden: Access to this contract is restricted' }, { status: 403 });
+        throw new ForbiddenError('Access to this contract is restricted to parties and authorized administrators');
       }
 
       return NextResponse.json({
@@ -89,9 +94,8 @@ export async function GET(request: Request) {
       success: true,
       contracts: contracts.map(formatContract),
     });
-  } catch (error: any) {
-    console.error('Fetch Contracts Error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to retrieve contracts' }, { status: 500 });
+  } catch (error) {
+    return handleApiError(error, 'GET /api/contracts');
   }
 }
 
@@ -99,8 +103,10 @@ export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to create or sign contracts');
     }
+
+    await enforceRateLimit(user.id || getClientIp(request), RATE_LIMIT_TIERS.STANDARD);
 
     const body = await request.json();
     const {
@@ -117,7 +123,7 @@ export async function POST(request: Request) {
     // Action 1: Generate Standard TIA Contract
     if (action === 'CREATE') {
       if (!campaignId || !agreedAmount) {
-        return NextResponse.json({ success: false, error: 'Missing contract creation parameters' }, { status: 400 });
+        throw new ValidationError('Campaign ID and agreed contract amount are required');
       }
 
       const campaign = await prisma.campaign.findUnique({
@@ -126,13 +132,13 @@ export async function POST(request: Request) {
       });
 
       if (!campaign) {
-        return NextResponse.json({ success: false, error: 'Campaign not found' }, { status: 404 });
+        throw new NotFoundError('Campaign');
       }
 
       // Authorization: Caller must belong to the campaign's organization or be admin
       const isOrgMember = campaign.organization?.members?.some((m) => m.userId === user.id);
       if (!isAdmin && !isOrgMember) {
-        return NextResponse.json({ success: false, error: 'Forbidden: You do not own this campaign' }, { status: 403 });
+        throw new ForbiddenError('You do not have permission to generate contracts for this campaign');
       }
 
       // Minor units calculations (5% platform fee)
@@ -192,18 +198,18 @@ export async function POST(request: Request) {
       });
 
       if (!existing) {
-        return NextResponse.json({ success: false, error: 'Contract not found' }, { status: 404 });
+        throw new NotFoundError('Contract');
       }
 
       // Verify signing party identity
       if (isCreator && existing.creator?.userId !== user.id && existing.creatorId !== user.creatorProfile?.id && !isAdmin) {
-        return NextResponse.json({ success: false, error: 'Forbidden: You cannot sign on behalf of this creator' }, { status: 403 });
+        throw new ForbiddenError('You cannot sign on behalf of this creator');
       }
 
       if (!isCreator && !isAdmin) {
         const isMember = existing.organization?.members?.some((m) => m.userId === user.id);
         if (!isMember) {
-          return NextResponse.json({ success: false, error: 'Forbidden: You cannot sign on behalf of this brand' }, { status: 403 });
+          throw new ForbiddenError('You cannot sign on behalf of this brand');
         }
       }
 
@@ -232,10 +238,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, contract: formatContract(updated) });
     }
 
-    return NextResponse.json({ success: false, error: 'Invalid action specified' }, { status: 400 });
-  } catch (error: any) {
-    console.error('Contract Action Error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Contract operation failed' }, { status: 500 });
+    throw new ValidationError('Invalid action specified. Supported actions: CREATE, SIGN');
+  } catch (error) {
+    return handleApiError(error, 'POST /api/contracts');
   }
 }
 

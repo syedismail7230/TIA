@@ -1,11 +1,15 @@
 // ===================================================
 // TIA BACKEND - REAL-TIME CAMPAIGNS API ROUTE
+// Secured with Rate Limiting, Zod Validation & Centralized Error Handling
 // ===================================================
 
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db/prisma';
 import { getCurrentUser } from '@/lib/auth/session';
 import { logAuditEvent } from '@/lib/audit/logger';
+import { handleApiError, AuthenticationError, ForbiddenError } from '@/lib/errors/api-error';
+import { enforceRateLimit, getClientIp, RATE_LIMIT_TIERS } from '@/lib/security/rate-limiter';
+import { validateRequest, createCampaignSchema } from '@/lib/validations';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,9 +54,8 @@ export async function GET(request: Request) {
     });
 
     return NextResponse.json({ success: true, campaigns });
-  } catch (error: any) {
-    console.error('Fetch Campaigns Error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to fetch campaigns' }, { status: 500 });
+  } catch (error) {
+    return handleApiError(error, 'GET /api/campaigns');
   }
 }
 
@@ -60,26 +63,19 @@ export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required to create campaigns' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to create campaigns');
     }
 
     // Role check: Creators cannot create brand campaigns
     if (user.role === 'CREATOR') {
-      return NextResponse.json({ success: false, error: 'Forbidden: Creators cannot post brand campaigns' }, { status: 403 });
+      throw new ForbiddenError('Creators cannot post brand campaigns');
     }
 
-    const body = await request.json();
-    const {
-      title,
-      category = 'Consumer Tech',
-      budget = 100000,
-      deliverables = '1x Dedicated Video + 2x Reels',
-      objectives = 'Brand Awareness & Performance',
-    } = body;
+    // Rate limiting
+    await enforceRateLimit(user.id || getClientIp(request), RATE_LIMIT_TIERS.STANDARD);
 
-    if (!title || typeof title !== 'string' || title.trim().length === 0) {
-      return NextResponse.json({ success: false, error: 'Valid campaign title is required' }, { status: 400 });
-    }
+    const rawBody = await request.json();
+    const validated = validateRequest(createCampaignSchema, rawBody);
 
     // Resolve or create user's OWN organization (never hijack another brand's organization)
     let orgId = user.orgMemberships?.[0]?.organizationId;
@@ -103,13 +99,13 @@ export async function POST(request: Request) {
     const campaign = await prisma.campaign.create({
       data: {
         organizationId: orgId,
-        title: title.trim(),
-        description: objectives,
-        objective: objectives,
-        category,
-        budget: Math.round(Number(budget) * 100), // minor currency units (paise)
+        title: validated.title.trim(),
+        description: validated.objectives || validated.deliverables,
+        objective: validated.objectives || 'Brand Awareness & Performance',
+        category: validated.category,
+        budget: Math.round(Number(validated.budget) * 100), // minor currency units (paise)
         currency: 'INR',
-        deliverables: typeof deliverables === 'string' ? deliverables : JSON.stringify(deliverables),
+        deliverables: typeof validated.deliverables === 'string' ? validated.deliverables : JSON.stringify(validated.deliverables),
         status: 'PUBLISHED',
       },
       include: {
@@ -127,8 +123,7 @@ export async function POST(request: Request) {
     } catch {}
 
     return NextResponse.json({ success: true, campaign });
-  } catch (error: any) {
-    console.error('Create Campaign Error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Failed to create campaign' }, { status: 500 });
+  } catch (error) {
+    return handleApiError(error, 'POST /api/campaigns');
   }
 }

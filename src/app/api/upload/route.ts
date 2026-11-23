@@ -1,69 +1,48 @@
+// ===================================================
+// TIA BACKEND - SECURE FILE UPLOAD API
+// Enforces Magic Byte Header Verification, MIME & Extension Whitelist, 10MB Limit & Sanitization
+// ===================================================
+
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/admin';
 import { getCurrentUser } from '@/lib/auth/session';
 import fs from 'fs';
 import path from 'path';
+import { handleApiError, AuthenticationError, ValidationError } from '@/lib/errors/api-error';
+import { enforceRateLimit, getClientIp, RATE_LIMIT_TIERS } from '@/lib/security/rate-limiter';
+import { validateUploadFile, sanitizeFilename } from '@/lib/security/file-guard';
 
 export const dynamic = 'force-dynamic';
-
-const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10MB max file size
-const ALLOWED_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.pdf', '.mp4', '.mov', '.docx', '.csv']);
-const ALLOWED_MIME_TYPES = new Set([
-  'image/png',
-  'image/jpeg',
-  'image/webp',
-  'application/pdf',
-  'video/mp4',
-  'video/quicktime',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'text/csv',
-]);
 
 export async function POST(request: Request) {
   try {
     const session = await getCurrentUser();
     if (!session) {
-      return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to upload files');
     }
+
+    // Rate limiting: 120 uploads / minute per user
+    await enforceRateLimit(session.id || getClientIp(request), RATE_LIMIT_TIERS.STANDARD);
 
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const bucket = (formData.get('bucket') as string) || 'avatars';
 
     if (!file) {
-      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+      throw new ValidationError('No file provided in form data');
     }
 
-    // 1. File size enforcement
-    if (file.size > MAX_FILE_SIZE_BYTES) {
-      return NextResponse.json(
-        { error: `File size exceeds the 10MB limit (size: ${(file.size / (1024 * 1024)).toFixed(2)}MB)` },
-        { status: 400 }
-      );
-    }
+    const buffer = Buffer.from(await file.arrayBuffer());
 
-    // 2. Extension & MIME validation
-    const ext = path.extname(file.name).toLowerCase();
-    if (!ALLOWED_EXTENSIONS.has(ext)) {
-      return NextResponse.json(
-        { error: `File type ${ext || 'unknown'} is not permitted. Allowed: PNG, JPG, WEBP, PDF, MP4, MOV, DOCX, CSV` },
-        { status: 400 }
-      );
-    }
+    // 1. Comprehensive Security Validation (Size, Extension, MIME, Magic Bytes)
+    const { ext } = validateUploadFile(file, buffer);
 
-    if (file.type && !ALLOWED_MIME_TYPES.has(file.type)) {
-      return NextResponse.json(
-        { error: `MIME type ${file.type} is not allowed` },
-        { status: 400 }
-      );
-    }
-
-    // 3. Storage bucket validation
+    // 2. Storage bucket validation
     const allowedBuckets = ['avatars', 'media-kits', 'deliverable-reviews', 'contract-pdfs', 'dispute-evidence'];
     const targetBucket = allowedBuckets.includes(bucket) ? bucket : 'avatars';
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const sanitizedFilename = `${session.id.replace(/[^a-zA-Z0-9_-]/g, '')}-${Date.now()}${ext}`;
+    // 3. Path-traversal proof filename sanitization
+    const sanitizedFilename = sanitizeFilename(file.name, session.id);
 
     // Try uploading to Supabase Storage
     try {
@@ -80,6 +59,7 @@ export async function POST(request: Request) {
           .getPublicUrl(sanitizedFilename);
 
         return NextResponse.json({
+          success: true,
           url: publicUrlData.publicUrl,
           path: data.path,
           bucket: targetBucket,
@@ -101,16 +81,13 @@ export async function POST(request: Request) {
 
     const fileUrl = `/uploads/${targetBucket}/${sanitizedFilename}`;
     return NextResponse.json({
+      success: true,
       url: fileUrl,
       filename: sanitizedFilename,
       bucket: targetBucket,
       provider: 'local',
     });
-  } catch (error: any) {
-    console.error('File Upload Error:', error);
-    return NextResponse.json(
-      { error: error.message || 'File upload failed' },
-      { status: 500 }
-    );
+  } catch (error) {
+    return handleApiError(error, 'POST /api/upload');
   }
 }

@@ -1,10 +1,14 @@
 // ===================================================
 // TIA BACKEND - MESSAGES & COLLABORATION API ROUTE
+// Secured with Rate Limiting, Zod Validation, Anti-Circumvention & Centralized Error Handling
 // ===================================================
 
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import { MessageService } from '@/lib/services/message.service';
+import { handleApiError, AuthenticationError, ForbiddenError } from '@/lib/errors/api-error';
+import { enforceRateLimit, getClientIp, RATE_LIMIT_TIERS } from '@/lib/security/rate-limiter';
+import { validateRequest, sendMessageSchema } from '@/lib/validations';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,7 +16,7 @@ export async function GET(request: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to view conversations');
     }
 
     const userId = user.id;
@@ -26,7 +30,7 @@ export async function GET(request: Request) {
       const isMember = threads.some((t) => t.id === threadId);
 
       if (!isMember && !isAdmin) {
-        return NextResponse.json({ success: false, error: 'Forbidden: You are not a participant in this conversation' }, { status: 403 });
+        throw new ForbiddenError('You are not a participant in this conversation thread');
       }
 
       const messages = await MessageService.getMessages(threadId);
@@ -35,9 +39,8 @@ export async function GET(request: Request) {
 
     const threads = await MessageService.getThreadsForUser(userId);
     return NextResponse.json({ success: true, threads });
-  } catch (error: any) {
-    console.error('Fetch Messages Error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to retrieve messages' }, { status: 500 });
+  } catch (error) {
+    return handleApiError(error, 'GET /api/messages');
   }
 }
 
@@ -45,24 +48,23 @@ export async function POST(request: Request) {
   try {
     const user = await getCurrentUser();
     if (!user) {
-      return NextResponse.json({ success: false, error: 'Unauthorized: Authentication required' }, { status: 401 });
+      throw new AuthenticationError('Authentication required to send messages');
     }
 
-    const body = await request.json();
-    const { threadId, text, attachmentUrl } = body;
+    // Rate limiting: 120 messages / minute per user
+    await enforceRateLimit(user.id || getClientIp(request), RATE_LIMIT_TIERS.STANDARD);
 
-    if (!threadId || !text) {
-      return NextResponse.json({ success: false, error: 'Thread ID and message text are required' }, { status: 400 });
-    }
+    const rawBody = await request.json();
+    const validated = validateRequest(sendMessageSchema, rawBody);
 
     const isAdmin = user.role.startsWith('TIA_') || user.role === 'TIA_SUPER_ADMIN';
 
     // Security Check: Verify sender belongs to this conversation thread
     const userThreads = await MessageService.getThreadsForUser(user.id);
-    const belongsToThread = userThreads.some((t) => t.id === threadId);
+    const belongsToThread = userThreads.some((t) => t.id === validated.threadId);
 
     if (!belongsToThread && !isAdmin) {
-      return NextResponse.json({ success: false, error: 'Forbidden: You cannot send messages to this thread' }, { status: 403 });
+      throw new ForbiddenError('You cannot send messages to a thread you do not belong to');
     }
 
     const senderId = user.id;
@@ -70,17 +72,16 @@ export async function POST(request: Request) {
     const senderRole = user.role === 'CREATOR' ? 'CREATOR' : 'BRAND';
 
     const message = await MessageService.sendMessage({
-      threadId,
+      threadId: validated.threadId,
       senderId,
       senderName,
       senderRole,
-      text,
-      attachmentUrl,
+      text: validated.text,
+      attachmentUrl: validated.attachmentUrl,
     });
 
     return NextResponse.json({ success: true, message });
-  } catch (error: any) {
-    console.error('Send Message Error:', error);
-    return NextResponse.json({ success: false, error: error.message || 'Failed to send message' }, { status: 400 });
+  } catch (error) {
+    return handleApiError(error, 'POST /api/messages');
   }
 }
