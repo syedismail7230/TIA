@@ -55,6 +55,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const {
       displayName,
+      phone,
       bio,
       country,
       city,
@@ -73,16 +74,27 @@ export async function PUT(request: Request) {
     }
 
     // Update creator details
+    const cleanPhone = phone ? phone.trim() : undefined;
     const updated = await prisma.creator.update({
       where: { id: creator.id },
       data: {
         displayName: displayName || creator.displayName,
+        phone: cleanPhone !== undefined ? cleanPhone : creator.phone,
         bio: bio !== undefined ? bio : creator.bio,
         country: country || creator.country,
         city: city || creator.city,
         categories: categories ? JSON.stringify(categories) : creator.categories,
       },
     });
+
+    if (cleanPhone) {
+      try {
+        await prisma.user.update({
+          where: { id: session.id },
+          data: { phone: cleanPhone },
+        });
+      } catch {}
+    }
 
     // Update rate card
     if (startingPrice !== undefined || deliverablePricing) {

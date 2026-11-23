@@ -49,12 +49,14 @@ export async function POST(request: Request) {
       }
 
       const primaryOrg = user.orgMemberships?.[0];
+      const userPhone = user.phone || user.creatorProfile?.phone || undefined;
 
       await setSessionCookie({
         userId: user.id,
         email: user.email,
         role: user.role,
         name: user.name,
+        phone: userPhone,
         creatorId: user.creatorProfile?.id,
         organizationId: primaryOrg?.organizationId,
         orgRole: primaryOrg?.role,
@@ -77,6 +79,7 @@ export async function POST(request: Request) {
           id: user.id,
           email: user.email,
           name: user.name,
+          phone: userPhone,
           role: user.role,
           creatorProfile: user.creatorProfile,
           organization: primaryOrg?.organization,
@@ -97,6 +100,7 @@ export async function POST(request: Request) {
         email: localUser.email,
         role: localUser.role,
         name: localUser.name,
+        phone: localUser.phone || undefined,
         creatorId: localUser.role === 'CREATOR' ? `cr_${localUser.id}` : undefined,
         organizationId: localUser.role !== 'CREATOR' ? `org_${localUser.id}` : undefined,
       });
@@ -108,6 +112,7 @@ export async function POST(request: Request) {
           id: localUser.id,
           email: localUser.email,
           name: localUser.name,
+          phone: localUser.phone || undefined,
           role: localUser.role,
           creatorProfile: {
             id: `cr_${localUser.id}`,
